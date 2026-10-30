@@ -1,0 +1,136 @@
+COMPACT {"frame":{"width":720,"height":1280},"content":366,"viewport":366,"routeCount":1}
+ROUTE_CLIP {"frame":{"width":720,"height":1280},"clipped":[-18]}
+COMPACT {"frame":{"width":360,"height":560},"content":447,"viewport":447,"routeCount":1}
+ROUTE_CLIP {"frame":{"width":360,"height":560},"clipped":[-18]}
+RECEIPT arrived ["配送结算","本单收益 ¥15.78","准时 · 餐品损坏 · 按备注","餐损影响收益−¥1.85","评价 +2 · 经验 +10","确认，继续接单"]
+RECEIPT done ["配送结算","本单收益 ¥15.78","准时 · 餐品损坏 · 按备注","餐损影响收益−¥1.85","评价 +2 · 经验 +10","确认，继续接单"]
+TAP version 13
+# Subtest: ui handoff pickup over hidden
+ok 1 - ui handoff pickup over hidden
+  ---
+  duration_ms: 93.382334
+  type: 'test'
+  ...
+# Subtest: ui handoff pickup over vehicle
+ok 2 - ui handoff pickup over vehicle
+  ---
+  duration_ms: 58.349042
+  type: 'test'
+  ...
+# Subtest: ui handoff pickup over map
+ok 3 - ui handoff pickup over map
+  ---
+  duration_ms: 53.284666
+  type: 'test'
+  ...
+# Subtest: ui handoff pickup over bills
+ok 4 - ui handoff pickup over bills
+  ---
+  duration_ms: 54.760875
+  type: 'test'
+  ...
+# Subtest: ui handoff ready over hidden
+ok 5 - ui handoff ready over hidden
+  ---
+  duration_ms: 54.260375
+  type: 'test'
+  ...
+# Subtest: ui handoff ready over vehicle
+ok 6 - ui handoff ready over vehicle
+  ---
+  duration_ms: 53.565333
+  type: 'test'
+  ...
+# Subtest: ui handoff ready over map
+ok 7 - ui handoff ready over map
+  ---
+  duration_ms: 52.9725
+  type: 'test'
+  ...
+# Subtest: ui handoff ready over bills
+ok 8 - ui handoff ready over bills
+  ---
+  duration_ms: 50.556125
+  type: 'test'
+  ...
+# Subtest: ui handoff done over hidden
+ok 9 - ui handoff done over hidden
+  ---
+  duration_ms: 69.260583
+  type: 'test'
+  ...
+# Subtest: ui handoff done over vehicle
+ok 10 - ui handoff done over vehicle
+  ---
+  duration_ms: 59.356166
+  type: 'test'
+  ...
+# Subtest: ui handoff done over map
+ok 11 - ui handoff done over map
+  ---
+  duration_ms: 53.673833
+  type: 'test'
+  ...
+# Subtest: ui handoff done over bills
+ok 12 - ui handoff done over bills
+  ---
+  duration_ms: 56.717917
+  type: 'test'
+  ...
+# Subtest: ui save failure blocks phase progress and retries before exposing new action
+ok 13 - ui save failure blocks phase progress and retries before exposing new action
+  ---
+  duration_ms: 43.219916
+  type: 'test'
+  ...
+# Subtest: ui same handoff event does not repeatedly reopen after user closes card or opens other view
+ok 14 - ui same handoff event does not repeatedly reopen after user closes card or opens other view
+  ---
+  duration_ms: 181.075583
+  type: 'test'
+  ...
+# Subtest: ui background freezes movement and only presents arrival after resumed time
+ok 15 - ui background freezes movement and only presents arrival after resumed time
+  ---
+  duration_ms: 44.042167
+  type: 'test'
+  ...
+# Subtest: ui normal planning: compact details and routes fit visible viewport at standard and short safe
+ok 16 - ui normal planning: compact details and routes fit visible viewport at standard and short safe
+  ---
+  duration_ms: 81.942542
+  type: 'test'
+  ...
+# Subtest: legacy arrived door snapshot resolves through production settle without demand dialog; done receipt stays unchanged
+ok 17 - legacy arrived door snapshot resolves through production settle without demand dialog; done receipt stays unchanged
+  ---
+  duration_ms: 80.670167
+  type: 'test'
+  ...
+# Subtest: ui cancellation visibility follows actual phase and duplicate action does not advance
+ok 18 - ui cancellation visibility follows actual phase and duplicate action does not advance
+  ---
+  duration_ms: 51.61825
+  type: 'test'
+  ...
+# Subtest: ui extreme text retains real labels, increases scroll range, and fixed actions remain reachable
+ok 19 - ui extreme text retains real labels, increases scroll range, and fixed actions remain reachable
+  ---
+  duration_ms: 40.949958
+  type: 'test'
+  ...
+# Subtest: ui same order reaccepted after await-pickup cancel issues a fresh zero-distance arrival event
+ok 20 - ui same order reaccepted after await-pickup cancel issues a fresh zero-distance arrival event
+  ---
+  duration_ms: 66.989958
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1307.013083

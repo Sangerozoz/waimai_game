@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: receipt user dismiss finishes display only and restores an idle home without reopening lobby
+ok 1 - receipt user dismiss finishes display only and restores an idle home without reopening lobby
+  ---
+  duration_ms: 85.467167
+  type: 'test'
+  ...
+# Subtest: receipt continue and lobby close return idle without reissuing settled assets
+ok 2 - receipt continue and lobby close return idle without reissuing settled assets
+  ---
+  duration_ms: 54.291083
+  type: 'test'
+  ...
+# Subtest: receipt dismissal preserves the existing visible save failure protocol
+ok 3 - receipt dismissal preserves the existing visible save failure protocol
+  ---
+  duration_ms: 41.568833
+  type: 'test'
+  ...
+# Subtest: followup independent receipt X and shade preserve assets, rider, restore and rebuild idempotency
+ok 4 - followup independent receipt X and shade preserve assets, rider, restore and rebuild idempotency
+  ---
+  duration_ms: 83.543125
+  type: 'test'
+  ...
+# Subtest: followup independent receipt failure toast survives rebuild, retry saves idle without double award
+ok 5 - followup independent receipt failure toast survives rebuild, retry saves idle without double award
+  ---
+  duration_ms: 39.487
+  type: 'test'
+  ...
+# Subtest: followup independent native footer covers bottom safe inset and number styles agree
+ok 6 - followup independent native footer covers bottom safe inset and number styles agree
+  ---
+  duration_ms: 37.848417
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 855.64675

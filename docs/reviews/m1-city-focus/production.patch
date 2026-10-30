@@ -1,0 +1,206 @@
+--- before/delivery-game/assets/scripts/map-sample/MapSample.ts
++++ after/delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -78,6 +78,7 @@
+     }
+   }
+   onDestroy():void {
++    this.city?.cancelLocate();
+     view.off('canvas-resize',this.onResize,this);
+     game.off(Game.EVENT_HIDE,this.onHide,this);game.off(Game.EVENT_SHOW,this.onShow,this);
+     if(typeof window!=='undefined'){
+@@ -87,6 +88,7 @@
+     }
+   }
+   private onHide():void{
++    this.city?.cancelLocate();
+     if(this.book&&!this.hidden&&this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,Date.now());
+     this.onlineAt=null;this.hidden=true;if(this.book)this.save();
+   }
+@@ -119,7 +121,7 @@
+     view.setDesignResolutionSize(720,1280+this.screenExtra,ResolutionPolicy.SHOW_ALL);
+     this.safeInsets=this.readSafeInsets();
+     const bottom=this.safeInsets.bottom,mapHeight=Math.max(1,baseMapHeight+this.screenExtra-(idle?0:bottom)),mapY=idle?0:(sheetHeight-1162+1280)/2+bottom/2;
+-    if(this.root){this.root.active=false;this.root.destroy();}this.phone=null;this.modal=null;this.modalKind=null;this.billValues=[];this.billDate=null;this.toast=null;this.damageNotice=null;
++    if(this.root){this.city?.cancelLocate();this.root.active=false;this.root.destroy();}this.phone=null;this.modal=null;this.modalKind=null;this.billValues=[];this.billDate=null;this.toast=null;this.damageNotice=null;
+     this.root=item(this.node.parent!,'DeliveryUI');
+     box(this.root,'Background',0,0,720,1280+this.screenExtra,C.light,0);
+     this.city=new CityMap(this.root,this.book.data,mapHeight,()=>sys.openURL('https://www.openstreetmap.org/copyright'),mapY,idle?118+bottom:0,this.safeInsets);
+@@ -165,7 +167,7 @@
+       box(group,name+'Pill',0,0,1,1,C.light,24,C.line);
+       const badge=item(group,name+'Badge',0,0,42,42);
+       const symbol=readable(badge,mark,0,0,m.aux,C.ink,38,true,'center',40);
+-      if(art==='heart'){symbol.node.active=false;icon(badge,'heart',0,0,C.ink,1.2);}else cartoonArt(badge,art,0,0,40,40,symbol.node);
++      if(art==='heart'){symbol.node.active=false;const heart=icon(badge,'heart',0,0,C.ink,1.05);heart.setScale(1.05,1.098,1);}else cartoonArt(badge,art,0,0,40,40,symbol.node);
+     }
+     this.money=readable(wallet,'',0,0,m.amount,C.ink,160,true,'center');
+     this.rating=readable(rating,'',0,0,m.body,C.ink,100,true,'center');
+@@ -212,7 +214,7 @@
+     label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,108,108,picture);stationArt.getComponent(Sprite)!.grayscale=true;const position=()=>this.positionStation(station);stationArt.on(Node.EventType.SIZE_CHANGED,position);stationArt.on(Node.EventType.ACTIVE_CHANGED,position);position();readable(station,'站点',0,-52,this.metrics().aux,'#AAA69C',94,true,'center');
+     const y=this.book.mode==='idle'?-400:-522+this.sheetHeight()+this.metrics().action/2+20;
+     const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-cssUnits(12,1280+this.screenExtra),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
+-    icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locate(true));
++    icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locateAnimated());
+   }
+   private openPhone():void {
+     if(this.phone||this.book.mode!=='idle')return;
+@@ -301,6 +303,7 @@
+ 
+   update(dt:number):void {
+     if(!this.book||this.hidden)return;
++    this.city.advanceLocate(dt);
+     const now=Date.now();if(this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,now);this.onlineAt=now;
+     if(this.skipNextFrame){this.skipNextFrame=false;return;}
+     this.saveElapsed+=dt;this.billElapsed+=dt;
+--- before/delivery-game/assets/scripts/map-sample/CityMap.ts
++++ after/delivery-game/assets/scripts/map-sample/CityMap.ts
+@@ -33,6 +33,8 @@
+  private touchPoints=new Map<number,Point>();
+  private pinchStart:{distance:number;midpoint:Point;scale:number;offset:Point}|null=null;
+  private follow=false;
++ private locating:{elapsed:number;scale:number;offset:Point}|null=null;
++ private detailElapsed=0;
+  private readonly detailData=new Map<string,DetailTile>();
+  private readonly detailNodes=new Map<string,Node>();
+  private majorInk!:Graphics;
+@@ -89,8 +91,8 @@
+    this.majorInk=item(this.world,'MajorRoads').addComponent(Graphics);this.drawMajorRoads();
+  }
+  private drawMajorRoads():void{
+-   if(this.majorScale===this.scale)return;this.majorScale=this.scale;this.majorInk.clear();
+-   const boost=Math.max(1,.18/this.scale),roads=this.data.roads.filter(r=>r.width>=8).sort((a,b)=>a.width-b.width);
++   const boost=Math.max(1,.18/this.scale);if(this.majorScale===boost)return;this.majorScale=boost;this.majorInk.clear();
++   const roads=this.data.roads.filter(r=>r.width>=8).sort((a,b)=>a.width-b.width);
+    for(const r of roads)this.line(this.majorInk,r.nodes.map(n=>this.nodePoints.get(n)!),(r.width+2.6)*boost,'#E7C67B');
+    for(const r of roads)this.line(this.majorInk,r.nodes.map(n=>this.nodePoints.get(n)!),r.width*boost,'#FFF0BA');
+  }
+@@ -131,15 +133,26 @@
+  get isFollowing():boolean{return this.follow;}
+  setRoutes(routes:MapRoute[],selected:number,fit=false):void{this.routes=routes;this.selected=selected;if(routes.length)this.riderPoint=routes[selected].points[0];this.riderAngle=0;this.follow=false;if(fit&&routes.length)this.focusRoute();else this.sync();}
+  setRider(point:Point,angle:number):void{this.riderPoint=point;this.riderAngle=angle;if(this.follow)this.offset=[-point[0]*this.scale,-point[1]*this.scale];this.clampOffset();this.syncOverlay();this.world.setPosition(this.offset[0],this.offset[1]);this.syncDetails();}
+- locate(resetZoom=false):void{this.follow=true;this.scale=resetZoom?DEFAULT_SCALE:Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale));this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
+- overview():void{this.follow=false;this.scale=MIN_SCALE;this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
+- focusRoute():void{
++ cancelLocate():void{this.locating=null;}
++ locateAnimated():void{this.follow=false;this.locating={elapsed:0,scale:this.scale,offset:[this.offset[0],this.offset[1]]};this.detailElapsed=0;}
++ advanceLocate(dt:number):void {
++   const a=this.locating;if(!a)return;
++   a.elapsed=Math.min(.6,a.elapsed+Math.max(0,dt));const t=a.elapsed/.6,e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
++   this.scale=a.scale+(DEFAULT_SCALE-a.scale)*e;
++   this.offset=[a.offset[0]+(-this.riderPoint[0]*DEFAULT_SCALE-a.offset[0])*e,a.offset[1]+(-this.riderPoint[1]*DEFAULT_SCALE-a.offset[1])*e];
++   this.clampOffset();this.world.setScale(this.scale,this.scale,1);this.world.setPosition(this.offset[0],this.offset[1]);this.syncOverlay();this.scaleLabel.string=`${Math.round(60/this.scale)} m`;
++   this.detailElapsed+=dt;if(this.detailElapsed>=.1){this.syncDetails();this.detailElapsed=0;}
++   if(t===1){this.locating=null;this.follow=true;this.locate(true);}
++ }
++ locate(resetZoom=false):void{this.cancelLocate();this.follow=true;this.scale=resetZoom?DEFAULT_SCALE:Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale));this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
++ overview():void{this.cancelLocate();this.follow=false;this.scale=MIN_SCALE;this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
++ focusRoute():void{this.cancelLocate();
+    if(!this.routes.length)return;this.follow=false;const points:Point[]=[];for(const r of this.routes)points.push(...r.points);const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);
+    const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+    this.scale=Math.max(MIN_SCALE,Math.min(MAX_SCALE,(MAP_W-165)/(maxX-minX+90),(this.mapHeight-180)/(maxY-minY+90)));this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();
+  }
+  zoom(factor:number,anchor:Point=[0,0],previousAnchor:Point=anchor):void{
+-   this.follow=false;const before=this.scale;this.scale=Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale*factor));
++   this.cancelLocate();this.follow=false;const before=this.scale;this.scale=Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale*factor));
+    this.offset=[anchor[0]-(previousAnchor[0]-this.offset[0])*this.scale/before,anchor[1]-(previousAnchor[1]-this.offset[1])*this.scale/before];this.sync();
+  }
+  private sync():void{
+@@ -167,7 +180,7 @@
+  }
+  private local(event:EventTouch):Point{const p=event.getUILocation();const v=this.viewport.getComponent(UITransform)!.convertToNodeSpaceAR(new Vec3(p.x,p.y));return[v.x,v.y];}
+  private touchStart(e:EventTouch):void{
+-   const id=e.getID();if(id===null)return;this.follow=false;this.touchPoints.set(id,this.local(e));
++   const id=e.getID();if(id===null)return;this.cancelLocate();this.follow=false;this.touchPoints.set(id,this.local(e));
+    if(this.touchPoints.size===2){const [a,b]=Array.from(this.touchPoints.values());this.pinchStart={distance:Math.hypot(a[0]-b[0],a[1]-b[1]),midpoint:[(a[0]+b[0])/2,(a[1]+b[1])/2],scale:this.scale,offset:[...this.offset]};}
+  }
+  private touchMove(e:EventTouch):void{
+--- before/delivery-game/assets/scripts/map-sample/PlaceCatalog.ts
++++ after/delivery-game/assets/scripts/map-sample/PlaceCatalog.ts
+@@ -1,6 +1,7 @@
+ import { Bounds, contains, expandBounds } from './CityExtent';
+ import { CityData, MapPOI } from './MapTypes';
+ import { countyMapId } from './CountySnapshot';
++import { denseUrbanCatalog } from './UrbanCatalog';
+ import { buildDispatchAreas, PlaceArea } from './DispatchAreas';
+ 
+ const prepared=new WeakMap<CityData,CityData>();
+@@ -91,7 +92,7 @@
+   return result;
+ }
+ 
+-export function prepareCity(data:CityData):CityData {
++export function preparePreviousCity(data:CityData):CityData {
+   if(data.placeCatalogVersion===3)return data;
+   const cached=prepared.get(data);if(cached)return cached;
+   const previous=localityCity(data),playBounds=previous.playBounds!;
+@@ -123,3 +124,10 @@
+   const result:CityData={...previous,pois,dispatchBounds,dispatchAreas,urbanBounds,operatingPOIs,placeCatalogVersion:3,legacyMapIds:[...(previous.legacyMapIds||[]),countyMapId(previous)]};
+   prepared.set(data,result);return result;
+ }
++
++const focused=new WeakMap<CityData,CityData>();
++export function prepareCity(data:CityData):CityData {
++ if(data.placeCatalogVersion===4)return data;const cached=focused.get(data);if(cached)return cached;
++ const previous=preparePreviousCity(data),pool=denseUrbanCatalog(previous,cityComponent(previous,previous.playBounds!));
++ const result:CityData={...previous,...pool,placeCatalogVersion:4,legacyMapIds:[...(previous.legacyMapIds||[]),countyMapId(previous)]};focused.set(data,result);return result;
++}
+--- before/delivery-game/assets/scripts/map-sample/MapTypes.ts
++++ after/delivery-game/assets/scripts/map-sample/MapTypes.ts
+@@ -18,7 +18,7 @@
+   urbanBounds?:import('./CityExtent').Bounds;
+   operatingPOIs?:number[];
+   legacyMapIds?:string[];
+-  placeCatalogVersion?:1|2|3;
++  placeCatalogVersion?:1|2|3|4;
+ }
+ export interface RouteSegment { from: string; to: string; road: string; metres: number; seconds: number; roughness: number }
+ export interface MapRoute {
+--- before/delivery-game/assets/scripts/map-sample/CountySnapshot.ts
++++ after/delivery-game/assets/scripts/map-sample/CountySnapshot.ts
+@@ -13,6 +13,7 @@
+   for(const r of data.roads)add(`${r.id}:${r.direction}:${r.speed}:${r.nodes.join(',')};`);
+   for(const p of data.pois)add(`${p.node}:${p.kind};`);
+   if(data.placeCatalogVersion===3)add(`dispatch-v3:${JSON.stringify(data.dispatchBounds)}:${(data.operatingPOIs||[]).join(',')};`);
++  if(data.placeCatalogVersion===4)add(`dispatch-v4:${JSON.stringify(data.dispatchBounds)}:${(data.operatingPOIs||[]).join(',')};`);
+   return (hash>>>0).toString(16);
+ }
+ function valid(value:unknown,detail:string):asserts value{if(!value)throw new Error('存档校验失败：'+detail);}
+--- before/delivery-game/assets/scripts/map-sample/UrbanCatalog.ts
++++ after/delivery-game/assets/scripts/map-sample/UrbanCatalog.ts
+@@ -0,0 +1,37 @@
++import { CityData, MapNode, MapPOI } from './MapTypes';
++import { contains } from './CityExtent';
++
++/** Rebuild only the operating urban pool; historical POI indices remain immutable. */
++export function denseUrbanCatalog(previous:CityData,component:Set<string>):{pois:MapPOI[];operatingPOIs:number[]} {
++ const pois=previous.pois.slice(),points=new Map(previous.nodes.map(n=>[n.id,n]));
++ const cells=new Map<string,{weight:number;x:number;y:number;nodes:MapNode[]}>();
++ const key=(x:number,y:number)=>`${Math.floor(x/300)}/${Math.floor(y/300)}`;
++ for(const polygon of previous.buildings){if(!polygon.length)continue;const x=polygon.reduce((s,p)=>s+p[0],0)/polygon.length,y=polygon.reduce((s,p)=>s+p[1],0)/polygon.length,k=key(x,y);const c=cells.get(k)||{weight:0,x:0,y:0,nodes:[]};c.weight++;c.x+=x;c.y+=y;cells.set(k,c);}
++ for(const n of previous.nodes)if(component.has(n.id)&&contains(previous.dispatchBounds!,[n.x,n.y])&&previous.dispatchAreas![n.id]==='urban'&&n.y>=-900&&n.y<=600){const c=cells.get(key(n.x,n.y));if(c)c.nodes.push(n);}
++ const selected:MapNode[]=[],merchants:MapNode[]=[],urban:number[]=[];
++ const oldByNode=new Map<string,number>();pois.forEach((p,i)=>{if(!oldByNode.has(p.node))oldByNode.set(p.node,i);});
++ const distance=(a:MapNode,b:MapNode)=>Math.hypot(a.x-b.x,a.y-b.y);
++ for(const east of [true,false]){
++  const groups=Array.from(cells.entries()).map(([id,c])=>({id,...c,nodes:c.nodes.filter(n=>east?n.x>=-2100&&n.x<=-1020:n.x>=-4080&&n.x< -2100)})).filter(c=>c.nodes.length).sort((a,b)=>a.id.localeCompare(b.id));
++  // Four-neighbour street blocks receive largest-remainder shares by building weight.
++  const blocks:typeof groups[]=[];const seen=new Set<string>();
++  for(const seed of groups){if(seen.has(seed.id))continue;const block=[seed];seen.add(seed.id);for(let i=0;i<block.length;i++){const [x,y]=block[i].id.split('/').map(Number);for(const k of [`${x-1}/${y}`,`${x+1}/${y}`,`${x}/${y-1}`,`${x}/${y+1}`]){const c=groups.find(v=>v.id===k);if(c&&!seen.has(k)){seen.add(k);block.push(c);}}}blocks.push(block);}
++  const shares=(weights:number[],total:number)=>{const sum=weights.reduce((a,b)=>a+b,0),raw=weights.map(w=>w/sum*total),out=raw.map(Math.floor);const order=raw.map((v,i)=>({i,f:v-out[i]})).sort((a,b)=>b.f-a.f||a.i-b.i);for(let left=total-out.reduce((a,b)=>a+b,0),i=0;left>0;left--,i++)out[order[i].i]++;return out;};
++  for(const merchant of [true,false]){
++   const target=east?(merchant?42:126):(merchant?18:54),blockShares=shares(blocks.map(b=>b.reduce((s,c)=>s+c.weight,0)),target);let count=0;
++   const pick=(c:typeof groups[number]):boolean=>{
++    const eligible=c.nodes.filter(n=>!selected.some(p=>distance(n,p)<35)&&(!merchant||!merchants.some(p=>distance(n,p)<70))).filter(n=>{const old=oldByNode.get(n.id);return old===undefined||(pois[old].kind==='restaurant')===merchant;});
++    if(!eligible.length)return false;
++    const used=selected.filter(n=>key(n.x,n.y)===c.id),cx=c.x/c.weight,cy=c.y/c.weight;
++    eligible.sort((a,b)=>{const score=(n:MapNode)=>used.length?Math.min(...used.map(p=>distance(n,p))):-Math.hypot(n.x-cx,n.y-cy);return score(b)-score(a)||a.x-b.x||a.y-b.y||a.id.localeCompare(b.id);});
++    const n=eligible[0];selected.push(n);if(merchant)merchants.push(n);let index=oldByNode.get(n.id);
++    if(index===undefined){index=pois.length;pois.push({node:n.id,kind:merchant?'restaurant':'home',name:`${east?'东城':'西街'}${merchant?'食铺':'住址'}·${index+1}`,address:`${east?'东城':'西街'}密集街区${index+1}号`});oldByNode.set(n.id,index);}
++    urban.push(index);count++;return true;
++   };
++   blocks.forEach((block,i)=>{const quotas=shares(block.map(c=>c.weight),blockShares[i]);block.forEach((c,j)=>{for(let k=0;k<quotas[j];k++)if(!pick(c))break;});while(count<blockShares.slice(0,i+1).reduce((a,b)=>a+b,0)){let added=false;for(const c of block.slice().sort((a,b)=>b.weight-a.weight||a.id.localeCompare(b.id))){if(pick(c)){added=true;break;}}if(!added)break;}});
++   while(count<target){let added=false;for(const c of groups.slice().sort((a,b)=>b.weight-a.weight||a.id.localeCompare(b.id))){if(pick(c)){added=true;break;}}if(!added)throw new Error(`Dense catalog capacity insufficient: ${east?'east':'west'} ${merchant?'merchant':'customer'} ${count}/${target}`);}
++  }
++ }
++ const nonurban=(previous.operatingPOIs||[]).filter(i=>previous.dispatchAreas![pois[i].node]!=='urban');
++ return {pois,operatingPOIs:urban.concat(nonurban)};
++}

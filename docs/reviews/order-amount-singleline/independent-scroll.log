@@ -1,0 +1,8 @@
+### Result
+{"max":5942,"offset":5942,"last":[{"name":"Offer-CC-10","text":["22分钟内送达 · 加急","餐品","鸡腿饭 · 2份","2kg · 加急 · 耐放","¥23.24","4.3km","取餐\n东城食铺·402","→","送达\n杏花巷邻里·111号楼","抢单"]}]}
+### Ran Playwright code
+```js
+await (async(page)=>{await page.setViewportSize({width:280,height:420});await page.goto('http://127.0.0.1:4197/after/?safe');await page.waitForFunction(()=>window.uiFixture?.ready);await page.evaluate(async()=>{window.uiFixture.sample.openPhone();const cc=await System.import('cc'),w=n=>[n,...n.children.flatMap(w)],n=w(window.uiFixture.sample.phone.node).find(n=>n.name==='OrderList'),s=n.getComponent(cc.ScrollView);s.scrollToOffset(new cc.Vec2(0,s.getMaxScrollOffset().y),0)});await page.waitForTimeout(200);await page.screenshot({path:'docs/reviews/order-amount-singleline/independent-scroll-bottom.png'});return await page.evaluate(async()=>{const cc=await System.import('cc'),w=n=>[n,...n.children.flatMap(w)],s=window.uiFixture.sample,n=w(s.phone.node).find(n=>n.name==='OrderList').getComponent(cc.ScrollView);return {max:n.getMaxScrollOffset().y,offset:n.getScrollOffset().y,last:w(s.phone.node).filter(n=>n.name.startsWith('Offer-')).slice(-1).map(n=>({name:n.name,text:w(n).map(n=>n.getComponent(cc.Label)?.string).filter(Boolean)}))}})})(page);
+```
+### Events
+- New console entries: .playwright-cli/console-2026-10-30T00-54-39-415Z.log#L17

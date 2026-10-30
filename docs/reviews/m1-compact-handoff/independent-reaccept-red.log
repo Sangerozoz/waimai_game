@@ -1,0 +1,36 @@
+TAP version 13
+# Subtest: ui same order reaccepted after await-pickup cancel issues a fresh zero-distance arrival event
+not ok 1 - ui same order reaccepted after await-pickup cancel issues a fresh zero-distance arrival event
+  ---
+  duration_ms: 102.187584
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/m1-compact-handoff/independent-handoff.cjs:53:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    new acceptance must reset prior presentation identity
+    + actual - expected
+    
+    + 'CC-2/awaitPickup'
+    - ''
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ''
+  actual: 'CC-2/awaitPickup'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/m1-compact-handoff/independent-handoff.cjs:55:29)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 698.232834

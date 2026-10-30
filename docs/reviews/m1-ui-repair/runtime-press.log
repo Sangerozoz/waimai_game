@@ -1,0 +1,11 @@
+### Result
+{"results":[{"name":"MapAttribution","pressed":0.96,"root":1,"hasLabel":true,"cancelled":1},{"name":"Button-抢单","pressed":0.96,"root":1,"hasLabel":true,"cancelled":1}],"storage":[{"method":"setItem","key":"storage","stack":"Error\n    at Storage.<computed> [as setItem] (http://127.0.0.1:4183/fixture.js:3:205)\n    at http://127.0.0.1:4183/cocos-js/_virtual_cc-C6aOtQS_.js:1:170460"}]}
+### Ran Playwright code
+```js
+await (async(page)=>{await page.goto('http://127.0.0.1:4183/?page=buttons&final=2');await page.waitForFunction(()=>window.uiFixture?.ready);return await page.evaluate(async()=>{const cc=await System.import('cc');const root=window.uiFixture.sample.root;const all=[];function walk(n){all.push(n);n.children.forEach(walk);}walk(root);const results=[];for(const name of ['MapAttribution','Button-抢单']){const n=all.find(n=>n.name===name),event={getID:()=>1,getUILocation:()=>({x:0,y:0})};n.emit(cc.Node.EventType.TOUCH_START,event);const v=n.getChildByName('PressVisual');const r={name,pressed:v.scale.x,root:n.scale.x,hasLabel:!!v.getComponentInChildren(cc.Label)};n.emit(cc.Node.EventType.TOUCH_CANCEL,event);r.cancelled=v.scale.x;results.push(r);}return {results,storage:window.uiFixture.storageAttempts};});})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4183/?page=buttons&final=2
+- Page Title: Cocos Creator | map-sample
+### Events
+- New console entries: .playwright-cli/console-2026-10-29T07-50-24-275Z.log#L48

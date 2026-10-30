@@ -1,0 +1,55 @@
+TAP version 13
+# OVERSHOOT {"scale":1.2999999999999998,"project":[-400.9999999999998,-84.49999999999999]}
+# FRAMES idle [{"t":0,"s":0.6,"x":1600},{"t":0.15,"s":0.6875,"x":1566.171875},{"t":0.3,"s":1.2999999999999998,"x":1800.9999999999998},{"t":0.44999999999999996,"s":1.9125,"x":2861.171875},{"t":0.6,"s":2,"x":3080}]
+# FRAMES running [{"t":0,"s":0.6,"x":1600},{"t":0.15,"s":0.6875,"x":1566.171875},{"t":0.3,"s":1.2999999999999998,"x":800},{"t":0.44999999999999996,"s":1.9125,"x":100},{"t":0.6,"s":2,"x":0}]
+# Subtest: explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+ok 1 - explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+  ---
+  duration_ms: 2.883209
+  type: 'test'
+  ...
+# Subtest: animated locate retargets from current view and cancels on drag or lifecycle stop
+ok 2 - animated locate retargets from current view and cancels on drag or lifecycle stop
+  ---
+  duration_ms: 0.549208
+  type: 'test'
+  ...
+# Subtest: city-focus independent: initially visible rider stays visible through stationary locate
+not ok 3 - city-focus independent: initially visible rider stays visible through stationary locate
+  ---
+  duration_ms: 1.308541
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-gestures.test.cjs:153:1'
+  failureType: 'testCodeFailure'
+  error: 'visible rider left viewport during locate'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-gestures.test.cjs:154:257)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    node:internal/test_runner/test:981:31
+    node:internal/process/task_queues:149:7
+    AsyncResource.runInAsyncScope (node:async_hooks:214:14)
+    AsyncResource.runMicrotask (node:internal/process/task_queues:146:8)
+  ...
+# Subtest: city-focus independent: actual button and MapSample.update animate idle and running frames jointly
+ok 4 - city-focus independent: actual button and MapSample.update animate idle and running frames jointly
+  ---
+  duration_ms: 192.824042
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 3
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1127.876292

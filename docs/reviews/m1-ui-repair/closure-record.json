@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-29",
+  "productionSourcesMatchDeliveredSHA": true,
+  "sourceCount": 6,
+  "sources": {
+    "delivery-game/assets/scripts/map-sample/SampleUI.ts": "eec97d4e2a11d4c1c4a6724a0cd470ff6ad6a81b3db9a3fbdf6147af4c06462f",
+    "delivery-game/assets/scripts/map-sample/CartoonArt.ts": "e0e2c51a8bc52861018ff85f88ef43ab5d71d8fb0395213377ac17fcc4a41513",
+    "delivery-game/assets/scripts/map-sample/MapSample.ts": "aa31ba31bf8d2b8caa2d9b482f11888bd9a60edbe3cdda62091872ef6159cb67",
+    "delivery-game/assets/scripts/map-sample/OrderPhone.ts": "dff88ddee47c708ead0b2b05dbef158387c25d81d1678f2174bd6869ad5a3014",
+    "delivery-game/assets/scripts/map-sample/CityMap.ts": "61c97f5fa30c1704f51b8a5002be70fe9453d533a3cd89e8ce476cab16539169",
+    "delivery-game/assets/scripts/map-sample/PresentationLayout.ts": "50a965d3596936918b81e2b1e891bc0e55a4a20dcf4f0ad6dfeda9ac4799be00"
+  },
+  "commands": {
+    "npm test": {
+      "wrapperExitCode": 0,
+      "passed": 203,
+      "failed": 0,
+      "evidence": "tests.log; original exec completion"
+    },
+    "npm run typecheck": {
+      "wrapperExitCode": 0,
+      "evidence": "typecheck.log; original exec completion"
+    },
+    "npm run build:map": {
+      "wrapperExitCode": 0,
+      "cocosProcessExitCode": "not separately recorded; wrapper accepts 0 or 36",
+      "evidence": "build.log; original exec completion",
+      "diagnostics": [
+        "build-script worker SIGTERM, code null",
+        "Recovery window failed / window.json JSON parsing failure after build Finished"
+      ]
+    }
+  },
+  "independentClosure": {
+    "passed": 3,
+    "failed": 0,
+    "exitCode": 0,
+    "evidence": "independent-closure.log and independent-test-report.md closure section"
+  },
+  "userExperience": "pending"
+}

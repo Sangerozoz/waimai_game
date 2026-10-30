@@ -1,0 +1,1060 @@
+TAP version 13
+# Subtest: new bill starts with the actual wallet and no earned fees or completed deliveries
+ok 1 - new bill starts with the actual wallet and no earned fees or completed deliveries
+  ---
+  duration_ms: 3.357166
+  type: 'test'
+  ...
+# Subtest: settlement records real income and full road distance exactly once across reload and repeated receipt viewing
+ok 2 - settlement records real income and full road distance exactly once across reload and repeated receipt viewing
+  ---
+  duration_ms: 4.261208
+  type: 'test'
+  ...
+# Subtest: cancelled offers and vehicle purchases do not count as deliveries or reduce delivery income
+ok 3 - cancelled offers and vehicle purchases do not count as deliveries or reduce delivery income
+  ---
+  duration_ms: 8.738084
+  type: 'test'
+  ...
+# Subtest: daily records roll over without resetting lifetime income and peak daily completed count
+ok 4 - daily records roll over without resetting lifetime income and peak daily completed count
+  ---
+  duration_ms: 8.190333
+  type: 'test'
+  ...
+# Subtest: online time splits at local midnight and never counts backwards or invalid spans
+ok 5 - online time splits at local midnight and never counts backwards or invalid spans
+  ---
+  duration_ms: 1.224333
+  type: 'test'
+  ...
+# Subtest: old saves preserve actual lifetime orders and wallet while marking unavailable history as partial
+ok 6 - old saves preserve actual lifetime orders and wallet while marking unavailable history as partial
+  ---
+  duration_ms: 5.983833
+  type: 'test'
+  ...
+# Subtest: malformed bill fields and totals inconsistent with completed orders are rejected
+ok 7 - malformed bill fields and totals inconsistent with completed orders are rejected
+  ---
+  duration_ms: 4.062334
+  type: 'test'
+  ...
+# Subtest: bill reviews and punctuality follow final per-order outcomes including negative reviews at rating floors
+ok 8 - bill reviews and punctuality follow final per-order outcomes including negative reviews at rating floors
+  ---
+  duration_ms: 3.368
+  type: 'test'
+  ...
+# Subtest: late and positive receipts produce correct rate, review counts and unit-formatted bill values
+ok 9 - late and positive receipts produce correct rate, review counts and unit-formatted bill values
+  ---
+  duration_ms: 1.219417
+  type: 'test'
+  ...
+# Subtest: incomplete legacy history is never presented as an exact percentage or exact lifetime fee
+ok 10 - incomplete legacy history is never presented as an exact percentage or exact lifetime fee
+  ---
+  duration_ms: 0.605625
+  type: 'test'
+  ...
+# Subtest: one atlas request shares immutable frames and fits the manifest crop into each requested box
+ok 11 - one atlas request shares immutable frames and fits the manifest crop into each requested box
+  ---
+  duration_ms: 85.721167
+  type: 'test'
+  ...
+# Subtest: failed atlas remains readable through its fallback and a later opening retries
+ok 12 - failed atlas remains readable through its fallback and a later opening retries
+  ---
+  duration_ms: 34.005667
+  type: 'test'
+  ...
+# Subtest: closed, queued-destroyed and destroyed-picture views never reactivate on a late response
+ok 13 - closed, queued-destroyed and destroyed-picture views never reactivate on a late response
+  ---
+  duration_ms: 90.045208
+  type: 'test'
+  ...
+# Subtest: normalized vehicle crops scale with imported texture size and unknown keys never load
+ok 14 - normalized vehicle crops scale with imported texture size and unknown keys never load
+  ---
+  duration_ms: 29.64375
+  type: 'test'
+  ...
+# Subtest: generated locator retains native fallback on atlas failure
+ok 15 - generated locator retains native fallback on atlas failure
+  ---
+  duration_ms: 18.023
+  type: 'test'
+  ...
+# Subtest: camera subtracts viewport half extents on every axis at all supported scales
+ok 16 - camera subtracts viewport half extents on every axis at all supported scales
+  ---
+  duration_ms: 0.494125
+  type: 'test'
+  ...
+# Subtest: catalog preparation is deterministic, preserves the graph and old POI indices, and adds real distinct addresses
+ok 17 - catalog preparation is deterministic, preserves the graph and old POI indices, and adds real distinct addresses
+  ---
+  duration_ms: 1175.785625
+  type: 'test'
+  ...
+# Subtest: food images and terms cover all sixteen meals and historic text has stable compatible pictures
+ok 18 - food images and terms cover all sixteen meals and historic text has stable compatible pictures
+  ---
+  duration_ms: 0.1465
+  type: 'test'
+  ...
+# Subtest: actual prepared city dispatch stays within bounded roads with diverse batches and refreshes
+ok 19 - actual prepared city dispatch stays within bounded roads with diverse batches and refreshes
+  ---
+  duration_ms: 1288.516958
+  type: 'test'
+  ...
+# Subtest: old map identity restores fixed activity and outside position, then returns through legal road legs
+ok 20 - old map identity restores fixed activity and outside position, then returns through legal road legs
+  ---
+  duration_ms: 475.327042
+  type: 'test'
+  ...
+# Subtest: preview and all accepted choices use the bounded graph even when a faster road exits town
+ok 21 - preview and all accepted choices use the bounded graph even when a faster road exits town
+  ---
+  duration_ms: 0.587708
+  type: 'test'
+  ...
+# Subtest: a tiny map repeats legal destinations without hanging and food weights match servings
+ok 22 - a tiny map repeats legal destinations without hanging and food weights match servings
+  ---
+  duration_ms: 0.386416
+  type: 'test'
+  ...
+# Subtest: distant legacy positions preserve location and can dispatch within ten kilometres without an immediate city return
+ok 23 - distant legacy positions preserve location and can dispatch within ten kilometres without an immediate city return
+  ---
+  duration_ms: 5027.563792
+  type: 'test'
+  ...
+# Subtest: map identity migration keeps an already drawn outside delivery route, pose and damage unchanged
+ok 24 - map identity migration keeps an already drawn outside delivery route, pose and damage unchanged
+  ---
+  duration_ms: 730.4865
+  type: 'test'
+  ...
+# Subtest: operating places leave room for pins at every town edge without moving historic addresses
+ok 25 - operating places leave room for pins at every town edge without moving historic addresses
+  ---
+  duration_ms: 16.271167
+  type: 'test'
+  ...
+# Subtest: actual city trips stay local after refreshing, moving and upgrading the vehicle
+ok 26 - actual city trips stay local after refreshing, moving and upgrading the vehicle
+  ---
+  duration_ms: 2593.6055
+  type: 'test'
+  ...
+# Subtest: the previous v3 lobby migrates without losing progress or redrawing accepted activity
+ok 27 - the previous v3 lobby migrates without losing progress or redrawing accepted activity
+  ---
+  duration_ms: 2011.882666
+  type: 'test'
+  ...
+# Subtest: dense v4 catalog preserves v3 prefix and raises urban operating pool to 60 merchants and 180 customers
+ok 28 - dense v4 catalog preserves v3 prefix and raises urban operating pool to 60 merchants and 180 customers
+  ---
+  duration_ms: 0.144125
+  type: 'test'
+  ...
+# Subtest: the real county first delivery credits 21.80 yuan and ten XP once to the 100 yuan opening balance
+ok 29 - the real county first delivery credits 21.80 yuan and ten XP once to the 100 yuan opening balance
+  ---
+  duration_ms: 0.409417
+  type: 'test'
+  ...
+# Subtest: late severe damage and a disturbed doorstep request use one capped rating penalty and one income reduction
+ok 30 - late severe damage and a disturbed doorstep request use one capped rating penalty and one income reduction
+  ---
+  duration_ms: 0.069334
+  type: 'test'
+  ...
+# Subtest: all three positive conditions cap at +6 and income uses new rating but the old experience level
+ok 31 - all three positive conditions cap at +6 and income uses new rating but the old experience level
+  ---
+  duration_ms: 0.110625
+  type: 'test'
+  ...
+# Subtest: formal risk comes from meal fragility and road preference rather than trip animation length
+ok 32 - formal risk comes from meal fragility and road preference rather than trip animation length
+  ---
+  duration_ms: 0.705583
+  type: 'test'
+  ...
+# Subtest: the fifth receipt earns at departure Lv1 and unlocks Lv2 at fifty XP
+ok 33 - the fifth receipt earns at departure Lv1 and unlocks Lv2 at fifty XP
+  ---
+  duration_ms: 0.161708
+  type: 'test'
+  ...
+# Subtest: county levels retain later increments while the original game thresholds stay unchanged
+ok 34 - county levels retain later increments while the original game thresholds stay unchanged
+  ---
+  duration_ms: 0.396459
+  type: 'test'
+  ...
+# Subtest: new county wallet and the first actual routed receipt survive reload without a second award
+ok 35 - new county wallet and the first actual routed receipt survive reload without a second award
+  ---
+  duration_ms: 12.021917
+  type: 'test'
+  ...
+# Subtest: in-transit reload preserves route, damage and both clocks and resumes automatically
+ok 36 - in-transit reload preserves route, damage and both clocks and resumes automatically
+  ---
+  duration_ms: 6.296625
+  type: 'test'
+  ...
+# Subtest: route selection and the doorstep waiting phase restore without awarding money early
+ok 37 - route selection and the doorstep waiting phase restore without awarding money early
+  ---
+  duration_ms: 5.661917
+  type: 'test'
+  ...
+# Subtest: real earnings buy exactly one D+ and preserve its speed, income and capacity after reload
+ok 38 - real earnings buy exactly one D+ and preserve its speed, income and capacity after reload
+  ---
+  duration_ms: 16.486542
+  type: 'test'
+  ...
+# Subtest: daily two-free-refresh quota survives reload, resets next day, and never blocks ordinary deliveries
+ok 39 - daily two-free-refresh quota survives reload, resets next day, and never blocks ordinary deliveries
+  ---
+  duration_ms: 10.346792
+  type: 'test'
+  ...
+# Subtest: corrupt or changed-graph snapshots are rejected rather than damaging a valid running session
+ok 40 - corrupt or changed-graph snapshots are rejected rather than damaging a valid running session
+  ---
+  duration_ms: 2.648583
+  type: 'test'
+  ...
+# Subtest: a valid old thirty-order save migrates to ten nearby orders without losing progress or refresh quota
+ok 41 - a valid old thirty-order save migrates to ten nearby orders without losing progress or refresh quota
+  ---
+  duration_ms: 6.175458
+  type: 'test'
+  ...
+# Subtest: cancelling a migrated legacy long order removes its exception from the ordinary nearby lobby
+ok 42 - cancelling a migrated legacy long order removes its exception from the ordinary nearby lobby
+  ---
+  duration_ms: 8.045125
+  type: 'test'
+  ...
+# Subtest: exactly 200 yuan upgrades D+ once while 199.99 is insufficient
+ok 43 - exactly 200 yuan upgrades D+ once while 199.99 is insufficient
+  ---
+  duration_ms: 1.747208
+  type: 'test'
+  ...
+# Subtest: genuine ZIP-baseline v2 states migrate without rerolls, changed receipts or changed old poses
+ok 44 - genuine ZIP-baseline v2 states migrate without rerolls, changed receipts or changed old poses
+  ---
+  duration_ms: 20.45525
+  type: 'test'
+  ...
+# Subtest: new trips move and switch pickup by metres across unequal road speeds
+ok 45 - new trips move and switch pickup by metres across unequal road speeds
+  ---
+  duration_ms: 1.781583
+  type: 'test'
+  ...
+# Subtest: legacy level-one departure at fifty XP finishes at frozen income then continues at recomputed level
+ok 46 - legacy level-one departure at fifty XP finishes at frozen income then continues at recomputed level
+  ---
+  duration_ms: 1.851083
+  type: 'test'
+  ...
+# Subtest: v3 rejects unknown rules, wrong current levels, tampered receipts and timing without consuming random
+ok 47 - v3 rejects unknown rules, wrong current levels, tampered receipts and timing without consuming random
+  ---
+  duration_ms: 1.541666
+  type: 'test'
+  ...
+# Subtest: predrawn food damage notifies only halfway through delivery, never while collecting and never rerolls
+ok 48 - predrawn food damage notifies only halfway through delivery, never while collecting and never rerolls
+  ---
+  duration_ms: 6.503666
+  type: 'test'
+  ...
+# Subtest: damage notice stays consumed after reload and does not alter the existing receipt or award
+ok 49 - damage notice stays consumed after reload and does not alter the existing receipt or award
+  ---
+  duration_ms: 7.31975
+  type: 'test'
+  ...
+# Subtest: healthy orders and an already completed frame never show damage events
+ok 50 - healthy orders and an already completed frame never show damage events
+  ---
+  duration_ms: 5.718041
+  type: 'test'
+  ...
+# Subtest: old missing notice fields load as unseen while malformed notice state is rejected
+ok 51 - old missing notice fields load as unseen while malformed notice state is rejected
+  ---
+  duration_ms: 3.413542
+  type: 'test'
+  ...
+# Subtest: legacy routes with different segment speeds trigger at distance midpoint rather than time midpoint
+ok 52 - legacy routes with different segment speeds trigger at distance midpoint rather than time midpoint
+  ---
+  duration_ms: 7.12125
+  type: 'test'
+  ...
+# Subtest: 30 minutes animates in ten seconds and 45 minutes or longer caps at fifteen
+ok 53 - 30 minutes animates in ten seconds and 45 minutes or longer caps at fifteen
+  ---
+  duration_ms: 0.988125
+  type: 'test'
+  ...
+# Subtest: road metres and average kph determine exact display seconds without overhead or rounding
+ok 54 - road metres and average kph determine exact display seconds without overhead or rounding
+  ---
+  duration_ms: 0.158333
+  type: 'test'
+  ...
+# Subtest: capped animation keeps exact distance progress and remaining delivery clock
+ok 55 - capped animation keeps exact distance progress and remaining delivery clock
+  ---
+  duration_ms: 0.064417
+  type: 'test'
+  ...
+# Subtest: pickup clock advances the road clock normally before reaching the merchant
+ok 56 - pickup clock advances the road clock normally before reaching the merchant
+  ---
+  duration_ms: 0.278
+  type: 'test'
+  ...
+# Subtest: reaching the merchant spends the rest of the frame on pickup waiting
+ok 57 - reaching the merchant spends the rest of the frame on pickup waiting
+  ---
+  duration_ms: 0.044042
+  type: 'test'
+  ...
+# Subtest: pickup consumes two additional seconds without advancing the road clock
+ok 58 - pickup consumes two additional seconds without advancing the road clock
+  ---
+  duration_ms: 0.50375
+  type: 'test'
+  ...
+# Subtest: a first order starting at the merchant waits before beginning its road animation
+ok 59 - a first order starting at the merchant waits before beginning its road animation
+  ---
+  duration_ms: 0.211792
+  type: 'test'
+  ...
+# Subtest: one large frame crosses arrival, pickup and remaining road animation without overshooting
+ok 60 - one large frame crosses arrival, pickup and remaining road animation without overshooting
+  ---
+  duration_ms: 0.123083
+  type: 'test'
+  ...
+# Subtest: restored pickup waiting spends only the remaining eight tenths of a second
+ok 61 - restored pickup waiting spends only the remaining eight tenths of a second
+  ---
+  duration_ms: 0.363917
+  type: 'test'
+  ...
+# Subtest: zero, negative and non-finite frame times preserve both clocks
+ok 62 - zero, negative and non-finite frame times preserve both clocks
+  ---
+  duration_ms: 0.446917
+  type: 'test'
+  ...
+# food-integration {"local":false,"total":2099,"counts":{"fragile":221,"normal":857,"durable":1021}}
+# food-integration {"local":true,"total":2099,"counts":{"fragile":225,"normal":827,"durable":1047}}
+# food-selector {"seed":1,"total":10000,"counts":{"fragile":1051,"normal":4109,"durable":4840}}
+# food-selector {"seed":817,"total":10000,"counts":{"fragile":1029,"normal":4026,"durable":4945}}
+# food-selector {"seed":20261029,"total":10000,"counts":{"fragile":994,"normal":4012,"durable":4994}}
+# food-selector {"seed":4294967295,"total":10000,"counts":{"fragile":972,"normal":4163,"durable":4865}}
+# Subtest: new fallback offers keep fragile food near ten percent
+ok 63 - new fallback offers keep fragile food near ten percent
+  ---
+  duration_ms: 44.230167
+  type: 'test'
+  ...
+# Subtest: new local offers keep fragile food near ten percent
+ok 64 - new local offers keep fragile food near ten percent
+  ---
+  duration_ms: 63.788
+  type: 'test'
+  ...
+# Subtest: class boundaries select real foods without changing image or fragility identity
+ok 65 - class boundaries select real foods without changing image or fragility identity
+  ---
+  duration_ms: 0.268584
+  type: 'test'
+  ...
+# Subtest: diversity prefers unseen foods within the chosen class and safely reuses exhausted pools
+ok 66 - diversity prefers unseen foods within the chosen class and safely reuses exhausted pools
+  ---
+  duration_ms: 0.129083
+  type: 'test'
+  ...
+# Subtest: invalid samples, malformed weights and positive classes without foods fail explicitly
+ok 67 - invalid samples, malformed weights and positive classes without foods fail explicitly
+  ---
+  duration_ms: 2.434125
+  type: 'test'
+  ...
+# Subtest: four seeded long runs preserve class probabilities even with per-lobby diversity
+ok 68 - four seeded long runs preserve class probabilities even with per-lobby diversity
+  ---
+  duration_ms: 52.648959
+  type: 'test'
+  ...
+# Subtest: pre-patch idle, routes, running, collecting, arrived and done saves retain all drawn state without RNG
+ok 69 - pre-patch idle, routes, running, collecting, arrived and done saves retain all drawn state without RNG
+  ---
+  duration_ms: 9.969625
+  type: 'test'
+  ...
+# Subtest: translating both fingers moves the map in the same direction without changing zoom
+ok 70 - translating both fingers moves the map in the same direction without changing zoom
+  ---
+  duration_ms: 0.710084
+  type: 'test'
+  ...
+# Subtest: real drag, zoom, locate, route focus and following all apply viewport-aware clamps
+ok 71 - real drag, zoom, locate, route focus and following all apply viewport-aware clamps
+  ---
+  duration_ms: 0.564291
+  type: 'test'
+  ...
+# Subtest: legacy outside rider and route remain visible in a continuous compatibility camera
+ok 72 - legacy outside rider and route remain visible in a continuous compatibility camera
+  ---
+  duration_ms: 0.080917
+  type: 'test'
+  ...
+# Subtest: historic edge addresses are not drawn as ordinary operating dots
+ok 73 - historic edge addresses are not drawn as ordinary operating dots
+  ---
+  duration_ms: 0.06225
+  type: 'test'
+  ...
+# Subtest: every operating address can be located with its full rider and destination pin visible
+ok 74 - every operating address can be located with its full rider and destination pin visible
+  ---
+  duration_ms: 433.19325
+  type: 'test'
+  ...
+# Subtest: responsive layout keeps the actual hundred-metre camera inside town on narrow tall screens
+ok 75 - responsive layout keeps the actual hundred-metre camera inside town on narrow tall screens
+  ---
+  duration_ms: 78.288584
+  type: 'test'
+  ...
+# Subtest: spreading two fingers around a stationary midpoint keeps that map point pinned
+ok 76 - spreading two fingers around a stationary midpoint keeps that map point pinned
+  ---
+  duration_ms: 0.2615
+  type: 'test'
+  ...
+# Subtest: the pinch midpoint remains stable when zoom reaches its upper limit
+ok 77 - the pinch midpoint remains stable when zoom reaches its upper limit
+  ---
+  duration_ms: 0.322417
+  type: 'test'
+  ...
+# Subtest: locating for departure restores thirty metres and all zoom paths stay within ten to one hundred metres
+ok 78 - locating for departure restores thirty metres and all zoom paths stay within ten to one hundred metres
+  ---
+  duration_ms: 0.5375
+  type: 'test'
+  ...
+# Subtest: explicit default locate restores actual 30m scale and follows current rider
+ok 79 - explicit default locate restores actual 30m scale and follows current rider
+  ---
+  duration_ms: 0.525208
+  type: 'test'
+  ...
+# Subtest: explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+ok 80 - explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+  ---
+  duration_ms: 0.448292
+  type: 'test'
+  ...
+# Subtest: animated locate retargets from current view and cancels on drag or lifecycle stop
+ok 81 - animated locate retargets from current view and cancels on drag or lifecycle stop
+  ---
+  duration_ms: 0.103417
+  type: 'test'
+  ...
+# Subtest: static rider stays visible while world center converges monotonically
+ok 82 - static rider stays visible while world center converges monotonically
+  ---
+  duration_ms: 0.127041
+  type: 'test'
+  ...
+# Subtest: ordinary and edge-visible rider converge without overshoot using fixed final camera offsets
+ok 83 - ordinary and edge-visible rider converge without overshoot using fixed final camera offsets
+  ---
+  duration_ms: 0.286875
+  type: 'test'
+  ...
+# Subtest: automatic route overview fits every bend below HUD while manual locate keeps 30m
+ok 84 - automatic route overview fits every bend below HUD while manual locate keeps 30m
+  ---
+  duration_ms: 0.171417
+  type: 'test'
+  ...
+# Subtest: manual pan in planning overview survives capture and layout restoration at the actual low scale
+ok 85 - manual pan in planning overview survives capture and layout restoration at the actual low scale
+  ---
+  duration_ms: 0.175834
+  type: 'test'
+  ...
+# Subtest: locating from the new low planning scale retains smooth projected convergence to 30m
+ok 86 - locating from the new low planning scale retains smooth projected convergence to 30m
+  ---
+  duration_ms: 0.1545
+  type: 'test'
+  ...
+# Subtest: compact avatar has no nickname and XP follows displayed width; capsules hug full numeric text
+ok 87 - compact avatar has no nickname and XP follows displayed width; capsules hug full numeric text
+  ---
+  duration_ms: 314.9555
+  type: 'test'
+  ...
+# Subtest: XP presentation follows county thresholds and updates the actual fill through level transitions
+ok 88 - XP presentation follows county thresholds and updates the actual fill through level transitions
+  ---
+  duration_ms: 138.638833
+  type: 'test'
+  ...
+# Subtest: notch and home indicator insets move real profile and all five menu touch targets into the safe rect
+ok 89 - notch and home indicator insets move real profile and all five menu touch targets into the safe rect
+  ---
+  duration_ms: 69.395625
+  type: 'test'
+  ...
+# Subtest: safe-area changes restore normal spacing while preserving an open bill and saved game state
+ok 90 - safe-area changes restore normal spacing while preserving an open bill and saved game state
+  ---
+  duration_ms: 59.261791
+  type: 'test'
+  ...
+# Subtest: delivery sheet, rider locator and map attribution rise together above the bottom safe area
+ok 91 - delivery sheet, rider locator and map attribution rise together above the bottom safe area
+  ---
+  duration_ms: 58.229833
+  type: 'test'
+  ...
+# Subtest: asymmetric side insets keep menus and modal actions inside the usable screen
+ok 92 - asymmetric side insets keep menus and modal actions inside the usable screen
+  ---
+  duration_ms: 47.051291
+  type: 'test'
+  ...
+# Subtest: the real order phone fits between the notch and home indicator in a short viewport
+ok 93 - the real order phone fits between the notch and home indicator in a short viewport
+  ---
+  duration_ms: 47.476125
+  type: 'test'
+  ...
+# Subtest: letterboxing outside the game and unavailable safe-area readings do not add duplicate padding
+ok 94 - letterboxing outside the game and unavailable safe-area readings do not add duplicate padding
+  ---
+  duration_ms: 40.338792
+  type: 'test'
+  ...
+# Subtest: portrait-locked canvas rotation maps physical notch and gesture edges before UI layout
+ok 95 - portrait-locked canvas rotation maps physical notch and gesture edges before UI layout
+  ---
+  duration_ms: 76.233375
+  type: 'test'
+  ...
+# Subtest: the real map footer keeps scale line, scale label and attribution inside horizontal safe bounds
+ok 96 - the real map footer keeps scale line, scale label and attribution inside horizontal safe bounds
+  ---
+  duration_ms: 51.649375
+  type: 'test'
+  ...
+# Subtest: the five navigation entries keep unavailable features inert and claim opens the phone
+ok 97 - the five navigation entries keep unavailable features inert and claim opens the phone
+  ---
+  duration_ms: 49.282708
+  type: 'test'
+  ...
+# Subtest: station moves to the map lower left while bills occupy the rightmost bottom entry
+ok 98 - station moves to the map lower left while bills occupy the rightmost bottom entry
+  ---
+  duration_ms: 39.549209
+  type: 'test'
+  ...
+# Subtest: foreground time is counted while idle but background and the closed interval are excluded
+ok 99 - foreground time is counted while idle but background and the closed interval are excluded
+  ---
+  duration_ms: 40.020166
+  type: 'test'
+  ...
+# Subtest: an already open bill refreshes both its date and daily values across midnight
+ok 100 - an already open bill refreshes both its date and daily values across midnight
+  ---
+  duration_ms: 40.317791
+  type: 'test'
+  ...
+# Subtest: the map keeps only its lower-right rider locator and hides routine saved/shift prompts
+ok 101 - the map keeps only its lower-right rider locator and hides routine saved/shift prompts
+  ---
+  duration_ms: 40.31875
+  type: 'test'
+  ...
+# Subtest: a save error remains visible when claiming an order rebuilds the map layout
+ok 102 - a save error remains visible when claiming an order rebuilds the map layout
+  ---
+  duration_ms: 37.88125
+  type: 'test'
+  ...
+# Subtest: the map navigation opens unlockable regions without spending or moving the rider
+ok 103 - the map navigation opens unlockable regions without spending or moving the rider
+  ---
+  duration_ms: 36.714583
+  type: 'test'
+  ...
+# Subtest: opening the map catalog during delivery does not hide the required arrival demand
+ok 104 - opening the map catalog during delivery does not hide the required arrival demand
+  ---
+  duration_ms: 42.054416
+  type: 'test'
+  ...
+# Subtest: profile replaces the title with identity and live balances while locked passive income is absent
+ok 105 - profile replaces the title with identity and live balances while locked passive income is absent
+  ---
+  duration_ms: 35.46675
+  type: 'test'
+  ...
+# Subtest: the vehicle entry opens the real garage and an unaffordable upgrade has no tap handler
+ok 106 - the vehicle entry opens the real garage and an unaffordable upgrade has no tap handler
+  ---
+  duration_ms: 38.988375
+  type: 'test'
+  ...
+# Subtest: merchant waiting communicates progress and running navigation cannot accept or upgrade
+ok 107 - merchant waiting communicates progress and running navigation cannot accept or upgrade
+  ---
+  duration_ms: 36.070583
+  type: 'test'
+  ...
+# Subtest: doorstep demand opens a required modal with no bottom choices and cannot be skipped
+ok 108 - doorstep demand opens a required modal with no bottom choices and cannot be skipped
+  ---
+  duration_ms: 41.502375
+  type: 'test'
+  ...
+# Subtest: restoring and resizing a waiting delivery reopens its demand modal without early settlement
+ok 109 - restoring and resizing a waiting delivery reopens its demand modal without early settlement
+  ---
+  duration_ms: 38.428584
+  type: 'test'
+  ...
+# Subtest: damage event appears in transit once, survives layout rebuilding, freezes in background and expires after two seconds
+ok 110 - damage event appears in transit once, survives layout rebuilding, freezes in background and expires after two seconds
+  ---
+  duration_ms: 42.084666
+  type: 'test'
+  ...
+# Subtest: short-screen bills and receipts scroll their complete content with fixed safe actions
+ok 111 - short-screen bills and receipts scroll their complete content with fixed safe actions
+  ---
+  duration_ms: 37.42625
+  type: 'test'
+  ...
+# Subtest: regrouped billing keeps live values attached to their original metrics
+ok 112 - regrouped billing keeps live values attached to their original metrics
+  ---
+  duration_ms: 36.37725
+  type: 'test'
+  ...
+# Subtest: a valid long food description remains complete above routes and in delivery on a narrow device
+ok 113 - a valid long food description remains complete above routes and in delivery on a narrow device
+  ---
+  duration_ms: 38.221625
+  type: 'test'
+  ...
+# Subtest: an open bill keeps its scroll position and readable wallet row when the balance grows
+ok 114 - an open bill keeps its scroll position and readable wallet row when the balance grows
+  ---
+  duration_ms: 35.766417
+  type: 'test'
+  ...
+# Subtest: receipt user dismiss finishes display only and restores an idle home without reopening lobby
+ok 115 - receipt user dismiss finishes display only and restores an idle home without reopening lobby
+  ---
+  duration_ms: 39.634167
+  type: 'test'
+  ...
+# Subtest: receipt continue and lobby close return idle without reissuing settled assets
+ok 116 - receipt continue and lobby close return idle without reissuing settled assets
+  ---
+  duration_ms: 39.667292
+  type: 'test'
+  ...
+# Subtest: receipt dismissal preserves the existing visible save failure protocol
+ok 117 - receipt dismissal preserves the existing visible save failure protocol
+  ---
+  duration_ms: 52.962916
+  type: 'test'
+  ...
+# Subtest: CSS 12px header edges follow SHOW_ALL game scale rather than design pixels
+ok 118 - CSS 12px header edges follow SHOW_ALL game scale rather than design pixels
+  ---
+  duration_ms: 36.820375
+  type: 'test'
+  ...
+# Subtest: explicit locator forwards default zoom reset to the real camera
+ok 119 - explicit locator forwards default zoom reset to the real camera
+  ---
+  duration_ms: 36.415625
+  type: 'test'
+  ...
+# Subtest: claim circle grows by 1.3 with proportional type inside a stable circular hit root
+ok 120 - claim circle grows by 1.3 with proportional type inside a stable circular hit root
+  ---
+  duration_ms: 36.142
+  type: 'test'
+  ...
+# Subtest: phone blue header includes status bar and has a separate shaded chassis
+ok 121 - phone blue header includes status bar and has a separate shaded chassis
+  ---
+  duration_ms: 35.383125
+  type: 'test'
+  ...
+# Subtest: rebuilding a planning order keeps route overview instead of overwriting it with rider locate
+ok 122 - rebuilding a planning order keeps route overview instead of overwriting it with rider locate
+  ---
+  duration_ms: 37.102917
+  type: 'test'
+  ...
+# Subtest: order sheet closes and reopens without changing the order, with twelve CSS pixels above the circular menu
+ok 123 - order sheet closes and reopens without changing the order, with twelve CSS pixels above the circular menu
+  ---
+  duration_ms: 43.996042
+  type: 'test'
+  ...
+# Subtest: routes obey one-way streets even when the reverse is shorter
+ok 124 - routes obey one-way streets even when the reverse is shorter
+  ---
+  duration_ms: 1.344792
+  type: 'test'
+  ...
+# Subtest: geometrically coincident bridge or disconnected nodes do not create junctions
+ok 125 - geometrically coincident bridge or disconnected nodes do not create junctions
+  ---
+  duration_ms: 1.111041
+  type: 'test'
+  ...
+# Subtest: animation uses segment durations and reaches exact destination
+ok 126 - animation uses segment durations and reaches exact destination
+  ---
+  duration_ms: 0.155625
+  type: 'test'
+  ...
+# Subtest: smooth preference can trade distance for a lower-risk path
+ok 127 - smooth preference can trade distance for a lower-risk path
+  ---
+  duration_ms: 0.172875
+  type: 'test'
+  ...
+# Subtest: all fictional POIs are reachable in both directions with paths on imported roads
+ok 128 - all fictional POIs are reachable in both directions with paths on imported roads
+  ---
+  duration_ms: 316.058542
+  type: 'test'
+  ...
+# Subtest: the delivery map exposes at least eighty distinct customer road addresses
+ok 129 - the delivery map exposes at least eighty distinct customer road addresses
+  ---
+  duration_ms: 421.450708
+  type: 'test'
+  ...
+# Subtest: the first sample order offers distinct routes with an observable time and risk tradeoff
+ok 130 - the first sample order offers distinct routes with an observable time and risk tradeoff
+  ---
+  duration_ms: 27.515416
+  type: 'test'
+  ...
+# Subtest: mid-road rider anchor stays on the exact directed segment and exposes only legal exits
+ok 131 - mid-road rider anchor stays on the exact directed segment and exposes only legal exits
+  ---
+  duration_ms: 0.820709
+  type: 'test'
+  ...
+# Subtest: all ten vehicle grades use the corresponding supplied top-view image
+ok 132 - all ten vehicle grades use the corresponding supplied top-view image
+  ---
+  duration_ms: 36.266416
+  type: 'test'
+  ...
+# Subtest: the top-view front follows east, north, west and south road headings
+ok 133 - the top-view front follows east, north, west and south road headings
+  ---
+  duration_ms: 66.746375
+  type: 'test'
+  ...
+# Subtest: changing from D to D+ before the shared atlas resolves displays D+ art
+ok 134 - changing from D to D+ before the shared atlas resolves displays D+ art
+  ---
+  duration_ms: 53.661542
+  type: 'test'
+  ...
+# Subtest: a layout rebuild reuses the image and discards callbacks for the destroyed map
+ok 135 - a layout rebuild reuses the image and discards callbacks for the destroyed map
+  ---
+  duration_ms: 16.094041
+  type: 'test'
+  ...
+# Subtest: a failed vehicle image keeps the fallback and can be retried
+ok 136 - a failed vehicle image keeps the fallback and can be retried
+  ---
+  duration_ms: 26.780792
+  type: 'test'
+  ...
+# Subtest: side art caches loads and ignores a closed garage while preserving its fallback on failure
+ok 137 - side art caches loads and ignores a closed garage while preserving its fallback on failure
+  ---
+  duration_ms: 35.401541
+  type: 'test'
+  ...
+# Subtest: color parsing preserves alpha in RGBA and opacity in existing RGB colors
+ok 138 - color parsing preserves alpha in RGBA and opacity in existing RGB colors
+  ---
+  duration_ms: 0.558333
+  type: 'test'
+  ...
+# Subtest: receipt dialog draws a 60 percent black shade while its card stays opaque
+ok 139 - receipt dialog draws a 60 percent black shade while its card stays opaque
+  ---
+  duration_ms: 0.757083
+  type: 'test'
+  ...
+# Subtest: transparent shade still blocks map input and closes the dialog on touch
+ok 140 - transparent shade still blocks map input and closes the dialog on touch
+  ---
+  duration_ms: 0.225208
+  type: 'test'
+  ...
+# Subtest: the lobby exposes ten stable nearby orders and opening it does not move the rider
+ok 141 - the lobby exposes ten stable nearby orders and opening it does not move the rider
+  ---
+  duration_ms: 8.995459
+  type: 'test'
+  ...
+# Subtest: an accepted route starts at the rider, reaches the restaurant, then delivers to the customer
+ok 142 - an accepted route starts at the rider, reaches the restaurant, then delivers to the customer
+  ---
+  duration_ms: 5.432792
+  type: 'test'
+  ...
+# Subtest: delivery keeps advancing and settlement preserves nearby candidates while keeping ten orders
+ok 143 - delivery keeps advancing and settlement preserves nearby candidates while keeping ten orders
+  ---
+  duration_ms: 5.016041
+  type: 'test'
+  ...
+# Subtest: continuous deliveries visit many destinations and never exceed the animation limit
+ok 144 - continuous deliveries visit many destinations and never exceed the animation limit
+  ---
+  duration_ms: 31.744375
+  type: 'test'
+  ...
+# Subtest: the actual city keeps ordinary dispatch and all offered route choices within ten kilometres
+ok 145 - the actual city keeps ordinary dispatch and all offered route choices within ten kilometres
+  ---
+  duration_ms: 10305.994958
+  type: 'test'
+  ...
+# Subtest: nearby dispatch uses both road legs and rejects a restaurant that is close only in a straight line
+ok 146 - nearby dispatch uses both road legs and rejects a restaurant that is close only in a straight line
+  ---
+  duration_ms: 0.387958
+  type: 'test'
+  ...
+# Subtest: the next delivery starts at the previous customer and switches from pickup to delivery at the restaurant
+ok 147 - the next delivery starts at the previous customer and switches from pickup to delivery at the restaurant
+  ---
+  duration_ms: 2.144959
+  type: 'test'
+  ...
+# Subtest: new source and quantity survive reload; old absent fields remain absent; malformed metadata is rejected
+ok 148 - new source and quantity survive reload; old absent fields remain absent; malformed metadata is rejected
+  ---
+  duration_ms: 1.060834
+  type: 'test'
+  ...
+# Subtest: lobby deadline agrees with the accepted frozen legal-route deadline for each candidate
+ok 149 - lobby deadline agrees with the accepted frozen legal-route deadline for each candidate
+  ---
+  duration_ms: 0.983042
+  type: 'test'
+  ...
+# Subtest: source is stable near twenty percent and quantity/remarks use actual offer semantics
+ok 150 - source is stable near twenty percent and quantity/remarks use actual offer semantics
+  ---
+  duration_ms: 1.771583
+  type: 'test'
+  ...
+# Subtest: direct delivery asks to present once; rebuild and manual reopen never award again
+ok 151 - direct delivery asks to present once; rebuild and manual reopen never award again
+  ---
+  duration_ms: 7.896709
+  type: 'test'
+  ...
+# Subtest: door choice precedes popup, and a reloaded receipt presents without recomputing its award
+ok 152 - door choice precedes popup, and a reloaded receipt presents without recomputing its award
+  ---
+  duration_ms: 3.639083
+  type: 'test'
+  ...
+# Subtest: normal operating points leave 450 metres at every edge and concentrate three quarters of places in built-up cells
+ok 153 - normal operating points leave 450 metres at every edge and concentrate three quarters of places in built-up cells
+  ---
+  duration_ms: 297.16075
+  type: 'test'
+  ...
+# Subtest: city lobbies favour urban orders with sparse remote and cross-town trips while keeping local travel times
+ok 154 - city lobbies favour urban orders with sparse remote and cross-town trips while keeping local travel times
+  ---
+  duration_ms: 2125.356917
+  type: 'test'
+  ...
+# Subtest: arrival at the merchant holds for two real seconds and resumes the remaining hold after reload
+ok 155 - arrival at the merchant holds for two real seconds and resumes the remaining hold after reload
+  ---
+  duration_ms: 1.982292
+  type: 'test'
+  ...
+# Subtest: starting at the merchant still collects the food for two seconds without inflating travel minutes
+ok 156 - starting at the merchant still collects the food for two seconds without inflating travel minutes
+  ---
+  duration_ms: 0.327666
+  type: 'test'
+  ...
+# Subtest: the previous v3 activity keeps its road clock, drawn outcome and receipt during the new-area migration
+ok 157 - the previous v3 activity keeps its road clock, drawn outcome and receipt during the new-area migration
+  ---
+  duration_ms: 2127.928209
+  type: 'test'
+  ...
+# Subtest: the first tap activates once even when the pointer moves by one pixel
+ok 158 - the first tap activates once even when the pointer moves by one pixel
+  ---
+  duration_ms: 1.585667
+  type: 'test'
+  ...
+# Subtest: a zero-distance move event does not turn a tap into a drag
+ok 159 - a zero-distance move event does not turn a tap into a drag
+  ---
+  duration_ms: 0.100334
+  type: 'test'
+  ...
+# Subtest: a real list drag cannot accept an order even when it returns near the start
+ok 160 - a real list drag cannot accept an order even when it returns near the start
+  ---
+  duration_ms: 0.051625
+  type: 'test'
+  ...
+# Subtest: a cancelled touch cannot activate on a later end event
+ok 161 - a cancelled touch cannot activate on a later end event
+  ---
+  duration_ms: 0.053792
+  type: 'test'
+  ...
+# Subtest: touch end without a matching press never activates a button
+ok 162 - touch end without a matching press never activates a button
+  ---
+  duration_ms: 0.043792
+  type: 'test'
+  ...
+# Subtest: a different finger cannot finish the active button press
+ok 163 - a different finger cannot finish the active button press
+  ---
+  duration_ms: 0.039208
+  type: 'test'
+  ...
+# Subtest: pressing preserves the existing hit area so edge taps are not cancelled by scaling
+ok 164 - pressing preserves the existing hit area so edge taps are not cancelled by scaling
+  ---
+  duration_ms: 0.338042
+  type: 'test'
+  ...
+# Subtest: a distant release is rejected even when the platform omits move events
+ok 165 - a distant release is rejected even when the platform omits move events
+  ---
+  duration_ms: 0.075625
+  type: 'test'
+  ...
+# Subtest: each separate tap activates once and duplicate releases do not repeat an action
+ok 166 - each separate tap activates once and duplicate releases do not repeat an action
+  ---
+  duration_ms: 0.223875
+  type: 'test'
+  ...
+# Subtest: the mouse touch identifier zero is a valid press
+ok 167 - the mouse touch identifier zero is a valid press
+  ---
+  duration_ms: 0.212834
+  type: 'test'
+  ...
+# Subtest: a new press can recover when the platform omitted the previous release
+ok 168 - a new press can recover when the platform omitted the previous release
+  ---
+  duration_ms: 0.074666
+  type: 'test'
+  ...
+# Subtest: press changes only the visual subtree immediately and cancel restores it
+ok 169 - press changes only the visual subtree immediately and cancel restores it
+  ---
+  duration_ms: 0.056875
+  type: 'test'
+  ...
+# Subtest: drag immediately restores visual and cannot activate on return
+ok 170 - drag immediately restores visual and cannot activate on return
+  ---
+  duration_ms: 1.963792
+  type: 'test'
+  ...
+# Subtest: deactivation clears the active touch and restores visual
+ok 171 - deactivation clears the active touch and restores visual
+  ---
+  duration_ms: 0.359666
+  type: 'test'
+  ...
+# Subtest: destroy clears touch and visual without dispatching the action
+ok 172 - destroy clears touch and visual without dispatching the action
+  ---
+  duration_ms: 0.074708
+  type: 'test'
+  ...
+# Subtest: release calls action synchronously while its visual recovery is pending
+ok 173 - release calls action synchronously while its visual recovery is pending
+  ---
+  duration_ms: 0.064166
+  type: 'test'
+  ...
+# Subtest: an inactive root cannot begin or finish a press
+ok 174 - an inactive root cannot begin or finish a press
+  ---
+  duration_ms: 0.055625
+  type: 'test'
+  ...
+1..174
+# tests 174
+# suites 0
+# pass 174
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 13409.050792

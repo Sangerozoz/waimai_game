@@ -1,0 +1,62 @@
+TAP version 13
+# Subtest: receipt user dismiss finishes display only and restores an idle home without reopening lobby
+ok 1 - receipt user dismiss finishes display only and restores an idle home without reopening lobby
+  ---
+  duration_ms: 81.906416
+  type: 'test'
+  ...
+# Subtest: receipt continue and lobby close return idle without reissuing settled assets
+ok 2 - receipt continue and lobby close return idle without reissuing settled assets
+  ---
+  duration_ms: 49.520416
+  type: 'test'
+  ...
+# Subtest: receipt dismissal preserves the existing visible save failure protocol
+ok 3 - receipt dismissal preserves the existing visible save failure protocol
+  ---
+  duration_ms: 41.1415
+  type: 'test'
+  ...
+# Subtest: consistency independent loaded avatar and rating use 12 CSS pixels at actual fit dimensions
+ok 4 - consistency independent loaded avatar and rating use 12 CSS pixels at actual fit dimensions
+  ---
+  duration_ms: 75.771416
+  type: 'test'
+  ...
+# Subtest: consistency independent station visible pre-load and post-load margin must both equal 12 CSS pixels
+not ok 5 - consistency independent station visible pre-load and post-load margin must both equal 12 CSS pixels
+  ---
+  duration_ms: 37.824292
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:376:1'
+  failureType: 'testCodeFailure'
+  error: 'preload visible margin is 19px; loaded margin is 12px'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:380:43)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: consistency independent locator dimensions grow 1.5 and visual stays inside stable hit root
+ok 6 - consistency independent locator dimensions grow 1.5 and visual stays inside stable hit root
+  ---
+  duration_ms: 36.53875
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 811.82225

@@ -1,0 +1,3 @@
+async(page)=>{
+ await page.setViewportSize({width:320,height:480});await page.goto('http://127.0.0.1:4197/before/?safe');await page.waitForFunction(()=>window.uiFixture?.ready||window.uiFixture?.error);return await page.evaluate(async()=>{if(window.uiFixture.error)return window.uiFixture;const cc=await System.import('cc'),s=window.uiFixture.sample;s.book.offers[0].feeCents=1984;s.openPhone();const walk=n=>[n,...n.children.flatMap(walk)];return walk(s.phone.node).map(n=>n.getComponent(cc.Label)).filter(l=>l?.string.startsWith('¥')).map(l=>{l.updateRenderData(true);return {text:l.string,font:l.fontSize,size:l.node.getComponent(cc.UITransform).contentSize,lines:l._textLayoutData.parsedString,measured:l._assemblerData.context.measureText(l.string).width}})});
+}

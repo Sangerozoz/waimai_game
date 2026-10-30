@@ -247,7 +247,7 @@ function validateSave(value: unknown): asserts value is SavedSession {
   valid(integer(value.sequence, 1), 'order sequence');
   valid(object(value.state), 'missing session state');
   const state = value.state;
-  valid(['orders', 'routes', 'delivering', 'arrived', 'result'].includes(state.phase as string), 'phase');
+  valid(['orders', 'routes', 'delivering', 'arrived', 'result'].indexOf(state.phase as string) !== -1, 'phase');
   valid(typeof state.tutorialComplete === 'boolean', 'tutorial flag');
   valid(finite(state.elapsedSeconds, 0), 'elapsed time');
   valid(object(state.player), 'player must be an object');
@@ -277,7 +277,7 @@ function validateSave(value: unknown): asserts value is SavedSession {
   } else {
     validateOrder(state.activeOrder);
     const active = state.activeOrder;
-    valid(!ids.includes(active.id), 'active order duplicated in list');
+    valid(ids.indexOf(active.id) === -1, 'active order duplicated in list');
     ids.push(active.id);
     valid(active.weightKg <= capacity, 'active order exceeds capacity');
     valid(routePreviews(active, player.vehicleTier).some(route => route.lateSeconds === 0), 'unreachable active deadline');

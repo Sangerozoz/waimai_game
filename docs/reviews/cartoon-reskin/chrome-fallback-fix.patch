@@ -1,0 +1,61 @@
+diff --git a/docs/reviews/cartoon-reskin/fix-before/CartoonArt.ts b/delivery-game/assets/scripts/map-sample/CartoonArt.ts
+index 5098ad1..ce6916c 100644
+--- a/docs/reviews/cartoon-reskin/fix-before/CartoonArt.ts
++++ b/delivery-game/assets/scripts/map-sample/CartoonArt.ts
+@@ -59,14 +59,21 @@ export function cartoonChrome(parent:Node,key:'panel-blue'|'panel-violet'|'butto
+ }
+ export function resizeCartoonChrome(picture:Node,width:number,height:number):void {
+  const transform=picture.getComponent(UITransform);if(!transform)return;
+- transform.setContentSize(width,height);
+- const sprite=picture.getComponent(Sprite),frame=sprite?.spriteFrame;if(!frame)return;
++ const sprite=picture.getComponent(Sprite),frame=sprite?.spriteFrame;
++ if(!frame){transform.setContentSize(width,height);return;}
+  const button=picture.name.indexOf('button-')>=0;
+- const left=button?128:96,top=96;
+- // Leave a real center section even on compact buttons and narrow title bars.
+- frame.insetLeft=Math.min(left,Math.max(1,Math.floor((width-12)/2)));
++ const left=Math.round((button?128:96)*frame.texture.width/1280);
++ const top=Math.round(96*frame.texture.height/1280);
++ // Cocos uses inset lengths as vertex lengths. Keep the virtual sprite at
++ // least source-sized, then scale its node to the requested UI box. Otherwise
++ // short bars crush most of the source image into a 12px center strip.
++ const renderWidth=Math.max(width,frame.originalSize.width);
++ const renderHeight=Math.max(height,frame.originalSize.height);
++ transform.setContentSize(renderWidth,renderHeight);
++ picture.setScale(width/renderWidth,height/renderHeight,1);
++ frame.insetLeft=left;
+  frame.insetRight=frame.insetLeft;
+- frame.insetTop=Math.min(top,Math.max(1,Math.floor((height-12)/2)));
++ frame.insetTop=top;
+  frame.insetBottom=frame.insetTop;
+  sprite.markForUpdateRenderData?.(true);
+ }
+diff --git a/docs/reviews/cartoon-reskin/fix-before/SampleUI.ts b/delivery-game/assets/scripts/map-sample/SampleUI.ts
+index 2d06c02..5e9a25b 100644
+--- a/docs/reviews/cartoon-reskin/fix-before/SampleUI.ts
++++ b/delivery-game/assets/scripts/map-sample/SampleUI.ts
+@@ -60,11 +60,7 @@ export function button(parent:Node,text:string,x:number,y:number,w:number,h:numb
+  const n=box(parent,'Button-'+text,x,y,w,h,fill,14,fill===C.paper?C.line:undefined);if(enabled&&fill===C.primary)skin(n,'button-yellow');label(n,text,0,0,22,foreground,w-12,true,'center');if(enabled)tap(n,action);return n;
+ }
+ export function icon(parent:Node,kind:string,x:number,y:number,fill=C.navy,scale=1):Node{
+- if(['avatar','recruit','vehicle','map','bills','station','coin','star','bag','close','target','confirm'].indexOf(kind)>=0){
+-  const picture=cartoonArt(parent,kind,x,y,48*scale,48*scale);
+-  if(fill==='#AAA69C')picture.getComponent(Sprite)!.grayscale=true;
+-  return picture;
+- }
++ const generated=['avatar','recruit','vehicle','map','bills','station','coin','star','bag','close','target','confirm'].indexOf(kind)>=0;
+  const n=item(parent,'Icon-'+kind,x,y,32,32),g=n.addComponent(Graphics);n.setScale(scale,scale,1);g.lineWidth=2.4;g.strokeColor=col(fill);g.fillColor=col(fill);
+  if(kind==='target'){g.circle(0,0,9);g.stroke();g.circle(0,0,3);g.fill();for(const [a,b,c,d] of [[-15,0,-10,0],[10,0,15,0],[0,-15,0,-10],[0,10,0,15]]){g.moveTo(a,b);g.lineTo(c,d);g.stroke();}}
+  else if(kind==='map'){g.moveTo(-13,-10);g.lineTo(-5,-6);g.lineTo(5,-10);g.lineTo(13,-6);g.lineTo(13,12);g.lineTo(5,8);g.lineTo(-5,12);g.lineTo(-13,8);g.close();g.stroke();for(const xx of [-5,5]){g.moveTo(xx,-6);g.lineTo(xx,8);g.stroke();}}
+@@ -73,5 +69,11 @@ export function icon(parent:Node,kind:string,x:number,y:number,fill=C.navy,scale
+  else if(kind==='bills'){g.roundRect(-10,-14,20,28,2);g.stroke();for(const y of [7,0,-7]){g.moveTo(-6,y);g.lineTo(y===-7?3:6,y);g.stroke();}}
+  else if(kind==='plus'||kind==='minus'){g.moveTo(-9,0);g.lineTo(9,0);g.stroke();if(kind==='plus'){g.moveTo(0,-9);g.lineTo(0,9);g.stroke();}}
+  else if(kind==='sun'){g.circle(0,0,6);g.stroke();for(let i=0;i<8;i++){const a=i*Math.PI/4;g.moveTo(Math.cos(a)*10,Math.sin(a)*10);g.lineTo(Math.cos(a)*13,Math.sin(a)*13);g.stroke();}}
++ else if(generated){g.circle(0,0,12);g.stroke();g.circle(0,0,5);g.fill();}
++ if(generated){
++  const picture=cartoonArt(parent,kind,x,y,48*scale,48*scale,n);
++  if(fill==='#AAA69C')picture.getComponent(Sprite)!.grayscale=true;
++  return picture;
++ }
+  return n;
+ }

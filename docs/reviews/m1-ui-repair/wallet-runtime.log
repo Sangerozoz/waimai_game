@@ -1,0 +1,11 @@
+### Result
+{"font":40,"size":{"width":159,"height":65},"line":57,"text":"100.00","storage":[{"method":"setItem","key":"storage","stack":"Error\n    at Storage.<computed> [as setItem] (http://127.0.0.1:4183/fixture.js:3:205)\n    at http://127.0.0.1:4183/cocos-js/_virtual_cc-C6aOtQS_.js:1:170460"}]}
+### Ran Playwright code
+```js
+await (async(page)=>{await page.setViewportSize({width:360,height:560});await page.goto('http://127.0.0.1:4183/?page=home&final=2');await page.waitForFunction(()=>window.uiFixture?.ready);await page.waitForTimeout(400);await page.screenshot({path:'output/playwright/m1-ui-repair/home-360x560-after.png'});return await page.evaluate(async()=>{const s=window.uiFixture.sample,cc=await System.import('cc');const l=s.money;return {font:l.fontSize,size:l.node.getComponent(cc.UITransform).contentSize,line:l.lineHeight,text:l.string,storage:window.uiFixture.storageAttempts};});})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4183/?page=home&final=2
+- Page Title: Cocos Creator | map-sample
+### Events
+- New console entries: .playwright-cli/console-2026-10-29T07-50-24-275Z.log#L34

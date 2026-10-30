@@ -1,0 +1,258 @@
+--- before/delivery-game/assets/scripts/map-sample/MapSample.ts
++++ after/delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -1,20 +1,20 @@
+-import { _decorator, BlockInputEvents, Component, Game, game, JsonAsset, Label, Node, resources, UITransform, ResolutionPolicy, sys, view } from 'cc';
++import { _decorator, BlockInputEvents, Component, Game, game, Graphics, JsonAsset, Label, Node, resources, UITransform, ResolutionPolicy, sys, view } from 'cc';
+ import { CityMap, ROUTE_COLORS } from './CityMap';
+ import { prepareCity } from './PlaceCatalog';
+ import { CityData, Preference } from './MapTypes';
+ import { OrderBook } from './OrderBook';
+ import { OrderPhone } from './OrderPhone';
+ import { ReceiptPresentation } from './ReceiptPresentation';
+ import { CountySaveStore } from './CountySaveStore';
+ import { COUNTY_VEHICLES as VEHICLES } from './CountyConfig';
+ import { formatDeliveryTime, formatRemaining } from './DeliveryClock';
+ import { billingRows } from './BillingPresentation';
+-import { box, button, C, icon, item, label, tap } from './SampleUI';
++import { box, button, C, col, icon, item, label, tap } from './SampleUI';
+ import { presentationMetrics, readable, scrollContent, textHeight } from './PresentationLayout';
+ import { vehicleSideArt } from './VehicleSideArt';
+ import { SafeInsets, rotatedViewportInsets, viewportInsets } from './SafeAreaLayout';
+ const {ccclass}=_decorator;
+ const TITLES:Record<Preference,string>={fast:'快捷路',main:'主干道',smooth:'平稳路'};
+ type DialogKind='receipt'|'garage'|'demand'|'maps'|'bills';
+ 
+ @ccclass('MapSample')
+@@ -30,16 +30,18 @@
+   private screenExtra=0;
+   private safeInsets:SafeInsets={top:0,bottom:0,left:0,right:0};
+   private hidden=false;
+   private skipNextFrame=false;
+   private store!:CountySaveStore;
+   private money!:Label;
+   private rating!:Label;
+   private experience!:Label;
++  private profileCard!:Node;
++  private playerName!:Label;
+   private modal:Node|null=null;
+   private modalKind:DialogKind|null=null;
+   private billValues:Label[]=[];
+   private billDate:Label|null=null;
+   private billElapsed=0;
+   private onlineAt:number|null=null;
+   private damageNotice:Node|null=null;
+   private damageNoticeSeconds=0;
+@@ -137,30 +139,59 @@
+   }
+   private metrics(){return presentationMetrics(1280+this.screenExtra);}
+   private sheetHeight():number{return Math.max(520,this.metrics().body*16);}
+   private action(parent:Node,text:string,x:number,y:number,width:number,action:()=>void,fill=C.primary,enabled=true):Node {
+     const m=this.metrics(),node=box(parent,'Button-'+text,x,y,width,m.action,fill,16,fill===C.paper?C.line:undefined);
+     readable(node,text,0,0,m.body,enabled?C.ink:C.muted,width-20,true,'center',m.action-8);if(enabled)tap(node,action);return node;
+   }
+   private header(parent:Node):void {
+-    const width=720-this.safeInsets.left-this.safeInsets.right-36,m=this.metrics(),height=220;
+-    const card=box(parent,'Header',(this.safeInsets.left-this.safeInsets.right)/2,628-height/2,width,height,C.paper,18);
+-    const content=item(card,'HeaderContent');
+-    const avatar=box(content,'PlayerAvatar',-width/2+54,62,64,64,'#F1F2F4',32);readable(avatar,'骑',0,0,30,C.muted,60,true,'center');
+-    readable(content,'澄川骑手',-width/2+210,69,m.body,C.ink,220,true);
+-    this.experience=readable(content,'',width/2-126,69,m.aux,C.muted,228,false,'right',52);
+-    readable(content,'余额',-width/2+62,20,m.aux,C.muted,84);
+-    this.money=readable(content,'',-74,-43,m.amount,C.ink,width-190,true,'left',100);
+-    readable(content,'评价',width/2-78,20,m.aux,C.muted,112,false,'center');
+-    this.rating=readable(content,'',width/2-78,-43,m.body+8,C.ink,112,true,'center',100);
++    const width=720-this.safeInsets.left-this.safeInsets.right-36,m=this.metrics();
++    this.profileCard=box(parent,'Header',0,0,width,160,C.paper,18);
++    const content=item(this.profileCard,'HeaderContent');
++    const identity=item(content,'ProfileIdentity'),wallet=item(content,'ProfileWallet'),rating=item(content,'ProfileRating');
++    const avatar=box(identity,'PlayerAvatar',0,0,60,60,'#F1F2F4',30);readable(avatar,'骑',0,0,28,C.muted,54,true,'center',48);
++    this.playerName=readable(identity,'澄川骑手',0,0,m.body,C.ink,200,true);
++    this.experience=readable(identity,'',0,0,m.aux,C.muted,200);
++    readable(wallet,'余额',0,0,m.aux,C.muted,160,false,'center').node.name='WalletTitle';
++    this.money=readable(wallet,'',0,0,m.amount,C.ink,160,true,'center');
++    readable(rating,'评价',0,0,m.aux,C.muted,100,false,'center').node.name='RatingTitle';
++    this.rating=readable(rating,'',0,0,m.body,C.ink,100,true,'center');
+     this.updatePlayerHeader();
+   }
++  private layoutPlayerHeader():void {
++    const card=this.profileCard,m=this.metrics(),width=720-this.safeInsets.left-this.safeInsets.right-36,inner=width-40,gap=Math.min(18,inner*.035);
++    const content=card.getChildByName('HeaderContent')!,identity=content.getChildByName('ProfileIdentity')!,wallet=content.getChildByName('ProfileWallet')!,rating=content.getChildByName('ProfileRating')!;
++    const identityWidth=Math.floor(inner*.44),walletWidth=Math.floor(inner*.35),ratingWidth=inner-identityWidth-walletWidth-gap*2,textWidth=identityWidth-74;
++    const units=[...this.money.string].reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0);
++    const moneyFont=Math.max(m.body,Math.min(m.amount,Math.floor(walletWidth/Math.max(1,units))));
++    const nameHeight=textHeight(this.playerName.string,m.body,textWidth),experienceHeight=textHeight(this.experience.string,m.aux,textWidth);
++    const titleHeight=Math.max(textHeight('余额',m.aux,walletWidth),textHeight('评价',m.aux,ratingWidth));
++    const moneyHeight=textHeight(this.money.string,moneyFont,walletWidth),ratingHeight=textHeight(this.rating.string,m.body,ratingWidth);
++    const identityHeight=nameHeight+8+experienceHeight,walletHeight=titleHeight+8+moneyHeight,ratingBlockHeight=titleHeight+8+ratingHeight;
++    const height=Math.max(140,Math.max(identityHeight,walletHeight,ratingBlockHeight)+32),top=height/2-16,left=-inner/2;
++    const place=(node:Node,x:number,y:number,w:number,h:number)=>{node.setPosition(x,y);node.getComponent(UITransform)!.setContentSize(w,h);};
++    place(identity,left+identityWidth/2,top-identityHeight/2,identityWidth,identityHeight);
++    place(wallet,left+identityWidth+gap+walletWidth/2,top-walletHeight/2,walletWidth,walletHeight);
++    place(rating,left+identityWidth+gap+walletWidth+gap+ratingWidth/2,top-ratingBlockHeight/2,ratingWidth,ratingBlockHeight);
++    identity.getChildByName('PlayerAvatar')!.setPosition(-identityWidth/2+30,0);
++    const textX=-identityWidth/2+74+textWidth/2;
++    place(this.playerName.node,textX,identityHeight/2-nameHeight/2,textWidth,nameHeight);
++    place(this.experience.node,textX,-identityHeight/2+experienceHeight/2,textWidth,experienceHeight);
++    place(wallet.getChildByName('WalletTitle')!,0,walletHeight/2-titleHeight/2,walletWidth,titleHeight);
++    place(this.money.node,0,-walletHeight/2+moneyHeight/2,walletWidth,moneyHeight);
++    this.money.fontSize=moneyFont;this.money.lineHeight=Math.ceil(moneyFont*1.42);
++    place(rating.getChildByName('RatingTitle')!,0,ratingBlockHeight/2-titleHeight/2,ratingWidth,titleHeight);
++    place(this.rating.node,0,-ratingBlockHeight/2+ratingHeight/2,ratingWidth,ratingHeight);
++    place(card,(this.safeInsets.left-this.safeInsets.right)/2,628-height/2,width,height);
++    const g=card.getComponent(Graphics)!;g.clear();g.fillColor=col(C.paper);g.roundRect(-width/2,-height/2,width,height,18);g.fill();
++    const station=this.root.getChildByName('StationEntry');if(station)station.setPosition(309-this.safeInsets.right,628-height-70+this.screenExtra/2-this.safeInsets.top);
++  }
+   private controls():void {
+-    const station=item(this.root,'StationEntry',309-this.safeInsets.right,330+this.screenExtra/2-this.safeInsets.top,100,100);
++    const station=item(this.root,'StationEntry',309-this.safeInsets.right,628-this.profileCard.getComponent(UITransform)!.height-70+this.screenExtra/2-this.safeInsets.top,100,100);
+     const picture=box(station,'PlaceholderIcon-station',0,11,36,32,'#F0EEE7',8);
+     label(picture,'站',0,0,20,'#AAA69C',32,true,'center');readable(station,'站点',0,-24,this.metrics().aux,'#AAA69C',94,true,'center');
+     const y=this.book.mode==='idle'?-450:-522+this.sheetHeight()+this.metrics().action/2+20;
+     const locate=box(this.root,'FollowRider',360-this.safeInsets.right-this.metrics().action/2-13,y-this.screenExtra/2+this.safeInsets.bottom,this.metrics().action,this.metrics().action,C.primary,13);
+     icon(locate,'target',0,0,C.ink,.85);tap(locate,()=>this.city.locate());
+   }
+   private openPhone():void {
+     if(this.phone||this.book.mode!=='idle')return;
+@@ -170,30 +201,29 @@
+     },this.safeInsets);
+   }
+   private closePhone():void{if(this.phone)this.phone.close();this.phone=null;}
+   private navigation():void {
+     const idle=this.book.mode==='idle';
+     const bar=item(this.panel,'MainNavigation',(this.safeInsets.left-this.safeInsets.right)/2,-581,720,118);bar.addComponent(BlockInputEvents);
+     bar.setScale((720-this.safeInsets.left-this.safeInsets.right)/720,1,1);
+     const entries=[
+-      {key:'recruit',name:'招募',glyph:'人',x:-280,enabled:false,action:()=>{}},
+-      {key:'vehicle',name:'车辆',glyph:'车',x:-150,enabled:idle,action:()=>this.openGarage()},
+-      {key:'orders',name:'抢单',glyph:'单',x:0,enabled:idle,action:()=>this.openPhone()},
+-      {key:'map',name:'地图',glyph:'图',x:150,enabled:true,action:()=>this.openMaps()},
+-      {key:'bills',name:'账单',glyph:'账',x:280,enabled:true,action:()=>this.openBills()},
++      {key:'recruit',name:'招募',x:-280,enabled:false,action:()=>{}},
++      {key:'vehicle',name:'车辆',x:-150,enabled:idle,action:()=>this.openGarage()},
++      {key:'orders',name:'抢单',x:0,enabled:idle,action:()=>this.openPhone()},
++      {key:'map',name:'地图',x:150,enabled:true,action:()=>this.openMaps()},
++      {key:'bills',name:'账单',x:280,enabled:true,action:()=>this.openBills()},
+     ];
+     for(const entry of entries){
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+-      const slot=main?box(bar,'Nav-'+entry.key,entry.x,0,136,100,enabled?C.primary:'#EAE7DE',30):item(bar,'Nav-'+entry.key,entry.x,0,116,100);
+-      if(main)label(slot,entry.name,0,0,34,foreground,124,true,'center');
++      const slot=main?box(bar,'Nav-'+entry.key,entry.x,4,152,108,enabled?C.primary:'#EAE7DE',28):item(bar,'Nav-'+entry.key,entry.x,0,116,100);
++      if(main)readable(slot,entry.name,0,0,40,foreground,140,true,'center',66);
+       else{
+-        const pictogram=box(slot,'PlaceholderIcon-'+entry.key,0,23,36,32,enabled?'#FFF1BB':'#F0EEE7',8);
+-        if(entry.key==='map')icon(pictogram,'map',0,0,foreground,.7);else label(pictogram,entry.glyph,0,0,20,foreground,32,true,'center');
+-        readable(slot,entry.name,0,-20,this.metrics().aux,foreground,108,true,'center');
++        icon(slot,entry.key,0,23,foreground,1.45);
++        const size=this.metrics().aux;readable(slot,entry.name,0,-27,size,foreground,108,true,'center',Math.ceil(size*1.42));
+       }
+       if(enabled)tap(slot,entry.action);
+     }
+   }
+   private accept(id:string):void {
+     if(!this.act(()=>this.book.accept(id)))return;this.closePhone();
+     this.rebuildLayout();
+   }
+@@ -280,20 +310,19 @@
+     const ok=this.store.save(this.book.serialize());
+     if(!ok&&this.lastSaveError!==this.store.message){this.lastSaveError=this.store.message;this.showMessage(this.store.message);}
+     if(ok)this.lastSaveError='';this.updatePlayerHeader();this.updateBills();
+   }
+   private updatePlayerHeader():void {
+     if(!this.money)return;const p=this.book.player;
+     this.city.setVehicle(p.vehicleTier);
+     this.money.string='¥'+(p.cashCents/100).toFixed(2);
+-    const m=this.metrics(),moneyWidth=this.money.node.getComponent(UITransform)!.width;
+-    this.money.fontSize=textHeight(this.money.string,m.amount,moneyWidth)>100?m.body:m.amount;this.money.lineHeight=Math.ceil(this.money.fontSize*1.42);
+     this.rating.string=String(p.rating);
+     this.experience.string=`Lv.${p.level} · ${p.experience}经验`;
++    this.layoutPlayerHeader();
+   }
+   private showMessage(message:string):void {
+     if(!this.root)return;if(this.toast){this.toast.active=false;this.toast.destroy();}
+     this.noticeMessage=message;
+     const m=this.metrics(),width=720-this.safeInsets.left-this.safeInsets.right-36,height=textHeight(message,m.body,width-32)+24;
+     const node=this.toast=box(this.root,'NoticeToast',(this.safeInsets.left-this.safeInsets.right)/2,-230-this.screenExtra/2,width,height,'#FFF0B7',16,'#D6B65A');
+     readable(node,message,0,0,m.body,C.ink,width-32,true,'center',height-16);
+     this.scheduleOnce(()=>{if(node.isValid)node.destroy();if(this.toast===node){this.toast=null;this.noticeMessage='';}},4);
+--- before/delivery-game/assets/scripts/map-sample/SampleUI.ts
++++ after/delivery-game/assets/scripts/map-sample/SampleUI.ts
+@@ -29,12 +29,15 @@
+ }
+ export function button(parent:Node,text:string,x:number,y:number,w:number,h:number,action:()=>void,fill=C.primary,foreground=C.ink,enabled=true):Node{
+  const n=box(parent,'Button-'+text,x,y,w,h,fill,14,fill===C.paper?C.line:undefined);label(n,text,0,0,22,foreground,w-12,true,'center');if(enabled)tap(n,action);return n;
+ }
+ export function icon(parent:Node,kind:string,x:number,y:number,fill=C.navy,scale=1):Node{
+  const n=item(parent,'Icon-'+kind,x,y,32,32),g=n.addComponent(Graphics);n.setScale(scale,scale,1);g.lineWidth=2.4;g.strokeColor=col(fill);g.fillColor=col(fill);
+  if(kind==='target'){g.circle(0,0,9);g.stroke();g.circle(0,0,3);g.fill();for(const [a,b,c,d] of [[-15,0,-10,0],[10,0,15,0],[0,-15,0,-10],[0,10,0,15]]){g.moveTo(a,b);g.lineTo(c,d);g.stroke();}}
+  else if(kind==='map'){g.moveTo(-13,-10);g.lineTo(-5,-6);g.lineTo(5,-10);g.lineTo(13,-6);g.lineTo(13,12);g.lineTo(5,8);g.lineTo(-5,12);g.lineTo(-13,8);g.close();g.stroke();for(const xx of [-5,5]){g.moveTo(xx,-6);g.lineTo(xx,8);g.stroke();}}
++ else if(kind==='recruit'){g.circle(0,7,5);g.stroke();g.roundRect(-10,-14,20,14,6);g.stroke();}
++ else if(kind==='vehicle'){g.circle(-9,-8,5);g.stroke();g.circle(11,-8,5);g.stroke();g.moveTo(-9,-8);g.lineTo(-1,6);g.lineTo(7,-8);g.lineTo(-9,-8);g.moveTo(7,-8);g.lineTo(9,10);g.lineTo(15,10);g.moveTo(-5,6);g.lineTo(1,6);g.stroke();}
++ else if(kind==='bills'){g.roundRect(-10,-14,20,28,2);g.stroke();for(const y of [7,0,-7]){g.moveTo(-6,y);g.lineTo(y===-7?3:6,y);g.stroke();}}
+  else if(kind==='plus'||kind==='minus'){g.moveTo(-9,0);g.lineTo(9,0);g.stroke();if(kind==='plus'){g.moveTo(0,-9);g.lineTo(0,9);g.stroke();}}
+  else if(kind==='sun'){g.circle(0,0,6);g.stroke();for(let i=0;i<8;i++){const a=i*Math.PI/4;g.moveTo(Math.cos(a)*10,Math.sin(a)*10);g.lineTo(Math.cos(a)*13,Math.sin(a)*13);g.stroke();}}
+  return n;
+ }
+--- before/delivery-game/tests/map-hud.test.cjs
++++ after/delivery-game/tests/map-hud.test.cjs
+@@ -7,17 +7,17 @@
+   addChild(n){this.children.push(n);n.parent=this;}
+   addComponent(Type){const c=new Type();c.node=this;this.components.set(Type,c);return c;}
+   getComponent(Type){return this.components.get(Type);}
+   setPosition(x,y){Object.assign(this,{x,y});}setScale(x,y=x){this.scaleX=x;this.scaleY=y;}on(event,callback){this.events.set(event,callback);}
+   getChildByName(name){return this.children.find(n=>n.name===name);}
+   destroy(){this.destroyed=true;}removeAllChildren(){this.children=[];}
+  }
+  class Color{constructor(r,g,b,a){Object.assign(this,{r,g,b,a});}}
+- class Graphics{constructor(){this.fills=[];this.linePoints=[];}roundRect(x,y,width,height){this.rect(x,y,width,height);}rect(x,y,width,height){this.lastRect={x,y,width,height};}fill(){this.fills.push({color:this.fillColor,rect:this.lastRect});}stroke(){}circle(){}moveTo(x,y){this.linePoints.push([x,y]);}lineTo(x,y){this.linePoints.push([x,y]);}close(){}}
++ class Graphics{constructor(){this.fills=[];this.linePoints=[];}clear(){this.fills=[];this.linePoints=[];}roundRect(x,y,width,height){this.rect(x,y,width,height);}rect(x,y,width,height){this.lastRect={x,y,width,height};}fill(){this.fills.push({color:this.fillColor,rect:this.lastRect});}stroke(){}circle(){}moveTo(x,y){this.linePoints.push([x,y]);}lineTo(x,y){this.linePoints.push([x,y]);}close(){}}
+  class UITransform{setContentSize(width,height){Object.assign(this,{width,height});}setAnchorPoint(){}}
+  class Label{static HorizontalAlign={LEFT:0,RIGHT:1,CENTER:2};static VerticalAlign={CENTER:0};static Overflow={SHRINK:0,CLAMP:1};}
+  class Camera{constructor(...args){this.args=args;}static fitViewportHeight(_data,height){return height;}setVehicle(){}setRider(){}setRoutes(){}locate(){}}
+  let frame={width:390,height:844},designHeight=1280,safeRect=h=>({x:0,y:0,width:720,height:h});
+  const browser={rotated:false,edges:{top:0,bottom:0,left:0,right:0}};
+  class Mask{static Type={GRAPHICS_RECT:0};}
+  const cc={isValid:n=>!n.destroyed,Sprite:class{static SizeMode={CUSTOM:0}},resources:{load(){}},Node,Color,Graphics,UITransform,Label,Mask,ScrollView:class{},BlockInputEvents:class{},Component:class{},sys:{getSafeAreaRect(symmetric){assert.equal(symmetric,false);return safeRect(designHeight);}},view:{getFrameSize:()=>frame,setDesignResolutionSize(_w,h){designHeight=h;}},ResolutionPolicy:{SHOW_ALL:1},Layers:{Enum:{UI_2D:1}},_decorator:{ccclass:()=>Type=>Type}},modules={};
+  function load(name){
+@@ -45,16 +45,41 @@
+ test('header groups profile information in an inset white card with readable dark text',()=>{
+  const h=harness(),header=h.walk(h.root).find(n=>n.name==='Header'),fills=header.getComponent(h.Graphics).fills;
+  assert.equal(fills.length,1);assert.deepEqual([fills[0].color.r,fills[0].color.g,fills[0].color.b,fills[0].color.a],[255,255,255,255]);
+  const r=h.bounds(header);assert.ok(r.left>-360&&r.right<360&&r.top<640,'card floats clear of the screen edges');
+  for(const node of [h.sample.money.node,h.sample.rating.node,h.sample.experience.node,h.walk(header).find(n=>n.name==='PlayerAvatar')]){
+   assert.ok(h.walk(header).includes(node));const b=h.bounds(node);assert.ok(b.left>=r.left&&b.right<=r.right&&b.top<=r.top&&b.bottom>=r.bottom);
+  }
+  assert.ok(h.sample.money.color.r<80&&h.sample.money.color.g<80&&h.sample.money.color.b<80);
++});
++
++test('profile identity, money and rating remain separate when device width and balance change',()=>{
++ for(const frame of [{width:320,height:568},{width:393,height:852},{width:430,height:932}]){
++  const b=realBook(),h=harness(b);h.setFrame(frame);h.sample.rebuildLayout();
++  const check=()=>{
++   const nodes=h.walk(h.sample.root),card=nodes.find(n=>n.name==='Header'),groups=['ProfileIdentity','ProfileWallet','ProfileRating'].map(name=>nodes.find(n=>n.name===name));
++   assert.ok(groups.every(Boolean),'identity, money and rating each have their own layout area');
++   const areas=groups.map(h.bounds),edge=h.bounds(card);
++   assert.ok(areas[0].right<areas[1].left&&areas[1].right<areas[2].left,'column areas have clear horizontal gaps');
++   assert.equal(h.sample.experience.node.parent,groups[0],'level and experience belong with the nickname');
++   assert.equal(h.sample.money.node.parent,groups[1]);assert.equal(h.sample.rating.node.parent,groups[2]);
++   for(const group of groups)for(const node of h.walk(group)){
++    const r=h.bounds(node);assert.ok(r.left>=edge.left&&r.right<=edge.right&&r.bottom>=edge.bottom&&r.top<=edge.top,'all profile content stays inside its white card');
++   }
++   for(const group of groups){
++    const labels=group.children.filter(n=>n.getComponent(h.Label));
++    if(labels.length===2){const a=h.bounds(labels[0]),b=h.bounds(labels[1]);assert.ok(a.bottom>b.top||b.bottom>a.top,'profile text rows do not overlap');}
++   }
++  };
++  check();const raw=JSON.parse(b.serialize());raw.player.cashCents=Number.MAX_SAFE_INTEGER;
++  const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
++  h.sample.book=OrderBook.restore(b.data,JSON.stringify(raw),()=>.1);h.sample.updatePlayerHeader();check();
++  assert.equal(h.sample.money.string,'¥90071992547409.91');
++ }
+ });
+ 
+ test('notch and home indicator insets move real profile and all five menu touch targets into the safe rect',()=>{
+  const h=harness(realBook());h.setSafeArea(height=>({x:0,y:64,width:720,height:height-174}));const before=h.sample.book.serialize();h.sample.rebuildLayout();
+  const top=h.height()/2-110,bottom=-h.height()/2+64,nodes=h.walk(h.sample.root);
+  const avatar=nodes.find(n=>n.name==='PlayerAvatar');assert.ok(h.bounds(avatar).top<=top-12);
+  assert.ok(h.bounds(h.sample.money.node).top<=top-12);
+  for(const node of nodes.filter(n=>n.name.startsWith('Nav-')))assert.ok(h.bounds(node).bottom>=bottom+8,node.name);

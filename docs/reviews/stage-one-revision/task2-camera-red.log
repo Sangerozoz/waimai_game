@@ -1,0 +1,67 @@
+TAP version 13
+# Subtest: translating both fingers moves the map in the same direction without changing zoom
+ok 1 - translating both fingers moves the map in the same direction without changing zoom
+  ---
+  duration_ms: 0.553
+  type: 'test'
+  ...
+# Subtest: real drag, zoom, locate, route focus and following all apply viewport-aware clamps
+not ok 2 - real drag, zoom, locate, route focus and following all apply viewport-aware clamps
+  ---
+  duration_ms: 1.804292
+  type: 'test'
+  location: '/private/tmp/task2-camera-red/tests/map-gestures.test.cjs:49:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok((-360-x)/s>=b.minX-1e-8)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    assertViewport (/private/tmp/task2-camera-red/tests/map-gestures.test.cjs:46:9)
+    TestContext.<anonymous> (/private/tmp/task2-camera-red/tests/map-gestures.test.cjs:52:32)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: legacy outside rider and route remain visible in a continuous compatibility camera
+ok 3 - legacy outside rider and route remain visible in a continuous compatibility camera
+  ---
+  duration_ms: 0.09875
+  type: 'test'
+  ...
+# Subtest: spreading two fingers around a stationary midpoint keeps that map point pinned
+ok 4 - spreading two fingers around a stationary midpoint keeps that map point pinned
+  ---
+  duration_ms: 0.053334
+  type: 'test'
+  ...
+# Subtest: the pinch midpoint remains stable when zoom reaches its upper limit
+ok 5 - the pinch midpoint remains stable when zoom reaches its upper limit
+  ---
+  duration_ms: 0.080334
+  type: 'test'
+  ...
+# Subtest: locating for departure restores fifty metres and every overview or route camera stays within thirty to one hundred metres
+ok 6 - locating for departure restores fifty metres and every overview or route camera stays within thirty to one hundred metres
+  ---
+  duration_ms: 0.084
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 143.019875

@@ -1,0 +1,6 @@
+### Result
+{"restored":1,"rapidPressed":0.96,"cancelled":1,"root":1}
+### Ran Playwright code
+```js
+await (async(page)=>{return await page.evaluate(async()=>{const cc=await System.import('cc');const n=window.uiFixture.sample.root.children.find(n=>n.name==='Button-抢单'),v=n.getChildByName('PressVisual'),ev={getID:()=>1,getUILocation:()=>({x:0,y:0})};const pause=()=>new Promise(r=>setTimeout(r,180));n.emit(cc.Node.EventType.TOUCH_START,ev);n.emit(cc.Node.EventType.TOUCH_END,ev);await pause();const restored=v.scale.x;n.emit(cc.Node.EventType.TOUCH_START,ev);n.emit(cc.Node.EventType.TOUCH_END,ev);n.emit(cc.Node.EventType.TOUCH_START,ev);await pause();const rapidPressed=v.scale.x;n.emit(cc.Node.EventType.TOUCH_CANCEL,ev);return {restored,rapidPressed,cancelled:v.scale.x,root:n.scale.x};});})(page);
+```

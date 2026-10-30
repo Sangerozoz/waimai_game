@@ -1,0 +1,99 @@
+--- reviewed/delivery-game/assets/scripts/map-sample/MapSample.ts
++++ final/delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -165,17 +165,22 @@
+     this.rating=readable(rating,'',0,0,m.body,C.ink,100,true,'center');
+     this.updatePlayerHeader();
+   }
+   private layoutPlayerHeader():void {
+     const card=this.profileCard,m=this.metrics(),width=720-this.safeInsets.left-this.safeInsets.right-36,inner=width-24,gap=10;
+     const content=card.getChildByName('HeaderContent')!,identity=content.getChildByName('ProfileIdentity')!,wallet=content.getChildByName('ProfileWallet')!,rating=content.getChildByName('ProfileRating')!;
+     const identityWidth=Math.floor(inner*.47),walletWidth=Math.floor(inner*.33),ratingWidth=inner-identityWidth-walletWidth-gap*2;
+     const avatarSize=104,textWidth=identityWidth-112;
+-    const nameHeight=Math.max(Math.ceil(m.body*1.2)+4,textHeight(this.playerName.string,m.body,textWidth)-12),experienceHeight=Math.max(Math.ceil(m.aux*1.2)+4,textHeight(this.experience.string,m.aux,textWidth)-12);
++    const characterUnits=(value:string)=>[...value].reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0);
++    const experienceUnits=characterUnits(this.experience.string),experienceFont=Math.max(24,Math.min(m.aux,Math.floor(textWidth/Math.max(1,experienceUnits))));
++    this.playerName.lineHeight=Math.ceil(m.body*1.2);
++    this.experience.fontSize=experienceFont;this.experience.lineHeight=Math.ceil(experienceFont*1.2);
++    const nameHeight=Math.max(1,Math.ceil(characterUnits(this.playerName.string)*m.body/textWidth))*this.playerName.lineHeight+4;
++    const experienceHeight=Math.max(1,Math.ceil(experienceUnits*experienceFont/textWidth))*this.experience.lineHeight+4;
+     const plateHeight=nameHeight+experienceHeight+12,identityHeight=Math.max(avatarSize,plateHeight+12);
+     const walletTextWidth=walletWidth-58,ratingTextWidth=ratingWidth-48;
+     const units=[...this.money.string].reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0);
+     const moneyFont=Math.max(m.body,Math.min(m.amount,Math.floor(walletTextWidth/Math.max(1,units))));
+     const moneyHeight=textHeight(this.money.string,moneyFont,walletTextWidth),ratingHeight=textHeight(this.rating.string,m.body,ratingTextWidth);
+     const walletHeight=Math.max(60,moneyHeight+12),ratingBlockHeight=Math.max(60,ratingHeight+12),height=Math.max(identityHeight,walletHeight,ratingBlockHeight)+24,left=-inner/2;
+     const place=(node:Node,x:number,y:number,w:number,h:number)=>{node.setPosition(x,y);node.getComponent(UITransform)!.setContentSize(w,h);};
+     const paint=(node:Node,x:number,y:number,w:number,h:number,fill:string,radius:number,stroke?:string)=>{
+@@ -332,17 +337,17 @@
+     if(ok)this.lastSaveError='';this.updatePlayerHeader();this.updateBills();
+   }
+   private updatePlayerHeader():void {
+     if(!this.money)return;const p=this.book.player;
+     this.city.setVehicle(p.vehicleTier);
+     this.money.string=(p.cashCents/100).toFixed(2);
+     this.rating.string=String(p.rating);
+     const xp=experienceProgress(p.experience);
+-    this.experience.string=`Lv.${p.level} · ${xp.current}/${xp.required}`;
++    this.experience.string=`Lv.${p.level} ${xp.current}/${xp.required}`;
+     this.layoutPlayerHeader();
+   }
+   private showMessage(message:string):void {
+     if(!this.root)return;if(this.toast){this.toast.active=false;this.toast.destroy();}
+     this.noticeMessage=message;
+     const m=this.metrics(),width=720-this.safeInsets.left-this.safeInsets.right-36,height=textHeight(message,m.body,width-32)+24;
+     const node=this.toast=box(this.root,'NoticeToast',(this.safeInsets.left-this.safeInsets.right)/2,-230-this.screenExtra/2,width,height,'#FFF0B7',16,'#D6B65A');
+     readable(node,message,0,0,m.body,C.ink,width-32,true,'center',height-16);
+--- reviewed/delivery-game/tests/map-hud.test.cjs
++++ final/delivery-game/tests/map-hud.test.cjs
+@@ -79,38 +79,50 @@
+   h.setSafeArea(height=>({x:30,y:0,width:640,height}));h.sample.rebuildLayout();check();
+   const safeCard=h.bounds(h.walk(h.sample.root).find(n=>n.name==='Header'));assert.equal(safeCard.left,-360+30+18);assert.equal(safeCard.right,360-50-18);
+  }
+ });
+ 
+ test('reference header has an overlapping square avatar, nickname above real XP, and leading pill badges',()=>{
+  for(const frame of [{width:320,height:568},{width:393,height:852},{width:430,height:932}]){
+   const h=harness();h.setFrame(frame);h.sample.rebuildLayout();
++  for(const xp of [0,100,184,185]){
++  const progress=h.load('./PresentationLayout').experienceProgress(xp);Object.assign(h.sample.book.player,{experience:xp,level:progress.level});h.sample.updatePlayerHeader();
+   const node=name=>h.walk(h.sample.root).find(n=>n.name===name),avatar=h.bounds(node('PlayerAvatar')),plate=h.bounds(node('IdentityPlate')),track=h.bounds(node('ExperienceTrack'));
+   assert.equal(node('PlayerAvatar').getComponent(h.UITransform).width,node('PlayerAvatar').getComponent(h.UITransform).height);
+   assert.ok(avatar.top>plate.top&&avatar.bottom<plate.bottom,'avatar is taller than the identity plate');
+   assert.ok(avatar.right>plate.left&&avatar.right<h.bounds(h.sample.playerName.node).left,'avatar overlaps plate but clears the text');
+   assert.ok(h.bounds(h.sample.playerName.node).bottom>=track.top,'nickname is above the XP bar');
++  for(const label of [h.sample.playerName,h.sample.experience]){
++   const area=label.node.getComponent(h.UITransform),units=[...label.string].reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0);
++   assert.ok(label.fontSize>=24&&units*label.fontSize<=area.width,'normal header rows fit on one readable line');
++   assert.ok(area.height>=label.lineHeight&&area.height<2*label.lineHeight,'compact row contains a full line without clipping');
++   assert.equal(label.overflow,h.Label.Overflow.CLAMP);
++  }
+   for(const [badge,value] of [['WalletBadge',h.sample.money.node],['RatingBadge',h.sample.rating.node]]){
+    assert.ok(h.bounds(node(badge)).right<h.bounds(value).left,'badge and numeric value never overlap');
+    assert.equal(node(badge).y,value.y,'badge and value form one horizontal pill');
++  }
+   }
+  }
+ });
+ 
+ test('XP presentation follows county thresholds and updates the actual fill through level transitions',()=>{
+  const h=harness(),progress=h.load('./PresentationLayout').experienceProgress;
+  for(const [xp,start,end,fraction] of [[0,0,50,0],[40,0,50,.8],[50,50,185,0],[100,50,185,50/135],[150,50,185,100/135],[185,185,367,0],[366,185,367,181/182]]){
+   const p=progress(xp);assert.deepEqual([p.start,p.end,p.progress],[start,end,fraction]);
+   Object.assign(h.sample.book.player,{experience:xp,level:p.level});h.sample.updatePlayerHeader();
+   const nodes=h.walk(h.sample.root),fill=nodes.find(n=>n.name==='ExperienceFill'),track=nodes.find(n=>n.name==='ExperienceTrack');
+   assert.ok(Math.abs(fill.getComponent(h.UITransform).width/track.getComponent(h.UITransform).width-fraction)<1e-10);
+-  assert.equal(fill.active,fraction>0);assert.equal(h.sample.experience.string,`Lv.${p.level} · ${xp-start}/${end-start}`);
++  assert.equal(fill.active,fraction>0);assert.equal(h.sample.experience.string,`Lv.${p.level} ${xp-start}/${end-start}`);
+  }
+  for(const xp of [Number.MAX_SAFE_INTEGER,Infinity,-1]){const p=progress(xp);assert.ok(Number.isFinite(p.progress)&&p.progress>=0&&p.progress<=1);}
++ const extreme=progress(Number.MAX_SAFE_INTEGER);Object.assign(h.sample.book.player,{experience:Number.MAX_SAFE_INTEGER,level:extreme.level});h.sample.updatePlayerHeader();
++ assert.equal(h.sample.experience.string,`Lv.${extreme.level} ${extreme.current}/${extreme.required}`);
++ assert.equal(h.sample.experience.fontSize,24);assert.ok(h.sample.experience.node.getComponent(h.UITransform).height>h.sample.experience.lineHeight,'extreme XP keeps all digits by wrapping');
+ });
+ 
+ test('notch and home indicator insets move real profile and all five menu touch targets into the safe rect',()=>{
+  const h=harness(realBook());h.setSafeArea(height=>({x:0,y:64,width:720,height:height-174}));const before=h.sample.book.serialize();h.sample.rebuildLayout();
+  const top=h.height()/2-110,bottom=-h.height()/2+64,nodes=h.walk(h.sample.root);
+  const avatar=nodes.find(n=>n.name==='PlayerAvatar');assert.ok(h.bounds(avatar).top<=top-12);
+  assert.ok(h.bounds(h.sample.money.node).top<=top-12);
+  for(const node of nodes.filter(n=>n.name.startsWith('Nav-')))assert.ok(h.bounds(node).bottom>=bottom+8,node.name);

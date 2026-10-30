@@ -1,0 +1,159 @@
+{
+  "upgrade": {
+    "before": {
+      "player": {
+        "cashCents": 33527,
+        "rating": 90,
+        "experience": 110,
+        "completedOrders": 11,
+        "vehicleTier": 1,
+        "stationLevel": 1,
+        "level": 2
+      },
+      "timing": {
+        "displaySeconds": 3360,
+        "animationSeconds": 9.333333333333334
+      },
+      "quote": 2461
+    },
+    "after": {
+      "player": {
+        "cashCents": 1527,
+        "rating": 90,
+        "experience": 110,
+        "completedOrders": 11,
+        "vehicleTier": 2,
+        "stationLevel": 1,
+        "level": 2
+      },
+      "timing": {
+        "displaySeconds": 3120,
+        "animationSeconds": 8.666666666666666
+      },
+      "quote": 2756
+    }
+  },
+  "refresh": {
+    "before": {
+      "daily": {
+        "day": "2026-10-28",
+        "used": 0
+      },
+      "ids": [
+        "CC-5",
+        "CC-10",
+        "CC-14",
+        "CC-15",
+        "CC-16"
+      ],
+      "cash": 1527
+    },
+    "exhausted": {
+      "daily": {
+        "day": "2026-10-28",
+        "used": 2
+      },
+      "ids": [
+        "CC-72",
+        "CC-73",
+        "CC-74",
+        "CC-75",
+        "CC-76"
+      ],
+      "cash": 1527
+    },
+    "rejected": {
+      "daily": {
+        "day": "2026-10-28",
+        "used": 2
+      },
+      "ids": [
+        "CC-72",
+        "CC-73",
+        "CC-74",
+        "CC-75",
+        "CC-76"
+      ],
+      "cash": 1527
+    }
+  },
+  "postUpgrade": {
+    "daily": {
+      "day": "2026-10-28",
+      "used": 2
+    },
+    "receipt": {
+      "orderId": "CC-76",
+      "incomeCents": 2102,
+      "basePriceCents": 1618,
+      "ratingBefore": 90,
+      "ratingDelta": 2,
+      "ratingAfter": 92,
+      "experienceGained": 10,
+      "levelBefore": 2,
+      "levelAfter": 2,
+      "lateSeconds": 0,
+      "damage": "none",
+      "completedOrders": 12,
+      "newCashCents": 3629,
+      "summary": [
+        "准时送达",
+        "按要求放门口，评价+2",
+        "餐品完好",
+        "经验+10",
+        "车辆收入×1.12 · 等级收入×1.03",
+        "评价倍率×1.126 · 餐损保留100%"
+      ],
+      "playerBefore": {
+        "cashCents": 1527,
+        "rating": 90,
+        "experience": 110,
+        "completedOrders": 11,
+        "vehicleTier": 2,
+        "stationLevel": 1,
+        "level": 2
+      },
+      "outcome": {
+        "displaySeconds": 1440,
+        "deadlineSeconds": 1740,
+        "damage": "none",
+        "doorAnswer": true
+      }
+    },
+    "player": {
+      "cashCents": 3629,
+      "rating": 92,
+      "experience": 120,
+      "completedOrders": 12,
+      "vehicleTier": 2,
+      "stationLevel": 1,
+      "level": 2
+    }
+  },
+  "corruption": {
+    "backupRecovery": {
+      "corrupt": "{broken-test-primary",
+      "player": {
+        "cashCents": 1527,
+        "rating": 90,
+        "experience": 110,
+        "completedOrders": 11,
+        "vehicleTier": 2,
+        "stationLevel": 1,
+        "level": 2
+      }
+    },
+    "noValidSlot": {
+      "player": {
+        "cashCents": 10000,
+        "rating": 80,
+        "experience": 0,
+        "completedOrders": 0,
+        "vehicleTier": 1,
+        "stationLevel": 1,
+        "level": 1
+      },
+      "corrupt": "{broken-test-both-primary"
+    }
+  }
+}

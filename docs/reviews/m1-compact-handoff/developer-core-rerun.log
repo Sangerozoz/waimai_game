@@ -1,0 +1,32 @@
+PASS 1 manual phases truncate dt, reject premature buttons/cancel, preserve 0/1s service, single damage/result
+PASS 2 schema4 strict stage/mode/elapsed/service/damage/receipt and anchor validation
+PASS 3 free cancellation planning/toPickup/awaitPickup preserves wallet/ledger/pool/quota/RNG and physical pose
+PASS 4 cancel/reaccept starts at exact anchor, includes partial distance/time, second prefix cancellation is continuous
+PASS 5 zero-distance pickup still requires pickup and delivery decisions; waiting does not penalize trip clock
+PASS 6 reverse origin prefix permits exact second cancellation without virtual nodes or jumping
+  relocated node=36 max=10600
+PASS 7 cancelled old 10 candidates still render after relocation exceeds some trip budgets
+  one-way anchor={"road":"r","from":"0","to":"1","fraction":0.15000000000000002} pool=CC-1:0>5,CC-2:4>13,CC-3:8>22,CC-4:12>34,CC-5:16>49,CC-6:20>25,CC-7:24>33,CC-8:28>43,CC-9:32>50,CC-10:36>47
+PASS 8 one-way cancellation preserves pool and renders unreachable offers without whole-lobby failure
+  refreshed=CC-11:40>45,CC-12:44>46,CC-13:48>50,CC-14:4>26,CC-15:8>41,CC-16:12>17,CC-17:16>23,CC-18:20>35,CC-19:24>42,CC-20:28>39
+PASS 9 one-way refresh generation includes true origin, so every emitted offer is genuinely legal
+PASS 10 anchor exits enforce one-way direction and reject off-road/invalid fractions; partial reverse remains exact
+  legacy arrived restored mode=arrived
+PASS 11 actual before v3 idle/routes/running/arrived/done retain saved economics and legacy workflow
+  v2 idle idle
+  v2 routes routes
+  v2 running done
+  v2 paused done
+  v2 done done
+  v2 arrived arrived
+  v2 fifthDone done
+  v2 fiftyRunning done
+  v2 fiftyDone done
+  v2 oldLevelTwo idle
+PASS 12 genuine ZIP v2 fixture retains clock/receipt and follows legacy automatic continuation
+PASS 13 v1 thirty-candidate migration uses real before validator and preserves player/quota/result
+PASS 14 future primary bytes stay unchanged and CountySaveStore blocks every write
+  quote combinations=72
+PASS 15 quote and I0/I1/I2 match before formula, round each integer cent and never touch MAX wallet
+SOURCE_SHA256 {"delivery-game/assets/scripts/map-sample/OrderBook.ts":"f3b08c1cd876361eef71009b3a316fac55d6ec7711c95d0542de82bf02e816b2","delivery-game/assets/scripts/map-sample/RoadRouter.ts":"fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690","delivery-game/assets/scripts/map-sample/DeliveryClock.ts":"163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef","delivery-game/assets/scripts/map-sample/CountyRules.ts":"6bf9548f2e733c82ef799da0e50a6be17d2abd5d04cca4a0ac73c23f5a63ec13","delivery-game/assets/scripts/domain/GameConfig.ts":"1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e","delivery-game/assets/scripts/map-sample/CountyConfig.ts":"f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f","delivery-game/assets/scripts/map-sample/CountySnapshot.ts":"23971114c1c0790d11e7c3ceb5faa8385a30757441fdf90585c8171c8c8c279f","delivery-game/assets/scripts/map-sample/RiderAnchor.ts":"08205207aa146b0d2d2bf5784e20ef8a559f574180a8f00c3756e5087fd16d65","delivery-game/assets/scripts/map-sample/ManualHandoff.ts":"2f6c02332fb52fe8e3c75cfaf260149ce93a6d5cf1d4532f9c72145ee3d31a95","delivery-game/assets/scripts/map-sample/DeliveryLedger.ts":"b1f298b9618f341970fb7a29822c99435914f648282c77330c6c778a05144bc2","delivery-game/assets/scripts/map-sample/CityExtent.ts":"6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194","delivery-game/assets/scripts/map-sample/FoodCatalog.ts":"45e8506074d51b94f7b38b4518a37cb752e25ee291cb0f9c5e6b7b64dccb21f6","delivery-game/assets/scripts/map-sample/DispatchAreas.ts":"c872dfada500e934ff2ce7577a39dd642d072caa4151279563472e9b47327641","delivery-game/assets/scripts/map-sample/OrderPresentation.ts":"541d11ec650364dfab41132a0dea9242ba6f5dca48113062b43274764ca38d86","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/OrderBook.ts":"f57bc0c7472ca0d0e00e536073447f497d51d367182999ffd249634a8d6d9570","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/RoadRouter.ts":"8523c4916559e1a87960f9b49f11d18a104e8094ba570fcfe5995e079eda202d","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/DeliveryClock.ts":"163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/CountyRules.ts":"8956081d0a517979d85d1dcc6413ef486a9bfead9ef631fda8b78ac34b2c3fee","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/CountyConfig.ts":"f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/CountySnapshot.ts":"2f451b6c7ea08338221aa016ae3164efb80755eb453eba5a546876db74cad7b7","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/DeliveryLedger.ts":"b1f298b9618f341970fb7a29822c99435914f648282c77330c6c778a05144bc2","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/CityExtent.ts":"6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/FoodCatalog.ts":"45e8506074d51b94f7b38b4518a37cb752e25ee291cb0f9c5e6b7b64dccb21f6","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/DispatchAreas.ts":"9c252c3c546dc4f5d5b2ed9356e06db0a79901e33e93e61fb93c97f462a22a6f","docs/reviews/m1-compact-handoff/before/delivery-game/assets/scripts/map-sample/OrderPresentation.ts":"541d11ec650364dfab41132a0dea9242ba6f5dca48113062b43274764ca38d86","delivery-game/assets/scripts/map-sample/CountySaveStore.ts":"77d64e89dfa0be2cbcd1a206290a91fbd564dd32583b8b0d578562c7eb7eb197"}
+RESULT 15 passed, 0 failed []

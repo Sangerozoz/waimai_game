@@ -1,23 +1,43 @@
 # 《送外卖》Implementation Plan
 
-> **For agentic workers:** Use superpowers:subagent-driven-development or superpowers:executing-plans to implement the currently authorized task. Steps use checkbox syntax. User task acceptance gates override continuous execution: this run executes T01 only, then delivers for user playtesting.
+> **后续实施入口已重排：** [V2七阶段实施方案](2026-10-28-delivery-game-v2.md)。本文件保留旧T01–T12划分与当前版本证据，后续不按旧T05直接跳过配送玩法增强；当前阶段验收状态不变，本轮仅更新方案。
+
+> **For agentic workers:** Use superpowers:subagent-driven-development or superpowers:executing-plans to implement the currently authorized task. Steps use checkbox syntax. Current authorization covers first-stage T01–T04; deliver this stage for user playtesting before starting T05.
 
 **Goal:** 逐步交付能主动配送、持续成长并在本地保存的 Cocos 经营小游戏。
 
-**Architecture:** `DeliverySession` 持有玩家、列表与当前配送的唯一状态，规则与抽样脱离 Cocos，`GameConfig` 提供可调数据。Cocos 控制器只负责输入、持久化和连接地图/HUD，避免界面自行结算或改钱。
+**Architecture:** 当前地图版由 `OrderBook` 持有唯一玩家、订单与配送状态；`CountyRules` 计算结算，`CountySnapshot` 校验恢复，`CountySaveStore` 处理持久化与保护副本。Cocos 视图只调用状态操作，不自行加钱。原 `DeliverySession` 与 Main 场景保留为旧版。
 
 **Tech Stack:** 本机 Cocos Creator 3.8.8、TypeScript、Node 内置测试、本机 Cocos 自带 TypeScript 编译器、Web Mobile 浏览器构建。
 
+**后续方案讨论（未开工）：** 自动行驶＋连续点击加速、到点取送交互、最多三单规划与体力补给已整理为[整体汇总](../specs/2026-10-28-delivery-gameplay-evolution.md)。建议当前收尾后、经营扩张前分三个增量验证；原三大阶段及当前验收状态不自动改变，本轮不实施新玩法。
+
+**最新接续（导航与账单）：** 站点移至地图右上角，底部为招募/车辆/抢单/地图/账单；底栏无背景、无状态小字。账单12项接真实结算与前台计时，旧档历史不倒推、缺失指标标≥下限。168项检查、类型和构建通过，第一阶段继续待用户页面复验，未开启第二阶段经营；见[账单交付](../../reviews/2026-10-28-billing.md)。
+
+**当前接续（2026-10-28，主界面与餐损事件）：** 头像/昵称/等级与资金评价头部，五入口底部导航，未上线禁用占位，被动收益未开放隐藏；到店明确取餐提示，放门口改必选弹窗，真实送餐距离中段一次餐损提示2秒。153项自动检查、类型和构建通过，用户页面复验待完成。正式图标由用户提供，音效/动效及修车/雨天事件为后续待办，订单手机页等待用户参考结构。第一阶段仍收尾，第二阶段未启动；最新记录见[主界面与事件交付](../../reviews/2026-10-28-main-shell.md)。
+
+**最新接续（2026-10-28）：** 六组验收反馈修订及窄长屏边界修复已完成103项自动检查、类型、构建和最终独立审查。用户要求页面操作测试由用户完成，助手只检查代码逻辑、数值与存档兼容；不再自行操作页面。素材统一来源`/Users/sanger/Documents/个人/外卖`，载具顶视用于地图、侧视用于页面，[素材说明](../../asset-library.md)已登记。当前待用户复验，第二阶段未启动；[最新证据](../../reviews/2026-10-28-stage-one-revision.md)。
+
+## 当前执行位置（2026-10-28 更新）
+
+**最新：用户验收后第一阶段返修进行中。** 原验收17项通过、3项失败、4项未测保留。用户确认新规则为30分钟对应10秒、上限15秒、D+200元、5单首次经验升级，并授权修复地图边界、丰富订单与餐图、精简卡片、取消主动暂停和自动结算弹窗。当前规格与任务以[修订设计](../specs/2026-10-28-stage-one-revision-design.md)、[修订计划](2026-10-28-stage-one-revision.md)为准；下文320元/12秒及原交付记录描述上一版本，不再是本轮新规则。第二阶段仍未启动。
+
+用户在了解阶段划分后授权「继续进行第一阶段的任务」，范围为 T01–T04。沿用已确认的黄色二维地图、真实路网与虚构名称、模拟手机接单、多地址、默认跟随及独立双时钟；本次已集成经营与保存，完成首次换车的可玩循环。
+
+当前状态：**第一阶段开发和桌面技术验证完成，待共同体验验收**。最新按[附近派单与地图比例计划](2026-10-28-local-dispatch.md)收敛到50m默认/30–100m、附近10单滚动列表、骑手连续取送，外围真实场景已补齐查询覆盖。83项检查、最终构建、连续两单与恢复实测证据见[最终交付记录](../../reviews/2026-10-28-stage-one-final.md)，[24项用户验收清单](../../acceptance/2026-10-28-stage-one.md)已提供。本轮广告置顶单仅入后续方案，不宣告用户已接受画面或手感，也未开展第二阶段。
+
+总流程保持为：体验目标与范围 → 当前任务卡 → 实施与证据 → 用户体验验收 → 内容扩展 → 目标设备及发行验证。原 T01 被否决、地图R1/R2返工的文档作为历史保留，当前状态以本次阶段记录为准。
+
 ## Global Constraints
 
-- 当前产品依据：`docs/superpowers/specs/2026-10-27-delivery-game-design.md`。初始现金 100 元，D 车免费，首升 D+ 320 元。
-- 仅第一单轻引导；后续正常列表 5 条，至少 3 条符合当前装备容量。
-- 选路本身不扣分。道路 5/10/13 秒，普通目标 15 秒、加急 8 秒为初始配置；超时 −3 仅计一次，订单仍结算。
-- 前台配送计时，后台暂停并保存；思考选路和到达处理不消耗配送时限。
+- 当前产品依据：`docs/superpowers/specs/2026-10-27-delivery-game-design.md`。初始现金 100 元，D 车免费，首升D+200元。
+- 仅第一单轻引导；大厅10条普通订单、上下滑动不翻页。每个连续5单段至少3条容量符合，普通单全程道路≤10km，送后从当前位置重筛补齐。
+- 选路本身不扣分。显示时长取真实路径游戏化换算；30分钟=10秒、动画≤15秒。普通时限为最快展示时间+5分钟、加急为最快展示时间；超时−3仅计一次，订单仍结算。旧5/10/13及15/8秒已被覆盖。
+- 前台配送计时，系统后台冻结并保存；不提供手动暂停，刷新自动接续。思考选路和到达处理不消耗配送时限。
 - 评价 20–100，每单变化 −10 至 +6；收入使用本单更新后的评价，经验在收入结算后增长。
 - 本地保存从 T01 接入，恢复不能重抽已接受的结果或重复发奖。
 - 只在 `delivery-game/` 新增游戏代码，不改旧躲避游戏逻辑，不增加另一个项目根目录。
-- 本轮完成 T01 后交用户实测，不自动开展 T02。其余任务不按单个文件或页面拆分交付。
+- 本轮交付第一阶段T01–T04供用户实测，不自动开展T05。其余任务不按单个文件或页面拆分交付。
 
 ## 阶段与出口
 
@@ -28,93 +48,35 @@
 | 二 B：扩张，T08–T09 | 省会/一线、新需求、长途商务、工具和骑手到 7 档，波浪节奏 | 从城市进入省会和一线；新机制可理解；省会回落经用户体验确认 |
 | 三：终局，T10–T12 | 国际一线、独立线索、S/SS/SSS、特殊大单、收藏与最高档强化 | 普通单仍可持续赚钱；分别解锁隐藏款；实例分配和等级保存正确；目标构建完成验收 |
 
-## 文件边界
+## 当前文件边界
 
 | 文件 | 职责 |
 | --- | --- |
-| `delivery-game/assets/scripts/domain/GameConfig.ts` | 数据类型、道路、损坏、初始资金、经验和车辆配置 |
-| `delivery-game/assets/scripts/domain/DeliverySession.ts` | 接单、路线预览、出发、推进、结算、列表保底、序列化恢复 |
-| `delivery-game/assets/scripts/DeliveryController.ts` | Cocos 生命周期、用户操作、存档、地图/HUD 连接 |
-| `delivery-game/assets/scripts/view/Widgets.ts` | 可点击卡片、文字、按钮等 Cocos UI 原语 |
-| `delivery-game/assets/scripts/view/TownMap.ts` | 县城俯视图、三条路径、配送车辆与动画位置 |
-| `delivery-game/assets/scripts/view/DeliveryHUD.ts` | 订单列表、路线比较、配送进度与结算 |
-| `delivery-game/assets/scenes/Main.scene` | Canvas、相机、启动控制器 |
-| `delivery-game/scripts/test.cjs` | 用本机编译器编译真实纯逻辑后运行 Node 测试 |
-| `delivery-game/scripts/typecheck.cjs` | Cocos 工程类型检查 |
-| `delivery-game/scripts/build-web.sh` | Cocos 命令行构建并验证输出 |
-| `delivery-game/scripts/serve-web.sh` | 本地静态试玩服务 |
-| `delivery-game/tests/delivery-session.test.cjs` | 资金、状态、容量保底、超时、恢复与幂等结果的行为测试 |
+| `delivery-game/assets/scripts/map-sample/OrderBook.ts` | 玩家、候选单、选路、配送、升级、刷新、序列化的唯一状态 |
+| `delivery-game/assets/scripts/map-sample/CountyRules.ts` | 正式餐损风险、评价、资金、经验的纯计算 |
+| `delivery-game/assets/scripts/map-sample/CountySnapshot.ts` | 图指纹、字段与路径、结果和幂等恢复校验 |
+| `delivery-game/assets/scripts/map-sample/CountySaveStore.ts` | 主档、有效备份、损坏原文、写入失败和并发保护 |
+| `delivery-game/assets/scripts/map-sample/MapSample.ts` | 生命周期、前台计时、保存、HUD、交付与车辆面板 |
+| `delivery-game/assets/scripts/map-sample/OrderPhone.ts` | 餐图与精简10单滚动列表、预计收入、手动刷新 |
+| `delivery-game/assets/scripts/map-sample/DeliveryClock.ts` | 原始路径时间、展示时间、动画及进度映射 |
+| `delivery-game/assets/scripts/map-sample/CityMap.ts`、`RoadRouter.ts` | 地图显示、手势、真实有向路径与骑手位置 |
+| `delivery-game/assets/scripts/domain/GameConfig.ts` | 既定经济、经验和车辆配置，地图版复用 |
+| `delivery-game/assets/scenes/MapSample.scene` | 当前可玩场景 |
+| `delivery-game/scripts/test*.cjs`、`typecheck.cjs` | 真实源码自动检查与Cocos类型检查 |
+| `delivery-game/scripts/build-map-sample.sh` | 当前Web Mobile构建；旧场景保留`build:legacy` |
 
-## Task 1 / T01：亲自送完一单并保存，回到下一单
+## 第一阶段 T01–T04
 
-状态：待实施。本轮唯一实施任务。
+具体实现步骤、边界、回退和检查表见 [本轮实施计划](2026-10-28-county-stage-one.md)。本轮按阶段授权连续集成，T01→T04为技术依赖，不再逐任务重复索要批准。
 
-**做：** 独立 Cocos 工程、县城地图、100 元起步、第一单轻提示、正常五单列表、容量保证、路线耗时/风险/超时预览、自动移动、基本餐损与超时结算、10 点经验、本地保存与恢复。
+| 任务 | 当前成果 | 技术验收证据 | 状态 |
+| --- | --- | --- | --- |
+| T01 送一单、保存、继续 | 新档100元，接单/选路/取送/结算，现金评价经验，途中/回执恢复 | 首单无损21.80元、经验+10，重载不重发；真实浏览器首单和持续配送 | 技术通过，待用户体验 |
+| T02 质量与需求 | 普通/加急、三类易损度、放门口选择、相对时限、解释回执 | 固定评价与损坏案例；浏览器到达选择、收入明细 | 技术通过，待用户体验 |
+| T03 首次换车 | D→D+恰扣200元，提速/收入/容量，站点1上限 | 不足/重复/配送中拒绝；实际11单到335.27元后购买，重载保留 | 技术通过，待用户体验 |
+| T04 持续县城 | 每日2次、跨日恢复、10单附近池、广告未开放反馈、长屏布局 | 次数保存、耗尽不动单不扣钱，第12单仍可送；最终83项检查、构建和浏览器error日志为空 | 技术通过；真机性能未测，待用户体验 |
 
-**不做：** 买车界面、骑手、站点、城市切换、线索、强化、广告 SDK。初始 D 车与后续车辆配置可提供数据，但不把后续功能提前接入 UI。
-
-**主要验收场景：** 玩家从新存档完成第一单并看到钱/评价/经验结果，回到正常五单列表，再刷新页面仍保留该结果且可继续接单。
-
-**接口：** `DeliverySession` 以构造参数接受随机源与可选存档；`getState()` 返回只读快照；`acceptOrder(orderId)`、`previewRoutes()`、`depart(routeId)`、`advance(seconds)`、`settle()`、`returnToOrders()`、`serialize()`；`DeliverySession.restore(serialized, rng)` 恢复。状态阶段为 `orders | routes | delivering | arrived | result`。接口精确类型与报告记录在 T01 brief，UI 只消费这些方法，不另设钱和评价状态。
-
-- [ ] **1. 保存版本基线。** 在 `codex/food-delivery` 提交规格、计划和当前文档；旧示例未归属的文件留在原位置，不混入游戏实现提交。
-- [ ] **2. 编写会失败的真实逻辑行为测试并运行。** 证明当前尚无接单→配送→结算能力。示例：
-
-```javascript
-const game = new DeliverySession(() => 0.99);
-const order = game.getState().orders[0];
-game.acceptOrder(order.id);
-game.depart('fast');
-game.advance(5);
-const receipt = game.settle();
-assert.equal(receipt.incomeCents, 2180);
-assert.equal(game.getState().player.cashCents, 12180);
-assert.equal(game.getState().player.experience, 10);
-```
-
-固定首单基础价 20 元、普通单无额外需求、评价 80、无损抽样时，收入为 21.80 元。另测固定超时结果及二次结算不能重复加钱；保存当前路线、进度和抽样后恢复也不能换结果。
-
-- [ ] **3. 最小实现并让测试通过。** 使用独立随机源、以分保存金额；出发时固化本单抽样，累计配送进度达到路线时长后到达；结算只接受 arrived 阶段，重复结算返回同一回执且不重新发奖。初次第一单和普通补单共用生成和结算规则。
-- [ ] **4. 接入 Cocos 场景与视图。** 720×1280 竖屏：顶部资金/评价/经验，中间县城地图，下方订单或路线卡；出发后沿选择的路径自动移动，到达后展示清晰回执并继续。使用本机类型声明确认 API。
-- [ ] **5. 保存每次状态转移及配送每秒进度。** `sys.localStorage` 写入带版本存档，存储失败在界面提示；后台保存并暂停，恢复继续。不得通过重载刷收入或重抽餐损。
-- [ ] **6. 验证。** `cd delivery-game && npm test`；`npm run typecheck`；`npm run build`；启动静态服务，在浏览器实际点击第一单、路线、配送、结算和继续，并检查重载后保存。记录浏览器错误、加载与包体；手机真机未测则如实标记。
-- [ ] **7. 审阅与交付。** 对照本任务和当前规格审阅，修复影响闭环的问题，提交代码与验证记录，交付试玩入口，状态改为待用户实测。
-
-## Task 2 / T02：在订单中应对质量与顾客需求
-
-依赖：T01 用户验收通过。
-
-做：县城订单的加急、怕洒、易碎/耐造差异，放门口到达交互，评价合并封顶，结算逐项解释，经验等级展示与自动升级。保温和雨天的纯计算接口可复用，但城市未解锁前不向县城生成对应内容。
-
-不做：新城市、骑手和商业化。
-
-主要验收：玩家接到带需求的县城订单，能在出发前理解路线取舍，送达后清楚解释本单收入和评价变化。
-
-证据：以固定案例覆盖及时/超时、无损/严重损坏、接受/拒绝需求及 +6/−10 封顶；浏览器回归第一单和重载。
-
-## Task 3 / T03：用收入把 D 车升到 D+
-
-依赖：T02 用户验收通过。
-
-做：县城车辆页、320 元首次升档、购买后提速和收入变化、容量变化、金额不足反馈、存档更新；生成列表保持至少三条可接。
-
-不做：越过站点 1 的 2 档上限；不提前开放强化或骑手配车。
-
-主要验收：玩家从 100 元开始积累收入后买下 D+，下一单看见更短耗时和更高收入，重载保留升级。
-
-证据：余额不足不扣款；成功恰扣 32000 分；重复点击不多扣；首次升档所需单数通过模拟与实测记录，避免为卡第十单加人工购买锁。
-
-## Task 4 / T04：县城持续游玩与限次刷新
-
-依赖：T03 用户验收通过。
-
-做：每日两次免费刷新、广告额外三次接口与未接入提示、补单和容量保底、移动端适配、县城美术反馈完善、性能与经济基线。
-
-不做：伪造广告成功或正式发布。
-
-主要验收：玩家可持续接单到首次换车，免费刷新耗尽仍能从正常补单继续经营，次日计数重置且进度保留。
-
-证据：恶劣候选池仍至少三条容量符合；每日计数存档；首屏、帧率、包体记录；按目标手机测试并标明设备和网络。
+第一阶段出口仍为：新档持续玩到首次换车，刷新可恢复，没有必然全不可接订单，用户接受基本手感。目标手机首屏≤3秒、低端≥30fps尚无真机证据，记录为未测。第二阶段以第一阶段体验确认及遗留风险处理为前置。后续广告接入时增加第1条高价远程易损解锁单、余9条普通单；当期10普通单可持续玩，不以广告接入阻挡县城循环。
 
 ## 后续任务：阶段成果与单一主要验收
 
@@ -133,8 +95,11 @@ assert.equal(game.getState().player.experience, 10);
 
 ## 进度与证据
 
-- [x] 产品方案收敛，第一单教学、100 元开局、320 元首升、三条容量保底、软超时已合并。
-- [ ] T01 技术验证通过。
-- [ ] T01 待用户体验验收。
+- [x] 产品方案收敛，第一单轻提示、100元开局、200元首升、容量保底、软超时已合并。
+- [x] 用户确认二维地图经营风格、真实道路与虚构地名，授权地图返工及第一阶段T01–T04实施。
+- [x] 第一阶段技术实现、最终83项自动检查、类型检查、构建、独立审查及桌面浏览器流程验证，验收材料交付。
+- [ ] 第一阶段用户体验验收（包括地图表现、操作理解、节奏与继续玩的意愿）。
+- [ ] 目标手机真机首屏、帧率、触控与后台恢复验证。
+- [ ] 第二阶段T05及后续实施。
 
 本计划只宣告已运行检查的结果。构建成功、浏览器路径验证、手机真机体验分别记录。

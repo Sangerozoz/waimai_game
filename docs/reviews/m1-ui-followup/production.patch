@@ -1,0 +1,117 @@
+--- before/delivery-game/assets/scripts/map-sample/MapSample.ts
++++ after/delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -160,11 +160,11 @@
+     cartoonArt(avatar,'avatar',0,0,92,92,face);
+     this.playerName=readable(identity,'澄川骑手',0,0,m.body,C.ink,200,true);
+     this.experience=readable(identity,'',0,0,m.aux,C.ink,200,true);
+-    for(const [group,name,mark,art] of [[wallet,'Wallet','¥','coin'],[rating,'Rating','评','star']] as const){
++    for(const [group,name,mark,art] of [[wallet,'Wallet','¥','coin'],[rating,'Rating','评','heart']] as const){
+       box(group,name+'Pill',0,0,1,1,C.light,24,C.line);
+       const badge=item(group,name+'Badge',0,0,42,42);
+       const symbol=readable(badge,mark,0,0,m.aux,C.ink,38,true,'center',40);
+-      cartoonArt(badge,art,0,0,40,40,symbol.node);
++      if(art==='heart'){symbol.node.active=false;icon(badge,'heart',0,0,C.ink,1.2);}else cartoonArt(badge,art,0,0,40,40,symbol.node);
+     }
+     this.money=readable(wallet,'',0,0,m.amount,C.ink,160,true,'center');
+     this.rating=readable(rating,'',0,0,m.body,C.ink,100,true,'center');
+@@ -184,7 +184,7 @@
+     const plateHeight=nameHeight+experienceHeight+12,identityHeight=Math.max(avatarSize,plateHeight+12);
+     const walletTextWidth=walletWidth-58,ratingTextWidth=ratingWidth-48;
+     const units=Array.from(this.money.string).reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.66:1),0);
+-    const moneyFont=Math.max(m.body,Math.min(m.amount,Math.floor(walletTextWidth/Math.max(1,units))));
++    const moneyFont=m.body;
+     const moneyHeight=Math.ceil(Math.max(1,Math.ceil(units*moneyFont/walletTextWidth))*moneyFont*1.42+8),ratingHeight=textHeight(this.rating.string,m.body,ratingTextWidth);
+     const walletHeight=Math.max(60,moneyHeight+12),ratingBlockHeight=Math.max(60,ratingHeight+12),height=Math.max(identityHeight,walletHeight,ratingBlockHeight)+24,left=-inner/2;
+     const place=(node:Node,x:number,y:number,w:number,h:number)=>{node.setPosition(x,y);node.getComponent(UITransform)!.setContentSize(w,h);};
+@@ -210,14 +210,14 @@
+       const value=name==='Wallet'?this.money:this.rating,valueHeight=name==='Wallet'?moneyHeight:ratingHeight;
+       place(value.node,inset/2,0,w-inset,valueHeight);
+     }
+-    this.money.fontSize=moneyFont;this.money.lineHeight=Math.ceil(moneyFont*1.42);
++    this.money.fontSize=m.body;this.money.lineHeight=Math.ceil(m.body*1.42);
+     place(card,(this.safeInsets.left-this.safeInsets.right)/2,628-height/2,width,height);
+-    const station=this.root.getChildByName('StationEntry');if(station)station.setPosition(309-this.safeInsets.right,628-height-70+this.screenExtra/2-this.safeInsets.top);
++    const station=this.root.getChildByName('StationEntry');if(station)station.setPosition(296-this.safeInsets.right,628-height-70+this.screenExtra/2-this.safeInsets.top);
+   }
+   private controls():void {
+-    const station=item(this.root,'StationEntry',309-this.safeInsets.right,628-this.profileCard.getComponent(UITransform)!.height-70+this.screenExtra/2-this.safeInsets.top,100,100);
++    const station=item(this.root,'StationEntry',296-this.safeInsets.right,628-this.profileCard.getComponent(UITransform)!.height-70+this.screenExtra/2-this.safeInsets.top,100,100);
+     const picture=box(station,'PlaceholderIcon-station',0,11,36,32,'#F0EEE7',8);
+-    label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,52,52,picture);stationArt.getComponent(Sprite)!.grayscale=true;readable(station,'站点',0,-24,this.metrics().aux,'#AAA69C',94,true,'center');
++    label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,108,108,picture);stationArt.getComponent(Sprite)!.grayscale=true;readable(station,'站点',0,-52,this.metrics().aux,'#AAA69C',94,true,'center');
+     const y=this.book.mode==='idle'?-450:-522+this.sheetHeight()+this.metrics().action/2+20;
+     const locate=item(this.root,'FollowRider',360-this.safeInsets.right-this.metrics().action/2-13,y-this.screenExtra/2+this.safeInsets.bottom,this.metrics().action,this.metrics().action);
+     icon(locate,'target',0,0,C.ink,1.4);tap(locate,()=>this.city.locate());
+@@ -232,6 +232,7 @@
+   private closePhone():void{if(this.phone)this.phone.close();this.phone=null;}
+   private navigation():void {
+     const idle=this.book.mode==='idle';
++    box(this.panel,'NavigationBackdrop',0,-581-this.safeInsets.bottom/2,720,118+this.safeInsets.bottom,'#FFFEF8EB',0);
+     const bar=item(this.panel,'MainNavigation',(this.safeInsets.left-this.safeInsets.right)/2,-581,720,118);bar.addComponent(BlockInputEvents);
+     bar.setScale((720-this.safeInsets.left-this.safeInsets.right)/720,1,1);
+     const entries=[
+@@ -354,16 +355,20 @@
+     readable(node,message,0,0,m.body,C.ink,width-32,true,'center',height-16);
+     this.scheduleOnce(()=>{if(node.isValid)node.destroy();if(this.toast===node){this.toast=null;this.noticeMessage='';}},4);
+   }
++  private dismissDialog():void {
++    if(this.modalKind==='receipt'&&this.book?.mode==='done'){if(!this.act(()=>this.book.finish()))return;this.closeDialog();this.rebuildLayout();return;}
++    this.closeDialog();
++  }
+   private closeDialog():void{if(this.modal){this.modal.active=false;this.modal.destroy();this.modal=null;}this.modalKind=null;this.billValues=[];this.billDate=null;}
+   private dialog(title:string,requestedHeight:number,kind:DialogKind,dismissible=true):{layer:Node;card:Node;width:number;height:number;top:number;bottom:number} {
+     this.closeDialog();this.modalKind=kind;const screenHeight=1280+this.screenExtra,insets=this.safeInsets||{top:0,bottom:0,left:0,right:0};
+     const layer=this.modal=item(this.root,'CountyDialog',0,0,720,screenHeight);layer.addComponent(BlockInputEvents);
+-    const shade=box(layer,'Shade',0,0,720,screenHeight,'#00000099',0);if(dismissible)tap(shade,()=>this.closeDialog());
++    const shade=box(layer,'Shade',0,0,720,screenHeight,'#00000099',0);if(dismissible)tap(shade,()=>this.dismissDialog());
+     const width=Math.min(684,720-insets.left-insets.right-36),height=Math.min(requestedHeight,screenHeight-insets.top-insets.bottom-36);
+     const card=box(layer,'DialogCard',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.paper,28);card.addComponent(BlockInputEvents);
+     const heading=box(card,'DialogHeader',0,height/2-65,width-12,126,C.violet,26);skin(heading,'panel-violet');
+     const m=this.metrics(),headingText=readable(card,title,-60,height/2-64,m.body+4,'#FFFFFF',width-180,true,'left',70);outline(headingText,'#4B329A');
+-    if(dismissible)closeButton(card,width/2-55,height/2-64,64,()=>this.closeDialog());
++    if(dismissible)closeButton(card,width/2-55,height/2-64,64,()=>this.dismissDialog());
+     return {layer,card,width,height,top:height/2-132,bottom:-height/2+24};
+   }
+   private openDemand():void {
+@@ -400,6 +405,7 @@
+     this.action(card,'确认，继续接单',0,-height/2+24+m.action/2,inner,()=>this.continueOrders());
+   }
+   private continueOrders():void {
++    if(this.book.mode!=='done')return;
+     if(!this.act(()=>this.book.finish()))return;
+     this.closeDialog();this.rebuildLayout();this.openPhone();
+   }
+--- before/delivery-game/assets/scripts/map-sample/SampleUI.ts
++++ after/delivery-game/assets/scripts/map-sample/SampleUI.ts
+@@ -60,9 +60,10 @@
+  const n=box(parent,'Button-'+text,x,y,w,h,fill,14,fill===C.paper?C.line:undefined);if(enabled&&fill===C.primary)skin(n,'button-yellow');label(n,text,0,0,22,foreground,w-12,true,'center');if(enabled)tap(n,action);return n;
+ }
+ export function icon(parent:Node,kind:string,x:number,y:number,fill=C.navy,scale=1):Node{
+- const generated=['avatar','recruit','vehicle','map','bills','station','coin','star','bag','confirm'].indexOf(kind)>=0;
++ const generated=['avatar','recruit','vehicle','map','bills','station','coin','star','bag','target','confirm'].indexOf(kind)>=0;
+  const n=item(parent,'Icon-'+kind,x,y,32,32),g=n.addComponent(Graphics);n.setScale(scale,scale,1);g.lineWidth=2.4;g.strokeColor=col(fill);g.fillColor=col(fill);
+- if(kind==='close'){g.lineWidth=4;g.moveTo(-9,-9);g.lineTo(9,9);g.moveTo(-9,9);g.lineTo(9,-9);g.stroke();}
++ if(kind==='heart'){g.fillColor=col('#EE4769');g.moveTo(0,-14);g.bezierCurveTo(-30,5,-12,25,0,13);g.bezierCurveTo(12,25,30,5,0,-14);g.fill();g.fillColor=col('#FFFFFF99');g.circle(-7,9,3);g.fill();}
++ else if(kind==='close'){g.lineWidth=4;g.moveTo(-9,-9);g.lineTo(9,9);g.moveTo(-9,9);g.lineTo(9,-9);g.stroke();}
+  else if(kind==='target'){g.circle(0,0,9);g.stroke();g.circle(0,0,3);g.fill();for(const [a,b,c,d] of [[-15,0,-10,0],[10,0,15,0],[0,-15,0,-10],[0,10,0,15]]){g.moveTo(a,b);g.lineTo(c,d);g.stroke();}}
+  else if(kind==='map'){g.moveTo(-13,-10);g.lineTo(-5,-6);g.lineTo(5,-10);g.lineTo(13,-6);g.lineTo(13,12);g.lineTo(5,8);g.lineTo(-5,12);g.lineTo(-13,8);g.close();g.stroke();for(const xx of [-5,5]){g.moveTo(xx,-6);g.lineTo(xx,8);g.stroke();}}
+  else if(kind==='recruit'){g.circle(0,7,5);g.stroke();g.roundRect(-10,-14,20,14,6);g.stroke();}
+--- before/delivery-game/assets/scripts/map-sample/CityMap.ts
++++ after/delivery-game/assets/scripts/map-sample/CityMap.ts
+@@ -53,6 +53,7 @@
+    }
+    for(const index of data.operatingPOIs||data.pois.map((_p,i)=>i)){const p=data.pois[index],xy=this.nodePoints.get(p.node)!;const pin=item(this.overlay,'Place-'+p.name);const g=pin.addComponent(Graphics);g.fillColor=col('#FFFFFF');g.circle(0,0,10);g.fill();g.strokeColor=col('#C1C7C7');g.lineWidth=1;g.circle(0,0,10);g.stroke();g.fillColor=col(p.kind==='restaurant'?'#D4A254':'#8398AA');g.circle(0,0,4);g.fill();this.poiDots.push({n:pin,x:xy[0],y:xy[1]});}
+    this.startPin=this.pin('取','#D59831');this.endPin=this.pin('送','#F05B70');
++   const shadow=item(this.overlay,'VehicleGroundShadow');const sg=shadow.addComponent(Graphics);for(let i=5;i>=1;i--){sg.fillColor=col('#30465A08');sg.ellipse(0,0,38+i*2,17+i*2);sg.fill();}
+    this.rider=item(this.overlay,'DeliveryRider');this.vehicle=new MapVehicle(this.rider,this.drawRider());
+    this.scaleLabel=label(this.viewport,'30 m',-279+safeSides.left,-MAP_H/2+footerInset+32,12,'#758080',110);
+    const scaleLine=item(this.viewport,'MapScale',-297+safeSides.left,-MAP_H/2+footerInset+20).addComponent(Graphics);scaleLine.strokeColor=col('#758080');scaleLine.lineWidth=2;scaleLine.moveTo(-30,4);scaleLine.lineTo(-30,0);scaleLine.lineTo(30,0);scaleLine.lineTo(30,4);scaleLine.stroke();
+@@ -162,7 +163,7 @@
+    for(const d of this.poiDots){const p=this.project([d.x,d.y]);d.n.setPosition(p[0],p[1]);d.n.active=(!this.data.dispatchBounds||contains(this.data.dispatchBounds,[d.x,d.y]))&&this.scale>=.2&&Math.abs(p[0])<MAP_W/2+20&&Math.abs(p[1])<this.mapHeight/2+20;}
+    this.startPin.active=this.endPin.active=this.routes.length>0;
+    if(this.routes.length){const r=this.routes[this.selected];const a=this.project(r.points[r.pickupIndex||0]),b=this.project(r.points[r.points.length-1]);this.startPin.setPosition(a[0],a[1]);this.endPin.setPosition(b[0],b[1]);}
+-   const p=this.project(this.riderPoint);this.rider.setPosition(p[0],p[1]);this.rider.angle=this.riderAngle;
++   const p=this.project(this.riderPoint);this.overlay?.getChildByName('VehicleGroundShadow')?.setPosition(p[0]+3,p[1]-8);this.rider.setPosition(p[0],p[1]);this.rider.angle=this.riderAngle;
+  }
+  private local(event:EventTouch):Point{const p=event.getUILocation();const v=this.viewport.getComponent(UITransform)!.convertToNodeSpaceAR(new Vec3(p.x,p.y));return[v.x,v.y];}
+  private touchStart(e:EventTouch):void{

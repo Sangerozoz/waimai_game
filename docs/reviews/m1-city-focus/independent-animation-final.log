@@ -1,0 +1,56 @@
+TAP version 13
+# EDGE 340.0000000000002 170.00000000000023
+# OVERSHOOT {"scale":1.2999999999999998,"project":[138.00000000000023,-38.99999999999997]}
+# FRAMES idle [{"t":0,"s":0.6,"x":1600},{"t":0.15,"s":0.6875,"x":1692.5},{"t":0.3,"s":1.2999999999999998,"x":2340},{"t":0.44999999999999996,"s":1.9125,"x":2987.5},{"t":0.6,"s":2,"x":3080}]
+# FRAMES running [{"t":0,"s":0.6,"x":1600},{"t":0.15,"s":0.6875,"x":1692.5},{"t":0.3,"s":1.2999999999999998,"x":800},{"t":0.44999999999999996,"s":1.9125,"x":100},{"t":0.6,"s":2,"x":0}]
+# Subtest: explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+ok 1 - explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+  ---
+  duration_ms: 1.787417
+  type: 'test'
+  ...
+# Subtest: animated locate retargets from current view and cancels on drag or lifecycle stop
+ok 2 - animated locate retargets from current view and cancels on drag or lifecycle stop
+  ---
+  duration_ms: 0.311208
+  type: 'test'
+  ...
+# Subtest: city-focus independent: real rebuild and onDestroy cancel the former camera state
+ok 3 - city-focus independent: real rebuild and onDestroy cancel the former camera state
+  ---
+  duration_ms: 92.02975
+  type: 'test'
+  ...
+# Subtest: city-focus independent: visible near-edge stationary rider does not leave viewport during zoom
+ok 4 - city-focus independent: visible near-edge stationary rider does not leave viewport during zoom
+  ---
+  duration_ms: 0.381458
+  type: 'test'
+  ...
+# Subtest: city-focus independent: stationary world center stays on segment and distance converges without overshoot
+ok 5 - city-focus independent: stationary world center stays on segment and distance converges without overshoot
+  ---
+  duration_ms: 0.335834
+  type: 'test'
+  ...
+# Subtest: city-focus independent: initially visible rider stays visible through stationary locate
+ok 6 - city-focus independent: initially visible rider stays visible through stationary locate
+  ---
+  duration_ms: 0.135875
+  type: 'test'
+  ...
+# Subtest: city-focus independent: actual button and MapSample.update animate idle and running frames jointly
+ok 7 - city-focus independent: actual button and MapSample.update animate idle and running frames jointly
+  ---
+  duration_ms: 116.378709
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 883.179292

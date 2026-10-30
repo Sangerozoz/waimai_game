@@ -1,0 +1,86 @@
+TAP version 13
+# Subtest: the idle bottom bar has only the claim-order action and still opens the order phone
+not ok 1 - the idle bottom bar has only the claim-order action and still opens the order phone
+  ---
+  duration_ms: 122.718
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:34:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    +   '下一单，去哪里？',
+    +   '第5单达 Lv.2 · 攒够 ¥200 升级 D+',
+    +   '0',
+    +   '合作商家',
+    +   '0',
+    +   '配送地址',
+    +   '0',
+    +   '已送达',
+    +   '车辆 D',
+    +   '接单',
+    +   '点击接单，在手机里挑选下一单'
+    -   '抢单'
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: '抢单'
+  actual:
+    0: '下一单，去哪里？'
+    1: '第5单达 Lv.2 · 攒够 ¥200 升级 D+'
+    2: '0'
+    3: '合作商家'
+    4: '0'
+    5: '配送地址'
+    6: '0'
+    7: '已送达'
+    8: '车辆 D'
+    9: '接单'
+    10: '点击接单，在手机里挑选下一单'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:35:27)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: the map keeps only its lower-right rider locator and hides routine saved/shift prompts
+not ok 2 - the map keeps only its lower-right rider locator and hides routine saved/shift prompts
+  ---
+  duration_ms: 47.742083
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:38:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(!names.some(n=>n==='MapStatus'||n==='ShiftStatus'||n.startsWith('MapControl-')))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:41:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 310.381375

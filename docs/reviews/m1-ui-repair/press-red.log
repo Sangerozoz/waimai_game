@@ -1,0 +1,139 @@
+TAP version 13
+# Subtest: the first tap activates once even when the pointer moves by one pixel
+ok 1 - the first tap activates once even when the pointer moves by one pixel
+  ---
+  duration_ms: 0.486625
+  type: 'test'
+  ...
+# Subtest: a zero-distance move event does not turn a tap into a drag
+ok 2 - a zero-distance move event does not turn a tap into a drag
+  ---
+  duration_ms: 0.051709
+  type: 'test'
+  ...
+# Subtest: a real list drag cannot accept an order even when it returns near the start
+ok 3 - a real list drag cannot accept an order even when it returns near the start
+  ---
+  duration_ms: 0.043208
+  type: 'test'
+  ...
+# Subtest: a cancelled touch cannot activate on a later end event
+ok 4 - a cancelled touch cannot activate on a later end event
+  ---
+  duration_ms: 0.041875
+  type: 'test'
+  ...
+# Subtest: touch end without a matching press never activates a button
+ok 5 - touch end without a matching press never activates a button
+  ---
+  duration_ms: 0.036084
+  type: 'test'
+  ...
+# Subtest: a different finger cannot finish the active button press
+ok 6 - a different finger cannot finish the active button press
+  ---
+  duration_ms: 0.034917
+  type: 'test'
+  ...
+# Subtest: pressing preserves the existing hit area so edge taps are not cancelled by scaling
+ok 7 - pressing preserves the existing hit area so edge taps are not cancelled by scaling
+  ---
+  duration_ms: 0.280834
+  type: 'test'
+  ...
+# Subtest: a distant release is rejected even when the platform omits move events
+ok 8 - a distant release is rejected even when the platform omits move events
+  ---
+  duration_ms: 0.034292
+  type: 'test'
+  ...
+# Subtest: each separate tap activates once and duplicate releases do not repeat an action
+ok 9 - each separate tap activates once and duplicate releases do not repeat an action
+  ---
+  duration_ms: 0.186416
+  type: 'test'
+  ...
+# Subtest: the mouse touch identifier zero is a valid press
+ok 10 - the mouse touch identifier zero is a valid press
+  ---
+  duration_ms: 0.209917
+  type: 'test'
+  ...
+# Subtest: a new press can recover when the platform omitted the previous release
+ok 11 - a new press can recover when the platform omitted the previous release
+  ---
+  duration_ms: 0.065625
+  type: 'test'
+  ...
+# Subtest: press changes only the visual subtree immediately and cancel restores it
+not ok 12 - press changes only the visual subtree immediately and cancel restores it
+  ---
+  duration_ms: 2.881791
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/tap-gestures.test.cjs:47:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(visual)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/tap-gestures.test.cjs:47:187)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: drag immediately restores visual and cannot activate on return
+not ok 13 - drag immediately restores visual and cannot activate on return
+  ---
+  duration_ms: 0.061875
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/tap-gestures.test.cjs:48:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'scale')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/tap-gestures.test.cjs:48:199)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: deactivation clears the active touch and restores visual
+not ok 14 - deactivation clears the active touch and restores visual
+  ---
+  duration_ms: 0.040833
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/tap-gestures.test.cjs:49:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'scale')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/tap-gestures.test.cjs:49:222)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 11
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 146.131459

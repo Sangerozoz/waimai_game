@@ -1,0 +1,15 @@
+async(page)=>{
+ const phase='after2',results=[];
+ for(const [width,height,safe] of [[720,1280,false],[360,560,false],[320,480,true],[320,812,true],[280,420,true]]){
+ await page.setViewportSize({width,height});await page.goto(`http://127.0.0.1:4197/${phase}/${safe?'?safe':''}`);await page.waitForFunction(()=>window.uiFixture?.ready||window.uiFixture?.error);
+ for(const mode of ['lobby','transfer','current','delivery','long','receipt','effects']){
+ await page.evaluate(async mode=>{const s=window.uiFixture.sample;if(mode==='lobby'||mode==='transfer'){s.closePhone();s.book.offers[0].feeCents=1984;s.book.offers[0].source=mode==='transfer'?'transfer':'normal';s.openPhone();}else if(mode==='current'){s.closePhone();s.book.accept(s.book.offers[0].id);s.rebuildLayout();}else if(mode==='delivery'){s.book.depart();s.rebuildLayout();}else if(mode==='long'){s.book.active.offer.feeCents=123456;s.rebuildLayout();}else{if(mode==='receipt'){s.book.advance(9999);s.book.pickup();s.book.advance(2);s.book.deliver();s.book.advance(9999);}else{const r=s.book.active.receipt;r.outcome.displaySeconds=r.outcome.deadlineSeconds+180;r.outcome.damage='severe';const rules=await System.import('chunks:///_virtual/CountyRules.ts');Object.assign(r,rules.quoteCountyIncome(r.playerBefore,s.book.active.offer,r.outcome));r.lateSeconds=180;r.damage='severe';}s.openReceipt();}},mode);
+ await page.waitForTimeout(150);
+ const data=await page.evaluate(async mode=>{const cc=await System.import('cc'),s=window.uiFixture.sample,w=n=>[n,...n.children.flatMap(w)],nodes=w(s.root),rect=n=>{const b=n.getComponent(cc.UITransform).getBoundingBoxToWorld();return {left:b.x,right:b.x+b.width,center:b.x+b.width/2,top:b.y+b.height,bottom:b.y}};
+ const labels=nodes.map(n=>n.getComponent(cc.Label)).filter(l=>l&&l.node.activeInHierarchy);
+ const amounts=labels.filter(l=>/^¥\d/.test(l.string)).map(l=>{l.updateRenderData(true);const ctx=document.createElement('canvas').getContext('2d');ctx.font=l._textStyle.fontDesc;const siblings=l.node.parent.children.map(n=>n.getComponent(cc.Label)).filter(x=>x&&x!==l);return {text:l.string,font:l.fontSize,width:l.node.getComponent(cc.UITransform).width,height:l.node.getComponent(cc.UITransform).height,lines:l._textLayoutData.parsedString,measured:ctx.measureText(l.string).width,bounds:rect(l.node),parentWidth:l.node.parent.getComponent(cc.UITransform).width,siblings:siblings.map(x=>({text:x.string,bounds:rect(x.node)}))}});
+ const card=nodes.find(n=>n.name==='DialogCard'),close=card?.children.find(n=>n.name==='CloseButton');return {mode,amounts,card:card?rect(card):null,close:close?rect(close):null,receipt:mode.includes('receipt')||mode==='effects'?labels.filter(l=>s.modal&&w(s.modal).includes(l.node)).map(l=>({text:l.string,align:l.horizontalAlign,bounds:rect(l.node),lines:l._textLayoutData.parsedString})):[],storage:window.uiFixture.storageAttempts.map(({method,key})=>({method,key})),error:window.uiFixture.error};},mode);
+ results.push({width,height,safe,...data});await page.screenshot({path:`docs/reviews/order-amount-singleline/independent-${phase}-${width}x${height}-${mode}.png`});
+ }
+ }return results;
+}

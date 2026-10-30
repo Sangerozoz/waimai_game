@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: the first tap activates once even when the pointer moves by one pixel
+ok 1 - the first tap activates once even when the pointer moves by one pixel
+  ---
+  duration_ms: 0.55025
+  type: 'test'
+  ...
+# Subtest: a zero-distance move event does not turn a tap into a drag
+ok 2 - a zero-distance move event does not turn a tap into a drag
+  ---
+  duration_ms: 0.071292
+  type: 'test'
+  ...
+# Subtest: a real list drag cannot accept an order even when it returns near the start
+ok 3 - a real list drag cannot accept an order even when it returns near the start
+  ---
+  duration_ms: 0.04775
+  type: 'test'
+  ...
+# Subtest: a cancelled touch cannot activate on a later end event
+ok 4 - a cancelled touch cannot activate on a later end event
+  ---
+  duration_ms: 0.052
+  type: 'test'
+  ...
+# Subtest: touch end without a matching press never activates a button
+ok 5 - touch end without a matching press never activates a button
+  ---
+  duration_ms: 0.039375
+  type: 'test'
+  ...
+# Subtest: a different finger cannot finish the active button press
+ok 6 - a different finger cannot finish the active button press
+  ---
+  duration_ms: 0.037917
+  type: 'test'
+  ...
+# Subtest: pressing preserves the existing hit area so edge taps are not cancelled by scaling
+ok 7 - pressing preserves the existing hit area so edge taps are not cancelled by scaling
+  ---
+  duration_ms: 0.311125
+  type: 'test'
+  ...
+# Subtest: a distant release is rejected even when the platform omits move events
+ok 8 - a distant release is rejected even when the platform omits move events
+  ---
+  duration_ms: 0.073125
+  type: 'test'
+  ...
+# Subtest: each separate tap activates once and duplicate releases do not repeat an action
+ok 9 - each separate tap activates once and duplicate releases do not repeat an action
+  ---
+  duration_ms: 0.232209
+  type: 'test'
+  ...
+# Subtest: the mouse touch identifier zero is a valid press
+ok 10 - the mouse touch identifier zero is a valid press
+  ---
+  duration_ms: 0.200041
+  type: 'test'
+  ...
+# Subtest: a new press can recover when the platform omitted the previous release
+ok 11 - a new press can recover when the platform omitted the previous release
+  ---
+  duration_ms: 0.072084
+  type: 'test'
+  ...
+# Subtest: press changes only the visual subtree immediately and cancel restores it
+ok 12 - press changes only the visual subtree immediately and cancel restores it
+  ---
+  duration_ms: 0.05075
+  type: 'test'
+  ...
+# Subtest: drag immediately restores visual and cannot activate on return
+ok 13 - drag immediately restores visual and cannot activate on return
+  ---
+  duration_ms: 0.030875
+  type: 'test'
+  ...
+# Subtest: deactivation clears the active touch and restores visual
+ok 14 - deactivation clears the active touch and restores visual
+  ---
+  duration_ms: 0.028417
+  type: 'test'
+  ...
+# Subtest: destroy clears touch and visual without dispatching the action
+ok 15 - destroy clears touch and visual without dispatching the action
+  ---
+  duration_ms: 0.025916
+  type: 'test'
+  ...
+# Subtest: release calls action synchronously while its visual recovery is pending
+ok 16 - release calls action synchronously while its visual recovery is pending
+  ---
+  duration_ms: 0.024291
+  type: 'test'
+  ...
+# Subtest: an inactive root cannot begin or finish a press
+ok 17 - an inactive root cannot begin or finish a press
+  ---
+  duration_ms: 0.029459
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 141.670083

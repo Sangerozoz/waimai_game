@@ -1,0 +1,9 @@
+### Ran Playwright code
+```js
+await (async(page)=>{for(const [c,w,h]of [[10000,720,1280],[10000,360,560],[100000000000,360,560],[9007199254740991,360,560]]){await page.setViewportSize({width:w,height:h});await page.goto('http://127.0.0.1:4186/?cents='+c+'&safe');await page.waitForFunction(()=>window.uiFixture?.ready);await page.waitForTimeout(400);await page.screenshot({path:'output/playwright/m1-hud-final/home-'+w+'-'+c+'.png'});}})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4186/?cents=9007199254740991&safe
+- Page Title: Cocos Creator | map-sample
+### Events
+- New console entries: .playwright-cli/console-2026-10-29T13-44-31-186Z.log#L1-L5

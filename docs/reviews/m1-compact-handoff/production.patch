@@ -1,0 +1,1531 @@
+--- before/delivery-game/assets/scripts/map-sample/DispatchAreas.ts
++++ delivery-game/assets/scripts/map-sample/DispatchAreas.ts
+@@ -1,5 +1,5 @@
+ import { Bounds, contains } from './CityExtent';
+-import { CityData, MapNode } from './MapTypes';
++import { CityData, MapNode, Point } from './MapTypes';
+ 
+ export type PlaceArea='urban'|'suburb'|'remote';
+ export type DispatchArea=PlaceArea|'cross';
+@@ -23,13 +23,14 @@
+ }
+ 
+ /** Classify the complete pickup/delivery trip, including a rider starting at the opposite side of town. */
+-export function dispatchAreaForTrip(data:CityData,from:number,to:number,start?:string):DispatchArea {
++export function dispatchAreaForTrip(data:CityData,from:number,to:number,start?:string|Point):DispatchArea {
+   if(!data.dispatchAreas||!data.urbanBounds)return 'urban';
+   let nodes=points.get(data);if(!nodes){nodes=new Map(data.nodes.map(n=>[n.id,n]));points.set(data,nodes);}
+   const a=nodes.get(data.pois[from].node)!,b=nodes.get(data.pois[to].node)!,bounds=data.urbanBounds;
+   const alongX=bounds.maxX-bounds.minX>=bounds.maxY-bounds.minY;
+   const min=alongX?bounds.minX:bounds.minY,max=alongX?bounds.maxX:bounds.maxY,span=max-min;
+-  const positions=[a,b,...(start&&nodes.has(start)?[nodes.get(start)!]:[])].map(n=>alongX?n.x:n.y);
++  const position=(start&&typeof start==='string'&&nodes.has(start))?nodes.get(start)!:Array.isArray(start)?{x:start[0],y:start[1]}:null;
++  const positions=[a,b,...(position?[position]:[])].map(n=>alongX?n.x:n.y);
+   const low=Math.min(...positions),high=Math.max(...positions);
+   if(span>0&&high-low>=span*.55&&low<min+span/3&&high>max-span/3)return 'cross';
+   const fromArea=data.dispatchAreas[a.id],toArea=data.dispatchAreas[b.id];
+--- before/delivery-game/assets/scripts/map-sample/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -4,9 +4,11 @@
+ import { CityData, Preference } from './MapTypes';
+ import { OrderBook } from './OrderBook';
+ import { buyerRemark, deadlineText, foodDescription, orderCautions } from './OrderPresentation';
++import { compactOrderHeight, compactOrderInfo, CompactOrder } from './CompactOrderInfo';
+ import { OrderPhone } from './OrderPhone';
+ import { ReceiptPresentation } from './ReceiptPresentation';
+ import { CountySaveStore } from './CountySaveStore';
++import { receiptIncomeBreakdown } from './CountyRules';
+ import { COUNTY_VEHICLES as VEHICLES } from './CountyConfig';
+ import { formatDeliveryTime, formatRemaining } from './DeliveryClock';
+ import { billingRows } from './BillingPresentation';
+@@ -53,6 +55,8 @@
+   private noticeMessage='';
+   private saveElapsed=0;
+   private lastSaveError='';
++  private pendingSave=false;
++  private lastHandoffEvent='';
+   private readonly pageHide=()=>this.onHide();
+   private readonly viewportResize=()=>this.onResize();
+ 
+@@ -69,7 +73,7 @@
+         const loaded=this.store.load(raw=>OrderBook.restore(data,raw),()=>new OrderBook(data));this.book=loaded.session;recovery=loaded.message;
+       }
+       catch(error){loading.string='路网暂时不可用，请重新打开';console.error(error);return;}
+-      this.onlineAt=this.hidden?null:Date.now();loading.node.destroy();this.rebuildLayout();this.save();view.on('canvas-resize',this.onResize,this);
++      this.onlineAt=this.hidden?null:Date.now();loading.node.destroy();this.rebuildLayout();if(this.book.mode==='arrived')this.act(()=>this.book.settle(this.book.active?.offer.demand==='door'?true:null));this.save();this.renderPanel();if(!this.pendingSave)this.presentHandoff();view.on('canvas-resize',this.onResize,this);
+       if(recovery.indexOf('恢复')>=0||recovery.indexOf('损坏')>=0||!this.store.available)this.showMessage(this.store.available?recovery:this.store.message);
+     });
+     game.on(Game.EVENT_HIDE,this.onHide,this);game.on(Game.EVENT_SHOW,this.onShow,this);
+@@ -120,12 +124,12 @@
+     const wasPhone=!!this.phone,wasDialog=this.modalKind,wasNotice=this.noticeMessage;
+     const frame=view.getFrameSize(),requestedExtra=Math.max(0,720*frame.height/frame.width-1280);
+     // Use the next frame's SHOW_ALL scale, rather than the previous layout's extra height.
+-    const idle=this.book.mode==='idle'||!this.orderCardOpen,sheetHeight=Math.max(440,presentationMetrics(1280+requestedExtra).action+340),baseMapHeight=idle?1280:640-(-479.4+cssUnits(12,1280+requestedExtra))-sheetHeight;
++    const idle=this.book.mode==='idle'||!this.orderCardOpen,provisionalHeight=this.sheetHeightFor(1280+requestedExtra),baseMapHeight=idle?1280:640-(-479.4+cssUnits(12,1280+requestedExtra))-provisionalHeight;
+     // Very tall windows must still fit the whole map viewport inside town at 100m.
+     this.screenExtra=CityMap.fitViewportHeight(this.book.data,baseMapHeight+requestedExtra)-baseMapHeight;
+     view.setDesignResolutionSize(720,1280+this.screenExtra,ResolutionPolicy.SHOW_ALL);
+     this.safeInsets=this.readSafeInsets();
+-    const bottom=this.safeInsets.bottom,mapHeight=Math.max(1,(idle?1280:640-this.sheetBottom()-sheetHeight)+this.screenExtra-(idle?0:bottom)),mapY=idle?0:(this.sheetBottom()+sheetHeight+640)/2+bottom/2;
++    const sheetHeight=this.sheetHeight(),bottom=this.safeInsets.bottom,mapHeight=Math.max(1,(idle?1280:640-this.sheetBottom()-sheetHeight)+this.screenExtra-(idle?0:bottom)),mapY=idle?0:(this.sheetBottom()+sheetHeight+640)/2+bottom/2;
+     if(this.root){this.city?.cancelLocate();this.root.active=false;this.root.destroy();}this.phone=null;this.modal=null;this.modalKind=null;this.billValues=[];this.billDate=null;this.toast=null;this.damageNotice=null;
+     this.root=item(this.node.parent!,'DeliveryUI');
+     box(this.root,'Background',0,0,720,1280+this.screenExtra,C.light,0);
+@@ -147,12 +151,21 @@
+   }
+   private metrics(){return presentationMetrics(1280+this.screenExtra);}
+   private sheetBottom():number{return -479.4+cssUnits(12,1280+this.screenExtra);}
+-  private sheetHeight():number{return Math.max(440,this.metrics().action+340);}
++  private compactData():CompactOrder|null {
++    const active=this.book?.active;if(!active)return null;const r=active.routes[active.selected];
++    return {offer:active.offer,from:this.book.data.pois[active.offer.from].name,to:this.book.data.pois[active.offer.to].name,metres:r.metres};
++  }
++  private sheetHeightFor(screenHeight:number):number {
++    const data=this.compactData();if(!data)return 440;const m=presentationMetrics(screenHeight),width=720-this.safeInsets.left-this.safeInsets.right-60;
++    const body=compactOrderHeight(data,width,screenHeight),route=this.book.active?.mode==='routes'?Math.ceil(m.aux*4.5)+16:60;
++    return Math.max(440,Math.min(690,body+route+m.action+146));
++  }
++  private sheetHeight():number{return this.sheetHeightFor(1280+this.screenExtra);}
+   private action(parent:Node,text:string,x:number,y:number,width:number,action:()=>void,fill=C.primary,enabled=true):Node {
+     const m=this.metrics(),node=box(parent,'Button-'+text,x,y,width,m.action,fill,16,fill===C.paper?C.line:undefined);
+     if(enabled&&(fill===C.primary||fill===C.light))skin(node,fill===C.primary?'button-yellow':'button-blue');
+     if(!enabled)material(node,width,m.action,'#C5CCD5');
+-    const white=enabled&&fill===C.light,caption=readable(node,text,0,0,m.body,white?'#FFFFFF':enabled?C.ink:C.muted,width-20,true,'center',m.action-8);
++    const white=enabled&&(fill===C.light||fill==='#DE4258'),caption=readable(node,text,0,0,m.body,white?'#FFFFFF':enabled?C.ink:C.muted,width-20,true,'center',m.action-8);
+     if(white)outline(caption);if(enabled)tap(node,action);return node;
+   }
+   private header(parent:Node):void {
+@@ -221,6 +234,7 @@
+     const y=this.book.mode==='idle'||!this.orderCardOpen?-400:this.sheetBottom()+this.sheetHeight()+this.metrics().action/2+20;
+     const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-cssUnits(12,1280+this.screenExtra),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
+     icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locateAnimated());
++    const planning=this.book.mode==='routes'&&this.orderCardOpen;station.active=!planning;locate.active=!planning;this.city.setPlanningControlsHidden?.(planning);
+   }
+   private openPhone():void {
+     if(this.phone||this.book.mode!=='idle')return;
+@@ -251,13 +265,13 @@
+     }
+   }
+   private accept(id:string):void {
+-    if(!this.act(()=>this.book.accept(id)))return;this.closePhone();
++    if(!this.act(()=>{this.book.accept(id);this.lastHandoffEvent='';}))return;this.closePhone();
+     this.orderCardOpen=true;this.rebuildLayout(true);
+   }
+   private openCurrentOrder():void {
+     if(!this.book.active){this.openPhone();return;}
+     this.orderCardOpen=true;this.rebuildLayout();
+-    if(this.book.mode==='done')this.openReceipt();else if(this.book.mode==='arrived')this.openDemand();
++    if(this.book.mode==='done')this.openReceipt();else if(this.book.mode==='arrived'&&this.act(()=>this.book.settle(this.book.active?.offer.demand==='door'?true:null))){this.renderPanel();this.openReceipt();}
+   }
+   private renderPanel():void {
+     for(const child of [...this.panel.children])child.destroy();this.panel.removeAllChildren();
+@@ -270,52 +284,46 @@
+     const p=box(this.panel,'DeliverySheet',(this.safeInsets.left-this.safeInsets.right)/2,this.sheetBottom()+height/2,width,height,C.paper,24);
+     const top=height/2,inner=width-40;
+     closeButton(p,inner/2-26,top-36,52,()=>{this.orderCardOpen=false;this.rebuildLayout();});
+-    const offer=active.offer,route=active.routes[active.selected],timing=this.book.timingForRoute(route),receipt=active.receipt;
+-    const title=readable(p,deadlineText(active.deadlineSeconds),-36,top-40,m.body,C.ink,inner-90,true,'left',64);
+-    if(active.mode==='running'||active.mode==='paused')this.timer=title;
+-    const remark=buyerRemark(offer),lines=[
+-      '取餐 '+this.book.data.pois[offer.from].name,
+-      '送达 '+this.book.data.pois[offer.to].name,
+-      '配送费 ¥'+(offer.feeCents/100).toFixed(2),
+-      foodDescription(offer),`重量 ${offer.weightKg}kg`,
+-      '注意事项：'+orderCautions(offer),...(remark?['买家备注：'+remark]:[]),
+-    ];
+-    const heights=lines.map(line=>textHeight(line,m.aux,inner));
+-    const routeHeight=Math.max(204,textHeight('预计晚到 · 餐损100%',m.aux,inner/2)+120);
+-    const planning=active.mode==='routes',footer=planning?m.action+32:receipt?m.action+32:16;
+-    const detailsHeight=heights.reduce((sum,h)=>sum+h+10,0);
+-    const contentHeight=detailsHeight+(planning?active.routes.length*(routeHeight+12)+16:receipt?240:active.mode==='arrived'?140:270);
+-    const content=scrollContent(p,inner,top-84,-top+footer,contentHeight);content.name='OrderDetails';
+-    let y=0;
+-    lines.forEach((line,i)=>{readable(content,line,0,y-heights[i]/2,m.aux,C.ink,inner,false,'left',heights[i]);y-=heights[i]+10;});
++    const offer=active.offer,route=active.routes[active.selected],timing=this.book.timingForRoute(route),receipt=active.receipt,phase=active.handoff?.phase;
++    const title=readable(p,(offer.source==='transfer'?'转单 · ':'')+deadlineText(active.deadlineSeconds)+(offer.type==='urgent'?' · 加急':''),-36,top-40,m.body,C.ink,inner-90,true,'left',64);
++
++    const planning=active.mode==='routes',footer=m.action+32,info=this.compactData()!,infoHeight=compactOrderHeight(info,inner,1280+this.screenExtra);
++    const routeHeight=Math.ceil(m.aux*4.5)+16,detailsHeight=infoHeight+(planning?routeHeight+28:70);
++    const content=scrollContent(p,inner,top-84,-top+footer,detailsHeight);content.name='OrderDetails';
++    const infoNode=item(content,'CompactOrderInfo',0,0,inner,infoHeight);compactOrderInfo(infoNode,info,inner,1280+this.screenExtra);
+     if(planning){
++      const gap=8,count=active.routes.length,w=(inner-gap*(count-1))/count,y=-infoHeight-12-routeHeight/2;
+       active.routes.forEach((r,i)=>{
+-        const selected=i===active.selected,color=ROUTE_COLORS[r.preference];
+-        const card=box(content,'Route-'+r.preference,0,y-routeHeight/2,inner,routeHeight,selected?'#FFF5CE':'#F7F5EF',12,selected?color:C.line);
+-        readable(card,(selected?'✓ ':'')+TITLES[r.preference],0,routeHeight/2-32,m.body,selected?color:C.ink,inner-24,true,'left',58);
++        const selected=i===active.selected,color=ROUTE_COLORS[r.preference],x=-inner/2+w/2+i*(w+gap);
++        const card=box(content,'Route-'+r.preference,x,y,w,routeHeight,selected?'#FFF5CE':'#F7F5EF',12,selected?color:C.line);
+         const estimated=this.book.timingForRoute(r).displaySeconds,late=estimated>active.deadlineSeconds;
+-        readable(card,`${formatDeliveryTime(estimated)} · ${(r.metres/1000).toFixed(1)}km`,0,0,m.body,C.ink,inner-24,true,'left',58);
+-        readable(card,`${late?'预计晚到':'准时'} · 餐损${Math.round(r.risk*100)}%`,0,-routeHeight/2+40,m.aux,late?'#B76A3A':C.muted,inner-24,false,'left',64);
+-        tap(card,()=>{if(!this.act(()=>this.book.select(i)))return;this.city.setRoutes(active.routes,i,true);const scroll=content.parent!.getComponent(ScrollView)!,offset=scroll.getScrollOffset().y;this.renderPanel();const details=this.panel.getChildByName('DeliverySheet')?.getChildByName('ScrollableContent')?.getComponent(ScrollView);details?.scrollToOffset(new Vec2(0,offset),0);});
+-        y-=routeHeight+12;
++        readable(card,(selected?'✓ ':'')+TITLES[r.preference],0,routeHeight/2-26,m.aux,selected?color:C.ink,w-12,true,'center',44);
++        readable(card,`${Math.ceil(estimated/60)}分 ${(r.metres/1000).toFixed(1)}km`,0,0,m.aux,C.ink,w-12,true,'center',48);
++        readable(card,`${late?'晚到':'准时'} 餐损${Math.round(r.risk*100)}%`,0,-routeHeight/2+28,m.aux,late?'#B76A3A':C.muted,w-12,false,'center',48);
++        tap(card,()=>{if(!this.act(()=>this.book.select(i)))return;this.city.setRoutes(active.routes,i,true);this.renderPanel();});
+       });
+-      this.action(p,'去取餐',0,-top+16+m.action/2,inner,()=>{if(!this.act(()=>this.book.depart()))return;this.city.locate(true);this.renderPanel();});
+-    }else if(active.mode==='arrived'){
+-      readable(content,'已到达顾客',0,y-40,m.body,C.ink,inner,true);
+-      this.action(content,'处理交付',0,y-112,inner,()=>this.openDemand());if(!this.modal)this.openDemand();
++    }else if(active.mode==='running'){
++      this.tripLabel=readable(content,'',0,-infoHeight-30,m.body,C.ink,inner,true,'left',60);this.updateProgress();
+     }else if(active.mode==='done'&&receipt){
+-      readable(content,'配送完成 · 收入已到账',0,y-40,m.body,C.green,inner,true);
+-      readable(content,`收入 ¥${(receipt.incomeCents/100).toFixed(2)} · 评价 ${receipt.ratingAfter} · 经验 +${receipt.experienceGained}`,0,y-120,m.aux,C.ink,inner,false,'left',100);
+-      this.action(p,'结算详情',-inner/4-4,-top+16+m.action/2,inner/2-8,()=>this.openReceipt(),C.light);
+-      this.action(p,'继续接单',inner/4+4,-top+16+m.action/2,inner/2-8,()=>this.continueOrders());
+-      if(!this.modal&&this.receipts.observe(active))this.openReceipt();
+-    }else{
+-      this.tripLabel=readable(content,'',0,y-42,m.body,C.ink,inner,true,'left',84);
+-      const progression=item(content,'DeliveryProgress',0,y-70);
+-      box(progression,'ProgressTrack',0,-60,inner,10,C.line,5);
+-      this.progressFill=box(progression,'ProgressFill',-inner/2,-60,inner,10,C.primary,5);
+-      readable(progression,`${TITLES[route.preference]} · 全程 ${(route.metres/1000).toFixed(1)}km · 预计${formatDeliveryTime(timing.displaySeconds)}`,0,-140,m.aux,C.muted,inner,false,'left',90);this.updateProgress();
+-    }
++      readable(content,'配送完成 · 收入已到账',0,-infoHeight-30,m.body,C.green,inner,true,'left',60);
++      if(!this.pendingSave&&!this.modal&&this.receipts.observe(active))this.openReceipt();
++    }
++    const allowCancel=phase?['planning','toPickup','awaitPickup'].indexOf(phase)>=0:(active.mode==='routes'||active.mode==='running'&&this.book.tripStage==='pickup'),buttonY=-top+16+m.action/2,cancelWidth=Math.max(144,cssUnits(44,1280+this.screenExtra),m.body*4+24);
++    if(allowCancel)this.action(p,'取消订单',-inner/2+cancelWidth/2,buttonY,cancelWidth,()=>{if(!this.act(()=>this.book.cancel()))return;this.rebuildLayout(true);},'#DE4258');
++    const mainWidth=allowCancel?inner-cancelWidth-12:inner,mainX=allowCancel?(cancelWidth+12)/2:0;
++    if(active.mode==='routes')this.action(p,'去取餐',mainX,buttonY,mainWidth,()=>{if(!this.act(()=>this.book.depart()))return;this.rebuildLayout();this.city.locate(true);this.presentHandoff();});
++    else if(phase==='awaitPickup')this.action(p,'取餐',mainX,buttonY,mainWidth,()=>{if(!this.act(()=>this.book.pickup()))return;this.renderPanel();});
++    else if(phase==='awaitDeliveryStart')this.action(p,'去送餐',mainX,buttonY,mainWidth,()=>{if(!this.act(()=>this.book.deliver()))return;this.renderPanel();});
++    else if(phase==='picking')this.action(p,'取餐中',mainX,buttonY,mainWidth,()=>{},C.light,false);
++    else if(active.mode==='running')this.action(p,phase==='toPickup'?'前往取餐中':'配送中',mainX,buttonY,mainWidth,()=>{},C.light,false);
++    else if(active.mode==='done')this.action(p,this.pendingSave?'结算保存待重试':'结算详情',0,buttonY,inner,()=>this.openReceipt(),C.light,!this.pendingSave);
++  }
++  private presentHandoff():void {
++    if(this.pendingSave)return;
++    const active=this.book.active,phase=active?.handoff?.phase||(active?.mode==='done'?'arrived':undefined);if(!active||!phase||['awaitPickup','awaitDeliveryStart','arrived'].indexOf(phase)<0)return;
++    const key=active.offer.id+'/'+phase;if(key===this.lastHandoffEvent)return;this.lastHandoffEvent=key;
++    this.closeDialog();this.closePhone();this.orderCardOpen=true;this.rebuildLayout();
++    if(phase==='arrived'&&this.book.mode==='done'&&this.modalKind!=='receipt')this.openReceipt();else this.city.locate(true);
+   }
+ 
+   update(dt:number):void {
+@@ -323,6 +331,7 @@
+     this.city.advanceLocate(dt);
+     const now=Date.now();if(this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,now);this.onlineAt=now;
+     if(this.skipNextFrame){this.skipNextFrame=false;return;}
++    if(this.pendingSave){this.saveElapsed+=dt;if(this.saveElapsed>=1){this.saveElapsed=0;if(this.save()){if(this.phone&&this.book.active)this.closePhone();this.rebuildLayout(!this.book.active);this.presentHandoff();}}return;}
+     this.saveElapsed+=dt;this.billElapsed+=dt;
+     if(this.billElapsed>=1){this.billElapsed=0;this.updateBills();}
+     if(this.damageNoticeSeconds>0){
+@@ -338,17 +347,18 @@
+     const damaged=this.book.takeDamageNotice();
+     if(damaged){this.damageNoticeSeconds=2;this.renderDamageNotice();}
+     if(arrived||damaged||this.saveElapsed>=.5){this.saveElapsed=0;this.save();}
+-    if(arrived)this.renderPanel();
++    if(arrived&&!this.pendingSave){this.renderPanel();this.presentHandoff();}
+   }
+   private act(action:()=>void):boolean {
+-    try{action();this.save();return true;}
++    if(this.pendingSave)return false;
++    try{action();return this.save();}
+     catch(error){this.showMessage(error instanceof Error?error.message:'操作未完成，请重试');return false;}
+   }
+-  private save():void {
+-    if(!this.book||!this.store)return;
++  private save():boolean {
++    if(!this.book||!this.store)return false;
+     const ok=this.store.save(this.book.serialize());
+     if(!ok&&this.lastSaveError!==this.store.message){this.lastSaveError=this.store.message;this.showMessage(this.store.message);}
+-    if(ok)this.lastSaveError='';this.updatePlayerHeader();this.updateBills();
++    this.pendingSave=!ok;if(ok&&this.lastSaveError){this.lastSaveError='';if(this.toast){this.toast.destroy();this.toast=null;this.noticeMessage='';}}this.updatePlayerHeader();this.updateBills();return ok;
+   }
+   private updatePlayerHeader():void {
+     if(!this.money)return;const p=this.book.player;
+@@ -365,7 +375,7 @@
+     const m=this.metrics(),width=720-this.safeInsets.left-this.safeInsets.right-36,height=textHeight(message,m.body,width-32)+24;
+     const node=this.toast=box(this.root,'NoticeToast',(this.safeInsets.left-this.safeInsets.right)/2,-230-this.screenExtra/2,width,height,'#FFF0B7',16,'#D6B65A');
+     readable(node,message,0,0,m.body,C.ink,width-32,true,'center',height-16);
+-    this.scheduleOnce(()=>{if(node.isValid)node.destroy();if(this.toast===node){this.toast=null;this.noticeMessage='';}},4);
++    this.scheduleOnce(()=>{if(this.pendingSave)return;if(node.isValid)node.destroy();if(this.toast===node){this.toast=null;this.noticeMessage='';}},4);
+   }
+   private dismissDialog():void {
+     if(this.modalKind==='receipt'&&this.book?.mode==='done'){if(!this.act(()=>this.book.finish()))return;this.closeDialog();this.rebuildLayout();return;}
+@@ -402,17 +412,18 @@
+     label(notice,'路程颠簸，餐品损坏了',0,0,25,'#9B592E',590,true,'center');
+   }
+   private openReceipt():void {
+-    const receipt=this.book.active?.receipt;if(!receipt)return;
+-    const {card,width,height,top,bottom}=this.dialog('配送结算',1040,'receipt'),m=this.metrics(),inner=width-48;
+-    const entries=[
+-      {text:'+¥'+(receipt.incomeCents/100).toFixed(2),size:m.amount+12,bold:true,color:'#795020'},
+-      {text:`基础价 ¥${(receipt.basePriceCents/100).toFixed(2)} · 本单实际收入`,size:m.aux},
+-      ...receipt.summary.map(line=>({text:'· '+line,size:m.body})),
+-      {text:`评价 ${receipt.ratingBefore} → ${receipt.ratingAfter}（${receipt.ratingDelta>=0?'+':''}${receipt.ratingDelta}）`,size:m.body,bold:true},
+-      {text:`经验 +${receipt.experienceGained} · 等级 Lv.${receipt.levelBefore} → Lv.${receipt.levelAfter}`,size:m.body},
+-      {text:'余额 ¥'+(receipt.newCashCents/100).toFixed(2),size:m.body,bold:true},
+-    ];
+-    const heights=entries.map(row=>textHeight(row.text,row.size,inner)+16),content=scrollContent(card,inner,top,bottom+m.action+24,heights.reduce((a,b)=>a+b,0)+20);
++    const receipt=this.book.active?.receipt;if(!receipt||this.pendingSave)return;
++    const m=this.metrics(),inner=Math.min(684,720-this.safeInsets.left-this.safeInsets.right-36)-48,offer=this.book.active!.offer;
++    const status=[receipt.lateSeconds>0?'晚到':'准时',receipt.damage==='none'?'餐品完好':'餐品损坏',offer.demand==='door'?(receipt.outcome.doorAnswer?'按备注':'未按备注'):'无交付要求'].join(' · ');
++    let parts:ReturnType<typeof receiptIncomeBreakdown>=null;try{parts=receiptIncomeBreakdown(offer,receipt);}catch(_){/* Old receipt without sufficient data: show the actual result. */}
++    const effect=(label:string,cents:number)=>`${label}影响收益${cents>0?'−':'+'}¥${(Math.abs(cents)/100).toFixed(2)}`;
++    const entries=[{text:'本单收益 ¥'+(receipt.incomeCents/100).toFixed(2),size:m.amount+12,bold:true,color:'#795020'},
++      {text:status,size:m.body},...(parts&&parts.lateImpact?[{text:effect('晚到',parts.lateImpact),size:m.body}]:[]),
++      ...(parts&&parts.damageImpact?[{text:effect('餐损',parts.damageImpact),size:m.body}]:[]),
++      {text:`评价 ${receipt.ratingDelta>=0?'+':''}${receipt.ratingDelta} · 经验 +${receipt.experienceGained}`,size:m.body,bold:true}];
++    const heights=entries.map(row=>textHeight(row.text,row.size,inner)+12),contentHeight=heights.reduce((a,b)=>a+b,0)+12;
++    const {card,height,top,bottom}=this.dialog('配送结算',contentHeight+m.action+180,'receipt');
++    const content=scrollContent(card,inner,top,bottom+m.action+24,contentHeight);
+     let offset=0;entries.forEach((row,i)=>{readable(content,row.text,0,-offset-heights[i]/2,row.size,row.color||C.ink,inner,!!row.bold,'left',heights[i]);offset+=heights[i];});
+     this.action(card,'确认，继续接单',0,-height/2+24+m.action/2,inner,()=>this.continueOrders());
+   }
+@@ -476,8 +487,8 @@
+   private updateProgress():void {
+     const active=this.book.active;if(!active)return;
+     const progress=this.book.progress;
+-    if(this.tripLabel)this.tripLabel.string=this.book.tripStage==='pickup'?'前往餐厅取餐':this.book.tripStage==='collecting'?`正在取餐中 · ${Math.ceil(this.book.pickupWaitRemaining)}秒`:'正在送往顾客';
+     const remaining=active.deadlineSeconds-progress.displaySeconds*progress.progress;
++    if(this.tripLabel){const phase=active.handoff?.phase,stage=phase==='awaitPickup'?'已到店，等待取餐':phase==='awaitDeliveryStart'?'取餐完成，准备送餐':this.book.tripStage==='pickup'?'前往餐厅取餐':this.book.tripStage==='collecting'?`正在取餐中 · ${Math.ceil(this.book.pickupWaitRemaining)}秒`:'正在送往顾客';this.tripLabel.string=stage+' · '+(remaining>=0?'剩余 ':'已超时 ')+formatRemaining(Math.abs(remaining));}
+     if(this.timer)this.timer.string=active.mode==='done'?'已到达':remaining>=0?'剩余 '+formatRemaining(remaining):'已超时 '+formatRemaining(-remaining);
+     if(this.progressFill){this.progressFill.setScale(progress.progress,1,1);this.progressFill.setPosition(-(720-this.safeInsets.left-this.safeInsets.right-60)/2*(1-progress.progress),-60);}
+   }
+--- before/delivery-game/assets/scripts/map-sample/OrderPhone.ts
++++ delivery-game/assets/scripts/map-sample/OrderPhone.ts
+@@ -1,5 +1,6 @@
+ import { BlockInputEvents, Color, Graphics, Node, UITransform } from 'cc';
+ import { foodImage } from './FoodImages';
++import { compactOrderHeight, compactOrderInfo, CompactOrder } from './CompactOrderInfo';
+ import { OrderBook } from './OrderBook';
+ import { buyerRemark, deadlineText, foodDescription, orderCautions } from './OrderPresentation';
+ import { box, closeButton, C, item, material, outline, skin, tap } from './SampleUI';
+@@ -37,30 +38,18 @@
+   this.action(frame,this.book.refreshesLeft?`刷新 ${this.book.refreshesLeft}/2`:'广告未开放',width/2-112,noticeY,174,m.action,this.onRefresh,this.book.refreshesLeft?C.primary:'#EEE9DD',!!this.book.refreshesLeft);
+   const listTop=top-202-noticeHeight,listBottom=-top+88,cardWidth=width-64,rows=this.book.list();
+   const layouts=rows.map(preview=>{
+-   const offer=preview.offer,inner=cardWidth-32,remark=buyerRemark(offer);
+-   const lines=[
+-    {text:(offer.source==='transfer'?'转单 · ':'')+deadlineText(preview.deadlineSeconds),bold:true,color:offer.source==='transfer'?C.green:C.ink},
+-    {text:foodDescription(offer),food:true,bold:true},
+-    {text:`重量 ${offer.weightKg}kg`},
+-    {text:'取餐 '+this.book.data.pois[offer.from].name},
+-    {text:'送达 '+this.book.data.pois[offer.to].name},
+-    {text:`全程 ${((preview.pickupMetres+preview.deliveryMetres)/1000).toFixed(1)}km · ${orderCautions(offer)}`},
+-    ...(remark?[{text:'买家备注：'+remark}]:[]),
+-    {text:'配送费 ¥'+(offer.feeCents/100).toFixed(2),bold:true,color:'#9A6500'},
+-   ].map(line=>({...line,height:Math.max(line.food?116:0,textHeight(line.text,m.body,line.food?inner-128:inner))}));
+-   return {preview,lines,height:32+lines.reduce((sum,line)=>sum+line.height+12,0)+m.action+24};
++   const offer=preview.offer,details:CompactOrder={offer,from:this.book.data.pois[offer.from].name,to:this.book.data.pois[offer.to].name,metres:preview.available?preview.pickupMetres+preview.deliveryMetres:null};
++   const header=(offer.source==='transfer'?'转单 · ':'')+(preview.available?deadlineText(preview.deadlineSeconds):'暂不可配送')+(offer.type==='urgent'?' · 加急':'');
++   const headerHeight=textHeight(header,m.body,cardWidth-32),bodyHeight=compactOrderHeight(details,cardWidth-32,this.screenHeight);
++   return {preview,details,header,headerHeight,bodyHeight,height:16+headerHeight+8+bodyHeight+12+m.action+16};
+   });
+   const total=layouts.reduce((sum,row)=>sum+row.height+18,0)+20,content=scrollContent(frame,width-44,listTop,listBottom,total);content.parent!.name='OrderList';content.name='OrderListContent';
+   let offset=0;
+-  for(const {preview,lines,height} of layouts){
++  for(const {preview,details,header,headerHeight,bodyHeight,height} of layouts){
+    const offer=preview.offer,card=box(content,'Offer-'+offer.id,0,-offset-height/2,cardWidth,height,C.paper,18,C.line);
+-   let y=height/2-16;
+-   for(const line of lines){
+-    y-=line.height/2;
+-    if(line.food)foodImage(card,offer.food,-cardWidth/2+70,y,108);
+-    readable(card,line.text,line.food?64:0,y,m.body,line.color||C.ink,line.food?cardWidth-160:cardWidth-32,!!line.bold,'left',line.height);y-=line.height/2+12;
+-   }
+-   this.action(card,offer.source==='transfer'?'接受转单':'抢单',0,-height/2+16+m.action/2,cardWidth-32,m.action,()=>this.onAccept(offer.id),offer.source==='transfer'?C.green:C.primary);offset+=height+18;
++   readable(card,header,0,height/2-16-headerHeight/2,m.body,offer.source==='transfer'?C.green:C.ink,cardWidth-32,true,'left',headerHeight);
++   const body=item(card,'CompactOrderInfo',0,height/2-16-headerHeight-8,cardWidth-32,bodyHeight);compactOrderInfo(body,details,cardWidth-32,this.screenHeight);
++   this.action(card,offer.source==='transfer'?'接受转单':'抢单',0,-height/2+16+m.action/2,cardWidth-32,m.action,()=>this.onAccept(offer.id),offer.source==='transfer'?C.green:C.primary,preview.available);offset+=height+18;
+   }
+   readable(frame,`共 ${rows.length} 单 · 上下滑动查看更多`,0,-top+57,m.aux,C.muted,width-60,false,'center');box(frame,'HomeIndicator',0,-top+24,126,5,C.navy,3);
+  }
+--- before/delivery-game/assets/scripts/map-sample/CityMap.ts
++++ delivery-game/assets/scripts/map-sample/CityMap.ts
+@@ -1,5 +1,5 @@
+ import { EventMouse, EventTouch, Graphics, Label, Mask, Node, UITransform, Vec3 } from 'cc';
+-import { CityData, MapRoute, Point, Preference } from './MapTypes';
++import { routePoints, CityData, MapRoute, Point, Preference } from './MapTypes';
+ import { box, C, col, item, label, tap } from './SampleUI';
+ import { clampCamera, compatibilityBounds, contains } from './CityExtent';
+ import { MapVehicle } from './MapVehicle';
+@@ -28,6 +28,7 @@
+  private selected=0;
+  private routeOverview=false;
+  private autoFit=false;
++ private planningControlsHidden=false;
+  private routeInsets={top:232,bottom:252,left:90,right:90};
+  private scale=DEFAULT_SCALE;
+  private offset:Point=[0,0];
+@@ -134,6 +135,7 @@
+    return g;
+  }
+  setVehicle(tier:number):void{this.vehicle.setTier(tier);}
++ setPlanningControlsHidden(hidden:boolean):void{this.planningControlsHidden=hidden;}
+  captureView():{scale:number;offset:Point;follow:boolean;overview:boolean;autoFit:boolean}{return {scale:this.scale,offset:[this.offset[0],this.offset[1]],follow:this.follow,overview:this.routeOverview,autoFit:this.autoFit};}
+  restoreView(state:{scale:number;offset:Point;follow:boolean;overview:boolean;autoFit:boolean}):void{this.scale=state.scale;this.offset=[state.offset[0],state.offset[1]];this.follow=state.follow;this.routeOverview=state.overview;this.autoFit=state.autoFit;if(state.autoFit)this.focusRoute();else this.sync();}
+  get isFollowing():boolean{return this.follow;}
+@@ -153,11 +155,16 @@
+  locate(resetZoom=false):void{this.routeOverview=false;this.autoFit=false;this.cancelLocate();this.follow=true;this.scale=resetZoom?DEFAULT_SCALE:Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale));this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
+  overview():void{this.routeOverview=false;this.autoFit=false;this.cancelLocate();this.follow=false;this.scale=MIN_SCALE;this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
+  focusRoute():void{this.cancelLocate();
+-   if(!this.routes.length)return;this.follow=false;const points:Point[]=[];for(const r of this.routes)points.push(...r.points);const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);
++   if(!this.routes.length)return;this.follow=false;const points:Point[]=[];for(const r of this.routes)points.push(...routePoints(r));const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);
+    const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+    // Automatic planning view may zoom beyond manual 100m. Reserve HUD and lower map controls.
+    const pad=this.routeInsets||{top:232,bottom:252,left:90,right:90};
+-   const left=-MAP_W/2+pad.left,right=MAP_W/2-pad.right,bottom=-this.mapHeight/2+pad.bottom,top=this.mapHeight/2-pad.top;
++   // On short screens reserve the central lane between the two lower controls.
++   // This leaves more vertical map area while keeping the full rider/pin extents clear.
++   const narrow=this.mapHeight<pad.top+pad.bottom+96;
++   let topPad=narrow?(this.planningControlsHidden?160:156)+Math.max(0,pad.top-232):pad.top,bottomPad=narrow?80:pad.bottom;
++   const sum=topPad+bottomPad,reduce=Math.max(0,sum+32-this.mapHeight);topPad-=reduce*topPad/sum;bottomPad-=reduce*bottomPad/sum;
++   const left=-MAP_W/2+(narrow?196+Math.max(0,pad.left-90):pad.left),right=MAP_W/2-(narrow?(this.planningControlsHidden?90:204)+Math.max(0,pad.right-90):pad.right),bottom=-this.mapHeight/2+bottomPad,top=this.mapHeight/2-topPad;
+    this.routeOverview=true;this.autoFit=true;this.scale=Math.min(MAX_SCALE,(right-left)/Math.max(1,maxX-minX),(top-bottom)/Math.max(1,maxY-minY));
+    this.offset=[(left+right)/2-(minX+maxX)/2*this.scale,(bottom+top)/2-(minY+maxY)/2*this.scale];this.sync();
+  }
+@@ -173,13 +180,13 @@
+  private clampOffset():void{
+    if(this.routeOverview)return;
+    const base=this.data.playBounds||{minX:-this.data.width/2,maxX:this.data.width/2,minY:-this.data.height/2,maxY:this.data.height/2};
+-   const points=[this.riderPoint,...this.routes.reduce((all,r)=>all.concat(r.points),[] as Point[])];
++   const points=[this.riderPoint,...this.routes.reduce((all,r)=>all.concat(routePoints(r)),[] as Point[])];
+    const bounds=compatibilityBounds(base,points,MAP_W/2/MIN_SCALE,this.mapHeight/2/MIN_SCALE);
+    this.offset=clampCamera(bounds,this.offset,this.scale,MAP_W,this.mapHeight);
+  }
+  private drawRoutes():void{
+    this.routeInk.clear();const order=this.routes.map((r,i)=>({r,i})).sort((a,b)=>Number(a.i===this.selected)-Number(b.i===this.selected));
+-   for(const {r,i} of order){this.line(this.routeInk,r.points,(i===this.selected?13:7)/this.scale,'#FFFFFF');this.line(this.routeInk,r.points,(i===this.selected?8:4)/this.scale,i===this.selected?ROUTE_COLORS[r.preference]:'#ACB4C6');}
++   for(const {r,i} of order){this.line(this.routeInk,routePoints(r),(i===this.selected?13:7)/this.scale,'#FFFFFF');this.line(this.routeInk,routePoints(r),(i===this.selected?8:4)/this.scale,i===this.selected?ROUTE_COLORS[r.preference]:'#ACB4C6');}
+  }
+  private project(p:Point):Point{return[p[0]*this.scale+this.offset[0],p[1]*this.scale+this.offset[1]];}
+  private syncOverlay():void{
+--- before/delivery-game/assets/scripts/map-sample/RoadRouter.ts
++++ delivery-game/assets/scripts/map-sample/RoadRouter.ts
+@@ -58,6 +58,7 @@
+ }
+ export function routePosition(route: MapRoute, seconds: number): { point: Point; angle: number } {
+   let remaining=Math.max(0,seconds);
++  if(route.origin){const a=route.origin.start,b=route.points[0],duration=route.origin.exit.seconds;if(remaining<=duration&&duration>0){const t=remaining/duration;return {point:[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t],angle:Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI};}remaining=Math.max(0,remaining-duration);}
+   for(let i=0;i<route.segments.length;i++){
+     const segment=route.segments[i],a=route.points[i],b=route.points[i+1];
+     if(remaining<=segment.seconds||i===route.segments.length-1){
+--- before/delivery-game/assets/scripts/map-sample/OrderBook.ts
++++ delivery-game/assets/scripts/map-sample/OrderBook.ts
+@@ -8,21 +8,24 @@
+ import { contains } from './CityExtent';
+ import { FOOD_CATALOG, foodForOffer, selectFoodForOffer } from './FoodCatalog';
+ import { DispatchArea, dispatchAreaForTrip } from './DispatchAreas';
++import { RiderAnchor, anchorAt, anchorExits, routeFromAnchor } from './RiderAnchor';
++import { HandoffPhase, HandoffState, advanceHandoff, beginTrip, startPickup, startDelivery } from './ManualHandoff';
+ import { newOfferSource } from './OrderPresentation';
+ import { BillingSnapshot, BillingView, DeliveryLedger } from './DeliveryLedger';
+ 
+ export interface DeliveryOffer extends CountyTerms { from:number; to:number; food:string; tag:string; weightKg:number; source?:'direct'|'transfer'; quantity?:number; buyerNote?:string }
+ export interface OfferPreview {
+-  offer:DeliveryOffer; pickupMetres:number; deliveryMetres:number; timing:DeliveryTiming; deadlineSeconds:number; estimatedIncomeCents:number;
++  offer:DeliveryOffer; available:boolean; pickupMetres:number; deliveryMetres:number; timing:DeliveryTiming; deadlineSeconds:number; estimatedIncomeCents:number;
+ }
+ export interface AcceptedDelivery {
+   offer:DeliveryOffer; routes:MapRoute[]; selected:number; elapsed:number; ruleVersion?:1|2; pickupWaitElapsed?:number;
+   mode:'routes'|'running'|'paused'|'arrived'|'done';
++  handoff?:{version:1;phase:HandoffPhase};
+   damageNoticeShown?:boolean;
+   deadlineSeconds:number; damage:Damage|null; playerBefore:Player; receipt:CountyReceipt|null;
+ }
+ export interface CountySnapshot {
+-  version:1|2|3;mapId:string;player:Player;offers:DeliveryOffer[];currentNode:string;sequence:number;
++  version:1|2|3|4;riderAnchor?:RiderAnchor|null;mapId:string;player:Player;offers:DeliveryOffer[];currentNode:string;sequence:number;
+   recent:number[];lobbyHistory?:number[];billing?:BillingSnapshot;tutorialComplete:boolean;daily:{day:string;used:number};active:AcceptedDelivery|null;
+ }
+ function localDay():string{const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;}
+@@ -38,6 +41,8 @@
+   private readonly cache=new Map<string,MapRoute|null>();
+   private accepted:AcceptedDelivery|null=null;
+   private currentNode:string;
++  private riderAnchor:RiderAnchor|null=null;
++  private snapshotVersion:3|4=3;
+   private sequence=1;
+   private playerState:Player=newCountyPlayer();
+   private tutorialComplete=false;
+@@ -57,6 +62,7 @@
+     if(!start)throw new Error('No restaurant in the delivery map');
+     this.currentNode=start.node;
+     if(saved){
++      this.snapshotVersion=saved.version===4?4:3;this.riderAnchor=saved.version===4?(saved.riderAnchor||null):null;
+       this.playerState=saved.player;this.offers=saved.offers;this.currentNode=saved.currentNode;
+       this.sequence=saved.sequence;this.recent=saved.recent;this.lobbyHistory=saved.lobbyHistory||[];this.tutorialComplete=saved.tutorialComplete;this.daily=saved.daily;this.accepted=saved.active;
+       if(saved.version<3&&this.accepted)this.accepted.ruleVersion=1;
+@@ -77,7 +83,7 @@
+     validateCountySnapshot(data,saved);return new OrderBook(data,random,today,saved);
+   }
+   serialize():string {
+-    const snapshot:CountySnapshot={version:3,mapId:this.mapId,player:this.playerState,offers:this.offers,currentNode:this.currentNode,sequence:this.sequence,recent:this.recent,lobbyHistory:this.lobbyHistory,billing:this.ledger.snapshot(),tutorialComplete:this.tutorialComplete,daily:this.daily,active:this.accepted};
++    const snapshot:CountySnapshot={version:this.snapshotVersion,...(this.snapshotVersion===4?{riderAnchor:this.riderAnchor}:{}),mapId:this.mapId,player:this.playerState,offers:this.offers,currentNode:this.currentNode,sequence:this.sequence,recent:this.recent,lobbyHistory:this.lobbyHistory,billing:this.ledger.snapshot(),tutorialComplete:this.tutorialComplete,daily:this.daily,active:this.accepted};
+     return JSON.stringify(snapshot);
+   }
+   get player():Readonly<Player>{return {...this.playerState};}
+@@ -91,6 +97,7 @@
+   get mode():'idle'|AcceptedDelivery['mode']{return this.accepted?this.accepted.mode:'idle';}
+   get tripStage():'pickup'|'collecting'|'delivery'|null {
+     if(!this.accepted)return null;
++    const phase=this.accepted.handoff?.phase;if(phase)return phase==='picking'?'collecting':phase==='toDropoff'||phase==='arrived'?'delivery':'pickup';
+     if(this.accepted.mode==='running'&&this.accepted.pickupWaitElapsed!==undefined&&this.accepted.pickupWaitElapsed<PICKUP_STOP_SECONDS&&this.accepted.elapsed>=this.pickupAt()-1e-9)return 'collecting';
+     const route=this.accepted.routes[this.accepted.selected];
+     const legacy=this.accepted.ruleVersion===1;
+@@ -102,7 +109,7 @@
+     const active=this.accepted;
+     if(!active||active.mode!=='running'||!active.damage||active.damage==='none'||active.damageNoticeShown||this.tripStage!=='delivery')return false;
+     const route=active.routes[active.selected];
+-    const pickup=route.segments.slice(0,route.pickupIndex||0).reduce((sum,s)=>sum+s.metres,0);
++    const pickup=(route.origin?.exit.metres||0)+route.segments.slice(0,route.pickupIndex||0).reduce((sum,s)=>sum+s.metres,0);
+     let travelled=this.progress.routeElapsedMetres;
+     if(active.ruleVersion===1){
+       // Historic animation follows road seconds; segment speeds can differ greatly.
+@@ -117,7 +124,7 @@
+   }
+   private pickupAt():number {
+     const active=this.accepted!,route=active.routes[active.selected];
+-    const metres=route.segments.slice(0,route.pickupIndex||0).reduce((n,s)=>n+s.metres,0);
++    const metres=(route.origin?.exit.metres||0)+route.segments.slice(0,route.pickupIndex||0).reduce((n,s)=>n+s.metres,0);
+     return this.progress.animationSeconds*metres/route.metres;
+   }
+   get progress():DeliveryProgress {
+@@ -133,16 +140,18 @@
+   }
+   get riderPose():{point:Point;angle:number} {
+     if(this.accepted){const r=this.accepted.routes[this.accepted.selected];return routePosition(r,this.progress.routeElapsedSeconds);}
++    if(this.riderAnchor)return {point:anchorExits(this.data,this.riderAnchor).point,angle:0};
+     const n=this.router.nodes.get(this.currentNode)!;return {point:[n.x,n.y],angle:0};
+   }
+   list():OfferPreview[] {
+     return this.offers.map(offer=>{
+-      const bounded=this.insideCity(this.currentNode)&&this.insideCity(this.data.pois[offer.from].node)&&this.insideCity(this.data.pois[offer.to].node);
+-      const pickup=this.path(this.currentNode,this.data.pois[offer.from].node,'fast',bounded);
+-      const delivery=this.path(this.data.pois[offer.from].node,this.data.pois[offer.to].node,'fast',bounded);
+-      if(!pickup||!delivery)throw new Error('Unreachable order');
+-      const timing=this.timing(pickup.metres+delivery.metres);
+-      return {offer,pickupMetres:pickup.metres,deliveryMetres:delivery.metres,timing,deadlineSeconds:this.accepted?.offer.id===offer.id?this.accepted.deadlineSeconds:Math.min(...this.legalRoutes(offer).map(r=>this.timing(r.metres).displaySeconds))+(offer.type==='urgent'?0:300),estimatedIncomeCents:estimateCountyIncome(this.playerState,offer.feeCents)};
++      const bounded=this.riderInsideCity()&&this.insideCity(this.data.pois[offer.from].node)&&this.insideCity(this.data.pois[offer.to].node);
++      const route=this.deliveryRoute(offer,'fast',bounded),estimatedIncomeCents=estimateCountyIncome(this.playerState,offer.feeCents);
++      if(!route)return {offer,available:false,pickupMetres:0,deliveryMetres:0,timing:{displaySeconds:0,animationSeconds:0},deadlineSeconds:0,estimatedIncomeCents};
++      const pickupMetres=(route.origin?.exit.metres||0)+route.segments.slice(0,route.pickupIndex||0).reduce((sum,segment)=>sum+segment.metres,0),deliveryMetres=route.metres-pickupMetres,timing=this.timing(route.metres);
++      let deadlineSeconds=this.accepted?.offer.id===offer.id?this.accepted.deadlineSeconds:0,available=true;
++      if(!deadlineSeconds){try{deadlineSeconds=Math.min(...this.legalRoutes(offer).map(r=>this.timing(r.metres).displaySeconds))+(offer.type==='urgent'?0:300);}catch(_){available=false;}}
++      return {offer,available,pickupMetres,deliveryMetres,timing,deadlineSeconds,estimatedIncomeCents};
+     });
+   }
+   accept(id:string):void {
+@@ -152,7 +161,7 @@
+     if(offer.weightKg>COUNTY_VEHICLES[this.playerState.vehicleTier-1].capacityKg)throw new Error('这单超出当前车辆载重');
+     const routes=this.legalRoutes(offer);
+     const fastest=Math.min(...routes.map(r=>this.timing(r.metres).displaySeconds));
+-    this.accepted={offer,routes,ruleVersion:2,pickupWaitElapsed:0,selected:0,elapsed:0,mode:'routes',deadlineSeconds:fastest+(offer.type==='urgent'?0:300),damage:null,playerBefore:{...this.playerState},receipt:null};
++    this.snapshotVersion=4;this.accepted={offer,routes,ruleVersion:2,handoff:{version:1,phase:'planning'},pickupWaitElapsed:0,selected:0,elapsed:0,mode:'routes',deadlineSeconds:fastest+(offer.type==='urgent'?0:300),damage:null,playerBefore:{...this.playerState},receipt:null};
+   }
+   private legalRoutes(offer:DeliveryOffer):MapRoute[] {
+     const routes:MapRoute[]=[],seen=new Set<string>();
+@@ -170,21 +179,43 @@
+     this.accepted.selected=index;
+   }
+   cancel():void {
+-    if(!this.accepted||this.accepted.mode!=='routes')return;
+-    const nearby=this.nearbyOffers(this.offers);
+-    this.offers.splice(0,this.offers.length,...nearby);this.accepted=null;
++    const active=this.accepted;if(!active)return;
++    const phase=active.handoff?.phase;
++    if(phase&&phase!=='planning'&&phase!=='toPickup'&&phase!=='awaitPickup')throw new Error('取餐开始后不能取消');
++    if(!phase&&active.mode!=='routes'){
++      const route=active.routes[active.selected],pickup=route.segments.slice(0,route.pickupIndex||0).reduce((sum,segment)=>sum+segment.seconds,0);
++      if(active.mode!=='running'||this.progress.routeElapsedSeconds>=pickup)throw new Error('取餐开始后不能取消');
++      if(active.elapsed>0){this.riderAnchor=anchorAt(route,this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;this.snapshotVersion=4;}
++    }
++    if(phase==='awaitPickup'){this.currentNode=this.data.pois[active.offer.from].node;this.riderAnchor=null;}
++    else if(phase==='toPickup'&&active.elapsed>0){this.riderAnchor=anchorAt(active.routes[active.selected],this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;}
++    this.accepted=null;
++  }
++  private handoffState():HandoffState {
++    const a=this.accepted!;return {version:1,phase:a.handoff!.phase,elapsed:a.elapsed,serviceElapsed:a.pickupWaitElapsed||0};
++  }
++  private applyHandoff(next:HandoffState):void {
++    const a=this.accepted!;a.handoff={version:1,phase:next.phase};a.elapsed=next.elapsed;a.pickupWaitElapsed=next.serviceElapsed;
+   }
+   depart():void{
+     if(!this.accepted||this.accepted.mode!=='routes')return;
+     const chance=this.accepted.routes[this.accepted.selected].risk;
+     let damage:Damage='none';if(this.roll()<chance){const severity=this.roll();damage=severity<.7?'minor':severity<.95?'moderate':'severe';}
+     this.accepted.damage=damage;this.accepted.mode='running';
+-  }
++    if(this.accepted.handoff)this.applyHandoff(beginTrip(this.handoffState(),this.pickupAt()));
++  }
++  pickup():void {if(!this.accepted?.handoff)throw new Error('当前订单无需手动取餐');this.applyHandoff(startPickup(this.handoffState()));}
++  deliver():void {if(!this.accepted?.handoff)throw new Error('当前订单无需手动送餐');this.applyHandoff(startDelivery(this.handoffState()));}
+   // Kept for old view integrations; deliveries no longer support manual pausing.
+   togglePause():void {}
+   advance(seconds:number):boolean {
+     const active=this.accepted;
+     if(!active||active.mode!=='running'||!Number.isFinite(seconds)||seconds<=0)return false;
++    if(active.handoff){
++      const next=advanceHandoff(this.handoffState(),seconds,this.pickupAt(),this.progress.animationSeconds),changed=next.phase!==active.handoff.phase;this.applyHandoff(next);
++      if(next.phase==='arrived'){active.mode='arrived';this.currentNode=this.data.pois[active.offer.to].node;this.riderAnchor=null;this.settle(active.offer.demand==='door'?true:null);}
++      return changed;
++    }
+     if(active.pickupWaitElapsed===undefined)active.elapsed=Math.min(this.progress.animationSeconds,active.elapsed+seconds);
+     else{
+       const next=advancePickupClock(active.elapsed,active.pickupWaitElapsed,seconds,this.pickupAt(),this.progress.animationSeconds);
+@@ -192,7 +223,7 @@
+     }
+     if(this.progress.progress<1)return false;
+     active.mode='arrived';this.currentNode=this.data.pois[active.offer.to].node;
+-    if(active.offer.demand==='none')this.settle();
++    this.riderAnchor=null;this.settle(active.offer.demand==='door'?true:null);
+     return true;
+   }
+   settle(doorAnswer:boolean|null=null):CountyReceipt {
+@@ -215,6 +246,7 @@
+   }
+   private roadSecondsAtDistance(route:MapRoute,distance:number):number {
+     let remaining=distance,seconds=0;
++    if(route.origin){const prefix=route.origin.exit;if(remaining<=prefix.metres)return prefix.metres?prefix.seconds*Math.max(0,remaining)/prefix.metres:0;remaining-=prefix.metres;seconds+=prefix.seconds;}
+     for(const segment of route.segments){
+       if(remaining<=segment.metres)return seconds+segment.seconds*Math.max(0,remaining)/segment.metres;
+       remaining-=segment.metres;seconds+=segment.seconds;
+@@ -242,24 +274,31 @@
+     if(!this.cache.has(key)){if(this.cache.size>400)this.cache.clear();this.cache.set(key,(bounded?this.cityRouter:this.router).find(from,to,preference));}
+     return this.cache.get(key)!;
+   }
++  private pickupPath(to:string,preference:Preference,bounded=false):MapRoute|null {
++    if(!this.riderAnchor)return this.path(this.currentNode,to,preference,bounded);
++    const origin=routeFromAnchor(this.data,this.riderAnchor,to,preference,bounded?this.cityRouter:this.router);if(!origin)return null;
++    return {...origin.tail,origin:{anchor:origin.anchor,start:origin.start,exit:origin.exit},metres:origin.metres,seconds:origin.seconds};
++  }
+   private deliveryRoute(offer:DeliveryOffer,preference:Preference,bounded=false):MapRoute|null {
+-    const pickup=this.path(this.currentNode,this.data.pois[offer.from].node,preference,bounded);
++    const pickup=this.pickupPath(this.data.pois[offer.from].node,preference,bounded);
+     const delivery=this.path(this.data.pois[offer.from].node,this.data.pois[offer.to].node,preference,bounded);
+     if(!pickup||!delivery)return null;
+     const segments=[...pickup.segments,...delivery.segments];
+     return {preference,nodes:[...pickup.nodes,...delivery.nodes.slice(1)],points:[...pickup.points,...delivery.points.slice(1)],segments,
+-      pickupIndex:pickup.nodes.length-1,metres:pickup.metres+delivery.metres,seconds:pickup.seconds+delivery.seconds,
++      pickupIndex:pickup.nodes.length-1,...(pickup.origin?{origin:pickup.origin}:{}),metres:pickup.metres+delivery.metres,seconds:pickup.seconds+delivery.seconds,
+       risk:countyDamageChance(preference,offer.fragility)};
+   }
++  private riderInsideCity():boolean {return !this.data.playBounds||contains(this.data.playBounds,this.riderPose.point);}
++  private riderAtNode(id:string):boolean {return this.riderAnchor?this.riderAnchor.fraction===0&&this.riderAnchor.from===id||this.riderAnchor.fraction===1&&this.riderAnchor.to===id:this.currentNode===id;}
+   private insideCity(node:string):boolean {
+     const n=this.router.nodes.get(node)!;return !this.data.playBounds||contains(this.data.playBounds,[n.x,n.y]);
+   }
+-  private get localDispatch():boolean{return !!this.data.dispatchBounds&&this.insideCity(this.currentNode);}
++  private get localDispatch():boolean{return !!this.data.dispatchBounds&&this.riderInsideCity();}
+   private insideOperating(node:string):boolean {
+     const n=this.router.nodes.get(node)!;return (!this.operatingNodes||this.operatingNodes.has(node))&&(this.data.dispatchBounds?contains(this.data.dispatchBounds,[n.x,n.y]):this.insideCity(node));
+   }
+   private normalRoute(offer:DeliveryOffer,preference:Preference):MapRoute|null {
+-    const inCity=this.insideCity(this.currentNode),from=this.data.pois[offer.from].node,to=this.data.pois[offer.to].node;
++    const inCity=this.riderInsideCity(),from=this.data.pois[offer.from].node,to=this.data.pois[offer.to].node;
+     if(inCity&&(!this.insideCity(from)||!this.insideCity(to)))return null;
+     return this.deliveryRoute(offer,preference,inCity);
+   }
+@@ -289,7 +328,7 @@
+   private createOffer(existing:DeliveryOffer[],avoid:number[]):DeliveryOffer {
+     if(this.localDispatch)return this.createLocalOffer(existing,avoid);
+     const point=(i:number)=>this.router.nodes.get(this.data.pois[i].node)!;
+-    const inCity=this.insideCity(this.currentNode),used=new Set(existing.map(o=>o.to));
++    const inCity=this.riderInsideCity(),used=new Set(existing.map(o=>o.to));
+     const merchants=this.data.pois.map((p,i)=>({p,i})).filter(v=>v.p.kind==='restaurant'&&(!inCity||this.insideCity(v.p.node))).map(v=>v.i);
+     const customers=this.data.pois.map((p,i)=>({p,i})).filter(v=>v.p.kind!=='restaurant'&&(!inCity||this.insideCity(v.p.node))).map(v=>v.i);
+     const rotation=(this.sequence-1)%merchants.length;
+@@ -297,11 +336,11 @@
+     const band=(this.sequence-1)%5;
+     // Search all legal unique destinations before permitting repetition on small/disconnected fixtures.
+     for(const repeat of [false,true])for(const from of merchantOrder){
+-      const pickup=this.path(this.currentNode,this.data.pois[from].node,'fast',inCity);
++      const pickup=this.pickupPath(this.data.pois[from].node,'fast',inCity);
+       if(!pickup||pickup.metres>=MAX_TRIP_METRES)continue;
+       const a=point(from),budget=MAX_TRIP_METRES-pickup.metres,target=Math.min([800,1800,3000,4500,6500][band],budget);
+       const ranked=customers.filter(i=>(repeat||!used.has(i))&&this.data.pois[i].node!==this.data.pois[from].node&&Math.hypot(point(i).x-a.x,point(i).y-a.y)<=budget)
+-        .map(i=>({i,cost:(used.has(i)?1e9:0)+(!this.insideCity(this.data.pois[i].node)?1e8:0)+(avoid.indexOf(i)>=0?1e7:0)+(this.recent.indexOf(i)>=0||this.data.pois[i].node===this.currentNode?1e6:0)+Math.abs(Math.hypot(point(i).x-a.x,point(i).y-a.y)-target)+this.roll()*target*.12})).sort((a,b)=>a.cost-b.cost);
++        .map(i=>({i,cost:(used.has(i)?1e9:0)+(!this.insideCity(this.data.pois[i].node)?1e8:0)+(avoid.indexOf(i)>=0?1e7:0)+(this.recent.indexOf(i)>=0||this.riderAtNode(this.data.pois[i].node)?1e6:0)+Math.abs(Math.hypot(point(i).x-a.x,point(i).y-a.y)-target)+this.roll()*target*.12})).sort((a,b)=>a.cost-b.cost);
+       for(const candidate of ranked){
+         const delivery=this.path(this.data.pois[from].node,this.data.pois[candidate.i].node,'fast',inCity);
+         if(!delivery||delivery.metres===0||pickup.metres+delivery.metres>MAX_TRIP_METRES)continue;
+@@ -318,11 +357,11 @@
+   private offerSeconds(offer:DeliveryOffer):number {
+     const route=this.normalRoute(offer,'fast');return route?this.timing(route.metres).displaySeconds:Infinity;
+   }
+-  private offerArea(offer:DeliveryOffer):DispatchArea{return dispatchAreaForTrip(this.data,offer.from,offer.to,this.currentNode);}
++  private offerArea(offer:DeliveryOffer):DispatchArea{return dispatchAreaForTrip(this.data,offer.from,offer.to,this.riderAnchor?this.riderPose.point:this.currentNode);}
+   private createLocalOffer(existing:DeliveryOffer[],avoid:number[]):DeliveryOffer {
+     const used=new Set(existing.map(o=>o.to)),point=(i:number)=>this.router.nodes.get(this.data.pois[i].node)!;
+     const merchants=this.data.pois.map((p,i)=>({p,i})).filter(v=>v.p.kind==='restaurant'&&this.insideOperating(v.p.node))
+-      .map(v=>({i:v.i,pickup:this.path(this.currentNode,v.p.node,'fast',true),variation:this.roll()*300})).filter(v=>v.pickup!==null)
++      .map(v=>({i:v.i,pickup:this.pickupPath(v.p.node,'fast',true),variation:this.roll()*300})).filter(v=>v.pickup!==null)
+       .sort((a,b)=>(a.pickup!.metres+existing.filter(o=>o.from===a.i).length*800+a.variation)-(b.pickup!.metres+existing.filter(o=>o.from===b.i).length*800+b.variation));
+     const customers=this.data.pois.map((p,i)=>({p,i})).filter(v=>v.p.kind!=='restaurant'&&this.insideOperating(v.p.node)).map(v=>v.i);
+     const long=existing.filter(o=>this.offerSeconds(o)>1200).length<2&&existing.filter(o=>this.offerSeconds(o)<=1200).length>=8;
+@@ -335,8 +374,8 @@
+       if(pickup!.metres>=limit)continue;
+       const phase=this.sequence-1+Math.floor((this.sequence-1)/10);
+       const a=point(from),target=(extended?1500:[660,780,900,1020,1140][phase%5])*speed;
+-      const ranked=customers.filter(i=>(repeat||!used.has(i))&&(!fresh||avoid.indexOf(i)<0)&&this.data.pois[i].node!==this.data.pois[from].node&&(!this.data.dispatchAreas||dispatchAreaForTrip(this.data,from,i,this.currentNode)===area)&&Math.hypot(point(i).x-a.x,point(i).y-a.y)<=limit-pickup!.metres)
+-        .map(i=>({i,cost:(used.has(i)?1e9:0)+(avoid.indexOf(i)>=0?1e7:0)+(this.recent.indexOf(i)>=0||this.data.pois[i].node===this.currentNode?1e6:0)+Math.abs(Math.hypot(point(i).x-a.x,point(i).y-a.y)+pickup!.metres-target)+this.roll()*80})).sort((a,b)=>a.cost-b.cost);
++      const ranked=customers.filter(i=>(repeat||!used.has(i))&&(!fresh||avoid.indexOf(i)<0)&&this.data.pois[i].node!==this.data.pois[from].node&&(!this.data.dispatchAreas||dispatchAreaForTrip(this.data,from,i,this.riderAnchor?this.riderPose.point:this.currentNode)===area)&&Math.hypot(point(i).x-a.x,point(i).y-a.y)<=limit-pickup!.metres)
++        .map(i=>({i,cost:(used.has(i)?1e9:0)+(avoid.indexOf(i)>=0?1e7:0)+(this.recent.indexOf(i)>=0||this.riderAtNode(this.data.pois[i].node)?1e6:0)+Math.abs(Math.hypot(point(i).x-a.x,point(i).y-a.y)+pickup!.metres-target)+this.roll()*80})).sort((a,b)=>a.cost-b.cost);
+       let best:{i:number;cost:number}|null=null,checked=0;
+       for(const candidate of ranked){
+         const delivery=this.path(this.data.pois[from].node,this.data.pois[candidate.i].node,'fast',true);
+@@ -344,7 +383,7 @@
+         const metres=pickup!.metres+delivery.metres;
+         if(metres>limit||extended&&this.timing(metres).displaySeconds<=1200)continue;
+         const seconds=this.timing(metres).displaySeconds;
+-        const cost=(used.has(candidate.i)?1e9:0)+(avoid.indexOf(candidate.i)>=0?1e7:0)+(this.recent.indexOf(candidate.i)>=0||this.data.pois[candidate.i].node===this.currentNode?1e6:0)+(seconds<600?1e5:0)+Math.abs(metres-target);
++        const cost=(used.has(candidate.i)?1e9:0)+(avoid.indexOf(candidate.i)>=0?1e7:0)+(this.recent.indexOf(candidate.i)>=0||this.riderAtNode(this.data.pois[candidate.i].node)?1e6:0)+(seconds<600?1e5:0)+Math.abs(metres-target);
+         if(!best||cost<best.cost)best={i:candidate.i,cost};
+         if(++checked>=12)break;
+       }
+--- before/delivery-game/assets/scripts/map-sample/MapTypes.ts
++++ delivery-game/assets/scripts/map-sample/MapTypes.ts
+@@ -25,4 +25,7 @@
+   preference: Preference; nodes: string[]; points: Point[]; segments: RouteSegment[];
+   metres: number; seconds: number; risk: number;
+   pickupIndex?: number;
++  origin?:{anchor:import('./RiderAnchor').RiderAnchor;start:Point;exit:import('./RiderAnchor').AnchorExit};
+ }
++
++export function routePoints(route:MapRoute):Point[]{return route.origin?[route.origin.start,...route.points]:route.points;}
+--- before/delivery-game/assets/scripts/map-sample/CountyRules.ts
++++ delivery-game/assets/scripts/map-sample/CountyRules.ts
+@@ -26,7 +26,8 @@
+ export function legacyCountySettlement(before:Readonly<Player>,offer:CountyTerms,outcome:CountyOutcome):{player:Player;receipt:CountyReceipt} {
+   return settle(before,offer,outcome,getExperienceLevel);
+ }
+-function settle(before:Readonly<Player>,offer:CountyTerms,outcome:CountyOutcome,levelForExperience:(xp:number)=>number):{player:Player;receipt:CountyReceipt} {
++/** Computes a settlement quote without creating or changing a wallet. */
++export function quoteCountyIncome(before:Readonly<Player>,offer:CountyTerms,outcome:CountyOutcome):{incomeCents:number;ratingDelta:number;ratingAfter:number;lateSeconds:number;summary:string[]} {
+   if(offer.demand==='door'&&outcome.doorAnswer===null)throw new Error('请先处理顾客的放门口需求');
+   const effect=DAMAGE_EFFECTS[outcome.damage],lateSeconds=Math.max(0,outcome.displaySeconds-outcome.deadlineSeconds),summary:string[]=[];
+   let change=effect.ratingDelta;
+@@ -38,6 +39,12 @@
+   summary.push(effect.label);
+   const ratingDelta=Math.max(-10,Math.min(6,change)),ratingAfter=Math.max(20,Math.min(100,before.rating+ratingDelta));
+   const incomeCents=Math.round(offer.feeCents*COUNTY_VEHICLES[before.vehicleTier-1].incomeMultiplier*getPlayerIncomeMultiplier(before.level)*(.85+ratingAfter*.003)*effect.retainedIncome);
++  return {incomeCents,ratingDelta,ratingAfter,lateSeconds,summary};
++}
++
++function settle(before:Readonly<Player>,offer:CountyTerms,outcome:CountyOutcome,levelForExperience:(xp:number)=>number):{player:Player;receipt:CountyReceipt} {
++  const {incomeCents,ratingDelta,ratingAfter,lateSeconds,summary}=quoteCountyIncome(before,offer,outcome);
++  const effect=DAMAGE_EFFECTS[outcome.damage];
+   const cashCents=before.cashCents+incomeCents,experience=before.experience+GAME_CONFIG.experiencePerOrder,completedOrders=before.completedOrders+1;
+   if(![cashCents,experience,completedOrders,incomeCents].every(Number.isSafeInteger))throw new Error('经营数值超出安全范围');
+   const player={...before,cashCents,experience,completedOrders,rating:ratingAfter,level:levelForExperience(experience)};
+@@ -45,3 +52,13 @@
+   const receipt:CountyReceipt={orderId:offer.id,incomeCents,basePriceCents:offer.feeCents,ratingBefore:before.rating,ratingDelta,ratingAfter,experienceGained:GAME_CONFIG.experiencePerOrder,levelBefore:before.level,levelAfter:player.level,lateSeconds,damage:outcome.damage,completedOrders,newCashCents:cashCents,summary,playerBefore:{...before},outcome:{...outcome}};
+   return {player,receipt};
+ }
++
++/** Ordered counterfactuals are presentation only and never touch player funds. */
++export function receiptIncomeBreakdown(offer:CountyTerms,receipt:CountyReceipt):{onTimeUndamaged:number;lateImpact:number;damageImpact:number}|null {
++ const actual=receipt.outcome,before=receipt.playerBefore;
++ const onTimeUndamaged=quoteCountyIncome(before,offer,{...actual,displaySeconds:Math.min(actual.displaySeconds,actual.deadlineSeconds),damage:'none'}).incomeCents;
++ const actualTimeUndamaged=quoteCountyIncome(before,offer,{...actual,damage:'none'}).incomeCents;
++ const quotedActual=quoteCountyIncome(before,offer,actual).incomeCents;
++ if(quotedActual!==receipt.incomeCents)return null;
++ return {onTimeUndamaged,lateImpact:onTimeUndamaged-actualTimeUndamaged,damageImpact:actualTimeUndamaged-quotedActual};
++}
+--- before/delivery-game/assets/scripts/map-sample/CountySaveStore.ts
++++ delivery-game/assets/scripts/map-sample/CountySaveStore.ts
+@@ -40,6 +40,13 @@
+                 this.statusMessage = '已恢复县城存档。';
+                 return { session, message: this.statusMessage };
+             } catch (_) {
++                // A newer version is not corruption: preserve it and prohibit writes.
++                let future = false;
++                try { const value = JSON.parse(raw); future = !!value && Number.isSafeInteger(value.version) && value.version > 3; } catch (_) {}
++                if (future) {
++                    this.fail('存档版本较新，已暂停保存以保护原数据。', true);
++                    return { session: fresh(), message: this.statusMessage };
++                }
+                 prefix = '主存档损坏，原始数据已保留；';
+             }
+             try {
+@@ -63,6 +70,12 @@
+                 this.statusMessage = prefix + '已从备份恢复。';
+                 return { session, message: this.statusMessage };
+             } catch (_) {
++                let future = false;
++                try { const value = JSON.parse(backup); future = !!value && Number.isSafeInteger(value.version) && value.version > 3; } catch (_) {}
++                if (future) {
++                    this.fail(prefix + '备份存档版本较新，已暂停保存以保护原数据。', true);
++                    return { session: fresh(), message: this.statusMessage };
++                }
+                 prefix += '备份存档也已损坏；';
+             }
+         }
+--- before/delivery-game/assets/scripts/map-sample/CountySnapshot.ts
++++ delivery-game/assets/scripts/map-sample/CountySnapshot.ts
+@@ -4,6 +4,8 @@
+ import { countyDamageChance, countySettlement, legacyCountySettlement } from './CountyRules';
+ import { COUNTY_VEHICLES, countyExperienceLevel } from './CountyConfig';
+ import { deliveryTiming, legacyDeliveryTiming, PICKUP_STOP_SECONDS } from './DeliveryClock';
++import { anchorExits } from './RiderAnchor';
++import { validateHandoff } from './ManualHandoff';
+ import { validateBillingSnapshot } from './DeliveryLedger';
+ 
+ export function countyMapId(data:CityData):string {
+@@ -38,9 +40,10 @@
+   valid(value.buyerNote===undefined||typeof value.buyerNote==='string'&&value.buyerNote.length<=300,'买家备注');
+ }
+ export function validateCountySnapshot(data:CityData,value:unknown):asserts value is CountySnapshot {
+-  valid(object(value)&&(value.version===1||value.version===2||value.version===3),'版本');valid(value.mapId===countyMapId(data)||(data.legacyMapIds||[]).indexOf(value.mapId as string)>=0,'路网已变化');
+-  player(value.player,value.version!==3);valid(integer(value.sequence,1),'订单序号');valid(typeof value.tutorialComplete==='boolean'&&value.tutorialComplete===(value.player.completedOrders>0),'引导标记');
++  valid(object(value)&&(value.version===1||value.version===2||value.version===3||value.version===4),'版本');valid(value.mapId===countyMapId(data)||(data.legacyMapIds||[]).indexOf(value.mapId as string)>=0,'路网已变化');
++  player(value.player,value.version<3);valid(integer(value.sequence,1),'订单序号');valid(typeof value.tutorialComplete==='boolean'&&value.tutorialComplete===(value.player.completedOrders>0),'引导标记');
+   if(value.billing!==undefined)validateBillingSnapshot(value.billing,value.player.completedOrders);
++  if(value.version===4&&value.riderAnchor!==null){valid(object(value.riderAnchor),'骑手锚点');anchorExits(data,value.riderAnchor as unknown as import('./RiderAnchor').RiderAnchor);valid(value.currentNode===value.riderAnchor.from,'锚点与骑手节点');}
+   const nodes=new Map(data.nodes.map(n=>[n.id,n]));valid(typeof value.currentNode==='string'&&nodes.has(value.currentNode),'骑手位置');
+   valid(Array.isArray(value.offers)&&value.offers.length===(value.version===1?30:10),'候选订单数量');value.offers.forEach(o=>offer(o,data));
+   const offers=value.offers as DeliveryOffer[],ids=offers.map(o=>o.id);valid(new Set(ids).size===ids.length,'重复订单');
+@@ -51,8 +54,9 @@
+   for(let i=0;i<offers.length;i+=5)valid(offers.slice(i,i+5).filter(o=>o.weightKg<=capacity).length>=3,'可接单容量保证');
+   if(value.active!==null){
+     valid(object(value.active),'当前订单');const raw=value.active;offer(raw.offer,data);
+-    valid(value.version!==3||raw.ruleVersion===1||raw.ruleVersion===2,'履约规则版本');
+-    const legacy=value.version!==3||raw.ruleVersion===1;player(raw.playerBefore,legacy);
++    if(value.version===4)valid(object(raw.handoff)&&raw.handoff.version===1,'取送规则版本');else valid(raw.handoff===undefined,'旧档取送规则');
++    valid(value.version<3||raw.ruleVersion===1||raw.ruleVersion===2,'履约规则版本');
++    const legacy=value.version<3||raw.ruleVersion===1;player(raw.playerBefore,legacy);
+     valid(['routes','running','paused','arrived','done'].indexOf(raw.mode as string)>=0,'配送状态');
+     valid(Array.isArray(raw.routes)&&raw.routes.length>=1&&raw.routes.length<=3,'路线候选');
+     valid(integer(raw.selected,0,raw.routes.length-1)&&number(raw.elapsed,0)&&number(raw.deadlineSeconds,1),'当前进度');
+@@ -70,6 +74,14 @@
+       valid(integer(route.pickupIndex,0,route.nodes.length-1)&&route.nodes[route.pickupIndex]===data.pois[active.offer.from].node,'取餐途经点');
+       valid(route.nodes[route.nodes.length-1]===data.pois[active.offer.to].node,'送达终点');
+       let metres=0,seconds=0;
++      if(route.origin){
++        valid(value.version===4&&object(route.origin)&&object(route.origin.anchor)&&object(route.origin.exit),'路线起始段');
++        const resolved=anchorExits(data,route.origin.anchor),exit=resolved.exits.find(e=>e.node===route.origin!.exit.node&&e.reverse===route.origin!.exit.reverse);
++        valid(exit&&route.nodes[0]===exit.node&&JSON.stringify(route.origin.start)===JSON.stringify(resolved.point),'路线起始点');
++        valid(Math.abs(route.origin.exit.metres-exit.metres)<1e-7&&Math.abs(route.origin.exit.seconds-exit.seconds)<1e-7,'路线起始段距离');
++        metres=exit.metres;seconds=exit.seconds;
++        if(active.mode!=='done'&&active.mode!=='arrived')valid(JSON.stringify(value.riderAnchor)===JSON.stringify(route.origin.anchor),'路线起始锚点');
++      }else if(value.version===4&&value.riderAnchor&&active.mode!=='done'&&active.mode!=='arrived')valid(false,'缺少路线起始段');
+       for(let i=0;i<route.nodes.length;i++){
+         const n=nodes.get(route.nodes[i]),point=route.points[i];
+         valid(n&&Array.isArray(point)&&point.length===2&&point[0]===n.x&&point[1]===n.y,'道路坐标');
+@@ -82,7 +94,7 @@
+       }
+       valid(Math.abs(route.metres-metres)<1e-5&&Math.abs(route.seconds-seconds)<1e-5,'路线合计');
+       valid(route.risk===countyDamageChance(route.preference,active.offer.fragility),'餐损概率');
+-      valid(route.nodes[0]===active.routes[0].nodes[0],'路线起点');
++      valid(route.origin?!!active.routes[0].origin&&JSON.stringify(route.origin.anchor)===JSON.stringify(active.routes[0].origin!.anchor):!active.routes[0].origin&&route.nodes[0]===active.routes[0].nodes[0],'路线起点');
+     }
+     const vehicle=COUNTY_VEHICLES[active.playerBefore.vehicleTier-1];
+     const timingFor=(route:typeof active.routes[number])=>legacy?legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier):deliveryTiming(route.metres,vehicle.speedKph);
+@@ -93,10 +105,15 @@
+     }
+     if(active.pickupWaitElapsed!==undefined){
+       valid(!legacy&&number(active.pickupWaitElapsed,0,PICKUP_STOP_SECONDS),'取餐停顿');
+-      const route=active.routes[active.selected],pickup=route.segments.slice(0,route.pickupIndex||0).reduce((n,s)=>n+s.metres,0),at=timing.animationSeconds*pickup/route.metres;
++      const route=active.routes[active.selected],pickup=(route.origin?.exit.metres||0)+route.segments.slice(0,route.pickupIndex||0).reduce((n,s)=>n+s.metres,0),at=timing.animationSeconds*pickup/route.metres;
+       if(active.elapsed<at-1e-8)valid(active.pickupWaitElapsed===0,'提前取餐');
+       if(active.elapsed>at+1e-8||active.mode==='arrived'||active.mode==='done')valid(active.pickupWaitElapsed===PICKUP_STOP_SECONDS,'取餐尚未完成');
+       if(active.mode==='routes')valid(active.pickupWaitElapsed===0,'未出发取餐');
++    }
++    if(active.handoff){
++      const selected=active.routes[active.selected],pickup=(selected.origin?.exit.metres||0)+selected.segments.slice(0,selected.pickupIndex||0).reduce((n,segment)=>n+segment.metres,0),at=timing.animationSeconds*pickup/selected.metres;
++      validateHandoff({version:active.handoff.version,phase:active.handoff.phase,elapsed:active.elapsed,serviceElapsed:active.pickupWaitElapsed},at,timing.animationSeconds);
++      valid(active.handoff.phase==='planning'?active.mode==='routes':active.handoff.phase==='arrived'?active.mode==='done':active.mode==='running','取送阶段与订单状态');
+     }
+     const fastest=Math.min(...active.routes.map(r=>timingFor(r).displaySeconds));
+     valid(active.deadlineSeconds===fastest+(active.offer.type==='urgent'?0:300),'时限');
+@@ -113,16 +130,16 @@
+       const outcome=active.receipt.outcome;
+       valid((outcome.doorAnswer===null||typeof outcome.doorAnswer==='boolean')&&outcome.displaySeconds===timing.displaySeconds&&outcome.deadlineSeconds===active.deadlineSeconds&&outcome.damage===active.damage,'回执的固定结果');
+       const expected=(legacy?legacyCountySettlement:countySettlement)(active.playerBefore,active.offer,{displaySeconds:timing.displaySeconds,deadlineSeconds:active.deadlineSeconds,damage:active.damage!,doorAnswer:active.receipt.outcome.doorAnswer});
+-      const expectedPlayer=value.version===3?{...expected.player,level:countyExperienceLevel(expected.player.experience)}:expected.player;
++      const expectedPlayer=value.version>=3?{...expected.player,level:countyExperienceLevel(expected.player.experience)}:expected.player;
+       valid(JSON.stringify(expectedPlayer)===JSON.stringify(value.player),'回执玩家状态');
+       for(const key of ['incomeCents','basePriceCents','ratingBefore','ratingDelta','ratingAfter','experienceGained','levelBefore','levelAfter','lateSeconds','damage','newCashCents','completedOrders','orderId'] as const)valid(active.receipt[key]===expected.receipt[key],'回执结算');
+       valid(JSON.stringify(active.receipt.playerBefore)===JSON.stringify(active.playerBefore)&&Array.isArray(active.receipt.summary)&&active.receipt.summary.every(s=>typeof s==='string'),'回执说明');
+     }else{
+-      const expectedBefore=value.version===3?{...active.playerBefore,level:countyExperienceLevel(active.playerBefore.experience)}:active.playerBefore;
++      const expectedBefore=value.version>=3?{...active.playerBefore,level:countyExperienceLevel(active.playerBefore.experience)}:active.playerBefore;
+       valid(JSON.stringify(expectedBefore)===JSON.stringify(value.player)&&active.receipt===null,'未结算金额');
+       const pending=offers.find(o=>o.id===active.offer.id);valid(pending&&JSON.stringify(pending)===JSON.stringify(active.offer),'待接列表中的当前单');
+     }
+-    valid(value.currentNode===(active.mode==='arrived'||active.mode==='done'?data.pois[active.offer.to].node:active.routes[0].nodes[0]),'骑手进度位置');
++    valid(value.currentNode===(active.mode==='arrived'||active.mode==='done'?data.pois[active.offer.to].node:active.routes[0].origin?.anchor.from||active.routes[0].nodes[0]),'骑手进度位置');
+     ids.push(active.offer.id);
+   }
+   for(const id of ids)valid(Number(id.slice(3))<value.sequence,'订单序号落后');
+--- before/delivery-game/tests/map-gestures.test.cjs
++++ delivery-game/tests/map-gestures.test.cjs
+@@ -12,6 +12,7 @@
+ const scope={exports:{},require(id){
+  if(id==='cc')return {};
+  if(id==='./SampleUI')return {C:{blue:'blue',gold:'gold',green:'green'}};
++ if(id==='./MapTypes')return require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'MapTypes.js'));
+  if(id==='./CityExtent')return require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'CityExtent.js'));
+  if(id==='./MapVehicle')return {};
+  throw new Error(`Unexpected dependency: ${id}`);
+--- before/delivery-game/tests/map-hud.test.cjs
++++ delivery-game/tests/map-hud.test.cjs
+@@ -1,5 +1,7 @@
+ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+ const ts=require('/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/Resources/app.asar.unpacked/node_modules/typescript');
++// Archived auto-order fixtures; manual orders have dedicated coverage.
++require('./legacy-order-fixture.cjs')(require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js')).OrderBook);
+ function harness(book){
+  class Node{
+   static EventType={TOUCH_START:'start',TOUCH_MOVE:'move',TOUCH_CANCEL:'cancel',TOUCH_END:'end'};
+@@ -26,7 +28,7 @@
+   if(modules[name])return modules[name];
+   const file=path.resolve(__dirname,'../assets/scripts/map-sample',name+'.ts');
+   const compiled=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,experimentalDecorators:true}}).outputText;
+-  const scope={exports:{},document:{documentElement:{},getElementById:()=>({style:{transform:browser.rotated?'rotate(90deg)':'rotate(0deg)'}})},getComputedStyle:()=>({getPropertyValue:name=>`${browser.edges[name.replace('--safe-','')]}px`}),require(id){if(id==='cc')return cc;if(id==='./CityMap')return {CityMap:Camera,ROUTE_COLORS:{fast:'gold',main:'orange',smooth:'green'}};if(id==='./MapVehicle')return {MapVehicle:class{}};if(id==='./FoodImages')return {foodImage(){}};if(id==='./CartoonArt')return {cartoonArt(parent,key,x,y,w,h){const n=new Node('CartoonArt-'+key);parent.addChild(n);n.setPosition(x,y);n.addComponent(UITransform).setContentSize(w,h);n.addComponent(Sprite);return n;},cartoonChrome(parent,key,w,h){const n=new Node('CartoonChrome-'+key);parent.addChild(n);n.addComponent(UITransform).setContentSize(w,h);return n;},resizeCartoonChrome(n,w,h){n.getComponent(UITransform).setContentSize(w,h);}};if(['./OrderPresentation','./PresentationLayout','./VehicleSideArt','./SampleUI','./SafeAreaLayout','./OrderPhone','./CountyConfig','./ReceiptPresentation','./CityExtent','./DeliveryClock','./BillingPresentation','../domain/GameConfig'].includes(id))return load(id);return {};}};
++  const scope={exports:{},document:{documentElement:{},getElementById:()=>({style:{transform:browser.rotated?'rotate(90deg)':'rotate(0deg)'}})},getComputedStyle:()=>({getPropertyValue:name=>`${browser.edges[name.replace('--safe-','')]}px`}),require(id){if(id==='cc')return cc;if(id==='./CityMap')return {CityMap:Camera,ROUTE_COLORS:{fast:'gold',main:'orange',smooth:'green'}};if(id==='./MapVehicle')return {MapVehicle:class{}};if(id==='./FoodImages')return {foodImage(){}};if(id==='./CartoonArt')return {cartoonArt(parent,key,x,y,w,h){const n=new Node('CartoonArt-'+key);parent.addChild(n);n.setPosition(x,y);n.addComponent(UITransform).setContentSize(w,h);n.addComponent(Sprite);return n;},cartoonChrome(parent,key,w,h){const n=new Node('CartoonChrome-'+key);parent.addChild(n);n.addComponent(UITransform).setContentSize(w,h);return n;},resizeCartoonChrome(n,w,h){n.getComponent(UITransform).setContentSize(w,h);}};if(['./CountyRules','./CompactOrderInfo','./MapTypes','./OrderPresentation','./PresentationLayout','./VehicleSideArt','./SampleUI','./SafeAreaLayout','./OrderPhone','./CountyConfig','./ReceiptPresentation','./CityExtent','./DeliveryClock','./BillingPresentation','../domain/GameConfig'].includes(id))return load(id);return {};}};
+   vm.runInNewContext(compiled,scope,{filename:file});modules[name]=scope.exports;return scope.exports;
+  }
+  const {MapSample}=load('MapSample'),sample=new MapSample(),root=new Node('Root'),panel=new Node('Panel');root.addChild(panel);
+@@ -185,7 +187,7 @@
+  const b=doorstep();const saved=JSON.parse(b.serialize());saved.active.mode='running';saved.active.elapsed-=.001;saved.currentNode=saved.active.routes[0].nodes[0];
+  const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
+  const h=harness(OrderBook.restore(b.data,JSON.stringify(saved),()=>.99));h.click(h.walk(h.panel).find(n=>n.name==='Nav-map'));assert.equal(h.sample.modalKind,'maps');
+- h.sample.update(.01);assert.equal(h.sample.modalKind,'maps');h.sample.rebuildLayout();assert.equal(h.sample.modalKind,'maps');h.sample.dismissDialog();assert.equal(h.sample.modalKind,'demand');
++ h.sample.update(.01);assert.equal(h.sample.book.mode,'done');assert.equal(h.sample.modalKind,'receipt');assert.equal(h.sample.book.active.receipt.outcome.doorAnswer,true);
+ });
+ 
+ function realBook(random=()=>.1){
+@@ -196,7 +198,8 @@
+ }
+ function doorstep(){
+  const b=realBook();b.accept(b.list()[0].offer.id);b.depart();b.advance(99);b.finish();
+- b.accept(b.list()[0].offer.id);b.depart();b.advance(99);assert.equal(b.mode,'arrived');return b;
++ b.accept(b.list()[0].offer.id);b.depart();const raw=JSON.parse(b.serialize());raw.active.mode='arrived';raw.active.elapsed=b.progress.animationSeconds;raw.active.pickupWaitElapsed=2;raw.currentNode=b.data.pois[raw.active.offer.to].node;
++ const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));return OrderBook.restore(b.data,JSON.stringify(raw),()=>.99);
+ }
+ test('profile replaces the title with identity and live balances while locked passive income is absent',()=>{
+  const h=harness(realBook());assert.ok(h.walk(h.root).some(n=>n.name==='PlayerAvatar'));
+@@ -217,22 +220,13 @@
+  b.advance(1);h.sample.updateProgress();assert.ok(h.text(h.sample.panel).some(s=>s.includes('正在取餐中')&&s.includes('1秒')));
+  b.advance(1.01);h.sample.updateProgress();assert.ok(!h.text(h.sample.panel).some(s=>s.includes('正在取餐中')));
+ });
+-test('doorstep demand opens a required modal with no bottom choices and cannot be skipped',()=>{
+- const b=doorstep(),before=b.player.cashCents,h=harness(b);
+- assert.equal(h.sample.modalKind,'demand');assert.ok(h.text(h.sample.modal).includes('顾客留言：放门口，别敲门'));
+- assert.ok(!h.text(h.panel).some(s=>s==='敲门交付'||s==='按要求放门口'));
+- assert.ok(!h.text(h.sample.modal).includes('关闭'));
+- const shade=h.walk(h.sample.modal).find(n=>n.name==='Shade');h.click(shade);assert.equal(h.sample.modalKind,'demand');assert.equal(b.player.cashCents,before);
+- h.sample.renderPanel();assert.equal(h.walk(h.sample.root).filter(n=>n.name==='CountyDialog'&&!n.destroyed).length,1);
+- const choose=h.walk(h.sample.modal).find(n=>n.name==='Button-按要求放门口');h.click(choose);const after=b.player.cashCents;
+- assert.equal(b.mode,'done');assert.ok(after>before);assert.equal(h.sample.modalKind,'receipt');h.click(choose);assert.equal(b.player.cashCents,after);
+-});
+-test('restoring and resizing a waiting delivery reopens its demand modal without early settlement',()=>{
+- const b=doorstep(),{OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
+- const restored=OrderBook.restore(b.data,b.serialize(),()=>.99),before=restored.player.cashCents,h=harness(restored);
+- assert.equal(h.sample.modalKind,'demand');h.sample.rebuildLayout();assert.equal(h.sample.modalKind,'demand');assert.equal(restored.player.cashCents,before);
+- const choose=h.walk(h.sample.modal).find(n=>n.name==='Button-敲门交付');h.click(choose);assert.equal(restored.mode,'done');
+- assert.ok(restored.active.receipt.ratingDelta<0);assert.equal(restored.player.completedOrders,b.player.completedOrders+1);
++test('legacy pending doorstep is automatically fulfilled without a demand modal',()=>{
++ const b=doorstep(),before=b.player.cashCents,h=harness(b);assert.equal(b.mode,'arrived');h.sample.openCurrentOrder();
++ assert.equal(b.mode,'done');assert.equal(b.active.receipt.outcome.doorAnswer,true);assert.ok(b.player.cashCents>before);assert.equal(h.sample.modalKind,'receipt');assert.ok(!h.text(h.sample.root).includes('敲门交付'));
++});
++test('a completed legacy doorstep receipt restores and resizes without awarding again',()=>{
++ const b=doorstep();b.settle(true);const before=b.player.cashCents,h=harness(b);h.sample.openReceipt();h.sample.rebuildLayout();
++ assert.equal(h.sample.modalKind,'receipt');assert.equal(b.player.cashCents,before);assert.equal(b.active.receipt.outcome.doorAnswer,true);
+ });
+ test('damage event appears in transit once, survives layout rebuilding, freezes in background and expires after two seconds',()=>{
+  let roll=.1;const b=realBook(()=>roll);b.accept(b.list()[0].offer.id);roll=0;b.depart();assert.notEqual(b.active.damage,'none');
+@@ -254,7 +248,7 @@
+  assert.equal(h.sample.billValues.length,12);assert.ok(h.text(content).includes('单日最高订单数'));assert.equal(b.serialize(),saved);
+  b.accept(b.list()[0].offer.id);b.depart();b.advance(99);h.sample.openReceipt();nodes=h.walk(h.sample.modal);
+  viewport=nodes.find(n=>n.name==='ScrollableContent');content=viewport.children.find(n=>n.name==='Content');
+- for(const line of b.active.receipt.summary)assert.ok(h.text(content).some(s=>s.includes(line)));
++ assert.ok(h.text(content).some(s=>s.includes('本单收益')));assert.ok(h.text(content).some(s=>s.includes('经验 +10')));assert.ok(!h.text(content).some(s=>s.includes('余额')));
+  const action=nodes.find(n=>n.name==='Button-确认，继续接单');assert.ok(h.bounds(action).bottom>=-h.height()/2+64);
+  assert.equal(h.walk(h.sample.modal).find(n=>n.name==='DialogCard').scaleX??1,1);
+ });
+@@ -279,7 +273,7 @@
+  const action=h.walk(h.sample.panel).find(n=>n.name==='Button-去取餐'),sheet=h.walk(h.sample.panel).find(n=>n.name==='DeliverySheet'),[, ,mapHeight,,mapY]=h.sample.city.args;
+  assert.ok(h.bounds(action).bottom>=-h.height()/2);assert.ok(Math.abs(mapY-mapHeight/2-h.bounds(sheet).top)<1);
+  b.depart();h.sample.renderPanel();info=metadata();assert.ok(info.node.getComponent(h.UITransform).height>=info.lineHeight);
+- const progress=h.walk(h.sample.panel).find(n=>n.name==='ProgressTrack');assert.ok(h.bounds(h.sample.tripLabel.node).bottom>h.bounds(progress).top,'delivery progress follows the reflowed stage text');
++ assert.ok(h.sample.tripLabel,'delivery progress text remains available');
+  b.advance(99);h.sample.renderPanel();info=metadata();const done=h.walk(h.sample.panel).find(n=>n.getComponent(h.Label)?.string==='配送完成 · 收入已到账');assert.ok(done);assert.ok(h.bounds(info.node).bottom>h.bounds(done).top,'completed delivery follows all metadata lines');
+ });
+ 
+--- before/delivery-game/tests/county-save-store.test.cjs
++++ delivery-game/tests/county-save-store.test.cjs
+@@ -297,3 +297,13 @@
+   assert.equal(store.save('{"turn":2}'), true);
+   assert.equal(storage.bytes(BACKUP), '{"turn":1}');
+ });
++
++test('future version primary remains untouched and saving is blocked',()=>{
++ const raw=JSON.stringify({version:99,valuable:'future progress'}),storage=new MemoryStorage({[PRIMARY]:raw,[BACKUP]:JSON.stringify({turn:2})}),store=createStore(storage);
++ const loaded=store.load(restore,fresh);assert.equal(loaded.session.turn,0);assert.equal(store.available,false);assert.equal(store.save(JSON.stringify({turn:1})),false);assert.equal(storage.bytes(PRIMARY),raw);assert.equal(storage.bytes(BACKUP),JSON.stringify({turn:2}));assert.equal(storage.bytes(CORRUPT),null);
++});
++
++test('future version backup also blocks a fresh primary from replacing the recovery path',()=>{
++ const future=JSON.stringify({version:99,valuable:'future backup'}),storage=new MemoryStorage({[BACKUP]:future}),store=createStore(storage);
++ store.load(restore,fresh);assert.equal(store.available,false);assert.equal(store.save(JSON.stringify({turn:1})),false);assert.equal(storage.bytes(PRIMARY),null);assert.equal(storage.bytes(BACKUP),future);
++});
+--- before/delivery-game/tests/delivery-clock.test.cjs
++++ delivery-game/tests/delivery-clock.test.cjs
+@@ -41,3 +41,20 @@
+ test('zero, negative and non-finite frame times preserve both clocks',()=>{
+  for(const delta of [0,-1,NaN,Infinity,-Infinity])assert.deepEqual(advancePickupClock(4,1.2,delta,4,10),{elapsed:4,pickupWaitElapsed:1.2});
+ });
++
++test('manual handoff stops at every player boundary even with a large frame',()=>{
++ const path=require('node:path'),{startPickup,advanceHandoff,startDelivery,beginTrip}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'ManualHandoff.js'));
++ let s={version:1,phase:'planning',elapsed:0,serviceElapsed:0};s=beginTrip(s,3);assert.equal(s.phase,'toPickup');s=advanceHandoff(s,100,3,10);assert.equal(s.phase,'awaitPickup');assert.equal(s.elapsed,3);
++ assert.deepEqual(advanceHandoff(s,100,3,10),s);s=startPickup(s);assert.equal(s.phase,'picking');s=advanceHandoff(s,100,3,10);assert.equal(s.phase,'awaitDeliveryStart');assert.equal(s.serviceElapsed,2);assert.equal(s.elapsed,3);
++ s=startDelivery(s);assert.equal(s.phase,'toDropoff');s=advanceHandoff(s,100,3,10);assert.equal(s.phase,'arrived');assert.equal(s.elapsed,10);
++});
++test('pickup service preserves partial time and rejects repeat commands',()=>{
++ const path=require('node:path'),{startPickup,startDelivery,advanceHandoff}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'ManualHandoff.js'));
++ let s={version:1,phase:'awaitPickup',elapsed:3,serviceElapsed:0};s=startPickup(s);s=advanceHandoff(s,1,3,10);assert.equal(s.serviceElapsed,1);assert.throws(()=>startPickup(s));assert.throws(()=>startDelivery(s));s=advanceHandoff(s,1,3,10);assert.equal(s.serviceElapsed,2);assert.equal(s.phase,'awaitDeliveryStart');
++});
++
++test('stored handoff must have consistent phase, movement and service progress',()=>{
++ const path=require('node:path'),{validateHandoff}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'ManualHandoff.js'));
++ for(const [phase,elapsed,serviceElapsed]of [['planning',0,0],['toPickup',1,0],['awaitPickup',3,0],['picking',3,1],['awaitDeliveryStart',3,2],['toDropoff',5,2],['arrived',10,2]])assert.doesNotThrow(()=>validateHandoff({version:1,phase,elapsed,serviceElapsed},3,10));
++ for(const bad of [{phase:'picking',elapsed:2,serviceElapsed:0},{phase:'toDropoff',elapsed:4,serviceElapsed:1},{phase:'awaitPickup',elapsed:3,serviceElapsed:2},{phase:'arrived',elapsed:9,serviceElapsed:2},{phase:'future',elapsed:0,serviceElapsed:0}])assert.throws(()=>validateHandoff({version:1,...bad},3,10));
++});
+--- before/delivery-game/tests/map-routing.test.cjs
++++ delivery-game/tests/map-routing.test.cjs
+@@ -78,3 +78,30 @@
+  assert.ok(routes[0].seconds<routes[2].seconds);
+  assert.ok(routes[0].risk>routes[2].risk);
+ });
++
++test('mid-road rider anchor stays on the exact directed segment and exposes only legal exits',()=>{
++ const path=require('node:path');const {anchorAt,anchorExits}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'RiderAnchor.js'));
++ const data={nodes:[{id:'a',x:0,y:0},{id:'b',x:100,y:0}],roads:[{id:'r',nodes:['a','b'],direction:1,speed:10}]};
++ const route={segments:[{road:'r',from:'a',to:'b',metres:100,seconds:10}],points:[[0,0],[100,0]]};
++ const anchor=anchorAt(route,4);assert.deepEqual(anchor,{road:'r',from:'a',to:'b',fraction:.4});
++ const result=anchorExits(data,anchor);assert.deepEqual(result.point,[40,0]);assert.deepEqual(result.exits,[{node:'b',metres:60,seconds:6,reverse:false}]);
++ data.roads[0].direction=0;assert.deepEqual(anchorExits(data,anchor).exits.map(e=>e.node),['b','a']);
++ assert.throws(()=>anchorExits(data,{...anchor,fraction:1.1}));assert.throws(()=>anchorExits(data,{...anchor,to:'missing'}));
++ data.roads[0].direction=-1;assert.throws(()=>anchorExits(data,anchor));
++});
++
++test('a cancelled trip resumes from its precise road position through legal one-way exits',()=>{
++ const path=require('node:path'),{routeFromAnchor}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'RiderAnchor.js'));
++ const data={nodes:[{id:'a',x:0,y:0},{id:'b',x:100,y:0},{id:'c',x:200,y:0}],roads:[{id:'r',nodes:['a','b','c'],direction:1,speed:10,roughness:0,kind:'secondary'}]};
++ const anchor={road:'r',from:'a',to:'b',fraction:.4},forward=routeFromAnchor(data,anchor,'c','fast');assert.deepEqual(forward.start,[40,0]);assert.equal(forward.exit.node,'b');assert.equal(forward.metres,160);assert.equal(forward.seconds,16);assert.equal(routeFromAnchor(data,anchor,'a','fast'),null);
++ data.roads[0].direction=0;const back=routeFromAnchor(data,anchor,'a','fast');assert.equal(back.exit.node,'a');assert.equal(back.metres,40);assert.equal(back.seconds,4);
++});
++
++test('route position moves continuously from a stored road prefix and can be re-anchored within it',()=>{
++ const path=require('node:path'),{routeFromAnchor,anchorAt}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'RiderAnchor.js'));
++ const data={nodes:[{id:'a',x:0,y:0},{id:'b',x:100,y:0},{id:'c',x:200,y:0}],roads:[{id:'r',nodes:['a','b','c'],direction:1,speed:10,roughness:0,kind:'secondary'}]};
++ const anchor={road:'r',from:'a',to:'b',fraction:.4},prefix=routeFromAnchor(data,anchor,'c','fast');
++ const route={...prefix.tail,origin:{anchor,start:prefix.start,exit:prefix.exit},seconds:prefix.seconds,metres:prefix.metres};
++ assert.deepEqual(routePosition(route,0).point,[40,0]);assert.deepEqual(routePosition(route,3).point,[70,0]);assert.deepEqual(routePosition(route,6).point,[100,0]);assert.deepEqual(routePosition(route,16).point,[200,0]);
++ const moved=anchorAt(route,3);assert.equal(moved.road,'r');assert.ok(Math.abs(moved.fraction-.7)<1e-10);
++});
+--- before/delivery-game/tests/county-session.test.cjs
++++ delivery-game/tests/county-session.test.cjs
+@@ -2,6 +2,7 @@
+ const assert=require('node:assert/strict');
+ const path=require('node:path');
+ const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
++require('./legacy-order-fixture.cjs')(OrderBook);
+ function city(){
+  const nodes=Array.from({length:81},(_,i)=>({id:String(i),x:i*200,y:0}));
+  return {title:'县城测试',width:16000,height:1000,nodes,roads:[{id:'r',nodes:nodes.map(n=>n.id),direction:0,speed:6,roughness:.1,kind:'secondary',width:8,bridge:false}],pois:nodes.map((n,i)=>({name:`地点${i}`,node:n.id,kind:i%4===0?'restaurant':'home'})),areas:[],buildings:[],labels:[],waterways:[]};
+@@ -25,16 +26,11 @@
+  allow=true;restored.advance(99);
+  assert.equal(restored.settle().damage,'minor');assert.equal(restored.player.cashCents,11951);
+ });
+-test('route selection and the doorstep waiting phase restore without awarding money early',()=>{
+- const data=city(),book=new OrderBook(data,()=>.1);
+- complete(book);book.finish();book.accept(book.list()[0].offer.id);
+- const routes=OrderBook.restore(data,book.serialize(),()=>.99);
+- assert.equal(routes.mode,'routes');const before=routes.player.cashCents;
+- routes.depart();routes.advance(99);assert.equal(routes.mode,'arrived');assert.equal(routes.player.cashCents,before);
+- const arrived=OrderBook.restore(data,routes.serialize(),()=>.99);
+- assert.equal(arrived.mode,'arrived');assert.throws(()=>arrived.settle());
+- const receipt=arrived.settle(true);assert.equal(receipt.ratingDelta,4);assert.equal(arrived.player.cashCents,before+receipt.incomeCents);
+- assert.deepEqual(arrived.settle(false),receipt);
++test('legacy doorstep arrival automatically follows the request and retains its single award',()=>{
++ const data=city(),book=new OrderBook(data,()=>.1);complete(book);book.finish();book.accept(book.list()[0].offer.id);
++ const routes=OrderBook.restore(data,book.serialize(),()=>.99),before=routes.player.cashCents;routes.depart();routes.advance(99);
++ assert.equal(routes.mode,'done');assert.equal(routes.active.receipt.outcome.doorAnswer,true);const receipt=routes.active.receipt;
++ const restored=OrderBook.restore(data,routes.serialize(),()=>.99);assert.equal(restored.player.cashCents,before+receipt.incomeCents);assert.deepEqual(restored.settle(false),receipt);
+ });
+ test('real earnings buy exactly one D+ and preserve its speed, income and capacity after reload',()=>{
+  const data=city(),book=new OrderBook(data,()=>.99);
+@@ -80,7 +76,7 @@
+ });
+ 
+ 
+-test('cancelling a migrated legacy long order removes its exception from the ordinary nearby lobby',()=>{
++test('cancelling a migrated legacy long order retains its candidate without refreshing',()=>{
+  const {RoadRouter}=require(process.env.MAP_ROUTER_MODULE);
+  const data=city(),book=new OrderBook(data,()=>.99);book.accept(book.list()[0].offer.id);
+  const saved=JSON.parse(book.serialize()),offer={...saved.active.offer,from:0,to:79};
+@@ -94,9 +90,9 @@
+  assert.ok(restored.active.routes[0].metres>10000);
+  restored.cancel();assert.equal(restored.mode,'idle');assert.deepEqual(restored.player,before);
+  assert.equal(restored.refreshesLeft,2);assert.equal(restored.list().length,10);
+- assert.ok(!restored.list().some(p=>p.offer.id===offer.id));
+- for(const preview of restored.list())assert.ok(preview.pickupMetres+preview.deliveryMetres<=10000);
+- restored.accept(restored.list()[0].offer.id);assert.ok(restored.active.routes.every(r=>r.metres<=10000));
++ assert.ok(restored.list().some(p=>p.offer.id===offer.id&&!p.available));
++ for(const preview of restored.list().filter(p=>p.available))assert.ok(preview.pickupMetres+preview.deliveryMetres<=10000);
++ restored.accept(restored.list().find(p=>p.available).offer.id);assert.ok(restored.active.routes.every(r=>r.metres<=10000));
+ });
+ 
+ test('exactly 200 yuan upgrades D+ once while 199.99 is insufficient',()=>{
+--- before/delivery-game/tests/county-rules.test.cjs
++++ delivery-game/tests/county-rules.test.cjs
+@@ -39,3 +39,13 @@
+  assert.equal(getExperienceLevel(50),1);assert.equal(VEHICLES[1].upgradeFeeCents,32000);
+  assert.equal(COUNTY_VEHICLES[0].speedKph,12);assert.equal(COUNTY_VEHICLES[1].speedKph,13.2);assert.equal(COUNTY_VEHICLES[1].capacityKg,8);
+ });
++
++test('receipt impacts reconcile to the actual rounded income without touching even a maximum balance',()=>{
++ const {receiptIncomeBreakdown}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'CountyRules.js'));
++ for(const rating of [20,80,100])for(const damage of ['none','minor','moderate','severe'])for(const late of [false,true])for(const door of [null,true,false]){
++  const before={...newCountyPlayer(),rating},order={...offer,fragility:'fragile',demand:door===null?'none':'door'},result={...outcome,displaySeconds:late?1800:1200,damage,doorAnswer:door};
++  const {receipt}=countySettlement(before,order,result);receipt.playerBefore.cashCents=Number.MAX_SAFE_INTEGER;
++  const serialized=JSON.stringify(receipt),parts=receiptIncomeBreakdown(order,receipt);assert.ok(parts);assert.equal(parts.onTimeUndamaged-parts.lateImpact-parts.damageImpact,receipt.incomeCents);assert.equal(JSON.stringify(receipt),serialized);
++  assert.equal(receiptIncomeBreakdown(order,{...receipt,incomeCents:receipt.incomeCents+1}),null);
++ }
++});
+--- before/delivery-game/tests/receipt-presentation.test.cjs
++++ delivery-game/tests/receipt-presentation.test.cjs
+@@ -3,6 +3,7 @@
+ const path=require('node:path');
+ const dir=path.dirname(process.env.MAP_ROUTER_MODULE);
+ const {OrderBook}=require(path.join(dir,'OrderBook.js'));
++require('./legacy-order-fixture.cjs')(OrderBook);
+ const {ReceiptPresentation}=require(path.join(dir,'ReceiptPresentation.js'));
+ function city(){
+  const nodes=Array.from({length:21},(_,i)=>({id:String(i),x:i*200,y:0}));
+@@ -21,12 +22,11 @@
+  book.accept(book.list()[0].offer.id);book.depart();book.advance(99);
+  assert.equal(presentation.observe(book.active),true);
+ });
+-test('door choice precedes popup, and a reloaded receipt presents without recomputing its award',()=>{
++test('automatic door delivery and a reloaded receipt never recompute the award',()=>{
+  const data=city(),book=new OrderBook(data,()=>.1),presentation=new ReceiptPresentation();
+  book.accept(book.list()[0].offer.id);book.depart();book.advance(99);book.finish();
+- book.accept(book.list()[0].offer.id);book.depart();book.advance(99);
+- assert.equal(book.mode,'arrived');assert.equal(presentation.observe(book.active),false);
+- const before=book.player;book.settle(true);
++ const before=book.player;book.accept(book.list()[0].offer.id);book.depart();book.advance(99);
++ assert.equal(book.mode,'done');assert.equal(book.active.receipt.outcome.doorAnswer,true);
+  assert.equal(presentation.observe(book.active),true);
+  const saved=book.serialize(),wallet=book.player;
+  assert.equal(wallet.completedOrders,before.completedOrders+1);
+--- before/delivery-game/tests/damage-events.test.cjs
++++ delivery-game/tests/damage-events.test.cjs
+@@ -1,5 +1,6 @@
+ const {test}=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
+ const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
++require('./legacy-order-fixture.cjs')(OrderBook);
+ function trip(damaged=true){
+  const nodes=Array.from({length:81},(_,i)=>({id:String(i),x:i*200,y:0}));
+  const data={title:'事件测试',width:16000,height:1000,nodes,roads:[{id:'r',nodes:nodes.map(n=>n.id),direction:0,speed:6,roughness:.1,kind:'secondary',width:8,bridge:false}],pois:nodes.map((n,i)=>({name:`地点${i}`,node:n.id,kind:i%4===0?'restaurant':'home'})),areas:[],buildings:[],labels:[],waterways:[]};
+--- before/delivery-game/tests/stage-one-feedback.test.cjs
++++ delivery-game/tests/stage-one-feedback.test.cjs
+@@ -1,5 +1,6 @@
+ const {test}=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
+ const dir=path.dirname(process.env.MAP_ROUTER_MODULE),{prepareCity}=require(path.join(dir,'PlaceCatalog.js')),{OrderBook}=require(path.join(dir,'OrderBook.js'));
++require('./legacy-order-fixture.cjs')(OrderBook);
+ const raw=require('../assets/resources/map-sample/city.json');
+ function random(){let n=817;return()=>((n=(Math.imul(n,1664525)+1013904223)>>>0)/4294967296);}
+ const areaFor=(data,offer,start)=>require(path.join(dir,'DispatchAreas.js')).dispatchAreaForTrip(data,offer.from,offer.to,start);
+--- before/delivery-game/tests/order-book.test.cjs
++++ delivery-game/tests/order-book.test.cjs
+@@ -2,6 +2,7 @@
+ const assert=require('node:assert/strict');
+ const path=require('node:path');
+ const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
++require('./legacy-order-fixture.cjs')(OrderBook);
+ function random(){let n=731;return()=>((n=(n*1664525+1013904223)>>>0)/4294967296);}
+ function city(){
+  const nodes=Array.from({length:81},(_,i)=>({id:String(i),x:i*200,y:0}));
+@@ -114,3 +115,4 @@
+  let transfers=0;for(let i=2;i<=10001;i++){if(newOfferSource('CC-'+i)==='transfer')transfers++;assert.equal(newOfferSource('CC-'+i),newOfferSource('CC-'+i));}assert.ok(transfers>1700&&transfers<2300);
+  const old={food:'麻婆豆腐饭 · 3份',demand:'none'};assert.equal(offerQuantity(old),3);assert.equal(offerQuantity({...old,food:'份数未知'}),null);assert.equal(buyerRemark(old),'');assert.equal(buyerRemark({...old,demand:'door'}),'放门口，别敲门');assert.equal(foodDescription({...old,quantity:2}),'麻婆豆腐饭 · 2份');
+ });
++
+--- before/delivery-game/tests/city-content.test.cjs
++++ delivery-game/tests/city-content.test.cjs
+@@ -6,6 +6,7 @@
+ const places=require(path.join(dir,'PlaceCatalog.js'));
+ const foods=require(path.join(dir,'FoodCatalog.js'));
+ const {OrderBook}=require(path.join(dir,'OrderBook.js'));
++require('./legacy-order-fixture.cjs')(OrderBook);
+ const {countyMapId}=require(path.join(dir,'CountySnapshot.js'));
+ const raw=require('../assets/resources/map-sample/city.json');
+ function random(){let n=817;return()=>((n=(n*1664525+1013904223)>>>0)/4294967296);}
+--- before/delivery-game/tests/food-selection.test.cjs
++++ delivery-game/tests/food-selection.test.cjs
+@@ -6,6 +6,7 @@
+ const dir=path.dirname(process.env.MAP_ROUTER_MODULE);
+ const foods=require(path.join(dir,'FoodCatalog.js'));
+ const {OrderBook}=require(path.join(dir,'OrderBook.js'));
++require('./legacy-order-fixture.cjs')(OrderBook);
+ function random(seed){let n=seed;return()=>((n=(Math.imul(n,1664525)+1013904223)>>>0)/4294967296);}
+ function city(local){
+  const data={title:'抽样测试',width:1000,height:1000,nodes:[{id:'a',x:0,y:0},{id:'b',x:100,y:0}],roads:[{id:'r',nodes:['a','b'],speed:6,direction:0,roughness:.1,kind:'residential',width:5,bridge:false}],pois:[{name:'唯一店',node:'a',kind:'restaurant'},{name:'唯一家',node:'b',kind:'home'}],buildings:[],areas:[],waterways:[],labels:[]};
+--- before/delivery-game/tests/billing.test.cjs
++++ delivery-game/tests/billing.test.cjs
+@@ -1,5 +1,6 @@
+ const {test}=require('node:test'),assert=require('node:assert/strict'),path=require('node:path');
+ const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
++require('./legacy-order-fixture.cjs')(OrderBook);
+ function setup(){
+  const nodes=Array.from({length:81},(_,i)=>({id:String(i),x:i*200,y:0}));
+  const data={title:'账单测试',width:16000,height:1000,nodes,roads:[{id:'r',nodes:nodes.map(n=>n.id),direction:0,speed:6,roughness:.1,kind:'secondary',width:8,bridge:false}],pois:nodes.map((n,i)=>({name:`地点${i}`,node:n.id,kind:i%4===0?'restaurant':'home'})),areas:[],buildings:[],labels:[],waterways:[]};
+@@ -49,13 +50,13 @@
+   const raw=JSON.parse(b.serialize());assert.ok(raw.billing);edit(raw);assert.throws(()=>OrderBook.restore(data,JSON.stringify(raw),()=>.99,today),/存档/);
+  }
+ });
+-test('bill reviews and punctuality follow final per-order outcomes including negative reviews at rating floors',()=>{
++test('legacy doorstep deliveries follow the required instruction automatically',()=>{
+  const {b}=setup();complete(b);b.finish();
+  // The same honest county outcome model drives both receipt and statistics.
+  const raw=JSON.parse(b.serialize());raw.offers[0].demand='door';
+  const edited=OrderBook.restore(b.data,JSON.stringify(raw),()=>.99,()=> '2026-10-28');
+  edited.accept(edited.list()[0].offer.id);edited.depart();edited.advance(99);edited.settle(false);
+- assert.equal(edited.active.receipt.ratingDelta,-3);assert.equal(edited.billing.today.bad,1);assert.equal(edited.billing.today.good,0);assert.equal(edited.billing.today.late,0);
++ assert.equal(edited.active.receipt.outcome.doorAnswer,true);assert.equal(edited.active.receipt.ratingDelta,2);assert.equal(edited.billing.today.bad,0);assert.equal(edited.billing.today.good,1);assert.equal(edited.billing.today.late,0);
+ });
+ test('late and positive receipts produce correct rate, review counts and unit-formatted bill values',()=>{
+  const base=path.dirname(process.env.MAP_ROUTER_MODULE),{DeliveryLedger}=require(path.join(base,'DeliveryLedger.js'));
+--- before/delivery-game/scripts/test-map.cjs
++++ delivery-game/scripts/test-map.cjs
+@@ -7,9 +7,9 @@
+ const output = fs.mkdtempSync(path.join(os.tmpdir(), 'delivery-map-test-'));
+ try {
+  const dir = path.join(root, 'assets/scripts/map-sample');
+- const program = ts.createProgram(['MapTypes.ts','CityExtent.ts','SafeAreaLayout.ts','PlaceCatalog.ts','FoodCatalog.ts','RoadRouter.ts','DeliveryClock.ts','CountyRules.ts','OrderBook.ts','ReceiptPresentation.ts','BillingPresentation.ts'].map(f=>path.join(dir,f)), {target:ts.ScriptTarget.ES2020,module:ts.ModuleKind.CommonJS,strict:true,noEmitOnError:true,rootDir:path.join(root,'assets/scripts'),outDir:output,skipLibCheck:true,types:[]});
++ const program = ts.createProgram(['MapTypes.ts','RiderAnchor.ts','ManualHandoff.ts','CityExtent.ts','SafeAreaLayout.ts','PlaceCatalog.ts','FoodCatalog.ts','RoadRouter.ts','DeliveryClock.ts','CountyRules.ts','OrderBook.ts','ReceiptPresentation.ts','BillingPresentation.ts'].map(f=>path.join(dir,f)), {target:ts.ScriptTarget.ES2020,module:ts.ModuleKind.CommonJS,strict:true,noEmitOnError:true,rootDir:path.join(root,'assets/scripts'),outDir:output,skipLibCheck:true,types:[]});
+  const emission=program.emit();
+  const diagnostics=ts.getPreEmitDiagnostics(program).concat(emission.diagnostics);
+  if(diagnostics.length) { console.error(ts.formatDiagnosticsWithColorAndContext(diagnostics,{getCanonicalFileName:f=>f,getCurrentDirectory:()=>root,getNewLine:()=> '\n'})); process.exitCode=1; }
+- else {const run=spawnSync(process.execPath,['--test',...['cartoon-art','map-routing','map-gestures','map-vehicle','map-hud','tap-gestures','city-content','food-selection','delivery-clock','damage-events','billing','order-book','county-rules','county-session','receipt-presentation','modal-shade','stage-one-feedback'].map(name=>path.join(root,`tests/${name}.test.cjs`))],{stdio:'inherit',env:{...process.env,MAP_ROUTER_MODULE:path.join(output,'map-sample/RoadRouter.js')}});process.exitCode=run.status ?? 1;}
++ else {const run=spawnSync(process.execPath,['--test',...['cartoon-art','map-routing','map-gestures','map-vehicle','map-hud','manual-hud','tap-gestures','city-content','food-selection','delivery-clock','damage-events','billing','order-book','manual-handoff','county-rules','county-session','receipt-presentation','modal-shade','stage-one-feedback'].map(name=>path.join(root,`tests/${name}.test.cjs`))],{stdio:'inherit',env:{...process.env,MAP_ROUTER_MODULE:path.join(output,'map-sample/RoadRouter.js')}});process.exitCode=run.status ?? 1;}
+ } finally {fs.rmSync(output,{recursive:true,force:true});}
+--- /dev/null
++++ delivery-game/assets/scripts/map-sample/RiderAnchor.ts.meta
+@@ -0,0 +1,9 @@
++{
++  "ver": "4.0.24",
++  "importer": "typescript",
++  "imported": true,
++  "uuid": "9dd5aa6a-ff04-4d4c-baf6-dea3a5111d30",
++  "files": [],
++  "subMetas": {},
++  "userData": {}
++}
+--- /dev/null
++++ delivery-game/assets/scripts/map-sample/RiderAnchor.ts
+@@ -0,0 +1,53 @@
++import { CityData, MapRoute, Point } from './MapTypes';
++import { RoadRouter } from './RoadRouter';
++
++/** A position on one directed road segment, measured from its from-node. */
++export interface RiderAnchor { road:string; from:string; to:string; fraction:number }
++export interface AnchorExit { node:string; metres:number; seconds:number; reverse:boolean }
++
++/** Derive an exact position from an existing road-time route. */
++export function anchorAt(route:MapRoute,roadSeconds:number):RiderAnchor {
++ if(!Number.isFinite(roadSeconds)||roadSeconds<0||!route.segments.length)throw new Error('无效的骑手进度');
++ let rest=roadSeconds;
++ if(route.origin){const o=route.origin;if(rest<=o.exit.seconds&&o.exit.seconds>0){const t=rest/o.exit.seconds;return {...o.anchor,fraction:o.exit.reverse?o.anchor.fraction*(1-t):o.anchor.fraction+(1-o.anchor.fraction)*t};}rest=Math.max(0,rest-o.exit.seconds);}
++ for(let i=0;i<route.segments.length;i++){
++  const s=route.segments[i];
++  if(rest<=s.seconds||i===route.segments.length-1)return {road:s.road,from:s.from,to:s.to,fraction:Math.min(1,rest/s.seconds)};
++  rest-=s.seconds;
++ }
++ throw new Error('无效路线');
++}
++
++/** Validate against the real directed road and enumerate legal exits from the point. */
++export function anchorExits(data:CityData,anchor:RiderAnchor):{point:Point;exits:AnchorExit[]} {
++ if(!anchor||!Number.isFinite(anchor.fraction)||anchor.fraction<0||anchor.fraction>1)throw new Error('无效的骑手位置');
++ const road=data.roads.find(r=>r.id===anchor.road),from=data.nodes.find(n=>n.id===anchor.from),to=data.nodes.find(n=>n.id===anchor.to);
++ if(!road||!from||!to||road.speed<=0)throw new Error('无效的骑手道路');
++ const index=road.nodes.findIndex((id,i)=>i+1<road.nodes.length&&((id===from.id&&road.nodes[i+1]===to.id)||(id===to.id&&road.nodes[i+1]===from.id)));
++ if(index<0)throw new Error('骑手道路不相邻');
++ const forward=road.nodes[index]===from.id;
++ if(forward?road.direction===-1:road.direction===1)throw new Error('骑手原方向不合法');
++ const dx=to.x-from.x,dy=to.y-from.y,total=Math.hypot(dx,dy);
++ if(total<=0)throw new Error('骑手道路长度无效');
++ const point:Point=[from.x+dx*anchor.fraction,from.y+dy*anchor.fraction];
++ const exits:AnchorExit[]=[{node:to.id,metres:total*(1-anchor.fraction),seconds:total*(1-anchor.fraction)/road.speed,reverse:false}];
++ if(road.direction===0||anchor.fraction===0)exits.push({node:from.id,metres:total*anchor.fraction,seconds:total*anchor.fraction/road.speed,reverse:true});
++ return {point,exits};
++}
++
++export interface AnchorRoute { anchor:RiderAnchor; start:Point; exit:AnchorExit; tail:MapRoute; metres:number; seconds:number }
++/** Route from the actual position via an allowed endpoint and the real road graph. */
++export function routeFromAnchor(data:CityData,anchor:RiderAnchor,destination:string,preference:import('./MapTypes').Preference,providedRouter?:RoadRouter):AnchorRoute|null {
++ const {point,exits}=anchorExits(data,anchor),router=providedRouter||new RoadRouter(data),roads=new Map(data.roads.map(r=>[r.id,r]));
++ const multiplier=(roadId:string,roughness:number)=>{
++  const road=roads.get(roadId)!;
++  return preference==='smooth'?1+roughness*9:preference==='main'?(road.kind==='primary'||road.kind==='secondary'||road.kind==='tertiary'?1:2.8):1;
++ };
++ let best:AnchorRoute|null=null,bestCost=Infinity;
++ for(const exit of exits){
++  const tail=router.find(exit.node,destination,preference);if(!tail)continue;
++  const originRoad=roads.get(anchor.road)!,cost=exit.seconds*multiplier(anchor.road,originRoad.roughness)+tail.segments.reduce((sum,s)=>sum+s.seconds*multiplier(s.road,s.roughness),0);
++  if(cost<bestCost){bestCost=cost;best={anchor:{...anchor},start:point,exit,tail,metres:exit.metres+tail.metres,seconds:exit.seconds+tail.seconds};}
++ }
++ return best;
++}
+--- /dev/null
++++ delivery-game/assets/scripts/map-sample/CompactOrderInfo.ts.meta
+@@ -0,0 +1,9 @@
++{
++  "ver": "4.0.24",
++  "importer": "typescript",
++  "imported": true,
++  "uuid": "4ec977dc-03f4-44d1-becb-6dbef8841703",
++  "files": [],
++  "subMetas": {},
++  "userData": {}
++}
+--- /dev/null
++++ delivery-game/assets/scripts/map-sample/CompactOrderInfo.ts
+@@ -0,0 +1,42 @@
++import { Node } from 'cc';
++import { DeliveryOffer } from './OrderBook';
++import { buyerRemark, foodDescription, orderCautions } from './OrderPresentation';
++import { foodImage } from './FoodImages';
++import { C } from './SampleUI';
++import { presentationMetrics, readable, textHeight } from './PresentationLayout';
++
++// Keep the same font sizes while using compact, readable line spacing.
++function compactHeight(text:string,size:number,width:number):number {
++ const raw=textHeight(text,size,width),lines=Math.max(1,Math.round((raw-8)/(size*1.42)));return lines*Math.ceil(size*1.18)+4;
++}
++function compactText(parent:Node,text:string,x:number,y:number,size:number,fill:string,width:number,bold:boolean,align:'left'|'center'|'right',height:number):void {
++ const label=readable(parent,text,x,y,size,fill,width,bold,align,height);label.lineHeight=Math.ceil(size*1.18);
++}
++
++export interface CompactOrder {offer:DeliveryOffer;from:string;to:string;metres:number|null}
++export function compactOrderHeight(data:CompactOrder,width:number,screenHeight:number):number {
++ const m=presentationMetrics(screenHeight),image=88,price=210,middle=Math.max(100,width-image-price-24),side=(width-54)/2;
++ const foodHeight=Math.max(image,compactHeight(foodDescription(data.offer),m.body,middle)+compactHeight(`${data.offer.weightKg}kg · ${orderCautions(data.offer)}`,m.aux,middle),compactHeight('¥'+(data.offer.feeCents/100).toFixed(2),m.amount,price)+compactHeight(data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',m.aux,price));
++ const addressHeight=Math.max(compactHeight('取餐\n'+data.from,m.aux,side),compactHeight('送达\n'+data.to,m.aux,side));
++ const note=buyerRemark(data.offer),noteHeight=note?compactHeight('备注：'+note,m.aux,width):0;
++ return foodHeight+addressHeight+noteHeight+20+(note?8:0);
++}
++/** Common compact data layout used by both the lobby and current order. */
++export function compactOrderInfo(parent:Node,data:CompactOrder,width:number,screenHeight:number):number {
++ const m=presentationMetrics(screenHeight),image=88,price=210,middle=Math.max(100,width-image-price-24),side=(width-54)/2;
++ const food=foodDescription(data.offer),weight=`${data.offer.weightKg}kg · ${orderCautions(data.offer)}`,nameH=compactHeight(food,m.body,middle),weightH=compactHeight(weight,m.aux,middle);
++ const fee='¥'+(data.offer.feeCents/100).toFixed(2),feeH=compactHeight(fee,m.amount,price),distanceH=compactHeight(data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',m.aux,price);
++ const foodH=Math.max(image,nameH+weightH,feeH+distanceH),mx=-width/2+image+12+middle/2,px=width/2-price/2;
++ foodImage(parent,data.offer.food,-width/2+image/2,-foodH/2,image);
++ const middleTop=-(foodH-nameH-weightH)/2;
++ compactText(parent,food,mx,middleTop-nameH/2,m.body,C.ink,middle,true,'left',nameH);
++ compactText(parent,weight,mx,middleTop-nameH-weightH/2,m.aux,C.muted,middle,false,'left',weightH);
++ compactText(parent,fee,px,-feeH/2,m.amount,'#B87513',price,true,'right',feeH);
++ compactText(parent,data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',px,-feeH-distanceH/2,m.aux,C.ink,price,false,'right',distanceH);
++ let y=-foodH-10;const from='取餐\n'+data.from,to='送达\n'+data.to,fh=compactHeight(from,m.aux,side),th=compactHeight(to,m.aux,side),ah=Math.max(fh,th);
++ compactText(parent,from,-width/2+side/2,y-ah/2,m.aux,C.ink,side,true,'left',ah);
++ compactText(parent,'→',0,y-ah/2,m.body,C.muted,46,true,'center',ah);
++ compactText(parent,to,width/2-side/2,y-ah/2,m.aux,C.ink,side,true,'right',ah);y-=ah+10;
++ const note=buyerRemark(data.offer);if(note){const text='备注：'+note,h=compactHeight(text,m.aux,width);compactText(parent,text,0,y-h/2,m.aux,C.ink,width,false,'left',h);y-=h+8;}
++ return -y;
++}
+--- /dev/null
++++ delivery-game/assets/scripts/map-sample/ManualHandoff.ts
+@@ -0,0 +1,46 @@
++/** The player's decisions are explicit boundaries; no frame may cross one. */
++export type HandoffPhase='planning'|'toPickup'|'awaitPickup'|'picking'|'awaitDeliveryStart'|'toDropoff'|'arrived';
++export interface HandoffState {version:1;phase:HandoffPhase;elapsed:number;serviceElapsed:number}
++function requirePhase(state:HandoffState,phase:HandoffPhase):void {
++ if(state.phase!==phase)throw new Error('当前阶段不能执行此操作');
++}
++export function beginTrip(state:HandoffState,pickupAt:number):HandoffState {
++ requirePhase(state,'planning');if(!Number.isFinite(pickupAt)||pickupAt<0)throw new Error('无效取餐位置');
++ return {...state,phase:pickupAt===0?'awaitPickup':'toPickup'};
++}
++export function startPickup(state:HandoffState):HandoffState {
++ requirePhase(state,'awaitPickup');return {...state,phase:'picking'};
++}
++export function startDelivery(state:HandoffState):HandoffState {
++ requirePhase(state,'awaitDeliveryStart');return {...state,phase:'toDropoff'};
++}
++export function advanceHandoff(state:HandoffState,delta:number,pickupAt:number,total:number):HandoffState {
++ if(!Number.isFinite(delta)||delta<=0)return state;
++ if(!Number.isFinite(pickupAt)||!Number.isFinite(total)||pickupAt<0||pickupAt>total)throw new Error('无效路线时间');
++ if(state.phase==='toPickup'){
++  const elapsed=Math.min(pickupAt,state.elapsed+delta);return {...state,elapsed,phase:elapsed>=pickupAt?'awaitPickup':'toPickup'};
++ }
++ if(state.phase==='picking'){
++  const serviceElapsed=Math.min(2,state.serviceElapsed+delta);return {...state,serviceElapsed,phase:serviceElapsed>=2?'awaitDeliveryStart':'picking'};
++ }
++ if(state.phase==='toDropoff'){
++  const elapsed=Math.min(total,state.elapsed+delta);return {...state,elapsed,phase:elapsed>=total?'arrived':'toDropoff'};
++ }
++ return state;
++}
++
++/** Reject malformed persisted phases before any state can be resumed. */
++export function validateHandoff(value:unknown,pickupAt:number,total:number):asserts value is HandoffState {
++ if(!value||typeof value!=='object'||Array.isArray(value)||!Number.isFinite(pickupAt)||!Number.isFinite(total)||pickupAt<0||pickupAt>=total)throw new Error('无效的取送状态');
++ const s=value as Partial<HandoffState>;
++ if(s.version!==1||!Number.isFinite(s.elapsed)||!Number.isFinite(s.serviceElapsed)||s.elapsed!<0||s.elapsed!>total||s.serviceElapsed!<0||s.serviceElapsed!>2)throw new Error('无效的取送进度');
++ const at=Math.abs(s.elapsed!-pickupAt)<1e-8,done=s.serviceElapsed===2;
++ const valid=s.phase==='planning'?s.elapsed===0&&s.serviceElapsed===0:
++  s.phase==='toPickup'?s.elapsed!<pickupAt&&s.serviceElapsed===0:
++  s.phase==='awaitPickup'?at&&s.serviceElapsed===0:
++  s.phase==='picking'?at&&s.serviceElapsed!<2:
++  s.phase==='awaitDeliveryStart'?at&&done:
++  s.phase==='toDropoff'?s.elapsed!>=pickupAt&&s.elapsed!<total&&done:
++  s.phase==='arrived'?s.elapsed===total&&done:false;
++ if(!valid)throw new Error('取送阶段与进度不一致');
++}
+--- /dev/null
++++ delivery-game/assets/scripts/map-sample/ManualHandoff.ts.meta
+@@ -0,0 +1,9 @@
++{
++  "ver": "4.0.24",
++  "importer": "typescript",
++  "imported": true,
++  "uuid": "06b51ff2-2b5a-456c-8bd9-1a2a289cbbc3",
++  "files": [],
++  "subMetas": {},
++  "userData": {}
++}
+--- /dev/null
++++ delivery-game/tests/manual-handoff.test.cjs
+@@ -0,0 +1,36 @@
++const {test}=require('node:test');
++const assert=require('node:assert/strict');
++const path=require('node:path');
++const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
++function random(){let n=731;return()=>((n=(n*1664525+1013904223)>>>0)/4294967296);}
++function city(){
++ const nodes=Array.from({length:81},(_,i)=>({id:String(i),x:i*200,y:0}));
++ return {title:'测试城',width:16000,height:1000,nodes,roads:[{id:'road',nodes:nodes.map(n=>n.id),direction:0,speed:6,roughness:.1,kind:'secondary',width:8,bridge:false}],pois:nodes.map((n,i)=>({name:`地点${i}`,node:n.id,kind:i%4===0?'restaurant':'home'})),areas:[],buildings:[],labels:[],waterways:[]};
++}
++test('manual delivery saves each boundary and cannot skip pickup or departure',()=>{
++ const data=city();let b=new OrderBook(data,random());const offer=b.list().find(p=>p.pickupMetres>0).offer;b.accept(offer.id);assert.equal(b.active.handoff.phase,'planning');
++ const restore=()=>{b=OrderBook.restore(data,b.serialize(),()=>.99);};restore();b.depart();assert.equal(b.active.handoff.phase,'toPickup');b.advance(999);assert.equal(b.active.handoff.phase,'awaitPickup');restore();
++ b.advance(999);assert.equal(b.active.handoff.phase,'awaitPickup');b.pickup();b.advance(1);assert.equal(b.active.handoff.phase,'picking');restore();assert.equal(b.active.pickupWaitElapsed,1);assert.throws(()=>b.cancel());b.advance(999);assert.equal(b.active.handoff.phase,'awaitDeliveryStart');restore();b.advance(999);assert.equal(b.active.handoff.phase,'awaitDeliveryStart');b.deliver();restore();b.advance(999);assert.equal(b.mode,'done');const receipt=b.active.receipt;assert.equal(b.settle().incomeCents,receipt.incomeCents);restore();assert.equal(b.active.receipt.incomeCents,receipt.incomeCents);
++});
++test('free cancellation mid-road retains the exact point, candidates and legal next route after reload',()=>{
++ const data=city();let b=new OrderBook(data,random()),before=b.list(),offer=before.find(p=>p.pickupMetres>200).offer;b.accept(offer.id);b.depart();b.advance(.1);const pose=b.riderPose.point,player=b.player,ids=b.list().map(p=>p.offer.id);b.cancel();assert.deepEqual(b.riderPose.point,pose);assert.deepEqual(b.player,player);assert.deepEqual(b.list().map(p=>p.offer.id),ids);
++ b=OrderBook.restore(data,b.serialize(),()=>.99);assert.deepEqual(b.riderPose.point,pose);b.accept(b.list()[0].offer.id);assert.ok(b.active.routes[0].origin);assert.deepEqual(b.riderPose.point,pose);b=OrderBook.restore(data,b.serialize(),()=>.99);assert.deepEqual(b.riderPose.point,pose);
++});
++
++test('unfinished legacy door order retains automatic movement and auto obeys its delivery requirement',()=>{
++ const data=city(),book=new OrderBook(data,()=>.1);const offer=book.list().find(p=>p.offer.demand==='door').offer;book.accept(offer.id);const raw=JSON.parse(book.serialize());raw.version=3;delete raw.riderAnchor;delete raw.active.handoff;
++ const old=OrderBook.restore(data,JSON.stringify(raw),()=>.99);old.depart();old.advance(999);assert.equal(old.mode,'done');assert.equal(old.active.receipt.outcome.doorAnswer,true);assert.equal(old.completed,1);
++});
++
++test('two cancellations inside a one-way prefix preserve all offers and never teleport',()=>{
++ const data=city();data.roads[0].direction=1;let b=new OrderBook(data,random());const ids=b.list().map(p=>p.offer.id),choice=b.list().find(p=>p.available&&p.pickupMetres>400);assert.ok(choice);
++ b.accept(choice.offer.id);b.depart();b.advance(.1);const first=b.riderPose.point;b.cancel();assert.deepEqual(b.riderPose.point,first);
++ const rows=b.list();assert.equal(rows.length,10);assert.deepEqual(rows.map(p=>p.offer.id),ids);assert.ok(rows.some(p=>!p.available));
++ const next=rows.find(p=>p.available&&p.pickupMetres>0);assert.ok(next);b.accept(next.offer.id);assert.deepEqual(b.riderPose.point,first);b.depart();b.advance(.001);const second=b.riderPose.point;b.cancel();assert.deepEqual(b.riderPose.point,second);
++ b=OrderBook.restore(data,b.serialize(),()=>.99);assert.deepEqual(b.riderPose.point,second);assert.deepEqual(b.list().map(p=>p.offer.id),ids);
++});
++
++test('refresh after cancelling on a one-way segment generates only offers reachable from the exact position',()=>{
++ const data=city();data.roads[0].direction=1;const b=new OrderBook(data,random());const chosen=b.list().find(p=>p.offer.from>=4&&p.available);assert.ok(chosen);b.accept(chosen.offer.id);b.depart();b.advance(.05);b.cancel();const position=b.riderPose.point;b.refreshFree();assert.deepEqual(b.riderPose.point,position);
++ const list=b.list();assert.equal(list.length,10);assert.ok(list.every(p=>p.available));assert.ok(list.every(p=>data.nodes.find(n=>n.id===data.pois[p.offer.from].node).x>=position[0]));
++});
+--- /dev/null
++++ delivery-game/tests/manual-hud.test.cjs
+@@ -0,0 +1,83 @@
++const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
++const ts=require('/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/Resources/app.asar.unpacked/node_modules/typescript');
++function harness(book){
++ class Node{
++  static EventType={TOUCH_START:'start',TOUCH_MOVE:'move',TOUCH_CANCEL:'cancel',TOUCH_END:'end'};
++  constructor(name){this.name=name;this.children=[];this.components=new Map();this.events=new Map();this.active=true;}
++  addChild(n){this.children.push(n);n.parent=this;}
++  addComponent(Type){const c=new Type();c.node=this;this.components.set(Type,c);return c;}
++  getComponent(Type){return this.components.get(Type);}
++  setPosition(x,y){Object.assign(this,{x,y});}setScale(x,y=x){this.scaleX=x;this.scaleY=y;}on(event,callback){this.events.set(event,callback);}
++  setSiblingIndex(){}
++  getChildByName(name){return this.children.find(n=>n.name===name);}
++  destroy(){this.destroyed=true;}removeAllChildren(){this.children=[];}
++ }
++ class Color{constructor(r,g,b,a){Object.assign(this,{r,g,b,a});}}
++ class Graphics{constructor(){this.fills=[];this.linePoints=[];}clear(){this.fills=[];this.linePoints=[];}roundRect(x,y,width,height){this.rect(x,y,width,height);}rect(x,y,width,height){this.lastRect={x,y,width,height};}fill(){this.fills.push({color:this.fillColor,rect:this.lastRect});}stroke(){}circle(){}moveTo(x,y){this.linePoints.push([x,y]);}lineTo(x,y){this.linePoints.push([x,y]);}ellipse(){}bezierCurveTo(){}close(){}}
++ class UITransform{setContentSize(width,height){Object.assign(this,{width,height});}setAnchorPoint(){}}
++ class Sprite{static SizeMode={CUSTOM:0};}
++ class Label{static HorizontalAlign={LEFT:0,RIGHT:1,CENTER:2};static VerticalAlign={CENTER:0};static Overflow={SHRINK:0,CLAMP:1};}
++ class Camera{constructor(...args){this.args=args;}static fitViewportHeight(_data,height){return height;}setVehicle(){}setRider(){}setRoutes(_routes,selected,fit){this.selected=selected;if(fit)this.focusRoute();}focusRoute(){this.focused=true;}advanceLocate(){}cancelLocate(){}locateAnimated(){}locate(){this.focused=false;}}
++ let frame={width:390,height:844},designHeight=1280,safeRect=h=>({x:0,y:0,width:720,height:h});
++ const browser={rotated:false,edges:{top:0,bottom:0,left:0,right:0}};
++ class Mask{static Type={GRAPHICS_RECT:0};}
++ const cc={Tween:{stopAllByTarget(){}},Vec3:class{constructor(x,y,z){Object.assign(this,{x,y,z});}},tween:()=>({to(){return this;},start(){}}),isValid:n=>!n.destroyed,Sprite,resources:{load(){}},Node,Color,Graphics,UITransform,Label,Mask,ScrollView:class{getScrollOffset(){return {y:0};}scrollToOffset(){}},Vec2:class{constructor(x,y){Object.assign(this,{x,y});}},BlockInputEvents:class{},Component:class{},sys:{getSafeAreaRect(symmetric){assert.equal(symmetric,false);return safeRect(designHeight);}},view:{getFrameSize:()=>frame,setDesignResolutionSize(_w,h){designHeight=h;}},ResolutionPolicy:{SHOW_ALL:1},Layers:{Enum:{UI_2D:1}},_decorator:{ccclass:()=>Type=>Type}},modules={};
++ function load(name){
++  if(modules[name])return modules[name];
++  const file=path.resolve(__dirname,'../assets/scripts/map-sample',name+'.ts');
++  const compiled=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,experimentalDecorators:true}}).outputText;
++  const scope={exports:{},document:{documentElement:{},getElementById:()=>({style:{transform:browser.rotated?'rotate(90deg)':'rotate(0deg)'}})},getComputedStyle:()=>({getPropertyValue:name=>`${browser.edges[name.replace('--safe-','')]}px`}),require(id){if(id==='cc')return cc;if(id==='./CityMap')return {CityMap:Camera,ROUTE_COLORS:{fast:'gold',main:'orange',smooth:'green'}};if(id==='./MapVehicle')return {MapVehicle:class{}};if(id==='./FoodImages')return {foodImage(){}};if(id==='./CartoonArt')return {cartoonArt(parent,key,x,y,w,h){const n=new Node('CartoonArt-'+key);parent.addChild(n);n.setPosition(x,y);n.addComponent(UITransform).setContentSize(w,h);n.addComponent(Sprite);return n;},cartoonChrome(parent,key,w,h){const n=new Node('CartoonChrome-'+key);parent.addChild(n);n.addComponent(UITransform).setContentSize(w,h);return n;},resizeCartoonChrome(n,w,h){n.getComponent(UITransform).setContentSize(w,h);}};if(['./CountyRules','./CompactOrderInfo','./MapTypes','./OrderPresentation','./PresentationLayout','./VehicleSideArt','./SampleUI','./SafeAreaLayout','./OrderPhone','./CountyConfig','./ReceiptPresentation','./CityExtent','./DeliveryClock','./BillingPresentation','../domain/GameConfig'].includes(id))return load(id);return {};}};
++  vm.runInNewContext(compiled,scope,{filename:file});modules[name]=scope.exports;return scope.exports;
++ }
++ const {MapSample}=load('MapSample'),sample=new MapSample(),root=new Node('Root'),panel=new Node('Panel');root.addChild(panel);
++ let located=0,opened=0,saved=0;
++ Object.assign(sample,{node:{parent:new Node('Canvas')},root,panel,screenExtra:0,scheduleOnce(){},unschedule(){},city:{setVehicle(){},setRider(){},advanceLocate(){},cancelLocate(){},locateAnimated(){located++;},locate(){located++;}},store:{available:true,save(){saved++;return true;}},book:{mode:'idle',active:null,riderPose:{point:[0,0],angle:0},completed:0,data:{nodes:[],pois:[]},player:{cashCents:10000,rating:80,level:1,experience:0,vehicleTier:1,completedOrders:0},serialize:()=> 'unchanged-progress'}});
++ if(book)sample.book=book;
++ sample.openPhone=()=>{opened++;};sample.header(root);sample.controls();sample.renderPanel();
++ const walk=n=>[n,...n.children.flatMap(walk)],text=n=>walk(n).map(n=>n.getComponent(Label)?.string).filter(x=>typeof x==='string');
++ const click=n=>{const event={getID:()=>0,getUILocation:()=>({x:0,y:0})};n.events.get(Node.EventType.TOUCH_START)?.(event);n.events.get(Node.EventType.TOUCH_END)?.(event);};
++ function bounds(node){
++  const size=node.getComponent(UITransform);let x=node.x||0,y=node.y||0,sx=node.scaleX??1,sy=node.scaleY??1;
++  for(let p=node.parent;p;p=p.parent){x=(p.x||0)+x*(p.scaleX??1);y=(p.y||0)+y*(p.scaleY??1);sx*=p.scaleX??1;sy*=p.scaleY??1;}
++  return {left:x-size.width*sx/2,right:x+size.width*sx/2,bottom:y-size.height*sy/2,top:y+size.height*sy/2};
++ }
++ return {sample,root,panel,walk,text,click,Node,Label,Graphics,UITransform,bounds,load,setRotatedBrowser(edges){browser.rotated=true;browser.edges=edges;},setSafeArea(fn){safeRect=fn;},setFrame(v){frame=v;},height:()=>designHeight,openRealPhone:()=>MapSample.prototype.openPhone.call(sample),counts:()=>({located,opened,saved})};
++}
++
++
++function realBook(random=()=>.1){
++ const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
++ const nodes=Array.from({length:81},(_,i)=>({id:String(i),x:i*200,y:0}));
++ const data={title:'县城测试',width:16000,height:1000,nodes,roads:[{id:'r',nodes:nodes.map(n=>n.id),direction:0,speed:6,roughness:.1,kind:'secondary',width:8,bridge:false}],pois:nodes.map((n,i)=>({name:`地点${i}`,node:n.id,kind:i%4===0?'restaurant':'home'})),areas:[],buildings:[],labels:[],waterways:[]};
++ return new OrderBook(data,random);
++}
++
++test('manual order actions stay behind each player boundary and cancellation keeps the order',()=>{
++ const b=realBook(),h=harness(b);h.sample.accept(b.list().find(p=>p.pickupMetres>0).offer.id);const find=name=>h.walk(h.sample.root).find(n=>n.name===name);
++ assert.ok(find('Button-取消订单'));h.click(find('Button-去取餐'));assert.equal(b.active.handoff.phase,'toPickup');b.advance(999);h.sample.renderPanel();assert.ok(find('Button-取餐'));h.click(find('Button-取餐'));assert.equal(b.active.handoff.phase,'picking');assert.ok(!find('Button-取消订单'));
++ b.advance(999);h.sample.renderPanel();assert.ok(find('Button-去送餐'));h.click(find('Button-去送餐'));b.advance(999);assert.equal(b.mode,'done');
++});
++
++test('manual milestones interrupt a bill or closed card exactly once, and receipt awards once',()=>{
++ const b=realBook(),h=harness(b);h.sample.accept(b.list().find(p=>p.pickupMetres>0).offer.id);const find=name=>h.walk(h.sample.root).find(n=>n.name===name);h.click(find('Button-去取餐'));
++ h.click(find('CloseButton'));assert.equal(h.sample.orderCardOpen,false);h.sample.openBills();assert.equal(h.sample.modalKind,'bills');h.sample.update(999);assert.equal(b.active.handoff.phase,'awaitPickup');assert.equal(h.sample.modalKind,null);assert.equal(h.sample.orderCardOpen,true);assert.ok(find('Button-取餐'));
++ h.sample.openBills();h.sample.update(1);assert.equal(h.sample.modalKind,'bills','same waiting event cannot repeatedly interrupt');h.sample.dismissDialog();h.click(find('Button-取餐'));h.sample.openBills();h.sample.update(2);assert.equal(b.active.handoff.phase,'awaitDeliveryStart');assert.equal(h.sample.modalKind,null);assert.ok(find('Button-去送餐'));
++ h.click(find('Button-去送餐'));h.sample.openBills();h.sample.update(999);assert.equal(b.mode,'done');assert.equal(h.sample.modalKind,'receipt');const cash=b.player.cashCents,completed=b.completed;h.sample.update(999);assert.equal(b.player.cashCents,cash);assert.equal(b.completed,completed);
++});
++
++test('failed boundary saves freeze movement and retry the same fixed result',()=>{
++ const b=realBook(),h=harness(b),offer=b.list().find(p=>p.pickupMetres>0).offer;let fail=true,writes=0;h.sample.store={available:true,message:'写入失败',save(){writes++;return !fail;}};
++ h.sample.accept(offer.id);assert.equal(h.sample.pendingSave,true);assert.equal(b.active.handoff.phase,'planning');h.sample.update(999);assert.equal(b.active.handoff.phase,'planning');assert.ok(writes>=2);
++ fail=false;h.sample.update(1);assert.equal(h.sample.pendingSave,false);const find=name=>h.walk(h.sample.root).find(n=>n.name===name);fail=true;h.click(find('Button-去取餐'));assert.equal(b.active.handoff.phase,'toPickup');const damage=b.active.damage;h.sample.update(999);assert.equal(b.active.elapsed,0);assert.equal(b.active.damage,damage);
++ fail=false;h.sample.update(1);assert.equal(b.active.elapsed,0);assert.equal(b.active.damage,damage);h.sample.update(999);assert.equal(b.active.handoff.phase,'awaitPickup');
++});
++
++test('background freezes manual movement and foreground ignores its first compensating frame',()=>{
++ const b=realBook(),h=harness(b);h.sample.accept(b.list().find(p=>p.pickupMetres>0).offer.id);const find=name=>h.walk(h.sample.root).find(n=>n.name===name);h.click(find('Button-去取餐'));const before=b.active.elapsed;
++ h.sample.onHide();h.sample.update(999);assert.equal(b.active.elapsed,before);h.sample.onShow();h.sample.update(999);assert.equal(b.active.elapsed,before);h.sample.update(.01);assert.ok(b.active.elapsed>before);
++});
++
++test('reaccepting the same cancelled order gets a fresh pickup presentation event',()=>{
++ const b=realBook(),h=harness(b),id=b.list().find(p=>p.pickupMetres>0).offer.id;h.sample.accept(id);let find=name=>h.walk(h.sample.root).find(n=>n.name===name);h.click(find('Button-去取餐'));h.sample.update(999);assert.equal(b.active.handoff.phase,'awaitPickup');assert.ok(find('Button-取餐'));
++ h.click(find('Button-取消订单'));assert.equal(b.mode,'idle');h.sample.accept(id);assert.equal(b.active.handoff.phase,'planning');h.sample.orderCardOpen=false;h.sample.openBills();assert.equal(h.sample.act(()=>b.depart()),true);assert.equal(b.active.handoff.phase,'awaitPickup');h.sample.presentHandoff();assert.equal(h.sample.modalKind,null);assert.equal(h.sample.orderCardOpen,true);assert.ok(find('Button-取餐'));
++});
+--- /dev/null
++++ delivery-game/tests/legacy-order-fixture.cjs
+@@ -0,0 +1,5 @@
++// Explicitly exercise archived automatic activity semantics; new orders are tested separately.
++module.exports=function legacyOrderFixture(OrderBook){
++ const accept=OrderBook.prototype.accept;
++ OrderBook.prototype.accept=function(id){accept.call(this,id);delete this.accepted.handoff;this.snapshotVersion=3;};
++};

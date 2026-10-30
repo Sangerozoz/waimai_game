@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>第一阶段共同验收 · 送外卖</title>
+<style>
+:root{--ink:#302b20;--muted:#6e6757;--paper:#fffef9;--bg:#f5f2e8;--yellow:#ffd34f;--line:#ded7c5;--green:#286943;--red:#a03c2b;--focus:#876200}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}a{color:#765000;text-underline-offset:3px}button,input,select,textarea{font:inherit}button,.link-button{border:1px solid #bda75e;border-radius:10px;padding:10px 15px;cursor:pointer;background:var(--yellow);color:var(--ink);font-weight:650;display:inline-block;text-decoration:none}button.secondary,.link-button.secondary{background:var(--paper);border-color:var(--line)}button:hover,.link-button:hover{filter:brightness(.97)}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:3px}header{background:#ffe18a;border-bottom:1px solid #d5b653;padding:36px 24px 28px}header>div,main,footer{max-width:1120px;margin:auto}.eyebrow{font-size:13px;letter-spacing:.14em;font-weight:750;color:#6f5616}h1{font-size:clamp(28px,4vw,42px);line-height:1.25;margin:10px 0 14px;letter-spacing:-.03em}h2{font-size:22px;margin:0 0 16px}h3{font-size:16px;margin:0 0 7px}p{margin:0 0 12px}.lede{max-width:800px;color:#514b3d}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:19px}main{padding:24px}.panel{border:1px solid var(--line);background:var(--paper);border-radius:16px;padding:24px;margin-bottom:20px}.notice{font-size:14px;color:var(--muted);border-left:3px solid #d6b448;padding-left:12px}.storage{margin-top:16px;border-radius:9px;background:#fff8dd;padding:10px 13px;font-size:14px}.storage.error{background:#fff0e8;border:1px solid #d79a82;color:#842e22}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px 22px}.field{display:flex;flex-direction:column;gap:6px;font-weight:650}.field small,.hint{color:var(--muted);font-size:13px;font-weight:400}.wide{grid-column:1/-1}input,select,textarea{width:100%;border:1px solid #cfc6b0;border-radius:8px;padding:9px 11px;color:var(--ink);background:white;min-height:43px}textarea{min-height:90px;resize:vertical;font-weight:400}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stat{padding:14px;border-radius:10px;background:#f6f2e7;border:1px solid #e9e2d0}.stat strong{font-size:27px;display:block;line-height:1.2}.stat span{font-size:13px;color:var(--muted)}.stat.fail strong{color:var(--red)}.stat.pass strong{color:var(--green)}.progress{height:9px;border-radius:99px;background:#ebe5d5;overflow:hidden;margin:17px 0 10px}.progress>span{height:100%;display:block;background:#c99a1c;transition:width .2s;width:0}.filterbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}.filterbar label{display:flex;gap:8px;align-items:center}.filterbar select{width:auto}.filterbar button{padding:8px 12px;font-size:14px}.group-title{margin:26px 2px 12px;font-size:16px;color:#70613d;font-weight:750}.case{border:1px solid var(--line);border-radius:13px;background:var(--paper);padding:0 20px;margin-bottom:12px;overflow:hidden;scroll-margin-top:20px}.case[data-status="失败"]{border-color:#bd6654}.case[data-status="通过"]{border-left:5px solid #548367}.case summary{cursor:pointer;padding:18px 0;display:flex;gap:10px;align-items:flex-start;list-style:none}.case summary::-webkit-details-marker{display:none}.case summary:before{content:"＋";font-weight:800;color:#927023}.case details[open] summary:before{content:"−"}.case-id{font-size:12px;border:1px solid #d5b654;background:#fff4c8;border-radius:6px;padding:1px 6px;white-space:nowrap;line-height:24px}.case-title{font-weight:750;font-size:17px;flex:1}.badge{font-size:12px;border-radius:99px;padding:3px 8px;background:#f0ebde;white-space:nowrap}.case-body{border-top:1px solid #ece5d4;padding-top:16px}.case-body .pre{font-size:14px;color:#615b4d}.case-body ol,.case-body ul{padding-left:23px;margin-top:5px}.case-body li{margin:5px 0}.case-note{font-size:13px;background:#f8f3e4;padding:10px 12px;border-radius:8px;color:#6d6041;margin-bottom:16px}.case-record{border-top:1px solid #ece5d4;padding:14px 0 18px;display:grid;grid-template-columns:150px 165px minmax(0,1fr);gap:12px;align-items:start}.case-record .field{font-size:13px}.case-record textarea{min-height:75px;font-size:14px}.empty{padding:25px;text-align:center;color:var(--muted)}#reportText{min-height:250px;font:13px/1.6 ui-monospace,SFMono-Regular,monospace}.feedback-tip{background:#fff7da;padding:12px;border-radius:9px;margin-bottom:18px;font-size:14px}footer{padding:8px 24px 30px;color:var(--muted);font-size:12px}.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}[hidden]{display:none!important}@media(max-width:740px){header{padding:25px 18px}main{padding:16px}.panel{padding:18px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.stats{grid-template-columns:repeat(3,1fr)}.stat{padding:11px}.case{padding:0 14px}.case summary{gap:7px;flex-wrap:wrap}.case-title{font-size:16px;min-width:60%}.case-record{grid-template-columns:1fr 1fr}.case-record .notes{grid-column:1/-1}.actions>*{flex:1;text-align:center}.badge{margin-left:25px}h2{font-size:20px}}@media print{body{background:white}header{padding:18px}main{padding:0}.panel,.case{break-inside:avoid}.actions,.filterbar,button,.storage,#reportPanel{display:none}details .case-body{display:block!important}textarea{min-height:80px}.case summary{padding:12px 0}.stats{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<header><div>
+<div class="eyebrow">送外卖 · STAGE 01 / 共同验收</div>
+<h1>先把一单送好，<br>再一起把体验磨顺。</h1>
+<p class="lede">按真实游玩顺序核对24项。记录功能是否符合预期，也留下最想优化的地方。所有项初始为“未测”，页面不会代替你判定验收通过。</p>
+<div class="actions"><a class="link-button" href="http://localhost:4188/" target="_blank" rel="noopener">打开独立验收游戏 ↗</a><a class="link-button secondary" href="http://localhost:4179/" target="_blank" rel="noopener">打开原试玩进度 ↗</a><a class="link-button secondary" href="#caseList">开始查看用例 ↓</a></div>
+<div class="storage" id="storageNotice" role="status">正在检查本页记录…</div>
+</div></header>
+<main>
+<noscript><div class="panel">此页需要JavaScript才能保存与导出记录。请使用仓库内的Markdown验收清单手动记录。</div></noscript>
+<section class="panel" aria-labelledby="introTitle">
+<h2 id="introTitle">这次怎样验</h2>
+<p>建议先做A01–A13，再自然体验A14–A16；持续送单完成A17–A20，最后检查布局和有条件的项目。桌面主要流程可预留20–35分钟，跨日与物理手机另记。</p>
+<p class="notice">4188与4179是不同源，游戏存档互相独立；同一入口重开会保留进度，不会自动新开档。本表只写自己的验收记录键，不读取或清空游戏存档。切换本页端口、浏览器或文件打开方式后，记录不会自动同步。</p>
+<p class="hint">“未遇到”代表本次缺少样本，不能当作通过。随机餐损无需反复抽到；精确里程、随机结果冻结、评价边界、跨日和迁移等确定性规则由助手补技术证据。3秒首屏/低端30fps均是待真机验证目标。</p>
+</section>
+<section class="panel" aria-labelledby="envTitle"><h2 id="envTitle">先记下验收环境</h2><div class="grid" id="environmentFields"></div></section>
+<section class="panel" aria-labelledby="summaryTitle">
+<h2 id="summaryTitle">当前记录</h2>
+<div class="stats" id="stats" aria-live="polite"></div><div class="progress" aria-hidden="true"><span id="progressFill"></span></div><p id="progressText" class="hint"></p>
+<div class="filterbar"><label for="statusFilter">显示<select id="statusFilter"><option value="全部">全部用例</option><option>未测</option><option>失败</option><option>未遇到</option><option>通过</option></select></label><button class="secondary" id="expandAll" type="button">展开全部步骤</button><button class="secondary" id="collapseAll" type="button">收起全部步骤</button><button class="secondary" id="saveNow" type="button">保存本页记录</button></div>
+<p class="hint" style="margin-top:10px">统计只展示填写进度；最终功能结论与优化建议在页尾分别填写。没有“清空进度”按钮。</p>
+</section>
+<section id="caseList" aria-label="验收用例"></section>
+<section class="panel" aria-labelledby="feedbackTitle">
+<h2 id="feedbackTitle">功能结论与体验反馈</h2>
+<p class="feedback-tip">功能符合预期，也可以写“希望动画更慢一点”。缺陷请给用例编号、订单/地点、期望与实际、最少复现步骤、频率和截图文件名；涉及钱请附前后余额与回执金额。</p>
+<div class="grid" id="feedbackFields"></div>
+</section>
+<section class="panel" id="reportPanel" aria-labelledby="reportTitle">
+<h2 id="reportTitle">带走这次记录</h2>
+<p class="hint">自动保存只在当前浏览器有效。下载后确认文件存在；保存或复制被浏览器限制时，点“生成可手动复制的报告”，再选择下方全文复制。JSON保留全部用例定义与输入；本页不导入或改写游戏存档。</p>
+<div class="actions"><button id="exportMarkdown" type="button">导出Markdown报告</button><button class="secondary" id="exportJson" type="button">导出JSON记录</button><button class="secondary" id="copyReport" type="button">复制反馈报告</button><button class="secondary" id="makeReport" type="button">生成可手动复制的报告</button></div>
+<p id="exportNotice" role="status" class="hint" style="margin-top:12px"></p>
+<label class="field" for="reportText" style="margin-top:14px">可手动复制的报告<textarea id="reportText" readonly spellcheck="false" placeholder="点击上方按钮生成。此处仅显示文本，不执行任何输入内容。"></textarea></label>
+</section>
+</main>
+<footer>第一阶段边界：县城主动配送、正式结算、成长、D→D+、每日刷新与本地保存。骑手经营、站点升级、新城市及广告SDK不在本轮。未来广告首单＋9条普通单仅记方案；当前10条均为普通可接订单。材料日期：2026-10-28。</footer>
+<script>
+'use strict';
+const CASES = [{"id":"A01","group":"01 · 新档与地图","title":"新档起点与首次打开","kind":"基础","precondition":"使用独立验收入口 http://localhost:4188/；该源尚无县城存档。","steps":["打开游戏，记录设备、浏览器、首屏观察和页面版本；看到地图后检查顶部数值。","记录余额、评价、经验、等级与车辆，不清理正式入口的存档。"],"expected":["初始余额 ¥100.00、评价80、经验0、Lv.1、D车；站点1为本期经营边界。","进入黄色地图与自主接单状态。若不是新档，记录实际进度；本例标未遇到，不清空已有存档。"],"note":"首屏≤3秒为目标设备预算，不能用本地一次加载或感觉判定所有设备通过。"},{"id":"A02","group":"01 · 新档与地图","title":"余额不足时不能升级","kind":"基础","precondition":"建议紧接A01，D车且余额低于¥320；尚未接单。","steps":["打开“车辆 D”，查看当前车与D+升级信息。","点击升级区域，关闭并重开面板。"],"expected":["D车显示载重5kg、速度×1.00、收入×1.00；D+升级价¥320。","提示余额不足或还差金额，不扣钱、不改车辆；面板能够关闭。"],"note":"若已有足够余额，不消费来制造不足；此例标未遇到，并引用助手的不足余额规则检查。"},{"id":"A03","group":"01 · 新档与地图","title":"地图可读性与外围真实细节","kind":"基础","precondition":"地图已打开；可自由拖动。","steps":["观察初始街区；拖动到道路较外围的区域，检查道路、建筑、水系与绿地。","点击定位回到骑手；记录看不清、空白异常、遮挡或点击误触的位置。"],"expected":["道路和已有真实场景细节正常显示，无持续黑屏、破图或明显图层错误；骑手与商家/顾客标记可辨认。","地图数据允许存在真实空地，不以“处处有建筑”判通过；OSM来源署名可见。"],"note":"地图细节的数据覆盖与来源由最终交付记录说明；用户评价画面效果，助手另核对数据来源与覆盖。"},{"id":"A04","group":"01 · 新档与地图","title":"50m默认与30–100m缩放边界","kind":"基础","precondition":"处于地图待命或选路界面。","steps":["记录初始比例尺；连续使用放大、缩小按钮以及鼠标滚轮触及两端。","拖动后点定位、周边/查看周边、选路定位；开始配送时再次观察比例尺。"],"expected":["新开与出发默认50m；缩放全程在30–100m内，周边视角为100m，定位及选路视角不越界。","拖图不改变订单与经营数值；定位能找回当前骑手，不将其送回初始餐厅。"],"note":"手机双指单列在A24；长路线可拖动与跟随查看，无需一屏显示全程。"},{"id":"A05","group":"02 · 接单与行程","title":"手机大厅10单与单列表滚动","kind":"基础","precondition":"当前无活动订单，点击“接单”。","steps":["从列表顶部逐步向下拖到第10条，再向上拖；留意是否误触接单。","记录若干订单ID或商家/顾客组合；关闭手机，再打开。"],"expected":["共10条普通可接订单，上下滑动可到最后一条，无上一页/下一页；拖动不会误接。","开关手机不重抽订单、不扣现金、不消耗每日刷新次数。"],"note":"本期没有广告置顶占位单；未来方案为1条广告特殊单＋9条普通单，本轮不验收。"},{"id":"A06","group":"02 · 接单与行程","title":"订单信息、载重与附近里程","kind":"基础","precondition":"大厅10单可见。","steps":["查看不同订单，记录商家、顾客、类型、易损度、交付需求、重量、基础价、预计收入、预计时间和时限。","查看取餐与送餐两段距离；在后续换过多个送达终点后再抽查。"],"expected":["普通/加急、耐放/普通/易碎怕洒、直接交付/放门口等当前生成的信息能读懂；基础价与预计收入含义清楚。","每条新普通单按骑手当前位置→餐厅→顾客的快捷道路总长≤10km；其他可选路线也≤10km，重量不超过当前车辆容量。"],"note":"界面距离保留一位小数，手工相加仅作线索；边界疑问请记订单与截图，由助手核对原始道路米数，不能拿直线距离代替。"},{"id":"A07","group":"02 · 接单与行程","title":"选路、取消与轻引导","kind":"基础","precondition":"首单推荐尚在，或任一可接普通单；无活动配送。","steps":["接首单推荐，查看路线卡；逐个切换现有路线，观察高亮与路径。","点击“返回接单”，再接回此单；确认后准备出发。"],"expected":["首个推荐单是普通、耐放、1kg、基础¥20、直接交付；只有简短首单提示，不强制10单教学。","按快捷/主干/平稳偏好求路并去重，允许只有1–3条实际不同路线；显示分钟/小时、准时或预计晚到、餐损概率。","至少有一条可准时路线；选路与取消不扣分、不扣钱、不消费刷新；取消前未移动骑手。"],"note":"不要求每单硬凑三条路线；不同道路的餐损概率是风险，不是必然损坏。"},{"id":"A08","group":"02 · 接单与行程","title":"真实取送顺序与双时钟","kind":"基础","precondition":"已选一条路线，建议选准时路线；记录出发位置。首单可能已在餐厅，取餐两段可在下一单补验。","steps":["点击“出发配送”，观察骑手先到餐厅再到顾客，注意取餐与送餐状态切换。","记录路线预计时长、动画体感、全程里程；途中尝试打开车辆面板。"],"expected":["从当前骑手位置出发，先取餐再送顾客；若已在餐厅，取餐距离为0，可直接进入送餐。存在取餐路程时显示“前往餐厅取餐”再切换“正在送往顾客”，沿选中道路完整到达。","预计时间以分钟/小时表达，动画与它分开：显示30分钟约对应5秒动画，单次前台运行的配送动画最多12秒（暂停/后台时间不计）。","活动订单期间不能换车；出发50m跟随，拖图后可定位恢复跟随。"],"note":"时间是游戏参数，不是真实交通预测。选路、暂停、后台和到达交互不消耗配送时间。"},{"id":"A09","group":"03 · 恢复与结算","title":"手动暂停与继续","kind":"基础","precondition":"一单已出发且尚未到达。","steps":["尽早点“暂停配送”，记录骑手位置、进度和剩余时间；等待数秒。","拖图或定位后点“继续配送”，完成此单。"],"expected":["暂停期间位置、进度和剩余时间不推进；仍可查看地图。","继续后从暂停位置沿原路线履约，不从头出发、不跳过取餐；该单只结算一次。"],"note":"配送较短时可留到下一单重试，不把未及时点到暂停判为缺陷。"},{"id":"A10","group":"03 · 恢复与结算","title":"后台冻结与途中重载","kind":"基础","precondition":"下一笔配送刚出发；该例可和后续正常订单合并。","steps":["运行中切到其他标签页或将游戏置于后台数秒，再返回，观察是否因后台等待直接送达或变晚。","在仍未到达时刷新游戏页面，记录恢复位置与剩余进度；不点继续先等待，再主动继续完成。"],"expected":["后台期间不累计配送时间；返回前台可延续原运行状态。","途中重载恢复为暂停，保留原订单、所选路线与已保存位置；主动继续才前进，不重置到餐厅。","已出发抽定的餐损结果不因暂停、后台、重载重抽；不可借反复重载改变结算。"],"note":"固定随机结果由助手自动检查证明；界面未展示抽签值，用户只记录实际回执与恢复异常，不需读取或改写存档。"},{"id":"A11","group":"03 · 恢复与结算","title":"首笔回执与到账","kind":"基础","precondition":"完成首笔推荐单；若已做其他订单，记录当前实际订单。","steps":["到达后查看完成面板，打开“结算详情”。","对照出发前余额、评价与经验，记录本单基础价、实际收入、评价变化、经验与新余额。"],"expected":["余额增加值等于实际收入；每单经验+10、完成数+1；回执解释准时/晚到、需求、餐损及车辆/等级/评价/餐损倍率。","初始首单在无餐损、准时的条件下收入¥21.80，余额¥121.80、评价80、经验10；首单也存在随机餐损，发生时按实际折扣回执验收。","收入先更新本单评价再计算，使用出发时经验等级；金额四舍五入到分。"],"note":"首单¥21.80不是每名玩家必得结果。通用金额：基础价×车辆收入倍率×出发等级倍率×(0.85＋结算后评价×0.003)×餐损保留比例。"},{"id":"A12","group":"03 · 恢复与结算","title":"回执重载不重复发奖","kind":"基础","precondition":"停留在一单“配送完成”回执，尚未点“继续接单”。","steps":["记录现金、经验、完成数、评价及回执金额。","刷新页面，重开结算详情；再点“继续接单”。"],"expected":["恢复同一回执与骑手终点；现金、经验、完成数均与刷新前相同。","重复查看详情、刷新、继续接单不再次发钱或发经验。"],"note":"若发现重复发奖，标严重并记录刷新次数和前后数值，不需继续刷取。"},{"id":"A13","group":"04 · 连续经营与规则","title":"连续配送、终点保留与自动补单","kind":"基础","precondition":"已完成一单，记录顾客地点；点击继续接单。","steps":["从当前位置接另一家餐厅的订单，完成第二笔；再打开下一轮大厅。","观察两笔之间的骑手位置、第二笔取餐起点、商家途经与新顾客终点；比较刷新剩余次数。"],"expected":["骑手停留在上一顾客处，第二笔从那里先去餐厅再送顾客；取消、到达、结算、继续接单均不回初始餐厅。","结算后仍有10条新普通候选，保留仍在范围内的原候选并补齐；新候选两段道路全程≤10km。","自动补单/距离过滤不消耗每日手动刷新次数。"],"note":"无需每笔全换10单；保留合规候选是预期行为。"},{"id":"A14","group":"04 · 连续经营与规则","title":"放门口需求与两种交付选择","kind":"遇到再测","precondition":"遇到有“放门口，别敲门”留言的订单；建议两笔分别体验两种选择。","steps":["第一笔到达后等待数秒，再点“按要求放门口”，查看回执。","之后若再遇到同类需求，可选“敲门交付”，对照回执并记录。"],"expected":["到达交互期间不消耗配送时间；按要求放门口贡献评价+2，敲门打扰贡献−3。","其他同单因素仍会合并，单笔变化先限−10～+6，再把总评价限20～100；不能只看最终净值认定需求奖惩错误。"],"note":"未遇到需求，或只体验一种选择时标未遇到并写已测部分；不要为凑样本刷单。"},{"id":"A15","group":"04 · 连续经营与规则","title":"加急、晚到与风险选择反馈","kind":"遇到再测","precondition":"遇到加急单，或路线卡确有“预计晚到”的可选路线。","steps":["记录类型、时限与各路线预估时间；优先完成一次加急准时。","若愿意承受评价变化，可在另一笔自愿选择晚到路线，查看仍能完成及回执解释。"],"expected":["加急准时贡献评价+2；普通准时本身不额外加分。","晚到贡献评价−3且每单只算一次，不再因选路名称追加扣分；订单仍可送达结算，不自动失败/撤单。","至少一条路线可准时；选路界面等待不消耗配送时限。"],"note":"未遇到晚到路线或不愿降低验收档评价，标未遇到；助手用固定案例核对一次扣分，不能诱导修改正常存档。"},{"id":"A16","group":"04 · 连续经营与规则","title":"随机餐损与回执解释","kind":"遇到再测","precondition":"正常游玩中自然遇到餐损，或遇到易碎怕洒单；不要求反复抽到。","steps":["记下订单易损度、所选路线风险与最终餐损级别。","核对回执中的餐损保留与评价贡献；遇到易碎怕洒且完好时，查看对应好评。"],"expected":["轻微：收入保留90%、评价−2；中度：75%、−5；严重：50%、−10；每种餐损只结算一次。","易碎怕洒餐品完好贡献+2；发生餐损时只按实际程度扣分，不因道路名称直接判罚。","回执的总评价遵守单笔−10～+6、总评价20～100；收入用更新后评价与一次餐损折扣计算。"],"note":"未自然遇到餐损可标未遇到，由助手补固定随机与边界证据；无损不能证明概率为零，不要求用户统计损坏率。"},{"id":"A17","group":"04 · 连续经营与规则","title":"经验、等级与赚钱节奏","kind":"持续试玩","precondition":"持续正常接单，准备完成第10单。","steps":["每单记录经验增量；在90经验时记下出发等级，完成下一单。","查看100经验后的等级和下一笔回执；记录到达¥320资金目标所需单数与体感。"],"expected":["每单+10经验，累计100经验自动到Lv.2；第10单收入仍用出发时Lv.1，之后出发的Lv.2收入倍率×1.03。","升等级不扣钱；资金与评价随实际回执变化，不承诺固定第10单攒够换车钱。"],"note":"收入受基础价、需求、评价和随机餐损影响。“约10单”是节奏目标，记录实际单数用于优化。"},{"id":"A18","group":"04 · 连续经营与规则","title":"花¥320升D+及当前档位上限","kind":"持续试玩","precondition":"无活动订单，D车，余额至少¥320；不足则继续正常送单。","steps":["打开车辆面板，记录余额并升级D+；再打开面板尝试重复升级。","接下一单，查看车辆状态、时长和结算倍率；重载后再次检查。"],"expected":["只扣¥320，变为D+；速度×1.10、收入×1.12、载重8kg；余额与车辆重载后保留。","后续回执车辆收入倍率×1.12；升级使道路行驶部分提速，固定服务时间仍在，不能要求整单时长恰好缩短10%。","站点1本期最高D+，重复点击不重复扣款，不继续升C；当前活动订单不能换车。"],"note":"没有承诺换D+立即生成超过5kg的新订单；容量上限8kg与每次生成重量是两件事。"},{"id":"A19","group":"05 · 刷新与保存","title":"每日两次免费刷新、耗尽后继续接单","kind":"基础","precondition":"无活动订单；记录当天剩余刷新次数。","steps":["记录余额与若干订单；逐次使用剩余免费刷新直到0。","点击“广告未开放”，刷新游戏页面，再从现有列表接单并正常完成。"],"expected":["每日免费额度2次，手动刷新每次扣1；重载仍保留当天用量。","用完后明确提示广告刷新暂未开放，不扣钱、不改变现有订单，不假装播放广告成功。","额度耗尽后普通接送和自动补单仍可继续。"],"note":"若今日已经用完，只验耗尽路径并记录前置状态；不改系统日期、不清存档来制造额度。"},{"id":"A20","group":"05 · 刷新与保存","title":"闲置状态重载与经营进度保留","kind":"基础","precondition":"已完成若干单；无活动订单，最好已升D+并用过刷新。","steps":["记下现金、评价、经验、等级、完成数、车辆、骑手所在地点、候选订单和剩余刷新次数。","刷新页面并打开大厅、车辆面板，对照全部记录。"],"expected":["上述进度保留，骑手仍在当前终点；默认50m定位当前骑手。","当前版本恢复不重抽候选、不消耗免费刷新、不重复发奖；存储不可用时界面明确显示未保存/错误提示。"],"note":"不要求用户关闭存储或注入损坏；存储失败、备份恢复与多标签冲突保护由助手补技术证据。"},{"id":"A21","group":"06 · 界面与条件检查","title":"桌面和长屏布局","kind":"基础","precondition":"可调整桌面浏览器窗口；已有存档，避免清理数据。","steps":["分别用普通桌面窗口与窄长窗口查看大厅顶部/底部、选路、配送、到达选择、结算详情和车辆面板。","检查主要按钮、数值、滚动和弹窗关闭；调整窗口后继续原订单。"],"expected":["文字、金额与关键按钮可见可操作，列表能到第10条；无挡住核心操作的截断/重叠。","尺寸改变保留订单、位置与经营进度；布局重建后定位当前骑手，不回原点。"],"note":"桌面窄长窗口是布局检查，不等于物理手机触控、性能或系统后台已通过。"},{"id":"A22","group":"06 · 界面与条件检查","title":"自然跨日恢复免费额度","kind":"条件检查","precondition":"真实本地日期已进入次日；昨日曾使用免费刷新；可另日补验。","steps":["保留原验收档，次日打开大厅，查看免费刷新剩余次数。","使用一次刷新后重载，再确认次数和现金。"],"expected":["新一天恢复2次额度；当天首次使用后剩1次，重载不再回到2次。","跨日不丢失现金、车辆、骑手位置或活动订单。"],"note":"没有跨日条件就标未遇到；不要求改系统时间。助手可用固定时钟验证规则，另附证据。"},{"id":"A23","group":"06 · 界面与条件检查","title":"已有旧档兼容与旧远单继续履约","kind":"条件检查","precondition":"只有此前真实使用地图v1旧30单存档的用户适用；不制造、覆盖或导入测试存档。","steps":["在原正式入口升级打开，记录旧经营数值、车辆、骑手位置、刷新次数及活动订单。","检查大厅迁移为10单；若已有旧远单，正常继续或在选路阶段取消后重回大厅。"],"expected":["保留资金、评价、经验、车辆、地点、用量及活动单；旧已接远单继续履约，不强行撤单或重抽结果。","迁移后新普通候选/路线执行≤10km；取消旧远单后回到合规附近池，不把旧远单作为新普通单接取。"],"note":"没有旧档时标未遇到，由助手补迁移固定案例。旧Main场景存档不自动迁移，不能当作地图v1兼容样本。"},{"id":"A24","group":"06 · 界面与条件检查","title":"物理手机触控、后台与性能","kind":"可选真机","precondition":"实际手机可访问本机构建；记录真实设备、系统、浏览器、网络与测试方法。","steps":["检查双指缩放30–100m、单指拖图、列表滑动与按钮误触；执行暂停、系统后台、恢复及途中重载。","记录真实首屏时长、持续配送卡顿/发热及可复现位置；如有可靠性能工具，再记录测得帧率与采样方法。"],"expected":["触控与后台行为符合对应桌面案例，主要按钮能触达，进度可恢复。","首屏≤3秒、低端设备≥30fps为待验证目标；只有相应目标设备与实际测量可判断，体感或桌面回调频率不能当作真机帧率。"],"note":"本轮未做真机测量，不预勾通过、不捏造FPS。不能访问手机时标未测并记录原因，桌面可先完成核心体验验收。"}];
+const KEY = 'delivery-stage-one-acceptance-2026-10-28-v1';
+const STATUSES = ['未测','通过','失败','未遇到'];
+const SEVERITIES = ['未分级','阻断','严重','一般','建议'];
+const fieldDefs = [
+{id:'tester',label:'验收人',placeholder:'姓名或昵称',area:'environment'},
+{id:'date',label:'验收日期',type:'date',area:'environment'},
+{id:'build',label:'构建版本 / 交付证据',placeholder:'构建时间、哈希或交付记录文件名',area:'environment'},
+{id:'gameUrl',label:'本次游戏入口',placeholder:'http://localhost:4188/',area:'environment'},
+{id:'device',label:'设备与系统',placeholder:'例如 MacBook / macOS版本；或手机型号 / 系统',area:'environment'},
+{id:'browser',label:'浏览器与版本',placeholder:'请填写实际使用的浏览器版本',area:'environment'},
+{id:'display',label:'窗口 / 屏幕尺寸与输入方式',placeholder:'例如1280×720，鼠标；或手机触控',area:'environment'},
+{id:'startSave',label:'起始存档状态',placeholder:'新档/已有档；现金、评价、经验、车辆、完成数',area:'environment'},
+{id:'conclusion',label:'功能结论（由你选择）',options:['待共同验收','核心功能可接受','有问题需修复','需再试玩'],area:'feedback'},
+{id:'technicalEvidence',label:'助手技术证据 / 待补证据',placeholder:'最终验证记录，或希望助手核查的规则',area:'feedback'},
+{id:'defects',label:'需修复的功能问题',placeholder:'用例编号、期望、实际、复现步骤、频率、截图文件名；没有可写“未发现”',multiline:true,wide:true,area:'feedback'},
+{id:'improvements',label:'最想优先优化的三点',placeholder:'地图、路线选择、文字、动画快慢、赚钱/换车节奏……功能通过也可写建议',multiline:true,wide:true,area:'feedback'},
+{id:'feeling',label:'体验感受与认可的部分',placeholder:'哪些操作清楚顺手？哪些地方犹豫？',multiline:true,area:'feedback'},
+{id:'remaining',label:'未测 / 未遇到的原因与补验安排',placeholder:'缺少随机样本、没有旧档、跨日、真机等；哪些需要助手证据',multiline:true,area:'feedback'}
+];
+let storageHealthy = true;
+let state = {version:1,fields:{},results:{},updatedAt:null};
+let loadWarning = '';
+try {
+  const raw = localStorage.getItem(KEY);
+  if (raw) {
+    const parsed = JSON.parse(raw);
+    if (!parsed || parsed.version !== 1 || typeof parsed.fields !== 'object' || !parsed.fields || Array.isArray(parsed.fields) || typeof parsed.results !== 'object' || !parsed.results || Array.isArray(parsed.results)) throw new Error('记录格式不兼容');
+    fieldDefs.forEach(function(def) {
+      const value = parsed.fields[def.id];
+      if (typeof value === 'string') state.fields[def.id] = def.options && !def.options.includes(value) ? def.options[0] : value;
+    });
+    CASES.forEach(function(c) {
+      const value = parsed.results[c.id];
+      if (value && typeof value === 'object') state.results[c.id] = {
+        status: STATUSES.includes(value.status) ? value.status : '未测',
+        severity: SEVERITIES.includes(value.severity) ? value.severity : '未分级',
+        notes: typeof value.notes === 'string' ? value.notes : ''
+      };
+    });
+    state.updatedAt = typeof parsed.updatedAt === 'string' ? parsed.updatedAt : null;
+  }
+} catch (error) {
+  storageHealthy = false;
+  loadWarning = '本页旧记录无法读取，原内容未覆盖。当前仅在内存记录，请先导出本次报告；若确认另存妥当，可点“保存本页记录”尝试保存。';
+}
+if (!state.fields.date) {
+  const d = new Date();
+  state.fields.date = String(d.getFullYear()) + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+if (!state.fields.gameUrl) state.fields.gameUrl = 'http://localhost:4188/';
+if (!state.fields.conclusion) state.fields.conclusion = '待共同验收';
+CASES.forEach(function(c) { if (!state.results[c.id]) state.results[c.id] = {status:'未测',severity:'未分级',notes:''}; });
+const el = function(tag,className,text) { const node=document.createElement(tag); if(className)node.className=className; if(text!==undefined)node.textContent=text; return node; };
+const byId = function(id) { return document.getElementById(id); };
+function setStorageMessage(text,isError) {
+  const box=byId('storageNotice'); box.textContent=text; box.classList.toggle('error',!!isError);
+}
+function persist(explicit) {
+  state.updatedAt = new Date().toISOString();
+  if (!storageHealthy && !explicit) { setStorageMessage(loadWarning || '浏览器暂不能保存本页记录；填写仍有效，离开前请导出或手动复制报告。',true); return; }
+  try {
+    localStorage.setItem(KEY,JSON.stringify(state));
+    storageHealthy=true;loadWarning='';
+    setStorageMessage('本页记录已保存在此浏览器 · '+new Date(state.updatedAt).toLocaleString('zh-CN')+'。建议验收结束再导出一份。',false);
+  } catch(error) {
+    storageHealthy=false;
+    setStorageMessage('浏览器无法保存本页记录。当前填写只在此页内存中，离开前请导出JSON/Markdown或手动复制报告；本页未触碰游戏存档。',true);
+  }
+}
+function mountFields(area,targetId) {
+  const target=byId(targetId);
+  fieldDefs.filter(function(d){return d.area===area;}).forEach(function(def) {
+    const label=el('label','field'+(def.wide?' wide':''));label.htmlFor='field-'+def.id;label.append(el('span','',def.label));
+    const input=el(def.options?'select':def.multiline?'textarea':'input');
+    input.id='field-'+def.id;
+    if(def.options)def.options.forEach(function(value){const option=el('option','',value);option.value=value;input.append(option);});
+    else {if(!def.multiline)input.type=def.type||'text';input.placeholder=def.placeholder||'';}
+    input.value=state.fields[def.id]||'';
+    input.addEventListener(def.options?'change':'input',function(){state.fields[def.id]=input.value;persist(false);});
+    label.append(input);target.append(label);
+  });
+}
+function listNode(tag,lines){const list=el(tag);lines.forEach(function(line){list.append(el('li','',line));});return list;}
+function mountCases(){
+  const target=byId('caseList');let group='';
+  CASES.forEach(function(c,index) {
+    if(c.group!==group){group=c.group;const h=el('h2','group-title',group);h.dataset.group=group;target.append(h);}
+    const article=el('article','case');article.id=c.id;article.dataset.status=state.results[c.id].status;article.dataset.group=group;
+    const details=el('details');details.open=index===0;
+    const summary=el('summary');summary.append(el('span','case-id',c.id),el('span','case-title',c.title),el('span','badge',c.kind));
+    details.append(summary);
+    const body=el('div','case-body');body.append(el('p','pre','前提：'+c.precondition),el('h3','','操作步骤'),listNode('ol',c.steps),el('h3','','预期结果'),listNode('ul',c.expected));
+    if(c.note)body.append(el('p','case-note',c.note));
+    details.append(body);article.append(details);
+    const record=el('div','case-record');
+    const statusLabel=el('label','field');statusLabel.htmlFor=c.id+'-status';statusLabel.append(el('span','','验收结果'));
+    const status=el('select');status.id=c.id+'-status';STATUSES.forEach(function(value){const op=el('option','',value);op.value=value;status.append(op);});status.value=state.results[c.id].status;
+    status.addEventListener('change',function(){state.results[c.id].status=status.value;article.dataset.status=status.value;persist(false);updateSummary();applyFilter();});statusLabel.append(status);
+    const severityLabel=el('label','field');severityLabel.htmlFor=c.id+'-severity';severityLabel.append(el('span','','问题等级'));
+    const severity=el('select');severity.id=c.id+'-severity';SEVERITIES.forEach(function(value){const op=el('option','',value);op.value=value;severity.append(op);});severity.value=state.results[c.id].severity;
+    severity.addEventListener('change',function(){state.results[c.id].severity=severity.value;persist(false);updateSummary();});severityLabel.append(severity);
+    const notesLabel=el('label','field notes');notesLabel.htmlFor=c.id+'-notes';notesLabel.append(el('span','','实际结果 / 问题 / 优化建议'));
+    const notes=el('textarea');notes.id=c.id+'-notes';notes.placeholder='订单/地点、前后数值、实际结果、复现步骤、截图文件名；也可只写优化建议。';notes.value=state.results[c.id].notes;
+    notes.addEventListener('input',function(){state.results[c.id].notes=notes.value;persist(false);});notesLabel.append(notes);
+    record.append(statusLabel,severityLabel,notesLabel);article.append(record);target.append(article);
+  });
+  const empty=el('p','empty','没有符合筛选的用例。');empty.id='emptyFilter';empty.hidden=true;target.append(empty);
+}
+function counts(){
+  const out={'未测':0,'通过':0,'失败':0,'未遇到':0};
+  CASES.forEach(function(c){out[state.results[c.id].status]++;});return out;
+}
+function updateSummary(){
+  const count=counts(),stats=byId('stats');stats.replaceChildren();
+  [['全部',CASES.length],['未测',count['未测']],['通过',count['通过']],['失败',count['失败']],['未遇到',count['未遇到']]].forEach(function(pair){
+    const card=el('div','stat'+(pair[0]==='失败'?' fail':pair[0]==='通过'?' pass':''));card.append(el('strong','',String(pair[1])),el('span','',pair[0]));stats.append(card);
+  });
+  const tested=count['通过']+count['失败'];
+  byId('progressFill').style.width=String(tested/CASES.length*100)+'%';
+  const severe=CASES.filter(function(c){const r=state.results[c.id];return r.status==='失败'&&(r.severity==='阻断'||r.severity==='严重');}).length;
+  byId('progressText').textContent='已实际判定 '+tested+' / '+CASES.length+' 项；未遇到 '+count['未遇到']+' 项。阻断或严重失败 '+severe+' 项。最终功能结论请在页尾选择；此统计不自动表示验收通过。';
+}
+function applyFilter(){
+  const filter=byId('statusFilter').value;let shown=0;
+  document.querySelectorAll('.case').forEach(function(node){node.hidden=filter!=='全部'&&node.dataset.status!==filter;if(!node.hidden)shown++;});
+  document.querySelectorAll('.group-title').forEach(function(node){node.hidden=!Array.from(document.querySelectorAll('.case')).some(function(c){return c.dataset.group===node.dataset.group&&!c.hidden;});});
+  byId('emptyFilter').hidden=shown>0;
+}
+function escapeMarkdown(value){
+  return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/[\\\x60*_{}\[\]()#+.!|~\-]/g,'\\$&');
+}
+function quote(value){return String(value||'未填写').split(/\r?\n/).map(function(line){return '> '+escapeMarkdown(line);}).join('\n');}
+function markdownReport(){
+  const count=counts(),lines=['# 送外卖 · 第一阶段用户验收报告','','生成时间：'+new Date().toLocaleString('zh-CN'),'','材料日期：2026-10-28；本报告记录用户输入，不自动认定验收通过。','','## 环境与共同结论',''];
+  fieldDefs.forEach(function(def){lines.push('### '+def.label,'',quote(state.fields[def.id]),'');});
+  lines.push('## 状态统计','','全部 '+CASES.length+'；未测 '+count['未测']+'；通过 '+count['通过']+'；失败 '+count['失败']+'；未遇到 '+count['未遇到']+'。','未遇到不是通过；3秒/30fps是待真机验证目标。','','## 逐项记录','');
+  CASES.forEach(function(c){const r=state.results[c.id];lines.push('### '+c.id+' · '+c.title,'','类型：'+c.kind+'；结果：'+r.status+'；问题等级：'+r.severity,'','前提：'+c.precondition,'','步骤：','');c.steps.forEach(function(s,i){lines.push(String(i+1)+'. '+s);});lines.push('','预期：','');c.expected.forEach(function(s){lines.push('- '+s);});if(c.note)lines.push('','判定说明：'+c.note);lines.push('','实际结果 / 问题 / 优化建议：','',quote(r.notes),'');});
+  lines.push('## 范围与保留项','','本页只保存独立验收记录，不读取或修改游戏存档。跨日、旧档、随机餐损与物理手机按实际条件填写；助手另补确定性规则证据。','骑手经营、站点升级、新城市与广告SDK未纳入第一阶段；未来1条广告特殊单＋9条普通单仅记方案。');
+  return lines.join('\n');
+}
+function reportData(){return {type:'delivery-stage-one-acceptance',schemaVersion:1,materialDate:'2026-10-28',generatedAt:new Date().toISOString(),acceptancePage:location.href,counts:counts(),fields:Object.assign({},state.fields),cases:CASES.map(function(c){return Object.assign({},c,{result:Object.assign({},state.results[c.id])});}),limitations:['用户填写不等于助手自动验收。','未遇到不算通过。','真机3秒/30fps为未自动证明的目标。','本表不访问游戏存档。']};}
+function filename(ext){const date=(state.fields.date||'2026-10-28').replace(/[^0-9-]/g,'');return 'delivery-stage-one-acceptance-'+(date||'report')+'.'+ext;}
+function download(content,mime,ext){
+  showManualReport(false);
+  try{
+    const blob=new Blob([content],{type:mime}),url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download=filename(ext);document.body.append(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);
+    byId('exportNotice').textContent='已发起'+ext.toUpperCase()+'下载，请确认下载文件存在。若未下载成功，可选中下方报告手动复制。';
+  }catch(error){byId('exportNotice').textContent='浏览器未能发起下载，请选中下方报告手动复制保存。';byId('reportText').focus();byId('reportText').select();}
+}
+function showManualReport(selectText){
+  const text=markdownReport();byId('reportText').value=text;
+  if(selectText){byId('reportText').focus();byId('reportText').select();}
+  return text;
+}
+mountFields('environment','environmentFields');mountFields('feedback','feedbackFields');mountCases();updateSummary();applyFilter();
+if(loadWarning)setStorageMessage(loadWarning,true);
+else {
+  try { const current=localStorage.getItem(KEY);localStorage.setItem(KEY,current===null?JSON.stringify(state):current);setStorageMessage(current===null?'本页支持自动保存；当前24项均待你填写。建议验收结束导出一份报告。':'已恢复此浏览器的验收记录；未读取游戏存档。',false); }
+  catch(error){storageHealthy=false;setStorageMessage('当前浏览器不允许保存本页记录。可继续填写；关闭页面前请导出或手动复制报告。',true);}
+}
+byId('statusFilter').addEventListener('change',applyFilter);
+byId('expandAll').addEventListener('click',function(){document.querySelectorAll('.case details').forEach(function(d){d.open=true;});});
+byId('collapseAll').addEventListener('click',function(){document.querySelectorAll('.case details').forEach(function(d){d.open=false;});});
+byId('saveNow').addEventListener('click',function(){
+  if(loadWarning&&!window.confirm('旧验收记录无法读取。保存会用本次填写覆盖本页自己的旧验收记录。请先导出需要保留的内容。确定保存本次记录？'))return;
+  persist(true);
+});
+byId('exportMarkdown').addEventListener('click',function(){download(markdownReport(),'text/markdown;charset=utf-8','md');});
+byId('exportJson').addEventListener('click',function(){download(JSON.stringify(reportData(),null,2),'application/json;charset=utf-8','json');});
+byId('makeReport').addEventListener('click',function(){showManualReport(true);byId('exportNotice').textContent='报告已生成并选中，可使用系统复制命令保存。';});
+byId('copyReport').addEventListener('click',async function(){
+  const text=showManualReport(false);
+  try{if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('无剪贴板接口');await navigator.clipboard.writeText(text);byId('exportNotice').textContent='反馈报告已复制；也可导出文件保存。';}
+  catch(error){showManualReport(true);byId('exportNotice').textContent='自动复制不可用，报告已选中，请使用系统复制命令。';}
+});
+window.addEventListener('beforeunload',function(event){
+  if(!storageHealthy){event.preventDefault();event.returnValue='本页记录尚未保存，请先导出或复制。';}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+TAP version 13
+# Subtest: a fresh session can be saved and restored by a new store
+ok 1 - a fresh session can be saved and restored by a new store
+  ---
+  duration_ms: 0.928042
+  type: 'test'
+  ...
+# Subtest: a replacement keeps the previous confirmed session as backup
+ok 2 - a replacement keeps the previous confirmed session as backup
+  ---
+  duration_ms: 0.135625
+  type: 'test'
+  ...
+# Subtest: a custom namespace saves independently and leaves the legacy game key intact
+ok 3 - a custom namespace saves independently and leaves the legacy game key intact
+  ---
+  duration_ms: 0.099667
+  type: 'test'
+  ...
+# Subtest: a corrupt primary is retained before a valid backup is used and replaced
+ok 4 - a corrupt primary is retained before a valid backup is used and replaced
+  ---
+  duration_ms: 0.127209
+  type: 'test'
+  ...
+# Subtest: schema-invalid JSON is treated as corrupt and the fresh session can be saved safely
+ok 5 - schema-invalid JSON is treated as corrupt and the fresh session can be saved safely
+  ---
+  duration_ms: 0.067958
+  type: 'test'
+  ...
+# Subtest: a missing primary can recover its valid backup
+ok 6 - a missing primary can recover its valid backup
+  ---
+  duration_ms: 0.051083
+  type: 'test'
+  ...
+# Subtest: empty corrupt bytes are preserved in the custom namespace
+ok 7 - empty corrupt bytes are preserved in the custom namespace
+  ---
+  duration_ms: 0.087042
+  type: 'test'
+  ...
+# Subtest: a primary read failure is visible and cannot overwrite unread existing progress
+ok 8 - a primary read failure is visible and cannot overwrite unread existing progress
+  ---
+  duration_ms: 0.099667
+  type: 'test'
+  ...
+# Subtest: an unreadable backup blocks replacement after primary corruption
+ok 9 - an unreadable backup blocks replacement after primary corruption
+  ---
+  duration_ms: 0.192792
+  type: 'test'
+  ...
+# Subtest: a failed previous-good backup write leaves the primary unchanged
+ok 10 - a failed previous-good backup write leaves the primary unchanged
+  ---
+  duration_ms: 0.208292
+  type: 'test'
+  ...
+# Subtest: a primary quota failure is visible and preserves the last confirmed progress
+ok 11 - a primary quota failure is visible and preserves the last confirmed progress
+  ---
+  duration_ms: 0.091625
+  type: 'test'
+  ...
+# Subtest: a failed first save does not promote fresh bytes to the known-good backup
+ok 12 - a failed first save does not promote fresh bytes to the known-good backup
+  ---
+  duration_ms: 0.043959
+  type: 'test'
+  ...
+# Subtest: when corrupt bytes cannot be retained their only copy cannot be overwritten later
+ok 13 - when corrupt bytes cannot be retained their only copy cannot be overwritten later
+  ---
+  duration_ms: 0.099917
+  type: 'test'
+  ...
+# Subtest: a valid backup can recover gameplay even while corrupt preservation failure disables saving
+ok 14 - a valid backup can recover gameplay even while corrupt preservation failure disables saving
+  ---
+  duration_ms: 0.085583
+  type: 'test'
+  ...
+# Subtest: a read failure during save returns failure without replacing stored progress
+ok 15 - a read failure during save returns failure without replacing stored progress
+  ---
+  duration_ms: 0.039125
+  type: 'test'
+  ...
+# Subtest: save refuses to overwrite an existing session that this store has not loaded
+ok 16 - save refuses to overwrite an existing session that this store has not loaded
+  ---
+  duration_ms: 0.120167
+  type: 'test'
+  ...
+# Subtest: save detects a primary changed by another writer instead of overwriting its bytes
+ok 17 - save detects a primary changed by another writer instead of overwriting its bytes
+  ---
+  duration_ms: 0.053291
+  type: 'test'
+  ...
+# Subtest: a store may write its first session without load when the primary is empty
+ok 18 - a store may write its first session without load when the primary is empty
+  ---
+  duration_ms: 0.04225
+  type: 'test'
+  ...
+# Subtest: future version primary remains untouched and saving is blocked
+ok 19 - future version primary remains untouched and saving is blocked
+  ---
+  duration_ms: 0.056791
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 19
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 31.671875

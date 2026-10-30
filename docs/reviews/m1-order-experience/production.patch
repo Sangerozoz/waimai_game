@@ -1,0 +1,823 @@
+--- before/delivery-game/assets/scripts/map-sample/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -1,8 +1,9 @@
+-import { _decorator, BlockInputEvents, Component, Game, game, Graphics, JsonAsset, Label, Node, resources, Sprite, UITransform, ResolutionPolicy, sys, view } from 'cc';
++import { _decorator, BlockInputEvents, Component, Game, game, Graphics, JsonAsset, Label, Node, ScrollView, Vec2, resources, Sprite, UITransform, ResolutionPolicy, sys, view } from 'cc';
+ import { CityMap, ROUTE_COLORS } from './CityMap';
+ import { prepareCity } from './PlaceCatalog';
+ import { CityData, Preference } from './MapTypes';
+ import { OrderBook } from './OrderBook';
++import { buyerRemark, deadlineText, foodDescription, orderCautions } from './OrderPresentation';
+ import { OrderPhone } from './OrderPhone';
+ import { ReceiptPresentation } from './ReceiptPresentation';
+ import { CountySaveStore } from './CountySaveStore';
+@@ -25,6 +26,7 @@
+   private root!:Node;
+   private panel!:Node;
+   private phone:OrderPhone|null=null;
++  private orderCardOpen=true;
+   private timer:Label|null=null;
+   private tripLabel:Label|null=null;
+   private progressFill:Node|null=null;
+@@ -99,7 +101,7 @@
+       if(next.top!==this.safeInsets.top||next.bottom!==this.safeInsets.bottom||next.left!==this.safeInsets.left||next.right!==this.safeInsets.right)this.onResize();
+     }
+   }
+-  private onResize():void{if(!this.book)return;this.unschedule(this.rebuildLayout);this.scheduleOnce(this.rebuildLayout,0);}
++  private onResize():void{if(!this.book)return;this.unschedule(this.rebuildLayout);this.scheduleOnce(()=>this.rebuildLayout(),0);}
+   private readSafeInsets():SafeInsets {
+     if(typeof document!=='undefined'){
+       const style=document.getElementById('GameDiv')?.style;
+@@ -111,16 +113,19 @@
+     }
+     return viewportInsets(720,1280+this.screenExtra,sys?.getSafeAreaRect?.(false));
+   }
+-  private rebuildLayout():void {
++  private rebuildLayout(resetCamera=false):void {
++    const oldScroll=this.panel?.getChildByName('DeliverySheet')?.getChildByName('ScrollableContent')?.getComponent(ScrollView);
++    const scrollY=oldScroll?.getScrollOffset().y||0;
++    const camera=resetCamera?null:this.city?.captureView?.();
+     const wasPhone=!!this.phone,wasDialog=this.modalKind,wasNotice=this.noticeMessage;
+     const frame=view.getFrameSize(),requestedExtra=Math.max(0,720*frame.height/frame.width-1280);
+     // Use the next frame's SHOW_ALL scale, rather than the previous layout's extra height.
+-    const idle=this.book.mode==='idle',sheetHeight=Math.max(520,presentationMetrics(1280+requestedExtra).body*16),baseMapHeight=idle?1280:1162-sheetHeight;
++    const idle=this.book.mode==='idle'||!this.orderCardOpen,sheetHeight=Math.max(440,presentationMetrics(1280+requestedExtra).action+340),baseMapHeight=idle?1280:640-(-479.4+cssUnits(12,1280+requestedExtra))-sheetHeight;
+     // Very tall windows must still fit the whole map viewport inside town at 100m.
+     this.screenExtra=CityMap.fitViewportHeight(this.book.data,baseMapHeight+requestedExtra)-baseMapHeight;
+     view.setDesignResolutionSize(720,1280+this.screenExtra,ResolutionPolicy.SHOW_ALL);
+     this.safeInsets=this.readSafeInsets();
+-    const bottom=this.safeInsets.bottom,mapHeight=Math.max(1,baseMapHeight+this.screenExtra-(idle?0:bottom)),mapY=idle?0:(sheetHeight-1162+1280)/2+bottom/2;
++    const bottom=this.safeInsets.bottom,mapHeight=Math.max(1,(idle?1280:640-this.sheetBottom()-sheetHeight)+this.screenExtra-(idle?0:bottom)),mapY=idle?0:(this.sheetBottom()+sheetHeight+640)/2+bottom/2;
+     if(this.root){this.city?.cancelLocate();this.root.active=false;this.root.destroy();}this.phone=null;this.modal=null;this.modalKind=null;this.billValues=[];this.billDate=null;this.toast=null;this.damageNotice=null;
+     this.root=item(this.node.parent!,'DeliveryUI');
+     box(this.root,'Background',0,0,720,1280+this.screenExtra,C.light,0);
+@@ -129,19 +134,20 @@
+     this.header(item(this.root,'HeaderGroup',0,this.screenExtra/2-this.safeInsets.top));this.controls();
+     this.panel=item(this.root,'OrderPanel',0,-this.screenExtra/2+bottom);
+     const active=this.book.active;
+-    if(active)this.city.setRoutes(active.routes,active.selected,true);
++    if(active)this.city.setRoutes(active.routes,active.selected);
+     const pose=this.book.riderPose;this.city.setRider(pose.point,pose.angle);
+-    this.city.locate(true);
++    if(camera)this.city.restoreView(camera);else if(active?.mode==='routes')this.city.focusRoute();else this.city.locate(true);
+     if(this.damageNoticeSeconds>0)this.renderDamageNotice();
+-    this.renderPanel();if(wasPhone)this.openPhone();
+     if(wasDialog==='receipt'&&!this.modal)this.openReceipt();
+     if(wasDialog==='garage')this.openGarage();
+     if(wasDialog==='maps'&&!this.modal)this.openMaps();
+     if(wasDialog==='bills'&&!this.modal)this.openBills();
++    this.renderPanel();const nextScroll=this.panel.getChildByName('DeliverySheet')?.getChildByName('ScrollableContent')?.getComponent(ScrollView);if(nextScroll&&scrollY)nextScroll.scrollToOffset(new Vec2(0,scrollY),0);if(wasPhone)this.openPhone();
+     if(wasNotice)this.showMessage(wasNotice);
+   }
+   private metrics(){return presentationMetrics(1280+this.screenExtra);}
+-  private sheetHeight():number{return Math.max(520,this.metrics().body*16);}
++  private sheetBottom():number{return -479.4+cssUnits(12,1280+this.screenExtra);}
++  private sheetHeight():number{return Math.max(440,this.metrics().action+340);}
+   private action(parent:Node,text:string,x:number,y:number,width:number,action:()=>void,fill=C.primary,enabled=true):Node {
+     const m=this.metrics(),node=box(parent,'Button-'+text,x,y,width,m.action,fill,16,fill===C.paper?C.line:undefined);
+     if(enabled&&(fill===C.primary||fill===C.light))skin(node,fill===C.primary?'button-yellow':'button-blue');
+@@ -204,7 +210,7 @@
+   }
+   private positionStation(station:Node):void {
+     const art=station.getChildByName('CartoonArt-station'),half=Math.max(47,art?.active?(art.getComponent(UITransform)?.width||108)/2:0);
+-    const base=this.book.mode==='idle'?-416:-522+this.sheetHeight()+110;
++    const base=this.book.mode==='idle'||!this.orderCardOpen?-416:this.sheetBottom()+this.sheetHeight()+110;
+     station.setPosition(-360+this.safeInsets.left+cssUnits(12,1280+this.screenExtra)+half,base-this.screenExtra/2+this.safeInsets.bottom);
+   }
+ 
+@@ -212,7 +218,7 @@
+     const station=item(this.root,'StationEntry',296-this.safeInsets.right,628-this.profileCard.getComponent(UITransform)!.height-70+this.screenExtra/2-this.safeInsets.top,100,100);
+     const picture=box(station,'PlaceholderIcon-station',0,11,36,32,'#F0EEE7',8);
+     label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,108,108,picture);stationArt.getComponent(Sprite)!.grayscale=true;const position=()=>this.positionStation(station);stationArt.on(Node.EventType.SIZE_CHANGED,position);stationArt.on(Node.EventType.ACTIVE_CHANGED,position);position();readable(station,'站点',0,-52,this.metrics().aux,'#AAA69C',94,true,'center');
+-    const y=this.book.mode==='idle'?-400:-522+this.sheetHeight()+this.metrics().action/2+20;
++    const y=this.book.mode==='idle'||!this.orderCardOpen?-400:this.sheetBottom()+this.sheetHeight()+this.metrics().action/2+20;
+     const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-cssUnits(12,1280+this.screenExtra),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
+     icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locateAnimated());
+   }
+@@ -231,22 +237,27 @@
+     bar.setScale((720-this.safeInsets.left-this.safeInsets.right)/720,1,1);
+     const entries=[
+       {key:'recruit',name:'招募',x:-280,enabled:false,action:()=>{}},
+-      {key:'vehicle',name:'车辆',x:-150,enabled:idle,action:()=>this.openGarage()},
+-      {key:'orders',name:'抢单',x:0,enabled:idle,action:()=>this.openPhone()},
+-      {key:'map',name:'地图',x:150,enabled:true,action:()=>this.openMaps()},
++      {key:'vehicle',name:'车辆',x:-158,enabled:true,action:()=>this.openGarage()},
++      {key:'orders',name:idle?'抢单':'订单',x:0,enabled:true,action:()=>this.openCurrentOrder()},
++      {key:'map',name:'地图',x:158,enabled:true,action:()=>this.openMaps()},
+       {key:'bills',name:'账单',x:280,enabled:true,action:()=>this.openBills()},
+     ];
+     for(const entry of entries){
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+-      const slot=item(bar,'Nav-'+entry.key,entry.x,main?12:0,main?152:116,main?112:100);
+-      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right)/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(112,112);roundAction(slot,112,enabled);}else icon(slot,entry.key,0,10,foreground,2.25);
+-      const caption=readable(slot,entry.name,0,main?0:-23,main?44:this.metrics().aux,'#FFFFFF',main?100:108,true,'center',48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
++      const slot=item(bar,'Nav-'+entry.key,entry.x,main?28.8:0,main?145.6:116,main?145.6:100);
++      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right)/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,10,foreground,2.25);
++      const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,'#FFFFFF',main?132:108,true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+     }
+   }
+   private accept(id:string):void {
+     if(!this.act(()=>this.book.accept(id)))return;this.closePhone();
+-    this.rebuildLayout();
++    this.orderCardOpen=true;this.rebuildLayout(true);
++  }
++  private openCurrentOrder():void {
++    if(!this.book.active){this.openPhone();return;}
++    this.orderCardOpen=true;this.rebuildLayout();
++    if(this.book.mode==='done')this.openReceipt();else if(this.book.mode==='arrived')this.openDemand();
+   }
+   private renderPanel():void {
+     for(const child of [...this.panel.children])child.destroy();this.panel.removeAllChildren();
+@@ -254,47 +265,53 @@
+     this.updatePlayerHeader();
+     this.navigation();
+     const active=this.book.active;
+-    if(!active)return;
++    if(!active||!this.orderCardOpen)return;
+     const height=this.sheetHeight(),width=720-this.safeInsets.left-this.safeInsets.right-20,m=this.metrics();
+-    const p=box(this.panel,'DeliverySheet',(this.safeInsets.left-this.safeInsets.right)/2,-522+height/2,width,height,C.paper,24);
++    const p=box(this.panel,'DeliverySheet',(this.safeInsets.left-this.safeInsets.right)/2,this.sheetBottom()+height/2,width,height,C.paper,24);
+     const top=height/2,inner=width-40;
+-    box(p,'Handle',0,top-12,50,4,C.line,2);
+-    const offer=active.offer,route=active.routes[active.selected],timing=this.book.timingForRoute(route);
+-    const metadata=`${offer.food} · ${offer.weightKg}kg · ${offer.fragility==='fragile'?'怕洒':offer.fragility==='durable'?'耐放':'普通餐品'}`;
+-    const metadataHeight=Math.max(58,textHeight(metadata,m.aux,inner-200)),metadataExtra=metadataHeight-58;
+-    const heading=active.mode==='routes'?scrollContent(p,inner,top-24,-top+m.action+116,435+metadataExtra):p;
+-    const headingTop=active.mode==='routes'?0:top-24;
+-    readable(heading,`${this.book.data.pois[offer.from].name} → ${this.book.data.pois[offer.to].name}`,0,headingTop-55,m.body,C.ink,inner,true,'left',104);
+-    readable(heading,metadata,-100,headingTop-111-metadataHeight/2,m.aux,C.muted,inner-200,false,'left',metadataHeight);
+-    const receipt=active.receipt;
+-    readable(heading,(receipt?'+¥':'基础¥')+((receipt?receipt.incomeCents:offer.feeCents)/100).toFixed(2),inner/2-95,headingTop-140,m.body,'#795020',190,true,'right',58);
+-    if(active.mode==='routes'){
+-      const gap=10,w=(inner-(active.routes.length-1)*gap)/active.routes.length,routeY=-310-metadataExtra;
++    closeButton(p,inner/2-26,top-36,52,()=>{this.orderCardOpen=false;this.rebuildLayout();});
++    const offer=active.offer,route=active.routes[active.selected],timing=this.book.timingForRoute(route),receipt=active.receipt;
++    const title=readable(p,deadlineText(active.deadlineSeconds),-36,top-40,m.body,C.ink,inner-90,true,'left',64);
++    if(active.mode==='running'||active.mode==='paused')this.timer=title;
++    const remark=buyerRemark(offer),lines=[
++      '取餐 '+this.book.data.pois[offer.from].name,
++      '送达 '+this.book.data.pois[offer.to].name,
++      '配送费 ¥'+(offer.feeCents/100).toFixed(2),
++      foodDescription(offer),`重量 ${offer.weightKg}kg`,
++      '注意事项：'+orderCautions(offer),...(remark?['买家备注：'+remark]:[]),
++    ];
++    const heights=lines.map(line=>textHeight(line,m.aux,inner));
++    const routeHeight=Math.max(204,textHeight('预计晚到 · 餐损100%',m.aux,inner/2)+120);
++    const planning=active.mode==='routes',footer=planning?m.action+32:receipt?m.action+32:16;
++    const detailsHeight=heights.reduce((sum,h)=>sum+h+10,0);
++    const contentHeight=detailsHeight+(planning?active.routes.length*(routeHeight+12)+16:receipt?240:active.mode==='arrived'?140:270);
++    const content=scrollContent(p,inner,top-84,-top+footer,contentHeight);content.name='OrderDetails';
++    let y=0;
++    lines.forEach((line,i)=>{readable(content,line,0,y-heights[i]/2,m.aux,C.ink,inner,false,'left',heights[i]);y-=heights[i]+10;});
++    if(planning){
+       active.routes.forEach((r,i)=>{
+-        const selected=i===active.selected,x=-inner/2+w/2+i*(w+gap),color=ROUTE_COLORS[r.preference];
+-        const card=box(heading,'Route-'+r.preference,x,routeY,w,210,selected?'#FFF5CE':'#F7F5EF',12,selected?color:C.line);
+-        readable(card,(selected?'✓ ':'')+TITLES[r.preference],0,75,m.aux,selected?color:C.ink,w-12,true,'center',50);
++        const selected=i===active.selected,color=ROUTE_COLORS[r.preference];
++        const card=box(content,'Route-'+r.preference,0,y-routeHeight/2,inner,routeHeight,selected?'#FFF5CE':'#F7F5EF',12,selected?color:C.line);
++        readable(card,(selected?'✓ ':'')+TITLES[r.preference],0,routeHeight/2-32,m.body,selected?color:C.ink,inner-24,true,'left',58);
+         const estimated=this.book.timingForRoute(r).displaySeconds,late=estimated>active.deadlineSeconds;
+-        readable(card,formatDeliveryTime(estimated),0,18,m.body,C.ink,w-12,true,'center',50);
+-        readable(card,`${late?'预计晚到':'准时'}\n餐损${Math.round(r.risk*100)}%`,0,-58,m.aux,late?'#B76A3A':C.muted,w-12,false,'center',90);
+-        tap(card,()=>{if(!this.act(()=>this.book.select(i)))return;this.city.setRoutes(active.routes,i);this.renderPanel();});
++        readable(card,`${formatDeliveryTime(estimated)} · ${(r.metres/1000).toFixed(1)}km`,0,0,m.body,C.ink,inner-24,true,'left',58);
++        readable(card,`${late?'预计晚到':'准时'} · 餐损${Math.round(r.risk*100)}%`,0,-routeHeight/2+40,m.aux,late?'#B76A3A':C.muted,inner-24,false,'left',64);
++        tap(card,()=>{if(!this.act(()=>this.book.select(i)))return;this.city.setRoutes(active.routes,i,true);const scroll=content.parent!.getComponent(ScrollView)!,offset=scroll.getScrollOffset().y;this.renderPanel();const details=this.panel.getChildByName('DeliverySheet')?.getChildByName('ScrollableContent')?.getComponent(ScrollView);details?.scrollToOffset(new Vec2(0,offset),0);});
++        y-=routeHeight+12;
+       });
+-      const buttonY=-top+100+m.action/2,secondary=Math.max(170,inner*.29);
+-      this.action(p,'返回接单',-inner/2+secondary/2,buttonY,secondary,()=>{if(!this.act(()=>this.book.cancel()))return;this.rebuildLayout();this.openPhone();},C.light);
+-      this.action(p,'出发配送',secondary/2+8,buttonY,inner-secondary-16,()=>{if(!this.act(()=>this.book.depart()))return;this.city.locate(true);this.renderPanel();});
+-      readable(p,`${offer.type==='urgent'?'加急 · ':''}${offer.demand==='door'?'放门口，别敲门':'直接交付'} · ${formatDeliveryTime(active.deadlineSeconds)}内送达`,0,-top+48,m.aux,C.muted,inner,false,'center',76);
++      this.action(p,'去取餐',0,-top+16+m.action/2,inner,()=>{if(!this.act(()=>this.book.depart()))return;this.city.locate(true);this.renderPanel();});
+     }else if(active.mode==='arrived'){
+-      readable(p,'已到达顾客',0,-metadataExtra,m.body,C.ink,inner,true);readable(p,'请在弹窗中选择交付方式',0,-58-metadataExtra,m.aux,C.muted,inner);this.openDemand();
++      readable(content,'已到达顾客',0,y-40,m.body,C.ink,inner,true);
++      this.action(content,'处理交付',0,y-112,inner,()=>this.openDemand());if(!this.modal)this.openDemand();
+     }else if(active.mode==='done'&&receipt){
+-      readable(p,'配送完成 · 收入已到账',0,top-230-metadataExtra,m.body,C.green,inner,true);
+-      readable(p,`评价 ${receipt.ratingAfter}（${receipt.ratingDelta>=0?'+':''}${receipt.ratingDelta}） · 经验 +${receipt.experienceGained} · Lv.${receipt.levelAfter}`,0,top-300-metadataExtra,m.aux,C.ink,inner,true,'left',76);
+-      this.action(p,'结算详情',-inner/2+100,-top+70,200,()=>this.openReceipt(),C.light);
+-      this.action(p,'继续接单',108,-top+70,inner-216,()=>this.continueOrders());
+-      if(this.receipts.observe(active))this.openReceipt();
++      readable(content,'配送完成 · 收入已到账',0,y-40,m.body,C.green,inner,true);
++      readable(content,`收入 ¥${(receipt.incomeCents/100).toFixed(2)} · 评价 ${receipt.ratingAfter} · 经验 +${receipt.experienceGained}`,0,y-120,m.aux,C.ink,inner,false,'left',100);
++      this.action(p,'结算详情',-inner/4-4,-top+16+m.action/2,inner/2-8,()=>this.openReceipt(),C.light);
++      this.action(p,'继续接单',inner/4+4,-top+16+m.action/2,inner/2-8,()=>this.continueOrders());
++      if(!this.modal&&this.receipts.observe(active))this.openReceipt();
+     }else{
+-      this.tripLabel=readable(p,'',-104,top-254-metadataExtra,m.body,C.ink,inner-210,true,'left',90);
+-      this.timer=readable(p,'',inner/2-105,top-254-metadataExtra,m.aux,C.ink,210,true,'right',90);
+-      const progression=item(p,'DeliveryProgress',0,-metadataExtra);
++      this.tripLabel=readable(content,'',0,y-42,m.body,C.ink,inner,true,'left',84);
++      const progression=item(content,'DeliveryProgress',0,y-70);
+       box(progression,'ProgressTrack',0,-60,inner,10,C.line,5);
+       this.progressFill=box(progression,'ProgressFill',-inner/2,-60,inner,10,C.primary,5);
+       readable(progression,`${TITLES[route.preference]} · 全程 ${(route.metres/1000).toFixed(1)}km · 预计${formatDeliveryTime(timing.displaySeconds)}`,0,-140,m.aux,C.muted,inner,false,'left',90);this.updateProgress();
+@@ -352,7 +369,7 @@
+   }
+   private dismissDialog():void {
+     if(this.modalKind==='receipt'&&this.book?.mode==='done'){if(!this.act(()=>this.book.finish()))return;this.closeDialog();this.rebuildLayout();return;}
+-    this.closeDialog();
++    this.closeDialog();if(this.book?.mode==='arrived'&&this.orderCardOpen)this.renderPanel();
+   }
+   private closeDialog():void{if(this.modal){this.modal.active=false;this.modal.destroy();this.modal=null;}this.modalKind=null;this.billValues=[];this.billDate=null;}
+   private dialog(title:string,requestedHeight:number,kind:DialogKind,dismissible=true):{layer:Node;card:Node;width:number;height:number;top:number;bottom:number} {
+@@ -367,7 +384,7 @@
+     return {layer,card,width,height,top:height/2-132,bottom:-height/2+24};
+   }
+   private openDemand():void {
+-    if(this.book.mode!=='arrived'||this.modalKind==='demand')return;
++    if(this.book.mode!=='arrived'||this.modalKind==='demand'||this.modalKind)return;
+     const {card,width,height,top,bottom}=this.dialog('交付要求',630,'demand',false),m=this.metrics(),inner=width-48;
+     const content=scrollContent(card,inner,top,bottom+2*m.action+36,190);
+     readable(content,'顾客留言：放门口，别敲门',0,-60,m.body,C.ink,inner,true,'center',110);
+@@ -405,7 +422,6 @@
+     this.closeDialog();this.rebuildLayout();this.openPhone();
+   }
+   private openMaps():void {
+-    if(this.book.mode==='arrived')return;
+     const {card,width,top,bottom}=this.dialog('地图',1060,'maps'),m=this.metrics(),inner=width-48;
+     const regions=[{name:'县城',requirements:''},{name:'城市',requirements:'100单 · C车 · 招募1名骑手 · 站点2级'},{name:'省会',requirements:'300单 · B车 · C骑手上岗 · 站点3级'},{name:'一线',requirements:'800单 · A车 · A骑手上岗 · 站点4级'},{name:'国际一线',requirements:'2000单 · A车 · A骑手上岗 · 站点5级'}];
+     const rowHeights=regions.map(region=>region.requirements?textHeight(region.requirements,m.aux,inner-40)+90:110),content=scrollContent(card,inner,top,bottom,rowHeights.reduce((a,b)=>a+b+18,0));
+@@ -413,11 +429,10 @@
+       const enabled=i===0,foreground=enabled?C.ink:'#AAA69C',height=rowHeights[i],row=box(content,'Region-'+i,0,-offset-height/2,inner,height,enabled?'#FFF1BB':'#F0EEE7',16);
+       readable(row,region.name,0,height/2-40,m.body,foreground,inner-40,true);
+       if(region.requirements)readable(row,region.requirements,0,-34,m.aux,foreground,inner-40,false,'left',height-80);
+-      if(enabled)tap(row,()=>this.closeDialog());offset+=height+18;
++      if(enabled)tap(row,()=>this.dismissDialog());offset+=height+18;
+     });
+   }
+   private openBills():void {
+-    if(this.book.mode==='arrived')return;
+     const {card,width,top,bottom}=this.dialog('账单',1100,'bills'),m=this.metrics(),inner=width-48,bill=this.book.billing;
+     this.billDate=readable(card,bill.day,0,top-20,m.aux,C.muted,inner,false,'center');
+     const groups=[{name:'钱包',indices:[3]},{name:'今日',indices:[0,1,2,4,5,6,7,8]},{name:'累计',indices:[9,10,11]}],rows=billingRows(bill);
+@@ -442,10 +457,9 @@
+     billingRows(bill).forEach((row,i)=>{if(this.billValues[i])this.billValues[i].string=row.value;});
+   }
+   private openGarage():void {
+-    if(this.book.mode!=='idle'){this.showMessage('先送完当前订单，再升级车辆');return;}
+     const p=this.book.player,current=VEHICLES[p.vehicleTier-1],next=VEHICLES[1],{card,width,height,top,bottom}=this.dialog('我的车辆',1100,'garage'),m=this.metrics(),inner=width-48;
+-    const gap=Math.max(0,next.upgradeFeeCents-p.cashCents),enabled=p.vehicleTier===1&&!gap;
+-    const text=p.vehicleTier===2?'已达当前站点上限':gap?`还差 ¥${(gap/100).toFixed(2)}`:`花 ¥${(next.upgradeFeeCents/100).toFixed(0)} 升级 ${next.name}`;
++    const gap=Math.max(0,next.upgradeFeeCents-p.cashCents),enabled=this.book.mode==='idle'&&p.vehicleTier===1&&!gap;
++    const text=this.book.mode!=='idle'?'配送中暂不可升级':p.vehicleTier===2?'已达当前站点上限':gap?`还差 ¥${(gap/100).toFixed(2)}`:`花 ¥${(next.upgradeFeeCents/100).toFixed(0)} 升级 ${next.name}`;
+     const content=scrollContent(card,inner,top,bottom+m.action+24,740);
+     const artName=p.vehicleTier===2?'翻新电动车':'旧电动车';
+     readable(content,artName+' · '+current.name,0,-34,m.body,C.ink,inner,true,'center');
+@@ -463,7 +477,8 @@
+     const active=this.book.active;if(!active)return;
+     const progress=this.book.progress;
+     if(this.tripLabel)this.tripLabel.string=this.book.tripStage==='pickup'?'前往餐厅取餐':this.book.tripStage==='collecting'?`正在取餐中 · ${Math.ceil(this.book.pickupWaitRemaining)}秒`:'正在送往顾客';
+-    if(this.timer)this.timer.string=active.mode==='done'?'已到达':'剩余 '+formatRemaining(progress.remainingSeconds);
++    const remaining=active.deadlineSeconds-progress.displaySeconds*progress.progress;
++    if(this.timer)this.timer.string=active.mode==='done'?'已到达':remaining>=0?'剩余 '+formatRemaining(remaining):'已超时 '+formatRemaining(-remaining);
+     if(this.progressFill){this.progressFill.setScale(progress.progress,1,1);this.progressFill.setPosition(-(720-this.safeInsets.left-this.safeInsets.right-60)/2*(1-progress.progress),-60);}
+   }
+ }
+--- before/delivery-game/assets/scripts/map-sample/OrderPhone.ts
++++ delivery-game/assets/scripts/map-sample/OrderPhone.ts
+@@ -1,7 +1,7 @@
+ import { BlockInputEvents, Color, Graphics, Node, UITransform } from 'cc';
+ import { foodImage } from './FoodImages';
+ import { OrderBook } from './OrderBook';
+-import { formatDeliveryTime } from './DeliveryClock';
++import { buyerRemark, deadlineText, foodDescription, orderCautions } from './OrderPresentation';
+ import { box, closeButton, C, item, material, outline, skin, tap } from './SampleUI';
+ import { SafeInsets } from './SafeAreaLayout';
+ import { presentationMetrics, readable, scrollContent, textHeight } from './PresentationLayout';
+@@ -17,13 +17,18 @@
+  private render():void {
+   const m=presentationMetrics(this.screenHeight),insets=this.safeInsets;
+   const width=Math.min(684,720-insets.left-insets.right-36),height=Math.min(1240,this.screenHeight-insets.top-insets.bottom-24);
++  box(this.node,'PhoneShadow',(insets.left-insets.right)/2+6,(insets.bottom-insets.top)/2-8,width+12,height+10,'#081E4270',48);
++  box(this.node,'PhoneSide',(insets.left-insets.right)/2+5,(insets.bottom-insets.top)/2-2,width+8,height+2,'#102956',46);
+   const frame=box(this.node,'PhoneFrame',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.navy,46,'#FFFFFF');frame.addComponent(BlockInputEvents);
+   box(frame,'SideButton',width/2+3,height/2-180,7,92,C.blue,3);
+   box(frame,'Screen',0,0,width-26,height-26,C.paper,34);
++  box(frame,'RimHighlight',-width/2+7,0,3,height-76,'#93C7FF',2);
+   const top=height/2;
+-  readable(frame,'09:41',-width/2+76,top-38,22,C.ink,80,true,'center');box(frame,'SpeakerIsland',0,top-38,119,25,C.navy,12);
+-  const battery=box(frame,'Battery',width/2-56,top-38,28,13,C.navy,3);box(battery,'BatteryTip',16,0,3,6,C.navy,1);
+-  const header=box(frame,'AppHeader',0,top-120,width-28,122,C.blue,22);
++  const header=box(frame,'AppHeader',0,top-104,width-28,180,C.blue,30);
++  box(frame,'HeaderJoin',0,top-157,width-28,74,C.blue,0);
++  readable(frame,'09:41',-width/2+76,top-38,22,'#FFFFFF',80,true,'center');box(frame,'SpeakerIsland',0,top-38,119,25,C.navy,12);
++  for(let i=0;i<3;i++)box(frame,'Signal-'+i,width/2-113+i*7,top-43+i*2,4,5+i*4,'#FFFFFF',1);
++  const battery=box(frame,'Battery',width/2-56,top-38,28,13,'#FFFFFF',3);box(battery,'BatteryTip',16,0,3,6,'#FFFFFF',1);
+   outline(readable(frame,'接单大厅',-65,top-100,m.body+4,'#FFFFFF',width-190,true),'#14549B');
+   readable(frame,'附近10单 · 全程10km以内',-64,top-151,m.aux,'#FFFFFF',width-190);
+   closeButton(frame,width/2-55,top-114,64,this.onClose);
+@@ -32,33 +37,39 @@
+   this.action(frame,this.book.refreshesLeft?`刷新 ${this.book.refreshesLeft}/2`:'广告未开放',width/2-112,noticeY,174,m.action,this.onRefresh,this.book.refreshesLeft?C.primary:'#EEE9DD',!!this.book.refreshesLeft);
+   const listTop=top-202-noticeHeight,listBottom=-top+88,cardWidth=width-64,rows=this.book.list();
+   const layouts=rows.map(preview=>{
+-   const merchant=this.book.data.pois[preview.offer.from].name,destination='送至 '+this.book.data.pois[preview.offer.to].name;
+-   const titleH=textHeight(preview.offer.food,m.body,cardWidth-160),headH=Math.max(148,titleH+76);
+-   const merchantH=textHeight('取餐 '+merchant,m.aux,cardWidth-32),destinationH=textHeight(destination,m.body,cardWidth-32);
+-   return {preview,merchant,destination,titleH,headH,merchantH,destinationH,height:headH+merchantH+destinationH+88+m.action+42};
++   const offer=preview.offer,inner=cardWidth-32,remark=buyerRemark(offer);
++   const lines=[
++    {text:(offer.source==='transfer'?'转单 · ':'')+deadlineText(preview.deadlineSeconds),bold:true,color:offer.source==='transfer'?C.green:C.ink},
++    {text:foodDescription(offer),food:true,bold:true},
++    {text:`重量 ${offer.weightKg}kg`},
++    {text:'取餐 '+this.book.data.pois[offer.from].name},
++    {text:'送达 '+this.book.data.pois[offer.to].name},
++    {text:`全程 ${((preview.pickupMetres+preview.deliveryMetres)/1000).toFixed(1)}km · ${orderCautions(offer)}`},
++    ...(remark?[{text:'买家备注：'+remark}]:[]),
++    {text:'配送费 ¥'+(offer.feeCents/100).toFixed(2),bold:true,color:'#9A6500'},
++   ].map(line=>({...line,height:Math.max(line.food?116:0,textHeight(line.text,m.body,line.food?inner-128:inner))}));
++   return {preview,lines,height:32+lines.reduce((sum,line)=>sum+line.height+12,0)+m.action+24};
+   });
+   const total=layouts.reduce((sum,row)=>sum+row.height+18,0)+20,content=scrollContent(frame,width-44,listTop,listBottom,total);content.parent!.name='OrderList';content.name='OrderListContent';
+   let offset=0;
+-  for(const row of layouts){
+-   const {preview,merchant,destination,titleH,headH,merchantH,destinationH,height}=row,offer=preview.offer;
+-   const card=box(content,'Offer-'+offer.id,0,-offset-height/2,cardWidth,height,C.paper,18,C.line),t=height/2;
+-   foodImage(card,offer.food,-cardWidth/2+70,t-76,108);
+-   readable(card,offer.food,72,t-18-titleH/2,m.body,C.ink,cardWidth-164,true,'left',titleH);
+-   readable(card,'约¥'+(preview.estimatedIncomeCents/100).toFixed(2),72,t-headH+42,m.amount,'#9A6500',cardWidth-164,true,'left',76);
+-   let y=t-headH-merchantH/2;readable(card,'取餐 '+merchant,0,y,m.aux,C.muted,cardWidth-32,false,'left',merchantH);
+-   y-=merchantH/2+destinationH/2+8;readable(card,destination,0,y,m.body,C.ink,cardWidth-32,false,'left',destinationH);
+-   y-=destinationH/2+40;
+-   const tags=[offer.type==='urgent'?'加急':'',offer.fragility==='fragile'?'怕洒':''].filter(Boolean).join(' · ');
+-   readable(card,`${((preview.pickupMetres+preview.deliveryMetres)/1000).toFixed(1)}km · 预计${formatDeliveryTime(preview.timing.displaySeconds)}${tags?' · '+tags:''}`,0,y,m.aux,'#795020',cardWidth-32,true,'left',76);
+-   this.action(card,'接单',0,-height/2+20+m.action/2,cardWidth-32,m.action,()=>this.onAccept(offer.id));offset+=height+18;
++  for(const {preview,lines,height} of layouts){
++   const offer=preview.offer,card=box(content,'Offer-'+offer.id,0,-offset-height/2,cardWidth,height,C.paper,18,C.line);
++   let y=height/2-16;
++   for(const line of lines){
++    y-=line.height/2;
++    if(line.food)foodImage(card,offer.food,-cardWidth/2+70,y,108);
++    readable(card,line.text,line.food?64:0,y,m.body,line.color||C.ink,line.food?cardWidth-160:cardWidth-32,!!line.bold,'left',line.height);y-=line.height/2+12;
++   }
++   this.action(card,offer.source==='transfer'?'接受转单':'抢单',0,-height/2+16+m.action/2,cardWidth-32,m.action,()=>this.onAccept(offer.id),offer.source==='transfer'?C.green:C.primary);offset+=height+18;
+   }
+   readable(frame,`共 ${rows.length} 单 · 上下滑动查看更多`,0,-top+57,m.aux,C.muted,width-60,false,'center');box(frame,'HomeIndicator',0,-top+24,126,5,C.navy,3);
+  }
+  private action(parent:Node,text:string,x:number,y:number,width:number,height:number,action:()=>void,fill=C.primary,enabled=true):void {
+   const node=box(parent,'Button-'+text,x,y,width,height,fill,16);
+   if(enabled&&(fill===C.primary||fill===C.light))skin(node,fill===C.primary?'button-yellow':'button-blue');
++  if(enabled&&fill===C.green)material(node,width,height,C.green);
+   if(!enabled)material(node,width,height,'#C5CCD5');
+-  const white=enabled&&fill===C.light,caption=readable(node,text,0,0,presentationMetrics(this.screenHeight).body,white?'#FFFFFF':enabled?C.ink:C.muted,width-16,true,'center',height-8);
++  const white=enabled&&(fill===C.light||fill===C.green),caption=readable(node,text,0,0,presentationMetrics(this.screenHeight).body,white?'#FFFFFF':enabled?C.ink:C.muted,width-16,true,'center',height-8);
+   if(white)outline(caption);if(enabled)tap(node,action);
+  }
+  close():void{this.node.active=false;this.node.destroy();}
+--- before/delivery-game/assets/scripts/map-sample/CityMap.ts
++++ delivery-game/assets/scripts/map-sample/CityMap.ts
+@@ -26,6 +26,9 @@
+  private readonly nodePoints=new Map<string,Point>();
+  private routes:MapRoute[]=[];
+  private selected=0;
++ private routeOverview=false;
++ private autoFit=false;
++ private routeInsets={top:232,bottom:252,left:90,right:90};
+  private scale=DEFAULT_SCALE;
+  private offset:Point=[0,0];
+  private riderPoint:Point=[0,0];
+@@ -40,8 +43,8 @@
+  private majorInk!:Graphics;
+  private majorScale=-1;
+  private readonly scaleLabel:Label;
+- constructor(parent:Node,private readonly data:CityData,private readonly mapHeight=748,onAttribution:()=>void=()=>{},mapY=MAP_Y,footerInset=0,safeSides:{left:number;right:number}={left:0,right:0}){
+-   const MAP_H=this.mapHeight;
++ constructor(parent:Node,private readonly data:CityData,private readonly mapHeight=748,onAttribution:()=>void=()=>{},mapY=MAP_Y,footerInset=0,safeSides:{left:number;right:number;top?:number}={left:0,right:0}){
++   const MAP_H=this.mapHeight;this.routeInsets={top:232+(safeSides.top||0),bottom:252,left:90+safeSides.left,right:90+safeSides.right};
+    this.viewport=item(parent,'CityViewport',0,mapY,MAP_W,MAP_H);this.viewport.addComponent(Mask).type=Mask.Type.GRAPHICS_RECT;
+    box(this.viewport,'MapGround',0,0,MAP_W,MAP_H,'#EAF5DD',0);
+    this.world=item(this.viewport,'RealRoadGeometry');
+@@ -57,6 +60,7 @@
+    this.startPin=this.pin('取','#D59831');this.endPin=this.pin('送','#F05B70');
+    const shadow=item(this.overlay,'VehicleGroundShadow');const sg=shadow.addComponent(Graphics);for(let i=5;i>=1;i--){sg.fillColor=col('#30465A08');sg.ellipse(0,0,38+i*2,17+i*2);sg.fill();}
+    this.rider=item(this.overlay,'DeliveryRider');this.vehicle=new MapVehicle(this.rider,this.drawRider());
++   this.startPin.setSiblingIndex(this.overlay.children.length-1);this.endPin.setSiblingIndex(this.overlay.children.length-1);
+    this.scaleLabel=label(this.viewport,'30 m',-279+safeSides.left,-MAP_H/2+footerInset+32,12,'#758080',110);
+    const scaleLine=item(this.viewport,'MapScale',-297+safeSides.left,-MAP_H/2+footerInset+20).addComponent(Graphics);scaleLine.strokeColor=col('#758080');scaleLine.lineWidth=2;scaleLine.moveTo(-30,4);scaleLine.lineTo(-30,0);scaleLine.lineTo(30,0);scaleLine.lineTo(30,4);scaleLine.stroke();
+    const attributionWidth=Math.max(1,410-safeSides.left-safeSides.right);
+@@ -130,11 +134,13 @@
+    return g;
+  }
+  setVehicle(tier:number):void{this.vehicle.setTier(tier);}
++ captureView():{scale:number;offset:Point;follow:boolean;overview:boolean;autoFit:boolean}{return {scale:this.scale,offset:[this.offset[0],this.offset[1]],follow:this.follow,overview:this.routeOverview,autoFit:this.autoFit};}
++ restoreView(state:{scale:number;offset:Point;follow:boolean;overview:boolean;autoFit:boolean}):void{this.scale=state.scale;this.offset=[state.offset[0],state.offset[1]];this.follow=state.follow;this.routeOverview=state.overview;this.autoFit=state.autoFit;if(state.autoFit)this.focusRoute();else this.sync();}
+  get isFollowing():boolean{return this.follow;}
+- setRoutes(routes:MapRoute[],selected:number,fit=false):void{this.routes=routes;this.selected=selected;if(routes.length)this.riderPoint=routes[selected].points[0];this.riderAngle=0;this.follow=false;if(fit&&routes.length)this.focusRoute();else this.sync();}
++ setRoutes(routes:MapRoute[],selected:number,fit=false):void{this.routes=routes;this.selected=selected;this.follow=false;if(fit&&routes.length)this.focusRoute();else this.sync();}
+  setRider(point:Point,angle:number):void{this.riderPoint=point;this.riderAngle=angle;if(this.follow)this.offset=[-point[0]*this.scale,-point[1]*this.scale];this.clampOffset();this.syncOverlay();this.world.setPosition(this.offset[0],this.offset[1]);this.syncDetails();}
+  cancelLocate():void{this.locating=null;}
+- locateAnimated():void{this.follow=false;this.locating={elapsed:0,scale:this.scale,offset:[this.offset[0],this.offset[1]]};this.detailElapsed=0;}
++ locateAnimated():void{this.routeOverview=this.scale<MIN_SCALE;this.autoFit=false;this.follow=false;this.locating={elapsed:0,scale:this.scale,offset:[this.offset[0],this.offset[1]]};this.detailElapsed=0;}
+  advanceLocate(dt:number):void {
+    const a=this.locating;if(!a)return;
+    a.elapsed=Math.min(.6,a.elapsed+Math.max(0,dt));const t=a.elapsed/.6,e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+@@ -144,15 +150,19 @@
+    this.detailElapsed+=dt;if(this.detailElapsed>=.1){this.syncDetails();this.detailElapsed=0;}
+    if(t===1){this.locating=null;this.follow=true;this.locate(true);}
+  }
+- locate(resetZoom=false):void{this.cancelLocate();this.follow=true;this.scale=resetZoom?DEFAULT_SCALE:Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale));this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
+- overview():void{this.cancelLocate();this.follow=false;this.scale=MIN_SCALE;this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
++ locate(resetZoom=false):void{this.routeOverview=false;this.autoFit=false;this.cancelLocate();this.follow=true;this.scale=resetZoom?DEFAULT_SCALE:Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale));this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
++ overview():void{this.routeOverview=false;this.autoFit=false;this.cancelLocate();this.follow=false;this.scale=MIN_SCALE;this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();}
+  focusRoute():void{this.cancelLocate();
+    if(!this.routes.length)return;this.follow=false;const points:Point[]=[];for(const r of this.routes)points.push(...r.points);const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);
+    const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+-   this.scale=Math.max(MIN_SCALE,Math.min(MAX_SCALE,(MAP_W-165)/(maxX-minX+90),(this.mapHeight-180)/(maxY-minY+90)));this.offset=[-this.riderPoint[0]*this.scale,-this.riderPoint[1]*this.scale];this.sync();
++   // Automatic planning view may zoom beyond manual 100m. Reserve HUD and lower map controls.
++   const pad=this.routeInsets||{top:232,bottom:252,left:90,right:90};
++   const left=-MAP_W/2+pad.left,right=MAP_W/2-pad.right,bottom=-this.mapHeight/2+pad.bottom,top=this.mapHeight/2-pad.top;
++   this.routeOverview=true;this.autoFit=true;this.scale=Math.min(MAX_SCALE,(right-left)/Math.max(1,maxX-minX),(top-bottom)/Math.max(1,maxY-minY));
++   this.offset=[(left+right)/2-(minX+maxX)/2*this.scale,(bottom+top)/2-(minY+maxY)/2*this.scale];this.sync();
+  }
+  zoom(factor:number,anchor:Point=[0,0],previousAnchor:Point=anchor):void{
+-   this.cancelLocate();this.follow=false;const before=this.scale;this.scale=Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale*factor));
++   this.routeOverview=false;this.autoFit=false;this.cancelLocate();this.follow=false;const before=this.scale;this.scale=Math.max(MIN_SCALE,Math.min(MAX_SCALE,this.scale*factor));
+    this.offset=[anchor[0]-(previousAnchor[0]-this.offset[0])*this.scale/before,anchor[1]-(previousAnchor[1]-this.offset[1])*this.scale/before];this.sync();
+  }
+  private sync():void{
+@@ -161,6 +171,7 @@
+    this.scaleLabel.string=`${Math.round(60/this.scale)} m`;
+  }
+  private clampOffset():void{
++   if(this.routeOverview)return;
+    const base=this.data.playBounds||{minX:-this.data.width/2,maxX:this.data.width/2,minY:-this.data.height/2,maxY:this.data.height/2};
+    const points=[this.riderPoint,...this.routes.reduce((all,r)=>all.concat(r.points),[] as Point[])];
+    const bounds=compatibilityBounds(base,points,MAP_W/2/MIN_SCALE,this.mapHeight/2/MIN_SCALE);
+@@ -180,7 +191,7 @@
+  }
+  private local(event:EventTouch):Point{const p=event.getUILocation();const v=this.viewport.getComponent(UITransform)!.convertToNodeSpaceAR(new Vec3(p.x,p.y));return[v.x,v.y];}
+  private touchStart(e:EventTouch):void{
+-   const id=e.getID();if(id===null)return;this.cancelLocate();this.follow=false;this.touchPoints.set(id,this.local(e));
++   const id=e.getID();if(id===null)return;this.autoFit=false;this.cancelLocate();this.follow=false;this.touchPoints.set(id,this.local(e));
+    if(this.touchPoints.size===2){const [a,b]=Array.from(this.touchPoints.values());this.pinchStart={distance:Math.hypot(a[0]-b[0],a[1]-b[1]),midpoint:[(a[0]+b[0])/2,(a[1]+b[1])/2],scale:this.scale,offset:[...this.offset]};}
+  }
+  private touchMove(e:EventTouch):void{
+--- before/delivery-game/assets/scripts/map-sample/OrderBook.ts
++++ delivery-game/assets/scripts/map-sample/OrderBook.ts
+@@ -8,9 +8,10 @@
+ import { contains } from './CityExtent';
+ import { FOOD_CATALOG, foodForOffer, selectFoodForOffer } from './FoodCatalog';
+ import { DispatchArea, dispatchAreaForTrip } from './DispatchAreas';
++import { newOfferSource } from './OrderPresentation';
+ import { BillingSnapshot, BillingView, DeliveryLedger } from './DeliveryLedger';
+ 
+-export interface DeliveryOffer extends CountyTerms { from:number; to:number; food:string; tag:string; weightKg:number }
++export interface DeliveryOffer extends CountyTerms { from:number; to:number; food:string; tag:string; weightKg:number; source?:'direct'|'transfer'; quantity?:number; buyerNote?:string }
+ export interface OfferPreview {
+   offer:DeliveryOffer; pickupMetres:number; deliveryMetres:number; timing:DeliveryTiming; deadlineSeconds:number; estimatedIncomeCents:number;
+ }
+@@ -141,7 +142,7 @@
+       const delivery=this.path(this.data.pois[offer.from].node,this.data.pois[offer.to].node,'fast',bounded);
+       if(!pickup||!delivery)throw new Error('Unreachable order');
+       const timing=this.timing(pickup.metres+delivery.metres);
+-      return {offer,pickupMetres:pickup.metres,deliveryMetres:delivery.metres,timing,deadlineSeconds:timing.displaySeconds+(offer.type==='urgent'?0:300),estimatedIncomeCents:estimateCountyIncome(this.playerState,offer.feeCents)};
++      return {offer,pickupMetres:pickup.metres,deliveryMetres:delivery.metres,timing,deadlineSeconds:this.accepted?.offer.id===offer.id?this.accepted.deadlineSeconds:Math.min(...this.legalRoutes(offer).map(r=>this.timing(r.metres).displaySeconds))+(offer.type==='urgent'?0:300),estimatedIncomeCents:estimateCountyIncome(this.playerState,offer.feeCents)};
+     });
+   }
+   accept(id:string):void {
+@@ -149,16 +150,20 @@
+     const offer=this.offers.find(o=>o.id===id);
+     if(!offer)throw new Error('Unknown order');
+     if(offer.weightKg>COUNTY_VEHICLES[this.playerState.vehicleTier-1].capacityKg)throw new Error('这单超出当前车辆载重');
++    const routes=this.legalRoutes(offer);
++    const fastest=Math.min(...routes.map(r=>this.timing(r.metres).displaySeconds));
++    this.accepted={offer,routes,ruleVersion:2,pickupWaitElapsed:0,selected:0,elapsed:0,mode:'routes',deadlineSeconds:fastest+(offer.type==='urgent'?0:300),damage:null,playerBefore:{...this.playerState},receipt:null};
++  }
++  private legalRoutes(offer:DeliveryOffer):MapRoute[] {
+     const routes:MapRoute[]=[],seen=new Set<string>();
+     for(const preference of ['fast','main','smooth'] as Preference[]){
+       const route=this.normalRoute(offer,preference);
+       if(!route||route.metres>MAX_TRIP_METRES)continue;
+       if(this.localDispatch&&this.timing(route.metres).displaySeconds>1800)continue;
+-      const key=route.nodes.join('/');if(seen.has(key))continue;seen.add(key);routes.push(route);
++      const key=JSON.stringify(route.points);if(seen.has(key))continue;seen.add(key);routes.push(route);
+     }
+     if(!routes.length)throw new Error('No legal delivery route');
+-    const fastest=Math.min(...routes.map(r=>this.timing(r.metres).displaySeconds));
+-    this.accepted={offer,routes,ruleVersion:2,pickupWaitElapsed:0,selected:0,elapsed:0,mode:'routes',deadlineSeconds:fastest+(offer.type==='urgent'?0:300),damage:null,playerBefore:{...this.playerState},receipt:null};
++    return routes;
+   }
+   select(index:number):void {
+     if(!this.accepted||this.accepted.mode!=='routes'||!this.accepted.routes[index])return;
+@@ -304,7 +309,7 @@
+         const type=first?'normal':this.roll()<.2?'urgent':'normal',demand=first?'none':this.roll()<.5?'door':'none';
+         const quantity=first?1:1+Math.floor(this.roll()*3),weightKg=food.unitWeightKg*quantity;
+         const feeCents=first?2000:1500+Math.floor(this.roll()*1001),fragility=food.fragility;
+-        return {id:`CC-${this.sequence++}`,from,to:candidate.i,food:`${food.name} · ${quantity}份`,tag:first?'首单推荐':type==='urgent'?'加急':fragility==='fragile'?'怕洒':fragility==='durable'?'耐放':'普通',feeCents,type,fragility,demand,weightKg};
++        return {id:`CC-${this.sequence++}`,from,to:candidate.i,food:`${food.name} · ${quantity}份`,tag:first?'首单推荐':type==='urgent'?'加急':fragility==='fragile'?'怕洒':fragility==='durable'?'耐放':'普通',feeCents,type,fragility,demand,weightKg,quantity,source:newOfferSource(`CC-${this.sequence-1}`),...(demand==='door'?{buyerNote:'放门口，别敲门'}:{})};
+       }
+     }
+     throw new Error('当前位置10km内没有可达的取送路线，请检查地点池');
+@@ -348,7 +353,7 @@
+       const type=first?'normal':this.roll()<.2?'urgent':'normal',demand=first?'none':this.roll()<.5?'door':'none';
+       const quantity=first?1:1+Math.floor(this.roll()*3),weightKg=food.unitWeightKg*quantity,fragility=food.fragility;
+       const feeCents=first?2000:1500+Math.floor(this.roll()*1001);
+-      return {id:`CC-${this.sequence++}`,from,to:best.i,food:`${food.name} · ${quantity}份`,tag:first?'首单推荐':type==='urgent'?'加急':fragility==='fragile'?'怕洒':fragility==='durable'?'耐放':'普通',feeCents,type,fragility,demand,weightKg};
++      return {id:`CC-${this.sequence++}`,from,to:best.i,food:`${food.name} · ${quantity}份`,tag:first?'首单推荐':type==='urgent'?'加急':fragility==='fragile'?'怕洒':fragility==='durable'?'耐放':'普通',feeCents,type,fragility,demand,weightKg,quantity,source:newOfferSource(`CC-${this.sequence-1}`),...(demand==='door'?{buyerNote:'放门口，别敲门'}:{})};
+     }
+     throw new Error('当前营业区内没有30分钟内可达的取送路线，请检查地点池');
+   }
+--- before/delivery-game/assets/scripts/map-sample/SampleUI.ts
++++ delivery-game/assets/scripts/map-sample/SampleUI.ts
+@@ -19,7 +19,7 @@
+ export function material(n:Node,w:number,h:number,fill:string,radius=Math.min(h*.35,w/2)):void {
+  const surface=n.getChildByName('Surface')||item(n,'Surface'),g=surface.getComponent(Graphics)||surface.addComponent(Graphics);g.clear();
+  const yellow=fill===C.primary,red=fill==='#DE4258',blue=fill===C.light||fill===C.blue;
+- const base=yellow?'#B87513':red?'#982640':blue?'#174D9C':'#777F8A',face=blue?C.blue:fill;
++ const base=yellow?'#B87513':red?'#982640':blue?'#174D9C':fill===C.green?'#12664E':'#777F8A',face=blue?C.blue:fill;
+  const draw=(inset:number,bottom:number,top:number,color:string)=>{g.fillColor=col(color);g.roundRect(-w/2+inset,-h/2+bottom,w-inset*2,h-bottom-top,Math.max(0,radius-inset));g.fill();};
+  draw(0,0,0,'#193D7538');draw(1,2,1,base);draw(3,7,2,'#FFFFFF');draw(5,9,4,face);
+  g.fillColor=col('#FFFFFF65');g.roundRect(-w/2+9,h/2-Math.min(23,h*.3),w-18,Math.min(15,h*.18),Math.min(7,radius/2));g.fill();
+@@ -96,9 +96,9 @@
+ }
+ 
+ export function roundAction(node:Node,size:number,enabled=true):void {
+- const surface=item(node,'Surface'),g=surface.addComponent(Graphics),r=size/2;
+- for(const [radius,y,color] of [[r,0,enabled?'#831831':'#646C77'],[r-3,3,'#FFF0EC'],[r-5,4,enabled?'#CD2138':'#8C949E'],[r-9,7,enabled?'#F0444F':'#AAAEB5'],[r-14,11,enabled?'#FF5960':'#BAC0C8']] as [number,number,string][]){g.fillColor=col(color);g.circle(0,y,radius);g.fill();}
+- g.fillColor=col('#FFFFFF66');g.ellipse(-12,r*.48,r*.4,7);g.fill();
++ const surface=item(node,'Surface'),g=surface.addComponent(Graphics),r=size/2,f=size/112;
++ for(const [radius,y,color] of [[r,0,enabled?'#831831':'#646C77'],[r-3*f,3*f,'#FFF0EC'],[r-5*f,4*f,enabled?'#CD2138':'#8C949E'],[r-9*f,7*f,enabled?'#F0444F':'#AAAEB5'],[r-14*f,11*f,enabled?'#FF5960':'#BAC0C8']] as [number,number,string][]){g.fillColor=col(color);g.circle(0,y,radius);g.fill();}
++ g.fillColor=col('#FFFFFF66');g.ellipse(-12*f,r*.48,r*.4,7*f);g.fill();
+ }
+ export function topOnlyBar(node:Node,w:number,h:number):void {
+  material(node,w,h,C.primary,20);const surface=node.getChildByName('Surface')!,g=surface.getComponent(Graphics)!;
+--- before/delivery-game/assets/scripts/map-sample/CountySnapshot.ts
++++ delivery-game/assets/scripts/map-sample/CountySnapshot.ts
+@@ -33,6 +33,9 @@
+   valid(integer(value.feeCents,1500,2500),'县城基础价');valid(number(value.weightKg,.5,80)&&Number.isInteger(value.weightKg*2),'重量');
+   valid(value.type==='normal'||value.type==='urgent','订单类型');valid(['normal','durable','fragile'].indexOf(value.fragility as string)>=0,'易损类型');
+   valid(value.demand==='none'||value.demand==='door','顾客需求');
++  valid(value.source===undefined||value.source==='direct'||value.source==='transfer','订单来源');
++  valid(value.quantity===undefined||integer(value.quantity,1,160),'餐品份数');
++  valid(value.buyerNote===undefined||typeof value.buyerNote==='string'&&value.buyerNote.length<=300,'买家备注');
+ }
+ export function validateCountySnapshot(data:CityData,value:unknown):asserts value is CountySnapshot {
+   valid(object(value)&&(value.version===1||value.version===2||value.version===3),'版本');valid(value.mapId===countyMapId(data)||(data.legacyMapIds||[]).indexOf(value.mapId as string)>=0,'路网已变化');
+--- before/delivery-game/tests/map-gestures.test.cjs
++++ delivery-game/tests/map-gestures.test.cjs
+@@ -55,7 +55,7 @@
+   c.touchStart(touch(1,0));c.touchMove(touch(1,100000,100000));assertViewport(c);c.touchEnd(touch(1,0));
+   c.zoom(.3);assertViewport(c);c.zoom(3);assertViewport(c);c.overview();assertViewport(c);
+   c.locate();assertViewport(c);
+-  c.routes=[{points:[[-4500,-1400],[-600,1100]]}];c.focusRoute();assertViewport(c);
++  c.routes=[{points:[[-4500,-1400],[-600,1100]]}];c.focusRoute();for(const p of c.routes[0].points){const [x,y]=c.project(p);assert.ok(Math.abs(x)<=320&&Math.abs(y)<=h/2);}
+  }
+ });
+ test('legacy outside rider and route remain visible in a continuous compatibility camera',()=>{
+@@ -94,7 +94,7 @@
+  const scope={exports:{},require(id){
+   if(id==='cc')return {_decorator:{ccclass:()=>target=>target},Component:class{},view,ResolutionPolicy:{FIXED_WIDTH:'fixed-width',SHOW_ALL:'show-all'}};
+   if(id==='./CityMap')return {CityMap:new Proxy(CityMap,{construct(_target,[_parent,_data,height,_attribution,mapY]){const city=boundedCamera(height);city.mapY=mapY;return city;}})};
+-  if(id==='./SampleUI')return {item:()=>({destroy(){}}),box(){},C:{}};
++  if(id==='./SampleUI')return {item:()=>({destroy(){},getChildByName(){return null;}}),box(){},C:{}};
+   if(id==='./PresentationLayout'){const compiled=ts.transpileModule(fs.readFileSync(path.join(__dirname,'../assets/scripts/map-sample/PresentationLayout.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2015,module:ts.ModuleKind.CommonJS}}).outputText;const metricsScope={exports:{},require:dep=>dep==='cc'?{view}:{}};vm.runInNewContext(compiled,metricsScope);return metricsScope.exports;}
+   if(id==='./ReceiptPresentation')return {ReceiptPresentation:class{}};
+   if(id==='./SafeAreaLayout')return require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'SafeAreaLayout.js'));
+@@ -110,7 +110,7 @@
+   assertViewport(sample.city);
+   assert.equal(sample.city.scale,.6);
+   assert.ok(sample.city.mapHeight>0&&sample.city.mapHeight<=visible.height,'active presentation leaves a positive camera viewport');
+-  assert.equal(sample.city.mapY+sample.city.mapHeight/2,visible.height/2,'map extends behind the fading header');
++  assert.ok(Math.abs(sample.city.mapY+sample.city.mapHeight/2-visible.height/2)<1e-7,'map extends behind the fading header');
+   assert.equal(sample.city.vehicle.tier,2,'restored and rebuilt maps show the owned vehicle');
+  }
+ });
+@@ -140,7 +140,7 @@
+  city.zoom(.0001);assert.equal(city.scale,.6);
+  city.zoom(10000);assert.equal(city.scale,6);
+  city.overview();assert.equal(city.scale,.6);
+- city.focusRoute();assert.ok(city.scale>=.6&&city.scale<=6);
++ city.focusRoute();assert.ok(city.scale>0&&city.scale<.6);city.zoom(1);assert.equal(city.scale,.6);
+ });
+ 
+ test('explicit default locate restores actual 30m scale and follows current rider',()=>{const c=boundedCamera(748);c.overview();assert.equal(c.scale,.6);c.setRider([-2500,0],45);c.locate(true);assert.equal(c.scale,2);assert.equal(c.scaleLabel.string,'30 m');assert.equal(c.follow,true);assert.deepEqual(Array.from(c.project(c.riderPoint)),[0,0]);c.setRider([-2490,0],45);assert.deepEqual(Array.from(c.project(c.riderPoint)),[0,0]);});
+@@ -151,3 +151,21 @@
+ test('static rider stays visible while world center converges monotonically',()=>{const c=boundedCamera(748);c.overview();c.offset=[1200,0];let distance=Math.hypot(-c.offset[0]/c.scale-c.riderPoint[0],-c.offset[1]/c.scale-c.riderPoint[1]);c.locateAnimated();for(let i=0;i<6;i++){c.advanceLocate(.1);const next=Math.hypot(-c.offset[0]/c.scale-c.riderPoint[0],-c.offset[1]/c.scale-c.riderPoint[1]);assert.ok(next<=distance+1e-8);assert.ok(Math.abs(c.project(c.riderPoint)[0])<360);distance=next;}});
+ 
+ test('ordinary and edge-visible rider converge without overshoot using fixed final camera offsets',()=>{for(const startX of [276,340]){const c=boundedCamera(748);c.overview();c.offset=[startX-c.riderPoint[0]*c.scale,0];const startCenter=-c.offset[0]/c.scale,target=c.riderPoint[0];let lastDistance=Math.abs(startCenter-target),lastScreen=startX;c.locateAnimated();for(let i=0;i<12;i++){c.advanceLocate(.05);const center=-c.offset[0]/c.scale,project=c.project(c.riderPoint)[0];assert.ok(center>=Math.min(startCenter,target)-1e-8&&center<=Math.max(startCenter,target)+1e-8);assert.ok(Math.abs(center-target)<=lastDistance+1e-8);assert.ok(project>=-1e-8&&project<=lastScreen+1e-8);lastDistance=Math.abs(center-target);lastScreen=project;}c.advanceLocate(.001);assert.equal(c.scale,2);assert.equal(c.follow,true);}});
++
++test('automatic route overview fits every bend below HUD while manual locate keeps 30m',()=>{
++ const c=boundedCamera(600);c.routes=[{points:[[-4500,-1400],[-400,2100],[-6200,0],[-600,1100]]}];
++ c.focusRoute();assert.ok(c.scale<.6);
++ for(const p of c.routes[0].points){const [x,y]=c.project(p);assert.ok(x>=-320&&x<=320,`x=${x}`);assert.ok(y>=-48-1e-7&&y<=68+1e-7,`y=${y}`);}
++ assert.equal(c.scaleLabel.string,`${Math.round(60/c.scale)} m`);c.locate(true);assert.equal(c.scale,2);
++});
++
++test('manual pan in planning overview survives capture and layout restoration at the actual low scale',()=>{
++ const c=boundedCamera(748);c.routes=[{points:[[-4500,-1400],[-600,1100]]}];c.focusRoute();assert.ok(c.scale<.6);
++ c.touchStart(touch(1,0));c.touchMove(touch(1,60,20));c.touchEnd(touch(1,60,20));const before=c.captureView();
++ const next=boundedCamera(748);next.routes=c.routes;next.restoreView(before);assert.equal(next.scale,before.scale);assert.deepEqual(Array.from(next.offset),Array.from(before.offset));
++});
++
++test('locating from the new low planning scale retains smooth projected convergence to 30m',()=>{
++ const c=boundedCamera(748);c.routes=[{points:[[-4500,-1400],[-600,1100]]}];c.focusRoute();const start=Array.from(c.project(c.riderPoint));c.locateAnimated();c.advanceLocate(.3);
++ for(let i=0;i<2;i++)assert.ok(Math.abs(c.project(c.riderPoint)[i]-start[i]*.5)<1e-7);c.advanceLocate(.3);assert.equal(c.scale,2);assert.equal(c.isFollowing,true);
++});
+--- before/delivery-game/tests/map-hud.test.cjs
++++ delivery-game/tests/map-hud.test.cjs
+@@ -8,6 +8,7 @@
+   addComponent(Type){const c=new Type();c.node=this;this.components.set(Type,c);return c;}
+   getComponent(Type){return this.components.get(Type);}
+   setPosition(x,y){Object.assign(this,{x,y});}setScale(x,y=x){this.scaleX=x;this.scaleY=y;}on(event,callback){this.events.set(event,callback);}
++  setSiblingIndex(){}
+   getChildByName(name){return this.children.find(n=>n.name===name);}
+   destroy(){this.destroyed=true;}removeAllChildren(){this.children=[];}
+  }
+@@ -16,16 +17,16 @@
+  class UITransform{setContentSize(width,height){Object.assign(this,{width,height});}setAnchorPoint(){}}
+  class Sprite{static SizeMode={CUSTOM:0};}
+  class Label{static HorizontalAlign={LEFT:0,RIGHT:1,CENTER:2};static VerticalAlign={CENTER:0};static Overflow={SHRINK:0,CLAMP:1};}
+- class Camera{constructor(...args){this.args=args;}static fitViewportHeight(_data,height){return height;}setVehicle(){}setRider(){}setRoutes(){}advanceLocate(){}cancelLocate(){}locateAnimated(){}locate(){}}
++ class Camera{constructor(...args){this.args=args;}static fitViewportHeight(_data,height){return height;}setVehicle(){}setRider(){}setRoutes(_routes,selected,fit){this.selected=selected;if(fit)this.focusRoute();}focusRoute(){this.focused=true;}advanceLocate(){}cancelLocate(){}locateAnimated(){}locate(){this.focused=false;}}
+  let frame={width:390,height:844},designHeight=1280,safeRect=h=>({x:0,y:0,width:720,height:h});
+  const browser={rotated:false,edges:{top:0,bottom:0,left:0,right:0}};
+  class Mask{static Type={GRAPHICS_RECT:0};}
+- const cc={Tween:{stopAllByTarget(){}},Vec3:class{constructor(x,y,z){Object.assign(this,{x,y,z});}},tween:()=>({to(){return this;},start(){}}),isValid:n=>!n.destroyed,Sprite,resources:{load(){}},Node,Color,Graphics,UITransform,Label,Mask,ScrollView:class{},BlockInputEvents:class{},Component:class{},sys:{getSafeAreaRect(symmetric){assert.equal(symmetric,false);return safeRect(designHeight);}},view:{getFrameSize:()=>frame,setDesignResolutionSize(_w,h){designHeight=h;}},ResolutionPolicy:{SHOW_ALL:1},Layers:{Enum:{UI_2D:1}},_decorator:{ccclass:()=>Type=>Type}},modules={};
++ const cc={Tween:{stopAllByTarget(){}},Vec3:class{constructor(x,y,z){Object.assign(this,{x,y,z});}},tween:()=>({to(){return this;},start(){}}),isValid:n=>!n.destroyed,Sprite,resources:{load(){}},Node,Color,Graphics,UITransform,Label,Mask,ScrollView:class{getScrollOffset(){return {y:0};}scrollToOffset(){}},Vec2:class{constructor(x,y){Object.assign(this,{x,y});}},BlockInputEvents:class{},Component:class{},sys:{getSafeAreaRect(symmetric){assert.equal(symmetric,false);return safeRect(designHeight);}},view:{getFrameSize:()=>frame,setDesignResolutionSize(_w,h){designHeight=h;}},ResolutionPolicy:{SHOW_ALL:1},Layers:{Enum:{UI_2D:1}},_decorator:{ccclass:()=>Type=>Type}},modules={};
+  function load(name){
+   if(modules[name])return modules[name];
+   const file=path.resolve(__dirname,'../assets/scripts/map-sample',name+'.ts');
+   const compiled=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,experimentalDecorators:true}}).outputText;
+-  const scope={exports:{},document:{documentElement:{},getElementById:()=>({style:{transform:browser.rotated?'rotate(90deg)':'rotate(0deg)'}})},getComputedStyle:()=>({getPropertyValue:name=>`${browser.edges[name.replace('--safe-','')]}px`}),require(id){if(id==='cc')return cc;if(id==='./CityMap')return {CityMap:Camera,ROUTE_COLORS:{fast:'gold',main:'orange',smooth:'green'}};if(id==='./MapVehicle')return {MapVehicle:class{}};if(id==='./FoodImages')return {foodImage(){}};if(id==='./CartoonArt')return {cartoonArt(parent,key,x,y,w,h){const n=new Node('CartoonArt-'+key);parent.addChild(n);n.setPosition(x,y);n.addComponent(UITransform).setContentSize(w,h);n.addComponent(Sprite);return n;},cartoonChrome(parent,key,w,h){const n=new Node('CartoonChrome-'+key);parent.addChild(n);n.addComponent(UITransform).setContentSize(w,h);return n;},resizeCartoonChrome(n,w,h){n.getComponent(UITransform).setContentSize(w,h);}};if(['./PresentationLayout','./VehicleSideArt','./SampleUI','./SafeAreaLayout','./OrderPhone','./CountyConfig','./ReceiptPresentation','./CityExtent','./DeliveryClock','./BillingPresentation','../domain/GameConfig'].includes(id))return load(id);return {};}};
++  const scope={exports:{},document:{documentElement:{},getElementById:()=>({style:{transform:browser.rotated?'rotate(90deg)':'rotate(0deg)'}})},getComputedStyle:()=>({getPropertyValue:name=>`${browser.edges[name.replace('--safe-','')]}px`}),require(id){if(id==='cc')return cc;if(id==='./CityMap')return {CityMap:Camera,ROUTE_COLORS:{fast:'gold',main:'orange',smooth:'green'}};if(id==='./MapVehicle')return {MapVehicle:class{}};if(id==='./FoodImages')return {foodImage(){}};if(id==='./CartoonArt')return {cartoonArt(parent,key,x,y,w,h){const n=new Node('CartoonArt-'+key);parent.addChild(n);n.setPosition(x,y);n.addComponent(UITransform).setContentSize(w,h);n.addComponent(Sprite);return n;},cartoonChrome(parent,key,w,h){const n=new Node('CartoonChrome-'+key);parent.addChild(n);n.addComponent(UITransform).setContentSize(w,h);return n;},resizeCartoonChrome(n,w,h){n.getComponent(UITransform).setContentSize(w,h);}};if(['./OrderPresentation','./PresentationLayout','./VehicleSideArt','./SampleUI','./SafeAreaLayout','./OrderPhone','./CountyConfig','./ReceiptPresentation','./CityExtent','./DeliveryClock','./BillingPresentation','../domain/GameConfig'].includes(id))return load(id);return {};}};
+   vm.runInNewContext(compiled,scope,{filename:file});modules[name]=scope.exports;return scope.exports;
+  }
+  const {MapSample}=load('MapSample'),sample=new MapSample(),root=new Node('Root'),panel=new Node('Panel');root.addChild(panel);
+@@ -68,14 +69,14 @@
+  for(const node of nodes.filter(n=>n.name.startsWith('Nav-')))assert.ok(h.bounds(node).bottom>=bottom+8,node.name);
+  const header=nodes.find(n=>n.name==='Header');assert.equal(h.bounds(header).top,top-12,'card leaves a gap below the safe top edge');
+  assert.equal(h.sample.book.serialize(),before);h.sample.rebuildLayout();
+- assert.equal(h.bounds(h.walk(h.sample.root).find(n=>n.name==='Nav-orders')).bottom,bottom+15,'no doubled inset after rebuilding');
++ assert.ok(Math.abs(h.bounds(h.walk(h.sample.root).find(n=>n.name==='Nav-orders')).bottom-(bottom+15))<1e-7,'no doubled inset');
+ });
+ 
+ test('safe-area changes restore normal spacing while preserving an open bill and saved game state',()=>{
+  const h=harness(realBook()),before=h.sample.book.serialize();h.setSafeArea(height=>({x:0,y:64,width:720,height:height-174}));h.sample.rebuildLayout();h.sample.openBills();
+  h.setSafeArea(height=>({x:0,y:0,width:720,height}));h.sample.rebuildLayout();
+  assert.equal(h.sample.modalKind,'bills');assert.equal(h.sample.book.serialize(),before);
+- assert.equal(h.bounds(h.walk(h.sample.root).find(n=>n.name==='Nav-orders')).bottom,-h.height()/2+15);
++ assert.ok(Math.abs(h.bounds(h.walk(h.sample.root).find(n=>n.name==='Nav-orders')).bottom-(-h.height()/2+15))<1e-7);
+ });
+ 
+ test('delivery sheet, rider locator and map attribution rise together above the bottom safe area',()=>{
+@@ -102,7 +103,7 @@
+ test('letterboxing outside the game and unavailable safe-area readings do not add duplicate padding',()=>{
+  const h=harness(realBook());
+  for(const fn of [height=>({x:-40,y:-30,width:800,height:height+60}),()=>({x:NaN,y:0,width:720,height:1200})]){
+-  h.setSafeArea(fn);h.sample.rebuildLayout();assert.equal(h.bounds(h.walk(h.sample.root).find(n=>n.name==='Nav-orders')).bottom,-h.height()/2+15);
++  h.setSafeArea(fn);h.sample.rebuildLayout();assert.ok(Math.abs(h.bounds(h.walk(h.sample.root).find(n=>n.name==='Nav-orders')).bottom-(-h.height()/2+15))<1e-7);
+  }
+ });
+ 
+@@ -139,7 +140,7 @@
+  assert.ok(!h.walk(nav).some(n=>n.name==='Nav-station'));const station=h.walk(h.root).find(n=>n.name==='StationEntry');
+  assert.ok(station);assert.ok(station.x<0&&station.y<0);assert.equal(station.events.size,0);
+  const map=h.walk(nav).find(n=>n.name==='Nav-map'),bills=h.walk(nav).find(n=>n.name==='Nav-bills');
+- assert.equal(map.x,150);assert.equal(bills.x,280);h.click(bills);assert.equal(h.sample.modalKind,'bills');
++ assert.equal(map.x,158);assert.equal(bills.x,280);h.click(bills);assert.equal(h.sample.modalKind,'bills');
+  for(const name of ['今日收入','今日订单数','今日好评','钱包余额','在线时长','配送里程','准时率','超时','差评','累计配送费','累计完成订单','单日最高订单数'])assert.ok(h.text(h.sample.modal).includes(name));
+  const before=h.sample.book.serialize();h.sample.rebuildLayout();assert.equal(h.sample.modalKind,'bills');assert.equal(h.sample.book.serialize(),before);
+ });
+@@ -184,7 +185,7 @@
+  const b=doorstep();const saved=JSON.parse(b.serialize());saved.active.mode='running';saved.active.elapsed-=.001;saved.currentNode=saved.active.routes[0].nodes[0];
+  const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
+  const h=harness(OrderBook.restore(b.data,JSON.stringify(saved),()=>.99));h.click(h.walk(h.panel).find(n=>n.name==='Nav-map'));assert.equal(h.sample.modalKind,'maps');
+- h.sample.update(.01);assert.equal(h.sample.modalKind,'demand');h.sample.rebuildLayout();assert.equal(h.sample.modalKind,'demand');
++ h.sample.update(.01);assert.equal(h.sample.modalKind,'maps');h.sample.rebuildLayout();assert.equal(h.sample.modalKind,'maps');h.sample.dismissDialog();assert.equal(h.sample.modalKind,'demand');
+ });
+ 
+ function realBook(random=()=>.1){
+@@ -211,10 +212,10 @@
+ test('merchant waiting communicates progress and running navigation cannot accept or upgrade',()=>{
+  const b=realBook();b.accept(b.list()[0].offer.id);b.depart();assert.equal(b.tripStage,'collecting');
+  const h=harness(b);assert.ok(h.text(h.panel).some(s=>s.includes('正在取餐中')&&s.includes('2秒')));
+- for(const key of ['orders','vehicle']){const slot=h.walk(h.panel).find(n=>n.name==='Nav-'+key);assert.ok(slot);assert.equal(slot.events.size,0);h.click(slot);}
+- assert.equal(h.counts().opened,0);assert.equal(b.mode,'running');
+- b.advance(1);h.sample.updateProgress();assert.ok(h.text(h.panel).some(s=>s.includes('正在取餐中')&&s.includes('1秒')));
+- b.advance(1.01);h.sample.updateProgress();assert.ok(!h.text(h.panel).some(s=>s.includes('正在取餐中')));
++ for(const key of ['orders','vehicle']){const slot=h.walk(h.sample.panel).find(n=>n.name==='Nav-'+key);assert.ok(slot);assert.ok(slot.events.size>0);h.click(slot);}
++ assert.equal(h.counts().opened,0);assert.equal(b.mode,'running');assert.equal(h.sample.modalKind,'garage');assert.ok(h.text(h.sample.modal).includes('配送中暂不可升级'));
++ b.advance(1);h.sample.updateProgress();assert.ok(h.text(h.sample.panel).some(s=>s.includes('正在取餐中')&&s.includes('1秒')));
++ b.advance(1.01);h.sample.updateProgress();assert.ok(!h.text(h.sample.panel).some(s=>s.includes('正在取餐中')));
+ });
+ test('doorstep demand opens a required modal with no bottom choices and cannot be skipped',()=>{
+  const b=doorstep(),before=b.player.cashCents,h=harness(b);
+@@ -268,16 +269,16 @@
+ });
+ 
+ test('a valid long food description remains complete above routes and in delivery on a narrow device',()=>{
+- const b=realBook();b.accept(b.list()[0].offer.id);Object.assign(b.active.offer,{food:'麻婆豆腐饭 · 3份',weightKg:3,fragility:'normal'});
++ const b=realBook();b.accept(b.list()[0].offer.id);Object.assign(b.active.offer,{food:'麻婆豆腐饭 · 3份',quantity:3,weightKg:3,fragility:'normal'});
+  const h=harness(b);h.setFrame({width:320,height:568});h.sample.rebuildLayout();
+- const description='麻婆豆腐饭 · 3份 · 3kg · 普通餐品';
++ const description='麻婆豆腐饭 · 3份';
+  const metadata=()=>h.walk(h.sample.panel).map(n=>n.getComponent(h.Label)).find(l=>l?.string===description);
+- let info=metadata();assert.ok(info);assert.ok(info.node.getComponent(h.UITransform).height>=2*info.lineHeight,'the valid description needs two readable lines');
++ let info=metadata();assert.ok(info);assert.ok(info.node.getComponent(h.UITransform).height>=info.lineHeight,'food has a readable line');
+  const route=h.walk(h.sample.panel).find(n=>n.name.startsWith('Route-'));assert.ok(h.bounds(info.node).bottom>h.bounds(route).top,'routes stay below all metadata lines');
+  const content=route.parent;assert.ok(content.getComponent(h.UITransform).height>=-route.y+route.getComponent(h.UITransform).height/2+16,'the whole route remains scrollable');
+- const action=h.walk(h.sample.panel).find(n=>n.name==='Button-出发配送'),sheet=h.walk(h.sample.panel).find(n=>n.name==='DeliverySheet'),[, ,mapHeight,,mapY]=h.sample.city.args;
++ const action=h.walk(h.sample.panel).find(n=>n.name==='Button-去取餐'),sheet=h.walk(h.sample.panel).find(n=>n.name==='DeliverySheet'),[, ,mapHeight,,mapY]=h.sample.city.args;
+  assert.ok(h.bounds(action).bottom>=-h.height()/2);assert.ok(Math.abs(mapY-mapHeight/2-h.bounds(sheet).top)<1);
+- b.depart();h.sample.renderPanel();info=metadata();assert.ok(info.node.getComponent(h.UITransform).height>=2*info.lineHeight);
++ b.depart();h.sample.renderPanel();info=metadata();assert.ok(info.node.getComponent(h.UITransform).height>=info.lineHeight);
+  const progress=h.walk(h.sample.panel).find(n=>n.name==='ProgressTrack');assert.ok(h.bounds(h.sample.tripLabel.node).bottom>h.bounds(progress).top,'delivery progress follows the reflowed stage text');
+  b.advance(99);h.sample.renderPanel();info=metadata();const done=h.walk(h.sample.panel).find(n=>n.getComponent(h.Label)?.string==='配送完成 · 收入已到账');assert.ok(done);assert.ok(h.bounds(info.node).bottom>h.bounds(done).top,'completed delivery follows all metadata lines');
+ });
+@@ -306,3 +307,29 @@
+ test('CSS 12px header edges follow SHOW_ALL game scale rather than design pixels',()=>{const h=harness(realBook());h.setFrame({width:360,height:560});h.sample.rebuildLayout();const card=h.walk(h.sample.root).find(n=>n.name==='Header'),r=h.bounds(card),scale=Math.min(360/720,560/h.height());assert.ok(Math.abs((r.left+360)*scale-12)<.01);assert.ok(Math.abs((360-r.right)*scale-12)<.01);const locate=h.walk(h.sample.root).find(n=>n.name==='FollowRider');assert.ok(locate.getComponent(h.UITransform).width>=100.8);});
+ 
+ test('explicit locator forwards default zoom reset to the real camera',()=>{const h=harness(realBook());let reset=false;h.sample.city.locateAnimated=()=>{reset=true;};h.click(h.walk(h.sample.root).find(n=>n.name==='FollowRider'));assert.equal(reset,true);});
++
++// ORDER-EXPERIENCE: measurable presentation contracts before implementation.
++test('claim circle grows by 1.3 with proportional type inside a stable circular hit root',()=>{
++ const h=harness(),claim=h.walk(h.root).find(n=>n.name==='Nav-orders');
++ assert.equal(claim.getComponent(h.UITransform).width,145.6);assert.equal(claim.getComponent(h.UITransform).height,145.6);
++ const caption=h.walk(claim).map(n=>n.getComponent(h.Label)).find(Boolean);assert.equal(caption.fontSize,57.2);
++});
++test('phone blue header includes status bar and has a separate shaded chassis',()=>{
++ const h=harness(realBook());h.openRealPhone();const nodes=h.walk(h.sample.phone.node),frame=nodes.find(n=>n.name==='PhoneFrame'),header=nodes.find(n=>n.name==='AppHeader');
++ assert.ok(h.bounds(header).top>=h.bounds(frame).top-14);assert.ok(nodes.some(n=>n.name==='PhoneShadow'));assert.ok(nodes.some(n=>n.name==='PhoneSide'));
++});
++
++test('rebuilding a planning order keeps route overview instead of overwriting it with rider locate',()=>{
++ const b=realBook();b.accept(b.list()[0].offer.id);const h=harness(b);h.sample.rebuildLayout();assert.equal(h.sample.city.focused,true);
++ const cards=h.walk(h.sample.panel).filter(n=>n.name.startsWith('Route-'));for(let i=0;i<cards.length;i++){h.sample.city.focused=false;h.click(cards[i]);assert.equal(h.sample.city.focused,true);assert.equal(h.sample.city.selected,i);assert.equal(b.active.selected,i);}
++});
++
++test('order sheet closes and reopens without changing the order, with twelve CSS pixels above the circular menu',()=>{
++ const b=realBook();b.accept(b.list()[0].offer.id);const h=harness(b);h.setFrame({width:360,height:560});h.sample.rebuildLayout();const before=b.serialize();
++ const get=name=>h.walk(h.sample.root).find(n=>n.name===name),sheet=get('DeliverySheet'),claim=get('Nav-orders'),scale=560/h.height();
++ assert.ok((h.bounds(sheet).bottom-h.bounds(claim).top)*scale>=12-1e-7);
++ assert.ok(h.text(sheet).includes('去取餐'));assert.ok(!h.text(sheet).includes('返回接单'));assert.ok(!h.text(sheet).includes('出发配送'));
++ h.click(sheet.getChildByName('CloseButton'));assert.equal(get('DeliverySheet'),undefined);assert.equal(b.serialize(),before);
++ h.click(get('Nav-orders'));assert.ok(get('DeliverySheet'));assert.equal(b.serialize(),before);
++ for(const key of ['vehicle','map','bills']){h.click(get('Nav-'+key));assert.ok(h.sample.modal);h.sample.dismissDialog();assert.ok(get('DeliverySheet'));assert.equal(b.serialize(),before);}
++});
+--- before/delivery-game/tests/order-book.test.cjs
++++ delivery-game/tests/order-book.test.cjs
+@@ -97,3 +97,20 @@
+  assert.equal(restored.riderNode,data.pois[next.to].node);
+  for(const p of restored.list())assert.ok(p.pickupMetres+p.deliveryMetres<=10000);
+ });
++
++test('new source and quantity survive reload; old absent fields remain absent; malformed metadata is rejected',()=>{
++ const data=city(),book=new OrderBook(data,random()),before=JSON.parse(book.serialize());
++ assert.equal(before.offers[0].source,'direct');for(const offer of before.offers){assert.ok(['direct','transfer'].includes(offer.source));assert.ok(offer.quantity>0);}
++ const restored=OrderBook.restore(data,book.serialize(),()=>{throw Error('restore redrew an offer');});assert.equal(restored.serialize(),book.serialize());
++ for(const offer of before.offers){delete offer.source;delete offer.quantity;delete offer.buyerNote;}
++ const old=JSON.stringify(before);assert.equal(OrderBook.restore(data,old,()=>{throw Error('old restore redrew');}).serialize(),old);
++ for(const [key,value]of [['source','market'],['quantity',0],['quantity',1.5],['buyerNote','x'.repeat(301)]]){const bad=JSON.parse(old);bad.offers[0][key]=value;assert.throws(()=>OrderBook.restore(data,JSON.stringify(bad)));}
++});
++test('lobby deadline agrees with the accepted frozen legal-route deadline for each candidate',()=>{
++ const book=new OrderBook(city(),random());for(const preview of book.list()){book.accept(preview.offer.id);assert.equal(book.active.deadlineSeconds,preview.deadlineSeconds);book.cancel();}
++});
++test('source is stable near twenty percent and quantity/remarks use actual offer semantics',()=>{
++ const {newOfferSource,offerQuantity,buyerRemark,foodDescription}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderPresentation.js'));
++ let transfers=0;for(let i=2;i<=10001;i++){if(newOfferSource('CC-'+i)==='transfer')transfers++;assert.equal(newOfferSource('CC-'+i),newOfferSource('CC-'+i));}assert.ok(transfers>1700&&transfers<2300);
++ const old={food:'麻婆豆腐饭 · 3份',demand:'none'};assert.equal(offerQuantity(old),3);assert.equal(offerQuantity({...old,food:'份数未知'}),null);assert.equal(buyerRemark(old),'');assert.equal(buyerRemark({...old,demand:'door'}),'放门口，别敲门');assert.equal(foodDescription({...old,quantity:2}),'麻婆豆腐饭 · 2份');
++});
+--- /dev/null
++++ delivery-game/assets/scripts/map-sample/OrderPresentation.ts
+@@ -0,0 +1,25 @@
++import type { DeliveryOffer } from './OrderBook';
++
++// Source is an attribute of a newly issued local offer; no extra RNG draw.
++export function newOfferSource(id:string):'direct'|'transfer' {
++ if(id==='CC-1')return 'direct';
++ let hash=2166136261;for(let i=0;i<id.length;i++)hash=Math.imul(hash^id.charCodeAt(i),16777619);
++ return (hash>>>0)%5===0?'transfer':'direct';
++}
++export function offerQuantity(offer:DeliveryOffer):number|null {
++ if(offer.quantity!==undefined)return offer.quantity;
++ const match=/^.+\s*·\s*([1-9]\d*)份$/.exec(offer.food);
++ return match&&Number.isSafeInteger(Number(match[1]))?Number(match[1]):null;
++}
++export function foodDescription(offer:DeliveryOffer):string {
++ const quantity=offerQuantity(offer);
++ if(quantity===null)return offer.food+' · 份数未提供';
++ return offer.food.replace(/\s*·\s*[1-9]\d*份$/,'')+` · ${quantity}份`;
++}
++export function buyerRemark(offer:DeliveryOffer):string {
++ return offer.buyerNote?.trim()||(offer.demand==='door'?'放门口，别敲门':'');
++}
++export function orderCautions(offer:DeliveryOffer):string {
++ return [offer.type==='urgent'?'加急':'',offer.fragility==='fragile'?'怕洒':offer.fragility==='durable'?'耐放':'普通餐品'].filter(Boolean).join(' · ');
++}
++export function deadlineText(seconds:number):string{return `${Math.ceil(Math.max(0,seconds)/60)}分钟内送达`;}
+--- /dev/null
++++ delivery-game/assets/scripts/map-sample/OrderPresentation.ts.meta
+@@ -0,0 +1,9 @@
++{
++  "ver": "4.0.24",
++  "importer": "typescript",
++  "imported": true,
++  "uuid": "90d88d36-04d4-451f-bc91-8e8416862053",
++  "files": [],
++  "subMetas": {},
++  "userData": {}
++}

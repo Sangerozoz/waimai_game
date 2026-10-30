@@ -1,0 +1,151 @@
+{
+  "scope": "candidate design mathematics and assumed cohorts only; not game implementation, actual offer distribution or device verification",
+  "profile": "county-v2-trial-2",
+  "clickRoadSeconds": {
+    "0": 10.0,
+    "3": 7.9999999999999964,
+    "4": 4.318235106701993,
+    "6": 3.514631501521606,
+    "8": 3.3295488027025666,
+    "80": 3.3295488027025666
+  },
+  "npcCityDHourlyCents": 21582,
+  "npcCountyDHourlyCents": 14388,
+  "cityFirstRiderGrossPaybackHours": 6.023538133629876,
+  "fixedStrengthReferenceCents": 76361,
+  "fixedLevel29QuoteCents": 2214469,
+  "fixedFullStrengthCostCents": 33217035,
+  "npcAntiBackfillExample": {
+    "discardedCents": 23000,
+    "immediatePayoutAfterNewActiveCents": 0,
+    "nextHourPayoutCents": 7000
+  },
+  "offline16HourCorrectCents": 40000.0,
+  "wrongPerDayCapCents": 75000.0,
+  "clueMeanOrdersPerCategory": 180.0,
+  "notNineCluesAfter1200ProbabilityPerCategory": 1.3006048531623804e-17,
+  "assumptions": {
+    "seedsPerScenario": 512,
+    "route": "fast",
+    "soloMinutesDistribution": "80% integers10-20,20%integers21-30 including 1min pickup",
+    "feeCents": "uniform1500..2500, first2000",
+    "urgentProbability": 0.2,
+    "fulfilledDoorProbability": 0.5,
+    "foodMix": "target10fragile/restnormal OR current catalog equally weighted5fragile/6durable/5normal, not actual lobby frequency",
+    "pickupRoadFraction": ".25 except first0",
+    "npcIncomeBeforeCity": "excluded; D rider bought last",
+    "menuRealSecondsPerOrder": 2,
+    "supplyLocations": "merchant reached if starting energy covers pickup; otherwise idle free rest before accepting; no shop detour modeled",
+    "tripSize": 1
+  },
+  "cohorts": {
+    "target10-fragile-free": {
+      "firstUpgrade": {
+        "median": 5.0,
+        "p95": 6
+      },
+      "cityOrders": {
+        "median": 100.0,
+        "p95": 100
+      },
+      "baseMinutes": {
+        "median": 23.087,
+        "p95": 23.825
+      },
+      "denseClickMinutes": {
+        "median": 14.609,
+        "p95": 14.839
+      },
+      "supplyCents": {
+        "median": 0.0,
+        "p95": 0
+      },
+      "freeRestCount": {
+        "median": 9.0,
+        "p95": 9
+      },
+      "lowestSingleNetCents": 830
+    },
+    "catalog-equal-free": {
+      "firstUpgrade": {
+        "median": 5.0,
+        "p95": 6
+      },
+      "cityOrders": {
+        "median": 100.0,
+        "p95": 100
+      },
+      "baseMinutes": {
+        "median": 23.087,
+        "p95": 23.825
+      },
+      "denseClickMinutes": {
+        "median": 14.609,
+        "p95": 14.839
+      },
+      "supplyCents": {
+        "median": 0.0,
+        "p95": 0
+      },
+      "freeRestCount": {
+        "median": 9.0,
+        "p95": 9
+      },
+      "lowestSingleNetCents": 830
+    },
+    "catalog-equal-water": {
+      "firstUpgrade": {
+        "median": 5.0,
+        "p95": 6
+      },
+      "cityOrders": {
+        "median": 100.0,
+        "p95": 100
+      },
+      "baseMinutes": {
+        "median": 22.458,
+        "p95": 23.325
+      },
+      "denseClickMinutes": {
+        "median": 14.007,
+        "p95": 14.411
+      },
+      "supplyCents": {
+        "median": 2600.0,
+        "p95": 4200
+      },
+      "freeRestCount": {
+        "median": 6.0,
+        "p95": 7
+      },
+      "lowestSingleNetCents": 750
+    },
+    "catalog-equal-meal-aware": {
+      "firstUpgrade": {
+        "median": 5.0,
+        "p95": 6
+      },
+      "cityOrders": {
+        "median": 100.0,
+        "p95": 100
+      },
+      "baseMinutes": {
+        "median": 22.033,
+        "p95": 23.008
+      },
+      "denseClickMinutes": {
+        "median": 13.557,
+        "p95": 14.07
+      },
+      "supplyCents": {
+        "median": 3900.0,
+        "p95": 5800
+      },
+      "freeRestCount": {
+        "median": 4.0,
+        "p95": 6
+      },
+      "lowestSingleNetCents": 536
+    }
+  }
+}

@@ -1,0 +1,1755 @@
+TAP version 13
+# Subtest: new bill starts with the actual wallet and no earned fees or completed deliveries
+ok 1 - new bill starts with the actual wallet and no earned fees or completed deliveries
+  ---
+  duration_ms: 4.799625
+  type: 'test'
+  ...
+# Subtest: settlement records real income and full road distance exactly once across reload and repeated receipt viewing
+not ok 2 - settlement records real income and full road distance exactly once across reload and repeated receipt viewing
+  ---
+  duration_ms: 3.56825
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:13:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 2180
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2180
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:15:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: cancelled offers and vehicle purchases do not count as deliveries or reduce delivery income
+not ok 3 - cancelled offers and vehicle purchases do not count as deliveries or reduce delivery income
+  ---
+  duration_ms: 2.064458
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:19:1'
+  failureType: 'testCodeFailure'
+  error: 'Already carrying an order'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.accept (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:174:19)
+    complete (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:8:24)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:21:23)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: daily records roll over without resetting lifetime income and peak daily completed count
+not ok 4 - daily records roll over without resetting lifetime income and peak daily completed count
+  ---
+  duration_ms: 2.446917
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:25:1'
+  failureType: 'testCodeFailure'
+  error: 'Already carrying an order'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.accept (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:174:19)
+    complete (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:8:24)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:26:61)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: online time splits at local midnight and never counts backwards or invalid spans
+ok 5 - online time splits at local midnight and never counts backwards or invalid spans
+  ---
+  duration_ms: 2.448625
+  type: 'test'
+  ...
+# Subtest: old saves preserve actual lifetime orders and wallet while marking unavailable history as partial
+not ok 6 - old saves preserve actual lifetime orders and wallet while marking unavailable history as partial
+  ---
+  duration_ms: 4.095125
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:38:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:40:82)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: malformed bill fields and totals inconsistent with completed orders are rejected
+not ok 7 - malformed bill fields and totals inconsistent with completed orders are rejected
+  ---
+  duration_ms: 2.958458
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:46:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'orders')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    s.billing.days.2026-10-28.late (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:48:122)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:49:62)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: bill reviews and punctuality follow final per-order outcomes including negative reviews at rating floors
+not ok 8 - bill reviews and punctuality follow final per-order outcomes including negative reviews at rating floors
+  ---
+  duration_ms: 2.784334
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:52:1'
+  failureType: 'testCodeFailure'
+  error: '存档校验失败：待接列表中的当前单'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    valid (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/CountySnapshot.js:29:11)
+    validateCountySnapshot (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/CountySnapshot.js:194:13)
+    OrderBook.restore (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:81:53)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/billing.test.cjs:56:25)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: late and positive receipts produce correct rate, review counts and unit-formatted bill values
+ok 9 - late and positive receipts produce correct rate, review counts and unit-formatted bill values
+  ---
+  duration_ms: 1.207917
+  type: 'test'
+  ...
+# Subtest: incomplete legacy history is never presented as an exact percentage or exact lifetime fee
+ok 10 - incomplete legacy history is never presented as an exact percentage or exact lifetime fee
+  ---
+  duration_ms: 0.600208
+  type: 'test'
+  ...
+# Subtest: one atlas request shares immutable frames and fits the manifest crop into each requested box
+ok 11 - one atlas request shares immutable frames and fits the manifest crop into each requested box
+  ---
+  duration_ms: 93.474209
+  type: 'test'
+  ...
+# Subtest: failed atlas remains readable through its fallback and a later opening retries
+ok 12 - failed atlas remains readable through its fallback and a later opening retries
+  ---
+  duration_ms: 70.954666
+  type: 'test'
+  ...
+# Subtest: closed, queued-destroyed and destroyed-picture views never reactivate on a late response
+ok 13 - closed, queued-destroyed and destroyed-picture views never reactivate on a late response
+  ---
+  duration_ms: 108.264083
+  type: 'test'
+  ...
+# Subtest: normalized vehicle crops scale with imported texture size and unknown keys never load
+ok 14 - normalized vehicle crops scale with imported texture size and unknown keys never load
+  ---
+  duration_ms: 21.084416
+  type: 'test'
+  ...
+# Subtest: generated locator retains native fallback on atlas failure
+ok 15 - generated locator retains native fallback on atlas failure
+  ---
+  duration_ms: 14.306041
+  type: 'test'
+  ...
+# Subtest: camera subtracts viewport half extents on every axis at all supported scales
+ok 16 - camera subtracts viewport half extents on every axis at all supported scales
+  ---
+  duration_ms: 1.030083
+  type: 'test'
+  ...
+# Subtest: catalog preparation is deterministic, preserves the graph and old POI indices, and adds real distinct addresses
+ok 17 - catalog preparation is deterministic, preserves the graph and old POI indices, and adds real distinct addresses
+  ---
+  duration_ms: 1155.632375
+  type: 'test'
+  ...
+# Subtest: food images and terms cover all sixteen meals and historic text has stable compatible pictures
+ok 18 - food images and terms cover all sixteen meals and historic text has stable compatible pictures
+  ---
+  duration_ms: 0.1445
+  type: 'test'
+  ...
+# Subtest: actual prepared city dispatch stays within bounded roads with diverse batches and refreshes
+ok 19 - actual prepared city dispatch stays within bounded roads with diverse batches and refreshes
+  ---
+  duration_ms: 1186.646458
+  type: 'test'
+  ...
+# Subtest: old map identity restores fixed activity and outside position, then returns through legal road legs
+ok 20 - old map identity restores fixed activity and outside position, then returns through legal road legs
+  ---
+  duration_ms: 369.957584
+  type: 'test'
+  ...
+# Subtest: preview and all accepted choices use the bounded graph even when a faster road exits town
+ok 21 - preview and all accepted choices use the bounded graph even when a faster road exits town
+  ---
+  duration_ms: 0.492667
+  type: 'test'
+  ...
+# Subtest: a tiny map repeats legal destinations without hanging and food weights match servings
+ok 22 - a tiny map repeats legal destinations without hanging and food weights match servings
+  ---
+  duration_ms: 0.408792
+  type: 'test'
+  ...
+# Subtest: distant legacy positions preserve location and can dispatch within ten kilometres without an immediate city return
+ok 23 - distant legacy positions preserve location and can dispatch within ten kilometres without an immediate city return
+  ---
+  duration_ms: 3505.983375
+  type: 'test'
+  ...
+# Subtest: map identity migration keeps an already drawn outside delivery route, pose and damage unchanged
+ok 24 - map identity migration keeps an already drawn outside delivery route, pose and damage unchanged
+  ---
+  duration_ms: 599.215458
+  type: 'test'
+  ...
+# Subtest: operating places leave room for pins at every town edge without moving historic addresses
+ok 25 - operating places leave room for pins at every town edge without moving historic addresses
+  ---
+  duration_ms: 15.799583
+  type: 'test'
+  ...
+# Subtest: actual city trips stay local after refreshing, moving and upgrading the vehicle
+not ok 26 - actual city trips stay local after refreshing, moving and upgrading the vehicle
+  ---
+  duration_ms: 1133.763958
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/city-content.test.cjs:152:1'
+  failureType: 'testCodeFailure'
+  error: 'Already carrying an order'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.accept (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:174:19)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/city-content.test.cjs:161:8)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: the previous v3 lobby migrates without losing progress or redrawing accepted activity
+ok 27 - the previous v3 lobby migrates without losing progress or redrawing accepted activity
+  ---
+  duration_ms: 2039.929542
+  type: 'test'
+  ...
+# Subtest: dense v4 catalog preserves v3 prefix and raises urban operating pool to 60 merchants and 180 customers
+ok 28 - dense v4 catalog preserves v3 prefix and raises urban operating pool to 60 merchants and 180 customers
+  ---
+  duration_ms: 0.154916
+  type: 'test'
+  ...
+# Subtest: the real county first delivery credits 21.80 yuan and ten XP once to the 100 yuan opening balance
+ok 29 - the real county first delivery credits 21.80 yuan and ten XP once to the 100 yuan opening balance
+  ---
+  duration_ms: 0.378333
+  type: 'test'
+  ...
+# Subtest: late severe damage and a disturbed doorstep request use one capped rating penalty and one income reduction
+ok 30 - late severe damage and a disturbed doorstep request use one capped rating penalty and one income reduction
+  ---
+  duration_ms: 0.105542
+  type: 'test'
+  ...
+# Subtest: all three positive conditions cap at +6 and income uses new rating but the old experience level
+ok 31 - all three positive conditions cap at +6 and income uses new rating but the old experience level
+  ---
+  duration_ms: 0.062791
+  type: 'test'
+  ...
+# Subtest: formal risk comes from meal fragility and road preference rather than trip animation length
+ok 32 - formal risk comes from meal fragility and road preference rather than trip animation length
+  ---
+  duration_ms: 0.155334
+  type: 'test'
+  ...
+# Subtest: the fifth receipt earns at departure Lv1 and unlocks Lv2 at fifty XP
+ok 33 - the fifth receipt earns at departure Lv1 and unlocks Lv2 at fifty XP
+  ---
+  duration_ms: 0.139042
+  type: 'test'
+  ...
+# Subtest: county levels retain later increments while the original game thresholds stay unchanged
+ok 34 - county levels retain later increments while the original game thresholds stay unchanged
+  ---
+  duration_ms: 0.297125
+  type: 'test'
+  ...
+# Subtest: receipt impacts reconcile to the actual rounded income without touching even a maximum balance
+ok 35 - receipt impacts reconcile to the actual rounded income without touching even a maximum balance
+  ---
+  duration_ms: 2.539667
+  type: 'test'
+  ...
+# Subtest: new county wallet and the first actual routed receipt survive reload without a second award
+not ok 36 - new county wallet and the first actual routed receipt survive reload without a second award
+  ---
+  duration_ms: 6.863459
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:12:1'
+  failureType: 'testCodeFailure'
+  error: '尚未送达，不能结算'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.settle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:294:19)
+    complete (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:9:148)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:13:61)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: in-transit reload preserves route, damage and both clocks and resumes automatically
+not ok 37 - in-transit reload preserves route, damage and both clocks and resumes automatically
+  ---
+  duration_ms: 4.798791
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:19:1'
+  failureType: 'testCodeFailure'
+  error: '尚未送达，不能结算'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.settle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:294:19)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:26:24)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: route selection and the doorstep waiting phase restore without awarding money early
+not ok 38 - route selection and the doorstep waiting phase restore without awarding money early
+  ---
+  duration_ms: 2.192542
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:28:1'
+  failureType: 'testCodeFailure'
+  error: '尚未送达，不能结算'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.settle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:294:19)
+    complete (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:9:148)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:30:2)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: real earnings buy exactly one D+ and preserve its speed, income and capacity after reload
+not ok 39 - real earnings buy exactly one D+ and preserve its speed, income and capacity after reload
+  ---
+  duration_ms: 1.939542
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:39:1'
+  failureType: 'testCodeFailure'
+  error: '尚未送达，不能结算'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.settle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:294:19)
+    complete (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:9:148)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:42:24)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: daily two-free-refresh quota survives reload, resets next day, and never blocks ordinary deliveries
+not ok 40 - daily two-free-refresh quota survives reload, resets next day, and never blocks ordinary deliveries
+  ---
+  duration_ms: 8.642792
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:49:1'
+  failureType: 'testCodeFailure'
+  error: '尚未送达，不能结算'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.settle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:294:19)
+    complete (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:9:148)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:54:2)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: corrupt or changed-graph snapshots are rejected rather than damaging a valid running session
+ok 41 - corrupt or changed-graph snapshots are rejected rather than damaging a valid running session
+  ---
+  duration_ms: 5.017417
+  type: 'test'
+  ...
+# Subtest: a valid old thirty-order save migrates to ten nearby orders without losing progress or refresh quota
+not ok 42 - a valid old thirty-order save migrates to ten nearby orders without losing progress or refresh quota
+  ---
+  duration_ms: 2.191917
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:68:1'
+  failureType: 'testCodeFailure'
+  error: '尚未送达，不能结算'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.settle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:294:19)
+    complete (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:9:148)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:69:53)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: cancelling a migrated legacy long order removes its exception from the ordinary nearby lobby
+not ok 43 - cancelling a migrated legacy long order removes its exception from the ordinary nearby lobby
+  ---
+  duration_ms: 3.659458
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:83:1'
+  failureType: 'testCodeFailure'
+  error: '存档校验失败：旧档取送规则'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    valid (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/CountySnapshot.js:29:11)
+    validateCountySnapshot (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/CountySnapshot.js:90:13)
+    OrderBook.restore (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:81:53)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:93:27)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: exactly 200 yuan upgrades D+ once while 199.99 is insufficient
+ok 44 - exactly 200 yuan upgrades D+ once while 199.99 is insufficient
+  ---
+  duration_ms: 1.142625
+  type: 'test'
+  ...
+# Subtest: genuine ZIP-baseline v2 states migrate without rerolls, changed receipts or changed old poses
+ok 45 - genuine ZIP-baseline v2 states migrate without rerolls, changed receipts or changed old poses
+  ---
+  duration_ms: 21.519625
+  type: 'test'
+  ...
+# Subtest: new trips move and switch pickup by metres across unequal road speeds
+not ok 46 - new trips move and switch pickup by metres across unequal road speeds
+  ---
+  duration_ms: 8.936041
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:127:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(Math.abs(b.riderPose.point[0]-r.metres/2)<1e-6)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/county-session.test.cjs:129:168)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: legacy level-one departure at fifty XP finishes at frozen income then continues at recomputed level
+ok 47 - legacy level-one departure at fifty XP finishes at frozen income then continues at recomputed level
+  ---
+  duration_ms: 1.710333
+  type: 'test'
+  ...
+# Subtest: v3 rejects unknown rules, wrong current levels, tampered receipts and timing without consuming random
+ok 48 - v3 rejects unknown rules, wrong current levels, tampered receipts and timing without consuming random
+  ---
+  duration_ms: 1.975916
+  type: 'test'
+  ...
+# Subtest: predrawn food damage notifies only halfway through delivery, never while collecting and never rerolls
+not ok 49 - predrawn food damage notifies only halfway through delivery, never while collecting and never rerolls
+  ---
+  duration_ms: 6.171959
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/damage-events.test.cjs:9:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/damage-events.test.cjs:12:25)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: damage notice stays consumed after reload and does not alter the existing receipt or award
+not ok 50 - damage notice stays consumed after reload and does not alter the existing receipt or award
+  ---
+  duration_ms: 2.666709
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/damage-events.test.cjs:15:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/damage-events.test.cjs:17:75)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: healthy orders and an already completed frame never show damage events
+ok 51 - healthy orders and an already completed frame never show damage events
+  ---
+  duration_ms: 4.613125
+  type: 'test'
+  ...
+# Subtest: old missing notice fields load as unseen while malformed notice state is rejected
+not ok 52 - old missing notice fields load as unseen while malformed notice state is rejected
+  ---
+  duration_ms: 4.295708
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/damage-events.test.cjs:26:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/damage-events.test.cjs:29:76)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: legacy routes with different segment speeds trigger at distance midpoint rather than time midpoint
+not ok 53 - legacy routes with different segment speeds trigger at distance midpoint rather than time midpoint
+  ---
+  duration_ms: 4.465959
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/damage-events.test.cjs:32:1'
+  failureType: 'testCodeFailure'
+  error: '无效的取送进度'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    validateHandoff (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/ManualHandoff.js:51:15)
+    validateCountySnapshot (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/CountySnapshot.js:163:49)
+    OrderBook.restore (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:81:53)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/damage-events.test.cjs:44:25)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 30 minutes animates in ten seconds and 45 minutes or longer caps at fifteen
+ok 54 - 30 minutes animates in ten seconds and 45 minutes or longer caps at fifteen
+  ---
+  duration_ms: 0.455166
+  type: 'test'
+  ...
+# Subtest: road metres and average kph determine exact display seconds without overhead or rounding
+ok 55 - road metres and average kph determine exact display seconds without overhead or rounding
+  ---
+  duration_ms: 0.126458
+  type: 'test'
+  ...
+# Subtest: capped animation keeps exact distance progress and remaining delivery clock
+ok 56 - capped animation keeps exact distance progress and remaining delivery clock
+  ---
+  duration_ms: 0.056584
+  type: 'test'
+  ...
+# Subtest: pickup clock advances the road clock normally before reaching the merchant
+ok 57 - pickup clock advances the road clock normally before reaching the merchant
+  ---
+  duration_ms: 0.242625
+  type: 'test'
+  ...
+# Subtest: reaching the merchant spends the rest of the frame on pickup waiting
+ok 58 - reaching the merchant spends the rest of the frame on pickup waiting
+  ---
+  duration_ms: 0.670208
+  type: 'test'
+  ...
+# Subtest: pickup consumes two additional seconds without advancing the road clock
+ok 59 - pickup consumes two additional seconds without advancing the road clock
+  ---
+  duration_ms: 0.120375
+  type: 'test'
+  ...
+# Subtest: a first order starting at the merchant waits before beginning its road animation
+ok 60 - a first order starting at the merchant waits before beginning its road animation
+  ---
+  duration_ms: 0.300583
+  type: 'test'
+  ...
+# Subtest: one large frame crosses arrival, pickup and remaining road animation without overshooting
+ok 61 - one large frame crosses arrival, pickup and remaining road animation without overshooting
+  ---
+  duration_ms: 0.1305
+  type: 'test'
+  ...
+# Subtest: restored pickup waiting spends only the remaining eight tenths of a second
+ok 62 - restored pickup waiting spends only the remaining eight tenths of a second
+  ---
+  duration_ms: 0.371709
+  type: 'test'
+  ...
+# Subtest: zero, negative and non-finite frame times preserve both clocks
+ok 63 - zero, negative and non-finite frame times preserve both clocks
+  ---
+  duration_ms: 0.441625
+  type: 'test'
+  ...
+# Subtest: manual handoff stops at every player boundary even with a large frame
+ok 64 - manual handoff stops at every player boundary even with a large frame
+  ---
+  duration_ms: 0.647084
+  type: 'test'
+  ...
+# Subtest: pickup service preserves partial time and rejects repeat commands
+ok 65 - pickup service preserves partial time and rejects repeat commands
+  ---
+  duration_ms: 0.150792
+  type: 'test'
+  ...
+# Subtest: stored handoff must have consistent phase, movement and service progress
+ok 66 - stored handoff must have consistent phase, movement and service progress
+  ---
+  duration_ms: 0.365667
+  type: 'test'
+  ...
+# food-integration {"local":false,"total":2099,"counts":{"fragile":221,"normal":857,"durable":1021}}
+# food-integration {"local":true,"total":2099,"counts":{"fragile":225,"normal":827,"durable":1047}}
+# food-selector {"seed":1,"total":10000,"counts":{"fragile":1051,"normal":4109,"durable":4840}}
+# food-selector {"seed":817,"total":10000,"counts":{"fragile":1029,"normal":4026,"durable":4945}}
+# food-selector {"seed":20261029,"total":10000,"counts":{"fragile":994,"normal":4012,"durable":4994}}
+# food-selector {"seed":4294967295,"total":10000,"counts":{"fragile":972,"normal":4163,"durable":4865}}
+# Subtest: new fallback offers keep fragile food near ten percent
+ok 67 - new fallback offers keep fragile food near ten percent
+  ---
+  duration_ms: 39.738333
+  type: 'test'
+  ...
+# Subtest: new local offers keep fragile food near ten percent
+ok 68 - new local offers keep fragile food near ten percent
+  ---
+  duration_ms: 66.871333
+  type: 'test'
+  ...
+# Subtest: class boundaries select real foods without changing image or fragility identity
+ok 69 - class boundaries select real foods without changing image or fragility identity
+  ---
+  duration_ms: 0.153208
+  type: 'test'
+  ...
+# Subtest: diversity prefers unseen foods within the chosen class and safely reuses exhausted pools
+ok 70 - diversity prefers unseen foods within the chosen class and safely reuses exhausted pools
+  ---
+  duration_ms: 0.071625
+  type: 'test'
+  ...
+# Subtest: invalid samples, malformed weights and positive classes without foods fail explicitly
+ok 71 - invalid samples, malformed weights and positive classes without foods fail explicitly
+  ---
+  duration_ms: 1.522917
+  type: 'test'
+  ...
+# Subtest: four seeded long runs preserve class probabilities even with per-lobby diversity
+ok 72 - four seeded long runs preserve class probabilities even with per-lobby diversity
+  ---
+  duration_ms: 100.358583
+  type: 'test'
+  ...
+# Subtest: pre-patch idle, routes, running, collecting, arrived and done saves retain all drawn state without RNG
+not ok 73 - pre-patch idle, routes, running, collecting, arrived and done saves retain all drawn state without RNG
+  ---
+  duration_ms: 4.618667
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/food-selection.test.cjs:70:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    idle
+    + actual - expected
+    
+    + '{"version":4,"riderAnchor":null,"mapId":"b63bcdf0","player":{"cashCents":10000,"rating":80,"experience":0,"completedOrders":0,"vehicleTier":1,"stationLevel":1,"level":1},"offers":[{"id":"CC-11","from":0,"to":1,"food":"披萨 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":1},{"id":"CC-12","from":0,"to":1,"food":"汉堡 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":0.5},{"id":"CC-13","from":0,"to":1,"food":"轻食沙拉 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":0.5},{"id":"CC-14","from":0,"to":1,"food":"寿司 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":0.5},{"id":"CC-15","from":0,"to":1,"food":"蛋糕 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"fragile","demand":"door","weightKg":1},{"id":"CC-16","from":0,"to":1,"food":"奶茶 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"fragile","demand":"door","weightKg":0.5},{"id":"CC-17","from":0,"to":1,"food":"鸡腿饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-18","from":0,"to":1,"food":"牛肉饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-19","from":0,"to":1,"food":"红烧肉饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-20","from":0,"to":1,"food":"麻婆豆腐饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":1}],"currentNode":"a","sequence":21,"recent":[],"lobbyHistory":[1,1,1,1,1,1,1,1,1,1],"billing":{"version":1,"baselineOrders":0,"lastCompletedOrders":0,"startedDay":"2026-10-29","legacyStart":false,"days":{"2026-10-29":{"incomeCents":0,"orders":0,"good":0,"bad":0,"late":0,"metres":0,"onlineMs":60000}}},"tutorialComplete":false,"daily":{"day":"2026-10-29","used":1},"active":null}'
+    - '{"version":3,"mapId":"b63bcdf0","player":{"cashCents":10000,"rating":80,"experience":0,"completedOrders":0,"vehicleTier":1,"stationLevel":1,"level":1},"offers":[{"id":"CC-11","from":0,"to":1,"food":"披萨 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":1},{"id":"CC-12","from":0,"to":1,"food":"汉堡 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":0.5},{"id":"CC-13","from":0,"to":1,"food":"轻食沙拉 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":0.5},{"id":"CC-14","from":0,"to":1,"food":"寿司 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":0.5},{"id":"CC-15","from":0,"to":1,"food":"蛋糕 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"fragile","demand":"door","weightKg":1},{"id":"CC-16","from":0,"to":1,"food":"奶茶 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"fragile","demand":"door","weightKg":0.5},{"id":"CC-17","from":0,"to":1,"food":"鸡腿饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-18","from":0,"to":1,"food":"牛肉饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-19","from":0,"to":1,"food":"红烧肉饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-20","from":0,"to":1,"food":"麻婆豆腐饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":1}],"currentNode":"a","sequence":21,"recent":[],"lobbyHistory":[1,1,1,1,1,1,1,1,1,1],"billing":{"version":1,"baselineOrders":0,"lastCompletedOrders":0,"startedDay":"2026-10-29","legacyStart":false,"days":{"2026-10-29":{"incomeCents":0,"orders":0,"good":0,"bad":0,"late":0,"metres":0,"onlineMs":60000}}},"tutorialComplete":false,"daily":{"day":"2026-10-29","used":1},"active":null}'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '{"version":3,"mapId":"b63bcdf0","player":{"cashCents":10000,"rating":80,"experience":0,"completedOrders":0,"vehicleTier":1,"stationLevel":1,"level":1},"offers":[{"id":"CC-11","from":0,"to":1,"food":"披萨 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":1},{"id":"CC-12","from":0,"to":1,"food":"汉堡 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":0.5},{"id":"CC-13","from":0,"to":1,"food":"轻食沙拉 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":0.5},{"id":"CC-14","from":0,"to":1,"food":"寿司 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":0.5},{"id":"CC-15","from":0,"to":1,"food":"蛋糕 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"fragile","demand":"door","weightKg":1},{"id":"CC-16","from":0,"to":1,"food":"奶茶 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"fragile","demand":"door","weightKg":0.5},{"id":"CC-17","from":0,"to":1,"food":"鸡腿饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-18","from":0,"to":1,"food":"牛肉饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-19","from":0,"to":1,"food":"红烧肉饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-20","from":0,"to":1,"food":"麻婆豆腐饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":1}],"currentNode":"a","sequence":21,"recent":[],"lobbyHistory":[1,1,1,1,1,1,1,1,1,1],"billing":{"version":1,"baselineOrders":0,"lastCompletedOrders":0,"startedDay":"2026-10-29","legacyStart":false,"days":{"2026-10-29":{"incomeCents":0,"orders":0,"good":0,"bad":0,"late":0,"metres":0,"onlineMs":60000}}},"tutorialComplete":false,"daily":{"day":"2026-10-29","used":1},"active":null}'
+  actual: '{"version":4,"riderAnchor":null,"mapId":"b63bcdf0","player":{"cashCents":10000,"rating":80,"experience":0,"completedOrders":0,"vehicleTier":1,"stationLevel":1,"level":1},"offers":[{"id":"CC-11","from":0,"to":1,"food":"披萨 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":1},{"id":"CC-12","from":0,"to":1,"food":"汉堡 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":0.5},{"id":"CC-13","from":0,"to":1,"food":"轻食沙拉 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":0.5},{"id":"CC-14","from":0,"to":1,"food":"寿司 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":0.5},{"id":"CC-15","from":0,"to":1,"food":"蛋糕 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"fragile","demand":"door","weightKg":1},{"id":"CC-16","from":0,"to":1,"food":"奶茶 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"fragile","demand":"door","weightKg":0.5},{"id":"CC-17","from":0,"to":1,"food":"鸡腿饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-18","from":0,"to":1,"food":"牛肉饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-19","from":0,"to":1,"food":"红烧肉饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"durable","demand":"door","weightKg":1},{"id":"CC-20","from":0,"to":1,"food":"麻婆豆腐饭 · 1份","tag":"加急","feeCents":1600,"type":"urgent","fragility":"normal","demand":"door","weightKg":1}],"currentNode":"a","sequence":21,"recent":[],"lobbyHistory":[1,1,1,1,1,1,1,1,1,1],"billing":{"version":1,"baselineOrders":0,"lastCompletedOrders":0,"startedDay":"2026-10-29","legacyStart":false,"days":{"2026-10-29":{"incomeCents":0,"orders":0,"good":0,"bad":0,"late":0,"metres":0,"onlineMs":60000}}},"tutorialComplete":false,"daily":{"day":"2026-10-29","used":1},"active":null}'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/food-selection.test.cjs:77:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: translating both fingers moves the map in the same direction without changing zoom
+ok 74 - translating both fingers moves the map in the same direction without changing zoom
+  ---
+  duration_ms: 3.385917
+  type: 'test'
+  ...
+# Subtest: real drag, zoom, locate, route focus and following all apply viewport-aware clamps
+ok 75 - real drag, zoom, locate, route focus and following all apply viewport-aware clamps
+  ---
+  duration_ms: 1.134792
+  type: 'test'
+  ...
+# Subtest: legacy outside rider and route remain visible in a continuous compatibility camera
+ok 76 - legacy outside rider and route remain visible in a continuous compatibility camera
+  ---
+  duration_ms: 0.171708
+  type: 'test'
+  ...
+# Subtest: historic edge addresses are not drawn as ordinary operating dots
+ok 77 - historic edge addresses are not drawn as ordinary operating dots
+  ---
+  duration_ms: 0.21575
+  type: 'test'
+  ...
+# Subtest: every operating address can be located with its full rider and destination pin visible
+ok 78 - every operating address can be located with its full rider and destination pin visible
+  ---
+  duration_ms: 433.029667
+  type: 'test'
+  ...
+# Subtest: responsive layout keeps the actual hundred-metre camera inside town on narrow tall screens
+ok 79 - responsive layout keeps the actual hundred-metre camera inside town on narrow tall screens
+  ---
+  duration_ms: 63.534583
+  type: 'test'
+  ...
+# Subtest: spreading two fingers around a stationary midpoint keeps that map point pinned
+ok 80 - spreading two fingers around a stationary midpoint keeps that map point pinned
+  ---
+  duration_ms: 0.393792
+  type: 'test'
+  ...
+# Subtest: the pinch midpoint remains stable when zoom reaches its upper limit
+ok 81 - the pinch midpoint remains stable when zoom reaches its upper limit
+  ---
+  duration_ms: 0.251708
+  type: 'test'
+  ...
+# Subtest: locating for departure restores thirty metres and all zoom paths stay within ten to one hundred metres
+ok 82 - locating for departure restores thirty metres and all zoom paths stay within ten to one hundred metres
+  ---
+  duration_ms: 0.486625
+  type: 'test'
+  ...
+# Subtest: explicit default locate restores actual 30m scale and follows current rider
+ok 83 - explicit default locate restores actual 30m scale and follows current rider
+  ---
+  duration_ms: 0.527834
+  type: 'test'
+  ...
+# Subtest: explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+ok 84 - explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+  ---
+  duration_ms: 0.386209
+  type: 'test'
+  ...
+# Subtest: animated locate retargets from current view and cancels on drag or lifecycle stop
+ok 85 - animated locate retargets from current view and cancels on drag or lifecycle stop
+  ---
+  duration_ms: 0.097375
+  type: 'test'
+  ...
+# Subtest: static rider stays visible while world center converges monotonically
+ok 86 - static rider stays visible while world center converges monotonically
+  ---
+  duration_ms: 0.1265
+  type: 'test'
+  ...
+# Subtest: ordinary and edge-visible rider converge without overshoot using fixed final camera offsets
+ok 87 - ordinary and edge-visible rider converge without overshoot using fixed final camera offsets
+  ---
+  duration_ms: 0.300916
+  type: 'test'
+  ...
+# Subtest: automatic route overview fits every bend below HUD while manual locate keeps 30m
+ok 88 - automatic route overview fits every bend below HUD while manual locate keeps 30m
+  ---
+  duration_ms: 0.158125
+  type: 'test'
+  ...
+# Subtest: manual pan in planning overview survives capture and layout restoration at the actual low scale
+ok 89 - manual pan in planning overview survives capture and layout restoration at the actual low scale
+  ---
+  duration_ms: 0.182625
+  type: 'test'
+  ...
+# Subtest: locating from the new low planning scale retains smooth projected convergence to 30m
+ok 90 - locating from the new low planning scale retains smooth projected convergence to 30m
+  ---
+  duration_ms: 0.153708
+  type: 'test'
+  ...
+# Subtest: compact avatar has no nickname and XP follows displayed width; capsules hug full numeric text
+ok 91 - compact avatar has no nickname and XP follows displayed width; capsules hug full numeric text
+  ---
+  duration_ms: 317.136958
+  type: 'test'
+  ...
+# Subtest: XP presentation follows county thresholds and updates the actual fill through level transitions
+ok 92 - XP presentation follows county thresholds and updates the actual fill through level transitions
+  ---
+  duration_ms: 94.707458
+  type: 'test'
+  ...
+# Subtest: notch and home indicator insets move real profile and all five menu touch targets into the safe rect
+ok 93 - notch and home indicator insets move real profile and all five menu touch targets into the safe rect
+  ---
+  duration_ms: 84.030459
+  type: 'test'
+  ...
+# Subtest: safe-area changes restore normal spacing while preserving an open bill and saved game state
+ok 94 - safe-area changes restore normal spacing while preserving an open bill and saved game state
+  ---
+  duration_ms: 60.716292
+  type: 'test'
+  ...
+# Subtest: delivery sheet, rider locator and map attribution rise together above the bottom safe area
+ok 95 - delivery sheet, rider locator and map attribution rise together above the bottom safe area
+  ---
+  duration_ms: 51.297167
+  type: 'test'
+  ...
+# Subtest: asymmetric side insets keep menus and modal actions inside the usable screen
+ok 96 - asymmetric side insets keep menus and modal actions inside the usable screen
+  ---
+  duration_ms: 46.439292
+  type: 'test'
+  ...
+# Subtest: the real order phone fits between the notch and home indicator in a short viewport
+ok 97 - the real order phone fits between the notch and home indicator in a short viewport
+  ---
+  duration_ms: 50.124833
+  type: 'test'
+  ...
+# Subtest: letterboxing outside the game and unavailable safe-area readings do not add duplicate padding
+ok 98 - letterboxing outside the game and unavailable safe-area readings do not add duplicate padding
+  ---
+  duration_ms: 44.773583
+  type: 'test'
+  ...
+# Subtest: portrait-locked canvas rotation maps physical notch and gesture edges before UI layout
+ok 99 - portrait-locked canvas rotation maps physical notch and gesture edges before UI layout
+  ---
+  duration_ms: 75.5495
+  type: 'test'
+  ...
+# Subtest: the real map footer keeps scale line, scale label and attribution inside horizontal safe bounds
+ok 100 - the real map footer keeps scale line, scale label and attribution inside horizontal safe bounds
+  ---
+  duration_ms: 51.115167
+  type: 'test'
+  ...
+# Subtest: the five navigation entries keep unavailable features inert and claim opens the phone
+ok 101 - the five navigation entries keep unavailable features inert and claim opens the phone
+  ---
+  duration_ms: 37.869
+  type: 'test'
+  ...
+# Subtest: station moves to the map lower left while bills occupy the rightmost bottom entry
+ok 102 - station moves to the map lower left while bills occupy the rightmost bottom entry
+  ---
+  duration_ms: 40.927292
+  type: 'test'
+  ...
+# Subtest: foreground time is counted while idle but background and the closed interval are excluded
+ok 103 - foreground time is counted while idle but background and the closed interval are excluded
+  ---
+  duration_ms: 36.569791
+  type: 'test'
+  ...
+# Subtest: an already open bill refreshes both its date and daily values across midnight
+ok 104 - an already open bill refreshes both its date and daily values across midnight
+  ---
+  duration_ms: 34.726375
+  type: 'test'
+  ...
+# Subtest: the map keeps only its lower-right rider locator and hides routine saved/shift prompts
+ok 105 - the map keeps only its lower-right rider locator and hides routine saved/shift prompts
+  ---
+  duration_ms: 44.259
+  type: 'test'
+  ...
+# Subtest: a save error remains visible when claiming an order rebuilds the map layout
+ok 106 - a save error remains visible when claiming an order rebuilds the map layout
+  ---
+  duration_ms: 36.915
+  type: 'test'
+  ...
+# Subtest: the map navigation opens unlockable regions without spending or moving the rider
+ok 107 - the map navigation opens unlockable regions without spending or moving the rider
+  ---
+  duration_ms: 37.547709
+  type: 'test'
+  ...
+# Subtest: opening the map catalog during delivery does not hide the required arrival demand
+not ok 108 - opening the map catalog during delivery does not hide the required arrival demand
+  ---
+  duration_ms: 1.4405
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:184:1'
+  failureType: 'testCodeFailure'
+  error: 'Already carrying an order'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.accept (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:174:19)
+    doorstep (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:199:4)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:185:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: profile replaces the title with identity and live balances while locked passive income is absent
+ok 109 - profile replaces the title with identity and live balances while locked passive income is absent
+  ---
+  duration_ms: 33.691125
+  type: 'test'
+  ...
+# Subtest: the vehicle entry opens the real garage and an unaffordable upgrade has no tap handler
+ok 110 - the vehicle entry opens the real garage and an unaffordable upgrade has no tap handler
+  ---
+  duration_ms: 32.869792
+  type: 'test'
+  ...
+# Subtest: merchant waiting communicates progress and running navigation cannot accept or upgrade
+not ok 111 - merchant waiting communicates progress and running navigation cannot accept or upgrade
+  ---
+  duration_ms: 1.324209
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:212:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'pickup'
+    - 'collecting'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'collecting'
+  actual: 'pickup'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:213:70)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: doorstep demand opens a required modal with no bottom choices and cannot be skipped
+not ok 112 - doorstep demand opens a required modal with no bottom choices and cannot be skipped
+  ---
+  duration_ms: 0.98475
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:220:1'
+  failureType: 'testCodeFailure'
+  error: 'Already carrying an order'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.accept (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:174:19)
+    doorstep (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:199:4)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:221:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: restoring and resizing a waiting delivery reopens its demand modal without early settlement
+not ok 113 - restoring and resizing a waiting delivery reopens its demand modal without early settlement
+  ---
+  duration_ms: 2.139041
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:230:1'
+  failureType: 'testCodeFailure'
+  error: 'Already carrying an order'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.accept (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:174:19)
+    doorstep (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:199:4)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:231:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: damage event appears in transit once, survives layout rebuilding, freezes in background and expires after two seconds
+not ok 114 - damage event appears in transit once, survives layout rebuilding, freezes in background and expires after two seconds
+  ---
+  duration_ms: 35.037709
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:237:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:241:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: short-screen bills and receipts scroll their complete content with fixed safe actions
+not ok 115 - short-screen bills and receipts scroll their complete content with fixed safe actions
+  ---
+  duration_ms: 33.35325
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:249:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of null (reading 'summary')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:257:37)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: regrouped billing keeps live values attached to their original metrics
+ok 116 - regrouped billing keeps live values attached to their original metrics
+  ---
+  duration_ms: 31.457625
+  type: 'test'
+  ...
+# Subtest: a valid long food description remains complete above routes and in delivery on a narrow device
+not ok 117 - a valid long food description remains complete above routes and in delivery on a narrow device
+  ---
+  duration_ms: 36.853666
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:271:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(done)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:283:154)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: an open bill keeps its scroll position and readable wallet row when the balance grows
+ok 118 - an open bill keeps its scroll position and readable wallet row when the balance grows
+  ---
+  duration_ms: 35.730625
+  type: 'test'
+  ...
+# Subtest: receipt user dismiss finishes display only and restores an idle home without reopening lobby
+not ok 119 - receipt user dismiss finishes display only and restores an idle home without reopening lobby
+  ---
+  duration_ms: 32.283541
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:297:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of null (reading 'children')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    Object.walk (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:37:24)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:299:124)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: receipt continue and lobby close return idle without reissuing settled assets
+not ok 120 - receipt continue and lobby close return idle without reissuing settled assets
+  ---
+  duration_ms: 32.55375
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:304:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of null (reading 'children')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    Object.walk (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:37:24)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:304:287)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: receipt dismissal preserves the existing visible save failure protocol
+not ok 121 - receipt dismissal preserves the existing visible save failure protocol
+  ---
+  duration_ms: 32.046792
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:305:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of null (reading 'children')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    Object.walk (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:37:24)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-hud.test.cjs:305:315)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: CSS 12px header edges follow SHOW_ALL game scale rather than design pixels
+ok 122 - CSS 12px header edges follow SHOW_ALL game scale rather than design pixels
+  ---
+  duration_ms: 34.323833
+  type: 'test'
+  ...
+# Subtest: explicit locator forwards default zoom reset to the real camera
+ok 123 - explicit locator forwards default zoom reset to the real camera
+  ---
+  duration_ms: 32.5805
+  type: 'test'
+  ...
+# Subtest: claim circle grows by 1.3 with proportional type inside a stable circular hit root
+ok 124 - claim circle grows by 1.3 with proportional type inside a stable circular hit root
+  ---
+  duration_ms: 33.103042
+  type: 'test'
+  ...
+# Subtest: phone blue header includes status bar and has a separate shaded chassis
+ok 125 - phone blue header includes status bar and has a separate shaded chassis
+  ---
+  duration_ms: 33.918541
+  type: 'test'
+  ...
+# Subtest: rebuilding a planning order keeps route overview instead of overwriting it with rider locate
+ok 126 - rebuilding a planning order keeps route overview instead of overwriting it with rider locate
+  ---
+  duration_ms: 34.673875
+  type: 'test'
+  ...
+# Subtest: order sheet closes and reopens without changing the order, with twelve CSS pixels above the circular menu
+ok 127 - order sheet closes and reopens without changing the order, with twelve CSS pixels above the circular menu
+  ---
+  duration_ms: 38.944917
+  type: 'test'
+  ...
+# Subtest: routes obey one-way streets even when the reverse is shorter
+ok 128 - routes obey one-way streets even when the reverse is shorter
+  ---
+  duration_ms: 1.528542
+  type: 'test'
+  ...
+# Subtest: geometrically coincident bridge or disconnected nodes do not create junctions
+ok 129 - geometrically coincident bridge or disconnected nodes do not create junctions
+  ---
+  duration_ms: 0.395667
+  type: 'test'
+  ...
+# Subtest: animation uses segment durations and reaches exact destination
+ok 130 - animation uses segment durations and reaches exact destination
+  ---
+  duration_ms: 0.180875
+  type: 'test'
+  ...
+# Subtest: smooth preference can trade distance for a lower-risk path
+ok 131 - smooth preference can trade distance for a lower-risk path
+  ---
+  duration_ms: 0.275416
+  type: 'test'
+  ...
+# Subtest: all fictional POIs are reachable in both directions with paths on imported roads
+ok 132 - all fictional POIs are reachable in both directions with paths on imported roads
+  ---
+  duration_ms: 339.440083
+  type: 'test'
+  ...
+# Subtest: the delivery map exposes at least eighty distinct customer road addresses
+ok 133 - the delivery map exposes at least eighty distinct customer road addresses
+  ---
+  duration_ms: 371.2315
+  type: 'test'
+  ...
+# Subtest: the first sample order offers distinct routes with an observable time and risk tradeoff
+ok 134 - the first sample order offers distinct routes with an observable time and risk tradeoff
+  ---
+  duration_ms: 30.272625
+  type: 'test'
+  ...
+# Subtest: mid-road rider anchor stays on the exact directed segment and exposes only legal exits
+ok 135 - mid-road rider anchor stays on the exact directed segment and exposes only legal exits
+  ---
+  duration_ms: 0.693334
+  type: 'test'
+  ...
+# Subtest: a cancelled trip resumes from its precise road position through legal one-way exits
+ok 136 - a cancelled trip resumes from its precise road position through legal one-way exits
+  ---
+  duration_ms: 0.350583
+  type: 'test'
+  ...
+# Subtest: route position moves continuously from a stored road prefix and can be re-anchored within it
+ok 137 - route position moves continuously from a stored road prefix and can be re-anchored within it
+  ---
+  duration_ms: 0.283875
+  type: 'test'
+  ...
+# Subtest: all ten vehicle grades use the corresponding supplied top-view image
+ok 138 - all ten vehicle grades use the corresponding supplied top-view image
+  ---
+  duration_ms: 32.692333
+  type: 'test'
+  ...
+# Subtest: the top-view front follows east, north, west and south road headings
+ok 139 - the top-view front follows east, north, west and south road headings
+  ---
+  duration_ms: 43.717042
+  type: 'test'
+  ...
+# Subtest: changing from D to D+ before the shared atlas resolves displays D+ art
+ok 140 - changing from D to D+ before the shared atlas resolves displays D+ art
+  ---
+  duration_ms: 69.860667
+  type: 'test'
+  ...
+# Subtest: a layout rebuild reuses the image and discards callbacks for the destroyed map
+ok 141 - a layout rebuild reuses the image and discards callbacks for the destroyed map
+  ---
+  duration_ms: 41.836125
+  type: 'test'
+  ...
+# Subtest: a failed vehicle image keeps the fallback and can be retried
+ok 142 - a failed vehicle image keeps the fallback and can be retried
+  ---
+  duration_ms: 23.061459
+  type: 'test'
+  ...
+# Subtest: side art caches loads and ignores a closed garage while preserving its fallback on failure
+ok 143 - side art caches loads and ignores a closed garage while preserving its fallback on failure
+  ---
+  duration_ms: 18.095542
+  type: 'test'
+  ...
+# Subtest: color parsing preserves alpha in RGBA and opacity in existing RGB colors
+ok 144 - color parsing preserves alpha in RGBA and opacity in existing RGB colors
+  ---
+  duration_ms: 2.348333
+  type: 'test'
+  ...
+# Subtest: receipt dialog draws a 60 percent black shade while its card stays opaque
+ok 145 - receipt dialog draws a 60 percent black shade while its card stays opaque
+  ---
+  duration_ms: 4.188958
+  type: 'test'
+  ...
+# Subtest: transparent shade still blocks map input and closes the dialog on touch
+ok 146 - transparent shade still blocks map input and closes the dialog on touch
+  ---
+  duration_ms: 0.246291
+  type: 'test'
+  ...
+# Subtest: the lobby exposes ten stable nearby orders and opening it does not move the rider
+ok 147 - the lobby exposes ten stable nearby orders and opening it does not move the rider
+  ---
+  duration_ms: 12.343
+  type: 'test'
+  ...
+# Subtest: an accepted route starts at the rider, reaches the restaurant, then delivers to the customer
+ok 148 - an accepted route starts at the rider, reaches the restaurant, then delivers to the customer
+  ---
+  duration_ms: 3.1425
+  type: 'test'
+  ...
+# Subtest: delivery keeps advancing and settlement preserves nearby candidates while keeping ten orders
+not ok 149 - delivery keeps advancing and settlement preserves nearby candidates while keeping ten orders
+  ---
+  duration_ms: 8.147125
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/order-book.test.cjs:25:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(book.active.elapsed>elapsed)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/order-book.test.cjs:29:26)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: continuous deliveries visit many destinations and never exceed the animation limit
+not ok 150 - continuous deliveries visit many destinations and never exceed the animation limit
+  ---
+  duration_ms: 4.144708
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/order-book.test.cjs:35:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'running' !== 'done'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'done'
+  actual: 'running'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/order-book.test.cjs:39:116)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: the actual city keeps ordinary dispatch and all offered route choices within ten kilometres
+not ok 151 - the actual city keeps ordinary dispatch and all offered route choices within ten kilometres
+  ---
+  duration_ms: 925.94475
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/order-book.test.cjs:44:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'running' !== 'done'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'done'
+  actual: 'running'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/order-book.test.cjs:63:70)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: nearby dispatch uses both road legs and rejects a restaurant that is close only in a straight line
+ok 152 - nearby dispatch uses both road legs and rejects a restaurant that is close only in a straight line
+  ---
+  duration_ms: 0.449542
+  type: 'test'
+  ...
+# Subtest: the next delivery starts at the previous customer and switches from pickup to delivery at the restaurant
+not ok 153 - the next delivery starts at the previous customer and switches from pickup to delivery at the restaurant
+  ---
+  duration_ms: 1.26975
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/order-book.test.cjs:80:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    '0' !== '13'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '13'
+  actual: '0'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/order-book.test.cjs:85:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: new source and quantity survive reload; old absent fields remain absent; malformed metadata is rejected
+ok 154 - new source and quantity survive reload; old absent fields remain absent; malformed metadata is rejected
+  ---
+  duration_ms: 1.667166
+  type: 'test'
+  ...
+# Subtest: lobby deadline agrees with the accepted frozen legal-route deadline for each candidate
+ok 155 - lobby deadline agrees with the accepted frozen legal-route deadline for each candidate
+  ---
+  duration_ms: 1.249666
+  type: 'test'
+  ...
+# Subtest: source is stable near twenty percent and quantity/remarks use actual offer semantics
+ok 156 - source is stable near twenty percent and quantity/remarks use actual offer semantics
+  ---
+  duration_ms: 1.817208
+  type: 'test'
+  ...
+# Subtest: manual delivery saves each boundary and cannot skip pickup or departure
+ok 157 - manual delivery saves each boundary and cannot skip pickup or departure
+  ---
+  duration_ms: 2.727458
+  type: 'test'
+  ...
+# Subtest: free cancellation mid-road retains the exact point, candidates and legal next route after reload
+ok 158 - free cancellation mid-road retains the exact point, candidates and legal next route after reload
+  ---
+  duration_ms: 5.754792
+  type: 'test'
+  ...
+# Subtest: direct delivery asks to present once; rebuild and manual reopen never award again
+not ok 159 - direct delivery asks to present once; rebuild and manual reopen never award again
+  ---
+  duration_ms: 5.223458
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/receipt-presentation.test.cjs:11:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    'running' !== 'done'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'done'
+  actual: 'running'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/receipt-presentation.test.cjs:15:40)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: door choice precedes popup, and a reloaded receipt presents without recomputing its award
+not ok 160 - door choice precedes popup, and a reloaded receipt presents without recomputing its award
+  ---
+  duration_ms: 4.9235
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/receipt-presentation.test.cjs:24:1'
+  failureType: 'testCodeFailure'
+  error: 'Already carrying an order'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.accept (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:174:19)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/receipt-presentation.test.cjs:27:7)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: normal operating points leave 450 metres at every edge and concentrate three quarters of places in built-up cells
+ok 161 - normal operating points leave 450 metres at every edge and concentrate three quarters of places in built-up cells
+  ---
+  duration_ms: 289.73125
+  type: 'test'
+  ...
+# Subtest: city lobbies favour urban orders with sparse remote and cross-town trips while keeping local travel times
+not ok 162 - city lobbies favour urban orders with sparse remote and cross-town trips while keeping local travel times
+  ---
+  duration_ms: 1294.58375
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/stage-one-feedback.test.cjs:15:1'
+  failureType: 'testCodeFailure'
+  error: 'Already carrying an order'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    OrderBook.accept (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-map-test-t8ZuUX/map-sample/OrderBook.js:174:19)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/stage-one-feedback.test.cjs:27:44)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: arrival at the merchant holds for two real seconds and resumes the remaining hold after reload
+not ok 163 - arrival at the merchant holds for two real seconds and resumes the remaining hold after reload
+  ---
+  duration_ms: 1.218542
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/stage-one-feedback.test.cjs:36:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'pickup'
+    - 'collecting'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'collecting'
+  actual: 'pickup'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/stage-one-feedback.test.cjs:39:26)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: starting at the merchant still collects the food for two seconds without inflating travel minutes
+not ok 164 - starting at the merchant still collects the food for two seconds without inflating travel minutes
+  ---
+  duration_ms: 0.493209
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/stage-one-feedback.test.cjs:47:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'pickup'
+    - 'collecting'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'collecting'
+  actual: 'pickup'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/stage-one-feedback.test.cjs:49:79)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: the previous v3 activity keeps its road clock, drawn outcome and receipt during the new-area migration
+ok 165 - the previous v3 activity keeps its road clock, drawn outcome and receipt during the new-area migration
+  ---
+  duration_ms: 1529.346084
+  type: 'test'
+  ...
+# Subtest: the first tap activates once even when the pointer moves by one pixel
+ok 166 - the first tap activates once even when the pointer moves by one pixel
+  ---
+  duration_ms: 0.596583
+  type: 'test'
+  ...
+# Subtest: a zero-distance move event does not turn a tap into a drag
+ok 167 - a zero-distance move event does not turn a tap into a drag
+  ---
+  duration_ms: 0.08075
+  type: 'test'
+  ...
+# Subtest: a real list drag cannot accept an order even when it returns near the start
+ok 168 - a real list drag cannot accept an order even when it returns near the start
+  ---
+  duration_ms: 0.051333
+  type: 'test'
+  ...
+# Subtest: a cancelled touch cannot activate on a later end event
+ok 169 - a cancelled touch cannot activate on a later end event
+  ---
+  duration_ms: 0.050459
+  type: 'test'
+  ...
+# Subtest: touch end without a matching press never activates a button
+ok 170 - touch end without a matching press never activates a button
+  ---
+  duration_ms: 0.042042
+  type: 'test'
+  ...
+# Subtest: a different finger cannot finish the active button press
+ok 171 - a different finger cannot finish the active button press
+  ---
+  duration_ms: 0.039041
+  type: 'test'
+  ...
+# Subtest: pressing preserves the existing hit area so edge taps are not cancelled by scaling
+ok 172 - pressing preserves the existing hit area so edge taps are not cancelled by scaling
+  ---
+  duration_ms: 0.320916
+  type: 'test'
+  ...
+# Subtest: a distant release is rejected even when the platform omits move events
+ok 173 - a distant release is rejected even when the platform omits move events
+  ---
+  duration_ms: 0.074709
+  type: 'test'
+  ...
+# Subtest: each separate tap activates once and duplicate releases do not repeat an action
+ok 174 - each separate tap activates once and duplicate releases do not repeat an action
+  ---
+  duration_ms: 0.236208
+  type: 'test'
+  ...
+# Subtest: the mouse touch identifier zero is a valid press
+ok 175 - the mouse touch identifier zero is a valid press
+  ---
+  duration_ms: 0.231042
+  type: 'test'
+  ...
+# Subtest: a new press can recover when the platform omitted the previous release
+ok 176 - a new press can recover when the platform omitted the previous release
+  ---
+  duration_ms: 0.071208
+  type: 'test'
+  ...
+# Subtest: press changes only the visual subtree immediately and cancel restores it
+ok 177 - press changes only the visual subtree immediately and cancel restores it
+  ---
+  duration_ms: 0.055292
+  type: 'test'
+  ...
+# Subtest: drag immediately restores visual and cannot activate on return
+ok 178 - drag immediately restores visual and cannot activate on return
+  ---
+  duration_ms: 0.029666
+  type: 'test'
+  ...
+# Subtest: deactivation clears the active touch and restores visual
+ok 179 - deactivation clears the active touch and restores visual
+  ---
+  duration_ms: 0.027584
+  type: 'test'
+  ...
+# Subtest: destroy clears touch and visual without dispatching the action
+ok 180 - destroy clears touch and visual without dispatching the action
+  ---
+  duration_ms: 0.028416
+  type: 'test'
+  ...
+# Subtest: release calls action synchronously while its visual recovery is pending
+ok 181 - release calls action synchronously while its visual recovery is pending
+  ---
+  duration_ms: 0.043334
+  type: 'test'
+  ...
+# Subtest: an inactive root cannot begin or finish a press
+ok 182 - an inactive root cannot begin or finish a press
+  ---
+  duration_ms: 0.026084
+  type: 'test'
+  ...
+1..182
+# tests 182
+# suites 0
+# pass 143
+# fail 39
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10105.02775

@@ -1,0 +1,17 @@
+### Result
+[{"width":720,"height":1280,"safe":true,"routeCount":3,"scrollMax":0,"viewport":{"x":40,"y":310.6,"w":640,"h":366},"routes":[{"x":40,"y":328.6,"w":208,"h":124},{"x":256,"y":328.6,"w":208,"h":124},{"x":472,"y":328.6,"w":208,"h":124}],"scale":0.19509614536827008,"mapHeight":519.4000000000001,"vehicle":{"x":517.8257812981649,"y":969.5279445189399,"w":128.30178425640224,"h":80.48374818268144},"pins":[{"x":565.1202510440129,"y":971.138301845959,"w":46,"h":48},{"x":268.6170312362234,"y":915.0813263972939,"w":46,"h":48}],"station":false,"locate":false,"storage":[{"method":"setItem","key":"storage"}]}]
+### Ran Playwright code
+```js
+await (async(page)=>{
+ const result=[];for(const [width,height,safe]of [[720,1280,true]]){
+  await page.setViewportSize({width,height});await page.goto('http://127.0.0.1:4191/'+(safe?'?safe':''));await page.waitForFunction(()=>window.uiFixture?.ready||window.uiFixture?.error);await page.waitForTimeout(350);
+  await page.evaluate(async()=>{const cc=await System.import('cc'),s=window.uiFixture.sample,walk=n=>[n,...n.children.flatMap(walk)],click=n=>{const e={getID:()=>1,getUILocation:()=>({x:0,y:0})};n.emit(cc.Node.EventType.TOUCH_START,e);n.emit(cc.Node.EventType.TOUCH_END,e);};click(walk(s.root).find(n=>n.name==='Nav-orders'));let offer=null;for(const p of s.book.list()){if(!p.available||p.offer.demand!=='door')continue;s.book.accept(p.offer.id);const count=s.book.active.routes.length;s.book.cancel();if(count===3){offer=p;break;}}if(!offer)throw Error('no real three-route door offer');const card=walk(s.phone.node).find(n=>n.name==='Offer-'+offer.offer.id);click(card.children.find(n=>n.name.startsWith('Button-')));});
+  await page.waitForTimeout(350);await page.screenshot({path:'docs/reviews/m1-compact-handoff/screenshots/door-routes-'+width+(safe?'-safe':'')+'.png'});
+  result.push(await page.evaluate(async({width,height,safe})=>{const cc=await System.import('cc'),s=window.uiFixture.sample,walk=n=>[n,...n.children.flatMap(walk)],nodes=walk(s.root),find=n=>nodes.find(x=>x.name===n),rect=n=>{const r=n.getComponent(cc.UITransform).getBoundingBoxToWorld();return {x:r.x,y:r.y,w:r.width,h:r.height};},viewport=find('DeliverySheet').getChildByName('ScrollableContent'),sv=viewport.getComponent(cc.ScrollView),v=rect(viewport),bounds=nodes.filter(n=>n.name.startsWith('Route-')).map(rect),city=s.city,pins=[city.startPin,city.endPin].map(n=>{const u=n.getComponent(cc.UITransform),a=u.convertToWorldSpaceAR(new cc.Vec3(-23,-4,0)),b=u.convertToWorldSpaceAR(new cc.Vec3(23,44,0));return {x:a.x,y:a.y,w:b.x-a.x,h:b.y-a.y};});return {width,height,safe,routeCount:bounds.length,scrollMax:sv.getMaxScrollOffset().y,viewport:v,routes:bounds,scale:city.scale,mapHeight:city.mapHeight,vehicle:rect(walk(city.rider).find(n=>n.name==='VehicleTopView')),pins,station:find('StationEntry').active,locate:find('FollowRider').active,storage:window.uiFixture.storageAttempts.map(({method,key})=>({method,key}))};},{width,height,safe}));
+ }
+ return result;
+}
+)(page);
+```
+### Events
+- New console entries: .playwright-cli/console-2026-10-30T00-43-10-088Z.log#L15

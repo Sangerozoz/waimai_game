@@ -1,0 +1,75 @@
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -389,7 +389,7 @@
+     const width=Math.min(684,720-insets.left-insets.right-36),height=Math.min(requestedHeight,screenHeight-insets.top-insets.bottom-36);
+     const card=box(layer,'DialogCard',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.paper,28);card.addComponent(BlockInputEvents);
+     const heading=box(card,'DialogHeader',0,height/2-65,width-12,126,C.violet,26);skin(heading,'panel-violet');
+-    const m=this.metrics(),headingText=readable(card,title,-60,height/2-64,m.body+4,'#FFFFFF',width-180,true,'left',70);outline(headingText,'#4B329A');
++    const m=this.metrics(),headingText=readable(card,title,kind==='receipt'?0:-60,height/2-64,m.body+4,'#FFFFFF',width-180,true,kind==='receipt'?'center':'left',70);outline(headingText,'#4B329A');
+     if(dismissible)closeButton(card,width/2-55,height/2-64,64,()=>this.dismissDialog());
+     return {layer,card,width,height,top:height/2-132,bottom:-height/2+24};
+   }
+@@ -417,14 +417,20 @@
+     const status=[receipt.lateSeconds>0?'晚到':'准时',receipt.damage==='none'?'餐品完好':'餐品损坏',offer.demand==='door'?(receipt.outcome.doorAnswer?'按备注':'未按备注'):'无交付要求'].join(' · ');
+     let parts:ReturnType<typeof receiptIncomeBreakdown>=null;try{parts=receiptIncomeBreakdown(offer,receipt);}catch(_){/* Old receipt without sufficient data: show the actual result. */}
+     const effect=(label:string,cents:number)=>`${label}影响收益${cents>0?'−':'+'}¥${(Math.abs(cents)/100).toFixed(2)}`;
+-    const entries=[{text:'本单收益 ¥'+(receipt.incomeCents/100).toFixed(2),size:m.amount+12,bold:true,color:'#795020'},
++    const income='¥'+(receipt.incomeCents/100).toFixed(2);
++    let incomeSize=m.amount+12;
++    const context=typeof document!=='undefined'&&document.createElement?document.createElement('canvas').getContext('2d'):null;
++    const incomeWidth=(size:number)=>{if(context){context.font=`bold ${size}px Arial Rounded MT Bold, sans-serif`;return context.measureText(income).width;}return income.length*size*.62;};
++    while(incomeSize>1&&incomeWidth(incomeSize)>inner-8)incomeSize--;
++    const entries=[{text:'本单收益',size:m.body,bold:true,color:'#795020'},
++      {text:income,size:incomeSize,bold:true,color:'#795020'},
+       {text:status,size:m.body},...(parts&&parts.lateImpact?[{text:effect('晚到',parts.lateImpact),size:m.body}]:[]),
+       ...(parts&&parts.damageImpact?[{text:effect('餐损',parts.damageImpact),size:m.body}]:[]),
+       {text:`评价 ${receipt.ratingDelta>=0?'+':''}${receipt.ratingDelta} · 经验 +${receipt.experienceGained}`,size:m.body,bold:true}];
+     const heights=entries.map(row=>textHeight(row.text,row.size,inner)+12),contentHeight=heights.reduce((a,b)=>a+b,0)+12;
+     const {card,height,top,bottom}=this.dialog('配送结算',contentHeight+m.action+180,'receipt');
+     const content=scrollContent(card,inner,top,bottom+m.action+24,contentHeight);
+-    let offset=0;entries.forEach((row,i)=>{readable(content,row.text,0,-offset-heights[i]/2,row.size,row.color||C.ink,inner,!!row.bold,'left',heights[i]);offset+=heights[i];});
++    let offset=0;entries.forEach((row,i)=>{readable(content,row.text,0,-offset-heights[i]/2,row.size,row.color||C.ink,inner,!!row.bold,'center',heights[i]);offset+=heights[i];});
+     this.action(card,'确认，继续接单',0,-height/2+24+m.action/2,inner,()=>this.continueOrders());
+   }
+   private continueOrders():void {
+--- before/CompactOrderInfo.ts
++++ after/CompactOrderInfo.ts
+@@ -13,25 +13,33 @@
+  const label=readable(parent,text,x,y,size,fill,width,bold,align,height);label.lineHeight=Math.ceil(size*1.18);
+ }
+ 
++// Match SampleUI's actual web font; reserve the food column before fitting long prices.
++function amountLayout(fee:string,size:number,width:number):{price:number;size:number} {
++ const context=typeof document!=='undefined'&&document.createElement?document.createElement('canvas').getContext('2d'):null;
++ const measure=(fontSize:number)=>{if(context){context.font=`bold ${fontSize}px Arial Rounded MT Bold, sans-serif`;return context.measureText(fee).width;}return fee.length*fontSize*.62;};
++ const price=Math.min(Math.max(210,Math.ceil(measure(size))+8),Math.max(100,width-88-24-100));
++ while(size>1&&measure(size)>price-8)size--;
++ return {price,size};
++}
+ export interface CompactOrder {offer:DeliveryOffer;from:string;to:string;metres:number|null}
+ export function compactOrderHeight(data:CompactOrder,width:number,screenHeight:number):number {
+- const m=presentationMetrics(screenHeight),image=88,price=210,middle=Math.max(100,width-image-price-24),side=(width-54)/2;
+- const foodHeight=Math.max(image,compactHeight(foodDescription(data.offer),m.body,middle)+compactHeight(`${data.offer.weightKg}kg · ${orderCautions(data.offer)}`,m.aux,middle),compactHeight('¥'+(data.offer.feeCents/100).toFixed(2),m.amount,price)+compactHeight(data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',m.aux,price));
++ const m=presentationMetrics(screenHeight),image=88,amount=amountLayout('¥'+(data.offer.feeCents/100).toFixed(2),m.amount,width),price=amount.price,middle=Math.max(100,width-image-price-24),side=(width-54)/2;
++ const foodHeight=Math.max(image,compactHeight(foodDescription(data.offer),m.body,middle)+compactHeight(`${data.offer.weightKg}kg · ${orderCautions(data.offer)}`,m.aux,middle),compactHeight('¥'+(data.offer.feeCents/100).toFixed(2),amount.size,price)+compactHeight(data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',m.aux,price));
+  const addressHeight=Math.max(compactHeight('取餐\n'+data.from,m.aux,side),compactHeight('送达\n'+data.to,m.aux,side));
+  const note=buyerRemark(data.offer),noteHeight=note?compactHeight('备注：'+note,m.aux,width):0;
+  return foodHeight+addressHeight+noteHeight+20+(note?8:0);
+ }
+ /** Common compact data layout used by both the lobby and current order. */
+ export function compactOrderInfo(parent:Node,data:CompactOrder,width:number,screenHeight:number):number {
+- const m=presentationMetrics(screenHeight),image=88,price=210,middle=Math.max(100,width-image-price-24),side=(width-54)/2;
++ const m=presentationMetrics(screenHeight),image=88,amount=amountLayout('¥'+(data.offer.feeCents/100).toFixed(2),m.amount,width),price=amount.price,middle=Math.max(100,width-image-price-24),side=(width-54)/2;
+  const food=foodDescription(data.offer),weight=`${data.offer.weightKg}kg · ${orderCautions(data.offer)}`,nameH=compactHeight(food,m.body,middle),weightH=compactHeight(weight,m.aux,middle);
+- const fee='¥'+(data.offer.feeCents/100).toFixed(2),feeH=compactHeight(fee,m.amount,price),distanceH=compactHeight(data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',m.aux,price);
++ const fee='¥'+(data.offer.feeCents/100).toFixed(2),feeH=compactHeight(fee,amount.size,price),distanceH=compactHeight(data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',m.aux,price);
+  const foodH=Math.max(image,nameH+weightH,feeH+distanceH),mx=-width/2+image+12+middle/2,px=width/2-price/2;
+  foodImage(parent,data.offer.food,-width/2+image/2,-foodH/2,image);
+  const middleTop=-(foodH-nameH-weightH)/2;
+  compactText(parent,food,mx,middleTop-nameH/2,m.body,C.ink,middle,true,'left',nameH);
+  compactText(parent,weight,mx,middleTop-nameH-weightH/2,m.aux,C.muted,middle,false,'left',weightH);
+- compactText(parent,fee,px,-feeH/2,m.amount,'#B87513',price,true,'right',feeH);
++ compactText(parent,fee,px,-feeH/2,amount.size,'#B87513',price,true,'right',feeH);
+  compactText(parent,data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',px,-feeH-distanceH/2,m.aux,C.ink,price,false,'right',distanceH);
+  let y=-foodH-10;const from='取餐\n'+data.from,to='送达\n'+data.to,fh=compactHeight(from,m.aux,side),th=compactHeight(to,m.aux,side),ah=Math.max(fh,th);
+  compactText(parent,from,-width/2+side/2,y-ah/2,m.aux,C.ink,side,true,'left',ah);

@@ -1,0 +1,63 @@
+TAP version 13
+# EDGE 340.0000000000002 368.33333333333326
+# OVERSHOOT {"scale":1.2999999999999998,"project":[298.9999999999998,-84.49999999999999]}
+# FRAMES idle [{"t":0,"s":0.6,"x":1600},{"t":0.15,"s":0.6875,"x":1784.9218750000002},{"t":0.3,"s":1.2999999999999998,"x":2734.333333333333},{"t":0.44999999999999996,"s":1.9125,"x":3079.9218750000005},{"t":0.6,"s":2,"x":3080}]
+# FRAMES running [{"t":0,"s":0.6,"x":1600},{"t":0.15,"s":0.6875,"x":1784.9218750000002},{"t":0.3,"s":1.2999999999999998,"x":1733.3333333333333},{"t":0.44999999999999996,"s":1.9125,"x":318.75000000000006},{"t":0.6,"s":2,"x":0}]
+# Subtest: explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+ok 1 - explicit animated locate interpolates pan and scale together, redirects to moving rider and cancels on manual input
+  ---
+  duration_ms: 1.899667
+  type: 'test'
+  ...
+# Subtest: animated locate retargets from current view and cancels on drag or lifecycle stop
+ok 2 - animated locate retargets from current view and cancels on drag or lifecycle stop
+  ---
+  duration_ms: 0.75775
+  type: 'test'
+  ...
+# Subtest: city-focus independent: visible near-edge stationary rider does not leave viewport during zoom
+not ok 3 - city-focus independent: visible near-edge stationary rider does not leave viewport during zoom
+  ---
+  duration_ms: 1.150416
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-gestures.test.cjs:154:1'
+  failureType: 'testCodeFailure'
+  error: 'near-edge visible rider left viewport'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/map-gestures.test.cjs:155:244)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+  ...
+# Subtest: city-focus independent: stationary world center stays on segment and distance converges without overshoot
+ok 4 - city-focus independent: stationary world center stays on segment and distance converges without overshoot
+  ---
+  duration_ms: 0.477875
+  type: 'test'
+  ...
+# Subtest: city-focus independent: initially visible rider stays visible through stationary locate
+ok 5 - city-focus independent: initially visible rider stays visible through stationary locate
+  ---
+  duration_ms: 0.167542
+  type: 'test'
+  ...
+# Subtest: city-focus independent: actual button and MapSample.update animate idle and running frames jointly
+ok 6 - city-focus independent: actual button and MapSample.update animate idle and running frames jointly
+  ---
+  duration_ms: 159.715
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 5
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 822.113833

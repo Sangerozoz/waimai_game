@@ -1,0 +1,13 @@
+{
+  "id": "county-food-mix-proposal-1",
+  "status": "proposal-not-implemented",
+  "scope": "M1 existing single-order food selection only; no V2 clock, boost, stamina or supply values",
+  "weights": {"fragile": 11, "normal": 45, "durable": 54},
+  "totalWeight": 110,
+  "nonFragileRatioSource": "existing catalog has 5 normal and 6 durable foods; preserve their relative weights in the remaining 90 percent",
+  "catalogCounts": {"fragile": 5, "normal": 5, "durable": 6},
+  "samplingOrder": ["choose class", "prefer unseen matching foods", "reuse matching foods if exhausted"],
+  "frequencyDenominator": "new non-intro offers generated under this rule only; exclude saved offers and repeated views",
+  "legacyPolicy": "preserve existing candidates, active routes, drawn damage and receipts",
+  "tests": {"unitSeeds": 4, "unitSamplesPerSeed": 10000, "fragileAbsoluteTolerance": 0.015, "otherClassAbsoluteTolerance": 0.025, "integrationNewOffersMin": 2000, "integrationFragileAbsoluteTolerance": 0.03}
+}

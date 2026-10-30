@@ -1,0 +1,21 @@
+{
+  "name": "delivery-game",
+  "uuid": "76be3e17-ecc6-4093-8a73-039b1519ed0e",
+  "version": "0.1.0",
+  "private": true,
+  "creator": {
+    "version": "3.8.8"
+  },
+  "scripts": {
+    "test": "node scripts/test.cjs && node scripts/test-map.cjs && node scripts/test-county-store.cjs && npm run test:map-data",
+    "typecheck": "node scripts/typecheck.cjs",
+    "build": "bash scripts/build-map-sample.sh",
+    "preview": "PORT=4179 bash scripts/serve-web.sh build/map-sample",
+    "build:legacy": "bash scripts/build-web.sh",
+    "test:county-store": "node scripts/test-county-store.cjs",
+    "test:map": "node scripts/test-map.cjs",
+    "build:map": "bash scripts/build-map-sample.sh",
+    "preview:map": "PORT=4179 bash scripts/serve-web.sh build/map-sample",
+    "test:map-data": "python3 -B -m unittest discover -s tests -p 'test_map_details.py'"
+  }
+}

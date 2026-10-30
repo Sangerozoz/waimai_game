@@ -1,0 +1,11 @@
+### Result
+[[{"update":0,"x":296,"left":244.1467889908257,"right":347.8532110091743,"safeRight":360,"inside":true},{"update":1,"x":296,"left":244.1467889908257,"right":347.8532110091743,"safeRight":360,"inside":true},{"update":2,"x":296,"left":244.1467889908257,"right":347.8532110091743,"safeRight":360,"inside":true}],[{"update":0,"x":286,"left":234.1467889908257,"right":337.8532110091743,"safeRight":350,"inside":true},{"update":1,"x":286,"left":234.1467889908257,"right":337.8532110091743,"safeRight":350,"inside":true},{"update":2,"x":286,"left":234.1467889908257,"right":337.8532110091743,"safeRight":350,"inside":true}]]
+### Ran Playwright code
+```js
+await (async(page)=>{const out=[];for(const suffix of ['', '&safe']){await page.setViewportSize({width:720,height:1280});await page.goto('http://127.0.0.1:4184/?page=home'+suffix);await page.waitForFunction(()=>window.uiFixture?.ready);await page.waitForTimeout(400);out.push(await page.evaluate(async()=>{const s=window.uiFixture.sample,cc=await System.import('cc');const rows=[];for(let i=0;i<3;i++){s.updatePlayerHeader();const n=s.root.getChildByName('StationEntry');const b=n.getComponent(cc.UITransform).getBoundingBoxToWorld();const origin=s.root.worldPosition;rows.push({update:i,x:n.position.x,left:b.x-origin.x,right:b.x+b.width-origin.x,safeRight:360-s.safeInsets.right,inside:b.x+b.width-origin.x<=360-s.safeInsets.right});}return rows;}));await page.screenshot({path:'output/playwright/m1-ui-followup/station-boundary'+(suffix?'-safe':'')+'.png'});}return out;})(page);
+```
+### Page
+- Page URL: http://127.0.0.1:4184/?page=home&safe
+- Page Title: Cocos Creator | map-sample
+### Events
+- New console entries: .playwright-cli/console-2026-10-29T07-50-24-275Z.log#L70-L71

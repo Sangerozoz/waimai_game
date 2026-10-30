@@ -1,0 +1,138 @@
+Scoped fix diff from reviewed implementation to round1
+--- reviewed/delivery-game/assets/scripts/map-sample/MapSample.ts
++++ fixed/delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -202,55 +202,58 @@
+     this.timer=null;this.tripLabel=null;this.progressFill=null;
+     this.updatePlayerHeader();
+     this.navigation();
+     const active=this.book.active;
+     if(!active)return;
+     const height=this.sheetHeight(),width=720-this.safeInsets.left-this.safeInsets.right-20,m=this.metrics();
+     const p=box(this.panel,'DeliverySheet',(this.safeInsets.left-this.safeInsets.right)/2,-522+height/2,width,height,C.paper,24);
+     const top=height/2,inner=width-40;
+     box(p,'Handle',0,top-12,50,4,C.line,2);
+     const offer=active.offer,route=active.routes[active.selected],timing=this.book.timingForRoute(route);
+-    const heading=active.mode==='routes'?scrollContent(p,inner,top-24,-top+m.action+116,435):p;
++    const metadata=`${offer.food} · ${offer.weightKg}kg · ${offer.fragility==='fragile'?'怕洒':offer.fragility==='durable'?'耐放':'普通餐品'}`;
++    const metadataHeight=Math.max(58,textHeight(metadata,m.aux,inner-200)),metadataExtra=metadataHeight-58;
++    const heading=active.mode==='routes'?scrollContent(p,inner,top-24,-top+m.action+116,435+metadataExtra):p;
+     const headingTop=active.mode==='routes'?0:top-24;
+     readable(heading,`${this.book.data.pois[offer.from].name} → ${this.book.data.pois[offer.to].name}`,0,headingTop-55,m.body,C.ink,inner,true,'left',104);
+-    readable(heading,`${offer.food} · ${offer.weightKg}kg · ${offer.fragility==='fragile'?'怕洒':offer.fragility==='durable'?'耐放':'普通餐品'}`,-100,headingTop-140,m.aux,C.muted,inner-200,false,'left',58);
++    readable(heading,metadata,-100,headingTop-111-metadataHeight/2,m.aux,C.muted,inner-200,false,'left',metadataHeight);
+     const receipt=active.receipt;
+     readable(heading,(receipt?'+¥':'基础¥')+((receipt?receipt.incomeCents:offer.feeCents)/100).toFixed(2),inner/2-95,headingTop-140,m.body,'#795020',190,true,'right',58);
+     if(active.mode==='routes'){
+-      const gap=10,w=(inner-(active.routes.length-1)*gap)/active.routes.length,routeY=-310;
++      const gap=10,w=(inner-(active.routes.length-1)*gap)/active.routes.length,routeY=-310-metadataExtra;
+       active.routes.forEach((r,i)=>{
+         const selected=i===active.selected,x=-inner/2+w/2+i*(w+gap),color=ROUTE_COLORS[r.preference];
+         const card=box(heading,'Route-'+r.preference,x,routeY,w,210,selected?'#FFF5CE':'#F7F5EF',12,selected?color:C.line);
+         readable(card,(selected?'✓ ':'')+TITLES[r.preference],0,75,m.aux,selected?color:C.ink,w-12,true,'center',50);
+         const estimated=this.book.timingForRoute(r).displaySeconds,late=estimated>active.deadlineSeconds;
+         readable(card,formatDeliveryTime(estimated),0,18,m.body,C.ink,w-12,true,'center',50);
+         readable(card,`${late?'预计晚到':'准时'}\n餐损${Math.round(r.risk*100)}%`,0,-58,m.aux,late?'#B76A3A':C.muted,w-12,false,'center',90);
+         tap(card,()=>{if(!this.act(()=>this.book.select(i)))return;this.city.setRoutes(active.routes,i);this.renderPanel();});
+       });
+       const buttonY=-top+100+m.action/2,secondary=Math.max(170,inner*.29);
+       this.action(p,'返回接单',-inner/2+secondary/2,buttonY,secondary,()=>{if(!this.act(()=>this.book.cancel()))return;this.rebuildLayout();this.openPhone();},C.light);
+       this.action(p,'出发配送',secondary/2+8,buttonY,inner-secondary-16,()=>{if(!this.act(()=>this.book.depart()))return;this.city.locate(true);this.renderPanel();});
+       readable(p,`${offer.type==='urgent'?'加急 · ':''}${offer.demand==='door'?'放门口，别敲门':'直接交付'} · ${formatDeliveryTime(active.deadlineSeconds)}内送达`,0,-top+48,m.aux,C.muted,inner,false,'center',76);
+     }else if(active.mode==='arrived'){
+-      readable(p,'已到达顾客',0,0,m.body,C.ink,inner,true);readable(p,'请在弹窗中选择交付方式',0,-58,m.aux,C.muted,inner);this.openDemand();
++      readable(p,'已到达顾客',0,-metadataExtra,m.body,C.ink,inner,true);readable(p,'请在弹窗中选择交付方式',0,-58-metadataExtra,m.aux,C.muted,inner);this.openDemand();
+     }else if(active.mode==='done'&&receipt){
+-      readable(p,'配送完成 · 收入已到账',0,top-218,m.body,C.green,inner,true);
+-      readable(p,`评价 ${receipt.ratingAfter}（${receipt.ratingDelta>=0?'+':''}${receipt.ratingDelta}） · 经验 +${receipt.experienceGained} · Lv.${receipt.levelAfter}`,0,top-300,m.aux,C.ink,inner,true,'left',76);
++      readable(p,'配送完成 · 收入已到账',0,top-230-metadataExtra,m.body,C.green,inner,true);
++      readable(p,`评价 ${receipt.ratingAfter}（${receipt.ratingDelta>=0?'+':''}${receipt.ratingDelta}） · 经验 +${receipt.experienceGained} · Lv.${receipt.levelAfter}`,0,top-300-metadataExtra,m.aux,C.ink,inner,true,'left',76);
+       this.action(p,'结算详情',-inner/2+100,-top+70,200,()=>this.openReceipt(),C.light);
+       this.action(p,'继续接单',108,-top+70,inner-216,()=>this.continueOrders());
+       if(this.receipts.observe(active))this.openReceipt();
+     }else{
+-      this.tripLabel=readable(p,'',-104,top-254,m.body,C.ink,inner-210,true,'left',90);
+-      this.timer=readable(p,'',inner/2-105,top-254,m.aux,C.ink,210,true,'right',90);
+-      box(p,'ProgressTrack',0,-60,inner,10,C.line,5);
+-      this.progressFill=box(p,'ProgressFill',-inner/2,-60,inner,10,C.primary,5);
+-      readable(p,`${TITLES[route.preference]} · 全程 ${(route.metres/1000).toFixed(1)}km · 预计${formatDeliveryTime(timing.displaySeconds)}`,0,-140,m.aux,C.muted,inner,false,'left',90);this.updateProgress();
++      this.tripLabel=readable(p,'',-104,top-254-metadataExtra,m.body,C.ink,inner-210,true,'left',90);
++      this.timer=readable(p,'',inner/2-105,top-254-metadataExtra,m.aux,C.ink,210,true,'right',90);
++      const progression=item(p,'DeliveryProgress',0,-metadataExtra);
++      box(progression,'ProgressTrack',0,-60,inner,10,C.line,5);
++      this.progressFill=box(progression,'ProgressFill',-inner/2,-60,inner,10,C.primary,5);
++      readable(progression,`${TITLES[route.preference]} · 全程 ${(route.metres/1000).toFixed(1)}km · 预计${formatDeliveryTime(timing.displaySeconds)}`,0,-140,m.aux,C.muted,inner,false,'left',90);this.updateProgress();
+     }
+   }
+ 
+   update(dt:number):void {
+     if(!this.book||this.hidden)return;
+     const now=Date.now();if(this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,now);this.onlineAt=now;
+     if(this.skipNextFrame){this.skipNextFrame=false;return;}
+     this.saveElapsed+=dt;this.billElapsed+=dt;
+     if(this.billElapsed>=1){this.billElapsed=0;this.updateBills();}
+     if(this.damageNoticeSeconds>0){
+@@ -353,21 +356,24 @@
+       readable(row,region.name,0,height/2-40,m.body,foreground,inner-40,true);
+       if(region.requirements)readable(row,region.requirements,0,-34,m.aux,foreground,inner-40,false,'left',height-80);
+       if(enabled)tap(row,()=>this.closeDialog());offset+=height+18;
+     });
+   }
+   private openBills():void {
+     if(this.book.mode==='arrived')return;
+     const {card,width,top,bottom}=this.dialog('账单',1100,'bills'),m=this.metrics(),inner=width-48,bill=this.book.billing;
+     this.billDate=readable(card,bill.day,0,top-20,m.aux,C.muted,inner,false,'center');
+     const groups=[{name:'钱包',indices:[3]},{name:'今日',indices:[0,1,2,4,5,6,7,8]},{name:'累计',indices:[9,10,11]}],rows=billingRows(bill);
+-    const rowHeight=Math.max(86,m.body*3.1),content=scrollContent(card,inner,top-60,bottom,12*rowHeight+3*74+24);
++    // Reserve the largest legal monetary value (including a historical lower-bound mark).
++    // Live updates only replace strings, so a growing balance cannot clip or reset scrolling.
++    const maximumMoney='≥¥'+(Number.MAX_SAFE_INTEGER/100).toFixed(2);
++    const rowHeight=Math.max(86,m.body*3.1,textHeight(maximumMoney,m.body+8,inner*.55)+16),content=scrollContent(card,inner,top-60,bottom,12*rowHeight+3*74+24);
+     let offset=0;for(const group of groups){
+       readable(content,group.name,0,-offset-36,m.body,C.ink,inner,true);offset+=74;
+       for(const index of group.indices){
+         const row=rows[index],prominent=index===3||index===0,cell=item(content,'BillMetric-'+index,0,-offset-rowHeight/2,inner,rowHeight);
+         const titleWidth=inner*.43,valueWidth=inner*.55;
+         readable(cell,row.title,-inner/2+titleWidth/2,0,m.aux,C.muted,titleWidth,false,'left',rowHeight-10);
+         this.billValues[index]=readable(cell,row.value,inner/2-valueWidth/2,0,prominent?m.body+8:m.body,prominent?'#795020':C.ink,valueWidth,true,'right',rowHeight-10);
+         box(cell,'Divider',0,-rowHeight/2,inner,1,C.line,0);offset+=rowHeight;
+       }
+     }
+--- reviewed/delivery-game/tests/map-hud.test.cjs
++++ fixed/delivery-game/tests/map-hud.test.cjs
+@@ -251,10 +251,36 @@
+ });
+ 
+ test('regrouped billing keeps live values attached to their original metrics',()=>{
+  const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));
+  const b=new OrderBook(realBook().data,()=>.1,()=> '2026-10-29'),h=harness(b),start=new Date(2026,9,29,12).getTime();h.sample.openBills();b.recordOnlineTime(start,start+3600000);h.sample.updateBills();
+  const nodes=h.walk(h.sample.modal),metric=index=>h.text(nodes.find(n=>n.name==='BillMetric-'+index));
+  assert.ok(metric(3).includes('钱包余额'));assert.ok(metric(3).includes('¥100.00'));
+  assert.ok(metric(0).includes('今日收入'));assert.ok(metric(0).includes('¥0.00'));
+  assert.ok(metric(4).includes('在线时长'));assert.ok(metric(4).includes('1:00:00'));
+ });
++
++test('a valid long food description remains complete above routes and in delivery on a narrow device',()=>{
++ const b=realBook();b.accept(b.list()[0].offer.id);Object.assign(b.active.offer,{food:'麻婆豆腐饭 · 3份',weightKg:3,fragility:'normal'});
++ const h=harness(b);h.setFrame({width:320,height:568});h.sample.rebuildLayout();
++ const description='麻婆豆腐饭 · 3份 · 3kg · 普通餐品';
++ const metadata=()=>h.walk(h.sample.panel).map(n=>n.getComponent(h.Label)).find(l=>l?.string===description);
++ let info=metadata();assert.ok(info);assert.ok(info.node.getComponent(h.UITransform).height>=2*info.lineHeight,'the valid description needs two readable lines');
++ const route=h.walk(h.sample.panel).find(n=>n.name.startsWith('Route-'));assert.ok(h.bounds(info.node).bottom>h.bounds(route).top,'routes stay below all metadata lines');
++ const content=route.parent;assert.ok(content.getComponent(h.UITransform).height>=-route.y+route.getComponent(h.UITransform).height/2+16,'the whole route remains scrollable');
++ const action=h.walk(h.sample.panel).find(n=>n.name==='Button-出发配送'),sheet=h.walk(h.sample.panel).find(n=>n.name==='DeliverySheet'),[, ,mapHeight,,mapY]=h.sample.city.args;
++ assert.ok(h.bounds(action).bottom>=-h.height()/2);assert.ok(Math.abs(mapY-mapHeight/2-h.bounds(sheet).top)<1);
++ b.depart();h.sample.renderPanel();info=metadata();assert.ok(info.node.getComponent(h.UITransform).height>=2*info.lineHeight);
++ const progress=h.walk(h.sample.panel).find(n=>n.name==='ProgressTrack');assert.ok(h.bounds(h.sample.tripLabel.node).bottom>h.bounds(progress).top,'delivery progress follows the reflowed stage text');
++ b.advance(99);h.sample.renderPanel();info=metadata();const done=h.walk(h.sample.panel).find(n=>n.getComponent(h.Label)?.string==='配送完成 · 收入已到账');assert.ok(done);assert.ok(h.bounds(info.node).bottom>h.bounds(done).top,'completed delivery follows all metadata lines');
++});
++
++test('an open bill keeps its scroll position and readable wallet row when the balance grows',()=>{
++ const b=realBook(),h=harness(b);h.setFrame({width:320,height:568});h.sample.rebuildLayout();h.sample.openBills();
++ const modal=h.sample.modal,wallet=h.sample.billValues[3],content=wallet.node.parent.parent;content.setPosition(0,123);
++ const raw=JSON.parse(b.serialize());raw.player.cashCents=123456789012345;
++ const {OrderBook}=require(path.join(path.dirname(process.env.MAP_ROUTER_MODULE),'OrderBook.js'));h.sample.book=OrderBook.restore(b.data,JSON.stringify(raw),()=>.1);h.sample.updateBills();
++ assert.equal(h.sample.modal,modal);assert.equal(content.y,123);assert.equal(h.sample.billValues[3],wallet);assert.equal(wallet.string,'¥1234567890123.45');
++ assert.ok(wallet.node.getComponent(h.UITransform).height>=2*wallet.lineHeight,'the grown value has space for both lines');
++ assert.ok(h.text(wallet.node.parent).includes('钱包余额'));assert.equal(h.sample.billValues[0].string,'¥0.00');
++ h.sample.openBills();const reopened=h.sample.billValues[3];assert.equal(reopened.string,'¥1234567890123.45');assert.ok(reopened.node.getComponent(h.UITransform).height>=2*reopened.lineHeight);
++});

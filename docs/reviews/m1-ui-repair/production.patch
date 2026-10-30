@@ -1,0 +1,317 @@
+--- before/delivery-game/assets/scripts/map-sample/SampleUI.ts
++++ after/delivery-game/assets/scripts/map-sample/SampleUI.ts
+@@ -1,36 +1,30 @@
+-import { Color, EventTouch, Graphics, Label, Layers, Node, Sprite, UITransform } from 'cc';
+-import { cartoonArt, cartoonChrome, resizeCartoonChrome } from './CartoonArt';
++import { Color, EventTouch, Graphics, Label, Layers, Node, Sprite, UITransform, Tween, tween, Vec3 } from 'cc';
++import { cartoonArt } from './CartoonArt';
+ export const C={navy:'#173A78',ink:'#193D75',muted:'#59769A',paper:'#FFFEF8',primary:'#FFD23F',gold:'#B87513',green:'#239A77',line:'#C4D9F3',light:'#E9F4FF',blue:'#2878EB',violet:'#7361D9'};
+ export function col(hex:string):Color{return new Color(parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16),hex.length===9?parseInt(hex.slice(7,9),16):255);}
+ export function item(parent:Node,name:string,x=0,y=0,w=0,h=0):Node{const n=new Node(name);n.layer=Layers.Enum.UI_2D;parent.addChild(n);n.setPosition(x,y);n.addComponent(UITransform).setContentSize(w,h);return n;}
+-// All bevel layers stay inside the original touch rectangle.
++// One surface drawn at the final target size, inside the touch rectangle.
+ export function paintBox(n:Node,w:number,h:number,fill:string,radius=16,stroke?:string):void {
+- const g=n.getComponent(Graphics)||n.addComponent(Graphics);g.clear();
++ const surface=n.getChildByName('Surface')||item(n,'Surface');
++ const g=surface.getComponent(Graphics)||surface.addComponent(Graphics);g.clear();
+  const r=Math.max(0,Math.min(radius,w/2,h/2));
+- const shape=(inset:number,y:number,color:string,shrinkY=0)=>{g.fillColor=col(color);g.roundRect(-w/2+inset,-h/2+inset+y,w-inset*2,h-inset*2-shrinkY,Math.max(0,r-inset));g.fill();};
+- const bevel=r>=12&&w>=60&&h>=42&&!/Experience|Progress/.test(n.name);
+- if(bevel){
+-  shape(0,0,stroke&&stroke!==C.line?stroke:C.navy);
+-  shape(2,3,'#6EA8ED',3);shape(5,5,'#FFFFFF',5);
+-  shape(9,7,fill,9);
+-  // A broad translucent upper highlight gives the same top-left lighting as the PNGs.
+-  if(h>=60&&w>=90){g.fillColor=col('#FFFFFF38');g.roundRect(-w/2+13,h/2-Math.min(25,h*.2)-10,w-26,Math.min(20,h*.18),Math.min(9,r/2));g.fill();}
+- }else{
+-  shape(0,0,fill);
+-  if(stroke&&w>2&&h>2){g.strokeColor=col(stroke);g.lineWidth=2;g.roundRect(-w/2+1,-h/2+1,w-2,h-2,Math.max(0,r-1));g.stroke();}
++ const shape=(i:number,color:string)=>{g.fillColor=col(color);g.roundRect(-w/2+i,-h/2+i,w-i*2,h-i*2,Math.max(0,r-i));g.fill();};
++ shape(0,stroke||fill);
++ if(stroke&&w>4&&h>4)shape(2,fill);
++ if(radius>=12&&w>=60&&h>=42&&!/Experience|Progress|Screen|Plate|Pill|Header/.test(n.name)){
++  g.strokeColor=col('#FFFFFF99');g.lineWidth=2;g.roundRect(-w/2+4,-h/2+4,w-8,h-8,Math.max(0,r-4));g.stroke();
+  }
+ }
++
+ export function box(parent:Node,name:string,x:number,y:number,w:number,h:number,fill:string,radius=16,stroke?:string):Node{
+  const n=item(parent,name,x,y,w,h);paintBox(n,w,h,fill,radius,stroke);return n;
+ }
+ export type ChromeKey='panel-blue'|'panel-violet'|'button-yellow'|'button-blue';
++// Geometry is drawn at its final dimensions; PNG chrome is no longer stretched.
+ export function skin(node:Node,key:ChromeKey):Node {
+  const size=node.getComponent(UITransform)!;
+- return cartoonChrome(node,key,size.width,size.height);
+-}
+-export function resizeSkin(node:Node,width:number,height:number):void {
+- const chrome=node.children.find(child=>child.name.indexOf('CartoonChrome-')===0);
+- if(chrome)resizeCartoonChrome(chrome,width,height);
++ paintBox(node,size.width,size.height,key==='button-yellow'?C.primary:key==='panel-violet'?C.violet:C.blue,18,C.line);
++ return node;
+ }
+ export function outline(text:Label,color='#124784',width=3):void {
+  text.enableOutline=true;text.outlineColor=col(color);text.outlineWidth=width;
+@@ -41,18 +35,24 @@
+ }
+ export function tap(n:Node,action:()=>void):void{
+  // Match ScrollView's 7 UI-pixel drag threshold; a move event alone is not a drag.
++ const decorative=!/Shade|Backdrop/.test(n.name);
++ const visual=decorative?item(n,'PressVisual'):null;
++ if(visual)for(const child of [...n.children])if(child!==visual)visual.addChild(child);
++ const reset=(immediate=true)=>{if(!visual)return;Tween.stopAllByTarget(visual);if(immediate)visual.setScale(1,1,1);else tween(visual).to(.12,{scale:new Vec3(1,1,1)},{easing:'quadOut'}).start();};
+  let touchId:number|null=null,startX=0,startY=0,dragged=false;
++ const cancel=()=>{touchId=null;dragged=false;reset();};
++ n.on(Node.EventType.ACTIVE_IN_HIERARCHY_CHANGED,cancel);n.on(Node.EventType.NODE_DESTROYED,cancel);
+  const beyondTap=(event:EventTouch):boolean=>{const p=event.getUILocation();return (p.x-startX)**2+(p.y-startY)**2>49;};
+  n.on(Node.EventType.TOUCH_START,(event:EventTouch)=>{
+-  const id=event.getID();if(id===null||touchId!==null&&touchId!==id)return;
++  const id=event.getID();if(n.activeInHierarchy===false||id===null||touchId!==null&&touchId!==id)return;
+   const p=event.getUILocation();touchId=id;startX=p.x;startY=p.y;dragged=false;
+-  // Keep the hit target's transform unchanged while the engine tests the release position.
++  if(visual){Tween.stopAllByTarget(visual);visual.setScale(.96,.96,1);}
+  });
+- n.on(Node.EventType.TOUCH_MOVE,(event:EventTouch)=>{if(touchId!==null&&event.getID()===touchId&&beyondTap(event))dragged=true;});
+- n.on(Node.EventType.TOUCH_CANCEL,(event:EventTouch)=>{if(event.getID()===null||event.getID()===touchId){touchId=null;dragged=false;}});
++ n.on(Node.EventType.TOUCH_MOVE,(event:EventTouch)=>{if(touchId!==null&&event.getID()===touchId&&beyondTap(event)){dragged=true;reset();}});
++ n.on(Node.EventType.TOUCH_CANCEL,(event:EventTouch)=>{if(event.getID()===null||event.getID()===touchId){cancel();}});
+  n.on(Node.EventType.TOUCH_END,(event:EventTouch)=>{
+   if(touchId===null||event.getID()!==touchId)return;
+-  const activate=!dragged&&!beyondTap(event);touchId=null;dragged=false;
++  const activate=n.activeInHierarchy!==false&&!dragged&&!beyondTap(event);touchId=null;dragged=false;reset(!activate);
+   if(activate)action();
+  });
+ }
+@@ -60,9 +60,10 @@
+  const n=box(parent,'Button-'+text,x,y,w,h,fill,14,fill===C.paper?C.line:undefined);if(enabled&&fill===C.primary)skin(n,'button-yellow');label(n,text,0,0,22,foreground,w-12,true,'center');if(enabled)tap(n,action);return n;
+ }
+ export function icon(parent:Node,kind:string,x:number,y:number,fill=C.navy,scale=1):Node{
+- const generated=['avatar','recruit','vehicle','map','bills','station','coin','star','bag','close','target','confirm'].indexOf(kind)>=0;
++ const generated=['avatar','recruit','vehicle','map','bills','station','coin','star','bag','confirm'].indexOf(kind)>=0;
+  const n=item(parent,'Icon-'+kind,x,y,32,32),g=n.addComponent(Graphics);n.setScale(scale,scale,1);g.lineWidth=2.4;g.strokeColor=col(fill);g.fillColor=col(fill);
+- if(kind==='target'){g.circle(0,0,9);g.stroke();g.circle(0,0,3);g.fill();for(const [a,b,c,d] of [[-15,0,-10,0],[10,0,15,0],[0,-15,0,-10],[0,10,0,15]]){g.moveTo(a,b);g.lineTo(c,d);g.stroke();}}
++ if(kind==='close'){g.lineWidth=4;g.moveTo(-9,-9);g.lineTo(9,9);g.moveTo(-9,9);g.lineTo(9,-9);g.stroke();}
++ else if(kind==='target'){g.circle(0,0,9);g.stroke();g.circle(0,0,3);g.fill();for(const [a,b,c,d] of [[-15,0,-10,0],[10,0,15,0],[0,-15,0,-10],[0,10,0,15]]){g.moveTo(a,b);g.lineTo(c,d);g.stroke();}}
+  else if(kind==='map'){g.moveTo(-13,-10);g.lineTo(-5,-6);g.lineTo(5,-10);g.lineTo(13,-6);g.lineTo(13,12);g.lineTo(5,8);g.lineTo(-5,12);g.lineTo(-13,8);g.close();g.stroke();for(const xx of [-5,5]){g.moveTo(xx,-6);g.lineTo(xx,8);g.stroke();}}
+  else if(kind==='recruit'){g.circle(0,7,5);g.stroke();g.roundRect(-10,-14,20,14,6);g.stroke();}
+  else if(kind==='vehicle'){g.circle(-9,-8,5);g.stroke();g.circle(11,-8,5);g.stroke();g.moveTo(-9,-8);g.lineTo(-1,6);g.lineTo(7,-8);g.lineTo(-9,-8);g.moveTo(7,-8);g.lineTo(9,10);g.lineTo(15,10);g.moveTo(-5,6);g.lineTo(1,6);g.stroke();}
+@@ -77,3 +78,7 @@
+  }
+  return n;
+ }
++
++export function closeButton(parent:Node,x:number,y:number,size:number,action:()=>void):Node{
++ const n=box(parent,'CloseButton',x,y,size,size,'#DE4258',size/2,'#FFFFFF');icon(n,'close',0,0,'#FFFFFF',1);tap(n,action);return n;
++}
+--- before/delivery-game/assets/scripts/map-sample/CartoonArt.ts
++++ after/delivery-game/assets/scripts/map-sample/CartoonArt.ts
+@@ -42,38 +42,3 @@
+ }
+ export function cartoonFoodKey(index:number):string{return foodKeys[index]||foodKeys[0];}
+ 
+-// A chrome frame is unique to its host: changing its nine-slice caps must not
+-// change another button that shares the same atlas texture.
+-export function cartoonChrome(parent:Node,key:'panel-blue'|'panel-violet'|'button-yellow'|'button-blue',width:number,height:number):Node {
+- const picture=new Node('CartoonChrome-'+key);picture.layer=Layers.Enum.UI_2D;parent.addChild(picture);
+- const transform=picture.addComponent(UITransform);transform.setContentSize(width,height);picture.active=false;
+- const sprite=picture.addComponent(Sprite);sprite.sizeMode=Sprite.SizeMode.CUSTOM;sprite.type=Sprite.Type.SLICED;
+- loadCartoonFrame(key).then(source=>{
+-  if(!isValid(parent,true)||!isValid(picture,true)||parent.activeInHierarchy===false)return;
+-  const frame=new SpriteFrame();frame.texture=source.texture;frame.rect=source.rect;
+-  frame.originalSize=source.originalSize;frame.addRef();sprite.spriteFrame=frame;
+-  picture.on(Node.EventType.NODE_DESTROYED,()=>frame.decRef());
+-  resizeCartoonChrome(picture,transform.width,transform.height);picture.active=true;
+- },()=>{/* Graphics under the sprite remains the fallback. */});
+- return picture;
+-}
+-export function resizeCartoonChrome(picture:Node,width:number,height:number):void {
+- const transform=picture.getComponent(UITransform);if(!transform)return;
+- const sprite=picture.getComponent(Sprite),frame=sprite?.spriteFrame;
+- if(!frame){transform.setContentSize(width,height);return;}
+- const button=picture.name.indexOf('button-')>=0;
+- const left=Math.round((button?128:96)*frame.texture.width/1280);
+- const top=Math.round(96*frame.texture.height/1280);
+- // Cocos uses inset lengths as vertex lengths. Keep the virtual sprite at
+- // least source-sized, then scale its node to the requested UI box. Otherwise
+- // short bars crush most of the source image into a 12px center strip.
+- const renderWidth=Math.max(width,frame.originalSize.width);
+- const renderHeight=Math.max(height,frame.originalSize.height);
+- transform.setContentSize(renderWidth,renderHeight);
+- picture.setScale(width/renderWidth,height/renderHeight,1);
+- frame.insetLeft=left;
+- frame.insetRight=frame.insetLeft;
+- frame.insetTop=top;
+- frame.insetBottom=frame.insetTop;
+- sprite.markForUpdateRenderData?.(true);
+-}
+--- before/delivery-game/assets/scripts/map-sample/MapSample.ts
++++ after/delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -9,7 +9,7 @@
+ import { COUNTY_VEHICLES as VEHICLES } from './CountyConfig';
+ import { formatDeliveryTime, formatRemaining } from './DeliveryClock';
+ import { billingRows } from './BillingPresentation';
+-import { box, button, C, col, icon, item, label, outline, paintBox, resizeSkin, skin, tap } from './SampleUI';
++import { box, button, closeButton, C, col, icon, item, label, outline, paintBox, skin, tap } from './SampleUI';
+ import { cartoonArt } from './CartoonArt';
+ import { experienceProgress, presentationMetrics, readable, scrollContent, textHeight } from './PresentationLayout';
+ import { vehicleSideArt } from './VehicleSideArt';
+@@ -148,14 +148,13 @@
+   }
+   private header(parent:Node):void {
+     const width=720-this.safeInsets.left-this.safeInsets.right-36,m=this.metrics();
+-    this.profileCard=box(parent,'Header',0,0,width,160,C.paper,18);
+-    skin(this.profileCard,'panel-blue');
++    this.profileCard=item(parent,'Header',0,0,width,160);
+     const content=item(this.profileCard,'HeaderContent');
+     const identity=item(content,'ProfileIdentity'),wallet=item(content,'ProfileWallet'),rating=item(content,'ProfileRating');
+     box(identity,'IdentityPlate',0,0,1,1,C.light,16,C.line);
+     box(identity,'ExperienceTrack',0,0,1,1,C.line,10);
+     box(identity,'ExperienceFill',0,0,1,1,C.primary,10);
+-    const avatar=box(identity,'PlayerAvatar',0,0,104,104,C.primary,22,C.ink);
++    const avatar=item(identity,'PlayerAvatar',0,0,104,104);
+     const face=box(avatar,'AvatarPlaceholder',0,0,90,90,C.light,17);
+     readable(face,'骑',0,0,40,C.muted,80,true,'center',80);
+     cartoonArt(avatar,'avatar',0,0,92,92,face);
+@@ -163,7 +162,7 @@
+     this.experience=readable(identity,'',0,0,m.aux,C.ink,200,true);
+     for(const [group,name,mark,art] of [[wallet,'Wallet','¥','coin'],[rating,'Rating','评','star']] as const){
+       box(group,name+'Pill',0,0,1,1,C.light,24,C.line);
+-      const badge=box(group,name+'Badge',0,0,42,42,C.primary,21,C.ink);
++      const badge=item(group,name+'Badge',0,0,42,42);
+       const symbol=readable(badge,mark,0,0,m.aux,C.ink,38,true,'center',40);
+       cartoonArt(badge,art,0,0,40,40,symbol.node);
+     }
+@@ -176,7 +175,7 @@
+     const content=card.getChildByName('HeaderContent')!,identity=content.getChildByName('ProfileIdentity')!,wallet=content.getChildByName('ProfileWallet')!,rating=content.getChildByName('ProfileRating')!;
+     const identityWidth=Math.floor(inner*.47),walletWidth=Math.floor(inner*.33),ratingWidth=inner-identityWidth-walletWidth-gap*2;
+     const avatarSize=104,textWidth=identityWidth-112;
+-    const characterUnits=(value:string)=>[...value].reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0);
++    const characterUnits=(value:string)=>Array.from(value).reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0);
+     const experienceUnits=characterUnits(this.experience.string),experienceFont=Math.max(24,Math.min(m.aux,Math.floor(textWidth/Math.max(1,experienceUnits))));
+     this.playerName.lineHeight=Math.ceil(m.body*1.2);
+     this.experience.fontSize=experienceFont;this.experience.lineHeight=Math.ceil(experienceFont*1.2);
+@@ -184,13 +183,13 @@
+     const experienceHeight=Math.max(1,Math.ceil(experienceUnits*experienceFont/textWidth))*this.experience.lineHeight+4;
+     const plateHeight=nameHeight+experienceHeight+12,identityHeight=Math.max(avatarSize,plateHeight+12);
+     const walletTextWidth=walletWidth-58,ratingTextWidth=ratingWidth-48;
+-    const units=[...this.money.string].reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0);
++    const units=Array.from(this.money.string).reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.66:1),0);
+     const moneyFont=Math.max(m.body,Math.min(m.amount,Math.floor(walletTextWidth/Math.max(1,units))));
+-    const moneyHeight=textHeight(this.money.string,moneyFont,walletTextWidth),ratingHeight=textHeight(this.rating.string,m.body,ratingTextWidth);
++    const moneyHeight=Math.ceil(Math.max(1,Math.ceil(units*moneyFont/walletTextWidth))*moneyFont*1.42+8),ratingHeight=textHeight(this.rating.string,m.body,ratingTextWidth);
+     const walletHeight=Math.max(60,moneyHeight+12),ratingBlockHeight=Math.max(60,ratingHeight+12),height=Math.max(identityHeight,walletHeight,ratingBlockHeight)+24,left=-inner/2;
+     const place=(node:Node,x:number,y:number,w:number,h:number)=>{node.setPosition(x,y);node.getComponent(UITransform)!.setContentSize(w,h);};
+     const paint=(node:Node,x:number,y:number,w:number,h:number,fill:string,radius:number,stroke?:string)=>{
+-      place(node,x,y,w,h);paintBox(node,w,h,fill,radius,stroke);resizeSkin(node,w,h);
++      place(node,x,y,w,h);paintBox(node,w,h,fill,radius,stroke);
+     };
+     place(identity,left+identityWidth/2,0,identityWidth,identityHeight);
+     place(wallet,left+identityWidth+gap+walletWidth/2,0,walletWidth,walletHeight);
+@@ -212,7 +211,7 @@
+       place(value.node,inset/2,0,w-inset,valueHeight);
+     }
+     this.money.fontSize=moneyFont;this.money.lineHeight=Math.ceil(moneyFont*1.42);
+-    paint(card,(this.safeInsets.left-this.safeInsets.right)/2,628-height/2,width,height,C.paper,18);
++    place(card,(this.safeInsets.left-this.safeInsets.right)/2,628-height/2,width,height);
+     const station=this.root.getChildByName('StationEntry');if(station)station.setPosition(309-this.safeInsets.right,628-height-70+this.screenExtra/2-this.safeInsets.top);
+   }
+   private controls():void {
+@@ -220,8 +219,8 @@
+     const picture=box(station,'PlaceholderIcon-station',0,11,36,32,'#F0EEE7',8);
+     label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,52,52,picture);stationArt.getComponent(Sprite)!.grayscale=true;readable(station,'站点',0,-24,this.metrics().aux,'#AAA69C',94,true,'center');
+     const y=this.book.mode==='idle'?-450:-522+this.sheetHeight()+this.metrics().action/2+20;
+-    const locate=box(this.root,'FollowRider',360-this.safeInsets.right-this.metrics().action/2-13,y-this.screenExtra/2+this.safeInsets.bottom,this.metrics().action,this.metrics().action,C.primary,13);
+-    icon(locate,'target',0,0,C.ink,.85);tap(locate,()=>this.city.locate());
++    const locate=item(this.root,'FollowRider',360-this.safeInsets.right-this.metrics().action/2-13,y-this.screenExtra/2+this.safeInsets.bottom,this.metrics().action,this.metrics().action);
++    icon(locate,'target',0,0,C.ink,1.4);tap(locate,()=>this.city.locate());
+   }
+   private openPhone():void {
+     if(this.phone||this.book.mode!=='idle')return;
+@@ -235,7 +234,6 @@
+     const idle=this.book.mode==='idle';
+     const bar=item(this.panel,'MainNavigation',(this.safeInsets.left-this.safeInsets.right)/2,-581,720,118);bar.addComponent(BlockInputEvents);
+     bar.setScale((720-this.safeInsets.left-this.safeInsets.right)/720,1,1);
+-    skin(bar,'button-blue');
+     const entries=[
+       {key:'recruit',name:'招募',x:-280,enabled:false,action:()=>{}},
+       {key:'vehicle',name:'车辆',x:-150,enabled:idle,action:()=>this.openGarage()},
+@@ -245,12 +243,9 @@
+     ];
+     for(const entry of entries){
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+-      const slot=main?box(bar,'Nav-'+entry.key,entry.x,4,152,108,enabled?C.primary:'#EAE7DE',28):item(bar,'Nav-'+entry.key,entry.x,0,116,100);
+-      if(main){if(enabled)skin(slot,'button-yellow');readable(slot,entry.name,0,0,40,foreground,140,true,'center',66);}
+-      else{
+-        icon(slot,entry.key,0,23,foreground,1.25);
+-        const size=this.metrics().aux;readable(slot,entry.name,0,-27,size,foreground,108,true,'center',Math.ceil(size*1.42));
+-      }
++      const slot=item(bar,'Nav-'+entry.key,entry.x,main?4:0,main?152:116,main?108:100);
++      icon(slot,main?'bag':entry.key,0,main?13:10,foreground,main?2.7:2.25);
++      const caption=readable(slot,entry.name,0,-23,main?34:this.metrics().aux,'#FFFFFF',main?140:108,true,'center',48);outline(caption,enabled?C.navy:'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+     }
+   }
+@@ -368,7 +363,7 @@
+     const card=box(layer,'DialogCard',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.paper,28);card.addComponent(BlockInputEvents);
+     const heading=box(card,'DialogHeader',0,height/2-65,width-12,126,C.violet,26);skin(heading,'panel-violet');
+     const m=this.metrics(),headingText=readable(card,title,-60,height/2-64,m.body+4,'#FFFFFF',width-180,true,'left',70);outline(headingText,'#4B329A');
+-    if(dismissible)this.action(card,'关闭',width/2-72,height/2-64,108,()=>this.closeDialog(),C.light);
++    if(dismissible)closeButton(card,width/2-55,height/2-64,64,()=>this.closeDialog());
+     return {layer,card,width,height,top:height/2-132,bottom:-height/2+24};
+   }
+   private openDemand():void {
+--- before/delivery-game/assets/scripts/map-sample/OrderPhone.ts
++++ after/delivery-game/assets/scripts/map-sample/OrderPhone.ts
+@@ -2,7 +2,7 @@
+ import { foodImage } from './FoodImages';
+ import { OrderBook } from './OrderBook';
+ import { formatDeliveryTime } from './DeliveryClock';
+-import { box, C, item, outline, skin, tap } from './SampleUI';
++import { box, closeButton, C, item, outline, skin, tap } from './SampleUI';
+ import { SafeInsets } from './SafeAreaLayout';
+ import { presentationMetrics, readable, scrollContent, textHeight } from './PresentationLayout';
+ 
+@@ -17,16 +17,16 @@
+  private render():void {
+   const m=presentationMetrics(this.screenHeight),insets=this.safeInsets;
+   const width=Math.min(684,720-insets.left-insets.right-36),height=Math.min(1240,this.screenHeight-insets.top-insets.bottom-24);
+-  const frame=box(this.node,'PhoneFrame',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.navy,46,'#FFFFFF');frame.addComponent(BlockInputEvents);skin(frame,'panel-blue');
++  const frame=box(this.node,'PhoneFrame',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.navy,46,'#FFFFFF');frame.addComponent(BlockInputEvents);
+   box(frame,'SideButton',width/2+3,height/2-180,7,92,C.blue,3);
+   box(frame,'Screen',0,0,width-26,height-26,C.paper,34);
+   const top=height/2;
+   readable(frame,'09:41',-width/2+76,top-38,22,C.ink,80,true,'center');box(frame,'SpeakerIsland',0,top-38,119,25,C.navy,12);
+   const battery=box(frame,'Battery',width/2-56,top-38,28,13,C.navy,3);box(battery,'BatteryTip',16,0,3,6,C.navy,1);
+-  const header=box(frame,'AppHeader',0,top-120,width-28,122,C.blue,22);skin(header,'button-blue');
++  const header=box(frame,'AppHeader',0,top-120,width-28,122,C.blue,22);
+   outline(readable(frame,'接单大厅',-65,top-100,m.body+4,'#FFFFFF',width-190,true),'#14549B');
+   readable(frame,'附近10单 · 全程10km以内',-64,top-151,m.aux,'#FFFFFF',width-190);
+-  this.action(frame,'关闭',width/2-76,top-114,100,m.action,this.onClose,C.light);
++  closeButton(frame,width/2-55,top-114,64,this.onClose);
+   const noticeHeight=Math.max(m.action,88),noticeY=top-190-noticeHeight/2;
+   readable(frame,this.book.isFirstDelivery?'首单推荐，先赚第一笔':'每日免费刷新，送完自动补单',-82,noticeY,m.aux,'#806017',width-240,true,'left',noticeHeight);
+   this.action(frame,this.book.refreshesLeft?`刷新 ${this.book.refreshesLeft}/2`:'广告未开放',width/2-112,noticeY,174,m.action,this.onRefresh,this.book.refreshesLeft?C.primary:'#EEE9DD',!!this.book.refreshesLeft);
+--- before/delivery-game/assets/scripts/map-sample/CityMap.ts
++++ after/delivery-game/assets/scripts/map-sample/CityMap.ts
+@@ -57,8 +57,9 @@
+    this.scaleLabel=label(this.viewport,'30 m',-279+safeSides.left,-MAP_H/2+footerInset+32,12,'#758080',110);
+    const scaleLine=item(this.viewport,'MapScale',-297+safeSides.left,-MAP_H/2+footerInset+20).addComponent(Graphics);scaleLine.strokeColor=col('#758080');scaleLine.lineWidth=2;scaleLine.moveTo(-30,4);scaleLine.lineTo(-30,0);scaleLine.lineTo(30,0);scaleLine.lineTo(30,4);scaleLine.stroke();
+    const attributionWidth=Math.max(1,410-safeSides.left-safeSides.right);
+-   const attribution=label(this.viewport,'© OpenStreetMap contributors',339-safeSides.right-attributionWidth/2,-MAP_H/2+footerInset+19,16,'#596970',attributionWidth,false,'right');
+-   tap(attribution.node,onAttribution);
++   const attribution=item(this.viewport,'MapAttribution',339-safeSides.right-attributionWidth/2,-MAP_H/2+footerInset+19,attributionWidth,26);
++   label(attribution,'© OpenStreetMap contributors',0,0,16,'#596970',attributionWidth,false,'right');
++   tap(attribution,onAttribution);
+    this.viewport.on(Node.EventType.TOUCH_START,this.touchStart,this);
+    this.viewport.on(Node.EventType.TOUCH_MOVE,this.touchMove,this);
+    this.viewport.on(Node.EventType.TOUCH_END,this.touchEnd,this);
+--- before/delivery-game/assets/scripts/map-sample/PresentationLayout.ts
++++ after/delivery-game/assets/scripts/map-sample/PresentationLayout.ts
+@@ -8,7 +8,7 @@
+  return {body:Math.max(28,Math.ceil(15/scale)),aux:Math.max(24,Math.ceil(13/scale)),amount:Math.max(44,Math.ceil(26/scale)),action:Math.max(78,Math.ceil(44/scale))};
+ }
+ export function textHeight(value:string,size:number,width:number):number {
+- const lines=value.split('\n').reduce((n,line)=>n+Math.max(1,Math.ceil([...line].reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0)*size/width)),0);
++ const lines=value.split('\n').reduce((n,line)=>n+Math.max(1,Math.ceil(Array.from(line).reduce((sum,char)=>sum+(/[\x00-\xff]/.test(char)?.56:1),0)*size/width)),0);
+  return Math.ceil(lines*size*1.42+8);
+ }
+ // Fixed readable type: wrap in the supplied area, never shrink an entire paragraph.
