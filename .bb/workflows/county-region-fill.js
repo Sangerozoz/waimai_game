@@ -4,6 +4,7 @@ export const meta = {
   phases: [{title:"整县原生铺图"}],
 };
 const base="docs/art/2026-11-03-county-region-atlas";
+throw new Error("用户11-04要求每输出一张亲自检查；批量fill已禁用。由PM逐张出图，等待该张用户反馈后再下一张，不能以PM接受样板解锁批次。");
 const schema={type:"object",required:["id","generated","imageFile","entryFile","recordFile","qualityBlocked","note"],properties:{id:{type:"string"},generated:{type:"boolean"},imageFile:{type:"string"},entryFile:{type:"string"},recordFile:{type:"string"},qualityBlocked:{type:"boolean"},note:{type:"string"}}};
 // Missing acceptance args reject before any worker or generation. The script has no FS access;
 // a read-only worker verifies the actual evidence and hashes before the production pipeline.
