@@ -1,5 +1,18 @@
 # COUNTY-REGION-1103 开发接续交付
 
+当前最新静态数据为12区（5 ready＋7 preview-only），未重编；以 `progress12-delivery.md` 与 `progress12-deployment-record.json` 为准。下列五区/ABN/AB/A-only均为历史交付。
+
+最新数据部署为A/B/C/D/N五整区（源码/编译产物不变），见 `abcdn-delivery.md` 与 `abcdn-deployment-record.json`。以下ABN/AB/A-only均保留为过程历史。
+
+最新数据部署已扩为A/B/N2三整区（源码不变、未重编），见 `abn-delivery.md` 与 `abn-deployment-record.json`。以下AB/A-only均保留为过程历史。
+
+## 当前执行尺度与接续入口（最新）
+
+用户最新尺度见 `docs/art/2026-11-03-county-region-atlas/user-tolerance-20261103.md`：一两块地砖量级的小错位接受，不换算新的固定像素/米数门槛，不按全图最大残差统一返工；仅修明显覆盖遮挡且影响使用的问题。原路、蓝框、内部可信走廊继续约束运行对象，ownership只管理图片绘制。当前源码没有美术残差数值验收门槛，无需为本次尺度说明重编。
+
+当前已交付为A-v3/B-v4独立包；本报告下方A-only/源码待构建段落为保留的过程历史，当前证据以 `ab-final-delivery.md`、`ab-final-deployment-record.json` 为准。下一完整包为PM组装中的北邻N2及C3/D4，收到后集中必要接入，不从在制图片目录私自拼装ready包。未运行页面或阶段测试，未代填全县验收。GitHub进度由PM统一维护索引与提交；开发不执行Git写入。
+
+
 开发BB `thr_v8eu5ahv2e`，PM `thr_7w55f3h66f`，2026-11-03。最新用户授权覆盖旧A-v3待审和只读待命；用户认可美术不等于原路配准/接缝/全县交付完成。
 
 ## 当前真实状态

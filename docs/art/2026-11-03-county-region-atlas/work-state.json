@@ -2,28 +2,66 @@
   "objective": "按用户已认可规划完成整张县城地图，完成前不切新任务",
   "userApprovedArt": "REGION-A-v3",
   "actualRegionArts": {
-    "A": "../2026-11-03-whole-region-map/REGION-A-v3.png",
-    "B": "images/REGION-B-v4.png",
-    "C": "images/REGION-C-v1.png",
-    "D": "images/REGION-D-v2.png"
+    "REGION-A": "runtime-package-progress12/REGION-A-v3.png",
+    "REGION-B": "runtime-package-progress12/REGION-B-v4.png",
+    "R-+00--01": "runtime-package-progress12/R-+00--01-v2.png",
+    "REGION-C": "runtime-package-progress12/REGION-C-v3.png",
+    "REGION-D": "runtime-package-progress12/REGION-D-v4.png",
+    "R--01-+00": "runtime-package-progress12/R--01-+00-v3.png",
+    "R--01--01": "runtime-package-progress12/R--01--01-v2.png",
+    "R-+01--01": "runtime-package-progress12/R-+01--01-v1.png",
+    "R--01-+01": "runtime-package-progress12/R--01-+01-v1.png",
+    "R-+00--02": "runtime-package-progress12/R-+00--02-v1.png",
+    "R--02-+00": "runtime-package-progress12/R--02-+00-v2.png",
+    "R-+02-+00": "runtime-package-progress12/R-+02-+00-v1.png"
   },
   "plannedCoverageUnits": 1056,
-  "actualNativeRegions": 4,
+  "actualNativeRegions": 12,
   "runtimeReadyInternalRegions": [
     "REGION-A",
-    "REGION-B"
-  ],
-  "pendingRegistrationAndSeams": [
+    "REGION-B",
+    "R-+00--01",
     "REGION-C",
     "REGION-D"
   ],
+  "pendingRegistrationAndSeams": [
+    "R--01-+00",
+    "R--01--01",
+    "R-+01--01",
+    "R--01-+01",
+    "R-+00--02",
+    "R--02-+00",
+    "R-+02-+00"
+  ],
   "countyComplete": false,
   "stageTests": "not-triggered-not-run",
-  "activeWorkflow": "wfr_d03b3988-81eb-4c9b-b58c-630bddcb5c01",
-  "workflowSource": ".bb/workflows/county-region-next-batch.js",
+  "activeWorkflow": "wfr_9b281906-3783-4ca3-b815-47f244116d79",
+  "workflowSource": ".bb/workflows/county-region-fill.js",
   "workflowCompletionAction": "PM自动接续实际产物、修缝/交开发接入、下一相邻批，直到整图完成",
   "developer": "BB thr_v8eu5ahv2e",
-  "localGitCommit": "6fc9605",
-  "githubPush": "blocked-existing-authentication-invalid",
-  "imagegen": "recovered-after-one-token-revoked-failure"
+  "localGitCommit": "9e99217",
+  "githubPush": "verified-remote-codex/food-delivery-9e99217db6d837316decfe8d38afe86a1cc15538",
+  "imagegen": "recovered-after-one-token-revoked-failure",
+  "alignmentPolicy": "user-tolerance-20261103.md",
+  "agentPolicy": {
+    "rotateAfterApproxConversationTurns": 20,
+    "forbiddenModels": [
+      "gpt-6-astra"
+    ],
+    "simpleTasks": "lightweight-low",
+    "normalProduction": "gpt-6.1-sol-medium",
+    "complexRegistrationDevelopment": "sol-high-as-needed",
+    "handoff": "concise-files-no-full-history-fork"
+  },
+  "activeWorkflows": [
+    "wfr_9b281906-3783-4ca3-b815-47f244116d79"
+  ],
+  "completedWorkflows": [
+    "wfr_d03b3988-81eb-4c9b-b58c-630bddcb5c01",
+    "wfr_4b8a92e2-aaa5-44e5-8332-ea1801e8768f"
+  ],
+  "latestPreparedPackage": "runtime-package-progress12",
+  "latestReportedDeployment": "runtime-package-abcdn",
+  "assemblyFirstDecision": "assembly-first-decision-20261103.md",
+  "deferredUserIssue": "repairs/right-upper-occlusion/issue.json"
 }

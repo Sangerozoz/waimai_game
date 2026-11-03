@@ -19,3 +19,7 @@ PM BB `thr_7w55f3h66f`；唯一地图开发BB `thr_v8eu5ahv2e`。几何/配准/�
 工作流完成通知回本PM后必须继续：读取实际每区image/entry/残差；收口未接头与缺路；交唯一开发做数据接入/必要构建；按下一相邻批继续；GitHub认证恢复后重试普通push并核对远端commit。不得用规划1056数、工程对象数、prompt或构建成功代替完整美术/地图交付证据。
 
 Git当前首批本地commit为6fc9605；远端push返回“could not read Username”，gh现有账户token invalid，待用户登录后继续，不谎报已推送。未强推/清理/删除历史。
+
+## 后续进展
+
+用户恢复GitHub登录后，普通push已成功，新建远端codex/food-delivery并设为本地上游，当前已推6fc9605与9e99217；无强推/改main/发布。用户进一步明确一两块地砖级错位可接受，仅修明显影响使用的遮挡，执行见atlas/user-tolerance-20261103.md。北/西新图、D3/D4及北侧2版原生修图已保存，仍按实际图与原路推进归属/内部走廊，未测试/未完成整县。

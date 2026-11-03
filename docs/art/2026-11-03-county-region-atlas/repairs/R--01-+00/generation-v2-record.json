@@ -1,0 +1,34 @@
+{
+  "id": "R--01-+00",
+  "version": 2,
+  "tool": "built-in image_gen",
+  "sourcePath": "/Users/sanger/.codex/generated_images/01a1a147-b9e2-7fa2-8e40-3d2937061ced/exec-5aa3e31e-25a2-43a0-b6f8-ca9e5b5439c2.png",
+  "file": "docs/art/2026-11-03-county-region-atlas/repairs/R--01-+00/art/R--01-+00-v2.png",
+  "sha256": "cd3742cc1228801f27dad0085df59013ff9adf97ace8880a2c373ffbcaaf234d",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "promptFile": "docs/art/2026-11-03-county-region-atlas/repairs/R--01-+00/prompt-v2.txt",
+  "fullPrompt": "Use case: precise-object-edit. Asset type: one continuous county game region RGBA map, R--01-+00, fixed high orthographic camera elevation62.5deg azimuth45deg.\nImage1 is EDIT TARGET west-region v1. Image2 is authoritative original road geometry guide; only its roads, actual ground silhouette and sparse source footprints constrain geometry, not its block rendering. Image3 REGION-A-v3 is approved style/adjacent eastern region only, never copy its layout or landmark set.\nRepair the entire street network in Image1 so it follows Image2 geometry and fixed projection. Keep bright Japanese urban anime painted finish, material richness, entire architectural buildings, restrained ground landscaping, NO roof greenery, fixed light, native transparent background, 1254 square.\nConcrete edits in image1 native pixel coordinates: upper main junction currently(890,410) must move left/up toward(812,357), including all connecting road surfaces, sidewalks and adjacent complete buildings. Left bent-service/main junction(320,695) toward(348,712). Lower junction(450,943) toward(500,979). Inner service elbow(700,748) toward(726,818). Restore continuous southeast service asphalt branch from that inner elbow to right/lower ground edge around(876,1005): current complete buildings near(800,865)-(995,1035) obstruct it; move those WHOLE buildings inward/right/up by around50px as needed, never slice a facade or roof. This service branch must reach ground edge as in guide, not become a private footpath. Preserve original road widths and relationships. Do not stretch/compress/rotate image to fit, redraw the scene locally as needed. The guide source roads have priority over the illustration if conflict. Avoid school/campus signifiers or basketball court; preserve existing courtyard mixed residential and local workplaces. No people/rider, labels, arrows, diagnostic marks or new invented vehicle streets. Keep all roads visibly open, with buildings and crowns outside their corridors and entrances facing real streets. Preserve complete ground coverage and transparent outer perimeter.\n",
+  "references": [
+    {
+      "file": "docs/art/2026-11-03-county-region-atlas/production/R--01-+00/art/R--01-+00-v1.png",
+      "sha256": "19263b93c965dacbadc07bcbfd88366b66b2439a3db6be7a5ab2316db9543b55"
+    },
+    {
+      "file": "docs/art/2026-11-03-county-region-atlas/production/R--01-+00/input/guides/R--01-+00-structure-neutral.png",
+      "sha256": "7d05fc987b86519affb0f50851d2615a2f3564c8cf71c537550ebec7778d3ba1"
+    },
+    {
+      "file": "docs/art/2026-11-03-whole-region-map/REGION-A-v3.png",
+      "sha256": "4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e"
+    }
+  ],
+  "observed": "SE service road now visible but upper junction remains shifted vs geometry. Not ready; second and final corrective attempt uses geometry guide as base."
+}

@@ -1,0 +1,50 @@
+{
+  "id": "R-+02-+00",
+  "generated": true,
+  "status": "native-art-generated-not-registered-not-user-approved",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset: complete continuous county game map REGION R-+02-+00, not a collection of separate building sprites. Generate one whole 120m by 120m multi-block region with streets, sidewalks, architecture, entrances, courtyard planting and fixed painted shadows in one image.\nReference image 1 is this region's neutral source-geometry guide: it is the sole authority for original road positions, relative widths, intersections, water and edge connections. Reference image 2 is user-approved REGION-A-v3: MATERIAL AND PAINTING STYLE reference only, for bright modern Japanese urban anime painterly rendering, material richness, approved ground-greenery balance and soft fixed daylight. It is NOT the authority for this region camera, road lines, framing, facility list or layout. STRICT PRIORITY: source geometry guide framing/62.5deg camera/source-road junctions FIRST; actual adjacent ground overlap where consistent with source SECOND; A painting/material style LAST. Do not copy the repeated landmark package of glass tower + L-shaped school/basketball court + arched-roof hall + gray pitched-roof rowhouses into every region. Guide boxes indicate location and source camera, not identical architecture.\nSource region world bounds {\"minX\": -1432, \"maxX\": -1312, \"minY\": 20, \"maxY\": 140}. Guide is 1536 square, origin-map [-1372.0, 80.0], guide pixels/unit 8.739007178726006, origin pixel [751.9539476001507, 784.7582497638879]. Preserve its exact diamond framing, 62.5deg orthographic camera axes and every original road centerline/width/intersection, including upper road branches and edge entry points. Do not replace an upper road with a low-angle straight line, tilt the upper part of the map, move roads through buildings, copy A street layout or invent a prettier grid. Original source-road controls override style-reference composition. Buildings and their setbacks must be arranged around the original road corridor, never vice versa. Region core {\"minX\": -1424, \"maxX\": -1320, \"minY\": 28, \"maxY\": 132}; 8m each-side halo and 16m neighbor overlap are real shared world content. Coordinate with actual adjacent-region edges only for ids listed in neighborSharedRoadControls and preserve shared source roads; A is not a neighbor for distant regions. No isolated vignette border or decorative base.\nRegion zone: denseUrban; local parcel land-use is the only facility authority. Local planned uses: garden, mixed, residential. Complete urban plots with varied mid-rise/low-rise residences, distinct courtyard massings and local-use-compatible offices/shops; never require a school, civic landmark or sports facility unless that exact parcel explicitly supports it. Diversity must change massing, height, roof profile and use, not simply recolor the same slab. Ground greenery follows approved A-v3 and latest style reference about0.9 visually; no giant parks, blanket lawns or empty plazas. No local school/campus parcel is present: DO NOT invent any standalone school, campus, basketball court or sports stadium. No explicit community parcel is present: do not invent a civic center, municipal landmark or community landmark complex. Ordinary residential land can use distinct residential courtyard massings, grouped housing and small convenience storefronts consistent with its land use, without inserting a school/civic landmark. Public facilities are not a mandatory ingredient for every120m region. ABSOLUTELY NO greenery on any roof: no rooftop trees, shrubs, turf, planters, garden, vine or vegetation. Keep rider streets visibly open; typically building setbacks 6–10m. Slightly larger buildings allowed, no arbitrary new hard height limit.\nDo not draw rider, vehicles, characters, HUD, text, labels, tile outlines or registration marks. Keep transparent outside the actual region ground/art silhouette and preserve complete buildings that project beyond its ground edge. No black background, watermarks, 3D low-poly substitute, repeated-window program boxes, mirrored art, flat-color final diagram or screenshot UI. Do not sacrifice approved building detail to shrink an entire county into this region.\nThis prompt is a production request, not evidence that geometry/seams already match. Save full native RGBA source; never script-edit generated pixels. Final control-point registration and seam review follow generation.\nA registration warning: fitted native scale7.1345800795px/m@1254 and anchor[613.8999,640.6815]; its painted edge can deviate15–42px from nominal source square. Copy a complete visible shared road/ground strip from the actual neighbor reference, then measure new art; no promise of automatic seamlessness. Never move source roads. Every roof completely free of trees, shrubs, planters, turf or any vegetation.\nAdditional reference image 3 is actual adjacent REGION-B. Preserve its complete shared road/ground overlap in the source seam specified in structure.neighborSharedRoadControls; match building/terrain silhouettes and fixed shadows at that edge while preserving the source guide camera/framing/road controls as highest priority. Neighbor painted drift is not permission to move the original road. Do not copy its independent interior layout or landmark combinations.",
+  "references": [
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-region-atlas/production/R-+02-+00/input/guides/R-+02-+00-structure-neutral.png",
+      "role": "source-geometry-only",
+      "sha256": "4399bb985576cc31b4b1bb21ebf55d6a960a398c5a11bb3d9b2ef7840702d813",
+      "actualSha256": "4399bb985576cc31b4b1bb21ebf55d6a960a398c5a11bb3d9b2ef7840702d813"
+    },
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-whole-region-map/REGION-A-v3.png",
+      "role": "approved-material-and-painting-style-only",
+      "sha256": "4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e",
+      "actualSha256": "4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e"
+    },
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-region-atlas/images/REGION-B-v4.png",
+      "role": "actual-adjacent-region-edge-reference",
+      "regionId": "REGION-B",
+      "sha256": "779b49f6a307094e8a71b1503fc19566dfecee229534af4851bc71326ac2c9dd",
+      "actualSha256": "779b49f6a307094e8a71b1503fc19566dfecee229534af4851bc71326ac2c9dd"
+    }
+  ],
+  "sourcePath": "/Users/sanger/.codex/generated_images/01a1a158-2706-7d22-9985-bdc81589df9a/exec-0cba62ee-167c-4487-8ac5-616a6fbee435.png",
+  "sourceSha256": "964a355f714f0597c35ae8a90cea670ba6cdd53e5b53196d194d0b084cc81198",
+  "imageFile": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-region-atlas/production/R-+02-+00/art/R-+02-+00-v1.png",
+  "outputSha256": "964a355f714f0597c35ae8a90cea670ba6cdd53e5b53196d194d0b084cc81198",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "structureFile": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-region-atlas/production/R-+02-+00/input/structures/R-+02-+00-structure.json",
+  "structureSha256": "a3f28ed5a7bebf7db8cf19a4e1474d996d6d62a59b0bb9ca244210360d11f61c",
+  "visualReview": {
+    "performed": true,
+    "findings": "Whole scene visually inspected: main crossing and four road exits remain visibly open; no evident rooftop vegetation, school/court or civic landmark. Ground courtyards populated. Some architecture projects beyond canvas as in guide. Exact source correspondence and neighbor seam alignment not measured or approved.",
+    "targetedEditUsed": false
+  },
+  "pixelProcessing": "None; native file byte-for-byte copied.",
+  "tests": "Not run per task restrictions"
+}

@@ -1,0 +1,99 @@
+{
+  "id": "RIGHT-UPPER-ROAD-OCCLUSION-20261103",
+  "status": "deferred-unconfirmed-location",
+  "priority": "after-complete-county-assembly",
+  "userReport": "靠右上灰色区域，最最右边图有一路面被完全挤压没了；颜色差/小错位可接受。",
+  "latestDirection": "先拼完整张地图，再集中局部修补；本次立即修复/生图停止，不改当前包。",
+  "inspected": {
+    "atlas": "docs/art/2026-11-03-county-region-atlas/runtime-package-abcdn/region-atlas.json",
+    "atlasSha256": "2a1cbf583bb801ba2a8b744d401be14713c4b5e9fd1eed207d68f384cb89b386",
+    "materialDiagnostic": "docs/art/2026-11-03-county-region-atlas/runtime-package-abcdn/five-region-material-diagnostic.jpg",
+    "nativeArt": [
+      "docs/art/2026-11-03-county-region-atlas/production/R-+01--01/art/R-+01--01-v1.png",
+      "docs/art/2026-11-03-county-region-atlas/runtime-package-abcdn/REGION-B-v4.png"
+    ],
+    "registrationRead": "docs/art/2026-11-03-county-region-atlas/production/R-+01--01/registration/region-entry.json",
+    "notRuntimeEvidence": true
+  },
+  "suspectedArea": {
+    "description": "五区制作诊断右上N2大灰色弧顶楼附近，以及N-B之间未接东北邻图的灰背景三角。用户所指确切路段尚未确认，不能把该推测当最终定位。",
+    "regions": [
+      "R-+00--01",
+      "REGION-B",
+      "R-+01--01"
+    ],
+    "missingFromFiveRegionPackage": "R-+01--01",
+    "existingNativeNeighbor": "docs/art/2026-11-03-county-region-atlas/production/R-+01--01/art/R-+01--01-v1.png",
+    "neighborSha256": "03be89d75db697a008b7e3c878d390e1e75ae4625bbad5c8e249b60a8ee6f51b",
+    "neighborBoundsMap": {
+      "minX": -1536,
+      "maxX": -1416,
+      "minY": -84,
+      "maxY": 36
+    }
+  },
+  "sourceCorridorsToInspect": [
+    {
+      "id": "149396913-0",
+      "mapSegment": [
+        [
+          -1511.8168891435118,
+          20
+        ],
+        [
+          -1514.754729,
+          36
+        ]
+      ],
+      "reason": "R-+01--01与B的y20–36共享带穿带源路；B北侧源控制点native约[750,178]。当前未取得与用户缺路的确切对应。",
+      "nativeBObserved": [
+        750,
+        178
+      ],
+      "observationSource": "docs/art/2026-11-03-county-region-atlas/registration/registration-B-v4.json",
+      "confirmedAsUserReportedRoad": false
+    },
+    {
+      "id": "149397005-0",
+      "mapSegment": [
+        [
+          -1536,
+          9.553991291727138
+        ],
+        [
+          -1520,
+          10.700580551523947
+        ]
+      ],
+      "reason": "N与东北邻图东西接缝主路，候选核对段，尚未定点。",
+      "confirmedAsUserReportedRoad": false
+    }
+  ],
+  "hypotheses": [
+    {
+      "cause": "缺少真实R-+01--01邻图导致灰三角/道路后续不显示",
+      "state": "unconfirmed",
+      "evidence": "实际五区atlas仅A/B/N/C/D，真实东北邻区已生成却未接入。"
+    },
+    {
+      "cause": "现有ownership裁切/显示排序切去共享道路",
+      "state": "unconfirmed",
+      "evidence": "需要在整图接续后比较原生、ownership与同world显示；本次未作修订。"
+    },
+    {
+      "cause": "原生大楼本身压住道路",
+      "state": "not-established",
+      "evidence": "PM此前检查N2大灰弧顶楼旁原生道路完整，不能据灰背景推测就搬楼。"
+    }
+  ],
+  "nextAction": "整图拼接后先核对以上原生/归属/缺邻区，确认确切源路及native点，再仅修明显影响使用的遮挡；颜色与1–2地砖错位保留。",
+  "actionsPerformed": "只读资料/观看原生与制作诊断、写本issue及说明。",
+  "actionsNotPerformed": [
+    "改原图或生成新图",
+    "改归属/当前runtime包",
+    "构建部署",
+    "游戏HTTP浏览器运行",
+    "测试/typecheck/存档",
+    "Git"
+  ]
+}
