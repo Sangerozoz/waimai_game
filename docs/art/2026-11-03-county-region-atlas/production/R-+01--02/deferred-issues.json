@@ -1,0 +1,24 @@
+{
+  "id": "R-+01--02",
+  "inspection": "visual inspection of native generated image and source guide; no registration or runtime inspection",
+  "status": "deferred-until-full-atlas-assembly",
+  "issues": [
+    {
+      "id": "edge-overlap",
+      "severity": "unmeasured",
+      "description": "邻图共享边缘建筑与道路连续性尚未实测，整图拼接后集中检查；不得当作已对齐。"
+    },
+    {
+      "id": "ground-greenery",
+      "severity": "visual-difference",
+      "description": "中央庭院绿植较密，左上花园占比较明显，留待整图整体审阅，不重生。"
+    },
+    {
+      "id": "silhouette",
+      "severity": "visual-difference",
+      "description": "顶部及左侧突出楼体、边缘细碎亮边随原生输出保留，拼接后再判断明显遮挡。"
+    }
+  ],
+  "obviousCompleteRoadBlockObserved": false,
+  "note": "原生图内主路及右侧街口可见，未见整条道路被完全盖住；不代表配准后通行验证。无人工配准/修像素/测试。"
+}

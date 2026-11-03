@@ -38,3 +38,5 @@ GitHub重新授权后，两次提交6fc9605、9e99217已成功推送到`codex/fo
 GitHub分支codex/food-delivery远端已核对9e99217，本批真实新图/包/证据将继续提交；缓存与部署备份不提交。代理约20轮优先精简换新、禁止astra，常规生产Sol中强度，简单盘点用脚本。
 
 最新调度：原8并发fill因provider重连停滞，PM已取消旧run并保留底稿；新的fill run `wfr_504abff3-f5c6-4396-9a11-ff41e42ff103`每波两片，总8片，读取短交接而非整段历史。8750d3a已普通push成功且远端SHA核对一致。整县未完成、未游戏测试。
+
+最新23:06接续：20个真实整区已静态数据接入county-region/assets，5ready/15preview-only（后8区为名义摆放），22原PNG SHA匹配，72条源道路fullnodes与city逐值一致；未重编/页面/测试/存档。当前下一16区fill工作流`wfr_2512fa27-93a6-45c2-9368-122b8b1ef485`每波两片生产，完成后接入并继续队列。已完成旧run504不再在制。当前包runtime-package-progress20，完整证据docs/reviews/county-region-20261103/progress20-deployment-record.json。下方12区等为过程历史；整县未完成，不启动下一产品任务。

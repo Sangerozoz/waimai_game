@@ -29,3 +29,7 @@ Git当前首批本地commit为6fc9605；远端push返回“could not read Userna
 完整包runtime-package-progress12已交唯一开发，实际runtime-data与county-region/assets已更新，12整区+2骑手原生SHA匹配。5原ready和7新增preview-only逐值保持，43条原道路fullnodes与源city一致；未重编/页面/测试/存档。新8区fill工作流运行中，provider曾重连，先核查恢复而不重复产图。Git本批已提交8750d3a，普通push进行中；远端需另核对成功后才记成功。
 
 8750d3a普通push已成功，ls-remote返回8750d3a22a381e3a339774bc83381d78c70ddea2。旧8并发fill仍provider重连且无新原图，已取消、保留输入，改为新run wfr_504abff3-f5c6-4396-9a11-ff41e42ff103每波两片接续同8区，使用短资料、Sol中强度；无需用户再次开工。
+
+## 20区静态交付（23:06）
+
+下一8区一次原生生成已齐，未逐片人工配准或修小错位；完整20区包已交开发并接入，22图SHA及72条原道路fullnodes一致，原12条区域记录逐值保留。5ready与15preview-only、静态骑手override保持；只静态交付未游戏操作/测试。原12区已备份。下一16区新fill工作流wfr_2512fa27-93a6-45c2-9368-122b8b1ef485每波2片、Sol中强度，完成后继续队列，未切产品新任务。

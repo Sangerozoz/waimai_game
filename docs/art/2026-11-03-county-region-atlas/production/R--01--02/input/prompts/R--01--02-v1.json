@@ -1,0 +1,518 @@
+{
+  "id": "R--01--02-v1",
+  "status": "prompt-ready-not-generated",
+  "localParcelLandUses": [
+    "campus",
+    "garden",
+    "mixed",
+    "residential",
+    "riverfront"
+  ],
+  "facilityPolicy": "Local school/campus facilities are allowed ONLY inside these original campus/school parcels: P072. Keep their actual land-use and bounds; do not add a second school or replicate the reference school/basketball complex. No explicit community parcel is present: do not invent a civic center, municipal landmark or community landmark complex. Ordinary residential land can use distinct residential courtyard massings, grouped housing and small convenience storefronts consistent with its land use, without inserting a school/civic landmark. Public facilities are not a mandatory ingredient for every120m region.",
+  "prompt": "Use case: stylized-concept. Asset: complete continuous county game map REGION R--01--02, not a collection of separate building sprites. Generate one whole 120m by 120m multi-block region with streets, sidewalks, architecture, entrances, courtyard planting and fixed painted shadows in one image.\nReference image 1 is this region's neutral source-geometry guide: it is the sole authority for original road positions, relative widths, intersections, water and edge connections. Reference image 2 is user-approved REGION-A-v3: MATERIAL AND PAINTING STYLE reference only, for bright modern Japanese urban anime painterly rendering, material richness, approved ground-greenery balance and soft fixed daylight. It is NOT the authority for this region camera, road lines, framing, facility list or layout. STRICT PRIORITY: source geometry guide framing/62.5deg camera/source-road junctions FIRST; actual adjacent ground overlap where consistent with source SECOND; A painting/material style LAST. Do not copy the repeated landmark package of glass tower + L-shaped school/basketball court + arched-roof hall + gray pitched-roof rowhouses into every region. Guide boxes indicate location and source camera, not identical architecture.\nSource region world bounds {\"minX\": -1744, \"maxX\": -1624, \"minY\": -188, \"maxY\": -68}. Guide is 1536 square, origin-map [-1684.0, -128.0], guide pixels/unit 8.739007178726006, origin pixel [751.9539476001507, 784.7582497638879]. Preserve its exact diamond framing, 62.5deg orthographic camera axes and every original road centerline/width/intersection, including upper road branches and edge entry points. Do not replace an upper road with a low-angle straight line, tilt the upper part of the map, move roads through buildings, copy A street layout or invent a prettier grid. Original source-road controls override style-reference composition. Buildings and their setbacks must be arranged around the original road corridor, never vice versa. Region core {\"minX\": -1736, \"maxX\": -1632, \"minY\": -180, \"maxY\": -76}; 8m each-side halo and 16m neighbor overlap are real shared world content. Coordinate with actual adjacent-region edges only for ids listed in neighborSharedRoadControls and preserve shared source roads; A is not a neighbor for distant regions. No isolated vignette border or decorative base.\nRegion zone: denseUrban; local parcel land-use is the only facility authority. Local planned uses: campus, garden, mixed, residential, riverfront. Complete urban plots with varied mid-rise/low-rise residences, distinct courtyard massings and local-use-compatible offices/shops; never require a school, civic landmark or sports facility unless that exact parcel explicitly supports it. Diversity must change massing, height, roof profile and use, not simply recolor the same slab. Ground greenery follows approved A-v3 and latest style reference about0.9 visually; no giant parks, blanket lawns or empty plazas. Local school/campus facilities are allowed ONLY inside these original campus/school parcels: P072. Keep their actual land-use and bounds; do not add a second school or replicate the reference school/basketball complex. No explicit community parcel is present: do not invent a civic center, municipal landmark or community landmark complex. Ordinary residential land can use distinct residential courtyard massings, grouped housing and small convenience storefronts consistent with its land use, without inserting a school/civic landmark. Public facilities are not a mandatory ingredient for every120m region. ABSOLUTELY NO greenery on any roof: no rooftop trees, shrubs, turf, planters, garden, vine or vegetation. Keep rider streets visibly open; typically building setbacks 6–10m. Slightly larger buildings allowed, no arbitrary new hard height limit.\nDo not draw rider, vehicles, characters, HUD, text, labels, tile outlines or registration marks. Keep transparent outside the actual region ground/art silhouette and preserve complete buildings that project beyond its ground edge. No black background, watermarks, 3D low-poly substitute, repeated-window program boxes, mirrored art, flat-color final diagram or screenshot UI. Do not sacrifice approved building detail to shrink an entire county into this region.\nThis prompt is a production request, not evidence that geometry/seams already match. Save full native RGBA source; never script-edit generated pixels. Final control-point registration and seam review follow generation.\nA registration warning: fitted native scale7.1345800795px/m@1254 and anchor[613.8999,640.6815]; its painted edge can deviate15–42px from nominal source square. Copy a complete visible shared road/ground strip from the actual neighbor reference, then measure new art; no promise of automatic seamlessness. Never move source roads. Every roof completely free of trees, shrubs, planters, turf or any vegetation.\nAdditional reference image 3 is actual adjacent R-+00--02. Preserve its complete shared road/ground overlap in the source seam specified in structure.neighborSharedRoadControls; match building/terrain silhouettes and fixed shadows at that edge while preserving the source guide camera/framing/road controls as highest priority. Neighbor painted drift is not permission to move the original road. Do not copy its independent interior layout or landmark combinations.",
+  "referenceImages": [
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-region-atlas/production/R--01--02/input/guides/R--01--02-structure-neutral.png",
+      "role": "source-geometry-only",
+      "sha256": "dd62eeab009eb12d403eb5dd2e7ae2696188712816e2165739cee0acf67a5eb6"
+    },
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-whole-region-map/REGION-A-v3.png",
+      "role": "approved-material-and-painting-style-only",
+      "sha256": "4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e"
+    },
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-region-atlas/production/R-+00--02/art/R-+00--02-v1.png",
+      "role": "actual-adjacent-region-edge-reference",
+      "regionId": "R-+00--02",
+      "sha256": "bbd7737495d872e73b0dc80bce5e3652b20bd160222cb85e56a9d4605dc7b783"
+    }
+  ],
+  "structureFile": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-region-atlas/production/R--01--02/input/structures/R--01--02-structure.json",
+  "sharedControls": [
+    {
+      "seamId": "R--01--03__R--01--02",
+      "regions": [
+        "R--01--03",
+        "R--01--02"
+      ],
+      "overlapBounds": {
+        "minX": -1744,
+        "maxX": -1624,
+        "minY": -188,
+        "maxY": -172
+      },
+      "sourceRoadSegments": [
+        {
+          "roadId": "149396423-0",
+          "width": 5,
+          "map": [
+            [
+              -1643.7199506817522,
+              -188.0
+            ],
+            [
+              -1643.1397360023207,
+              -172.0
+            ]
+          ],
+          "guidePixels": [
+            [
+              1371.6256111957296,
+              676.669163209908
+            ],
+            [
+              1276.3404165149905,
+              767.5487140004176
+            ]
+          ]
+        },
+        {
+          "roadId": "149397260-0",
+          "width": 5,
+          "map": [
+            [
+              -1708.577019810508,
+              -172.0
+            ],
+            [
+              -1708.852644272179,
+              -188.0
+            ]
+          ],
+          "guidePixels": [
+            [
+              871.976529637476,
+              408.87356579400927
+            ],
+            [
+              969.1439125324989,
+              319.6635363396497
+            ]
+          ]
+        }
+      ],
+      "paintingStatus": "not-generated-not-stitched"
+    },
+    {
+      "seamId": "R--02--02__R--01--02",
+      "regions": [
+        "R--02--02",
+        "R--01--02"
+      ],
+      "overlapBounds": {
+        "minX": -1744,
+        "maxX": -1728,
+        "minY": -188,
+        "maxY": -68
+      },
+      "sourceRoadSegments": [
+        {
+          "roadId": "149396402-0",
+          "width": 5,
+          "map": [
+            [
+              -1728.0,
+              -168.4016921558954
+            ],
+            [
+              -1728.79,
+              -168.39
+            ]
+          ],
+          "guidePixels": [
+            [
+              729.7185236744111,
+              322.1352972033211
+            ],
+            [
+              724.7645381577246,
+              317.8692325825357
+            ]
+          ]
+        },
+        {
+          "roadId": "149396402-0",
+          "width": 5,
+          "map": [
+            [
+              -1728.79,
+              -168.39
+            ],
+            [
+              -1738.1,
+              -165.38
+            ]
+          ],
+          "guidePixels": [
+            [
+              724.7645381577246,
+              317.8692325825357
+            ],
+            [
+              648.6341917189311,
+              283.3376429107524
+            ]
+          ]
+        },
+        {
+          "roadId": "149396402-0",
+          "width": 5,
+          "map": [
+            [
+              -1738.1,
+              -165.38
+            ],
+            [
+              -1744.0,
+              -165.22135083633285
+            ]
+          ],
+          "guidePixels": [
+            [
+              648.6341917189311,
+              283.3376429107524
+            ],
+            [
+              611.1953069964397,
+              251.86812366599042
+            ]
+          ]
+        },
+        {
+          "roadId": "149397395-0",
+          "width": 5,
+          "map": [
+            [
+              -1728.0,
+              -104.29090666666669
+            ],
+            [
+              -1744.0,
+              -98.48824000000002
+            ]
+          ],
+          "guidePixels": [
+            [
+              333.551615414819,
+              673.539636576302
+            ],
+            [
+              198.82397202010532,
+              617.6459650821644
+            ]
+          ]
+        },
+        {
+          "roadId": "149397598-0",
+          "width": 5,
+          "map": [
+            [
+              -1739.0702857142858,
+              -68.0
+            ],
+            [
+              -1728.0,
+              -71.99443298969074
+            ]
+          ],
+          "guidePixels": [
+            [
+              40.887331022264675,
+              811.7790229247471
+            ],
+            [
+              133.9784230625819,
+              850.5632202046975
+            ]
+          ]
+        }
+      ],
+      "paintingStatus": "not-generated-not-stitched"
+    },
+    {
+      "seamId": "R--01--02__R-+00--02",
+      "regions": [
+        "R--01--02",
+        "R-+00--02"
+      ],
+      "overlapBounds": {
+        "minX": -1640,
+        "maxX": -1624,
+        "minY": -188,
+        "maxY": -68
+      },
+      "sourceRoadSegments": [
+        {
+          "roadId": "1148703580-0",
+          "width": 5,
+          "map": [
+            [
+              -1624.0,
+              -128.1995211887727
+            ],
+            [
+              -1640.0,
+              -126.56165657677491
+            ]
+          ],
+          "guidePixels": [
+            [
+              1123.9515452909602,
+              1112.536915872695
+            ],
+            [
+              1014.9599265123941,
+              1033.815111741093
+            ]
+          ]
+        },
+        {
+          "roadId": "149396459-0",
+          "width": 5,
+          "map": [
+            [
+              -1638.0465439093484,
+              -68.0
+            ],
+            [
+              -1637.98,
+              -91.49
+            ]
+          ],
+          "guidePixels": [
+            [
+              665.154576326902,
+              1365.5108323082868
+            ],
+            [
+              810.720148463213,
+              1237.122074464252
+            ]
+          ]
+        },
+        {
+          "roadId": "149396459-0",
+          "width": 5,
+          "map": [
+            [
+              -1637.98,
+              -91.49
+            ],
+            [
+              -1638.2,
+              -94.14
+            ]
+          ],
+          "guidePixels": [
+            [
+              810.720148463213,
+              1237.122074464252
+            ],
+            [
+              825.7361177689165,
+              1221.391016947106
+            ]
+          ]
+        },
+        {
+          "roadId": "149396459-0",
+          "width": 5,
+          "map": [
+            [
+              -1638.2,
+              -94.14
+            ],
+            [
+              -1638.39,
+              -98.21
+            ]
+          ],
+          "guidePixels": [
+            [
+              825.7361177689165,
+              1221.391016947106
+            ],
+            [
+              849.7122333681466,
+              1198.0410848833283
+            ]
+          ]
+        },
+        {
+          "roadId": "149396706-0",
+          "width": 5,
+          "map": [
+            [
+              -1624.0,
+              -171.78340611353713
+            ],
+            [
+              -1640.0,
+              -171.2781995297279
+            ]
+          ],
+          "guidePixels": [
+            [
+              1393.274293543463,
+              873.6447205513941
+            ],
+            [
+              1291.2818345118676,
+              788.7145859010841
+            ]
+          ]
+        },
+        {
+          "roadId": "149396761-0",
+          "width": 5,
+          "map": [
+            [
+              -1638.39,
+              -98.21
+            ],
+            [
+              -1640.0,
+              -115.76215686274432
+            ]
+          ],
+          "guidePixels": [
+            [
+              849.7122333681466,
+              1198.0410848833283
+            ],
+            [
+              948.2253766264523,
+              1093.009380437196
+            ]
+          ]
+        },
+        {
+          "roadId": "149397540-0",
+          "width": 5,
+          "map": [
+            [
+              -1638.2,
+              -94.14
+            ],
+            [
+              -1624.0,
+              -95.97225806451613
+            ]
+          ],
+          "guidePixels": [
+            [
+              825.7361177689165,
+              1221.391016947106
+            ],
+            [
+              924.8060334059101,
+              1289.1811422935568
+            ]
+          ]
+        },
+        {
+          "roadId": "149397598-0",
+          "width": 5,
+          "map": [
+            [
+              -1640.0,
+              -93.95291463954003
+            ],
+            [
+              -1638.2,
+              -94.14
+            ]
+          ],
+          "guidePixels": [
+            [
+              813.457100163781,
+              1212.5503016283428
+            ],
+            [
+              825.7361177689165,
+              1221.391016947106
+            ]
+          ]
+        }
+      ],
+      "paintingStatus": "not-generated-not-stitched"
+    },
+    {
+      "seamId": "R--01--02__R--01--01",
+      "regions": [
+        "R--01--02",
+        "R--01--01"
+      ],
+      "overlapBounds": {
+        "minX": -1744,
+        "maxX": -1624,
+        "minY": -84,
+        "maxY": -68
+      },
+      "sourceRoadSegments": [
+        {
+          "roadId": "149396459-0",
+          "width": 5,
+          "map": [
+            [
+              -1638.0465439093484,
+              -68.0
+            ],
+            [
+              -1638.0012181303116,
+              -84.0
+            ]
+          ],
+          "guidePixels": [
+            [
+              665.154576326902,
+              1365.5108323082868
+            ],
+            [
+              764.3052427458454,
+              1278.0599968249087
+            ]
+          ]
+        },
+        {
+          "roadId": "149397598-0",
+          "width": 5,
+          "map": [
+            [
+              -1739.0702857142858,
+              -68.0
+            ],
+            [
+              -1694.7274285714286,
+              -84.0
+            ]
+          ],
+          "guidePixels": [
+            [
+              40.887331022264675,
+              811.7790229247471
+            ],
+            [
+              413.77066051839745,
+              967.1320249855602
+            ]
+          ]
+        }
+      ],
+      "paintingStatus": "not-generated-not-stitched"
+    }
+  ],
+  "adjacentRegionIds": [
+    "R-+00--02",
+    "R--02--02",
+    "R--01--01",
+    "R--01--03"
+  ],
+  "neighborReferenceStatus": "actual-neighbor-supplied",
+  "registrationScaleReference": {
+    "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-region-atlas/registration/registration-A.json",
+    "sha256": "6514353944d474a14b76e0f6118d23ec9b065f64ddf8bb62e221aa320772e6f4",
+    "note": "A has 15–42px edge drift. Guide controls are not observed image correspondences; actual shared road/ground overlap required."
+  }
+}

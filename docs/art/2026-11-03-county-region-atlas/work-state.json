@@ -2,21 +2,29 @@
   "objective": "按用户已认可规划完成整张县城地图，完成前不切新任务",
   "userApprovedArt": "REGION-A-v3",
   "actualRegionArts": {
-    "REGION-A": "runtime-package-progress12/REGION-A-v3.png",
-    "REGION-B": "runtime-package-progress12/REGION-B-v4.png",
-    "R-+00--01": "runtime-package-progress12/R-+00--01-v2.png",
-    "REGION-C": "runtime-package-progress12/REGION-C-v3.png",
-    "REGION-D": "runtime-package-progress12/REGION-D-v4.png",
-    "R--01-+00": "runtime-package-progress12/R--01-+00-v3.png",
-    "R--01--01": "runtime-package-progress12/R--01--01-v2.png",
-    "R-+01--01": "runtime-package-progress12/R-+01--01-v1.png",
-    "R--01-+01": "runtime-package-progress12/R--01-+01-v1.png",
-    "R-+00--02": "runtime-package-progress12/R-+00--02-v1.png",
-    "R--02-+00": "runtime-package-progress12/R--02-+00-v2.png",
-    "R-+02-+00": "runtime-package-progress12/R-+02-+00-v1.png"
+    "REGION-A": "runtime-package-progress20/REGION-A-v3.png",
+    "REGION-B": "runtime-package-progress20/REGION-B-v4.png",
+    "R-+00--01": "runtime-package-progress20/R-+00--01-v2.png",
+    "REGION-C": "runtime-package-progress20/REGION-C-v3.png",
+    "REGION-D": "runtime-package-progress20/REGION-D-v4.png",
+    "R--01-+00": "runtime-package-progress20/R--01-+00-v3.png",
+    "R--01--01": "runtime-package-progress20/R--01--01-v2.png",
+    "R-+01--01": "runtime-package-progress20/R-+01--01-v1.png",
+    "R--01-+01": "runtime-package-progress20/R--01-+01-v1.png",
+    "R-+00--02": "runtime-package-progress20/R-+00--02-v1.png",
+    "R--02-+00": "runtime-package-progress20/R--02-+00-v2.png",
+    "R-+02-+00": "runtime-package-progress20/R-+02-+00-v1.png",
+    "R-+00-+02": "runtime-package-progress20/R-+00-+02-v1.png",
+    "R--01--02": "runtime-package-progress20/R--01--02-v1.png",
+    "R-+01--02": "runtime-package-progress20/R-+01--02-v1.png",
+    "R--02--01": "runtime-package-progress20/R--02--01-v1.png",
+    "R-+02--01": "runtime-package-progress20/R-+02--01-v1.png",
+    "R--02-+01": "runtime-package-progress20/R--02-+01-v1.png",
+    "R-+02-+01": "runtime-package-progress20/R-+02-+01-v1.png",
+    "R--01-+02": "runtime-package-progress20/R--01-+02-v1.png"
   },
   "plannedCoverageUnits": 1056,
-  "actualNativeRegions": 12,
+  "actualNativeRegions": 20,
   "runtimeReadyInternalRegions": [
     "REGION-A",
     "REGION-B",
@@ -31,13 +39,21 @@
     "R--01-+01",
     "R-+00--02",
     "R--02-+00",
-    "R-+02-+00"
+    "R-+02-+00",
+    "R-+00-+02",
+    "R--01--02",
+    "R-+01--02",
+    "R--02--01",
+    "R-+02--01",
+    "R--02-+01",
+    "R-+02-+01",
+    "R--01-+02"
   ],
   "countyComplete": false,
   "stageTests": "not-triggered-not-run",
-  "activeWorkflow": "wfr_504abff3-f5c6-4396-9a11-ff41e42ff103",
+  "activeWorkflow": "wfr_2512fa27-93a6-45c2-9368-122b8b1ef485",
   "workflowSource": ".bb/workflows/county-region-fill.js",
-  "workflowCompletionAction": "PM自动接续实际产物、修缝/交开发接入、下一相邻批，直到整图完成",
+  "workflowCompletionAction": "接续真实原图并批量数据接入，继续原队列；整图后集中修明显遮挡，再做产品经济调整",
   "developer": "BB thr_v8eu5ahv2e",
   "localGitCommit": "8750d3a",
   "githubPush": "verified-remote-codex/food-delivery-8750d3a22a381e3a339774bc83381d78c70ddea2",
@@ -54,14 +70,15 @@
     "handoff": "concise-files-no-full-history-fork"
   },
   "activeWorkflows": [
-    "wfr_504abff3-f5c6-4396-9a11-ff41e42ff103"
+    "wfr_2512fa27-93a6-45c2-9368-122b8b1ef485"
   ],
   "completedWorkflows": [
     "wfr_d03b3988-81eb-4c9b-b58c-630bddcb5c01",
-    "wfr_4b8a92e2-aaa5-44e5-8332-ea1801e8768f"
+    "wfr_4b8a92e2-aaa5-44e5-8332-ea1801e8768f",
+    "wfr_504abff3-f5c6-4396-9a11-ff41e42ff103"
   ],
-  "latestPreparedPackage": "runtime-package-progress12",
-  "latestReportedDeployment": "runtime-package-progress12",
+  "latestPreparedPackage": "runtime-package-progress20",
+  "latestReportedDeployment": "runtime-package-progress20",
   "assemblyFirstDecision": "assembly-first-decision-20261103.md",
   "deferredUserIssue": "repairs/right-upper-occlusion/issue.json",
   "replacedWorkflow": {
@@ -69,5 +86,6 @@
     "status": "cancelled-by-PM-to-reduce-stalled-concurrency",
     "newNativeOutputsBeforeStop": 0,
     "inputsPreserved": true
-  }
+  },
+  "nextProductionRegionCount": 16
 }

@@ -1,5 +1,7 @@
 # 游戏PM当前精简交接：2026-11-03
 
+最新23:06接续：20个真实整区已静态数据接入county-region/assets，5ready/15preview-only（后8区为名义摆放），22原PNG SHA匹配，72条源道路fullnodes与city逐值一致；未重编/页面/测试/存档。当前下一16区fill工作流`wfr_2512fa27-93a6-45c2-9368-122b8b1ef485`每波两片生产，完成后接入并继续队列。已完成旧run504不再在制。当前包runtime-package-progress20，完整证据docs/reviews/county-region-20261103/progress20-deployment-record.json。下方12区等为过程历史；整县未完成，不启动下一产品任务。
+
 > **地图之后任务：** 用户已提出产品/经济大改，需求与完整原话落盘docs/product/2026-11-03-next-product-economy-revision-intake.md。先完成整县地图，再综合设计金币购买/升级曲线、去资格门槛/命名等级、虚拟地图名、车辆颜色差异、广告专送单和10分钟广告自动配送，产页面稿供确认。当前仅登记，不并行开设计/业务/生页面稿，不改参数存档。
 
 > **最新实际状态：** 12区真实原图已齐，五区已静态部署，runtime-package-progress12已交唯一开发接入；7新增preview-only，仅显示。fill工作流wfr_504abff3-f5c6-4396-9a11-ff41e42ff103分四波、每波两片生产下一8区，完成后继续整县。当前不逐片精修/配准，先拼完整图再集中修明显遮挡；右上道路问题已归档。未测试/改存档。
