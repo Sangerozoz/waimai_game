@@ -33,6 +33,8 @@ GitHub重新授权后，两次提交6fc9605、9e99217已成功推送到`codex/fo
 
 ## 最新真实接续（覆盖上方过程状态）
 
-现已保存12个不同区域原图。五区ABCDN已交独立静态部署，12区完整进度包`runtime-package-progress12/`已交唯一开发数据接入，新增7区preview-only显示，现有5区可信内部保留；未游戏测试或冒充全图完成。采用[先拼全图再集中修补](assembly-first-decision-20261103.md)，右上道路问题列于`repairs/right-upper-occlusion/issue.json`，原因待全图核对。下一相邻8区由fill工作流wfr_9b281906-3783-4ca3-b815-47f244116d79生产，完成自动通知本PM继续接入/下一批；不再逐片配准/为小错位反复生图。
+现已保存12个不同区域原图。五区ABCDN已交独立静态部署，12区完整进度包`runtime-package-progress12/`已完成独立静态部署，新增7区preview-only显示，现有5区可信内部保留；未游戏测试或冒充全图完成。采用[先拼全图再集中修补](assembly-first-decision-20261103.md)，右上道路问题列于`repairs/right-upper-occlusion/issue.json`，原因待全图核对。下一相邻8区由fill工作流wfr_504abff3-f5c6-4396-9a11-ff41e42ff103分四波、每波两片生产，完成自动通知本PM继续接入/下一批；不再逐片配准/为小错位反复生图。
 
 GitHub分支codex/food-delivery远端已核对9e99217，本批真实新图/包/证据将继续提交；缓存与部署备份不提交。代理约20轮优先精简换新、禁止astra，常规生产Sol中强度，简单盘点用脚本。
+
+最新调度：原8并发fill因provider重连停滞，PM已取消旧run并保留底稿；新的fill run `wfr_504abff3-f5c6-4396-9a11-ff41e42ff103`每波两片，总8片，读取短交接而非整段历史。8750d3a已普通push成功且远端SHA核对一致。整县未完成、未游戏测试。

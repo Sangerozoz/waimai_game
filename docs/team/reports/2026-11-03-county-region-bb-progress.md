@@ -23,3 +23,9 @@ Git当前首批本地commit为6fc9605；远端push返回“could not read Userna
 ## 后续进展
 
 用户恢复GitHub登录后，普通push已成功，新建远端codex/food-delivery并设为本地上游，当前已推6fc9605与9e99217；无强推/改main/发布。用户进一步明确一两块地砖级错位可接受，仅修明显影响使用的遮挡，执行见atlas/user-tolerance-20261103.md。北/西新图、D3/D4及北侧2版原生修图已保存，仍按实际图与原路推进归属/内部走廊，未测试/未完成整县。
+
+## 12区静态交付（22:43）
+
+完整包runtime-package-progress12已交唯一开发，实际runtime-data与county-region/assets已更新，12整区+2骑手原生SHA匹配。5原ready和7新增preview-only逐值保持，43条原道路fullnodes与源city一致；未重编/页面/测试/存档。新8区fill工作流运行中，provider曾重连，先核查恢复而不重复产图。Git本批已提交8750d3a，普通push进行中；远端需另核对成功后才记成功。
+
+8750d3a普通push已成功，ls-remote返回8750d3a22a381e3a339774bc83381d78c70ddea2。旧8并发fill仍provider重连且无新原图，已取消、保留输入，改为新run wfr_504abff3-f5c6-4396-9a11-ff41e42ff103每波两片接续同8区，使用短资料、Sol中强度；无需用户再次开工。
