@@ -1,5 +1,9 @@
 # COUNTY-REGION-1103 开发接续交付
 
+当前最新为36区＋全源概览LOD，已必要构建和独立静态部署；见 `progress36-lod-delivery.md` / `progress36-deployment-record.json`。下方24区截断限制已由整视口LOD/原图互斥切换取代，旧包/限制保留历史。
+
+当前最新为20区静态数据（5 ready＋15 preview-only），见 `progress20-delivery.md` / `progress20-deployment-record.json`；未重编或运行，下方较小包为历史。
+
 当前最新静态数据为12区（5 ready＋7 preview-only），未重编；以 `progress12-delivery.md` 与 `progress12-deployment-record.json` 为准。下列五区/ABN/AB/A-only均为历史交付。
 
 最新数据部署为A/B/C/D/N五整区（源码/编译产物不变），见 `abcdn-delivery.md` 与 `abcdn-deployment-record.json`。以下ABN/AB/A-only均保留为过程历史。

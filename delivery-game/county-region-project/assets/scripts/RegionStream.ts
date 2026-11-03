@@ -13,16 +13,27 @@ export async function nativeSprite(spec:ImageSpec,parent:Node,w:number,h:number,
 }
 const intersects=(a:Bounds,b:Bounds)=>a.minX<=b.maxX&&a.maxX>=b.minX&&a.minY<=b.maxY&&a.maxY>=b.minY;
 export class RegionStream {
- private live=new Map<string,{sprite:NativeSprite;lastSeen:number}>();private pending=new Set<string>();private failures=new Map<string,string>();private desired:Region[]=[];private controller=new AbortController();private stopped=false;private clock=0;
- constructor(private model:AtlasModel,private parent:Node){}
- update(bounds:Bounds,dt:number):void{
+ private live=new Map<string,{sprite:NativeSprite;lastSeen:number}>();private pending=new Set<string>();private failures=new Map<string,string>();private desired:Region[]=[];private controller=new AbortController();private stopped=false;private clock=0;private overview:NativeSprite|null=null;private nativeMode=false;
+ constructor(private model:AtlasModel,private parent:Node,overview:NativeSprite|null=null){this.overview=overview;if(overview)this.parent.active=false;}
+
+ update(bounds:Bounds,dt:number,screenPixelsPerUnit:number):void{
   this.clock+=dt;const center=[(bounds.minX+bounds.maxX)/2,(bounds.minY+bounds.maxY)/2];const distance=(r:Region)=>{const b=this.model.imageBounds(r);return Math.hypot((b.minX+b.maxX)/2-center[0],(b.minY+b.maxY)/2-center[1]);};
-  this.desired=this.model.atlas.regions.filter(r=>intersects(this.model.imageBounds(r),bounds)).sort((a,b)=>distance(a)-distance(b)).slice(0,24);
+  const candidates=this.model.atlas.regions.filter(r=>intersects(this.model.imageBounds(r),bounds)).sort((a,b)=>distance(a)-distance(b));
+  const lod=this.model.atlas.displayLOD;
+  const near=!lod||screenPixelsPerUnit>=lod.pixelsPerUnit;
+  // A full-viewport substitution, never partial native overlays over a flattened overview.
+  this.desired=near&&candidates.length<=24?candidates:[];
+
   const wanted=new Set(this.desired.map(r=>r.id));for(const [id,item] of this.live){if(wanted.has(id))item.lastSeen=this.clock;else if(this.clock-item.lastSeen>(this.model.atlas.streaming?.releaseDelaySeconds??3)){item.sprite.dispose();this.live.delete(id);}}
-  const limit=this.model.atlas.streaming?.maxConcurrentLoads??2;for(const r of this.desired){if(this.pending.size>=limit)break;if(this.live.has(r.id)||this.pending.has(r.id)||this.failures.has(r.id))continue;this.load(r);}
+  // Reclaim stale viewport assets before loading replacements; cap native residents + pending at 24.
+  for(const [id,item] of this.live){if(this.live.size+this.pending.size<24)break;if(!wanted.has(id)){item.sprite.dispose();this.live.delete(id);}}
+  const limit=this.model.atlas.streaming?.maxConcurrentLoads??2;for(const r of this.desired){if(this.pending.size>=limit||this.live.size+this.pending.size>=24)break;if(this.live.has(r.id)||this.pending.has(r.id)||this.failures.has(r.id))continue;this.load(r);}
+  this.nativeMode=this.desired.length>0&&this.desired.every(r=>this.live.has(r.id));
+  this.parent.active=this.nativeMode;
+  if(this.overview)this.overview.node.active=!this.nativeMode;
  }
- private async load(r:Region):Promise<void>{this.pending.add(r.id);try{const s=await nativeSprite(r,this.parent,r.nativeSize[0]/r.nativePixelsPerUnit,r.nativeSize[1]/r.nativePixelsPerUnit,r.anchorUV,this.controller.signal,r.ownershipPolygonUV);if(this.stopped||!this.desired.some(d=>d.id===r.id)){s.dispose();return;}const p=this.model.projection.projectMap(...r.anchorMap);s.node.setPosition(p[0],-p[1],0);this.live.set(r.id,{sprite:s,lastSeen:this.clock});const ordered=this.model.atlas.regions.slice().sort((a,b)=>a.sortOrder-b.sortOrder||a.id.localeCompare(b.id));ordered.forEach((region,i)=>this.live.get(region.id)?.sprite.node.setSiblingIndex(i));}catch(e){if(!this.stopped)this.failures.set(r.id,String(e));}finally{this.pending.delete(r.id);}}
- get status(){return {loaded:this.live.size,loading:this.pending.size,total:this.model.atlas.regions.length,visibleBudget:24,errors:Object.fromEntries(this.failures)};}
+ private async load(r:Region):Promise<void>{this.pending.add(r.id);try{const s=await nativeSprite(r,this.parent,r.nativeSize[0]/r.nativePixelsPerUnit,r.nativeSize[1]/r.nativePixelsPerUnit,r.anchorUV,this.controller.signal,r.ownershipPolygonUV);if(this.stopped||!this.desired.some(d=>d.id===r.id)){s.dispose();return;}const p=this.model.projection.projectMap(...r.anchorMap);s.node.setPosition(p[0],-p[1],0);this.live.set(r.id,{sprite:s,lastSeen:this.clock});const ordered=this.model.atlas.regions.slice().sort((a,b)=>a.sortOrder-b.sortOrder||(a.id<b.id?-1:a.id>b.id?1:0));ordered.forEach((region,i)=>this.live.get(region.id)?.sprite.node.setSiblingIndex(i));}catch(e){if(!this.stopped)this.failures.set(r.id,String(e));}finally{this.pending.delete(r.id);}}
+ get status(){return {loaded:this.live.size,loading:this.pending.size,total:this.model.atlas.regions.length,visibleBudget:24,displayMode:this.nativeMode?'native':'overview',overviewSources:this.model.atlas.displayLOD?.sourceRegionIds.length??0,errors:Object.fromEntries(this.failures)};}
  retry():void{this.failures.clear();}
  destroy():void{this.stopped=true;this.controller.abort();this.live.forEach(s=>s.sprite.dispose());this.live.clear();}
 }

@@ -58,7 +58,8 @@
   "optionalRootFields": {
     "roads": "array of {id,width,nodes:[[mapX,mapY],...]}; independent original-road debug overlay, default hidden",
     "rider": "{frames:[{direction,file,sha256,nativeSize,wheelContactAnchorUV,widthUnits}],initialMap:[x,y]}; no autonomous demo route",
-    "streaming": "{paddingScreenPixels:256,releaseDelaySeconds:3,maxConcurrentLoads:2}"
+    "streaming": "{paddingScreenPixels:256,releaseDelaySeconds:3,maxConcurrentLoads:2}",
+    "displayLOD": "Display-only derived overview {file,sha256,nativeSize,pixelsPerUnit,projectedTopLeft,sourceRegionIds,maxTextureSize,evidenceFile}; mandatory when >24 regions. projectedTopLeft uses global canvas-down projected map units, not map XY. Never part of regions/registration/routeCoverage."
   },
   "registrationContract": {
     "ready": "At least 3 spread noncollinear observed correspondences {map:[x,y],pixel:[u,v]}, evidence path, finite measured maxResidualPixels; PM explicitly marks ready. Renderer does not solve/warp art.",
@@ -73,5 +74,13 @@
     "city": "delivery-game/assets/resources/map-sample/city.json",
     "sha256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20"
   },
-  "handoff": "PM supplies region-atlas.json plus native images relative to its directory. preparation tool copies byte-identical assets, records SHA. planning/ and registration/ stay data-agent owned."
+  "handoff": "PM supplies region-atlas.json plus native images relative to its directory. preparation tool copies byte-identical assets, records SHA. planning/ and registration/ stay data-agent owned.",
+  "lodEvidenceContract": {
+    "generator": "county-region-project/tools/build_overview.py via prepare-runtime.py",
+    "sources": "Every native region id/file/SHA/anchor/scale/sortOrder/ownership and projected bounds; global projection; generator SHA and Pillow version",
+    "nativePreservation": "Original PNG bytes remain unchanged; overview is runtime-only derived RGBA. Unmade space transparent. No repeat/tile fallback.",
+    "mode": "Overview only while far or near native set incomplete or >24 candidates; native only once all near candidates loaded. Never overlay a partial native subset over flattened overview.",
+    "budget": "One <=2048px overview by default (configurable64..4096); <=24 native live+pending, <=2 concurrent fetches; offscreen delay3s except capacity reclamation.",
+    "integrity": "integration-record links PM sourceAtlasSHA, runtime override and LOD/evidence file hashes. LOD source ids must exactly cover native region ids."
+  }
 }

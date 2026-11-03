@@ -1,8 +1,10 @@
 """Copy a PM atlas and native bytes into the isolated runtime package."""
 from pathlib import Path
 import argparse,hashlib,json,shutil
+from build_overview import build_overview
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('source')
+parser.add_argument('--overview-max-size',type=int,default=2048)
 parser.add_argument('--static-rider-map',nargs=2,type=float,metavar=('X','Y'))
 parser.add_argument('--static-rider-direction',default='ne')
 args=parser.parse_args()
@@ -29,7 +31,12 @@ for spec in specs:
  dst=output/rel;dst.parent.mkdir(parents=True,exist_ok=True)
  if src!=dst:shutil.copy2(src,dst)
  records[str(rel)]=digest
-# Publish manifest only after all native files are available.
+# Derived overview is mandatory beyond the 24-native resident budget.
+if len(atlas['regions'])>24:
+ atlas['displayLOD']=build_overview(atlas,output,args.overview_max_size)
+ for name in [atlas['displayLOD']['file'],atlas['displayLOD']['evidenceFile']]:records[name]=hashlib.sha256((output/name).read_bytes()).hexdigest()
+ overrides['displayLOD']={'purpose':'runtime-derived only','sources':len(atlas['regions']),'maxTextureSize':args.overview_max_size}
+# Publish manifest only after all native files and derived display data are available.
 (output/'region-atlas.json').write_text(json.dumps(atlas,ensure_ascii=False,indent=2)+'\n')
 records['region-atlas.json']=hashlib.sha256((output/'region-atlas.json').read_bytes()).hexdigest()
 (output/'integration-record.json').write_text(json.dumps({'source':str(source),'sourceAtlasSHA256':hashlib.sha256((source/'region-atlas.json').read_bytes()).hexdigest(),'runtimeOverrides':overrides,'status':'native bytes prepared; no runtime check','files':records},ensure_ascii=False,indent=2)+'\n')

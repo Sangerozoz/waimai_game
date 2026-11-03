@@ -35,3 +35,5 @@ Git当前首批本地commit为6fc9605；远端push返回“could not read Userna
 下一8区一次原生生成已齐，未逐片人工配准或修小错位；完整20区包已交开发并接入，22图SHA及72条原道路fullnodes一致，原12条区域记录逐值保留。5ready与15preview-only、静态骑手override保持；只静态交付未游戏操作/测试。原12区已备份。下一16区新fill工作流wfr_2512fa27-93a6-45c2-9368-122b8b1ef485每波2片、Sol中强度，完成后继续队列，未切产品新任务。
 
 最新接续：36个真实整区原图已保存，runtime-package-progress36已交唯一开发，5ready/31preview-only，125条原道路fullnodes合并时逐值核对，36原图SHA一致。当前最近已交静态部署仍为20区；开发正在增加真实原图派生概览LOD，解决近景24区预算导致远景漏已制区问题。LOD不改变原图/原路/骑手可信范围。下一16区fill工作流wfr_5335b248-d355-4954-afe2-45eaaf40b5fc继续每波两片，完成后接入并继续队列。集中修补索引deferred-repair-index.json收齐各区记录和用户右上道路问题，不在此时修小错位；整县未完成，产品任务仍排地图之后。
+
+36区＋真实原图派生概览已必要构建Finished（23:46:41）并静态部署，详见docs/reviews/county-region-20261103/progress36-lod-delivery.md及progress36-deployment-record.json。概览36源ID齐备、原图38件及派生1件部署SHA核对一致。近景≤24且全部加载齐后整组替代概览、两层互斥，原图常驻/在途≤24。不因此改原路或5ready/31preview-only，未HTTP/浏览器/游戏/测试/存档；前述“20区仍最新/概览在制”为此前过程状态。下一16区run5335继续生产，整县未完成。

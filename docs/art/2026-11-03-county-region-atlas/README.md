@@ -42,3 +42,5 @@ GitHub分支codex/food-delivery远端已核对9e99217，本批真实新图/包/�
 最新23:06接续：20个真实整区已静态数据接入county-region/assets，5ready/15preview-only（后8区为名义摆放），22原PNG SHA匹配，72条源道路fullnodes与city逐值一致；未重编/页面/测试/存档。当前下一16区fill工作流`wfr_2512fa27-93a6-45c2-9368-122b8b1ef485`每波两片生产，完成后接入并继续队列。已完成旧run504不再在制。当前包runtime-package-progress20，完整证据docs/reviews/county-region-20261103/progress20-deployment-record.json。下方12区等为过程历史；整县未完成，不启动下一产品任务。
 
 最新接续：36个真实整区原图已保存，runtime-package-progress36已交唯一开发，5ready/31preview-only，125条原道路fullnodes合并时逐值核对，36原图SHA一致。当前最近已交静态部署仍为20区；开发正在增加真实原图派生概览LOD，解决近景24区预算导致远景漏已制区问题。LOD不改变原图/原路/骑手可信范围。下一16区fill工作流wfr_5335b248-d355-4954-afe2-45eaaf40b5fc继续每波两片，完成后接入并继续队列。集中修补索引deferred-repair-index.json收齐各区记录和用户右上道路问题，不在此时修小错位；整县未完成，产品任务仍排地图之后。
+
+36区＋真实原图派生概览已必要构建Finished（23:46:41）并静态部署，详见docs/reviews/county-region-20261103/progress36-lod-delivery.md及progress36-deployment-record.json。概览36源ID齐备、原图38件及派生1件部署SHA核对一致。近景≤24且全部加载齐后整组替代概览、两层互斥，原图常驻/在途≤24。不因此改原路或5ready/31preview-only，未HTTP/浏览器/游戏/测试/存档；前述“20区仍最新/概览在制”为此前过程状态。下一16区run5335继续生产，整县未完成。
