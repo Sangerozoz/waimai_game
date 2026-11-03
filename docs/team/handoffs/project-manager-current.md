@@ -1,5 +1,7 @@
 # 游戏PM当前精简交接：2026-11-03
 
+最新接续：36个真实整区原图已保存，runtime-package-progress36已交唯一开发，5ready/31preview-only，125条原道路fullnodes合并时逐值核对，36原图SHA一致。当前最近已交静态部署仍为20区；开发正在增加真实原图派生概览LOD，解决近景24区预算导致远景漏已制区问题。LOD不改变原图/原路/骑手可信范围。下一16区fill工作流wfr_5335b248-d355-4954-afe2-45eaaf40b5fc继续每波两片，完成后接入并继续队列。集中修补索引deferred-repair-index.json收齐各区记录和用户右上道路问题，不在此时修小错位；整县未完成，产品任务仍排地图之后。
+
 > **专送概率已明确：** 用户打开抢单大厅时有80%概率看到一个高价专送订单，不是订单里80%为专送，也不是逐单80%抽取。已回写产品需求登记；重复进出/刷新是否重抽留后续方案说明，当前不擅定。仍先完成地图。
 
 最新23:06接续：20个真实整区已静态数据接入county-region/assets，5ready/15preview-only（后8区为名义摆放），22原PNG SHA匹配，72条源道路fullnodes与city逐值一致；未重编/页面/测试/存档。当前下一16区fill工作流`wfr_2512fa27-93a6-45c2-9368-122b8b1ef485`每波两片生产，完成后接入并继续队列。已完成旧run504不再在制。当前包runtime-package-progress20，完整证据docs/reviews/county-region-20261103/progress20-deployment-record.json。下方12区等为过程历史；整县未完成，不启动下一产品任务。

@@ -1,0 +1,689 @@
+{
+  "status": "deferred-until-full-assembly",
+  "knownRegionCount": 36,
+  "countyComplete": false,
+  "userTolerance": "user-tolerance-20261103.md",
+  "items": [
+    {
+      "id": "R-+00-+02",
+      "file": "production/R-+00-+02/deferred-issues.json",
+      "record": {
+        "id": "R-+00-+02",
+        "status": "deferred-until-full-atlas-assembly",
+        "inspection": "Native generated image visually inspected; no measured registration or runtime inspection.",
+        "issues": [
+          {
+            "location": "upper branching street and right junction / outer edge connections",
+            "observation": "Main road corridors visibly open in native art. Painted junction widths and edge positions may drift from guide; adjacent shared strip continuity is unmeasured.",
+            "action": "Review obvious blockage/truncation after whole-map assembly; no local regeneration."
+          },
+          {
+            "location": "outer art silhouette",
+            "observation": "Fine pale/colored edge fringe visible around some roof and ground edges on transparent background.",
+            "action": "Defer full assembly review; preserve native pixels."
+          }
+        ],
+        "noRoofVegetationObserved": true,
+        "noObviousCompleteRoadBlockageObserved": true,
+        "measured": false
+      }
+    },
+    {
+      "id": "R--01--02",
+      "file": "production/R--01--02/deferred-issues.json",
+      "record": {
+        "id": "R--01--02",
+        "review": "native-image-visual-inspection-only",
+        "registrationMeasured": false,
+        "issues": [
+          {
+            "id": "edge-alpha-fringe",
+            "location": "silhouette perimeter, notably upper-left roof and lower/right edges",
+            "observation": "Visible pale fringe and scattered colored edge flecks; preserve native bytes and defer cleanup until full assembly.",
+            "deferred": true
+          },
+          {
+            "id": "nominal-layout-and-neighbor-seams",
+            "location": "upper road branches and shared east edge",
+            "observation": "Roads are visible in this image, but painted junction spacing and neighbor overlap are unmeasured; verify blocking and shared-road continuity after full assembly.",
+            "deferred": true
+          }
+        ],
+        "obviousFullyBlockedRoadObserved": false,
+        "note": "No manual registration, pixel edits or regeneration. No claim of route readiness; no rooftop greenery visibly observed."
+      }
+    },
+    {
+      "id": "R-+01--02",
+      "file": "production/R-+01--02/deferred-issues.json",
+      "record": {
+        "id": "R-+01--02",
+        "inspection": "visual inspection of native generated image and source guide; no registration or runtime inspection",
+        "status": "deferred-until-full-atlas-assembly",
+        "issues": [
+          {
+            "id": "edge-overlap",
+            "severity": "unmeasured",
+            "description": "邻图共享边缘建筑与道路连续性尚未实测，整图拼接后集中检查；不得当作已对齐。"
+          },
+          {
+            "id": "ground-greenery",
+            "severity": "visual-difference",
+            "description": "中央庭院绿植较密，左上花园占比较明显，留待整图整体审阅，不重生。"
+          },
+          {
+            "id": "silhouette",
+            "severity": "visual-difference",
+            "description": "顶部及左侧突出楼体、边缘细碎亮边随原生输出保留，拼接后再判断明显遮挡。"
+          }
+        ],
+        "obviousCompleteRoadBlockObserved": false,
+        "note": "原生图内主路及右侧街口可见，未见整条道路被完全盖住；不代表配准后通行验证。无人工配准/修像素/测试。"
+      }
+    },
+    {
+      "id": "R--02--01",
+      "file": "production/R--02--01/deferred-issues.json",
+      "record": {
+        "id": "R--02--01",
+        "review": "native image visually inspected; no registration or game testing",
+        "status": "deferred-until-whole-map-assembled",
+        "issues": [
+          {
+            "id": "edge-continuity",
+            "location": "outer road exits and shared neighbor overlap",
+            "observation": "Road exits and water corridor remain visible, but exact shared-edge alignment and silhouettes have not been measured; review in whole atlas assembly.",
+            "severity": "unmeasured"
+          },
+          {
+            "id": "land-use-density",
+            "location": "central/right planned park and garden parcels",
+            "observation": "Dense buildings and courtyard planting dominate; planned park areas are not clearly distinct from residential courtyards. Reassess only during full-map repair pass.",
+            "severity": "visual-layout-review"
+          },
+          {
+            "id": "southwest-building",
+            "location": "bottom-left projecting building",
+            "observation": "A complete building projects beyond the ground silhouette with a narrow transparent separation; possible overlap/sorting issue after assembly.",
+            "severity": "assembly-review"
+          }
+        ],
+        "obviousCompleteRoadBlockageObserved": false,
+        "noRoofVegetationObserved": true
+      }
+    },
+    {
+      "id": "R-+02--01",
+      "file": "production/R-+02--01/deferred-issues.json",
+      "record": {
+        "id": "R-+02--01",
+        "status": "deferred-until-whole-atlas-assembly",
+        "inspection": "native image visually inspected; no registration or gameplay test",
+        "issues": [
+          {
+            "id": "edge-extent",
+            "severity": "review-later",
+            "observation": "Bottom projecting building reaches image boundary and appears clipped; source guide also extends beyond canvas. Review whole-atlas building completeness after assembly."
+          },
+          {
+            "id": "road-and-seams",
+            "severity": "unmeasured",
+            "observation": "Main curved road, upper branches, left junction and right water channel visibly retained. Exact source alignment and neighbor continuity are unmeasured; defer assembly inspection. No obvious complete main-road blockage seen."
+          },
+          {
+            "id": "dense-lower-courtyards",
+            "severity": "review-later",
+            "observation": "Lower half has dense tall massings and narrow courtyard gaps; review any route or ground occlusion after assembly, without regenerating now."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R--02-+01",
+      "file": "production/R--02-+01/deferred-issues.json",
+      "record": {
+        "id": "R--02-+01",
+        "inspection": "Visual inspection of native generated image; no registration or seam measurements",
+        "issues": [
+          {
+            "id": "edge-framing",
+            "description": "原生图建筑与地面轮廓相对guide有明显构图漂移，边缘道路接续尚未核对；留待整图拼接后集中处理。",
+            "status": "deferred"
+          },
+          {
+            "id": "edge-fringe",
+            "description": "部分透明边缘可见细小白亮边与红黄色碎边，留待整图集中审查。",
+            "status": "deferred"
+          }
+        ],
+        "roadOcclusion": "目视内部主路及交叉口保持可见，未见建筑完全覆盖主路；不代表已配准或路线可用。",
+        "noRerender": true
+      }
+    },
+    {
+      "id": "R-+02-+01",
+      "file": "production/R-+02-+01/deferred-issues.json",
+      "record": {
+        "id": "R-+02-+01",
+        "review": "visual inspection of native output; no registration or seam measurements",
+        "status": "deferred-until-whole-atlas-assembled",
+        "issues": [
+          {
+            "location": "outer road endpoints and neighbor-D overlap",
+            "observation": "Road edge framing differs visibly from guide; shared overlap has not been measured. Preserve source geometry; inspect after assembly.",
+            "severity": "pending-assembly-review"
+          },
+          {
+            "location": "bottom waterway end and right silhouette",
+            "observation": "Water ends in a pointed cut and right edge has small detached/light pixels; retain native bytes and review assembled silhouette later.",
+            "severity": "visual-deferred"
+          }
+        ],
+        "obviousFullyBlockedInteriorRoadObserved": false,
+        "noRoofVegetationObserved": true
+      }
+    },
+    {
+      "id": "R--01-+02",
+      "file": "production/R--01-+02/deferred-issues.json",
+      "record": {
+        "id": "R--01-+02",
+        "inspection": "visual inspection of native tool output; no measured registration",
+        "issues": [
+          {
+            "id": "shared-edge-review",
+            "severity": "deferred-review",
+            "description": "与R--01-+01重叠边缘的建筑、道路和阴影尚未实测，不能声称无缝；整县拼完集中检查。"
+          },
+          {
+            "id": "nominal-framing",
+            "severity": "deferred-review",
+            "description": "原图与guide的轮廓/路口存在肉眼比例差异，未测量；保持原图，集中拼图后检查是否影响通行。"
+          }
+        ],
+        "obviousCompleteRoadOcclusionObserved": false,
+        "roofVegetationObserved": false,
+        "repairPerformed": false
+      }
+    },
+    {
+      "id": "R-+01-+02",
+      "file": "production/R-+01-+02/deferred-issues.json",
+      "record": {
+        "id": "R-+01-+02",
+        "inspection": "Visual inspection of native output; no measurements or runtime tests",
+        "status": "deferred-until-full-atlas-assembly",
+        "issues": [
+          {
+            "location": "left image edge",
+            "observation": "One edge building is clipped by the canvas; review ownership/neighbor coverage after assembly.",
+            "action": "defer"
+          },
+          {
+            "location": "roads and neighboring edge",
+            "observation": "Visible principal road and internal streets remain open; exact source alignment and shared overlap have not been measured.",
+            "action": "review only after full assembly"
+          }
+        ],
+        "roofVegetationObserved": false,
+        "obviousCompleteRoadOcclusionObserved": false
+      }
+    },
+    {
+      "id": "R-+00--03",
+      "file": "production/R-+00--03/deferred-issues.json",
+      "record": {
+        "id": "R-+00--03",
+        "review": "visual-only, no measured registration or game testing",
+        "deferredUntil": "whole-atlas-assembly",
+        "issues": [
+          {
+            "location": "right canvas edge",
+            "observation": "Large source building mass continues beyond canvas and is visibly clipped; full silhouette not preserved.",
+            "action": "Review whole-atlas ownership/occlusion before any local repair."
+          },
+          {
+            "location": "left garden parcel",
+            "observation": "Generated residential courtyard buildings occupy guide blank garden area; land-use fidelity needs final assembly review."
+          },
+          {
+            "location": "neighbor overlap",
+            "observation": "Shared roads and silhouettes have not been measured; visible road junctions remain open within this image.",
+            "action": "Final assembly review only; no claim of seamlessness."
+          }
+        ]
+      }
+    },
+    {
+      "id": "R--03-+00",
+      "file": "production/R--03-+00/deferred-issues.json",
+      "record": {
+        "id": "R--03-+00",
+        "inspection": "Actual native image visually inspected; no measured registration",
+        "issues": [
+          {
+            "type": "source-road-layout-drift",
+            "severity": "deferred-review",
+            "description": "Guide has three road arms meeting near center and no upper-right through road. Native art adds a large upper-right diagonal road/junction and changes central road geometry. Retain native art for assembly; review source-road correspondence and edge continuation in full-map repair pass."
+          },
+          {
+            "type": "edge-building-crop",
+            "severity": "deferred-review",
+            "description": "Leftmost residential building touches/cuts canvas edge; review complete-building silhouette after assembly."
+          }
+        ],
+        "obviousBuildingFullyBlockingRoadObserved": false,
+        "repairStatus": "deferred-until-whole-map-assembled",
+        "riderRouteAuthorized": false
+      }
+    },
+    {
+      "id": "R-+03-+00",
+      "file": "production/R-+03-+00/deferred-issues.json",
+      "record": {
+        "id": "R-+03-+00",
+        "review": "native image visually inspected; no registration measurements",
+        "status": "deferred-until-whole-atlas-assembly",
+        "issues": [
+          {
+            "location": "upper branch between large northern blocks",
+            "observation": "Upper road branch is visible in a narrow gap; tall surrounding buildings obscure part of its continuation. Review whole-atlas road visibility after assembly.",
+            "severity": "potential-road-occlusion",
+            "action": "defer; no regeneration or source-road change"
+          },
+          {
+            "location": "left and top canvas edges",
+            "observation": "Some projected buildings reach or are clipped by the native canvas edge; review overlap ownership after assembly.",
+            "action": "defer; preserve native bytes"
+          }
+        ],
+        "registration": "not-measured",
+        "riderRoutesEnabled": false
+      }
+    },
+    {
+      "id": "R-+00-+03",
+      "file": "production/R-+00-+03/deferred-issues.json",
+      "record": {
+        "id": "R-+00-+03",
+        "inspection": "native image visually viewed; no registration or gameplay test",
+        "status": "deferred-until-whole-atlas-assembly",
+        "issues": [
+          {
+            "location": "upper-left / upper interior",
+            "issue": "Large continuous paved area remains sparsely furnished; park/garden land use completeness should be reviewed after assembly."
+          },
+          {
+            "location": "lower-right river strip",
+            "issue": "Visible transparent gap separates part of water/riverbank silhouette; retain native pixels and review with neighboring regions after assembly."
+          },
+          {
+            "location": "outer right building and water edges",
+            "issue": "Some art reaches canvas boundary; completeness and overlap require whole-map review."
+          }
+        ],
+        "roadObservation": "Main diagonal road and left branch visibly open; no obvious full road obstruction in this image. Shared edge alignment is unmeasured."
+      }
+    },
+    {
+      "id": "R--01--03",
+      "file": "production/R--01--03/deferred-issues.json",
+      "record": {
+        "id": "R--01--03",
+        "inspection": "Actual generated image visually inspected; no measured registration or seam assessment",
+        "issues": [
+          {
+            "location": "upper junction",
+            "observation": "Upper junction contains an added elongated traffic island and curved painted lanes relative to the simple guide junction; review road clearance in full-map repair pass.",
+            "status": "deferred"
+          },
+          {
+            "location": "right edge",
+            "observation": "Buildings extend to the image edge and some silhouette is cut by the canvas; overlap with actual neighbor remains unmeasured.",
+            "status": "deferred"
+          }
+        ],
+        "note": "No obvious complete street blockage seen in this single image. No rooftop vegetation observed. No regeneration for drift; no rider/route authorization."
+      }
+    },
+    {
+      "id": "R-+01--03",
+      "file": "production/R-+01--03/deferred-issues.json",
+      "record": {
+        "id": "R-+01--03",
+        "inspection": "Native image visually inspected; no registration or full-map seam review.",
+        "issues": [
+          {
+            "id": "top-edge-clearance",
+            "observation": "Uppermost residential roof meets canvas top; possible silhouette clipping requires full-map review.",
+            "action": "Defer until whole atlas assembled; retain native image."
+          },
+          {
+            "id": "unmeasured-overlap",
+            "observation": "Shared neighbor overlap and upper-right branch alignment have not been measured; no claim of seamlessness.",
+            "action": "Review full-map obvious corridor obstruction after assembly."
+          }
+        ],
+        "visibleRoads": "Main crossing visibly open; no obvious complete main-crossing blockage observed.",
+        "roofGreenery": "None observed.",
+        "ready": false
+      }
+    },
+    {
+      "id": "R--02--02",
+      "file": "production/R--02--02/deferred-issues.json",
+      "record": {
+        "id": "R--02--02",
+        "review": "visual inspection of native generated image only; no registration or runtime review",
+        "issues": [
+          {
+            "id": "edge-continuity",
+            "description": "下沿水道及底部短路在图边截断，须整图拼接后确认与邻图连续性；未判定为原路错误。",
+            "status": "deferred-until-full-assembly"
+          },
+          {
+            "id": "framing-drift",
+            "description": "原图道路及建筑相对底稿存在可见造型/位置偏差，未量测；不保证边缘配准。图内未见道路被建筑完全覆盖。",
+            "status": "deferred-until-full-assembly"
+          }
+        ],
+        "roofGreeneryObserved": false,
+        "testsRun": false
+      }
+    },
+    {
+      "id": "R-+02--02",
+      "file": "production/R-+02--02/deferred-issues.json",
+      "record": {
+        "id": "R-+02--02",
+        "status": "deferred-until-full-atlas-assembly",
+        "inspection": "Native output actually viewed; qualitative only, no registration performed",
+        "issues": [
+          {
+            "location": "uppermost building at canvas top",
+            "observation": "Top roof silhouette touches canvas boundary; possible clipped overhang to review in full assembly."
+          },
+          {
+            "location": "right-center narrow street between large blocks",
+            "observation": "Street visually narrows beside tall facades; check full-map overlap for blocking after assembly, not confirmed blocked."
+          },
+          {
+            "location": "shared neighbor edge and all region edges",
+            "observation": "Nominal framing only; actual seam continuity and original-road alignment unmeasured."
+          }
+        ],
+        "roofVegetationObserved": false,
+        "repairsPerformed": false
+      }
+    },
+    {
+      "id": "R--03--01",
+      "file": "production/R--03--01/deferred-issues.json",
+      "record": {
+        "id": "R--03--01",
+        "review": "native-image visual inspection only; no registration measurement",
+        "status": "deferred-until-full-map-assembly",
+        "issues": [
+          {
+            "location": "upper right road near canal",
+            "description": "Parallel right-side road ends abruptly inside the region; inspect continuation after assembly."
+          },
+          {
+            "location": "interior upper-left to center",
+            "description": "Painted transverse interior road and connection differ from neutral guide; road layout drift requires full-map review, no source-road changes authorized."
+          },
+          {
+            "location": "neighbor overlap and perimeter",
+            "description": "Native road/ground seam continuity is unmeasured; visible edge cutoffs and overlap ownership require full-map inspection."
+          }
+        ],
+        "noRegeneration": true
+      }
+    },
+    {
+      "id": "R-+03--01",
+      "file": "production/R-+03--01/deferred-issues.json",
+      "record": {
+        "id": "R-+03--01",
+        "review": "visual inspection of native output; no registration or game test",
+        "issues": [
+          {
+            "id": "geometry-drift",
+            "severity": "deferred",
+            "observation": "生成图明显沿用了真实邻图的中央弯曲主路与多栋商住排列；与本区guide的下侧折线路、上端横跨水道道路布局有明显差异，不能当作已保留本区原道路。",
+            "action": "整图完成后集中检查道路与街口，不修改原路，不重复生图。"
+          },
+          {
+            "id": "edge-completeness",
+            "severity": "deferred",
+            "observation": "下侧楼体与地面外轮廓形成长凸出，边缘需待相邻区齐备后检查遮挡与归属。",
+            "action": "整图拼接后集中复核。"
+          }
+        ],
+        "roofGreenery": "未见明显屋顶绿植",
+        "ready": false
+      }
+    },
+    {
+      "id": "R--03-+01",
+      "file": "production/R--03-+01/deferred-issues.json",
+      "record": {
+        "id": "R--03-+01",
+        "inspection": "Native output visually inspected; no measured registration or route review.",
+        "issues": [
+          {
+            "kind": "edge-crop",
+            "location": "far right building at image boundary",
+            "observation": "Rightmost building silhouette reaches/cuts the canvas edge; inspect whole-building preservation during final assembly."
+          },
+          {
+            "kind": "layout-and-seam-review",
+            "location": "bottom residential block and neighbor overlap",
+            "observation": "Bottom guide blank parcel filled with housing/courtyard; roads visually open at central cross, but neighbor ground alignment and park allocation remain unmeasured."
+          },
+          {
+            "kind": "massing-repetition",
+            "location": "upper and right blocks",
+            "observation": "Several similar flat-roof mid-rise masses; defer overall variety review."
+          }
+        ],
+        "action": "Deferred until full atlas assembly; no regeneration or manual registration."
+      }
+    },
+    {
+      "id": "R-+03-+01",
+      "file": "production/R-+03-+01/deferred-issues.json",
+      "record": {
+        "id": "R-+03-+01",
+        "inspection": "Actual native generated image visually inspected; no browser or runtime inspection.",
+        "status": "deferred-until-full-atlas-assembly",
+        "issues": [
+          {
+            "id": "edge-clipping",
+            "observation": "上端、最右及底端建筑延伸至画布边界，楼体存在截边；整图拼接后核对遮挡与完整性。",
+            "severity": "review-after-assembly"
+          },
+          {
+            "id": "nominal-seams",
+            "observation": "道路主体可见，未见内部被楼体完全覆盖；邻区接缝、河道及边缘路口仅目视，未配准实测，不宣称连续可通行。",
+            "severity": "unmeasured"
+          }
+        ],
+        "repairsPerformed": false
+      }
+    },
+    {
+      "id": "R--02-+02",
+      "file": "production/R--02-+02/deferred-issues.json",
+      "record": {
+        "id": "R--02-+02",
+        "status": "deferred-until-full-map-assembly",
+        "inspection": "Visual inspection of native generated image against displayed guide and references; no measurement.",
+        "issues": [
+          {
+            "location": "central-left road bend",
+            "observation": "Painted bend includes a narrow pointed sidewalk wedge; review road continuity in final assembly.",
+            "severity": "review-after-assembly"
+          },
+          {
+            "location": "lower river and outer edges",
+            "observation": "River banks and shared edge silhouettes are painted approximations; neighbor continuity remains unmeasured.",
+            "severity": "unmeasured-seam"
+          }
+        ],
+        "blockingObservation": "No clearly fully building-covered street or vanished main intersection observed in this standalone image.",
+        "roofObservation": "No obvious rooftop vegetation observed.",
+        "measured": false
+      }
+    },
+    {
+      "id": "R-+02-+02",
+      "file": "production/R-+02-+02/deferred-issues.json",
+      "record": {
+        "id": "R-+02-+02",
+        "reviewMethod": "direct visual inspection of native image and guide; no measured registration",
+        "status": "deferred-until-full-atlas-assembly",
+        "issues": [
+          {
+            "location": "left and right outer water edges",
+            "observation": "Visible cyan/blue fringe strips and rough edge pixels outside water silhouette.",
+            "action": "Review edge artifacts during full-map assembly repair."
+          },
+          {
+            "location": "interior diagonal street and shared boundaries",
+            "observation": "Generated interior includes a prominent diagonal street; source-road and neighbor overlap fidelity remains unmeasured.",
+            "action": "Review obvious corridor obstruction and overlap only after full assembly; preserve source roads."
+          }
+        ],
+        "noRegeneration": true
+      }
+    },
+    {
+      "id": "R--01-+03",
+      "file": "production/R--01-+03/deferred-issues.json",
+      "record": {
+        "id": "R--01-+03",
+        "inspection": "visual-native-image-only",
+        "status": "deferred-until-whole-atlas-assembly",
+        "issues": [
+          {
+            "location": "top apex",
+            "description": "顶部出现guide未呈现的直路，道路布局有明显漂移；集中拼图后检查原路覆盖与多余路段。"
+          },
+          {
+            "location": "upper-left/top paved area",
+            "description": "顶部铺地面积较大、内容较空，整图完成后评估补景。"
+          },
+          {
+            "location": "shared neighbor edge and riverfront",
+            "description": "邻图共享路口/水岸轮廓尚未实测，不能声称接缝匹配；未进行人工配准。"
+          }
+        ],
+        "observation": "主要可见街道未见建筑完全覆盖；不代表实际通行验证。"
+      }
+    },
+    {
+      "id": "user-right-upper-road-occlusion",
+      "file": "repairs/right-upper-occlusion/issue.json",
+      "record": {
+        "id": "RIGHT-UPPER-ROAD-OCCLUSION-20261103",
+        "status": "deferred-unconfirmed-location",
+        "priority": "after-complete-county-assembly",
+        "userReport": "靠右上灰色区域，最最右边图有一路面被完全挤压没了；颜色差/小错位可接受。",
+        "latestDirection": "先拼完整张地图，再集中局部修补；本次立即修复/生图停止，不改当前包。",
+        "inspected": {
+          "atlas": "docs/art/2026-11-03-county-region-atlas/runtime-package-abcdn/region-atlas.json",
+          "atlasSha256": "2a1cbf583bb801ba2a8b744d401be14713c4b5e9fd1eed207d68f384cb89b386",
+          "materialDiagnostic": "docs/art/2026-11-03-county-region-atlas/runtime-package-abcdn/five-region-material-diagnostic.jpg",
+          "nativeArt": [
+            "docs/art/2026-11-03-county-region-atlas/production/R-+01--01/art/R-+01--01-v1.png",
+            "docs/art/2026-11-03-county-region-atlas/runtime-package-abcdn/REGION-B-v4.png"
+          ],
+          "registrationRead": "docs/art/2026-11-03-county-region-atlas/production/R-+01--01/registration/region-entry.json",
+          "notRuntimeEvidence": true
+        },
+        "suspectedArea": {
+          "description": "五区制作诊断右上N2大灰色弧顶楼附近，以及N-B之间未接东北邻图的灰背景三角。用户所指确切路段尚未确认，不能把该推测当最终定位。",
+          "regions": [
+            "R-+00--01",
+            "REGION-B",
+            "R-+01--01"
+          ],
+          "missingFromFiveRegionPackage": "R-+01--01",
+          "existingNativeNeighbor": "docs/art/2026-11-03-county-region-atlas/production/R-+01--01/art/R-+01--01-v1.png",
+          "neighborSha256": "03be89d75db697a008b7e3c878d390e1e75ae4625bbad5c8e249b60a8ee6f51b",
+          "neighborBoundsMap": {
+            "minX": -1536,
+            "maxX": -1416,
+            "minY": -84,
+            "maxY": 36
+          }
+        },
+        "sourceCorridorsToInspect": [
+          {
+            "id": "149396913-0",
+            "mapSegment": [
+              [
+                -1511.8168891435118,
+                20
+              ],
+              [
+                -1514.754729,
+                36
+              ]
+            ],
+            "reason": "R-+01--01与B的y20–36共享带穿带源路；B北侧源控制点native约[750,178]。当前未取得与用户缺路的确切对应。",
+            "nativeBObserved": [
+              750,
+              178
+            ],
+            "observationSource": "docs/art/2026-11-03-county-region-atlas/registration/registration-B-v4.json",
+            "confirmedAsUserReportedRoad": false
+          },
+          {
+            "id": "149397005-0",
+            "mapSegment": [
+              [
+                -1536,
+                9.553991291727138
+              ],
+              [
+                -1520,
+                10.700580551523947
+              ]
+            ],
+            "reason": "N与东北邻图东西接缝主路，候选核对段，尚未定点。",
+            "confirmedAsUserReportedRoad": false
+          }
+        ],
+        "hypotheses": [
+          {
+            "cause": "缺少真实R-+01--01邻图导致灰三角/道路后续不显示",
+            "state": "unconfirmed",
+            "evidence": "实际五区atlas仅A/B/N/C/D，真实东北邻区已生成却未接入。"
+          },
+          {
+            "cause": "现有ownership裁切/显示排序切去共享道路",
+            "state": "unconfirmed",
+            "evidence": "需要在整图接续后比较原生、ownership与同world显示；本次未作修订。"
+          },
+          {
+            "cause": "原生大楼本身压住道路",
+            "state": "not-established",
+            "evidence": "PM此前检查N2大灰弧顶楼旁原生道路完整，不能据灰背景推测就搬楼。"
+          }
+        ],
+        "nextAction": "整图拼接后先核对以上原生/归属/缺邻区，确认确切源路及native点，再仅修明显影响使用的遮挡；颜色与1–2地砖错位保留。",
+        "actionsPerformed": "只读资料/观看原生与制作诊断、写本issue及说明。",
+        "actionsNotPerformed": [
+          "改原图或生成新图",
+          "改归属/当前runtime包",
+          "构建部署",
+          "游戏HTTP浏览器运行",
+          "测试/typecheck/存档",
+          "Git"
+        ]
+      }
+    }
+  ]
+}
