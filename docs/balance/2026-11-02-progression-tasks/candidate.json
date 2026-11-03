@@ -1,0 +1,603 @@
+{
+  "id": "progression-task-design-20261102-v1",
+  "status": "pm-recommended-candidate-not-approved-or-implemented",
+  "confirmedDirection": {
+    "affordabilityPromptsGoToRelevantPage": true,
+    "rewardOnlyAfterSuccessfulPurchaseRecruitmentOrUnlock": true,
+    "rewardKinds": [
+      "coins",
+      "supplies"
+    ],
+    "mapUnlockRequiresFeeAndOperatingProgress": true
+  },
+  "proposedRules": {
+    "organization": "one-pinned-recommendation-and-stage-milestone-list-no-forced-spending-order",
+    "noFixedDailyOrRandomTasks": true,
+    "affordabilityUsesCurrentWalletAndAllEligibility": true,
+    "neverAutoPurchase": true,
+    "noPurchasePromptDuringActiveDelivery": true,
+    "rewardDelivery": "automatic-once-after-success",
+    "coinRewardRatePercent": 10,
+    "rewardXp": 0,
+    "accountCategory": "task-reward-not-delivery-income",
+    "supplyUse": "explicit-use-in-existing-supply-ui-same-item-effect-and-time-no-extra-coin-charge",
+    "offlineQuotaReplenishmentFromTaskRewards": false
+  },
+  "tasks": [
+    {
+      "id": "hire-npc-01",
+      "type": "recruitment-milestone",
+      "map": 1,
+      "recruitmentOrdinal": 1,
+      "costCandidateYuan": 100,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 10
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-02",
+      "type": "recruitment-milestone",
+      "map": 1,
+      "recruitmentOrdinal": 2,
+      "costCandidateYuan": 110,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 11
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-03",
+      "type": "recruitment-milestone",
+      "map": 2,
+      "recruitmentOrdinal": 3,
+      "costCandidateYuan": 130,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 13
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-04",
+      "type": "recruitment-milestone",
+      "map": 2,
+      "recruitmentOrdinal": 4,
+      "costCandidateYuan": 170,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 17
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-05",
+      "type": "recruitment-milestone",
+      "map": 2,
+      "recruitmentOrdinal": 5,
+      "costCandidateYuan": 230,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 23
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-06",
+      "type": "recruitment-milestone",
+      "map": 2,
+      "recruitmentOrdinal": 6,
+      "costCandidateYuan": 300,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 30
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-07",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 7,
+      "costCandidateYuan": 390,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 39
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-08",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 8,
+      "costCandidateYuan": 490,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 49
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-09",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 9,
+      "costCandidateYuan": 610,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 61
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-10",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 10,
+      "costCandidateYuan": 750,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 75
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-11",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 11,
+      "costCandidateYuan": 900,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 90
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-12",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 12,
+      "costCandidateYuan": 1070,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 107
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-13",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 13,
+      "costCandidateYuan": 1250,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 125
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-14",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 14,
+      "costCandidateYuan": 1450,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 145
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-15",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 15,
+      "costCandidateYuan": 1670,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 167
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-16",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 16,
+      "costCandidateYuan": 1900,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 190
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-17",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 17,
+      "costCandidateYuan": 2150,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 215
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-18",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 18,
+      "costCandidateYuan": 2410,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 241
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-19",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 19,
+      "costCandidateYuan": 2690,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 269
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-20",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 20,
+      "costCandidateYuan": 2990,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 299
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-21",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 21,
+      "costCandidateYuan": 3300,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 330
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-22",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 22,
+      "costCandidateYuan": 3630,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 363
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-23",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 23,
+      "costCandidateYuan": 3970,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 397
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-24",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 24,
+      "costCandidateYuan": 4330,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 433
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-25",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 25,
+      "costCandidateYuan": 4710,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 471
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-26",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 26,
+      "costCandidateYuan": 5100,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 510
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-27",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 27,
+      "costCandidateYuan": 5510,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 551
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-28",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 28,
+      "costCandidateYuan": 5930,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 593
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-29",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 29,
+      "costCandidateYuan": 6370,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 637
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-30",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 30,
+      "costCandidateYuan": 6830,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 683
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-d",
+      "type": "vehicle-first-paid-purchase",
+      "map": 1,
+      "grade": "D",
+      "costCandidateYuan": 150,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 15
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-d-plus",
+      "type": "vehicle-first-paid-purchase",
+      "map": 1,
+      "grade": "D+",
+      "costCandidateYuan": 220,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 22
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-c",
+      "type": "vehicle-first-paid-purchase",
+      "map": 1,
+      "grade": "C",
+      "costCandidateYuan": 320,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 32
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-c-plus",
+      "type": "vehicle-first-paid-purchase",
+      "map": 1,
+      "grade": "C+",
+      "costCandidateYuan": 460,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 46
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-b",
+      "type": "vehicle-first-paid-purchase",
+      "map": 2,
+      "grade": "B",
+      "costCandidateYuan": 680,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 68
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-b-plus",
+      "type": "vehicle-first-paid-purchase",
+      "map": 2,
+      "grade": "B+",
+      "costCandidateYuan": 1000,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 100
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-a",
+      "type": "vehicle-first-paid-purchase",
+      "map": 3,
+      "grade": "A",
+      "costCandidateYuan": 1450,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 145
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-s",
+      "type": "vehicle-first-paid-purchase",
+      "map": 4,
+      "grade": "S",
+      "costCandidateYuan": 2100,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 210
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-ss",
+      "type": "vehicle-first-paid-purchase",
+      "map": 4,
+      "grade": "SS",
+      "costCandidateYuan": 3000,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 300
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-sss",
+      "type": "vehicle-first-paid-purchase",
+      "map": 5,
+      "grade": "SSS",
+      "costCandidateYuan": 4300,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 430
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "unlock-map-2",
+      "type": "map-first-unlock",
+      "map": 2,
+      "unlockFeeCandidateYuan": 500,
+      "additionalProgressRequirementsSource": "../2026-11-01-product-master-draft/parameter-candidate.json#proposed.mapEntry",
+      "completion": "successful-paid-map-unlock-after-progress-eligibility",
+      "reward": {
+        "supplies": [
+          {
+            "kind": "new-stage-drink",
+            "count": 2
+          },
+          {
+            "kind": "new-stage-meal",
+            "count": 1
+          }
+        ]
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "unlock-map-3",
+      "type": "map-first-unlock",
+      "map": 3,
+      "unlockFeeCandidateYuan": 1500,
+      "additionalProgressRequirementsSource": "../2026-11-01-product-master-draft/parameter-candidate.json#proposed.mapEntry",
+      "completion": "successful-paid-map-unlock-after-progress-eligibility",
+      "reward": {
+        "supplies": [
+          {
+            "kind": "new-stage-drink",
+            "count": 2
+          },
+          {
+            "kind": "new-stage-meal",
+            "count": 1
+          }
+        ]
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "unlock-map-4",
+      "type": "map-first-unlock",
+      "map": 4,
+      "unlockFeeCandidateYuan": 4000,
+      "additionalProgressRequirementsSource": "../2026-11-01-product-master-draft/parameter-candidate.json#proposed.mapEntry",
+      "completion": "successful-paid-map-unlock-after-progress-eligibility",
+      "reward": {
+        "supplies": [
+          {
+            "kind": "new-stage-drink",
+            "count": 2
+          },
+          {
+            "kind": "new-stage-meal",
+            "count": 1
+          }
+        ]
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "unlock-map-5",
+      "type": "map-first-unlock",
+      "map": 5,
+      "unlockFeeCandidateYuan": 10000,
+      "additionalProgressRequirementsSource": "../2026-11-01-product-master-draft/parameter-candidate.json#proposed.mapEntry",
+      "completion": "successful-paid-map-unlock-after-progress-eligibility",
+      "reward": {
+        "supplies": [
+          {
+            "kind": "new-stage-drink",
+            "count": 2
+          },
+          {
+            "kind": "new-stage-meal",
+            "count": 1
+          }
+        ]
+      },
+      "oncePerSave": true
+    }
+  ],
+  "arithmetic": {
+    "recruitmentCoinRewardsYuan": 7144,
+    "vehicleCoinRewardsYuan": 1368,
+    "allOneTimeCoinRewardsYuan": 8512,
+    "mapDrinkCount": 8,
+    "mapMealCount": 4,
+    "allMapUnlockFeesCandidateYuan": 16000,
+    "arithmeticIsNotMeasuredGameBalance": true
+  },
+  "pricingSource": "../2026-11-01-vehicle-economy/pricing-candidate.json",
+  "design": "../../superpowers/specs/2026-11-02-progression-tasks-design.md"
+}

@@ -1,0 +1,1453 @@
+{
+  "version": "product-v1-20261102",
+  "status": "frozen-initial-product-configuration-not-game-tested-not-implemented",
+  "decisionSource": "user-accepted-four-recommendations-on-2026-11-02; numerical-values-compiled-by-pm",
+  "initialState": {
+    "cashYuan": 100,
+    "reputation": 80,
+    "experience": 0,
+    "heroVehicle": "D",
+    "heroVehicleLevel": 1,
+    "freeVehicleCount": 1,
+    "energy": 100,
+    "autoWorkQuotaSeconds": 0
+  },
+  "personalOrders": {
+    "fixedCountCap": null,
+    "sumOfSelectedWeightsMustFitActualVehicleCapacity": true,
+    "selectBatchOnlyInLobby": true,
+    "addOrdersDuringBatch": false,
+    "nextBatchAllowedAfter": "all-delivered-or-all-unfinished-cancelled",
+    "candidatePageSize": 10,
+    "pageSizeIsNotTotalCandidateOrSelectionCap": true,
+    "manualRerollsPerDay": 2,
+    "eachOrderHasIndependentDeadline": true,
+    "ordinarySlackGameMinutes": 5,
+    "urgentSlackGameMinutes": 3,
+    "baseFeeYuan": 10,
+    "experiencePerDeliveredOrder": 10
+  },
+  "playerExperience": {
+    "levelStartExperience1To10": [
+      0,
+      50,
+      185,
+      367,
+      613,
+      945,
+      1393,
+      1998,
+      2815,
+      3917
+    ],
+    "afterLevel10GapBase": 1102,
+    "nextGapGrowth": "roundHalfUp(previousGap*1.35)",
+    "incomeMultiplier": "min(1.6,1+0.03*(level-1))",
+    "migration": "preserve-current-county-experience-and-level-curve"
+  },
+  "timing": {
+    "roadGameSecondsPerRealSecond": 40,
+    "pickupRealSeconds": 2,
+    "pickupGameSeconds": 60,
+    "dropoffRealSeconds": 1,
+    "dropoffGameSeconds": 30,
+    "planningAndModalReadingPausePlayerTrip": true,
+    "briefFeedbackAddsPause": false,
+    "backgroundFreezesPlayerTrip": true,
+    "npcUsesRealTimeAndQuotaEvenWhenPlayerTripPausedOrBackgrounded": true,
+    "clickingChangesPlayerRealWaitOnly": true
+  },
+  "maps": [
+    {
+      "map": 1,
+      "npcNewSlots": 2,
+      "npcCumulativeSlots": 2,
+      "unlockFeeYuan": 0,
+      "entry": {
+        "allRequired": true,
+        "teamLifetimeDeliveredOrders": 0,
+        "npcHiredAtLeast": 0,
+        "ownedVehicleTierAtLeast": null,
+        "ownedQualifyingVehicleLevelAtLeast": 1
+      },
+      "autoWorkQuotaCapMinutes": 15,
+      "quotaCreditMinutesPerPersonalDeliveredOrder": 1,
+      "rainProbabilityPercent": 5,
+      "severeWeatherProbabilityPercent": 0,
+      "damageBaseScale": "0.25",
+      "roadEnergyPerKm": 2,
+      "orderWeightMinKg": 1,
+      "orderWeightMaxKg": 3
+    },
+    {
+      "map": 2,
+      "npcNewSlots": 4,
+      "npcCumulativeSlots": 6,
+      "unlockFeeYuan": 500,
+      "entry": {
+        "allRequired": true,
+        "teamLifetimeDeliveredOrders": 60,
+        "npcHiredAtLeast": 1,
+        "ownedVehicleTierAtLeast": "C",
+        "ownedQualifyingVehicleLevelAtLeast": 5
+      },
+      "autoWorkQuotaCapMinutes": 20,
+      "quotaCreditMinutesPerPersonalDeliveredOrder": 2,
+      "rainProbabilityPercent": 10,
+      "severeWeatherProbabilityPercent": 1,
+      "damageBaseScale": "0.50",
+      "roadEnergyPerKm": 2,
+      "orderWeightMinKg": 1,
+      "orderWeightMaxKg": 5
+    },
+    {
+      "map": 3,
+      "npcNewSlots": 6,
+      "npcCumulativeSlots": 12,
+      "unlockFeeYuan": 1500,
+      "entry": {
+        "allRequired": true,
+        "teamLifetimeDeliveredOrders": 240,
+        "npcHiredAtLeast": 4,
+        "ownedVehicleTierAtLeast": "B",
+        "ownedQualifyingVehicleLevelAtLeast": 5
+      },
+      "autoWorkQuotaCapMinutes": 25,
+      "quotaCreditMinutesPerPersonalDeliveredOrder": 2,
+      "rainProbabilityPercent": 15,
+      "severeWeatherProbabilityPercent": 2,
+      "damageBaseScale": "0.75",
+      "roadEnergyPerKm": 3,
+      "orderWeightMinKg": 1,
+      "orderWeightMaxKg": 8
+    },
+    {
+      "map": 4,
+      "npcNewSlots": 8,
+      "npcCumulativeSlots": 20,
+      "unlockFeeYuan": 4000,
+      "entry": {
+        "allRequired": true,
+        "teamLifetimeDeliveredOrders": 700,
+        "npcHiredAtLeast": 8,
+        "ownedVehicleTierAtLeast": "A",
+        "ownedQualifyingVehicleLevelAtLeast": 5
+      },
+      "autoWorkQuotaCapMinutes": 30,
+      "quotaCreditMinutesPerPersonalDeliveredOrder": 3,
+      "rainProbabilityPercent": 20,
+      "severeWeatherProbabilityPercent": 3,
+      "damageBaseScale": "1.00",
+      "roadEnergyPerKm": 3,
+      "orderWeightMinKg": 1,
+      "orderWeightMaxKg": 12
+    },
+    {
+      "map": 5,
+      "npcNewSlots": 10,
+      "npcCumulativeSlots": 30,
+      "unlockFeeYuan": 10000,
+      "entry": {
+        "allRequired": true,
+        "teamLifetimeDeliveredOrders": 1800,
+        "npcHiredAtLeast": 14,
+        "ownedVehicleTierAtLeast": "SS",
+        "ownedQualifyingVehicleLevelAtLeast": 5
+      },
+      "autoWorkQuotaCapMinutes": 30,
+      "quotaCreditMinutesPerPersonalDeliveredOrder": 3,
+      "rainProbabilityPercent": 25,
+      "severeWeatherProbabilityPercent": 5,
+      "damageBaseScale": "1.25",
+      "roadEnergyPerKm": 4,
+      "orderWeightMinKg": 1,
+      "orderWeightMaxKg": 16
+    }
+  ],
+  "autoWorkQuota": {
+    "unit": "shared-fleet-operating-real-seconds",
+    "startSeconds": 0,
+    "creditOnPersonalDeliveryOnce": true,
+    "creditCanAccumulateBeforeFirstNpc": true,
+    "capAndCreditUseHighestUnlockedMap": true,
+    "oneSecondSpentPerFleetActiveRealSecondNotPerNpc": true,
+    "noNpcReadyMeansNoConsumption": true,
+    "atZero": "freeze-npc-work-progress-and-stop-accrual-until-personal-delivery-refills",
+    "cashClaimOrAppOpenDoesNotRefill": true,
+    "noCalendarReset": true,
+    "mapSwitchHireEquipOrUpgradeDoesNotRefill": true,
+    "capIncreaseDoesNotGiftNewSeconds": true,
+    "sameOnlineAndOfflineRatePercent": 100,
+    "taskRewardsAndNpcDeliveriesDoNotCreditQuota": true,
+    "carAndTrainingImproveYieldWithinQuota": true
+  },
+  "npcProduction": {
+    "roadRealSecondsAtDLevel1": 63,
+    "fixedWorkRealSecondsAtLevel1": 27,
+    "cycleFormula": "63*12/actualVehicleSpeedKph+trainingFixedWorkSeconds",
+    "incomeFormula": "roundToCents(10*actualTotalVehicleIncomeMultiplier*trainingIncomeMultiplier)",
+    "allHiredAndAssignedNpcsCanWork": true,
+    "manualNpcFeeding": false,
+    "workProgressRetainedAcrossQuotaDepletion": true
+  },
+  "npcTraining": {
+    "maxLevel": 30,
+    "levels": [
+      {
+        "level": 1,
+        "growthProgress": "0.00",
+        "incomeMultiplier": "1.0000",
+        "fixedWorkSeconds": "27.0000",
+        "cumulativeTrainingYuan": 0,
+        "upgradeToNextYuan": 8
+      },
+      {
+        "level": 2,
+        "growthProgress": "0.05",
+        "incomeMultiplier": "1.0100",
+        "fixedWorkSeconds": "26.7975",
+        "cumulativeTrainingYuan": 8,
+        "upgradeToNextYuan": 17
+      },
+      {
+        "level": 3,
+        "growthProgress": "0.10",
+        "incomeMultiplier": "1.0200",
+        "fixedWorkSeconds": "26.5950",
+        "cumulativeTrainingYuan": 25,
+        "upgradeToNextYuan": 25
+      },
+      {
+        "level": 4,
+        "growthProgress": "0.15",
+        "incomeMultiplier": "1.0300",
+        "fixedWorkSeconds": "26.3925",
+        "cumulativeTrainingYuan": 50,
+        "upgradeToNextYuan": 33
+      },
+      {
+        "level": 5,
+        "growthProgress": "0.20",
+        "incomeMultiplier": "1.0400",
+        "fixedWorkSeconds": "26.1900",
+        "cumulativeTrainingYuan": 83,
+        "upgradeToNextYuan": 41
+      },
+      {
+        "level": 6,
+        "growthProgress": "0.25",
+        "incomeMultiplier": "1.0500",
+        "fixedWorkSeconds": "25.9875",
+        "cumulativeTrainingYuan": 124,
+        "upgradeToNextYuan": 50
+      },
+      {
+        "level": 7,
+        "growthProgress": "0.30",
+        "incomeMultiplier": "1.0600",
+        "fixedWorkSeconds": "25.7850",
+        "cumulativeTrainingYuan": 174,
+        "upgradeToNextYuan": 58
+      },
+      {
+        "level": 8,
+        "growthProgress": "0.35",
+        "incomeMultiplier": "1.0700",
+        "fixedWorkSeconds": "25.5825",
+        "cumulativeTrainingYuan": 232,
+        "upgradeToNextYuan": 66
+      },
+      {
+        "level": 9,
+        "growthProgress": "0.40",
+        "incomeMultiplier": "1.0800",
+        "fixedWorkSeconds": "25.3800",
+        "cumulativeTrainingYuan": 298,
+        "upgradeToNextYuan": 74
+      },
+      {
+        "level": 10,
+        "growthProgress": "0.45",
+        "incomeMultiplier": "1.0900",
+        "fixedWorkSeconds": "25.1775",
+        "cumulativeTrainingYuan": 372,
+        "upgradeToNextYuan": 83
+      },
+      {
+        "level": 11,
+        "growthProgress": "0.48",
+        "incomeMultiplier": "1.0960",
+        "fixedWorkSeconds": "25.0560",
+        "cumulativeTrainingYuan": 455,
+        "upgradeToNextYuan": 91
+      },
+      {
+        "level": 12,
+        "growthProgress": "0.51",
+        "incomeMultiplier": "1.1020",
+        "fixedWorkSeconds": "24.9345",
+        "cumulativeTrainingYuan": 546,
+        "upgradeToNextYuan": 100
+      },
+      {
+        "level": 13,
+        "growthProgress": "0.54",
+        "incomeMultiplier": "1.1080",
+        "fixedWorkSeconds": "24.8130",
+        "cumulativeTrainingYuan": 646,
+        "upgradeToNextYuan": 107
+      },
+      {
+        "level": 14,
+        "growthProgress": "0.57",
+        "incomeMultiplier": "1.1140",
+        "fixedWorkSeconds": "24.6915",
+        "cumulativeTrainingYuan": 753,
+        "upgradeToNextYuan": 116
+      },
+      {
+        "level": 15,
+        "growthProgress": "0.60",
+        "incomeMultiplier": "1.1200",
+        "fixedWorkSeconds": "24.5700",
+        "cumulativeTrainingYuan": 869,
+        "upgradeToNextYuan": 124
+      },
+      {
+        "level": 16,
+        "growthProgress": "0.63",
+        "incomeMultiplier": "1.1260",
+        "fixedWorkSeconds": "24.4485",
+        "cumulativeTrainingYuan": 993,
+        "upgradeToNextYuan": 133
+      },
+      {
+        "level": 17,
+        "growthProgress": "0.66",
+        "incomeMultiplier": "1.1320",
+        "fixedWorkSeconds": "24.3270",
+        "cumulativeTrainingYuan": 1126,
+        "upgradeToNextYuan": 140
+      },
+      {
+        "level": 18,
+        "growthProgress": "0.69",
+        "incomeMultiplier": "1.1380",
+        "fixedWorkSeconds": "24.2055",
+        "cumulativeTrainingYuan": 1266,
+        "upgradeToNextYuan": 149
+      },
+      {
+        "level": 19,
+        "growthProgress": "0.72",
+        "incomeMultiplier": "1.1440",
+        "fixedWorkSeconds": "24.0840",
+        "cumulativeTrainingYuan": 1415,
+        "upgradeToNextYuan": 157
+      },
+      {
+        "level": 20,
+        "growthProgress": "0.75",
+        "incomeMultiplier": "1.1500",
+        "fixedWorkSeconds": "23.9625",
+        "cumulativeTrainingYuan": 1572,
+        "upgradeToNextYuan": 166
+      },
+      {
+        "level": 21,
+        "growthProgress": "0.775",
+        "incomeMultiplier": "1.15500",
+        "fixedWorkSeconds": "23.86125",
+        "cumulativeTrainingYuan": 1738,
+        "upgradeToNextYuan": 174
+      },
+      {
+        "level": 22,
+        "growthProgress": "0.800",
+        "incomeMultiplier": "1.16000",
+        "fixedWorkSeconds": "23.76000",
+        "cumulativeTrainingYuan": 1912,
+        "upgradeToNextYuan": 182
+      },
+      {
+        "level": 23,
+        "growthProgress": "0.825",
+        "incomeMultiplier": "1.16500",
+        "fixedWorkSeconds": "23.65875",
+        "cumulativeTrainingYuan": 2094,
+        "upgradeToNextYuan": 190
+      },
+      {
+        "level": 24,
+        "growthProgress": "0.850",
+        "incomeMultiplier": "1.17000",
+        "fixedWorkSeconds": "23.55750",
+        "cumulativeTrainingYuan": 2284,
+        "upgradeToNextYuan": 199
+      },
+      {
+        "level": 25,
+        "growthProgress": "0.875",
+        "incomeMultiplier": "1.17500",
+        "fixedWorkSeconds": "23.45625",
+        "cumulativeTrainingYuan": 2483,
+        "upgradeToNextYuan": 207
+      },
+      {
+        "level": 26,
+        "growthProgress": "0.900",
+        "incomeMultiplier": "1.18000",
+        "fixedWorkSeconds": "23.35500",
+        "cumulativeTrainingYuan": 2690,
+        "upgradeToNextYuan": 215
+      },
+      {
+        "level": 27,
+        "growthProgress": "0.925",
+        "incomeMultiplier": "1.18500",
+        "fixedWorkSeconds": "23.25375",
+        "cumulativeTrainingYuan": 2905,
+        "upgradeToNextYuan": 223
+      },
+      {
+        "level": 28,
+        "growthProgress": "0.950",
+        "incomeMultiplier": "1.19000",
+        "fixedWorkSeconds": "23.15250",
+        "cumulativeTrainingYuan": 3128,
+        "upgradeToNextYuan": 232
+      },
+      {
+        "level": 29,
+        "growthProgress": "0.975",
+        "incomeMultiplier": "1.19500",
+        "fixedWorkSeconds": "23.05125",
+        "cumulativeTrainingYuan": 3360,
+        "upgradeToNextYuan": 240
+      },
+      {
+        "level": 30,
+        "growthProgress": "1.000",
+        "incomeMultiplier": "1.20000",
+        "fixedWorkSeconds": "22.95000",
+        "cumulativeTrainingYuan": 3600,
+        "upgradeToNextYuan": 0
+      }
+    ],
+    "maxIncomeBonusPercent": 20,
+    "maxFixedWorkTimeReductionPercent": 15,
+    "all30MaxCostYuan": 108000,
+    "changesVehicleRoadSpeed": false
+  },
+  "energy": {
+    "max": 100,
+    "pickupCostPerMergedService": 1,
+    "deliveryCostPerOrder": 1,
+    "zeroStopsAtCurrentPosition": true,
+    "useSupplyAnywhere": true,
+    "keepCheapItemsAtAllLaterStages": true,
+    "supplies": [
+      {
+        "id": "water",
+        "label": "纯净水",
+        "unlockMap": 1,
+        "priceYuan": 1,
+        "restoreEnergy": 20,
+        "realSeconds": 1,
+        "gameSeconds": 30
+      },
+      {
+        "id": "noodles",
+        "label": "泡面",
+        "unlockMap": 1,
+        "priceYuan": 3,
+        "restoreEnergy": 70,
+        "realSeconds": 3,
+        "gameSeconds": 120
+      },
+      {
+        "id": "drink",
+        "label": "瓶装饮料",
+        "unlockMap": 2,
+        "priceYuan": 4,
+        "restoreEnergy": 40,
+        "realSeconds": 1,
+        "gameSeconds": 30
+      },
+      {
+        "id": "fast-meal",
+        "label": "快餐",
+        "unlockMap": 2,
+        "priceYuan": 9,
+        "restoreEnergy": 90,
+        "realSeconds": 2,
+        "gameSeconds": 60
+      },
+      {
+        "id": "milk-tea",
+        "label": "奶茶",
+        "unlockMap": 3,
+        "priceYuan": 7,
+        "restoreEnergy": 60,
+        "realSeconds": 1,
+        "gameSeconds": 30
+      },
+      {
+        "id": "premium-meal",
+        "label": "高档餐食",
+        "unlockMap": 4,
+        "priceYuan": 15,
+        "restoreEnergy": 100,
+        "realSeconds": 1,
+        "gameSeconds": 30
+      }
+    ],
+    "restNoActiveBatch": {
+      "costYuan": 0,
+      "realSeconds": 20,
+      "restoreTo": 100,
+      "tripGameSeconds": 0
+    },
+    "restDuringBatch": {
+      "costYuan": 0,
+      "realSeconds": 10,
+      "restoreEnergy": 20,
+      "gameSeconds": 600
+    },
+    "fullEnergyCannotConsumePaidOrInventoryRestoration": true,
+    "earnedItemsUseSameEffectAndTimeAsPurchased": true,
+    "rewardMapSupplyIds": {
+      "2": [
+        "drink",
+        "fast-meal"
+      ],
+      "3": [
+        "milk-tea",
+        "fast-meal"
+      ],
+      "4": [
+        "milk-tea",
+        "premium-meal"
+      ],
+      "5": [
+        "milk-tea",
+        "premium-meal"
+      ]
+    }
+  },
+  "risk": {
+    "weatherKnownAtPlanning": true,
+    "rainExtraRoadTimePercent": 10,
+    "severeExtraRoadTimePercent": 25,
+    "maxMidTripWeatherChanges": 1,
+    "midTripChangeProbabilityPercentByMap": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "redLightProbabilityPercentByMap": [
+      10,
+      15,
+      20,
+      25,
+      30
+    ],
+    "maxRedLightsPerBatch": 2,
+    "redLightDelayGameSecondsEach": 90,
+    "damageRouteOrder": [
+      "fast",
+      "balanced",
+      "smooth"
+    ],
+    "fragileBaseProbabilityPercent": [
+      12,
+      6,
+      2
+    ],
+    "normalBaseProbabilityPercent": [
+      6,
+      3,
+      1
+    ],
+    "durableBaseProbabilityPercent": [
+      2,
+      1,
+      0
+    ],
+    "rainDamageExtraPercentagePoints": 2,
+    "severeDamageExtraPercentagePoints": 5,
+    "maxDamageProbabilityPercent": 25,
+    "oneStoredRandomDrawAndSeverityPerOrder": true,
+    "damageSeverityProbabilityPercent": [
+      70,
+      25,
+      5
+    ],
+    "damageIncomeRetainPercent": [
+      90,
+      75,
+      50
+    ],
+    "damageReputationDelta": [
+      -1,
+      -3,
+      -5
+    ],
+    "noDrawingDamageBeforePickupOrAfterDelivery": true
+  },
+  "settlement": {
+    "lateBands": [
+      {
+        "aboveGameMinutes": 0,
+        "upToGameMinutes": 5,
+        "retainPercent": 95,
+        "reputationDelta": -1
+      },
+      {
+        "aboveGameMinutes": 5,
+        "upToGameMinutes": 10,
+        "retainPercent": 85,
+        "reputationDelta": -3
+      },
+      {
+        "aboveGameMinutes": 10,
+        "upToGameMinutes": null,
+        "retainPercent": 75,
+        "reputationDelta": -5
+      }
+    ],
+    "lateCanFinish": true,
+    "reputationMin": 20,
+    "reputationMax": 100,
+    "maxReputationLossPerOrder": 10,
+    "onTimeUndamagedReputationGain": 1,
+    "reputationMultipliesIncome": false,
+    "oneMoneyAwardPerOrder": true,
+    "singleFinalRoundingToCents": true,
+    "perOrderBriefFeedbackRequiresConfirmation": false,
+    "endOfBatchSummaryAwardsAgain": false,
+    "supplyCostsAreRecordedOnce": true
+  },
+  "cancellation": {
+    "scope": "all-unfinished-orders-in-batch",
+    "returnHomeAtSameRoadPosition": true,
+    "retainCompletedIncomeAndXp": true,
+    "unfinishedRewards": false,
+    "extraMoneyOrReputationPenalty": false,
+    "refundSupplies": false,
+    "closeAppIsNotCancellation": true
+  },
+  "progressionTasks": {
+    "oncePerRecruitmentOrdinal": true,
+    "oncePerVehicleTierFirstPaidPurchase": true,
+    "oncePerNewMapUnlock": true,
+    "coinRewardPercent": 10,
+    "mapDrinkRewardCount": 2,
+    "mapMealRewardCount": 1,
+    "rewardXp": 0,
+    "autoGrantOnceAfterSuccess": true,
+    "neverAutoBuy": true,
+    "noPurchasePopupsDuringPlayerBatch": true,
+    "initialFreeDCountsAsPaidFirstPurchase": false,
+    "counts": {
+      "recruitment": 30,
+      "vehicleTiers": 10,
+      "newMaps": 4
+    }
+  },
+  "vehicleSummary": [
+    {
+      "grade": "D",
+      "unlockMap": 1,
+      "purchaseYuan": 150,
+      "upgrade1To30Yuan": 300,
+      "level1": {
+        "level": 1,
+        "speedKph": "12.000000",
+        "capacityKg": "5.000000",
+        "totalVehicleIncomeMultiplier": "1.000000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "15.600000",
+        "capacityKg": "8.000000",
+        "totalVehicleIncomeMultiplier": "1.400000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "D+",
+      "unlockMap": 1,
+      "purchaseYuan": 220,
+      "upgrade1To30Yuan": 440,
+      "level1": {
+        "level": 1,
+        "speedKph": "14.000000",
+        "capacityKg": "7.000000",
+        "totalVehicleIncomeMultiplier": "1.150000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "18.200000",
+        "capacityKg": "11.200000",
+        "totalVehicleIncomeMultiplier": "1.610000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "C",
+      "unlockMap": 1,
+      "purchaseYuan": 320,
+      "upgrade1To30Yuan": 640,
+      "level1": {
+        "level": 1,
+        "speedKph": "17.000000",
+        "capacityKg": "10.000000",
+        "totalVehicleIncomeMultiplier": "1.320000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "22.100000",
+        "capacityKg": "16.000000",
+        "totalVehicleIncomeMultiplier": "1.848000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "C+",
+      "unlockMap": 1,
+      "purchaseYuan": 460,
+      "upgrade1To30Yuan": 920,
+      "level1": {
+        "level": 1,
+        "speedKph": "20.000000",
+        "capacityKg": "14.000000",
+        "totalVehicleIncomeMultiplier": "1.520000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "26.000000",
+        "capacityKg": "22.400000",
+        "totalVehicleIncomeMultiplier": "2.128000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "B",
+      "unlockMap": 2,
+      "purchaseYuan": 680,
+      "upgrade1To30Yuan": 1360,
+      "level1": {
+        "level": 1,
+        "speedKph": "24.000000",
+        "capacityKg": "19.000000",
+        "totalVehicleIncomeMultiplier": "1.750000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "31.200000",
+        "capacityKg": "30.400000",
+        "totalVehicleIncomeMultiplier": "2.450000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "B+",
+      "unlockMap": 2,
+      "purchaseYuan": 1000,
+      "upgrade1To30Yuan": 2000,
+      "level1": {
+        "level": 1,
+        "speedKph": "28.000000",
+        "capacityKg": "25.000000",
+        "totalVehicleIncomeMultiplier": "2.010000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "36.400000",
+        "capacityKg": "40.000000",
+        "totalVehicleIncomeMultiplier": "2.814000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "A",
+      "unlockMap": 3,
+      "purchaseYuan": 1450,
+      "upgrade1To30Yuan": 2900,
+      "level1": {
+        "level": 1,
+        "speedKph": "34.000000",
+        "capacityKg": "33.000000",
+        "totalVehicleIncomeMultiplier": "2.310000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "44.200000",
+        "capacityKg": "52.800000",
+        "totalVehicleIncomeMultiplier": "3.234000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "S",
+      "unlockMap": 4,
+      "purchaseYuan": 2100,
+      "upgrade1To30Yuan": 4200,
+      "level1": {
+        "level": 1,
+        "speedKph": "40.000000",
+        "capacityKg": "43.000000",
+        "totalVehicleIncomeMultiplier": "2.660000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "52.000000",
+        "capacityKg": "68.800000",
+        "totalVehicleIncomeMultiplier": "3.724000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "SS",
+      "unlockMap": 4,
+      "purchaseYuan": 3000,
+      "upgrade1To30Yuan": 6000,
+      "level1": {
+        "level": 1,
+        "speedKph": "48.000000",
+        "capacityKg": "55.000000",
+        "totalVehicleIncomeMultiplier": "3.060000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "62.400000",
+        "capacityKg": "88.000000",
+        "totalVehicleIncomeMultiplier": "4.284000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    },
+    {
+      "grade": "SSS",
+      "unlockMap": 5,
+      "purchaseYuan": 4300,
+      "upgrade1To30Yuan": 8600,
+      "level1": {
+        "level": 1,
+        "speedKph": "56.000000",
+        "capacityKg": "70.000000",
+        "totalVehicleIncomeMultiplier": "3.520000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+      },
+      "level30": {
+        "level": 30,
+        "speedKph": "72.800000",
+        "capacityKg": "112.000000",
+        "totalVehicleIncomeMultiplier": "4.928000",
+        "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+      }
+    }
+  ],
+  "sourceTables": {
+    "docs/balance/2026-11-01-vehicle-economy/pricing-candidate.json": {
+      "sha256": "fb44e933636f9fda8d53c8a89425011ce2fb01ce3c771bc19cf20e4cc8943334"
+    },
+    "docs/balance/2026-11-01-vehicle-growth/candidate.json": {
+      "sha256": "c6f72101fa69c9695518994893854b31524d58896f13a3a29f49290ec031eecb"
+    },
+    "docs/balance/2026-11-02-progression-tasks/candidate.json": {
+      "sha256": "0ef67ca28c7213fa974b99f2331b09fa13795da044c1d99d0d4ccd27629920a4"
+    }
+  },
+  "productDesign": "../../product/2026-11-02-delivery-game-product-v1.md",
+  "taskDefinitions": [
+    {
+      "id": "hire-npc-01",
+      "type": "recruitment-milestone",
+      "map": 1,
+      "recruitmentOrdinal": 1,
+      "costCandidateYuan": 100,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 10
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-02",
+      "type": "recruitment-milestone",
+      "map": 1,
+      "recruitmentOrdinal": 2,
+      "costCandidateYuan": 110,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 11
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-03",
+      "type": "recruitment-milestone",
+      "map": 2,
+      "recruitmentOrdinal": 3,
+      "costCandidateYuan": 130,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 13
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-04",
+      "type": "recruitment-milestone",
+      "map": 2,
+      "recruitmentOrdinal": 4,
+      "costCandidateYuan": 170,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 17
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-05",
+      "type": "recruitment-milestone",
+      "map": 2,
+      "recruitmentOrdinal": 5,
+      "costCandidateYuan": 230,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 23
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-06",
+      "type": "recruitment-milestone",
+      "map": 2,
+      "recruitmentOrdinal": 6,
+      "costCandidateYuan": 300,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 30
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-07",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 7,
+      "costCandidateYuan": 390,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 39
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-08",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 8,
+      "costCandidateYuan": 490,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 49
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-09",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 9,
+      "costCandidateYuan": 610,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 61
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-10",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 10,
+      "costCandidateYuan": 750,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 75
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-11",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 11,
+      "costCandidateYuan": 900,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 90
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-12",
+      "type": "recruitment-milestone",
+      "map": 3,
+      "recruitmentOrdinal": 12,
+      "costCandidateYuan": 1070,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 107
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-13",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 13,
+      "costCandidateYuan": 1250,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 125
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-14",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 14,
+      "costCandidateYuan": 1450,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 145
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-15",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 15,
+      "costCandidateYuan": 1670,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 167
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-16",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 16,
+      "costCandidateYuan": 1900,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 190
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-17",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 17,
+      "costCandidateYuan": 2150,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 215
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-18",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 18,
+      "costCandidateYuan": 2410,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 241
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-19",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 19,
+      "costCandidateYuan": 2690,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 269
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-20",
+      "type": "recruitment-milestone",
+      "map": 4,
+      "recruitmentOrdinal": 20,
+      "costCandidateYuan": 2990,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 299
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-21",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 21,
+      "costCandidateYuan": 3300,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 330
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-22",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 22,
+      "costCandidateYuan": 3630,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 363
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-23",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 23,
+      "costCandidateYuan": 3970,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 397
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-24",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 24,
+      "costCandidateYuan": 4330,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 433
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-25",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 25,
+      "costCandidateYuan": 4710,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 471
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-26",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 26,
+      "costCandidateYuan": 5100,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 510
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-27",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 27,
+      "costCandidateYuan": 5510,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 551
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-28",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 28,
+      "costCandidateYuan": 5930,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 593
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-29",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 29,
+      "costCandidateYuan": 6370,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 637
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "hire-npc-30",
+      "type": "recruitment-milestone",
+      "map": 5,
+      "recruitmentOrdinal": 30,
+      "costCandidateYuan": 6830,
+      "completion": "successful-paid-recruitment",
+      "reward": {
+        "coinsYuan": 683
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-d",
+      "type": "vehicle-first-paid-purchase",
+      "map": 1,
+      "grade": "D",
+      "costCandidateYuan": 150,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 15
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-d-plus",
+      "type": "vehicle-first-paid-purchase",
+      "map": 1,
+      "grade": "D+",
+      "costCandidateYuan": 220,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 22
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-c",
+      "type": "vehicle-first-paid-purchase",
+      "map": 1,
+      "grade": "C",
+      "costCandidateYuan": 320,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 32
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-c-plus",
+      "type": "vehicle-first-paid-purchase",
+      "map": 1,
+      "grade": "C+",
+      "costCandidateYuan": 460,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 46
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-b",
+      "type": "vehicle-first-paid-purchase",
+      "map": 2,
+      "grade": "B",
+      "costCandidateYuan": 680,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 68
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-b-plus",
+      "type": "vehicle-first-paid-purchase",
+      "map": 2,
+      "grade": "B+",
+      "costCandidateYuan": 1000,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 100
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-a",
+      "type": "vehicle-first-paid-purchase",
+      "map": 3,
+      "grade": "A",
+      "costCandidateYuan": 1450,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 145
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-s",
+      "type": "vehicle-first-paid-purchase",
+      "map": 4,
+      "grade": "S",
+      "costCandidateYuan": 2100,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 210
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-ss",
+      "type": "vehicle-first-paid-purchase",
+      "map": 4,
+      "grade": "SS",
+      "costCandidateYuan": 3000,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 300
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "first-paid-vehicle-sss",
+      "type": "vehicle-first-paid-purchase",
+      "map": 5,
+      "grade": "SSS",
+      "costCandidateYuan": 4300,
+      "completion": "first-successful-paid-purchase-of-grade-not-free-starting-gift",
+      "reward": {
+        "coinsYuan": 430
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "unlock-map-2",
+      "type": "map-first-unlock",
+      "map": 2,
+      "unlockFeeCandidateYuan": 500,
+      "additionalProgressRequirementsSource": "parameters.json#maps",
+      "completion": "successful-paid-map-unlock-after-progress-eligibility",
+      "reward": {
+        "supplies": [
+          {
+            "itemId": "drink",
+            "count": 2
+          },
+          {
+            "itemId": "fast-meal",
+            "count": 1
+          }
+        ]
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "unlock-map-3",
+      "type": "map-first-unlock",
+      "map": 3,
+      "unlockFeeCandidateYuan": 1500,
+      "additionalProgressRequirementsSource": "parameters.json#maps",
+      "completion": "successful-paid-map-unlock-after-progress-eligibility",
+      "reward": {
+        "supplies": [
+          {
+            "itemId": "milk-tea",
+            "count": 2
+          },
+          {
+            "itemId": "fast-meal",
+            "count": 1
+          }
+        ]
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "unlock-map-4",
+      "type": "map-first-unlock",
+      "map": 4,
+      "unlockFeeCandidateYuan": 4000,
+      "additionalProgressRequirementsSource": "parameters.json#maps",
+      "completion": "successful-paid-map-unlock-after-progress-eligibility",
+      "reward": {
+        "supplies": [
+          {
+            "itemId": "milk-tea",
+            "count": 2
+          },
+          {
+            "itemId": "premium-meal",
+            "count": 1
+          }
+        ]
+      },
+      "oncePerSave": true
+    },
+    {
+      "id": "unlock-map-5",
+      "type": "map-first-unlock",
+      "map": 5,
+      "unlockFeeCandidateYuan": 10000,
+      "additionalProgressRequirementsSource": "parameters.json#maps",
+      "completion": "successful-paid-map-unlock-after-progress-eligibility",
+      "reward": {
+        "supplies": [
+          {
+            "itemId": "milk-tea",
+            "count": 2
+          },
+          {
+            "itemId": "premium-meal",
+            "count": 1
+          }
+        ]
+      },
+      "oncePerSave": true
+    }
+  ],
+  "confirmedProductDecisions": {
+    "npcSharedQuotaReplenishedByPersonalDelivery": true,
+    "keepCheapSuppliesInLateGame": true,
+    "lateCanFinishAndNoDuplicatePenalties": true,
+    "npcGoldTrainingLevel30AndHeroDeliveryExperience": true,
+    "decisionDate": "2026-11-02",
+    "pendingProductQuestions": 0
+  },
+  "stageInterpretation": {
+    "pricesVehicleAndSupplyUnlocksUseHighestUnlockedMap": true,
+    "riskWeightsAndRoadEnergyUseCurrentMap": true,
+    "mapSwitchNeverDuplicatesFleetOrQuota": true
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-02",
+  "purpose": "用户圈选街区制作与配送边界",
+  "sourceSHA256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+  "rendering": "deterministic data plot using original geometry; not AI-painted geometry",
+  "selection": {
+    "path": "../2026-11-02-county-zoning/selection.json",
+    "status": "user-red-blue-green-zoning-received",
+    "dispatchBoundary": "blue-city",
+    "displayBoundary": "red-map",
+    "denseUrbanBoundary": "green-urban",
+    "brownFrameIgnored": true
+  },
+  "artworkProductionStarted": false,
+  "images": [
+    {
+      "id": "01-county-overview",
+      "path": "01-county-overview.png",
+      "width": 3800,
+      "height": 4400,
+      "source": "delivery-game/assets/resources/map-sample/city.json",
+      "worldBoundsMetres": {
+        "minX": -6000,
+        "minY": -6500,
+        "maxX": 6000,
+        "maxY": 6500
+      },
+      "pixelViewport": {
+        "left": 175,
+        "top": 348,
+        "right": 3645,
+        "bottom": 4107
+      },
+      "pixelsPerMetre": 0.2891666666666667,
+      "pixelToWorld": {
+        "x": "minX+(pixelX-left)/pixelsPerMetre",
+        "y": "maxY-(pixelY-top)/pixelsPerMetre"
+      },
+      "gridMetres": 1000,
+      "northUp": true,
+      "sourceRoadsDrawn": 9970,
+      "originalPOIsShown": 128,
+      "sha256": "769fcdc4ab551b49cef81f0227aa5329b74cff62c288386e5c5c0760b191620f",
+      "status": "awaiting-user-closed-boundary-selection-not-production-map"
+    },
+    {
+      "id": "02-county-core",
+      "path": "02-county-core.png",
+      "width": 4200,
+      "height": 3600,
+      "source": "delivery-game/assets/resources/map-sample/city.json",
+      "worldBoundsMetres": {
+        "minX": -4500,
+        "minY": -1500,
+        "maxX": -500,
+        "maxY": 1500
+      },
+      "pixelViewport": {
+        "left": 175,
+        "top": 376,
+        "right": 4045,
+        "bottom": 3279
+      },
+      "pixelsPerMetre": 0.9675,
+      "pixelToWorld": {
+        "x": "minX+(pixelX-left)/pixelsPerMetre",
+        "y": "maxY-(pixelY-top)/pixelsPerMetre"
+      },
+      "gridMetres": 500,
+      "northUp": true,
+      "sourceRoadsDrawn": 2167,
+      "originalPOIsShown": 16,
+      "sha256": "13a4f6898d1496531fb4983371e01a63779e3c82d45bde4dcd828e6403238230",
+      "status": "awaiting-user-closed-boundary-selection-not-production-map"
+    }
+  ],
+  "rules": [
+    "红框为本张地图整体展示边界，蓝框为街区制作/取送点/完整配送路线边界，绿框为繁华城区。",
+    "红蓝之间景观背景、不经营、不作为配送通道；蓝绿之间郊区，可建设及配送。",
+    "原底图棕色索引框不参与任何用户分区。",
+    "用户允许近似，框线含义已确定；原始路网与运行时范围尚未修改。"
+  ]
+}

@@ -1,26 +1,15 @@
-# 开发：2026-10-30新会话交接
+# 开发当前精简交接：2026-11-03
 
-只读取本交接及本次任务所需文件，不fork、不读旧开发长历史。用户要求停止使用旧开发会话，新会话唯一负责生产代码集成；汇报当前PM，ID见docs/team/README.md。你接任后先简短确认，迁移登记完成后由新PM派具体工作，不因接任自主改生产。
+你是新固定开发，用户明确要求替换过长旧开发会话。工作目录 /Users/sanger/Documents/ChatGPT/taptap 2；原checkout所有dirty/untracked保留，不fork/读旧长聊天/新worktree/reset/clean/自动提交推送。
 
-工程delivery-game，Cocos Creator3.8.8/TypeScript/Web Mobile；当前checkout有大量既有untracked，不清理/reset/批量提交。改前保存本轮范围before+SHA，HEAD不等于改前基线。业务代码开发单写，其他角色仅自己的审查文件。
+当前开发ID：01a19fc8-7058-7091-8dcc-5f2bc428a6aa；当前PM ID：01a19fc9-58f4-7ad1-880b-1c1a948527ed。两者已确认接任，后续接新PM任务。
 
-最新产品入口docs/team/product-baseline.md；当前M1体验收尾，M2手动取送首切片已交付，完整M2未完。最近交付docs/reviews/m1-compact-handoff/pm-acceptance.md，按需读implementation-report/verification/final-source-sha，不重做已完成内容。241测试（27+190+20+4）、typecheck/构建包装0，08:42:24 Finished，SIGTERM/code null诊断保留。真机/用户体验不代填。
+先读 docs/product/implementation-baseline.md 与 docs/team/handoffs/2026-11-03-migration-state.md，再读 docs/reviews/modular-city-20261103/implementation-report.md。当前新PM/开发ID见docs/team/reports/2026-11-03-pm-development-migration.md；角色由PM派具体任务，不自行恢复旧计划或量产全县。
 
-关键生产模块：MapSample（HUD/弹窗/主动事件/保存失败）、CompactOrderInfo（大厅与当前单共享布局）、OrderPhone（手机大厅）、PresentationLayout（按CSS可读字号/测量/滚动）、OrderBook（单单/phase/schema4/道路anchor）、ManualHandoff、RiderAnchor、CountyRules/CountySnapshot/CountySaveStore。地图catalog4与snapshot schema4不同概念。
+当前表现工程 delivery-game/modular-city-project/，完整图片Cocos2D Sprite、独立路网铺装，构建scripts/build-modular-city.sh，产物build/map-sample/modular-city/。http://127.0.0.1:4181/modular-city/ 已由旧PM实际打开显示，源素材docs/art/2026-11-03-modular-city-assets/，最终manifest/layout SHA见共享快照。最新engine-v3.jpg及presentation-record.json为展示证据；原游戏/存档未动。旧3D/Canvas工程保留，不扩展。
 
-当前新单：去取餐→到店待点击取餐→2秒服务→待点击去送餐→自动按需求交付结算；旧活动原自动过程。规划/去店/到店未取可免费取消且保真实停靠点，不换池/钱/评分/刷新；取餐后拒绝。X只收卡，中央订单找回；到店/待送/结算从子弹窗主动触达一次，新accept清事件键防同ID重接吞提示。receipt X/遮罩finish+save干净首页，继续才开大厅。保持经济公式和纯收益分解，不二次扣钱。pendingSave冻结动作/行驶，失败持续提示；未知未来主备档写保护。跨页原子CAS仍非已实现。
+未解决：整图脚点排序的细粒度遮挡、单帧NE骑手往返、B02机位残差、背景重复等。正式V1尚未全量实现，不能把小样显示当玩法完成。必要构建Finished/包装0保留子进程SIGTERM诊断，不宣称全检查通过。
 
-本轮待新PM派工任务：docs/team/tasks/2026-10-30-order-text-layout.md。用户金额¥19.84在某些尺寸拆行，两个入口均有；另要求结算标题和所有内容居中。先复现真实字体/测量，范围仅布局。证据新建docs/reviews/order-amount-singleline/；不得覆盖上一轮最终图/清单。用户两图在该目录reference。
+用户明确说“阶段完成”才集中游戏测试；过程不跑tests/typecheck/回归/渲染矩阵，不操作正式游戏/存档。必要交付构建与具体授权的隔离美术展示可做。只按任务范围改业务代码，玩法/参数/视觉依据见正式V1与认可8图。
 
-权限：不得操作用户4181游戏/存档、接单购买清档。可静态HTTP核构建；真Cocos测试用新内存Book、创建CountySaveStore前截start/update/save、拦Storage。引擎setItem(storage)探针如实记录。复用4191隔离原理但新轮独立fixture/图。现有npm test --prefix delivery-game、npm run typecheck --prefix delivery-game、npm run build:map --prefix delivery-game；按改动必要性跑，不为接任重跑。
-
-后续不自动做加速/多单/体力/NPC或独立页面；不重生成已有资源。不要求PM或用户逐文件重复许可。工作报告明确实际命令/退出码、根因、修复、未测项和最终指纹。角色接任输出控制在几句话，先不改代码。
-
-## 测试节奏（2026-10-30用户最新指令）
-
-用户原话：“测试，当我说阶段完成时进行测试，过程开发不再进行测试了。太耗时耗 token”。此规则优先于旧任务、交接和默认技能中的逐改动测试要求。
-
-- 开发过程中不自动运行测试、回归、独立复验或为验证而启动渲染矩阵；PM不逐次派测试角色，也不自行补跑同类测试。
-- 仅在用户明确说“阶段完成”后，由PM组织该阶段集中测试；开发自行认为完成、单次修复落盘或构建完成均不触发测试。
-- 开发交付如实标注“已实现，未测试，待阶段集中测试”，不将历史通过结果套用于新改动。阶段集中测试的证据与用户体验验收继续分开。
-- 按交付需要生成可试玩构建不等于测试，不借构建附带全套测试。保留用户存档与实际页面操作边界。
+本次启动只读交接与报告，简短确认接任待命；不改代码/素材/布局/测试/构建/存档。不要自动检查全仓、重跑构建或重复派任务。旧PM会完成新ID登记，随后由新PM派工。

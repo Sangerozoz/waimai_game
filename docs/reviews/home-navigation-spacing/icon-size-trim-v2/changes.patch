@@ -1,0 +1,11 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -368,7 +368,7 @@
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+       const slot=item(bar,'Nav-'+entry.key,0,main?28.8:0,main?145.6:slotWidth,main?145.6:100);
+       if(main)roundAction(slot,145.6,enabled);
+-      else sideNodes.push({slot,picture:icon(slot,entry.key,0,55,foreground,sideScale)});
++      else {const picture=icon(slot,entry.key,0,55,foreground,sideScale);picture.setScale(.9,.9,1);sideNodes.push({slot,picture});}
+       const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,main?'#FFFFFF':foreground,main?132:Math.min(108,slotWidth-8),true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+     });

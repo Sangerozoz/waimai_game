@@ -1,0 +1,201 @@
+--- before/TripClock.ts
++++ delivery-game/assets/scripts/map-sample/TripClock.ts
+@@ -15,6 +15,7 @@
+ /** Monotonic foreground intervals. Background/resume and pending commits reset the origin. */
+ export class ForegroundClock {
+  private previous:number|null=null;
++ get time():number{return this.previous===null?0:this.previous/1000;}
+  reset():void{this.previous=null;}
+  frame():number {
+   const now=typeof performance!=='undefined'?performance.now():NaN;
+@@ -23,3 +24,34 @@
+   return Number.isFinite(delta)?delta:0;
+  }
+ }
++
++/** Ephemeral input only: timestamps share the foreground performance clock. */
++export class ClickBoost {
++ static readonly MAX=10/3;
++ private value=1;
++ private queued:number[]=[];
++ private recent:number[]=[];
++ get multiplier():number{return this.value;}
++ reset():void{this.value=1;this.queued=[];this.recent=[];}
++ click(time:number):boolean {
++  if(!Number.isFinite(time))return false;
++  this.recent=this.recent.filter(t=>time-t<1);
++  if(this.recent.length>=8)return false;
++  this.recent.push(time);this.queued.push(time);return true;
++ }
++ /** Integral of B(t), splitting at each click and where decay reaches one. */
++ integrate(seconds:number,end:number):number {
++  if(!Number.isFinite(seconds)||seconds<=0)return 0;
++  let cursor=end-seconds,area=0;
++  const decay=(duration:number)=>{
++   const boosted=Math.min(duration,(this.value-1)/1.5);
++   area+=duration+(this.value-1)*boosted-.75*boosted*boosted;
++   this.value=Math.max(1,this.value-1.5*duration);
++  };
++  while(this.queued.length&&this.queued[0]<=end){
++   const at=Math.max(cursor,this.queued.shift()!);decay(at-cursor);cursor=at;
++   this.value=Math.min(ClickBoost.MAX,this.value+.5);
++  }
++  decay(end-cursor);return area;
++ }
++}
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -1,6 +1,6 @@
+-import { ForegroundClock } from './TripClock';
++import { ClickBoost, ForegroundClock, TRIP_PROFILE } from './TripClock';
+ import { WebWriterLease } from './WebWriterLease';
+-import { _decorator, BlockInputEvents, Component, Game, game, Graphics, JsonAsset, Label, Node, ScrollView, Vec2, resources, Sprite, UITransform, ResolutionPolicy, sys, view } from 'cc';
++import { _decorator, BlockInputEvents, Component, EventTouch, Game, game, Graphics, input, Input, JsonAsset, Label, Node, ScrollView, Vec2, Vec3, resources, Sprite, UITransform, ResolutionPolicy, sys, view } from 'cc';
+ import { CityMap, ROUTE_COLORS } from './CityMap';
+ import { prepareCity } from './PlaceCatalog';
+ import { CityData, Preference } from './MapTypes';
+@@ -65,6 +65,9 @@
+   private get gameplayFrozen():boolean{return this.paused||this.entryGate;}
+   private readonly writerLease=new WebWriterLease();
+   private readonly foregroundClock=new ForegroundClock();
++  private readonly clickBoost=new ClickBoost();
++  private boostControl:Node|null=null;
++  private boostLabel:Label|null=null;
+   private lastHandoffEvent='';
+   private readonly pageHide=()=>this.onHide();
+   private readonly viewportResize=()=>this.onResize();
+@@ -105,13 +108,13 @@
+     }
+   }
+   private onHide():void{
+-    this.foregroundClock.reset();
++    this.clickBoost.reset();this.foregroundClock.reset();
+     this.city?.cancelLocate();
+     if(!this.gameplayFrozen&&this.writerLease.writable&&!this.pendingSave&&this.book&&!this.hidden&&this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,Date.now());
+     this.onlineAt=null;this.hidden=true;if(this.book)this.save();
+   }
+   private onShow():void{
+-    this.foregroundClock.reset();
++    this.clickBoost.reset();this.foregroundClock.reset();
+     this.onlineAt=this.gameplayFrozen?null:Date.now();this.hidden=false;this.skipNextFrame=true;
+     if(this.book){
+       const next=this.readSafeInsets();
+@@ -267,7 +270,43 @@
+     const y=this.book.mode==='idle'||!this.orderCardOpen?-400:this.sheetBottom()+this.sheetHeight()+this.metrics().action/2+20;
+     const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-cssUnits(12,1280+this.screenExtra),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
+     icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locateAnimated());
++    this.createBoostControl(y);
+     const planning=this.book.mode==='routes'&&this.orderCardOpen;station.active=!planning;locate.active=!planning;this.city.setPlanningControlsHidden?.(planning);
++  }
++  private get canBoost():boolean {
++    const active=this.book?.active,phase=active?.handoff?.phase;
++    return !!active&&active.tripProfile===TRIP_PROFILE&&active.mode==='running'&&
++      (phase==='toPickup'||phase==='toDropoff')&&!this.hidden&&!this.gameplayFrozen&&!this.pendingSave&&this.writerLease.writable;
++  }
++  private refreshBoost():void {
++    if(!this.canBoost)this.clickBoost.reset();
++    if(this.boostControl?.isValid)this.boostControl.active=this.canBoost;
++    if(this.boostLabel?.isValid)this.boostLabel.string=`点击加速 ×${this.clickBoost.multiplier.toFixed(2)}`;
++  }
++  private createBoostControl(y:number):void {
++    const width=Math.min(280,720-this.safeInsets.left-this.safeInsets.right-320),height=this.metrics().action;
++    const control=box(this.root,'ClickBoost',0,y-this.screenExtra/2+this.safeInsets.bottom,width,height,C.primary,16);
++    this.boostControl=control;this.boostLabel=readable(control,'点击加速 ×1.00',0,0,this.metrics().aux,C.ink,width-16,true,'center');
++    control.addComponent(BlockInputEvents);
++    let id:number|null=null,x=0,z=0,cancelled=false;
++    const multi=(e:EventTouch)=>{if(e.getAllTouches().length>1)cancelled=true;};
++    input.on(Input.EventType.TOUCH_START,multi);
++    control.on(Node.EventType.NODE_DESTROYED,()=>input.off(Input.EventType.TOUCH_START,multi));
++    control.on(Node.EventType.ACTIVE_IN_HIERARCHY_CHANGED,()=>{id=null;cancelled=true;});
++    control.on(Node.EventType.TOUCH_START,(e:EventTouch)=>{
++      e.propagationStopped=true;if(!this.canBoost||id!==null||e.getAllTouches().length!==1){cancelled=true;return;}
++      id=e.getID();const p=e.getUILocation();x=p.x;z=p.y;cancelled=false;
++    });
++    const moved=(e:EventTouch)=>{const p=e.getUILocation();return (p.x-x)**2+(p.y-z)**2>49;};
++    control.on(Node.EventType.TOUCH_MOVE,(e:EventTouch)=>{e.propagationStopped=true;if(moved(e)||e.getAllTouches().length>1)cancelled=true;});
++    control.on(Node.EventType.TOUCH_CANCEL,(e:EventTouch)=>{e.propagationStopped=true;id=null;cancelled=true;});
++    control.on(Node.EventType.TOUCH_END,(e:EventTouch)=>{
++      e.propagationStopped=true;if(id===null||id!==e.getID())return;
++      const p=e.getUILocation(),local=control.getComponent(UITransform)!.convertToNodeSpaceAR(new Vec3(p.x,p.y));
++      const valid=!cancelled&&!moved(e)&&Math.abs(local.x)<=width/2&&Math.abs(local.y)<=height/2&&e.getAllTouches().length<=1;
++      id=null;if(valid&&this.canBoost)this.clickBoost.click(performance.now()/1000);
++    });
++    this.refreshBoost();
+   }
+   private openPhone():void {
+     if(this.gameplayFrozen||this.phone||this.book.mode!=='idle')return;
+@@ -366,11 +405,12 @@
+   }
+ 
+   update(dt:number):void {
+-    if(!this.book||this.hidden||!this.writerLease.writable)return;
++    if(!this.book||this.hidden||!this.writerLease.writable){this.clickBoost.reset();return;}
++    this.refreshBoost();
+     dt=this.foregroundClock.frame();
+     if(!this.gameplayFrozen)this.city.advanceLocate(dt);
+ 
+-    if(this.skipNextFrame){this.skipNextFrame=false;return;}
++    if(this.skipNextFrame){this.skipNextFrame=false;this.clickBoost.reset();return;}
+     if(this.pendingSave){this.saveElapsed+=dt;if(this.saveElapsed>=1){this.saveElapsed=0;if(this.save()){if(this.cancellationPendingReturn){this.finishCancelledDelivery();return;}this.onlineAt=this.gameplayFrozen?null:Date.now();if(this.phone&&this.book.active)this.closePhone();this.rebuildLayout(!this.book.active);if(!this.gameplayFrozen)this.presentHandoff();}}return;}
+     if(this.gameplayFrozen){this.foregroundClock.reset();this.onlineAt=null;return;}
+     const now=Date.now();if(this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,now);this.onlineAt=now;
+@@ -384,7 +424,9 @@
+       if(this.saveElapsed>=5){this.saveElapsed=0;this.save();}
+       return;
+     }
+-    const arrived=this.book.advance(dt),pose=this.book.riderPose;
++    const integrated=this.canBoost?this.clickBoost.integrate(dt,this.foregroundClock.time):dt;
++    const arrived=this.book.advance(dt,dt>0?Math.min(ClickBoost.MAX,Math.max(1,integrated/dt)):1),pose=this.book.riderPose;
++    if(arrived)this.clickBoost.reset();this.refreshBoost();
+     this.city.setRider(pose.point,pose.angle);this.updateProgress();
+     const damaged=this.book.takeDamageNotice();
+     if(damaged){this.damageNoticeSeconds=2;this.renderDamageNotice();}
+@@ -394,7 +436,11 @@
+   private act(action:()=>void):boolean {
+     if(!this.writerLease.writable){this.showMessage('当前页面只读，请关闭其他游戏页后重新打开。');return false;}
+     if(this.gameplayFrozen||this.pendingSave)return false;
+-    try{action();return this.save();}
++    try{
++      const before=this.book.active?.handoff?.phase;action();
++      if(before!==this.book.active?.handoff?.phase){this.clickBoost.reset();this.foregroundClock.reset();}
++      return this.save();
++    }
+     catch(error){this.showMessage(error instanceof Error?error.message:'操作未完成，请重试');return false;}
+   }
+   private save():boolean {
+@@ -402,7 +448,7 @@
+     if(this.book.mode==='done')this.removeDeliverySheet();
+     const ok=this.store.save(this.book.serialize());
+     if(!ok&&this.lastSaveError!==this.store.message){this.lastSaveError=this.store.message;this.showMessage(this.store.message);}
+-    this.pendingSave=!ok;if(ok&&this.lastSaveError){this.lastSaveError='';if(this.toast){this.toast.destroy();this.toast=null;this.noticeMessage='';}}this.updatePlayerHeader();this.updateBills();return ok;
++    this.pendingSave=!ok;this.refreshBoost();if(ok&&this.lastSaveError){this.lastSaveError='';if(this.toast){this.toast.destroy();this.toast=null;this.noticeMessage='';}}this.updatePlayerHeader();this.updateBills();return ok;
+   }
+   private updatePlayerHeader():void {
+     if(!this.money)return;const p=this.book.player;
+@@ -426,7 +472,7 @@
+   private pauseGame():void {
+     if(!this.canPauseDelivery||this.gameplayFrozen)return;
+     if(!this.pendingSave&&this.writerLease.writable&&this.onlineAt!==null&&!this.hidden)this.book.recordOnlineTime(this.onlineAt,Date.now());
+-    this.paused=true;this.onlineAt=null;this.foregroundClock.reset();this.city.cancelLocate();
++    this.clickBoost.reset();this.paused=true;this.onlineAt=null;this.foregroundClock.reset();this.city.cancelLocate();
+     this.closePhone();if(!this.pendingSave)this.save();this.openPauseDialog();
+   }
+   private openPauseDialog():void {
+@@ -447,7 +493,7 @@
+     // Retry the exact frozen snapshot before permitting any new gameplay command.
+     if(!this.save()){this.openPauseDialog();return;}
+     this.paused=false;this.entryGate=false;this.closeDialog();
+-    this.foregroundClock.reset();this.skipNextFrame=true;this.onlineAt=this.hidden?null:Date.now();
++    this.clickBoost.reset();this.foregroundClock.reset();this.skipNextFrame=true;this.onlineAt=this.hidden?null:Date.now();
+     if(this.book.mode==='arrived'&&!this.act(()=>this.book.settle(this.book.active?.offer.demand==='door'?true:null))){this.rebuildLayout();return;}
+     this.rebuildLayout();if(this.book.mode==='done')this.openReceipt();else this.presentHandoff();
+   }
+@@ -465,7 +511,7 @@
+   private finishCancelledDelivery():void {
+     this.cancellationPendingReturn=false;this.paused=false;this.entryGate=false;
+     this.lastHandoffEvent='';this.closeDialog();this.closePhone();
+-    this.foregroundClock.reset();this.skipNextFrame=true;this.onlineAt=this.hidden?null:Date.now();
++    this.clickBoost.reset();this.foregroundClock.reset();this.skipNextFrame=true;this.onlineAt=this.hidden?null:Date.now();
+     this.rebuildLayout(true);
+   }
+   private dismissDialog():void {

@@ -1,0 +1,198 @@
+--- before/TripClock.ts
++++ delivery-game/assets/scripts/map-sample/TripClock.ts
+@@ -1,10 +1,14 @@
+ import { DeliveryTiming } from './DeliveryClock';
+ /** Frozen profile identifier. Changing these values requires a new profile. */
+-export const TRIP_PROFILE='m2-120-service60-v1';
+-export function tripTiming(metres:number,speedKph:number):DeliveryTiming {
++export const LEGACY_TRIP_PROFILE='m2-120-service60-v1';
++export const TRIP_PROFILE='m2-40-service60-v2';
++export type TripProfile=typeof LEGACY_TRIP_PROFILE|typeof TRIP_PROFILE;
++export function isTripProfile(value:unknown):value is TripProfile{return value===LEGACY_TRIP_PROFILE||value===TRIP_PROFILE;}
++export function tripTiming(metres:number,speedKph:number,profile:TripProfile=TRIP_PROFILE):DeliveryTiming {
+  if(!Number.isFinite(metres)||metres<0||!Number.isFinite(speedKph)||speedKph<=0)throw new Error('无效行程');
+- const road=metres*3.6/speedKph;
+- return {displaySeconds:road+60,animationSeconds:road/120};
++ if(!isTripProfile(profile))throw new Error('未知行程时钟版本');
++ const road=metres*3.6/speedKph,rate=profile===LEGACY_TRIP_PROFILE?120:40;
++ return {displaySeconds:road+60,animationSeconds:road/rate};
+ }
+ export function travelDelta(realSeconds:number,multiplier=1):number {
+  if(!Number.isFinite(realSeconds)||realSeconds<=0)return 0;
+@@ -28,29 +32,38 @@
+ /** Ephemeral input only: timestamps share the foreground performance clock. */
+ export class ClickBoost {
+  static readonly MAX=10/3;
++ static readonly TAU=.25;
++ private target=1;
+  private value=1;
+  private queued:number[]=[];
+  private recent:number[]=[];
+  get multiplier():number{return this.value;}
+- reset():void{this.value=1;this.queued=[];this.recent=[];}
++ reset():void{this.target=1;this.value=1;this.queued=[];this.recent=[];}
+  click(time:number):boolean {
+   if(!Number.isFinite(time))return false;
+   this.recent=this.recent.filter(t=>time-t<1);
+   if(this.recent.length>=8)return false;
+   this.recent.push(time);this.queued.push(time);return true;
+  }
+- /** Integral of B(t), splitting at each click and where decay reaches one. */
++ /** Analytic integral of actual speed, following a piecewise linear target. */
+  integrate(seconds:number,end:number):number {
+   if(!Number.isFinite(seconds)||seconds<=0)return 0;
+   let cursor=end-seconds,area=0;
++  const follow=(duration:number,slope:number)=>{
++   const tau=ClickBoost.TAU,oneMinus=-Math.expm1(-duration/tau);
++   const initial=this.value,target=this.target;
++   area+=target*duration+slope*(duration*duration/2-tau*duration)+(initial-target+slope*tau)*tau*oneMinus;
++   this.value=Math.max(1,Math.min(ClickBoost.MAX,initial+(target-initial)*oneMinus+slope*(duration-tau*oneMinus)));
++   this.target=Math.max(1,target+slope*duration);
++  };
+   const decay=(duration:number)=>{
+-   const boosted=Math.min(duration,(this.value-1)/1.5);
+-   area+=duration+(this.value-1)*boosted-.75*boosted*boosted;
+-   this.value=Math.max(1,this.value-1.5*duration);
++   const falling=Math.min(duration,Math.max(0,(this.target-1)/1.5));
++   if(falling>0)follow(falling,-1.5);
++   if(duration>falling){this.target=1;follow(duration-falling,0);}
+   };
+   while(this.queued.length&&this.queued[0]<=end){
+    const at=Math.max(cursor,this.queued.shift()!);decay(at-cursor);cursor=at;
+-   this.value=Math.min(ClickBoost.MAX,this.value+.5);
++   this.target=Math.min(ClickBoost.MAX,this.target+.5);
+   }
+   decay(end-cursor);return area;
+  }
+--- before/OrderBook.ts
++++ delivery-game/assets/scripts/map-sample/OrderBook.ts
+@@ -1,4 +1,4 @@
+-import { TRIP_PROFILE, tripTiming, travelDelta } from './TripClock';
++import { TRIP_PROFILE, TripProfile, tripTiming, travelDelta } from './TripClock';
+ import { CityData, MapRoute, Point, Preference } from './MapTypes';
+ import { RoadRouter, routePosition } from './RoadRouter';
+ import { advancePickupClock, DeliveryProgress, DeliveryTiming, deliveryProgress, deliveryTiming, legacyDeliveryTiming, PICKUP_STOP_SECONDS } from './DeliveryClock';
+@@ -22,7 +22,7 @@
+   offer:DeliveryOffer; routes:MapRoute[]; selected:number; elapsed:number; ruleVersion?:1|2; pickupWaitElapsed?:number;
+   mode:'routes'|'running'|'paused'|'arrived'|'done';
+   handoff?:{version:1;phase:HandoffPhase};
+-  tripProfile?:typeof TRIP_PROFILE;
++  tripProfile?:TripProfile;
+   damageNoticeShown?:boolean;
+   deadlineSeconds:number; damage:Damage|null; playerBefore:Player; receipt:CountyReceipt|null;
+ }
+@@ -138,7 +138,7 @@
+       const timing=legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier),progress=Math.max(0,Math.min(1,active.elapsed/timing.animationSeconds));
+       return {...timing,progress,routeElapsedSeconds:route.seconds*progress,routeElapsedMetres:route.metres*progress,remainingSeconds:timing.displaySeconds*(1-progress)};
+     }
+-    const timing=active.tripProfile?tripTiming(route.metres,vehicle.speedKph):deliveryTiming(route.metres,vehicle.speedKph);
++    const timing=active.tripProfile?tripTiming(route.metres,vehicle.speedKph,active.tripProfile):deliveryTiming(route.metres,vehicle.speedKph);
+     const fraction=timing.animationSeconds===0?1:Math.max(0,Math.min(1,active.elapsed/timing.animationSeconds));
+     const progress:DeliveryProgress={...timing,progress:fraction,routeElapsedSeconds:0,routeElapsedMetres:route.metres*fraction,remainingSeconds:active.tripProfile?(timing.displaySeconds-60)*(1-fraction)+60*(1-(active.pickupWaitElapsed||0)/2):timing.displaySeconds*(1-fraction)};
+     // Keep routeElapsedSeconds meaningful for callers using the router's road-time parameter.
+@@ -264,6 +264,7 @@
+   timingForRoute(route:MapRoute):DeliveryTiming {
+     if(this.accepted&&this.accepted.ruleVersion===1&&this.accepted.routes.indexOf(route)>=0)return legacyDeliveryTiming(route.seconds,COUNTY_VEHICLES[this.accepted.playerBefore.vehicleTier-1].speedMultiplier);
+     if(this.accepted&&this.accepted.routes.indexOf(route)>=0&&!this.accepted.tripProfile)return deliveryTiming(route.metres,COUNTY_VEHICLES[this.accepted.playerBefore.vehicleTier-1].speedKph);
++    if(this.accepted?.tripProfile&&this.accepted.routes.indexOf(route)>=0)return tripTiming(route.metres,COUNTY_VEHICLES[this.accepted.playerBefore.vehicleTier-1].speedKph,this.accepted.tripProfile);
+     return this.timing(route.metres);
+   }
+   private roadSecondsAtDistance(route:MapRoute,distance:number):number {
+--- before/CountySnapshot.ts
++++ delivery-game/assets/scripts/map-sample/CountySnapshot.ts
+@@ -1,4 +1,4 @@
+-import { TRIP_PROFILE, tripTiming } from './TripClock';
++import { isTripProfile, tripTiming } from './TripClock';
+ import type { AcceptedDelivery, CountySnapshot, DeliveryOffer } from './OrderBook';
+ import { CityData } from './MapTypes';
+ import { getExperienceLevel, Player } from '../domain/GameConfig';
+@@ -57,7 +57,7 @@
+   if(value.active!==null){
+     valid(object(value.active),'当前订单');const raw=value.active;offer(raw.offer,data);
+     if(value.version===4||value.version===5&&raw.handoff!==undefined)valid(object(raw.handoff)&&raw.handoff.version===1,'取送规则版本');else valid(raw.handoff===undefined,'旧档取送规则');
+-    valid(raw.tripProfile===undefined||value.version===5&&raw.tripProfile===TRIP_PROFILE&&object(raw.handoff)&&raw.ruleVersion===2,'行程时钟版本');
++    valid(raw.tripProfile===undefined||value.version===5&&isTripProfile(raw.tripProfile)&&object(raw.handoff)&&raw.ruleVersion===2,'行程时钟版本');
+     valid(value.version<3||raw.ruleVersion===1||raw.ruleVersion===2,'履约规则版本');
+     const legacy=value.version<3||raw.ruleVersion===1;player(raw.playerBefore,legacy);
+     valid(['routes','running','paused','arrived','done'].indexOf(raw.mode as string)>=0,'配送状态');
+@@ -100,7 +100,7 @@
+       valid(route.origin?!!active.routes[0].origin&&JSON.stringify(route.origin.anchor)===JSON.stringify(active.routes[0].origin!.anchor):!active.routes[0].origin&&route.nodes[0]===active.routes[0].nodes[0],'路线起点');
+     }
+     const vehicle=COUNTY_VEHICLES[active.playerBefore.vehicleTier-1];
+-    const timingFor=(route:typeof active.routes[number])=>legacy?legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier):active.tripProfile?tripTiming(route.metres,vehicle.speedKph):deliveryTiming(route.metres,vehicle.speedKph);
++    const timingFor=(route:typeof active.routes[number])=>legacy?legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier):active.tripProfile?tripTiming(route.metres,vehicle.speedKph,active.tripProfile):deliveryTiming(route.metres,vehicle.speedKph);
+     const timing=timingFor(active.routes[active.selected]);
+     if(active.damageNoticeShown!==undefined){
+       valid(typeof active.damageNoticeShown==='boolean','餐损提示状态');
+--- before/CountySaveStore.ts
++++ delivery-game/assets/scripts/map-sample/CountySaveStore.ts
+@@ -1,3 +1,4 @@
++import { isTripProfile } from './TripClock';
+ export const COUNTY_SAVE_KEY = 'delivery-county-save-v1';
+ 
+ export interface StoragePort {
+@@ -146,7 +147,7 @@
+             if(value.version!==1)return true;
+             try{return this.futureVersion(JSON.parse(value.snapshot));}catch{return false;}
+         }
+-        return Number.isSafeInteger(value.version)&&value.version>5 || value.active?.tripProfile!==undefined&&value.active.tripProfile!=='m2-120-service60-v1';
++        return Number.isSafeInteger(value.version)&&value.version>5 || value.active?.tripProfile!==undefined&&!isTripProfile(value.active.tripProfile);
+     }
+     private isCommit(raw:string):boolean {try{return JSON.parse(raw)?.format==='county-commit';}catch{return false;}}
+     private decodeSnapshot(raw:string|null):string|null {
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -1,4 +1,4 @@
+-import { ClickBoost, ForegroundClock, TRIP_PROFILE } from './TripClock';
++import { ClickBoost, ForegroundClock, isTripProfile } from './TripClock';
+ import { WebWriterLease } from './WebWriterLease';
+ import { _decorator, BlockInputEvents, Component, EventTouch, Game, game, Graphics, input, Input, JsonAsset, Label, Node, ScrollView, Vec2, Vec3, resources, Sprite, UITransform, ResolutionPolicy, sys, view } from 'cc';
+ import { CityMap, ROUTE_COLORS } from './CityMap';
+@@ -272,36 +272,38 @@
+   }
+   private get canBoost():boolean {
+     const active=this.book?.active,phase=active?.handoff?.phase;
+-    return !!active&&active.tripProfile===TRIP_PROFILE&&active.mode==='running'&&
++    return !!active&&isTripProfile(active.tripProfile)&&active.mode==='running'&&
+       (phase==='toPickup'||phase==='toDropoff')&&!this.hidden&&!this.gameplayFrozen&&!this.pendingSave&&this.writerLease.writable;
+   }
+   private refreshBoost():void {
+     if(!this.canBoost)this.clickBoost.reset();
+     if(this.boostControl?.isValid)this.boostControl.active=this.canBoost;
+-    if(this.boostLabel?.isValid)this.boostLabel.string=`点击加速 ×${this.clickBoost.multiplier.toFixed(2)}`;
++    if(this.boostLabel?.isValid)this.boostLabel.string='点击加速';
+   }
+   private createBoostControl(y:number):void {
+     const width=Math.min(280,720-this.safeInsets.left-this.safeInsets.right-320),height=this.metrics().action;
+     const control=box(this.root,'ClickBoost',0,y-this.screenExtra/2+this.safeInsets.bottom,width,height,C.primary,16);
+-    this.boostControl=control;this.boostLabel=readable(control,'点击加速 ×1.00',0,0,this.metrics().aux,C.ink,width-16,true,'center');
++    this.boostControl=control;this.boostLabel=readable(control,'点击加速',0,0,this.metrics().aux,C.ink,width-16,true,'center');
+     control.addComponent(BlockInputEvents);
++    const caption=this.boostLabel.node;
++    const release=()=>{if(caption.isValid)caption.setScale(1,1,1);};
+     let id:number|null=null,x=0,z=0,cancelled=false;
+-    const multi=(e:EventTouch)=>{if(e.getAllTouches().length>1)cancelled=true;};
++    const multi=(e:EventTouch)=>{if(e.getAllTouches().length>1){cancelled=true;release();}};
+     input.on(Input.EventType.TOUCH_START,multi);
+     control.on(Node.EventType.NODE_DESTROYED,()=>input.off(Input.EventType.TOUCH_START,multi));
+-    control.on(Node.EventType.ACTIVE_IN_HIERARCHY_CHANGED,()=>{id=null;cancelled=true;});
++    control.on(Node.EventType.ACTIVE_IN_HIERARCHY_CHANGED,()=>{id=null;cancelled=true;release();});
+     control.on(Node.EventType.TOUCH_START,(e:EventTouch)=>{
+       e.propagationStopped=true;if(!this.canBoost||id!==null||e.getAllTouches().length!==1){cancelled=true;return;}
+-      id=e.getID();const p=e.getUILocation();x=p.x;z=p.y;cancelled=false;
++      id=e.getID();const p=e.getUILocation();x=p.x;z=p.y;cancelled=false;caption.setScale(.96,.96,1);
+     });
+     const moved=(e:EventTouch)=>{const p=e.getUILocation();return (p.x-x)**2+(p.y-z)**2>49;};
+-    control.on(Node.EventType.TOUCH_MOVE,(e:EventTouch)=>{e.propagationStopped=true;if(moved(e)||e.getAllTouches().length>1)cancelled=true;});
+-    control.on(Node.EventType.TOUCH_CANCEL,(e:EventTouch)=>{e.propagationStopped=true;id=null;cancelled=true;});
++    control.on(Node.EventType.TOUCH_MOVE,(e:EventTouch)=>{e.propagationStopped=true;if(moved(e)||e.getAllTouches().length>1){cancelled=true;release();}});
++    control.on(Node.EventType.TOUCH_CANCEL,(e:EventTouch)=>{e.propagationStopped=true;id=null;cancelled=true;release();});
+     control.on(Node.EventType.TOUCH_END,(e:EventTouch)=>{
+       e.propagationStopped=true;if(id===null||id!==e.getID())return;
+       const p=e.getUILocation(),local=control.getComponent(UITransform)!.convertToNodeSpaceAR(new Vec3(p.x,p.y));
+       const valid=!cancelled&&!moved(e)&&Math.abs(local.x)<=width/2&&Math.abs(local.y)<=height/2&&e.getAllTouches().length<=1;
+-      id=null;if(valid&&this.canBoost)this.clickBoost.click(performance.now()/1000);
++      id=null;release();if(valid&&this.canBoost)this.clickBoost.click(performance.now()/1000);
+     });
+     this.refreshBoost();
+   }

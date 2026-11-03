@@ -1,0 +1,82 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -2,7 +2,7 @@
+ import { localBillingDay } from './DeliveryLedger';
+ import { ClickBoost, ForegroundClock, isTripProfile } from './TripClock';
+ import { WebWriterLease } from './WebWriterLease';
+-import { _decorator, BlockInputEvents, Component, Color, EventTouch, Game, game, Graphics, input, Input, JsonAsset, Label, Node, ScrollView, Vec2, Vec3, resources, Sprite, UITransform, ResolutionPolicy, sys, view } from 'cc';
++import { _decorator, BlockInputEvents, Component, EventTouch, Game, game, Graphics, input, Input, JsonAsset, Label, Node, ScrollView, Vec2, Vec3, resources, Sprite, UITransform, ResolutionPolicy, sys, view } from 'cc';
+ import { CityMap, ROUTE_COLORS } from './CityMap';
+ import { prepareCity } from './PlaceCatalog';
+ import { CityData, Point, Preference } from './MapTypes';
+@@ -73,7 +73,6 @@
+   private deliveryStatus:Node|null=null;
+   private sound:DeliverySound|null=null;
+   private pendingSound:'shop'|'pickup'|'success'|null=null;
+-  private boostFlame:Graphics|null=null;
+   private boostControl:Node|null=null;
+   private boostLabel:Label|null=null;
+   private lastHandoffEvent='';
+@@ -157,7 +156,7 @@
+     this.safeInsets=this.readSafeInsets();
+     const sheetHeight=this.sheetHeight(),bottom=this.safeInsets.bottom,mapHeight=Math.max(1,(idle?1280:640-this.sheetBottom()-sheetHeight)+this.screenExtra-(idle?0:bottom)),mapY=idle?0:(this.sheetBottom()+sheetHeight+640)/2+bottom/2;
+     if(this.root){this.city?.cancelLocate();this.root.active=false;this.root.destroy();}this.phone=null;this.modal=null;this.modalKind=null;this.billValues=[];this.billDate=null;this.toast=null;this.damageNotice=null;
+-    this.layoutDone=this.book.mode==='done';this.boostControl=null;this.boostLabel=null;this.boostFlame=null;this.deliveryStatus=null;
++    this.layoutDone=this.book.mode==='done';this.boostControl=null;this.boostLabel=null;this.deliveryStatus=null;
+     this.root=item(this.node.parent!,'DeliveryUI');
+     box(this.root,'Background',0,0,720,1280+this.screenExtra,C.light,0);
+     this.city=new CityMap(this.root,this.book.data,mapHeight,()=>sys.openURL('https://www.openstreetmap.org/copyright'),mapY,idle&&this.book.mode!=='done'?168+bottom:0,this.safeInsets,1280+this.screenExtra);
+@@ -318,36 +317,6 @@
+     if(!this.canBoost)this.clickBoost.reset();
+     const strength=this.canBoost?Math.max(0,Math.min(1,(this.clickBoost.multiplier-1)/(ClickBoost.MAX-1))):0;
+     this.city?.setSpeedEffect(strength);
+-    if(this.boostFlame?.isValid){
+-      const g=this.boostFlame;g.clear();
+-      if(strength>.001){
+-        const unit=cssUnits(1,1280+this.screenExtra),time=performance.now()/1000;
+-        const width=this.boostControl?.getComponent(UITransform)?.width||0,span=Math.min(width*.38,(20+56*strength)*unit);
+-        const count=3+Math.floor(strength*4),alpha=Math.min(1,strength*3);
+-        for(let i=0;i<count;i++){
+-          const position=count===1?0:(i/(count-1)*2-1),phase=time*(5.2+i*.37)+i*2.17;
+-          const sway=Math.sin(phase)*2.8*unit,base=position*span;
+-          const height=(7+strength*12)*(0.78+0.22*Math.sin(phase*.83+1))*unit;
+-          const half=(3.1+strength*1.8)*unit,lean=(2.5*Math.sin(phase*.7+i)+position*2)*unit;
+-          const tongue=(scale:number,color:Color)=>{
+-            const h=height*scale,w=half*scale,x=base+sway;
+-            g.fillColor=color;g.moveTo(x-w,0);
+-            g.bezierCurveTo(x-w*1.4,h*.42,x-w*.5,h*.63,x+lean-w*.35,h*.79);
+-            g.lineTo(x+lean+h*.16,h);g.lineTo(x+lean+w*.12,h*.61);
+-            g.bezierCurveTo(x+w*1.35,h*.48,x+w*1.15,h*.15,x+w,0);g.close();g.fill();
+-          };
+-          tongue(1,new Color(226,65,19,Math.round(220*alpha)));
+-          tongue(.72,new Color(255,142,25,Math.round(235*alpha)));
+-          tongue(.42,new Color(255,225,104,Math.round(245*alpha)));
+-        }
+-        const sparks=Math.floor(strength*6);
+-        for(let i=0;i<sparks;i++){
+-          const phase=(time*(.8+i*.08)+i*.37)%1,x=Math.sin(i*8.1+time*1.3)*span*.85;
+-          g.fillColor=new Color(255,190,62,Math.round(180*alpha*(1-phase)));
+-          g.circle(x,(7+phase*(12+strength*15))*unit,(.6+strength*.7)*unit);g.fill();
+-        }
+-      }
+-    }
+     if(this.deliveryStatus?.isValid)this.deliveryStatus.active=this.book.active?.handoff?.phase==='toDropoff'&&this.book.mode==='running';
+     if(this.boostControl?.isValid)this.boostControl.active=this.canBoost;
+     if(this.boostLabel?.isValid)this.boostLabel.string='点击加速';
+@@ -356,7 +325,6 @@
+     const height=this.metrics().action;
+     const control=box(parent,'ClickBoost',buttonX,buttonY,width,height,C.primary,16);
+     this.boostControl=control;this.boostLabel=readable(control,'点击加速',0,0,this.metrics().aux,C.ink,width-16,true,'center');
+-    this.boostFlame=item(control,'BoostFlame',0,height/2+3).addComponent(Graphics);
+     control.addComponent(BlockInputEvents);
+     const caption=this.boostLabel.node;
+     const release=()=>{if(caption.isValid)caption.setScale(1,1,1);};
+@@ -501,7 +469,7 @@
+   }
+ 
+   update(dt:number):void {
+-    if(!this.book||this.hidden||!this.writerLease.writable){this.clickBoost.reset();this.city?.setSpeedEffect(0);if(this.boostFlame?.isValid)this.boostFlame.clear();return;}
++    if(!this.book||this.hidden||!this.writerLease.writable){this.clickBoost.reset();this.city?.setSpeedEffect(0);return;}
+     this.refreshBoost();
+     dt=this.foregroundClock.frame();
+     if(!this.gameplayFrozen)this.city.advanceLocate(dt);

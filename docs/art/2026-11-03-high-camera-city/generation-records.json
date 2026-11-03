@@ -1,0 +1,143 @@
+{
+  "tool": "built-in image_gen",
+  "records": [
+    {
+      "id": "HC-P-WEST",
+      "sourcePath": "/Users/sanger/.codex/generated_images/01a19fc9-58f4-7ad1-880b-1c1a948527ed/exec-79298e0e-e9b7-4178-8c6c-80f8554e1160.png",
+      "destination": "HC-P-WEST-v1.png",
+      "promptFile": "prompts/HC-P-WEST-v1.json",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "b40f2024ce841de95c26ad443b3303c5c352c7d9e8a15e7b80d649acf1160fed",
+      "nativeBytesPreserved": true,
+      "prompt": {
+        "id": "HC-P-WEST-v1",
+        "prompt": "Use case: game-asset, complete parcel sprite. Generate ONE native transparent RGBA square 1024x1024 finished city parcel. Reference image 1 is the AUTHORITATIVE GEOMETRY GUIDE: keep its rectangular ground polygon, its four ground corners, both building masses and ground positions, parallel edges, height silhouettes, camera and canvas framing. Reference image 2 is PAINTING/MATERIAL DETAIL ONLY; do not copy its streets, camera or scene layout. This is a new production sprite, not a concept poster.\nThe guide is a flat 22m along-street by 18m deep parcel, two separate low buildings, 9m/10.5m high. Camera strictly orthographic looking DOWN at elevation62.5deg above horizontal and plan azimuth45deg. Keep the guide's high view and broad roof shapes; roof/wall edges must follow the guide rather than conventional low isometric. Do not rotate or reframe it. Keep native square canvas margins. Exact ground corner positions in 1024 canvas: (952,566),(658,140),(72,458),(366,884). Ground front/street edge runs from (366,884) to (952,566), the lower-right-facing boundary. The road is OUTSIDE this edge and MUST NOT be drawn. No asphalt road stripe/road anywhere.\nPaint the left building as an elegant warm ivory 3-storey neighborhood bakery/cafe, right building as a complementary 4-storey cream modern apartment above small shop. Rich restrained architectural design: recessed blue-grey glass, slender balcony rails, a small warm orange shop awning, varied real roof vents and skylight, nuanced stone/plaster, no plastic boxes. Preserve the two footprint positions and guide height envelopes; no extra buildings or floors. BOTH MAIN DOORS on the visible long lower-right-facing STREET facade, located at the guide's two brown marks; connected to the street edge by fine taupe entry brick paths. Leave a useful forecourt roughly4.5m from front boundary to wall, not a huge empty plaza.\nDesign the WHOLE parcel ground coherently: cream sidewalk slabs and border courses, taupe entry brick areas, a narrow side/rear garden, modest benches/bicycle stand, a few shrubs, three modest trees maximum in visible SOIL/SHORT GRASS planting pools with low stone rims and short restrained iron fence segments. Trees stay rooted in ground, NEVER on roofs. Guide green marks are ground-tree candidates, never copy a green mark onto a roof. Keep street boundary clear and trees/canopies inside parcel. Behind the two buildings complete quiet planted courtyard/utility paving. A few cafe chairs by the proper front door. No people, rider, cars, vehicles, UI, labels, logos, lettering or watermark.\nSTYLE: highly polished bright Japanese urban anime painted game architecture, natural detailed surfaces, warm off-white/cream stone, subtle grey roof variation, restrained orange, modest fresh greenery, NO blue color cast. Lighting fixed from screen upper-left, visible soft coherent down/right cast shadows between buildings, trees and paving, and contact shadows at wall bases. Do not add a thick diorama base, dirt cliff, or extruded foundation slab: wafer-thin ground region with clean alpha edge so it lays on an engine map. All outside the exact parcel is truly transparent; include no checkerboard backdrop. Native transparency, preserve whole ground silhouette and building tops with margin. Final artwork must be detailed like image2 while keeping image1 geometry.",
+        "references": [
+          "guides/west-parcel-guide.png",
+          "../2026-11-03-high-camera-street-corner/HC01-high-camera-street-corner-v1.png"
+        ],
+        "transparent_background": true
+      },
+      "observations": [
+        "Both public shop doors lie on the visible street-facing frontage, with brick forecourt connections.",
+        "Trees have soil/grass pools, low edging and short fences; roofs have vents rather than trees.",
+        "Ground far corners/roof/facade proportions drift from the exact geometric guide. Only the road-facing edge determines scale and translation; rear residuals are reported and not removed by distortion.",
+        "Nominal guide heights and setbacks are layout candidates, not precision measurements of the painted walls."
+      ],
+      "referenceSources": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-high-camera-city/guides/west-parcel-guide.png",
+          "sha256": "d4e205ed944183fe7649cda941f67233099c2b92e47863e7c9ebc8cababdba79"
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-high-camera-street-corner/HC01-high-camera-street-corner-v1.png",
+          "sha256": "561f8603bf4916bf6017277f7fd90698cc06077e09362de3f1d34612052412f0"
+        }
+      ]
+    },
+    {
+      "id": "HC-P-EAST",
+      "sourcePath": "/Users/sanger/.codex/generated_images/01a19fc9-58f4-7ad1-880b-1c1a948527ed/exec-4f87ca45-b182-4365-847d-91d71f763694.png",
+      "destination": "HC-P-EAST-v1.png",
+      "promptFile": "prompts/HC-P-EAST-v1.json",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "b64665bd375497c06e84cc509ffecbcbd7bbe2e880bf0f051dff9e7a5a326052",
+      "nativeBytesPreserved": true,
+      "prompt": {
+        "id": "HC-P-EAST-v1",
+        "prompt": "Use case: game-asset, complete transparent parcel sprite. Create ONE native RGBA 1024x1024 square finished opposite-bank city parcel. Image1 is an AUTHORITATIVE GEOMETRY GUIDE: keep its complete ground polygon, the two low building masses/positions, parallel edges, high camera, roofs, canvas scale and framing. Image2 is detail/painting reference ONLY, not its camera/layout/roads.\nThis is the EAST bank of an existing road: THE STREET IS OUTSIDE the guide's upper-left-facing long boundary from (72,463) to (658,145). Keep all ground corners at approximately (658,145),(952,570),(366,888),(72,463). NO ROAD is drawn. The building street fronts and main entrance doors are on the FAR UPPER-LEFT sides, partly hidden by the roofs: DO NOT invent storefront doors or orange public awnings on the visible lower-right BACK WALLS. Hidden entrance is fine; a path may visibly continue around the building to its far-side entrance. Only quiet residential rear windows, small modest balconies and service fittings on the visible back facades. Guide green circles that visually overlap roofs refer to occluded ground trees, NOT roof plantings: omit those two hidden tree symbols entirely; keep only modest visible BACK GARDEN ground trees.\nOrthographic camera viewing DOWN at62.5 degrees above horizontal ground, azimuth45 degrees, broad roofs, short projected vertical walls. Preserve EXACT guide ground-edge directions and footprint proportions. Do not revert to normal low-isometric or turn buildings to show their doors. Parcel22m along road by18m deep, two separate buildings9m/10.5m high. Main walls6.3m back from carriageway edge (carriageway outside asset). Two warm ivory/cream apartment buildings, three and four storeys respectively, differing window rhythms, slight setbacks and modest recessed balconies while staying within the guide mass envelopes. Rich grey roof vents, subtle stairwell skylight, realistic cream plaster, pale stone trim, blue-grey glass with no blue cast; no tall towers.\nFill the parcel as one coherent designed inhabited place: narrow side paths leading around to far street entrances, fine taupe entry bricks near far frontage, cream paving, and a small rear courtyard with a restrained lawn/soil bed and 1-2 modest green trees rooted inside low stone-edged planting pools, a bench, small bicycle stand and short low iron fence segments. No trees or greenery on any roof. No empty featureless giant paving. No people, rider, vehicles, UI, labels/text/logos/watermarks. Thin flat ground edge, NO extruded diorama base or foundation block.\nPainting quality matches image2: bright Japanese urban anime painted architecture with refined real material detail and small shadowed recesses, not low-poly/plastic. Fixed light from screen upper-left, coherent soft down-right cast shadows and wall/ground contact shadows, shadow detail preserved within the parcel. Native true transparent background outside parcel and all objects, no checkerboard texture, no exterior environment. Keep entire asset safe margins. Most important: exact geometry from image1, attractive whole-scene finishing from image2; hidden far-side main doors stay hidden.",
+        "references": [
+          "guides/east-parcel-guide.png",
+          "../2026-11-03-high-camera-street-corner/HC01-high-camera-street-corner-v1.png"
+        ],
+        "transparent_background": true
+      },
+      "observations": [
+        "Visible walls are residential rear/side facades, without false public doors or shop awnings. Public frontage and doors remain hidden on the far street side.",
+        "Visible rear garden has soil/grass, low stone edging/fence, trees, bench and bicycle area; no rooftop trees.",
+        "Front upper ground point is inferred, not directly seen. Rear ground rectangle and building proportions differ locally from guide; hidden edge registration remains approximate.",
+        "The asset is uniformly scaled and translated only. Do not describe all four guide corners or painted heights as exactly calibrated."
+      ],
+      "referenceSources": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-high-camera-city/guides/east-parcel-guide.png",
+          "sha256": "ff11ce394e8eb45c2fb58ac9249069c2b6a9a37f7a1c1b59dc66783d01e6a9ac"
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-high-camera-street-corner/HC01-high-camera-street-corner-v1.png",
+          "sha256": "561f8603bf4916bf6017277f7fd90698cc06077e09362de3f1d34612052412f0"
+        }
+      ]
+    },
+    {
+      "id": "HC-R-NE",
+      "sourcePath": "/Users/sanger/.codex/generated_images/01a19fc9-58f4-7ad1-880b-1c1a948527ed/exec-c8aba976-4b23-4685-8899-1424992af6ed.png",
+      "destination": "HC-R-NE-v1.png",
+      "promptFile": "prompts/HC-R-NE-v1.json",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "0adda5fddff25e32c511c30f87b238193524355a5f1be3afe440a042861d99a3",
+      "nativeBytesPreserved": true,
+      "prompt": {
+        "id": "HC-R-NE-v1",
+        "prompt": "Use case: game-asset / high-camera direction remake. Produce ONE single native transparent RGBA square1024x1024 delivery rider on compact orange D-grade delivery scooter. Image1 is IDENTITY/VEHICLE reference only: retain same young adult male delivery rider, orange open-face helmet with dark trim, orange jacket with white reflective sleeve stripe, dark trousers/shoes, black gloves, compact orange step-through scooter, ROUND headlight, orange rigid rear delivery box with black corner guards, no brand/text. Make a new view from a MUCH HIGHER CAMERA, not a rotated/flipped/cropped copy.\nCRITICAL CAMERA: strict orthographic looking down at elevation62.5deg ABOVE HORIZONTAL GROUND, fixed azimuth45. Roof-like top of helmet, shoulders, seat, handlebar and TOP plane of delivery box are prominently visible. Camera is near overhead, only short side heights. DO NOT retain the low side-on perspective of the reference.\nTravel direction is screen NORTH-EAST: front wheel/headlamp at upper-right, rear wheel/box at lower-left. Projected longitudinal ground direction exactly about28.5deg ABOVE screen horizontal (vector+.88,-.48); this matches the actual road, not a generic45deg diagonal. Both wheels and complete scooter remain inside frame. Rider naturally seated with hands on handlebars, no extra limbs, face partly hidden by higher viewpoint, identity preserved. Motorcycle heading remains fixed, body upright, no turn pose.\nMake a detailed but clean readable painted game sprite in bright Japanese urban anime urban-game rendering, warm screen-upper-left lighting, nuanced orange panels, dark mechanical parts, no plastic3D look, no chibi proportions. Keep round headlight design and same compact D scooter, not motorbike racer or oversized delivery van. Native true alpha outside person+vehicle, NO ground plane, NO road, NO scene backdrop, NO stand/platform, NO baked ground shadow (engine adds it), NO glow, NO checkerboard texture. One rider only, no direction grid or duplicate views. Fit complete silhouette within about10% safe margin, preserve all wheels, helmet, box, mirrors. Square composition, enough pixel detail for125px-wide gameplay read.",
+        "references": [
+          "../2026-11-03-modular-city-assets/R01-rider.png"
+        ],
+        "transparent_background": true
+      },
+      "observations": [
+        "New native higher view with more visible helmet/box top; travel silhouette points NE, but drawn wheel axis is about34 degrees rather than exact road28.5 degrees. No plane rotation used.",
+        "Ground-contact midpoint is manually inferred from the two wheel bases; no baked ground background/shadow."
+      ],
+      "referenceSources": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-modular-city-assets/R01-rider.png",
+          "sha256": "ca358184fa199f25b40c095e22f6e4ca3f1ca4263cdf21630078dc98dc441332"
+        }
+      ]
+    },
+    {
+      "id": "HC-R-SW",
+      "sourcePath": "/Users/sanger/.codex/generated_images/01a19fc9-58f4-7ad1-880b-1c1a948527ed/exec-225331a6-48e2-44f7-9b15-9a3302d24be5.png",
+      "destination": "HC-R-SW-v1.png",
+      "promptFile": "prompts/HC-R-SW-v1.json",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "sha256": "9f686ca896008a1954a90da10dafebeb72680fcd10c59f3bc53c338a8fa84ae2",
+      "nativeBytesPreserved": true,
+      "prompt": {
+        "id": "HC-R-SW-v1",
+        "prompt": "Use case: game-asset, opposite native direction of the SAME delivery rider. Image1 is the now-generated NORTH-EAST high-camera sprite: keep exactly its same rider/vehicle identity, paint/detail level, palette, orange helmet/jacket/white reflective bands/dark trousers, compact orange scooter with ROUND headlight, orange rigid rear delivery box with black corner guards. Generate ONE NEW view of this same vehicle/rider facing the OPPOSITE SOUTH-WEST direction. Do not mirror, rotate or paste image1: redraw physical opposite viewpoint so the scooter FRONT/headlight is lower-left and rear delivery BOX is upper-right, rider face partially seen from above and front.\nSTRICT HIGH ORTHOGRAPHIC CAMERA at62.5deg above horizontal ground, azimuth45, more top-down than conventional isometric. Big visible top planes of helmet, handlebar, orange scooter cowl and box lid; short sidewall screen heights, parallel directions not perspective. Travel vector of front wheel relative rear wheel approximately(-.88,+.48) in screen-right/down coordinates, meaning28.5deg BELOW horizontal toward screen left. Avoid45deg steep diagonal. The vehicle long axis from FRONT LOWER-LEFT to REAR UPPER-RIGHT must slope only about-0.54. Both wheel contact centers lie on that axis; keep body upright, rider naturally seated with hands on handlebars. Correct front/rear geometry: orange round headlight at lower-left nose, delivery box behind rider at upper-right. No second front wheel, extra handlebars, limbs or duplicated box.\nONE complete single sprite on native truly transparent RGBA square1024x1024, full helmet, box, mirrors and both wheels inside about8-10% safe margin; similar screen volume and proportions as image1, no long blank margins. Native game art sprite, not a direction grid. No environment, ground plane, road, baked ground shadow, glow, checkerboard, logos, text, labels or UI. Bright refined Japanese urban anime painted style, fixed screen upper-left warm lighting consistent with image1, nuanced orange paint/dark parts. Preserve model identity and camera height while redrawing the new native view.",
+        "references": [
+          "HC-R-NE-v1.png"
+        ],
+        "transparent_background": true
+      },
+      "observations": [
+        "Native opposite view, round front headlight lower-left, box upper-right, high view with helmet and box top visible; not a flipped NE image.",
+        "Rear wheel contact partially hidden by exhaust/box, so rear contact and midpoint are manual candidates. Minor independently painted identity/proportion and heading differences remain."
+      ],
+      "referenceSources": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-high-camera-city/HC-R-NE-v1.png",
+          "sha256": "0adda5fddff25e32c511c30f87b238193524355a5f1be3afe440a042861d99a3"
+        }
+      ]
+    }
+  ]
+}

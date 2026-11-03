@@ -1,0 +1,191 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -16,7 +16,7 @@
+ import { billingRows } from './BillingPresentation';
+ import { box, button, closeButton, C, col, icon, item, label, material, roundAction, topOnlyBar, outline, paintBox, skin, tap } from './SampleUI';
+ import { cartoonArt } from './CartoonArt';
+-import { cssUnits, experienceProgress, presentationMetrics, readable, scrollContent, textHeight } from './PresentationLayout';
++import { cssUnits, pageMargin, experienceProgress, presentationMetrics, readable, scrollContent, textHeight } from './PresentationLayout';
+ import { vehicleSideArt } from './VehicleSideArt';
+ import { SafeInsets, rotatedViewportInsets, viewportInsets } from './SafeAreaLayout';
+ const {ccclass}=_decorator;
+@@ -167,17 +167,18 @@
+     if(this.gameplayFrozen){this.city.cancelLocate();this.openPauseDialog();}
+     if(wasNotice)this.showMessage(wasNotice);
+   }
++  private outerMargin(){return pageMargin(1280+this.screenExtra);}
+   private metrics(){return presentationMetrics(1280+this.screenExtra);}
+   // OrderPanel already applies -screenExtra/2 and the bottom safe inset.
+   // Focused orders have no navigation or central-button clearance to reserve.
+-  private sheetBottomFor(screenHeight:number):number{return (this.book.active?-640:-479.4)+cssUnits(12,screenHeight);}
++  private sheetBottomFor(screenHeight:number):number{return (this.book.active?-640:-479.4)+pageMargin(screenHeight);}
+   private sheetBottom():number{return this.sheetBottomFor(1280+this.screenExtra);}
+   private compactData():CompactOrder|null {
+     const active=this.book?.active;if(!active)return null;const r=active.routes[active.selected];
+     return {offer:active.offer,from:this.book.data.pois[active.offer.from].name,to:this.book.data.pois[active.offer.to].name,metres:r.metres};
+   }
+   private sheetHeightFor(screenHeight:number):number {
+-    const data=this.compactData();if(!data)return 440;const m=presentationMetrics(screenHeight),width=720-this.safeInsets.left-this.safeInsets.right-60;
++    const data=this.compactData();if(!data)return 440;const m=presentationMetrics(screenHeight),width=720-this.safeInsets.left-this.safeInsets.right-2*pageMargin(screenHeight)-40;
+     const body=compactOrderHeight(data,width,screenHeight),route=this.book.active?.mode==='routes'?Math.ceil(m.aux*4.5)+16:60;
+     return Math.max(440,Math.min(690,body+route+m.action+146));
+   }
+@@ -190,7 +191,7 @@
+     if(white)outline(caption);if(enabled)tap(node,action);return node;
+   }
+   private header(parent:Node):void {
+-    const width=720-this.safeInsets.left-this.safeInsets.right-36,m=this.metrics();
++    const width=720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin(),m=this.metrics();
+     this.profileCard=item(parent,'Header',0,0,width,160);
+     const content=item(this.profileCard,'HeaderContent');
+     const identity=item(content,'ProfileIdentity'),wallet=item(content,'ProfileWallet'),rating=item(content,'ProfileRating');
+@@ -225,7 +226,7 @@
+     this.updatePlayerHeader();
+   }
+   private layoutPlayerHeader():void {
+-    const card=this.profileCard,m=this.metrics(),margin=cssUnits(12,1280+this.screenExtra),width=720-this.safeInsets.left-this.safeInsets.right-2*margin;
++    const card=this.profileCard,m=this.metrics(),margin=this.outerMargin(),width=720-this.safeInsets.left-this.safeInsets.right-2*margin;
+     const content=card.getChildByName('HeaderContent')!,identity=content.getChildByName('ProfileIdentity')!,wallet=content.getChildByName('ProfileWallet')!,rating=content.getChildByName('ProfileRating')!;
+     const place=(n:Node,x:number,y:number,w:number,h:number)=>{n.setPosition(x,y);n.getComponent(UITransform)!.setContentSize(w,h);};
+     const paint=(n:Node,x:number,y:number,w:number,h:number,fill:string,radius:number)=>{place(n,x,y,w,h);paintBox(n,w,h,fill,radius,C.line);};
+@@ -238,7 +239,7 @@
+     paint(identity.getChildByName('ExperienceTrack')!,0,barY,avatarWidth,32,C.light,10);
+     const fill=identity.getChildByName('ExperienceFill')!;fill.active=progress>0;paint(fill,-avatarWidth*(1-progress)/2,barY,Math.max(0,avatarWidth*progress),32,C.primary,10);
+     this.experience.fontSize=28;this.experience.lineHeight=28;place(this.experience.node,0,barY,avatarWidth,32);this.experience.horizontalAlign=Label.HorizontalAlign.CENTER;this.experience.enableWrapText=false;this.experience.overflow=Label.Overflow.SHRINK;
+-    const pause=identity.getChildByName('Button-暂停');if(pause){pause.active=this.canPauseDelivery;place(pause,0,barY-16-12-Math.max(m.action/2,cssUnits(32,1280+this.screenExtra))/2,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action);}
++    const pause=identity.getChildByName('Button-暂停');if(pause){pause.active=this.canPauseDelivery;place(pause,-avatarWidth/2+Math.max(112,cssUnits(44,1280+this.screenExtra))/4,barY-16-12-Math.max(m.action/2,cssUnits(32,1280+this.screenExtra))/2,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action);}
+     const font=Math.max(24,Math.ceil(m.body*.8)),iconSize=40,pad=14,gap=12,available=width-avatarWidth-18;
+     const wanted=(v:string)=>Math.ceil(Array.from(v).length*font*.66)+iconSize+pad*3;
+     const ratingWidth=wanted(this.rating.string),moneyWidth=Math.min(available,wanted(this.money.string));
+@@ -251,13 +252,18 @@
+     };
+     const mh=layout(wallet,'Wallet',this.money,moneyWidth,44);
+     if(stacked)layout(rating,'Rating',this.rating,ratingWidth,-mh/2);else {layout(rating,'Rating',this.rating,ratingWidth,44);wallet.setPosition(width/2-ratingWidth-gap-moneyWidth/2,44);}
+-    place(card,(this.safeInsets.left-this.safeInsets.right)/2,538,width,180);
++    const headerY=640-margin-44-avatarHeight/2;
++    place(card,(this.safeInsets.left-this.safeInsets.right)/2,headerY,width,180);
++    // Reserve the actual lower edge of the header/pause in map-local coordinates.
++    const pauseY=pause?.position.y??barY;
++    const lower=headerY+44+(this.canPauseDelivery?pauseY-m.action/4:barY-16)+this.screenExtra/2-this.safeInsets.top;
++    this.city.setHeaderClearance((this.city.viewport.position.y+this.city.viewport.getComponent(UITransform)!.height/2)-lower+margin);
+     const station=this.root.getChildByName('StationEntry');if(station)this.positionStation(station);
+   }
+   private positionStation(station:Node):void {
+     const art=station.getChildByName('CartoonArt-station'),half=Math.max(47,art?.active?(art.getComponent(UITransform)?.width||108)/2:0);
+     const base=this.book.mode==='idle'||!this.orderCardOpen?-416:this.sheetBottom()+this.sheetHeight()+110;
+-    station.setPosition(-360+this.safeInsets.left+cssUnits(12,1280+this.screenExtra)+half,base-this.screenExtra/2+this.safeInsets.bottom);
++    station.setPosition(-360+this.safeInsets.left+this.outerMargin()+half,base-this.screenExtra/2+this.safeInsets.bottom);
+   }
+ 
+   private controls():void {
+@@ -265,7 +271,7 @@
+     const picture=box(station,'PlaceholderIcon-station',0,11,36,32,'#F0EEE7',8);
+     label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,86.4,86.4,picture);stationArt.getComponent(Sprite)!.grayscale=true;const position=()=>this.positionStation(station);stationArt.on(Node.EventType.SIZE_CHANGED,position);stationArt.on(Node.EventType.ACTIVE_CHANGED,position);position();readable(station,'站点',0,-52,this.metrics().aux,'#AAA69C',94,true,'center');
+     const y=this.book.mode==='idle'||!this.orderCardOpen?-400:this.sheetBottom()+this.sheetHeight()+this.metrics().action/2+20;
+-    const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-cssUnits(12,1280+this.screenExtra),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
++    const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-this.outerMargin(),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
+     icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locateAnimated());
+     this.createBoostControl(y);
+     const planning=this.book.mode==='routes'&&this.orderCardOpen;station.active=!planning;locate.active=!planning;this.city.setPlanningControlsHidden?.(planning);
+@@ -320,7 +326,7 @@
+     const idle=this.book.mode==='idle';
+     const backdrop=item(this.panel,'NavigationBackdrop',0,-581-this.safeInsets.bottom/2,720,118+this.safeInsets.bottom);topOnlyBar(backdrop,720,118+this.safeInsets.bottom);
+     const bar=item(this.panel,'MainNavigation',(this.safeInsets.left-this.safeInsets.right)/2,-581,720,118);bar.addComponent(BlockInputEvents);
+-    bar.setScale((720-this.safeInsets.left-this.safeInsets.right)/720,1,1);
++    bar.setScale((720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin())/720,1,1);
+     const entries=[
+       {key:'recruit',name:'招募',x:-280,enabled:false,action:()=>{}},
+       {key:'vehicle',name:'车辆',x:-158,enabled:true,action:()=>this.openGarage()},
+@@ -331,7 +337,7 @@
+     for(const entry of entries){
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+       const slot=item(bar,'Nav-'+entry.key,entry.x,main?28.8:0,main?145.6:116,main?145.6:100);
+-      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right)/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,45,foreground,1.725);
++      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin())/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,45,foreground,1.725);
+       const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,main?'#FFFFFF':foreground,main?132:108,true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+     }
+@@ -357,7 +363,7 @@
+       return;
+     }
+     if(!active||!this.orderCardOpen)return;
+-    const height=this.sheetHeight(),width=720-this.safeInsets.left-this.safeInsets.right-20,m=this.metrics();
++    const height=this.sheetHeight(),width=720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin(),m=this.metrics();
+     const p=box(this.panel,'DeliverySheet',(this.safeInsets.left-this.safeInsets.right)/2,this.sheetBottom()+height/2,width,height,C.paper,24);
+     const top=height/2,inner=width-40;
+     const offer=active.offer,route=active.routes[active.selected],timing=this.book.timingForRoute(route),receipt=active.receipt,phase=active.handoff?.phase;
+@@ -462,7 +468,7 @@
+     if(!this.root)return;if(this.toast){this.toast.active=false;this.toast.destroy();}
+     this.noticeMessage=message;
+     if(this.gameplayFrozen)return;
+-    const m=this.metrics(),width=720-this.safeInsets.left-this.safeInsets.right-36,height=textHeight(message,m.body,width-32)+24;
++    const m=this.metrics(),width=720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin(),height=textHeight(message,m.body,width-32)+24;
+     const node=this.toast=box(this.root,'NoticeToast',(this.safeInsets.left-this.safeInsets.right)/2,-230-this.screenExtra/2,width,height,'#FFF0D9',16,'#D6B65A');
+     readable(node,message,0,0,m.body,C.ink,width-32,true,'center',height-16);
+     this.scheduleOnce(()=>{if(this.pendingSave)return;if(node.isValid)node.destroy();if(this.toast===node){this.toast=null;this.noticeMessage='';}},4);
+@@ -523,7 +529,7 @@
+     this.closeDialog();this.modalKind=kind;const screenHeight=1280+this.screenExtra,insets=this.safeInsets||{top:0,bottom:0,left:0,right:0};
+     const layer=this.modal=item(this.root,'CountyDialog',0,0,720,screenHeight);layer.addComponent(BlockInputEvents);
+     const shade=box(layer,'Shade',0,0,720,screenHeight,'#00000099',0);if(dismissible)tap(shade,()=>this.dismissDialog());
+-    const width=Math.min(684,720-insets.left-insets.right-36),height=Math.min(requestedHeight,screenHeight-insets.top-insets.bottom-36);
++    const width=Math.min(684,720-insets.left-insets.right-2*pageMargin(screenHeight)),height=Math.min(requestedHeight,screenHeight-insets.top-insets.bottom-2*pageMargin(screenHeight));
+     const card=box(layer,'DialogCard',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.paper,28);card.addComponent(BlockInputEvents);
+     const heading=box(card,'DialogHeader',0,height/2-65,width-12,126,C.violet,26);skin(heading,'panel-violet');
+     const m=this.metrics(),headingText=readable(card,title,(kind==='receipt'||kind==='pause'||kind==='entry')?0:-60,height/2-64,m.body+4,'#FFFFFF',width-180,true,(kind==='receipt'||kind==='pause'||kind==='entry')?'center':'left',70);outline(headingText,'#4B329A');
+@@ -556,7 +562,7 @@
+   private openReceipt():void {
+     if(this.book.mode==='done')this.removeDeliverySheet();
+     const receipt=this.book.active?.receipt;if(!receipt||this.pendingSave||this.gameplayFrozen)return;
+-    const m=this.metrics(),inner=Math.min(684,720-this.safeInsets.left-this.safeInsets.right-36)-48,offer=this.book.active!.offer;
++    const m=this.metrics(),inner=Math.min(684,720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin())-48,offer=this.book.active!.offer;
+     const status=[receipt.lateSeconds>0?'晚到':'准时',receipt.damage==='none'?'餐品完好':'餐品损坏',offer.demand==='door'?(receipt.outcome.doorAnswer?'按备注':'未按备注'):'无交付要求'].join(' · ');
+     let parts:ReturnType<typeof receiptIncomeBreakdown>=null;try{parts=receiptIncomeBreakdown(offer,receipt);}catch(_){/* Old receipt without sufficient data: show the actual result. */}
+     const effect=(label:string,cents:number)=>`${label}影响收益${cents>0?'−':'+'}¥${(Math.abs(cents)/100).toFixed(2)}`;
+@@ -649,6 +655,6 @@
+     const remaining=active.deadlineSeconds-progress.displaySeconds*progress.progress;
+     if(this.tripLabel){const phase=active.handoff?.phase,stage=phase==='awaitPickup'?'已到店，等待取餐':phase==='awaitDeliveryStart'?'取餐完成，准备送餐':this.book.tripStage==='pickup'?'前往餐厅取餐':this.book.tripStage==='collecting'?`正在取餐中 · ${Math.ceil(this.book.pickupWaitRemaining)}秒`:'正在送往顾客';this.tripLabel.string=stage+' · '+(remaining>=0?'剩余 ':'已超时 ')+formatRemaining(Math.abs(remaining));}
+     if(this.timer)this.timer.string=active.mode==='done'?'已到达':remaining>=0?'剩余 '+formatRemaining(remaining):'已超时 '+formatRemaining(-remaining);
+-    if(this.progressFill){this.progressFill.setScale(progress.progress,1,1);this.progressFill.setPosition(-(720-this.safeInsets.left-this.safeInsets.right-60)/2*(1-progress.progress),-60);}
++    if(this.progressFill){this.progressFill.setScale(progress.progress,1,1);this.progressFill.setPosition(-(720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin()-40)/2*(1-progress.progress),-60);}
+   }
+ }
+--- before/OrderPhone.ts
++++ delivery-game/assets/scripts/map-sample/OrderPhone.ts
+@@ -5,7 +5,7 @@
+ import { buyerRemark, deadlineText, foodDescription, orderCautions } from './OrderPresentation';
+ import { box, closeButton, C, item, material, outline, skin, tap } from './SampleUI';
+ import { SafeInsets } from './SafeAreaLayout';
+-import { presentationMetrics, readable, scrollContent, textHeight } from './PresentationLayout';
++import { pageMargin, presentationMetrics, readable, scrollContent, textHeight } from './PresentationLayout';
+ 
+ export class OrderPhone {
+  readonly node:Node;
+@@ -17,7 +17,7 @@
+  }
+  private render():void {
+   const m=presentationMetrics(this.screenHeight),insets=this.safeInsets;
+-  const width=Math.min(684,720-insets.left-insets.right-36),height=Math.min(1240,this.screenHeight-insets.top-insets.bottom-24);
++  const width=Math.min(684,720-insets.left-insets.right-2*pageMargin(this.screenHeight)),height=Math.min(1240,this.screenHeight-insets.top-insets.bottom-2*pageMargin(this.screenHeight));
+   box(this.node,'PhoneShadow',(insets.left-insets.right)/2+6,(insets.bottom-insets.top)/2-8,width+4,height+4,'#34373524',48);
+   box(this.node,'PhoneSide',(insets.left-insets.right)/2+5,(insets.bottom-insets.top)/2-2,width+2,height+2,'#353B38',46);
+   const frame=box(this.node,'PhoneFrame',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.navy,22,'#FFFCF5');frame.addComponent(BlockInputEvents);
+--- before/PresentationLayout.ts
++++ delivery-game/assets/scripts/map-sample/PresentationLayout.ts
+@@ -39,3 +39,7 @@
+ }
+ 
+ export function cssUnits(pixels:number,screenHeight=1280):number {const frame=view.getFrameSize();return pixels/(Math.min(frame.width/720,frame.height/screenHeight)||1);}
++
++// Default outer spacing is measured in browser CSS pixels, inside safe insets.
++export const DEFAULT_PAGE_MARGIN_CSS=16;
++export function pageMargin(screenHeight=1280):number{return cssUnits(DEFAULT_PAGE_MARGIN_CSS,screenHeight);}
+--- before/CityMap.ts
++++ delivery-game/assets/scripts/map-sample/CityMap.ts
+@@ -28,6 +28,7 @@
+  private routeOverview=false;
+  private autoFit=false;
+  private planningControlsHidden=false;
++ setHeaderClearance(top:number):void{this.routeInsets.top=Math.max(0,top);}
+  private routeInsets={top:232,bottom:252,left:90,right:90};
+  private scale=DEFAULT_SCALE;
+  private offset:Point=[0,0];

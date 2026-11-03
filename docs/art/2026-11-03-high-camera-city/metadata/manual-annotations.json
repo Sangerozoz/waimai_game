@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "method": "Manual inspection of native PNGs, top-left pixel coordinates. Candidate art registration only; rear edges and hidden corners are not surveyed facts.",
+  "blocks": {
+    "HC-P-WEST": {
+      "file": "HC-P-WEST-v1.png",
+      "sourceRecord": "west-source.json",
+      "fitControlNames": ["ground-0", "ground-3"],
+      "groundControls": [
+        {"name":"ground-0", "pixel":[1214,738], "visible":true},
+        {"name":"ground-1", "pixel":[844,146], "visible":false, "note":"Rear ground corner obscured by raised fence; estimated below fence top, not the top of railing."},
+        {"name":"ground-2", "pixel":[54,521], "visible":true},
+        {"name":"ground-3", "pixel":[466,1153], "visible":true}
+      ],
+      "visibleEntrances": [{"buildingId":"west-building-1","pixel":[526,866]}, {"buildingId":"west-building-2","pixel":[928,735]}],
+      "observations": ["Both public shop doors lie on the visible street-facing frontage, with brick forecourt connections.", "Trees have soil/grass pools, low edging and short fences; roofs have vents rather than trees.", "Ground far corners/roof/facade proportions drift from the exact geometric guide. Only the road-facing edge determines scale and translation; rear residuals are reported and not removed by distortion.", "Nominal guide heights and setbacks are layout candidates, not precision measurements of the painted walls."]
+    },
+    "HC-P-EAST": {
+      "file": "HC-P-EAST-v1.png",
+      "sourceRecord": "east-source.json",
+      "fitControlNames": ["ground-0", "ground-3"],
+      "groundControls": [
+        {"name":"ground-0", "pixel":[800,176], "visible":false, "note":"Upper street-end ground corner hidden under roof/fence; estimated along visible frontage direction using guide length."},
+        {"name":"ground-1", "pixel":[1203,687], "visible":true},
+        {"name":"ground-2", "pixel":[462,1158], "visible":true},
+        {"name":"ground-3", "pixel":[50,583], "visible":true}
+      ],
+      "visibleEntrances": [],
+      "observations": ["Visible walls are residential rear/side facades, without false public doors or shop awnings. Public frontage and doors remain hidden on the far street side.", "Visible rear garden has soil/grass, low stone edging/fence, trees, bench and bicycle area; no rooftop trees.", "Front upper ground point is inferred, not directly seen. Rear ground rectangle and building proportions differ locally from guide; hidden edge registration remains approximate.", "The asset is uniformly scaled and translated only. Do not describe all four guide corners or painted heights as exactly calibrated."]
+    }
+  },
+  "riders": {
+    "HC-R-NE": {
+      "file":"HC-R-NE-v1.png", "sourceRecord":"rider-ne-source.json", "direction":"ne",
+      "wheelContactPixels":[[283,1217],[1041,699]],
+      "wheelContactAnchorPixel":[662,958],
+      "observations":["New native higher view with more visible helmet/box top; travel silhouette points NE, but drawn wheel axis is about34 degrees rather than exact road28.5 degrees. No plane rotation used.","Ground-contact midpoint is manually inferred from the two wheel bases; no baked ground background/shadow."]
+    },
+    "HC-R-SW": {
+      "file":"HC-R-SW-v1.png", "sourceRecord":"rider-sw-source.json", "direction":"sw",
+      "wheelContactPixels":[[175,1220],[1037,754]],
+      "wheelContactAnchorPixel":[606,987],
+      "observations":["Native opposite view, round front headlight lower-left, box upper-right, high view with helmet and box top visible; not a flipped NE image.","Rear wheel contact partially hidden by exhaust/box, so rear contact and midpoint are manual candidates. Minor independently painted identity/proportion and heading differences remain."]
+    }
+  }
+}

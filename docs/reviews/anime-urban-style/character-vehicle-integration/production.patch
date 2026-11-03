@@ -1,0 +1,15 @@
+--- before/CartoonArt.ts
++++ after/CartoonArt.ts
+@@ -10,6 +10,12 @@
+ const foodKeys=['chicken-rice','beef-rice','pork-rice','tofu-rice','soup-noodles','mixed-noodles','wonton','hotpot','dumplings','buns','pizza','burger','salad','sushi','cake','milk-tea'];
+ register('food-sheet',foodKeys,[[12.2488,28.5805,311.3238,301.1164],[332.7592,59.2026,306.2201,269.4737],[641.0207,48.9952,315.4067,281.7225],[966.6348,63.2855,302.1372,264.37],[10.2073,347.0494,316.4274,277.6396],[329.697,347.0494,309.2823,275.5981],[640.0,352.1531,310.303,275.5981],[944.1786,341.9458,333.7799,283.764],[10.2073,655.311,321.5311,264.37],[335.8214,632.8549,302.1372,302.1372],[638.9793,645.1037,328.6762,278.6603],[969.697,633.8756,298.0542,293.9713],[12.2488,952.3445,311.3238,285.8054],[316.4274,956.4274,336.8421,283.764],[649.1866,921.7225,334.8006,320.5104],[1015.63,918.6603,226.6029,336.8421]]);
+ register('ui-chrome',["panel-blue","panel-violet","button-yellow","button-blue"],[[10.2073,179.6491,630.8134,606.3158],[637.9585,179.6491,630.8134,606.3158],[12.2488,828.8357,628.7719,277.6396],[637.9585,828.8357,630.8134,277.6396]]);
++// AU01 user-delivered originals: use engine rectangles, never repaint the accepted face.
++// Source coordinates are top-left pixels in the unchanged 1024 x 1536 master.
++crops.avatar={resource:'map-sample/anime/au01/rider-master-original',rect:[340/1024,0,360/1024,360/1536]};
++// Keep the entire alpha canvas, including warm translucent edge pixels. North-facing art
++// continues through MapVehicle's existing -90 degree correction and road rotation.
++crops['top-d']={resource:'map-sample/anime/au01/vehicle-top-original',rect:[0,0,1,1]};
+ const atlases=new Map<string,Promise<Texture2D>>(),frames=new Map<string,SpriteFrame>();
+ function loadAtlas(resource:string):Promise<Texture2D> {
+  const cached=atlases.get(resource);if(cached)return cached;

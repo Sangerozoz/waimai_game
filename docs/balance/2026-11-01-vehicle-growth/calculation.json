@@ -1,0 +1,475 @@
+{
+  "status": "design-arithmetic-only-not-game-verification",
+  "assumptions": {
+    "sameMapSameBaseFeeSameRiderOtherMultipliers": true,
+    "distanceKmIncludingPickupAndDelivery": [
+      "0.5",
+      "2",
+      "5",
+      "10"
+    ],
+    "roadGameSecondsPerRealSecond": 40,
+    "pickupRealSeconds": 2,
+    "readingPlanningAndHumanReactionSeconds": 0,
+    "capacityChangesOrderEligibilityOnly": true,
+    "fixedMaxBoostIsBoundNotMeasuredClicking": true,
+    "doesNotImplementNpcDispatchOfflineOrActualPurchasePrices": true
+  },
+  "generatedRows": 300,
+  "everyLevelIncreasesAllThreeAttributes": true,
+  "selectedScenarioEfficiencyGainRanges": [
+    {
+      "fixedRoadBoost": "1.000000",
+      "minimumGainRatio": "1.499161",
+      "maximumGainRatio": "1.805928"
+    },
+    {
+      "fixedRoadBoost": "3.333333",
+      "minimumGainRatio": "1.435638",
+      "maximumGainRatio": "1.776494"
+    }
+  ],
+  "adjacentGradeComparisons": [
+    {
+      "fromGradeLevel30": "D",
+      "nextGrade": "D+",
+      "speedCatchLevel": 9,
+      "capacityCatchLevel": 6,
+      "allSelectedCasesCatchLevel": 13,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 13
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        }
+      ]
+    },
+    {
+      "fromGradeLevel30": "D+",
+      "nextGrade": "C",
+      "speedCatchLevel": 6,
+      "capacityCatchLevel": 5,
+      "allSelectedCasesCatchLevel": 12,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 10
+        }
+      ]
+    },
+    {
+      "fromGradeLevel30": "C",
+      "nextGrade": "C+",
+      "speedCatchLevel": 8,
+      "capacityCatchLevel": 6,
+      "allSelectedCasesCatchLevel": 12,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        }
+      ]
+    },
+    {
+      "fromGradeLevel30": "C+",
+      "nextGrade": "B",
+      "speedCatchLevel": 7,
+      "capacityCatchLevel": 7,
+      "allSelectedCasesCatchLevel": 12,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 10
+        }
+      ]
+    },
+    {
+      "fromGradeLevel30": "B",
+      "nextGrade": "B+",
+      "speedCatchLevel": 9,
+      "capacityCatchLevel": 9,
+      "allSelectedCasesCatchLevel": 13,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 13
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        }
+      ]
+    },
+    {
+      "fromGradeLevel30": "B+",
+      "nextGrade": "A",
+      "speedCatchLevel": 6,
+      "capacityCatchLevel": 9,
+      "allSelectedCasesCatchLevel": 13,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 13
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 10
+        }
+      ]
+    },
+    {
+      "fromGradeLevel30": "A",
+      "nextGrade": "S",
+      "speedCatchLevel": 8,
+      "capacityCatchLevel": 9,
+      "allSelectedCasesCatchLevel": 13,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 13
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        }
+      ]
+    },
+    {
+      "fromGradeLevel30": "S",
+      "nextGrade": "SS",
+      "speedCatchLevel": 7,
+      "capacityCatchLevel": 10,
+      "allSelectedCasesCatchLevel": 13,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 10
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 13
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 10
+        }
+      ]
+    },
+    {
+      "fromGradeLevel30": "SS",
+      "nextGrade": "SSS",
+      "speedCatchLevel": 9,
+      "capacityCatchLevel": 10,
+      "allSelectedCasesCatchLevel": 13,
+      "cases": [
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 13
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "1.000000",
+          "nextGradeLevel": 11
+        },
+        {
+          "km": "0.5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 13
+        },
+        {
+          "km": "2",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 13
+        },
+        {
+          "km": "5",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        },
+        {
+          "km": "10",
+          "fixedRoadBoost": "3.333333",
+          "nextGradeLevel": 12
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -351,16 +351,32 @@
+       {key:'map',name:'地图',enabled:true,action:()=>this.openMaps()},
+       {key:'bills',name:'账单',enabled:true,action:()=>this.openBills()},
+     ];
++    const sideScale=Math.min(1.725*1.125,Math.max(0,(slotWidth-8)/48));
++    const sideNodes:Array<{slot:Node;picture:Node}>=[];
+     entries.forEach((entry,index)=>{
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+-      // Keep the round control intact; adjacent hit boxes stop at its edge.
+-      const sideHit=Math.max(1,Math.min(slotWidth,2*(slotWidth-145.6/2)));
+-      const slot=item(bar,'Nav-'+entry.key,(index-2)*slotWidth,main?28.8:0,main?145.6:sideHit,main?145.6:100);
++      const slot=item(bar,'Nav-'+entry.key,0,main?28.8:0,main?145.6:slotWidth,main?145.6:100);
+       if(main)roundAction(slot,145.6,enabled);
+-      else icon(slot,entry.key,0,55,foreground,Math.min(1.725*1.125,Math.max(0,(slotWidth-8)/48)));
++      else sideNodes.push({slot,picture:icon(slot,entry.key,0,55,foreground,sideScale)});
+       const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,main?'#FFFFFF':foreground,main?132:Math.min(108,slotWidth-8),true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+     });
++    const spread=()=>{
++      if(!bar.isValid)return;
++      const frame=(i:number)=>{const picture=sideNodes[i].picture;return picture.active?(picture.getComponent(UITransform)?.width||48*sideScale):48*sideScale;};
++      for(const [outer,inner,sign] of [[0,1,-1],[3,2,1]] as const){
++        const ow=frame(outer),iw=frame(inner),radius=145.6/2;
++        const space=Math.max(0,width/2-radius-ow-iw),gap=Math.min(cssUnits(24,1280+this.screenExtra),space/2);
++        const outerX=width/2-ow/2,innerX=radius+gap+iw/2;
++        sideNodes[outer].slot.setPosition(sign*outerX,0);sideNodes[inner].slot.setPosition(sign*innerX,0);
++        const midpoint=(outerX+innerX)/2;
++        const outerHit=Math.max(1,2*Math.min(width/2-outerX,outerX-midpoint));
++        const innerHit=Math.max(1,2*Math.min(innerX-radius,midpoint-innerX));
++        sideNodes[outer].slot.getComponent(UITransform)!.setContentSize(outerHit,100);
++        sideNodes[inner].slot.getComponent(UITransform)!.setContentSize(innerHit,100);
++      }
++    };
++    for(const {picture} of sideNodes){picture.on(Node.EventType.SIZE_CHANGED,spread);picture.on(Node.EventType.ACTIVE_CHANGED,spread);}spread();
+   }
+ 
+   private accept(id:string):void {

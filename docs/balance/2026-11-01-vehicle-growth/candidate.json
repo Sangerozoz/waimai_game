@@ -1,0 +1,2214 @@
+{
+  "id": "vehicle-growth-candidate-20261101-v1",
+  "status": "proposal-not-approved-not-implemented",
+  "levelMin": 1,
+  "levelMax": 30,
+  "growthProgress": {
+    "levels2To10PerLevel": "0.05",
+    "levels11To20PerLevel": "0.03",
+    "levels21To30PerLevel": "0.025"
+  },
+  "maximumBonus": {
+    "speed": "0.30",
+    "capacity": "0.60",
+    "vehicleIncome": "0.40"
+  },
+  "upgradeCost": {
+    "reference": "fixed undiscounted model purchase price P; free starter uses model reference price",
+    "cumulativeAtLevelL": "roundCents(P * L * (L - 1) / 435)",
+    "singleUpgrade": "cumulative(L+1) - cumulative(L)",
+    "currency": "coins only; deterministic success proposed"
+  },
+  "vehicles": [
+    {
+      "grade": "D",
+      "unlockMap": 1,
+      "baseSpeedKph": "12",
+      "baseCapacityKg": "5",
+      "baseVehicleIncomeMultiplier": "1",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "12.000000",
+          "capacityKg": "5.000000",
+          "totalVehicleIncomeMultiplier": "1.000000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "12.180000",
+          "capacityKg": "5.150000",
+          "totalVehicleIncomeMultiplier": "1.020000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "12.360000",
+          "capacityKg": "5.300000",
+          "totalVehicleIncomeMultiplier": "1.040000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "12.540000",
+          "capacityKg": "5.450000",
+          "totalVehicleIncomeMultiplier": "1.060000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "12.720000",
+          "capacityKg": "5.600000",
+          "totalVehicleIncomeMultiplier": "1.080000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "12.900000",
+          "capacityKg": "5.750000",
+          "totalVehicleIncomeMultiplier": "1.100000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "13.080000",
+          "capacityKg": "5.900000",
+          "totalVehicleIncomeMultiplier": "1.120000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "13.260000",
+          "capacityKg": "6.050000",
+          "totalVehicleIncomeMultiplier": "1.140000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "13.440000",
+          "capacityKg": "6.200000",
+          "totalVehicleIncomeMultiplier": "1.160000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "13.620000",
+          "capacityKg": "6.350000",
+          "totalVehicleIncomeMultiplier": "1.180000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "13.728000",
+          "capacityKg": "6.440000",
+          "totalVehicleIncomeMultiplier": "1.192000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "13.836000",
+          "capacityKg": "6.530000",
+          "totalVehicleIncomeMultiplier": "1.204000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "13.944000",
+          "capacityKg": "6.620000",
+          "totalVehicleIncomeMultiplier": "1.216000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "14.052000",
+          "capacityKg": "6.710000",
+          "totalVehicleIncomeMultiplier": "1.228000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "14.160000",
+          "capacityKg": "6.800000",
+          "totalVehicleIncomeMultiplier": "1.240000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "14.268000",
+          "capacityKg": "6.890000",
+          "totalVehicleIncomeMultiplier": "1.252000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "14.376000",
+          "capacityKg": "6.980000",
+          "totalVehicleIncomeMultiplier": "1.264000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "14.484000",
+          "capacityKg": "7.070000",
+          "totalVehicleIncomeMultiplier": "1.276000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "14.592000",
+          "capacityKg": "7.160000",
+          "totalVehicleIncomeMultiplier": "1.288000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "14.700000",
+          "capacityKg": "7.250000",
+          "totalVehicleIncomeMultiplier": "1.300000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "14.790000",
+          "capacityKg": "7.325000",
+          "totalVehicleIncomeMultiplier": "1.310000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "14.880000",
+          "capacityKg": "7.400000",
+          "totalVehicleIncomeMultiplier": "1.320000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "14.970000",
+          "capacityKg": "7.475000",
+          "totalVehicleIncomeMultiplier": "1.330000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "15.060000",
+          "capacityKg": "7.550000",
+          "totalVehicleIncomeMultiplier": "1.340000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "15.150000",
+          "capacityKg": "7.625000",
+          "totalVehicleIncomeMultiplier": "1.350000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "15.240000",
+          "capacityKg": "7.700000",
+          "totalVehicleIncomeMultiplier": "1.360000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "15.330000",
+          "capacityKg": "7.775000",
+          "totalVehicleIncomeMultiplier": "1.370000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "15.420000",
+          "capacityKg": "7.850000",
+          "totalVehicleIncomeMultiplier": "1.380000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "15.510000",
+          "capacityKg": "7.925000",
+          "totalVehicleIncomeMultiplier": "1.390000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "15.600000",
+          "capacityKg": "8.000000",
+          "totalVehicleIncomeMultiplier": "1.400000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "D+",
+      "unlockMap": 1,
+      "baseSpeedKph": "14",
+      "baseCapacityKg": "7",
+      "baseVehicleIncomeMultiplier": "1.15",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "14.000000",
+          "capacityKg": "7.000000",
+          "totalVehicleIncomeMultiplier": "1.150000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "14.210000",
+          "capacityKg": "7.210000",
+          "totalVehicleIncomeMultiplier": "1.173000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "14.420000",
+          "capacityKg": "7.420000",
+          "totalVehicleIncomeMultiplier": "1.196000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "14.630000",
+          "capacityKg": "7.630000",
+          "totalVehicleIncomeMultiplier": "1.219000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "14.840000",
+          "capacityKg": "7.840000",
+          "totalVehicleIncomeMultiplier": "1.242000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "15.050000",
+          "capacityKg": "8.050000",
+          "totalVehicleIncomeMultiplier": "1.265000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "15.260000",
+          "capacityKg": "8.260000",
+          "totalVehicleIncomeMultiplier": "1.288000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "15.470000",
+          "capacityKg": "8.470000",
+          "totalVehicleIncomeMultiplier": "1.311000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "15.680000",
+          "capacityKg": "8.680000",
+          "totalVehicleIncomeMultiplier": "1.334000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "15.890000",
+          "capacityKg": "8.890000",
+          "totalVehicleIncomeMultiplier": "1.357000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "16.016000",
+          "capacityKg": "9.016000",
+          "totalVehicleIncomeMultiplier": "1.370800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "16.142000",
+          "capacityKg": "9.142000",
+          "totalVehicleIncomeMultiplier": "1.384600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "16.268000",
+          "capacityKg": "9.268000",
+          "totalVehicleIncomeMultiplier": "1.398400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "16.394000",
+          "capacityKg": "9.394000",
+          "totalVehicleIncomeMultiplier": "1.412200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "16.520000",
+          "capacityKg": "9.520000",
+          "totalVehicleIncomeMultiplier": "1.426000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "16.646000",
+          "capacityKg": "9.646000",
+          "totalVehicleIncomeMultiplier": "1.439800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "16.772000",
+          "capacityKg": "9.772000",
+          "totalVehicleIncomeMultiplier": "1.453600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "16.898000",
+          "capacityKg": "9.898000",
+          "totalVehicleIncomeMultiplier": "1.467400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "17.024000",
+          "capacityKg": "10.024000",
+          "totalVehicleIncomeMultiplier": "1.481200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "17.150000",
+          "capacityKg": "10.150000",
+          "totalVehicleIncomeMultiplier": "1.495000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "17.255000",
+          "capacityKg": "10.255000",
+          "totalVehicleIncomeMultiplier": "1.506500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "17.360000",
+          "capacityKg": "10.360000",
+          "totalVehicleIncomeMultiplier": "1.518000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "17.465000",
+          "capacityKg": "10.465000",
+          "totalVehicleIncomeMultiplier": "1.529500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "17.570000",
+          "capacityKg": "10.570000",
+          "totalVehicleIncomeMultiplier": "1.541000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "17.675000",
+          "capacityKg": "10.675000",
+          "totalVehicleIncomeMultiplier": "1.552500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "17.780000",
+          "capacityKg": "10.780000",
+          "totalVehicleIncomeMultiplier": "1.564000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "17.885000",
+          "capacityKg": "10.885000",
+          "totalVehicleIncomeMultiplier": "1.575500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "17.990000",
+          "capacityKg": "10.990000",
+          "totalVehicleIncomeMultiplier": "1.587000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "18.095000",
+          "capacityKg": "11.095000",
+          "totalVehicleIncomeMultiplier": "1.598500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "18.200000",
+          "capacityKg": "11.200000",
+          "totalVehicleIncomeMultiplier": "1.610000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "C",
+      "unlockMap": 1,
+      "baseSpeedKph": "17",
+      "baseCapacityKg": "10",
+      "baseVehicleIncomeMultiplier": "1.32",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "17.000000",
+          "capacityKg": "10.000000",
+          "totalVehicleIncomeMultiplier": "1.320000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "17.255000",
+          "capacityKg": "10.300000",
+          "totalVehicleIncomeMultiplier": "1.346400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "17.510000",
+          "capacityKg": "10.600000",
+          "totalVehicleIncomeMultiplier": "1.372800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "17.765000",
+          "capacityKg": "10.900000",
+          "totalVehicleIncomeMultiplier": "1.399200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "18.020000",
+          "capacityKg": "11.200000",
+          "totalVehicleIncomeMultiplier": "1.425600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "18.275000",
+          "capacityKg": "11.500000",
+          "totalVehicleIncomeMultiplier": "1.452000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "18.530000",
+          "capacityKg": "11.800000",
+          "totalVehicleIncomeMultiplier": "1.478400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "18.785000",
+          "capacityKg": "12.100000",
+          "totalVehicleIncomeMultiplier": "1.504800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "19.040000",
+          "capacityKg": "12.400000",
+          "totalVehicleIncomeMultiplier": "1.531200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "19.295000",
+          "capacityKg": "12.700000",
+          "totalVehicleIncomeMultiplier": "1.557600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "19.448000",
+          "capacityKg": "12.880000",
+          "totalVehicleIncomeMultiplier": "1.573440",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "19.601000",
+          "capacityKg": "13.060000",
+          "totalVehicleIncomeMultiplier": "1.589280",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "19.754000",
+          "capacityKg": "13.240000",
+          "totalVehicleIncomeMultiplier": "1.605120",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "19.907000",
+          "capacityKg": "13.420000",
+          "totalVehicleIncomeMultiplier": "1.620960",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "20.060000",
+          "capacityKg": "13.600000",
+          "totalVehicleIncomeMultiplier": "1.636800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "20.213000",
+          "capacityKg": "13.780000",
+          "totalVehicleIncomeMultiplier": "1.652640",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "20.366000",
+          "capacityKg": "13.960000",
+          "totalVehicleIncomeMultiplier": "1.668480",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "20.519000",
+          "capacityKg": "14.140000",
+          "totalVehicleIncomeMultiplier": "1.684320",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "20.672000",
+          "capacityKg": "14.320000",
+          "totalVehicleIncomeMultiplier": "1.700160",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "20.825000",
+          "capacityKg": "14.500000",
+          "totalVehicleIncomeMultiplier": "1.716000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "20.952500",
+          "capacityKg": "14.650000",
+          "totalVehicleIncomeMultiplier": "1.729200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "21.080000",
+          "capacityKg": "14.800000",
+          "totalVehicleIncomeMultiplier": "1.742400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "21.207500",
+          "capacityKg": "14.950000",
+          "totalVehicleIncomeMultiplier": "1.755600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "21.335000",
+          "capacityKg": "15.100000",
+          "totalVehicleIncomeMultiplier": "1.768800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "21.462500",
+          "capacityKg": "15.250000",
+          "totalVehicleIncomeMultiplier": "1.782000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "21.590000",
+          "capacityKg": "15.400000",
+          "totalVehicleIncomeMultiplier": "1.795200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "21.717500",
+          "capacityKg": "15.550000",
+          "totalVehicleIncomeMultiplier": "1.808400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "21.845000",
+          "capacityKg": "15.700000",
+          "totalVehicleIncomeMultiplier": "1.821600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "21.972500",
+          "capacityKg": "15.850000",
+          "totalVehicleIncomeMultiplier": "1.834800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "22.100000",
+          "capacityKg": "16.000000",
+          "totalVehicleIncomeMultiplier": "1.848000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "C+",
+      "unlockMap": 1,
+      "baseSpeedKph": "20",
+      "baseCapacityKg": "14",
+      "baseVehicleIncomeMultiplier": "1.52",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "20.000000",
+          "capacityKg": "14.000000",
+          "totalVehicleIncomeMultiplier": "1.520000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "20.300000",
+          "capacityKg": "14.420000",
+          "totalVehicleIncomeMultiplier": "1.550400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "20.600000",
+          "capacityKg": "14.840000",
+          "totalVehicleIncomeMultiplier": "1.580800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "20.900000",
+          "capacityKg": "15.260000",
+          "totalVehicleIncomeMultiplier": "1.611200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "21.200000",
+          "capacityKg": "15.680000",
+          "totalVehicleIncomeMultiplier": "1.641600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "21.500000",
+          "capacityKg": "16.100000",
+          "totalVehicleIncomeMultiplier": "1.672000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "21.800000",
+          "capacityKg": "16.520000",
+          "totalVehicleIncomeMultiplier": "1.702400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "22.100000",
+          "capacityKg": "16.940000",
+          "totalVehicleIncomeMultiplier": "1.732800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "22.400000",
+          "capacityKg": "17.360000",
+          "totalVehicleIncomeMultiplier": "1.763200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "22.700000",
+          "capacityKg": "17.780000",
+          "totalVehicleIncomeMultiplier": "1.793600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "22.880000",
+          "capacityKg": "18.032000",
+          "totalVehicleIncomeMultiplier": "1.811840",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "23.060000",
+          "capacityKg": "18.284000",
+          "totalVehicleIncomeMultiplier": "1.830080",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "23.240000",
+          "capacityKg": "18.536000",
+          "totalVehicleIncomeMultiplier": "1.848320",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "23.420000",
+          "capacityKg": "18.788000",
+          "totalVehicleIncomeMultiplier": "1.866560",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "23.600000",
+          "capacityKg": "19.040000",
+          "totalVehicleIncomeMultiplier": "1.884800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "23.780000",
+          "capacityKg": "19.292000",
+          "totalVehicleIncomeMultiplier": "1.903040",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "23.960000",
+          "capacityKg": "19.544000",
+          "totalVehicleIncomeMultiplier": "1.921280",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "24.140000",
+          "capacityKg": "19.796000",
+          "totalVehicleIncomeMultiplier": "1.939520",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "24.320000",
+          "capacityKg": "20.048000",
+          "totalVehicleIncomeMultiplier": "1.957760",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "24.500000",
+          "capacityKg": "20.300000",
+          "totalVehicleIncomeMultiplier": "1.976000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "24.650000",
+          "capacityKg": "20.510000",
+          "totalVehicleIncomeMultiplier": "1.991200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "24.800000",
+          "capacityKg": "20.720000",
+          "totalVehicleIncomeMultiplier": "2.006400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "24.950000",
+          "capacityKg": "20.930000",
+          "totalVehicleIncomeMultiplier": "2.021600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "25.100000",
+          "capacityKg": "21.140000",
+          "totalVehicleIncomeMultiplier": "2.036800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "25.250000",
+          "capacityKg": "21.350000",
+          "totalVehicleIncomeMultiplier": "2.052000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "25.400000",
+          "capacityKg": "21.560000",
+          "totalVehicleIncomeMultiplier": "2.067200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "25.550000",
+          "capacityKg": "21.770000",
+          "totalVehicleIncomeMultiplier": "2.082400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "25.700000",
+          "capacityKg": "21.980000",
+          "totalVehicleIncomeMultiplier": "2.097600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "25.850000",
+          "capacityKg": "22.190000",
+          "totalVehicleIncomeMultiplier": "2.112800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "26.000000",
+          "capacityKg": "22.400000",
+          "totalVehicleIncomeMultiplier": "2.128000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "B",
+      "unlockMap": 2,
+      "baseSpeedKph": "24",
+      "baseCapacityKg": "19",
+      "baseVehicleIncomeMultiplier": "1.75",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "24.000000",
+          "capacityKg": "19.000000",
+          "totalVehicleIncomeMultiplier": "1.750000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "24.360000",
+          "capacityKg": "19.570000",
+          "totalVehicleIncomeMultiplier": "1.785000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "24.720000",
+          "capacityKg": "20.140000",
+          "totalVehicleIncomeMultiplier": "1.820000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "25.080000",
+          "capacityKg": "20.710000",
+          "totalVehicleIncomeMultiplier": "1.855000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "25.440000",
+          "capacityKg": "21.280000",
+          "totalVehicleIncomeMultiplier": "1.890000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "25.800000",
+          "capacityKg": "21.850000",
+          "totalVehicleIncomeMultiplier": "1.925000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "26.160000",
+          "capacityKg": "22.420000",
+          "totalVehicleIncomeMultiplier": "1.960000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "26.520000",
+          "capacityKg": "22.990000",
+          "totalVehicleIncomeMultiplier": "1.995000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "26.880000",
+          "capacityKg": "23.560000",
+          "totalVehicleIncomeMultiplier": "2.030000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "27.240000",
+          "capacityKg": "24.130000",
+          "totalVehicleIncomeMultiplier": "2.065000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "27.456000",
+          "capacityKg": "24.472000",
+          "totalVehicleIncomeMultiplier": "2.086000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "27.672000",
+          "capacityKg": "24.814000",
+          "totalVehicleIncomeMultiplier": "2.107000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "27.888000",
+          "capacityKg": "25.156000",
+          "totalVehicleIncomeMultiplier": "2.128000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "28.104000",
+          "capacityKg": "25.498000",
+          "totalVehicleIncomeMultiplier": "2.149000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "28.320000",
+          "capacityKg": "25.840000",
+          "totalVehicleIncomeMultiplier": "2.170000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "28.536000",
+          "capacityKg": "26.182000",
+          "totalVehicleIncomeMultiplier": "2.191000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "28.752000",
+          "capacityKg": "26.524000",
+          "totalVehicleIncomeMultiplier": "2.212000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "28.968000",
+          "capacityKg": "26.866000",
+          "totalVehicleIncomeMultiplier": "2.233000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "29.184000",
+          "capacityKg": "27.208000",
+          "totalVehicleIncomeMultiplier": "2.254000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "29.400000",
+          "capacityKg": "27.550000",
+          "totalVehicleIncomeMultiplier": "2.275000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "29.580000",
+          "capacityKg": "27.835000",
+          "totalVehicleIncomeMultiplier": "2.292500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "29.760000",
+          "capacityKg": "28.120000",
+          "totalVehicleIncomeMultiplier": "2.310000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "29.940000",
+          "capacityKg": "28.405000",
+          "totalVehicleIncomeMultiplier": "2.327500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "30.120000",
+          "capacityKg": "28.690000",
+          "totalVehicleIncomeMultiplier": "2.345000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "30.300000",
+          "capacityKg": "28.975000",
+          "totalVehicleIncomeMultiplier": "2.362500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "30.480000",
+          "capacityKg": "29.260000",
+          "totalVehicleIncomeMultiplier": "2.380000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "30.660000",
+          "capacityKg": "29.545000",
+          "totalVehicleIncomeMultiplier": "2.397500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "30.840000",
+          "capacityKg": "29.830000",
+          "totalVehicleIncomeMultiplier": "2.415000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "31.020000",
+          "capacityKg": "30.115000",
+          "totalVehicleIncomeMultiplier": "2.432500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "31.200000",
+          "capacityKg": "30.400000",
+          "totalVehicleIncomeMultiplier": "2.450000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "B+",
+      "unlockMap": 2,
+      "baseSpeedKph": "28",
+      "baseCapacityKg": "25",
+      "baseVehicleIncomeMultiplier": "2.01",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "28.000000",
+          "capacityKg": "25.000000",
+          "totalVehicleIncomeMultiplier": "2.010000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "28.420000",
+          "capacityKg": "25.750000",
+          "totalVehicleIncomeMultiplier": "2.050200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "28.840000",
+          "capacityKg": "26.500000",
+          "totalVehicleIncomeMultiplier": "2.090400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "29.260000",
+          "capacityKg": "27.250000",
+          "totalVehicleIncomeMultiplier": "2.130600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "29.680000",
+          "capacityKg": "28.000000",
+          "totalVehicleIncomeMultiplier": "2.170800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "30.100000",
+          "capacityKg": "28.750000",
+          "totalVehicleIncomeMultiplier": "2.211000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "30.520000",
+          "capacityKg": "29.500000",
+          "totalVehicleIncomeMultiplier": "2.251200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "30.940000",
+          "capacityKg": "30.250000",
+          "totalVehicleIncomeMultiplier": "2.291400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "31.360000",
+          "capacityKg": "31.000000",
+          "totalVehicleIncomeMultiplier": "2.331600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "31.780000",
+          "capacityKg": "31.750000",
+          "totalVehicleIncomeMultiplier": "2.371800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "32.032000",
+          "capacityKg": "32.200000",
+          "totalVehicleIncomeMultiplier": "2.395920",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "32.284000",
+          "capacityKg": "32.650000",
+          "totalVehicleIncomeMultiplier": "2.420040",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "32.536000",
+          "capacityKg": "33.100000",
+          "totalVehicleIncomeMultiplier": "2.444160",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "32.788000",
+          "capacityKg": "33.550000",
+          "totalVehicleIncomeMultiplier": "2.468280",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "33.040000",
+          "capacityKg": "34.000000",
+          "totalVehicleIncomeMultiplier": "2.492400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "33.292000",
+          "capacityKg": "34.450000",
+          "totalVehicleIncomeMultiplier": "2.516520",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "33.544000",
+          "capacityKg": "34.900000",
+          "totalVehicleIncomeMultiplier": "2.540640",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "33.796000",
+          "capacityKg": "35.350000",
+          "totalVehicleIncomeMultiplier": "2.564760",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "34.048000",
+          "capacityKg": "35.800000",
+          "totalVehicleIncomeMultiplier": "2.588880",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "34.300000",
+          "capacityKg": "36.250000",
+          "totalVehicleIncomeMultiplier": "2.613000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "34.510000",
+          "capacityKg": "36.625000",
+          "totalVehicleIncomeMultiplier": "2.633100",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "34.720000",
+          "capacityKg": "37.000000",
+          "totalVehicleIncomeMultiplier": "2.653200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "34.930000",
+          "capacityKg": "37.375000",
+          "totalVehicleIncomeMultiplier": "2.673300",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "35.140000",
+          "capacityKg": "37.750000",
+          "totalVehicleIncomeMultiplier": "2.693400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "35.350000",
+          "capacityKg": "38.125000",
+          "totalVehicleIncomeMultiplier": "2.713500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "35.560000",
+          "capacityKg": "38.500000",
+          "totalVehicleIncomeMultiplier": "2.733600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "35.770000",
+          "capacityKg": "38.875000",
+          "totalVehicleIncomeMultiplier": "2.753700",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "35.980000",
+          "capacityKg": "39.250000",
+          "totalVehicleIncomeMultiplier": "2.773800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "36.190000",
+          "capacityKg": "39.625000",
+          "totalVehicleIncomeMultiplier": "2.793900",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "36.400000",
+          "capacityKg": "40.000000",
+          "totalVehicleIncomeMultiplier": "2.814000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "A",
+      "unlockMap": 3,
+      "baseSpeedKph": "34",
+      "baseCapacityKg": "33",
+      "baseVehicleIncomeMultiplier": "2.31",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "34.000000",
+          "capacityKg": "33.000000",
+          "totalVehicleIncomeMultiplier": "2.310000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "34.510000",
+          "capacityKg": "33.990000",
+          "totalVehicleIncomeMultiplier": "2.356200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "35.020000",
+          "capacityKg": "34.980000",
+          "totalVehicleIncomeMultiplier": "2.402400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "35.530000",
+          "capacityKg": "35.970000",
+          "totalVehicleIncomeMultiplier": "2.448600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "36.040000",
+          "capacityKg": "36.960000",
+          "totalVehicleIncomeMultiplier": "2.494800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "36.550000",
+          "capacityKg": "37.950000",
+          "totalVehicleIncomeMultiplier": "2.541000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "37.060000",
+          "capacityKg": "38.940000",
+          "totalVehicleIncomeMultiplier": "2.587200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "37.570000",
+          "capacityKg": "39.930000",
+          "totalVehicleIncomeMultiplier": "2.633400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "38.080000",
+          "capacityKg": "40.920000",
+          "totalVehicleIncomeMultiplier": "2.679600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "38.590000",
+          "capacityKg": "41.910000",
+          "totalVehicleIncomeMultiplier": "2.725800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "38.896000",
+          "capacityKg": "42.504000",
+          "totalVehicleIncomeMultiplier": "2.753520",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "39.202000",
+          "capacityKg": "43.098000",
+          "totalVehicleIncomeMultiplier": "2.781240",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "39.508000",
+          "capacityKg": "43.692000",
+          "totalVehicleIncomeMultiplier": "2.808960",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "39.814000",
+          "capacityKg": "44.286000",
+          "totalVehicleIncomeMultiplier": "2.836680",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "40.120000",
+          "capacityKg": "44.880000",
+          "totalVehicleIncomeMultiplier": "2.864400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "40.426000",
+          "capacityKg": "45.474000",
+          "totalVehicleIncomeMultiplier": "2.892120",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "40.732000",
+          "capacityKg": "46.068000",
+          "totalVehicleIncomeMultiplier": "2.919840",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "41.038000",
+          "capacityKg": "46.662000",
+          "totalVehicleIncomeMultiplier": "2.947560",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "41.344000",
+          "capacityKg": "47.256000",
+          "totalVehicleIncomeMultiplier": "2.975280",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "41.650000",
+          "capacityKg": "47.850000",
+          "totalVehicleIncomeMultiplier": "3.003000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "41.905000",
+          "capacityKg": "48.345000",
+          "totalVehicleIncomeMultiplier": "3.026100",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "42.160000",
+          "capacityKg": "48.840000",
+          "totalVehicleIncomeMultiplier": "3.049200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "42.415000",
+          "capacityKg": "49.335000",
+          "totalVehicleIncomeMultiplier": "3.072300",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "42.670000",
+          "capacityKg": "49.830000",
+          "totalVehicleIncomeMultiplier": "3.095400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "42.925000",
+          "capacityKg": "50.325000",
+          "totalVehicleIncomeMultiplier": "3.118500",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "43.180000",
+          "capacityKg": "50.820000",
+          "totalVehicleIncomeMultiplier": "3.141600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "43.435000",
+          "capacityKg": "51.315000",
+          "totalVehicleIncomeMultiplier": "3.164700",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "43.690000",
+          "capacityKg": "51.810000",
+          "totalVehicleIncomeMultiplier": "3.187800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "43.945000",
+          "capacityKg": "52.305000",
+          "totalVehicleIncomeMultiplier": "3.210900",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "44.200000",
+          "capacityKg": "52.800000",
+          "totalVehicleIncomeMultiplier": "3.234000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "S",
+      "unlockMap": 4,
+      "baseSpeedKph": "40",
+      "baseCapacityKg": "43",
+      "baseVehicleIncomeMultiplier": "2.66",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "40.000000",
+          "capacityKg": "43.000000",
+          "totalVehicleIncomeMultiplier": "2.660000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "40.600000",
+          "capacityKg": "44.290000",
+          "totalVehicleIncomeMultiplier": "2.713200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "41.200000",
+          "capacityKg": "45.580000",
+          "totalVehicleIncomeMultiplier": "2.766400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "41.800000",
+          "capacityKg": "46.870000",
+          "totalVehicleIncomeMultiplier": "2.819600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "42.400000",
+          "capacityKg": "48.160000",
+          "totalVehicleIncomeMultiplier": "2.872800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "43.000000",
+          "capacityKg": "49.450000",
+          "totalVehicleIncomeMultiplier": "2.926000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "43.600000",
+          "capacityKg": "50.740000",
+          "totalVehicleIncomeMultiplier": "2.979200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "44.200000",
+          "capacityKg": "52.030000",
+          "totalVehicleIncomeMultiplier": "3.032400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "44.800000",
+          "capacityKg": "53.320000",
+          "totalVehicleIncomeMultiplier": "3.085600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "45.400000",
+          "capacityKg": "54.610000",
+          "totalVehicleIncomeMultiplier": "3.138800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "45.760000",
+          "capacityKg": "55.384000",
+          "totalVehicleIncomeMultiplier": "3.170720",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "46.120000",
+          "capacityKg": "56.158000",
+          "totalVehicleIncomeMultiplier": "3.202640",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "46.480000",
+          "capacityKg": "56.932000",
+          "totalVehicleIncomeMultiplier": "3.234560",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "46.840000",
+          "capacityKg": "57.706000",
+          "totalVehicleIncomeMultiplier": "3.266480",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "47.200000",
+          "capacityKg": "58.480000",
+          "totalVehicleIncomeMultiplier": "3.298400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "47.560000",
+          "capacityKg": "59.254000",
+          "totalVehicleIncomeMultiplier": "3.330320",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "47.920000",
+          "capacityKg": "60.028000",
+          "totalVehicleIncomeMultiplier": "3.362240",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "48.280000",
+          "capacityKg": "60.802000",
+          "totalVehicleIncomeMultiplier": "3.394160",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "48.640000",
+          "capacityKg": "61.576000",
+          "totalVehicleIncomeMultiplier": "3.426080",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "49.000000",
+          "capacityKg": "62.350000",
+          "totalVehicleIncomeMultiplier": "3.458000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "49.300000",
+          "capacityKg": "62.995000",
+          "totalVehicleIncomeMultiplier": "3.484600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "49.600000",
+          "capacityKg": "63.640000",
+          "totalVehicleIncomeMultiplier": "3.511200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "49.900000",
+          "capacityKg": "64.285000",
+          "totalVehicleIncomeMultiplier": "3.537800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "50.200000",
+          "capacityKg": "64.930000",
+          "totalVehicleIncomeMultiplier": "3.564400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "50.500000",
+          "capacityKg": "65.575000",
+          "totalVehicleIncomeMultiplier": "3.591000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "50.800000",
+          "capacityKg": "66.220000",
+          "totalVehicleIncomeMultiplier": "3.617600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "51.100000",
+          "capacityKg": "66.865000",
+          "totalVehicleIncomeMultiplier": "3.644200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "51.400000",
+          "capacityKg": "67.510000",
+          "totalVehicleIncomeMultiplier": "3.670800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "51.700000",
+          "capacityKg": "68.155000",
+          "totalVehicleIncomeMultiplier": "3.697400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "52.000000",
+          "capacityKg": "68.800000",
+          "totalVehicleIncomeMultiplier": "3.724000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "SS",
+      "unlockMap": 4,
+      "baseSpeedKph": "48",
+      "baseCapacityKg": "55",
+      "baseVehicleIncomeMultiplier": "3.06",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "48.000000",
+          "capacityKg": "55.000000",
+          "totalVehicleIncomeMultiplier": "3.060000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "48.720000",
+          "capacityKg": "56.650000",
+          "totalVehicleIncomeMultiplier": "3.121200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "49.440000",
+          "capacityKg": "58.300000",
+          "totalVehicleIncomeMultiplier": "3.182400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "50.160000",
+          "capacityKg": "59.950000",
+          "totalVehicleIncomeMultiplier": "3.243600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "50.880000",
+          "capacityKg": "61.600000",
+          "totalVehicleIncomeMultiplier": "3.304800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "51.600000",
+          "capacityKg": "63.250000",
+          "totalVehicleIncomeMultiplier": "3.366000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "52.320000",
+          "capacityKg": "64.900000",
+          "totalVehicleIncomeMultiplier": "3.427200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "53.040000",
+          "capacityKg": "66.550000",
+          "totalVehicleIncomeMultiplier": "3.488400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "53.760000",
+          "capacityKg": "68.200000",
+          "totalVehicleIncomeMultiplier": "3.549600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "54.480000",
+          "capacityKg": "69.850000",
+          "totalVehicleIncomeMultiplier": "3.610800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "54.912000",
+          "capacityKg": "70.840000",
+          "totalVehicleIncomeMultiplier": "3.647520",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "55.344000",
+          "capacityKg": "71.830000",
+          "totalVehicleIncomeMultiplier": "3.684240",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "55.776000",
+          "capacityKg": "72.820000",
+          "totalVehicleIncomeMultiplier": "3.720960",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "56.208000",
+          "capacityKg": "73.810000",
+          "totalVehicleIncomeMultiplier": "3.757680",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "56.640000",
+          "capacityKg": "74.800000",
+          "totalVehicleIncomeMultiplier": "3.794400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "57.072000",
+          "capacityKg": "75.790000",
+          "totalVehicleIncomeMultiplier": "3.831120",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "57.504000",
+          "capacityKg": "76.780000",
+          "totalVehicleIncomeMultiplier": "3.867840",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "57.936000",
+          "capacityKg": "77.770000",
+          "totalVehicleIncomeMultiplier": "3.904560",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "58.368000",
+          "capacityKg": "78.760000",
+          "totalVehicleIncomeMultiplier": "3.941280",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "58.800000",
+          "capacityKg": "79.750000",
+          "totalVehicleIncomeMultiplier": "3.978000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "59.160000",
+          "capacityKg": "80.575000",
+          "totalVehicleIncomeMultiplier": "4.008600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "59.520000",
+          "capacityKg": "81.400000",
+          "totalVehicleIncomeMultiplier": "4.039200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "59.880000",
+          "capacityKg": "82.225000",
+          "totalVehicleIncomeMultiplier": "4.069800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "60.240000",
+          "capacityKg": "83.050000",
+          "totalVehicleIncomeMultiplier": "4.100400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "60.600000",
+          "capacityKg": "83.875000",
+          "totalVehicleIncomeMultiplier": "4.131000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "60.960000",
+          "capacityKg": "84.700000",
+          "totalVehicleIncomeMultiplier": "4.161600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "61.320000",
+          "capacityKg": "85.525000",
+          "totalVehicleIncomeMultiplier": "4.192200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "61.680000",
+          "capacityKg": "86.350000",
+          "totalVehicleIncomeMultiplier": "4.222800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "62.040000",
+          "capacityKg": "87.175000",
+          "totalVehicleIncomeMultiplier": "4.253400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "62.400000",
+          "capacityKg": "88.000000",
+          "totalVehicleIncomeMultiplier": "4.284000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    },
+    {
+      "grade": "SSS",
+      "unlockMap": 5,
+      "baseSpeedKph": "56",
+      "baseCapacityKg": "70",
+      "baseVehicleIncomeMultiplier": "3.52",
+      "levels": [
+        {
+          "level": 1,
+          "speedKph": "56.000000",
+          "capacityKg": "70.000000",
+          "totalVehicleIncomeMultiplier": "3.520000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.000000000"
+        },
+        {
+          "level": 2,
+          "speedKph": "56.840000",
+          "capacityKg": "72.100000",
+          "totalVehicleIncomeMultiplier": "3.590400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.004597701"
+        },
+        {
+          "level": 3,
+          "speedKph": "57.680000",
+          "capacityKg": "74.200000",
+          "totalVehicleIncomeMultiplier": "3.660800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.013793103"
+        },
+        {
+          "level": 4,
+          "speedKph": "58.520000",
+          "capacityKg": "76.300000",
+          "totalVehicleIncomeMultiplier": "3.731200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.027586207"
+        },
+        {
+          "level": 5,
+          "speedKph": "59.360000",
+          "capacityKg": "78.400000",
+          "totalVehicleIncomeMultiplier": "3.801600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.045977011"
+        },
+        {
+          "level": 6,
+          "speedKph": "60.200000",
+          "capacityKg": "80.500000",
+          "totalVehicleIncomeMultiplier": "3.872000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.068965517"
+        },
+        {
+          "level": 7,
+          "speedKph": "61.040000",
+          "capacityKg": "82.600000",
+          "totalVehicleIncomeMultiplier": "3.942400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.096551724"
+        },
+        {
+          "level": 8,
+          "speedKph": "61.880000",
+          "capacityKg": "84.700000",
+          "totalVehicleIncomeMultiplier": "4.012800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.128735632"
+        },
+        {
+          "level": 9,
+          "speedKph": "62.720000",
+          "capacityKg": "86.800000",
+          "totalVehicleIncomeMultiplier": "4.083200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.165517241"
+        },
+        {
+          "level": 10,
+          "speedKph": "63.560000",
+          "capacityKg": "88.900000",
+          "totalVehicleIncomeMultiplier": "4.153600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.206896552"
+        },
+        {
+          "level": 11,
+          "speedKph": "64.064000",
+          "capacityKg": "90.160000",
+          "totalVehicleIncomeMultiplier": "4.195840",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.252873563"
+        },
+        {
+          "level": 12,
+          "speedKph": "64.568000",
+          "capacityKg": "91.420000",
+          "totalVehicleIncomeMultiplier": "4.238080",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.303448276"
+        },
+        {
+          "level": 13,
+          "speedKph": "65.072000",
+          "capacityKg": "92.680000",
+          "totalVehicleIncomeMultiplier": "4.280320",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.358620690"
+        },
+        {
+          "level": 14,
+          "speedKph": "65.576000",
+          "capacityKg": "93.940000",
+          "totalVehicleIncomeMultiplier": "4.322560",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.418390805"
+        },
+        {
+          "level": 15,
+          "speedKph": "66.080000",
+          "capacityKg": "95.200000",
+          "totalVehicleIncomeMultiplier": "4.364800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.482758621"
+        },
+        {
+          "level": 16,
+          "speedKph": "66.584000",
+          "capacityKg": "96.460000",
+          "totalVehicleIncomeMultiplier": "4.407040",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.551724138"
+        },
+        {
+          "level": 17,
+          "speedKph": "67.088000",
+          "capacityKg": "97.720000",
+          "totalVehicleIncomeMultiplier": "4.449280",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.625287356"
+        },
+        {
+          "level": 18,
+          "speedKph": "67.592000",
+          "capacityKg": "98.980000",
+          "totalVehicleIncomeMultiplier": "4.491520",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.703448276"
+        },
+        {
+          "level": 19,
+          "speedKph": "68.096000",
+          "capacityKg": "100.240000",
+          "totalVehicleIncomeMultiplier": "4.533760",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.786206897"
+        },
+        {
+          "level": 20,
+          "speedKph": "68.600000",
+          "capacityKg": "101.500000",
+          "totalVehicleIncomeMultiplier": "4.576000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.873563218"
+        },
+        {
+          "level": 21,
+          "speedKph": "69.020000",
+          "capacityKg": "102.550000",
+          "totalVehicleIncomeMultiplier": "4.611200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "0.965517241"
+        },
+        {
+          "level": 22,
+          "speedKph": "69.440000",
+          "capacityKg": "103.600000",
+          "totalVehicleIncomeMultiplier": "4.646400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.062068966"
+        },
+        {
+          "level": 23,
+          "speedKph": "69.860000",
+          "capacityKg": "104.650000",
+          "totalVehicleIncomeMultiplier": "4.681600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.163218391"
+        },
+        {
+          "level": 24,
+          "speedKph": "70.280000",
+          "capacityKg": "105.700000",
+          "totalVehicleIncomeMultiplier": "4.716800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.268965517"
+        },
+        {
+          "level": 25,
+          "speedKph": "70.700000",
+          "capacityKg": "106.750000",
+          "totalVehicleIncomeMultiplier": "4.752000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.379310345"
+        },
+        {
+          "level": 26,
+          "speedKph": "71.120000",
+          "capacityKg": "107.800000",
+          "totalVehicleIncomeMultiplier": "4.787200",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.494252874"
+        },
+        {
+          "level": 27,
+          "speedKph": "71.540000",
+          "capacityKg": "108.850000",
+          "totalVehicleIncomeMultiplier": "4.822400",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.613793103"
+        },
+        {
+          "level": 28,
+          "speedKph": "71.960000",
+          "capacityKg": "109.900000",
+          "totalVehicleIncomeMultiplier": "4.857600",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.737931034"
+        },
+        {
+          "level": 29,
+          "speedKph": "72.380000",
+          "capacityKg": "110.950000",
+          "totalVehicleIncomeMultiplier": "4.892800",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "1.866666667"
+        },
+        {
+          "level": 30,
+          "speedKph": "72.800000",
+          "capacityKg": "112.000000",
+          "totalVehicleIncomeMultiplier": "4.928000",
+          "cumulativeUpgradeCostMultipleOfBasePrice": "2.000000000"
+        }
+      ]
+    }
+  ]
+}

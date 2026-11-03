@@ -1,0 +1,184 @@
+{
+  "date": "2026-11-02",
+  "status": "user-defined-three-zone-scope-recorded;approximate-georeference;not-implemented",
+  "sourceQuote": "我画好了，红色是地图边界，蓝色是城市边界，绿色是城区。蓝色到红色区域是绿地山脉区域，蓝色到绿色郊区，绿色区域繁华的城区。",
+  "clarificationQuote": "里面有一个棕色的框，那个是你总览图本来就有的，不要被他干扰了",
+  "precisionPermission": "用户明确不够精准也没有关系；近似坐标不宣称精确测绘或实际运行范围已修改。",
+  "original": {
+    "path": "user-zoning-original.png",
+    "source": "/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/codex-clipboard-d0a4bc79-9a23-42c3-a6a9-e7d9138f2a15.png",
+    "sha256": "9b5b63d3fcc286e7c213b5d83a396953cd2a63647a05d4faae9a840821b8fcf0",
+    "size": [
+      3520,
+      2568
+    ]
+  },
+  "basedOn": "../2026-11-02-map-boundary-basemap/01-county-overview.png",
+  "registration": {
+    "imagePixelLeft": 166.0,
+    "imagePixelBottom": 2175.0,
+    "worldLeftMetres": -4500,
+    "worldBottomMetres": -1500,
+    "pixelsPerMetreApprox": 0.64225,
+    "role": "registration-landmark-only-never-production-or-dispatch-boundary"
+  },
+  "regions": {
+    "map": {
+      "color": "red",
+      "annotationPixelBounds": {
+        "left": 1009.0,
+        "top": 244.5,
+        "right": 3143.5,
+        "bottom": 2379.0
+      },
+      "worldPolygonMetresApprox": [
+        [
+          -3187.43,
+          1505.84
+        ],
+        [
+          136.05,
+          1505.84
+        ],
+        [
+          136.05,
+          -1817.63
+        ],
+        [
+          -3187.43,
+          -1817.63
+        ],
+        [
+          -3187.43,
+          1505.84
+        ]
+      ],
+      "worldBoundsMetresApprox": {
+        "minX": -3187.43,
+        "maxX": 136.05,
+        "minY": -1817.63,
+        "maxY": 1505.84
+      },
+      "approxSizeKm": [
+        3.32,
+        3.32
+      ],
+      "approxAreaKm2": 11.05
+    },
+    "city": {
+      "color": "blue",
+      "annotationPixelBounds": {
+        "left": 1352.5,
+        "top": 654.5,
+        "right": 2824.0,
+        "bottom": 2035.5
+      },
+      "worldPolygonMetresApprox": [
+        [
+          -2652.59,
+          867.46
+        ],
+        [
+          -361.42,
+          867.46
+        ],
+        [
+          -361.42,
+          -1282.79
+        ],
+        [
+          -2652.59,
+          -1282.79
+        ],
+        [
+          -2652.59,
+          867.46
+        ]
+      ],
+      "worldBoundsMetresApprox": {
+        "minX": -2652.59,
+        "maxX": -361.42,
+        "minY": -1282.79,
+        "maxY": 867.46
+      },
+      "approxSizeKm": [
+        2.29,
+        2.15
+      ],
+      "approxAreaKm2": 4.93
+    },
+    "urban": {
+      "color": "green",
+      "annotationPixelBounds": {
+        "left": 1805.5,
+        "top": 786.5,
+        "right": 2452.0,
+        "bottom": 1806.5
+      },
+      "worldPolygonMetresApprox": [
+        [
+          -1947.26,
+          661.93
+        ],
+        [
+          -940.64,
+          661.93
+        ],
+        [
+          -940.64,
+          -926.24
+        ],
+        [
+          -1947.26,
+          -926.24
+        ],
+        [
+          -1947.26,
+          661.93
+        ]
+      ],
+      "worldBoundsMetresApprox": {
+        "minX": -1947.26,
+        "maxX": -940.64,
+        "minY": -926.24,
+        "maxY": 661.93
+      },
+      "approxSizeKm": [
+        1.01,
+        1.59
+      ],
+      "approxAreaKm2": 1.6
+    }
+  },
+  "semanticZones": {
+    "outerLandscape": {
+      "inside": "map",
+      "outside": "city",
+      "meaning": "红蓝之间绿地/树林/山脉背景，不制作经营街区，不生成配送点，不作为配送通道"
+    },
+    "suburb": {
+      "inside": "city",
+      "outside": "urban",
+      "meaning": "蓝绿之间郊区，属于街区制作与配送经营范围"
+    },
+    "denseUrban": {
+      "inside": "urban",
+      "meaning": "绿色范围繁华城区，属于街区制作与配送经营范围"
+    }
+  },
+  "constraints": {
+    "streetProductionBoundary": "city",
+    "pickupDropoffBoundary": "city",
+    "entireDeliveryRouteBoundary": "city",
+    "worldDisplayBoundary": "map",
+    "ignoredZoningFrames": [
+      "pre-existing-brown-overview-inset-reference"
+    ],
+    "noAutomaticExpansion": true,
+    "cityTermMeans": "本张县城地图的城市建设/经营边界，不是五图解锁中的第二张城市地图",
+    "rawCityDataModified": false,
+    "runtimeBoundaryApplied": false,
+    "artworkProductionStarted": false,
+    "developerDispatched": false
+  }
+}

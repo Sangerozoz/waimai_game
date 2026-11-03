@@ -1,0 +1,61 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -154,7 +154,7 @@
+     this.layoutDone=this.book.mode==='done';this.boostControl=null;this.boostLabel=null;this.deliveryStatus=null;
+     this.root=item(this.node.parent!,'DeliveryUI');
+     box(this.root,'Background',0,0,720,1280+this.screenExtra,C.light,0);
+-    this.city=new CityMap(this.root,this.book.data,mapHeight,()=>sys.openURL('https://www.openstreetmap.org/copyright'),mapY,idle&&this.book.mode!=='done'?118+bottom:0,this.safeInsets,1280+this.screenExtra);
++    this.city=new CityMap(this.root,this.book.data,mapHeight,()=>sys.openURL('https://www.openstreetmap.org/copyright'),mapY,idle&&this.book.mode!=='done'?168+bottom:0,this.safeInsets,1280+this.screenExtra);
+     this.city.setVehicle(this.book.player.vehicleTier);
+     this.header(item(this.root,'HeaderGroup',0,this.screenExtra/2-this.safeInsets.top));this.controls();
+     this.panel=item(this.root,'OrderPanel',0,-this.screenExtra/2+bottom);
+@@ -271,7 +271,7 @@
+   }
+   private positionStation(station:Node):void {
+     const art=station.getChildByName('CartoonArt-station'),half=Math.max(47,art?.active?(art.getComponent(UITransform)?.width||108)/2:0);
+-    const base=this.book.mode==='idle'||!this.orderCardOpen?-416:this.sheetBottom()+this.sheetHeight()+110;
++    const base=this.book.mode==='idle'||!this.orderCardOpen?-390:this.sheetBottom()+this.sheetHeight()+110;
+     station.setPosition(-360+this.safeInsets.left+this.outerMargin()+half,base-this.screenExtra/2+this.safeInsets.bottom);
+   }
+ 
+@@ -342,23 +342,27 @@
+     if(this.book.active||this.pendingSave)return;
+     const idle=this.book.mode==='idle';
+     const backdrop=item(this.panel,'NavigationBackdrop',0,-581-this.safeInsets.bottom/2,720,118+this.safeInsets.bottom);topOnlyBar(backdrop,720,118+this.safeInsets.bottom);
+-    const bar=item(this.panel,'MainNavigation',(this.safeInsets.left-this.safeInsets.right)/2,-581,720,118);bar.addComponent(BlockInputEvents);
+-    bar.setScale((720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin())/720,1,1);
++    const width=720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin(),slotWidth=width/5;
++    const bar=item(this.panel,'MainNavigation',(this.safeInsets.left-this.safeInsets.right)/2,-581,width,118);bar.addComponent(BlockInputEvents);
+     const entries=[
+-      {key:'recruit',name:'招募',x:-280,enabled:false,action:()=>{}},
+-      {key:'vehicle',name:'车辆',x:-158,enabled:true,action:()=>this.openGarage()},
+-      {key:'orders',name:idle?'抢单':'订单',x:0,enabled:true,action:()=>this.openCurrentOrder()},
+-      {key:'map',name:'地图',x:158,enabled:true,action:()=>this.openMaps()},
+-      {key:'bills',name:'账单',x:280,enabled:true,action:()=>this.openBills()},
++      {key:'recruit',name:'招募',enabled:false,action:()=>{}},
++      {key:'vehicle',name:'车辆',enabled:true,action:()=>this.openGarage()},
++      {key:'orders',name:idle?'抢单':'订单',enabled:true,action:()=>this.openCurrentOrder()},
++      {key:'map',name:'地图',enabled:true,action:()=>this.openMaps()},
++      {key:'bills',name:'账单',enabled:true,action:()=>this.openBills()},
+     ];
+-    for(const entry of entries){
++    entries.forEach((entry,index)=>{
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+-      const slot=item(bar,'Nav-'+entry.key,entry.x,main?28.8:0,main?145.6:116,main?145.6:100);
+-      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin())/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,45,foreground,1.725);
+-      const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,main?'#FFFFFF':foreground,main?132:108,true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
++      // Keep the round control intact; adjacent hit boxes stop at its edge.
++      const sideHit=Math.max(1,Math.min(slotWidth,2*(slotWidth-145.6/2)));
++      const slot=item(bar,'Nav-'+entry.key,(index-2)*slotWidth,main?28.8:0,main?145.6:sideHit,main?145.6:100);
++      if(main)roundAction(slot,145.6,enabled);
++      else icon(slot,entry.key,0,55,foreground,Math.min(1.725*1.25,Math.max(0,(slotWidth-8)/48)));
++      const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,main?'#FFFFFF':foreground,main?132:Math.min(108,slotWidth-8),true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+-    }
+-  }
++    });
++  }
++
+   private accept(id:string):void {
+     if(!this.act(()=>{this.book.accept(id);this.lastHandoffEvent='';}))return;this.closePhone();
+     this.orderCardOpen=true;this.rebuildLayout(true);

@@ -1,0 +1,172 @@
+--- before/FoodImages.ts
++++ after/FoodImages.ts
+@@ -5,6 +5,7 @@
+ 
+ export function foodImage(parent:Node,food:string,x:number,y:number,size:number):Node {
+  const node=box(parent,'FoodImage',x,y,size,size,'#FFF2CD',16,C.line);
+- const fallback=label(node,'餐品',0,0,14,C.muted,size-12,false,'center');
+- cartoonArt(node,cartoonFoodKey(foodForOffer(food).imageIndex),0,0,size-10,size-10,fallback.node);return node;
++ const item=foodForOffer(food),fallback=label(node,item.name,0,0,14,C.ink,size-12,true,'center');
++ const key=cartoonFoodKey(item.imageIndex);
++ if(key)cartoonArt(node,key,0,0,size-10,size-10,fallback.node);return node;
+ }
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -12,7 +12,7 @@
+ import { CountySaveStore } from './CountySaveStore';
+ import { receiptIncomeBreakdown } from './CountyRules';
+ import { COUNTY_VEHICLES as VEHICLES } from './CountyConfig';
+-import { formatDeliveryTime, formatRemaining } from './DeliveryClock';
++import { formatDeliveryTime, formatRemaining, PICKUP_STOP_SECONDS } from './DeliveryClock';
+ import { billingRows } from './BillingPresentation';
+ import { box, button, closeButton, C, col, icon, item, label, material, roundAction, topOnlyBar, outline, paintBox, skin, tap } from './SampleUI';
+ import { cartoonArt } from './CartoonArt';
+@@ -34,6 +34,7 @@
+   private timer:Label|null=null;
+   private tripLabel:Label|null=null;
+   private progressFill:Node|null=null;
++  private pickupServiceButton:Node|null=null;
+   private screenExtra=0;
+   private safeInsets:SafeInsets={top:0,bottom:0,left:0,right:0};
+   private hidden=false;
+@@ -195,7 +196,7 @@
+     box(identity,'ExperienceFill',0,0,1,1,C.primary,10);
+     {
+       const pause=box(identity,'Button-暂停',0,0,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action,C.light,12);
+-      const symbol=item(pause,'PauseSymbol');const ink=symbol.addComponent(Graphics);ink.fillColor=col('#FFFFFF');
++      const symbol=item(pause,'PauseSymbol');symbol.setScale(.5,.5,1);const ink=symbol.addComponent(Graphics);ink.fillColor=col('#FFFFFF');
+       for(const x of [-13,5]){ink.roundRect(x,-18,8,36,2);ink.fill();}
+       pause.active=this.canPauseDelivery;tap(pause,()=>this.pauseGame());
+     }
+@@ -254,7 +255,7 @@
+   private controls():void {
+     const station=item(this.root,'StationEntry',296-this.safeInsets.right,628-this.profileCard.getComponent(UITransform)!.height-70+this.screenExtra/2-this.safeInsets.top,100,100);
+     const picture=box(station,'PlaceholderIcon-station',0,11,36,32,'#F0EEE7',8);
+-    label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,108,108,picture);stationArt.getComponent(Sprite)!.grayscale=true;const position=()=>this.positionStation(station);stationArt.on(Node.EventType.SIZE_CHANGED,position);stationArt.on(Node.EventType.ACTIVE_CHANGED,position);position();readable(station,'站点',0,-52,this.metrics().aux,'#AAA69C',94,true,'center');
++    label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,86.4,86.4,picture);stationArt.getComponent(Sprite)!.grayscale=true;const position=()=>this.positionStation(station);stationArt.on(Node.EventType.SIZE_CHANGED,position);stationArt.on(Node.EventType.ACTIVE_CHANGED,position);position();readable(station,'站点',0,-52,this.metrics().aux,'#AAA69C',94,true,'center');
+     const y=this.book.mode==='idle'||!this.orderCardOpen?-400:this.sheetBottom()+this.sheetHeight()+this.metrics().action/2+20;
+     const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-cssUnits(12,1280+this.screenExtra),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
+     icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locateAnimated());
+@@ -284,7 +285,7 @@
+     for(const entry of entries){
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+       const slot=item(bar,'Nav-'+entry.key,entry.x,main?28.8:0,main?145.6:116,main?145.6:100);
+-      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right)/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,31,foreground,1.15);
++      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right)/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,45,foreground,1.725);
+       const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,main?'#FFFFFF':foreground,main?132:108,true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+     }
+@@ -300,7 +301,7 @@
+   }
+   private renderPanel():void {
+     for(const child of [...this.panel.children])child.destroy();this.panel.removeAllChildren();
+-    this.timer=null;this.tripLabel=null;this.progressFill=null;
++    this.timer=null;this.tripLabel=null;this.progressFill=null;this.pickupServiceButton=null;
+     this.updatePlayerHeader();
+     this.navigation();
+     const active=this.book.active;
+@@ -337,8 +338,13 @@
+     const mainWidth=allowCancel?inner-cancelWidth-12:inner,mainX=allowCancel?(cancelWidth+12)/2:0;
+     if(active.mode==='routes')this.action(p,'去取餐',mainX,buttonY,mainWidth,()=>{if(!this.act(()=>this.book.depart()))return;this.rebuildLayout();this.city.locate(true);this.presentHandoff();});
+     else if(phase==='awaitPickup')this.action(p,'取餐',mainX,buttonY,mainWidth,()=>{if(!this.act(()=>this.book.pickup()))return;this.renderPanel();});
+-    else if(phase==='awaitDeliveryStart')this.action(p,'去送餐',mainX,buttonY,mainWidth,()=>{if(!this.act(()=>this.book.deliver()))return;this.renderPanel();});
+-    else if(phase==='picking')this.action(p,'取餐中',mainX,buttonY,mainWidth,()=>{},C.light,false);
++    else if(phase==='awaitDeliveryStart')this.action(p,'去配送',mainX,buttonY,mainWidth,()=>{if(!this.act(()=>this.book.deliver()))return;this.renderPanel();},C.primary,!this.pendingSave);
++    else if(phase==='picking'){
++      this.pickupServiceButton=this.action(p,'取餐中',mainX,buttonY,mainWidth,()=>{},C.light,false);
++      const fill=item(this.pickupServiceButton,'PickupServiceFill');fill.addComponent(Graphics);fill.setSiblingIndex(1);
++      const caption=this.pickupServiceButton.getComponentInChildren(Label);if(caption)caption.color=col(C.ink);
++      this.updatePickupServiceFill();
++    }
+     else if(active.mode==='running')this.action(p,phase==='toPickup'?'前往取餐中':'配送中',mainX,buttonY,mainWidth,()=>{},C.light,false);
+     else if(active.mode==='done')this.action(p,this.pendingSave?'结算保存待重试':'结算详情',0,buttonY,inner,()=>this.openReceipt(),C.light,!this.pendingSave);
+   }
+@@ -566,7 +572,16 @@
+     readable(content,'当前余额 ¥'+(p.cashCents/100).toFixed(2),0,-686,m.body,C.ink,inner,true,'center',88);
+     this.action(card,text,0,-height/2+24+m.action/2,inner,()=>{if(!this.act(()=>this.book.upgradeVehicle()))return;this.closeDialog();this.renderPanel();this.showMessage('已升级为 D+');},enabled?C.primary:C.light,enabled);
+   }
++  private updatePickupServiceFill():void {
++    const button=this.pickupServiceButton,active=this.book.active;if(!button||!button.isValid||!active)return;
++    const fill=button.getChildByName('PickupServiceFill')?.getComponent(Graphics);if(!fill)return;
++    const size=button.getComponent(UITransform)!,fraction=Math.max(0,Math.min(1,(active.pickupWaitElapsed||0)/PICKUP_STOP_SECONDS));
++    fill.clear();if(fraction<=0)return;
++    const width=(size.width-4)*fraction,height=size.height-4;
++    fill.fillColor=col('#F0C574');fill.roundRect(-size.width/2+2,-height/2,width,height,Math.min(12,width/2));fill.fill();
++  }
+   private updateProgress():void {
++    this.updatePickupServiceFill();
+     const pause=this.profileCard?.getChildByName('HeaderContent')?.getChildByName('ProfileIdentity')?.getChildByName('Button-暂停');if(pause)pause.active=this.canPauseDelivery;
+     const active=this.book.active;if(!active)return;
+     const progress=this.book.progress;
+--- before/FoodCatalog.ts
++++ after/FoodCatalog.ts
+@@ -2,7 +2,7 @@
+ import { COUNTY_FOOD_MIX } from './CountyConfig';
+ 
+ export interface FoodItem { id:string; name:string; imageIndex:number; fragility:Fragility; unitWeightKg:number }
+-// Atlas coordinates: 4 columns × 4 rows, left to right, starting at the top.
++// Stable indices: first 16 retain their atlas; 16–49 await the approved AU04 artwork.
+ export const FOOD_CATALOG:ReadonlyArray<FoodItem>=[
+   {id:'chicken-rice',name:'鸡腿饭',imageIndex:0,fragility:'durable',unitWeightKg:1},
+   {id:'beef-rice',name:'牛肉饭',imageIndex:1,fragility:'durable',unitWeightKg:1},
+@@ -20,6 +20,40 @@
+   {id:'sushi',name:'寿司',imageIndex:13,fragility:'normal',unitWeightKg:.5},
+   {id:'cake',name:'蛋糕',imageIndex:14,fragility:'fragile',unitWeightKg:1},
+   {id:'milk-tea',name:'奶茶',imageIndex:15,fragility:'fragile',unitWeightKg:.5},
++  {id:'curry-chicken-rice',name:'咖喱鸡肉饭',imageIndex:16,fragility:'normal',unitWeightKg:1},
++  {id:'eel-rice',name:'鳗鱼饭',imageIndex:17,fragility:'durable',unitWeightKg:1},
++  {id:'tomato-egg-rice',name:'番茄炒蛋饭',imageIndex:18,fragility:'normal',unitWeightKg:1},
++  {id:'braised-chicken-rice',name:'黄焖鸡米饭',imageIndex:19,fragility:'normal',unitWeightKg:1},
++  {id:'roast-duck-rice',name:'烧鸭饭',imageIndex:20,fragility:'durable',unitWeightKg:1},
++  {id:'pork-cutlet-rice',name:'猪排饭',imageIndex:21,fragility:'durable',unitWeightKg:1},
++  {id:'shrimp-fried-rice',name:'虾仁炒饭',imageIndex:22,fragility:'durable',unitWeightKg:1},
++  {id:'sausage-claypot-rice',name:'腊味煲仔饭',imageIndex:23,fragility:'durable',unitWeightKg:1},
++  {id:'seafood-fried-rice',name:'海鲜炒饭',imageIndex:24,fragility:'durable',unitWeightKg:1},
++  {id:'mushroom-chicken-rice',name:'香菇滑鸡饭',imageIndex:25,fragility:'normal',unitWeightKg:1},
++  {id:'beef-noodle-soup',name:'牛肉汤面',imageIndex:26,fragility:'fragile',unitWeightKg:1},
++  {id:'spicy-rice-noodles',name:'酸辣粉',imageIndex:27,fragility:'fragile',unitWeightKg:1},
++  {id:'snail-rice-noodles',name:'螺蛳粉',imageIndex:28,fragility:'fragile',unitWeightKg:1},
++  {id:'rice-noodle-soup',name:'过桥米线',imageIndex:29,fragility:'fragile',unitWeightKg:1},
++  {id:'spicy-mixed-noodles',name:'担担面',imageIndex:30,fragility:'normal',unitWeightKg:0.5},
++  {id:'cold-noodles',name:'凉面',imageIndex:31,fragility:'durable',unitWeightKg:0.5},
++  {id:'fried-noodles',name:'炒面',imageIndex:32,fragility:'durable',unitWeightKg:0.5},
++  {id:'spaghetti',name:'意大利面',imageIndex:33,fragility:'normal',unitWeightKg:0.5},
++  {id:'steamed-rice-rolls',name:'肠粉',imageIndex:34,fragility:'normal',unitWeightKg:0.5},
++  {id:'steamed-shrimp-dumplings',name:'虾饺',imageIndex:35,fragility:'normal',unitWeightKg:0.5},
++  {id:'pan-fried-buns',name:'生煎包',imageIndex:36,fragility:'durable',unitWeightKg:0.5},
++  {id:'spring-rolls',name:'春卷',imageIndex:37,fragility:'durable',unitWeightKg:0.5},
++  {id:'fried-chicken',name:'炸鸡',imageIndex:38,fragility:'durable',unitWeightKg:1},
++  {id:'fries',name:'薯条',imageIndex:39,fragility:'durable',unitWeightKg:0.5},
++  {id:'chicken-wrap',name:'鸡肉卷',imageIndex:40,fragility:'durable',unitWeightKg:0.5},
++  {id:'sandwich',name:'三明治',imageIndex:41,fragility:'durable',unitWeightKg:0.5},
++  {id:'grilled-skewers',name:'烧烤拼盘',imageIndex:42,fragility:'durable',unitWeightKg:1},
++  {id:'fruit-cup',name:'水果杯',imageIndex:43,fragility:'normal',unitWeightKg:0.5},
++  {id:'egg-tarts',name:'蛋挞',imageIndex:44,fragility:'fragile',unitWeightKg:0.5},
++  {id:'pudding',name:'布丁',imageIndex:45,fragility:'fragile',unitWeightKg:0.5},
++  {id:'ice-cream',name:'冰淇淋',imageIndex:46,fragility:'fragile',unitWeightKg:0.5},
++  {id:'coffee',name:'咖啡',imageIndex:47,fragility:'fragile',unitWeightKg:0.5},
++  {id:'lemon-tea',name:'柠檬茶',imageIndex:48,fragility:'fragile',unitWeightKg:0.5},
++  {id:'orange-juice',name:'鲜榨橙汁',imageIndex:49,fragility:'fragile',unitWeightKg:0.5},
+ ];
+ 
+ export function selectFoodForOffer(classRoll:number,itemRoll:number,shownFoodIds:readonly string[]):FoodItem {
+--- before/CartoonArt.ts
++++ after/CartoonArt.ts
+@@ -58,5 +58,5 @@
+   sprite.spriteFrame=frame;picture.active=true;if(fallback&&isValid(fallback,true))fallback.active=false;
+  },()=>{/* Retain the native fallback; the next opening may retry. */});return picture;
+ }
+-export function cartoonFoodKey(index:number):string{return foodKeys[index]||foodKeys[0];}
++export function cartoonFoodKey(index:number):string|null{return foodKeys[index]||null;}
+ 
+--- before/SampleUI.ts
++++ after/SampleUI.ts
+@@ -95,7 +95,7 @@
+  else if(kind==='close'){g.lineWidth=4;g.moveTo(-9,-9);g.lineTo(9,9);g.moveTo(-9,9);g.lineTo(9,-9);g.stroke();}
+  else if(kind==='target'){g.circle(0,0,9);g.stroke();g.circle(0,0,3);g.fill();for(const [a,b,c,d] of [[-15,0,-10,0],[10,0,15,0],[0,-15,0,-10],[0,10,0,15]]){g.moveTo(a,b);g.lineTo(c,d);g.stroke();}}
+  else if(kind==='map'){g.moveTo(-13,-10);g.lineTo(-5,-6);g.lineTo(5,-10);g.lineTo(13,-6);g.lineTo(13,12);g.lineTo(5,8);g.lineTo(-5,12);g.lineTo(-13,8);g.close();g.stroke();for(const xx of [-5,5]){g.moveTo(xx,-6);g.lineTo(xx,8);g.stroke();}}
+- else if(kind==='recruit'){g.circle(0,7,5);g.stroke();g.roundRect(-10,-14,20,14,6);g.stroke();}
++ else if(kind==='recruit'){g.circle(-4,8,6);g.fill();g.roundRect(-16,-14,24,14,6);g.fill();g.lineWidth=2;g.circle(12,0,7);g.stroke();g.moveTo(8,0);g.lineTo(16,0);g.moveTo(12,-4);g.lineTo(12,4);g.stroke();}
+  else if(kind==='vehicle'){g.circle(-9,-8,5);g.stroke();g.circle(11,-8,5);g.stroke();g.moveTo(-9,-8);g.lineTo(-1,6);g.lineTo(7,-8);g.lineTo(-9,-8);g.moveTo(7,-8);g.lineTo(9,10);g.lineTo(15,10);g.moveTo(-5,6);g.lineTo(1,6);g.stroke();}
+  else if(kind==='bills'){g.roundRect(-10,-14,20,28,2);g.stroke();for(const y of [7,0,-7]){g.moveTo(-6,y);g.lineTo(y===-7?3:6,y);g.stroke();}}
+  else if(kind==='plus'||kind==='minus'){g.moveTo(-9,0);g.lineTo(9,0);g.stroke();if(kind==='plus'){g.moveTo(0,-9);g.lineTo(0,9);g.stroke();}}

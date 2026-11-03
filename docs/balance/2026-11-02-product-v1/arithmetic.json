@@ -1,0 +1,164 @@
+{
+  "status": "closed-form-design-arithmetic-not-game-tests-or-playtest",
+  "alternativeEarlyGoals": {
+    "firstDPlusBeforeOtherInvestments": {
+      "purchaseYuan": 220,
+      "cashNeededBeforeRewardYuan": 120,
+      "base10NetOrdersWithoutSuppliesOrOtherRewards": 12,
+      "rewardAfterPurchaseYuan": 22
+    },
+    "firstNpcPlusExtraDWhileHeroKeepsStartingD": {
+      "grossCostYuan": 250,
+      "totalTaskRewardsYuan": 25,
+      "initialCashYuan": 100,
+      "base10NetOrdersWithoutOtherSpending": 13
+    }
+  },
+  "map2IllustrativePaths": {
+    "hireThenExtraDThenCLevel5": {
+      "grossCostIncludingMapFeeYuan": 1085,
+      "eligibleTaskRewardsYuan": 57,
+      "requiredNetDeliveryIncomeAfterStarting100Yuan": 928
+    },
+    "cLevel5ThenHireAndAssignStartingD": {
+      "grossCostIncludingMapFeeYuan": 935,
+      "eligibleTaskRewardsYuan": 42,
+      "requiredNetDeliveryIncomeAfterStarting100Yuan": 793
+    },
+    "alsoRequires": {
+      "teamDeliveredOrders": 60,
+      "npcHired": 1,
+      "ownedCOrHigherAtLevel5": true
+    },
+    "noCalendarDurationPromise": true
+  },
+  "firstAlternativeGoalTargetRealMinutes": [
+    6,
+    12
+  ],
+  "map2TargetActivePlayMinutes": [
+    30,
+    50
+  ],
+  "timeTargetsAreDesignTargetsNotMeasurements": true,
+  "maxTaskCoinRewardsYuan": 8512,
+  "mapFeesYuan": 16000,
+  "npcExamples": {
+    "oneDLevel1FullMap1Quota": {
+      "quotaMinutes": 15,
+      "ordersFromFreshCycle": 10,
+      "incomeYuan": 100
+    },
+    "thirtySssLevel30TrainedFullMap5Quota": {
+      "quotaMinutes": 30,
+      "cycleSeconds": "33.33461538461538461538461538",
+      "eachPayoutCents": 5914,
+      "completedOrdersEachFromFreshCycle": 53,
+      "totalIncomeCents": 9403260,
+      "requiresAlreadyOwnedEndgameFleet": true
+    }
+  },
+  "lateAndSevereDamageBase10IncomeCents": 375,
+  "sameIncomeMinusEarlyMealCents": 75,
+  "basicVehicleAllLevelsRows": 300,
+  "npcTrainingRows": 30,
+  "fiveStageIllustrativeOperatingFleetBudgets": {
+    "assumption": "Recruit all available NPCs, keep all NPCs level1, buy current-stage representative hero car to level5, reuse old hero cars for NPCs and buy D copies for remaining slots; excludes supplies and all additional upgrades; static investment is not minimum liquidity or measured pacing.",
+    "rows": [
+      {
+        "map": 1,
+        "npcHired": 2,
+        "heroVehicle": "C",
+        "heroVehicleLevel": 5,
+        "npcDFleetCount": 2,
+        "npcReusedFormerHeroVehicles": [],
+        "allNpcTrainingLevel": 1,
+        "cumulativeRecruitmentYuan": 210,
+        "cumulativeVehiclePurchaseAndLevel5UpgradeYuan": 485,
+        "cumulativeMapFeesYuan": 0,
+        "cumulativeEligibleTaskCoinRewardsYuan": 68,
+        "netInvestedYuan": 627,
+        "netFundingBeyondStarting100Yuan": 527,
+        "fullQuotaNpcIncomeFromFreshCyclesCents": 20000
+      },
+      {
+        "map": 2,
+        "npcHired": 6,
+        "heroVehicle": "B",
+        "heroVehicleLevel": 5,
+        "npcDFleetCount": 5,
+        "npcReusedFormerHeroVehicles": [
+          "C"
+        ],
+        "allNpcTrainingLevel": 1,
+        "cumulativeRecruitmentYuan": 1040,
+        "cumulativeVehiclePurchaseAndLevel5UpgradeYuan": 1646,
+        "cumulativeMapFeesYuan": 500,
+        "cumulativeEligibleTaskCoinRewardsYuan": 219,
+        "netInvestedYuan": 2967,
+        "netFundingBeyondStarting100Yuan": 2867,
+        "fullQuotaNpcIncomeFromFreshCyclesCents": 89242
+      },
+      {
+        "map": 3,
+        "npcHired": 12,
+        "heroVehicle": "A",
+        "heroVehicleLevel": 5,
+        "npcDFleetCount": 10,
+        "npcReusedFormerHeroVehicles": [
+          "C",
+          "B"
+        ],
+        "allNpcTrainingLevel": 1,
+        "cumulativeRecruitmentYuan": 5250,
+        "cumulativeVehiclePurchaseAndLevel5UpgradeYuan": 3913,
+        "cumulativeMapFeesYuan": 2000,
+        "cumulativeEligibleTaskCoinRewardsYuan": 785,
+        "netInvestedYuan": 10378,
+        "netFundingBeyondStarting100Yuan": 10278,
+        "fullQuotaNpcIncomeFromFreshCyclesCents": 239086
+      },
+      {
+        "map": 4,
+        "npcHired": 20,
+        "heroVehicle": "SS",
+        "heroVehicleLevel": 5,
+        "npcDFleetCount": 17,
+        "npcReusedFormerHeroVehicles": [
+          "C",
+          "B",
+          "A"
+        ],
+        "allNpcTrainingLevel": 1,
+        "cumulativeRecruitmentYuan": 21760,
+        "cumulativeVehiclePurchaseAndLevel5UpgradeYuan": 8101,
+        "cumulativeMapFeesYuan": 6000,
+        "cumulativeEligibleTaskCoinRewardsYuan": 2736,
+        "netInvestedYuan": 33125,
+        "netFundingBeyondStarting100Yuan": 33025,
+        "fullQuotaNpcIncomeFromFreshCyclesCents": 527981
+      },
+      {
+        "map": 5,
+        "npcHired": 30,
+        "heroVehicle": "SSS",
+        "heroVehicleLevel": 5,
+        "npcDFleetCount": 26,
+        "npcReusedFormerHeroVehicles": [
+          "C",
+          "B",
+          "A",
+          "SS"
+        ],
+        "allNpcTrainingLevel": 1,
+        "cumulativeRecruitmentYuan": 71440,
+        "cumulativeVehiclePurchaseAndLevel5UpgradeYuan": 13949,
+        "cumulativeMapFeesYuan": 16000,
+        "cumulativeEligibleTaskCoinRewardsYuan": 8134,
+        "netInvestedYuan": 93255,
+        "netFundingBeyondStarting100Yuan": 93155,
+        "fullQuotaNpcIncomeFromFreshCyclesCents": 850096
+      }
+    ]
+  }
+}

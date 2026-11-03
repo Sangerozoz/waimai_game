@@ -1,0 +1,2455 @@
+{
+  "id": "vehicle-and-rider-pricing-candidate-20261101-v1",
+  "status": "proposal-not-approved-not-implemented",
+  "confirmedBaseFeeYuan": 10,
+  "assumedStartCashYuan": 100,
+  "assumedFreeProtagonistVehicle": "D Level1",
+  "actualPricesUseWholeYuan": true,
+  "upgradeCostFormula": "C(L)=roundHalfUp(P*L*(L-1)/435); feeToL=C(L)-C(L-1)",
+  "recruitmentFormula": "H(n)=10*roundHalfUp((100+3*(n-1)^2)/10), n=1..80 excluding protagonist",
+  "referenceNpc": {
+    "status": "pricing-assumption-not-approved-game-rule",
+    "dLevel1StandardCycleSeconds": 90,
+    "roadPartSecondsAtSpeed12": 63,
+    "fixedWorkPartSeconds": 27,
+    "cycleSeconds": "63*12/preciseVehicleSpeedKph+27",
+    "feePerOrder": "10*preciseVehicleIncomeMultiplier rounded once to cents",
+    "allOtherMultipliers": 1,
+    "extraOperatingExpenses": 0,
+    "excludesRiderLevelsOfflineCapsWeatherDamageAndHeavyOrderBonus": true
+  },
+  "vehicles": [
+    {
+      "grade": "D",
+      "unlockMap": 1,
+      "purchasePriceYuan": 150,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 150
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 1,
+          "cumulativeUpgradeYuan": 1,
+          "purchasePlusUpgradesYuan": 151
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 1,
+          "cumulativeUpgradeYuan": 2,
+          "purchasePlusUpgradesYuan": 152
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 2,
+          "cumulativeUpgradeYuan": 4,
+          "purchasePlusUpgradesYuan": 154
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 3,
+          "cumulativeUpgradeYuan": 7,
+          "purchasePlusUpgradesYuan": 157
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 3,
+          "cumulativeUpgradeYuan": 10,
+          "purchasePlusUpgradesYuan": 160
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 4,
+          "cumulativeUpgradeYuan": 14,
+          "purchasePlusUpgradesYuan": 164
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 5,
+          "cumulativeUpgradeYuan": 19,
+          "purchasePlusUpgradesYuan": 169
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 6,
+          "cumulativeUpgradeYuan": 25,
+          "purchasePlusUpgradesYuan": 175
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 6,
+          "cumulativeUpgradeYuan": 31,
+          "purchasePlusUpgradesYuan": 181
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 7,
+          "cumulativeUpgradeYuan": 38,
+          "purchasePlusUpgradesYuan": 188
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 8,
+          "cumulativeUpgradeYuan": 46,
+          "purchasePlusUpgradesYuan": 196
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 8,
+          "cumulativeUpgradeYuan": 54,
+          "purchasePlusUpgradesYuan": 204
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 9,
+          "cumulativeUpgradeYuan": 63,
+          "purchasePlusUpgradesYuan": 213
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 9,
+          "cumulativeUpgradeYuan": 72,
+          "purchasePlusUpgradesYuan": 222
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 11,
+          "cumulativeUpgradeYuan": 83,
+          "purchasePlusUpgradesYuan": 233
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 11,
+          "cumulativeUpgradeYuan": 94,
+          "purchasePlusUpgradesYuan": 244
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 12,
+          "cumulativeUpgradeYuan": 106,
+          "purchasePlusUpgradesYuan": 256
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 12,
+          "cumulativeUpgradeYuan": 118,
+          "purchasePlusUpgradesYuan": 268
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 13,
+          "cumulativeUpgradeYuan": 131,
+          "purchasePlusUpgradesYuan": 281
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 14,
+          "cumulativeUpgradeYuan": 145,
+          "purchasePlusUpgradesYuan": 295
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 14,
+          "cumulativeUpgradeYuan": 159,
+          "purchasePlusUpgradesYuan": 309
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 15,
+          "cumulativeUpgradeYuan": 174,
+          "purchasePlusUpgradesYuan": 324
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 16,
+          "cumulativeUpgradeYuan": 190,
+          "purchasePlusUpgradesYuan": 340
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 17,
+          "cumulativeUpgradeYuan": 207,
+          "purchasePlusUpgradesYuan": 357
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 17,
+          "cumulativeUpgradeYuan": 224,
+          "purchasePlusUpgradesYuan": 374
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 18,
+          "cumulativeUpgradeYuan": 242,
+          "purchasePlusUpgradesYuan": 392
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 19,
+          "cumulativeUpgradeYuan": 261,
+          "purchasePlusUpgradesYuan": 411
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 19,
+          "cumulativeUpgradeYuan": 280,
+          "purchasePlusUpgradesYuan": 430
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 20,
+          "cumulativeUpgradeYuan": 300,
+          "purchasePlusUpgradesYuan": 450
+        }
+      ]
+    },
+    {
+      "grade": "D+",
+      "unlockMap": 1,
+      "purchasePriceYuan": 230,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 230
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 1,
+          "cumulativeUpgradeYuan": 1,
+          "purchasePlusUpgradesYuan": 231
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 2,
+          "cumulativeUpgradeYuan": 3,
+          "purchasePlusUpgradesYuan": 233
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 3,
+          "cumulativeUpgradeYuan": 6,
+          "purchasePlusUpgradesYuan": 236
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 5,
+          "cumulativeUpgradeYuan": 11,
+          "purchasePlusUpgradesYuan": 241
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 5,
+          "cumulativeUpgradeYuan": 16,
+          "purchasePlusUpgradesYuan": 246
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 6,
+          "cumulativeUpgradeYuan": 22,
+          "purchasePlusUpgradesYuan": 252
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 8,
+          "cumulativeUpgradeYuan": 30,
+          "purchasePlusUpgradesYuan": 260
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 8,
+          "cumulativeUpgradeYuan": 38,
+          "purchasePlusUpgradesYuan": 268
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 10,
+          "cumulativeUpgradeYuan": 48,
+          "purchasePlusUpgradesYuan": 278
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 10,
+          "cumulativeUpgradeYuan": 58,
+          "purchasePlusUpgradesYuan": 288
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 12,
+          "cumulativeUpgradeYuan": 70,
+          "purchasePlusUpgradesYuan": 300
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 12,
+          "cumulativeUpgradeYuan": 82,
+          "purchasePlusUpgradesYuan": 312
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 14,
+          "cumulativeUpgradeYuan": 96,
+          "purchasePlusUpgradesYuan": 326
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 15,
+          "cumulativeUpgradeYuan": 111,
+          "purchasePlusUpgradesYuan": 341
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 16,
+          "cumulativeUpgradeYuan": 127,
+          "purchasePlusUpgradesYuan": 357
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 17,
+          "cumulativeUpgradeYuan": 144,
+          "purchasePlusUpgradesYuan": 374
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 18,
+          "cumulativeUpgradeYuan": 162,
+          "purchasePlusUpgradesYuan": 392
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 19,
+          "cumulativeUpgradeYuan": 181,
+          "purchasePlusUpgradesYuan": 411
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 20,
+          "cumulativeUpgradeYuan": 201,
+          "purchasePlusUpgradesYuan": 431
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 21,
+          "cumulativeUpgradeYuan": 222,
+          "purchasePlusUpgradesYuan": 452
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 22,
+          "cumulativeUpgradeYuan": 244,
+          "purchasePlusUpgradesYuan": 474
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 24,
+          "cumulativeUpgradeYuan": 268,
+          "purchasePlusUpgradesYuan": 498
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 24,
+          "cumulativeUpgradeYuan": 292,
+          "purchasePlusUpgradesYuan": 522
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 25,
+          "cumulativeUpgradeYuan": 317,
+          "purchasePlusUpgradesYuan": 547
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 27,
+          "cumulativeUpgradeYuan": 344,
+          "purchasePlusUpgradesYuan": 574
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 27,
+          "cumulativeUpgradeYuan": 371,
+          "purchasePlusUpgradesYuan": 601
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 29,
+          "cumulativeUpgradeYuan": 400,
+          "purchasePlusUpgradesYuan": 630
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 29,
+          "cumulativeUpgradeYuan": 429,
+          "purchasePlusUpgradesYuan": 659
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 31,
+          "cumulativeUpgradeYuan": 460,
+          "purchasePlusUpgradesYuan": 690
+        }
+      ]
+    },
+    {
+      "grade": "C",
+      "unlockMap": 1,
+      "purchasePriceYuan": 350,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 350
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 2,
+          "cumulativeUpgradeYuan": 2,
+          "purchasePlusUpgradesYuan": 352
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 3,
+          "cumulativeUpgradeYuan": 5,
+          "purchasePlusUpgradesYuan": 355
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 5,
+          "cumulativeUpgradeYuan": 10,
+          "purchasePlusUpgradesYuan": 360
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 6,
+          "cumulativeUpgradeYuan": 16,
+          "purchasePlusUpgradesYuan": 366
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 8,
+          "cumulativeUpgradeYuan": 24,
+          "purchasePlusUpgradesYuan": 374
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 10,
+          "cumulativeUpgradeYuan": 34,
+          "purchasePlusUpgradesYuan": 384
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 11,
+          "cumulativeUpgradeYuan": 45,
+          "purchasePlusUpgradesYuan": 395
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 13,
+          "cumulativeUpgradeYuan": 58,
+          "purchasePlusUpgradesYuan": 408
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 14,
+          "cumulativeUpgradeYuan": 72,
+          "purchasePlusUpgradesYuan": 422
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 17,
+          "cumulativeUpgradeYuan": 89,
+          "purchasePlusUpgradesYuan": 439
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 17,
+          "cumulativeUpgradeYuan": 106,
+          "purchasePlusUpgradesYuan": 456
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 20,
+          "cumulativeUpgradeYuan": 126,
+          "purchasePlusUpgradesYuan": 476
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 20,
+          "cumulativeUpgradeYuan": 146,
+          "purchasePlusUpgradesYuan": 496
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 23,
+          "cumulativeUpgradeYuan": 169,
+          "purchasePlusUpgradesYuan": 519
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 24,
+          "cumulativeUpgradeYuan": 193,
+          "purchasePlusUpgradesYuan": 543
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 26,
+          "cumulativeUpgradeYuan": 219,
+          "purchasePlusUpgradesYuan": 569
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 27,
+          "cumulativeUpgradeYuan": 246,
+          "purchasePlusUpgradesYuan": 596
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 29,
+          "cumulativeUpgradeYuan": 275,
+          "purchasePlusUpgradesYuan": 625
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 31,
+          "cumulativeUpgradeYuan": 306,
+          "purchasePlusUpgradesYuan": 656
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 32,
+          "cumulativeUpgradeYuan": 338,
+          "purchasePlusUpgradesYuan": 688
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 34,
+          "cumulativeUpgradeYuan": 372,
+          "purchasePlusUpgradesYuan": 722
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 35,
+          "cumulativeUpgradeYuan": 407,
+          "purchasePlusUpgradesYuan": 757
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 37,
+          "cumulativeUpgradeYuan": 444,
+          "purchasePlusUpgradesYuan": 794
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 39,
+          "cumulativeUpgradeYuan": 483,
+          "purchasePlusUpgradesYuan": 833
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 40,
+          "cumulativeUpgradeYuan": 523,
+          "purchasePlusUpgradesYuan": 873
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 42,
+          "cumulativeUpgradeYuan": 565,
+          "purchasePlusUpgradesYuan": 915
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 43,
+          "cumulativeUpgradeYuan": 608,
+          "purchasePlusUpgradesYuan": 958
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 45,
+          "cumulativeUpgradeYuan": 653,
+          "purchasePlusUpgradesYuan": 1003
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 47,
+          "cumulativeUpgradeYuan": 700,
+          "purchasePlusUpgradesYuan": 1050
+        }
+      ]
+    },
+    {
+      "grade": "C+",
+      "unlockMap": 1,
+      "purchasePriceYuan": 520,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 520
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 2,
+          "cumulativeUpgradeYuan": 2,
+          "purchasePlusUpgradesYuan": 522
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 5,
+          "cumulativeUpgradeYuan": 7,
+          "purchasePlusUpgradesYuan": 527
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 7,
+          "cumulativeUpgradeYuan": 14,
+          "purchasePlusUpgradesYuan": 534
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 10,
+          "cumulativeUpgradeYuan": 24,
+          "purchasePlusUpgradesYuan": 544
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 12,
+          "cumulativeUpgradeYuan": 36,
+          "purchasePlusUpgradesYuan": 556
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 14,
+          "cumulativeUpgradeYuan": 50,
+          "purchasePlusUpgradesYuan": 570
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 17,
+          "cumulativeUpgradeYuan": 67,
+          "purchasePlusUpgradesYuan": 587
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 19,
+          "cumulativeUpgradeYuan": 86,
+          "purchasePlusUpgradesYuan": 606
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 22,
+          "cumulativeUpgradeYuan": 108,
+          "purchasePlusUpgradesYuan": 628
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 23,
+          "cumulativeUpgradeYuan": 131,
+          "purchasePlusUpgradesYuan": 651
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 27,
+          "cumulativeUpgradeYuan": 158,
+          "purchasePlusUpgradesYuan": 678
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 28,
+          "cumulativeUpgradeYuan": 186,
+          "purchasePlusUpgradesYuan": 706
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 32,
+          "cumulativeUpgradeYuan": 218,
+          "purchasePlusUpgradesYuan": 738
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 33,
+          "cumulativeUpgradeYuan": 251,
+          "purchasePlusUpgradesYuan": 771
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 36,
+          "cumulativeUpgradeYuan": 287,
+          "purchasePlusUpgradesYuan": 807
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 38,
+          "cumulativeUpgradeYuan": 325,
+          "purchasePlusUpgradesYuan": 845
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 41,
+          "cumulativeUpgradeYuan": 366,
+          "purchasePlusUpgradesYuan": 886
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 43,
+          "cumulativeUpgradeYuan": 409,
+          "purchasePlusUpgradesYuan": 929
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 45,
+          "cumulativeUpgradeYuan": 454,
+          "purchasePlusUpgradesYuan": 974
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 48,
+          "cumulativeUpgradeYuan": 502,
+          "purchasePlusUpgradesYuan": 1022
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 50,
+          "cumulativeUpgradeYuan": 552,
+          "purchasePlusUpgradesYuan": 1072
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 53,
+          "cumulativeUpgradeYuan": 605,
+          "purchasePlusUpgradesYuan": 1125
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 55,
+          "cumulativeUpgradeYuan": 660,
+          "purchasePlusUpgradesYuan": 1180
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 57,
+          "cumulativeUpgradeYuan": 717,
+          "purchasePlusUpgradesYuan": 1237
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 60,
+          "cumulativeUpgradeYuan": 777,
+          "purchasePlusUpgradesYuan": 1297
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 62,
+          "cumulativeUpgradeYuan": 839,
+          "purchasePlusUpgradesYuan": 1359
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 65,
+          "cumulativeUpgradeYuan": 904,
+          "purchasePlusUpgradesYuan": 1424
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 67,
+          "cumulativeUpgradeYuan": 971,
+          "purchasePlusUpgradesYuan": 1491
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 69,
+          "cumulativeUpgradeYuan": 1040,
+          "purchasePlusUpgradesYuan": 1560
+        }
+      ]
+    },
+    {
+      "grade": "B",
+      "unlockMap": 2,
+      "purchasePriceYuan": 800,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 800
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 4,
+          "cumulativeUpgradeYuan": 4,
+          "purchasePlusUpgradesYuan": 804
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 7,
+          "cumulativeUpgradeYuan": 11,
+          "purchasePlusUpgradesYuan": 811
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 11,
+          "cumulativeUpgradeYuan": 22,
+          "purchasePlusUpgradesYuan": 822
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 15,
+          "cumulativeUpgradeYuan": 37,
+          "purchasePlusUpgradesYuan": 837
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 18,
+          "cumulativeUpgradeYuan": 55,
+          "purchasePlusUpgradesYuan": 855
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 22,
+          "cumulativeUpgradeYuan": 77,
+          "purchasePlusUpgradesYuan": 877
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 26,
+          "cumulativeUpgradeYuan": 103,
+          "purchasePlusUpgradesYuan": 903
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 29,
+          "cumulativeUpgradeYuan": 132,
+          "purchasePlusUpgradesYuan": 932
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 34,
+          "cumulativeUpgradeYuan": 166,
+          "purchasePlusUpgradesYuan": 966
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 36,
+          "cumulativeUpgradeYuan": 202,
+          "purchasePlusUpgradesYuan": 1002
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 41,
+          "cumulativeUpgradeYuan": 243,
+          "purchasePlusUpgradesYuan": 1043
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 44,
+          "cumulativeUpgradeYuan": 287,
+          "purchasePlusUpgradesYuan": 1087
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 48,
+          "cumulativeUpgradeYuan": 335,
+          "purchasePlusUpgradesYuan": 1135
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 51,
+          "cumulativeUpgradeYuan": 386,
+          "purchasePlusUpgradesYuan": 1186
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 55,
+          "cumulativeUpgradeYuan": 441,
+          "purchasePlusUpgradesYuan": 1241
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 59,
+          "cumulativeUpgradeYuan": 500,
+          "purchasePlusUpgradesYuan": 1300
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 63,
+          "cumulativeUpgradeYuan": 563,
+          "purchasePlusUpgradesYuan": 1363
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 66,
+          "cumulativeUpgradeYuan": 629,
+          "purchasePlusUpgradesYuan": 1429
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 70,
+          "cumulativeUpgradeYuan": 699,
+          "purchasePlusUpgradesYuan": 1499
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 73,
+          "cumulativeUpgradeYuan": 772,
+          "purchasePlusUpgradesYuan": 1572
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 78,
+          "cumulativeUpgradeYuan": 850,
+          "purchasePlusUpgradesYuan": 1650
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 81,
+          "cumulativeUpgradeYuan": 931,
+          "purchasePlusUpgradesYuan": 1731
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 84,
+          "cumulativeUpgradeYuan": 1015,
+          "purchasePlusUpgradesYuan": 1815
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 88,
+          "cumulativeUpgradeYuan": 1103,
+          "purchasePlusUpgradesYuan": 1903
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 92,
+          "cumulativeUpgradeYuan": 1195,
+          "purchasePlusUpgradesYuan": 1995
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 96,
+          "cumulativeUpgradeYuan": 1291,
+          "purchasePlusUpgradesYuan": 2091
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 99,
+          "cumulativeUpgradeYuan": 1390,
+          "purchasePlusUpgradesYuan": 2190
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 103,
+          "cumulativeUpgradeYuan": 1493,
+          "purchasePlusUpgradesYuan": 2293
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 107,
+          "cumulativeUpgradeYuan": 1600,
+          "purchasePlusUpgradesYuan": 2400
+        }
+      ]
+    },
+    {
+      "grade": "B+",
+      "unlockMap": 2,
+      "purchasePriceYuan": 1200,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 1200
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 6,
+          "cumulativeUpgradeYuan": 6,
+          "purchasePlusUpgradesYuan": 1206
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 11,
+          "cumulativeUpgradeYuan": 17,
+          "purchasePlusUpgradesYuan": 1217
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 16,
+          "cumulativeUpgradeYuan": 33,
+          "purchasePlusUpgradesYuan": 1233
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 22,
+          "cumulativeUpgradeYuan": 55,
+          "purchasePlusUpgradesYuan": 1255
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 28,
+          "cumulativeUpgradeYuan": 83,
+          "purchasePlusUpgradesYuan": 1283
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 33,
+          "cumulativeUpgradeYuan": 116,
+          "purchasePlusUpgradesYuan": 1316
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 38,
+          "cumulativeUpgradeYuan": 154,
+          "purchasePlusUpgradesYuan": 1354
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 45,
+          "cumulativeUpgradeYuan": 199,
+          "purchasePlusUpgradesYuan": 1399
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 49,
+          "cumulativeUpgradeYuan": 248,
+          "purchasePlusUpgradesYuan": 1448
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 55,
+          "cumulativeUpgradeYuan": 303,
+          "purchasePlusUpgradesYuan": 1503
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 61,
+          "cumulativeUpgradeYuan": 364,
+          "purchasePlusUpgradesYuan": 1564
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 66,
+          "cumulativeUpgradeYuan": 430,
+          "purchasePlusUpgradesYuan": 1630
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 72,
+          "cumulativeUpgradeYuan": 502,
+          "purchasePlusUpgradesYuan": 1702
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 77,
+          "cumulativeUpgradeYuan": 579,
+          "purchasePlusUpgradesYuan": 1779
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 83,
+          "cumulativeUpgradeYuan": 662,
+          "purchasePlusUpgradesYuan": 1862
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 88,
+          "cumulativeUpgradeYuan": 750,
+          "purchasePlusUpgradesYuan": 1950
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 94,
+          "cumulativeUpgradeYuan": 844,
+          "purchasePlusUpgradesYuan": 2044
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 99,
+          "cumulativeUpgradeYuan": 943,
+          "purchasePlusUpgradesYuan": 2143
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 105,
+          "cumulativeUpgradeYuan": 1048,
+          "purchasePlusUpgradesYuan": 2248
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 111,
+          "cumulativeUpgradeYuan": 1159,
+          "purchasePlusUpgradesYuan": 2359
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 115,
+          "cumulativeUpgradeYuan": 1274,
+          "purchasePlusUpgradesYuan": 2474
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 122,
+          "cumulativeUpgradeYuan": 1396,
+          "purchasePlusUpgradesYuan": 2596
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 127,
+          "cumulativeUpgradeYuan": 1523,
+          "purchasePlusUpgradesYuan": 2723
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 132,
+          "cumulativeUpgradeYuan": 1655,
+          "purchasePlusUpgradesYuan": 2855
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 138,
+          "cumulativeUpgradeYuan": 1793,
+          "purchasePlusUpgradesYuan": 2993
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 144,
+          "cumulativeUpgradeYuan": 1937,
+          "purchasePlusUpgradesYuan": 3137
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 149,
+          "cumulativeUpgradeYuan": 2086,
+          "purchasePlusUpgradesYuan": 3286
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 154,
+          "cumulativeUpgradeYuan": 2240,
+          "purchasePlusUpgradesYuan": 3440
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 160,
+          "cumulativeUpgradeYuan": 2400,
+          "purchasePlusUpgradesYuan": 3600
+        }
+      ]
+    },
+    {
+      "grade": "A",
+      "unlockMap": 3,
+      "purchasePriceYuan": 1800,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 1800
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 8,
+          "cumulativeUpgradeYuan": 8,
+          "purchasePlusUpgradesYuan": 1808
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 17,
+          "cumulativeUpgradeYuan": 25,
+          "purchasePlusUpgradesYuan": 1825
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 25,
+          "cumulativeUpgradeYuan": 50,
+          "purchasePlusUpgradesYuan": 1850
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 33,
+          "cumulativeUpgradeYuan": 83,
+          "purchasePlusUpgradesYuan": 1883
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 41,
+          "cumulativeUpgradeYuan": 124,
+          "purchasePlusUpgradesYuan": 1924
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 50,
+          "cumulativeUpgradeYuan": 174,
+          "purchasePlusUpgradesYuan": 1974
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 58,
+          "cumulativeUpgradeYuan": 232,
+          "purchasePlusUpgradesYuan": 2032
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 66,
+          "cumulativeUpgradeYuan": 298,
+          "purchasePlusUpgradesYuan": 2098
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 74,
+          "cumulativeUpgradeYuan": 372,
+          "purchasePlusUpgradesYuan": 2172
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 83,
+          "cumulativeUpgradeYuan": 455,
+          "purchasePlusUpgradesYuan": 2255
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 91,
+          "cumulativeUpgradeYuan": 546,
+          "purchasePlusUpgradesYuan": 2346
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 100,
+          "cumulativeUpgradeYuan": 646,
+          "purchasePlusUpgradesYuan": 2446
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 107,
+          "cumulativeUpgradeYuan": 753,
+          "purchasePlusUpgradesYuan": 2553
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 116,
+          "cumulativeUpgradeYuan": 869,
+          "purchasePlusUpgradesYuan": 2669
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 124,
+          "cumulativeUpgradeYuan": 993,
+          "purchasePlusUpgradesYuan": 2793
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 133,
+          "cumulativeUpgradeYuan": 1126,
+          "purchasePlusUpgradesYuan": 2926
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 140,
+          "cumulativeUpgradeYuan": 1266,
+          "purchasePlusUpgradesYuan": 3066
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 149,
+          "cumulativeUpgradeYuan": 1415,
+          "purchasePlusUpgradesYuan": 3215
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 157,
+          "cumulativeUpgradeYuan": 1572,
+          "purchasePlusUpgradesYuan": 3372
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 166,
+          "cumulativeUpgradeYuan": 1738,
+          "purchasePlusUpgradesYuan": 3538
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 174,
+          "cumulativeUpgradeYuan": 1912,
+          "purchasePlusUpgradesYuan": 3712
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 182,
+          "cumulativeUpgradeYuan": 2094,
+          "purchasePlusUpgradesYuan": 3894
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 190,
+          "cumulativeUpgradeYuan": 2284,
+          "purchasePlusUpgradesYuan": 4084
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 199,
+          "cumulativeUpgradeYuan": 2483,
+          "purchasePlusUpgradesYuan": 4283
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 207,
+          "cumulativeUpgradeYuan": 2690,
+          "purchasePlusUpgradesYuan": 4490
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 215,
+          "cumulativeUpgradeYuan": 2905,
+          "purchasePlusUpgradesYuan": 4705
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 223,
+          "cumulativeUpgradeYuan": 3128,
+          "purchasePlusUpgradesYuan": 4928
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 232,
+          "cumulativeUpgradeYuan": 3360,
+          "purchasePlusUpgradesYuan": 5160
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 240,
+          "cumulativeUpgradeYuan": 3600,
+          "purchasePlusUpgradesYuan": 5400
+        }
+      ]
+    },
+    {
+      "grade": "S",
+      "unlockMap": 4,
+      "purchasePriceYuan": 2700,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 2700
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 12,
+          "cumulativeUpgradeYuan": 12,
+          "purchasePlusUpgradesYuan": 2712
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 25,
+          "cumulativeUpgradeYuan": 37,
+          "purchasePlusUpgradesYuan": 2737
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 37,
+          "cumulativeUpgradeYuan": 74,
+          "purchasePlusUpgradesYuan": 2774
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 50,
+          "cumulativeUpgradeYuan": 124,
+          "purchasePlusUpgradesYuan": 2824
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 62,
+          "cumulativeUpgradeYuan": 186,
+          "purchasePlusUpgradesYuan": 2886
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 75,
+          "cumulativeUpgradeYuan": 261,
+          "purchasePlusUpgradesYuan": 2961
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 87,
+          "cumulativeUpgradeYuan": 348,
+          "purchasePlusUpgradesYuan": 3048
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 99,
+          "cumulativeUpgradeYuan": 447,
+          "purchasePlusUpgradesYuan": 3147
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 112,
+          "cumulativeUpgradeYuan": 559,
+          "purchasePlusUpgradesYuan": 3259
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 124,
+          "cumulativeUpgradeYuan": 683,
+          "purchasePlusUpgradesYuan": 3383
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 136,
+          "cumulativeUpgradeYuan": 819,
+          "purchasePlusUpgradesYuan": 3519
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 149,
+          "cumulativeUpgradeYuan": 968,
+          "purchasePlusUpgradesYuan": 3668
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 162,
+          "cumulativeUpgradeYuan": 1130,
+          "purchasePlusUpgradesYuan": 3830
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 173,
+          "cumulativeUpgradeYuan": 1303,
+          "purchasePlusUpgradesYuan": 4003
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 187,
+          "cumulativeUpgradeYuan": 1490,
+          "purchasePlusUpgradesYuan": 4190
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 198,
+          "cumulativeUpgradeYuan": 1688,
+          "purchasePlusUpgradesYuan": 4388
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 211,
+          "cumulativeUpgradeYuan": 1899,
+          "purchasePlusUpgradesYuan": 4599
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 224,
+          "cumulativeUpgradeYuan": 2123,
+          "purchasePlusUpgradesYuan": 4823
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 236,
+          "cumulativeUpgradeYuan": 2359,
+          "purchasePlusUpgradesYuan": 5059
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 248,
+          "cumulativeUpgradeYuan": 2607,
+          "purchasePlusUpgradesYuan": 5307
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 261,
+          "cumulativeUpgradeYuan": 2868,
+          "purchasePlusUpgradesYuan": 5568
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 273,
+          "cumulativeUpgradeYuan": 3141,
+          "purchasePlusUpgradesYuan": 5841
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 285,
+          "cumulativeUpgradeYuan": 3426,
+          "purchasePlusUpgradesYuan": 6126
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 298,
+          "cumulativeUpgradeYuan": 3724,
+          "purchasePlusUpgradesYuan": 6424
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 310,
+          "cumulativeUpgradeYuan": 4034,
+          "purchasePlusUpgradesYuan": 6734
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 323,
+          "cumulativeUpgradeYuan": 4357,
+          "purchasePlusUpgradesYuan": 7057
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 335,
+          "cumulativeUpgradeYuan": 4692,
+          "purchasePlusUpgradesYuan": 7392
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 348,
+          "cumulativeUpgradeYuan": 5040,
+          "purchasePlusUpgradesYuan": 7740
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 360,
+          "cumulativeUpgradeYuan": 5400,
+          "purchasePlusUpgradesYuan": 8100
+        }
+      ]
+    },
+    {
+      "grade": "SS",
+      "unlockMap": 4,
+      "purchasePriceYuan": 4100,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 4100
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 19,
+          "cumulativeUpgradeYuan": 19,
+          "purchasePlusUpgradesYuan": 4119
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 38,
+          "cumulativeUpgradeYuan": 57,
+          "purchasePlusUpgradesYuan": 4157
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 56,
+          "cumulativeUpgradeYuan": 113,
+          "purchasePlusUpgradesYuan": 4213
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 76,
+          "cumulativeUpgradeYuan": 189,
+          "purchasePlusUpgradesYuan": 4289
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 94,
+          "cumulativeUpgradeYuan": 283,
+          "purchasePlusUpgradesYuan": 4383
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 113,
+          "cumulativeUpgradeYuan": 396,
+          "purchasePlusUpgradesYuan": 4496
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 132,
+          "cumulativeUpgradeYuan": 528,
+          "purchasePlusUpgradesYuan": 4628
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 151,
+          "cumulativeUpgradeYuan": 679,
+          "purchasePlusUpgradesYuan": 4779
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 169,
+          "cumulativeUpgradeYuan": 848,
+          "purchasePlusUpgradesYuan": 4948
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 189,
+          "cumulativeUpgradeYuan": 1037,
+          "purchasePlusUpgradesYuan": 5137
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 207,
+          "cumulativeUpgradeYuan": 1244,
+          "purchasePlusUpgradesYuan": 5344
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 226,
+          "cumulativeUpgradeYuan": 1470,
+          "purchasePlusUpgradesYuan": 5570
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 245,
+          "cumulativeUpgradeYuan": 1715,
+          "purchasePlusUpgradesYuan": 5815
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 264,
+          "cumulativeUpgradeYuan": 1979,
+          "purchasePlusUpgradesYuan": 6079
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 283,
+          "cumulativeUpgradeYuan": 2262,
+          "purchasePlusUpgradesYuan": 6362
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 302,
+          "cumulativeUpgradeYuan": 2564,
+          "purchasePlusUpgradesYuan": 6664
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 320,
+          "cumulativeUpgradeYuan": 2884,
+          "purchasePlusUpgradesYuan": 6984
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 339,
+          "cumulativeUpgradeYuan": 3223,
+          "purchasePlusUpgradesYuan": 7323
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 359,
+          "cumulativeUpgradeYuan": 3582,
+          "purchasePlusUpgradesYuan": 7682
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 377,
+          "cumulativeUpgradeYuan": 3959,
+          "purchasePlusUpgradesYuan": 8059
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 395,
+          "cumulativeUpgradeYuan": 4354,
+          "purchasePlusUpgradesYuan": 8454
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 415,
+          "cumulativeUpgradeYuan": 4769,
+          "purchasePlusUpgradesYuan": 8869
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 434,
+          "cumulativeUpgradeYuan": 5203,
+          "purchasePlusUpgradesYuan": 9303
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 452,
+          "cumulativeUpgradeYuan": 5655,
+          "purchasePlusUpgradesYuan": 9755
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 471,
+          "cumulativeUpgradeYuan": 6126,
+          "purchasePlusUpgradesYuan": 10226
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 491,
+          "cumulativeUpgradeYuan": 6617,
+          "purchasePlusUpgradesYuan": 10717
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 509,
+          "cumulativeUpgradeYuan": 7126,
+          "purchasePlusUpgradesYuan": 11226
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 527,
+          "cumulativeUpgradeYuan": 7653,
+          "purchasePlusUpgradesYuan": 11753
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 547,
+          "cumulativeUpgradeYuan": 8200,
+          "purchasePlusUpgradesYuan": 12300
+        }
+      ]
+    },
+    {
+      "grade": "SSS",
+      "unlockMap": 5,
+      "purchasePriceYuan": 6200,
+      "levels": [
+        {
+          "level": 1,
+          "upgradeToThisLevelYuan": 0,
+          "cumulativeUpgradeYuan": 0,
+          "purchasePlusUpgradesYuan": 6200
+        },
+        {
+          "level": 2,
+          "upgradeToThisLevelYuan": 29,
+          "cumulativeUpgradeYuan": 29,
+          "purchasePlusUpgradesYuan": 6229
+        },
+        {
+          "level": 3,
+          "upgradeToThisLevelYuan": 57,
+          "cumulativeUpgradeYuan": 86,
+          "purchasePlusUpgradesYuan": 6286
+        },
+        {
+          "level": 4,
+          "upgradeToThisLevelYuan": 85,
+          "cumulativeUpgradeYuan": 171,
+          "purchasePlusUpgradesYuan": 6371
+        },
+        {
+          "level": 5,
+          "upgradeToThisLevelYuan": 114,
+          "cumulativeUpgradeYuan": 285,
+          "purchasePlusUpgradesYuan": 6485
+        },
+        {
+          "level": 6,
+          "upgradeToThisLevelYuan": 143,
+          "cumulativeUpgradeYuan": 428,
+          "purchasePlusUpgradesYuan": 6628
+        },
+        {
+          "level": 7,
+          "upgradeToThisLevelYuan": 171,
+          "cumulativeUpgradeYuan": 599,
+          "purchasePlusUpgradesYuan": 6799
+        },
+        {
+          "level": 8,
+          "upgradeToThisLevelYuan": 199,
+          "cumulativeUpgradeYuan": 798,
+          "purchasePlusUpgradesYuan": 6998
+        },
+        {
+          "level": 9,
+          "upgradeToThisLevelYuan": 228,
+          "cumulativeUpgradeYuan": 1026,
+          "purchasePlusUpgradesYuan": 7226
+        },
+        {
+          "level": 10,
+          "upgradeToThisLevelYuan": 257,
+          "cumulativeUpgradeYuan": 1283,
+          "purchasePlusUpgradesYuan": 7483
+        },
+        {
+          "level": 11,
+          "upgradeToThisLevelYuan": 285,
+          "cumulativeUpgradeYuan": 1568,
+          "purchasePlusUpgradesYuan": 7768
+        },
+        {
+          "level": 12,
+          "upgradeToThisLevelYuan": 313,
+          "cumulativeUpgradeYuan": 1881,
+          "purchasePlusUpgradesYuan": 8081
+        },
+        {
+          "level": 13,
+          "upgradeToThisLevelYuan": 342,
+          "cumulativeUpgradeYuan": 2223,
+          "purchasePlusUpgradesYuan": 8423
+        },
+        {
+          "level": 14,
+          "upgradeToThisLevelYuan": 371,
+          "cumulativeUpgradeYuan": 2594,
+          "purchasePlusUpgradesYuan": 8794
+        },
+        {
+          "level": 15,
+          "upgradeToThisLevelYuan": 399,
+          "cumulativeUpgradeYuan": 2993,
+          "purchasePlusUpgradesYuan": 9193
+        },
+        {
+          "level": 16,
+          "upgradeToThisLevelYuan": 428,
+          "cumulativeUpgradeYuan": 3421,
+          "purchasePlusUpgradesYuan": 9621
+        },
+        {
+          "level": 17,
+          "upgradeToThisLevelYuan": 456,
+          "cumulativeUpgradeYuan": 3877,
+          "purchasePlusUpgradesYuan": 10077
+        },
+        {
+          "level": 18,
+          "upgradeToThisLevelYuan": 484,
+          "cumulativeUpgradeYuan": 4361,
+          "purchasePlusUpgradesYuan": 10561
+        },
+        {
+          "level": 19,
+          "upgradeToThisLevelYuan": 513,
+          "cumulativeUpgradeYuan": 4874,
+          "purchasePlusUpgradesYuan": 11074
+        },
+        {
+          "level": 20,
+          "upgradeToThisLevelYuan": 542,
+          "cumulativeUpgradeYuan": 5416,
+          "purchasePlusUpgradesYuan": 11616
+        },
+        {
+          "level": 21,
+          "upgradeToThisLevelYuan": 570,
+          "cumulativeUpgradeYuan": 5986,
+          "purchasePlusUpgradesYuan": 12186
+        },
+        {
+          "level": 22,
+          "upgradeToThisLevelYuan": 599,
+          "cumulativeUpgradeYuan": 6585,
+          "purchasePlusUpgradesYuan": 12785
+        },
+        {
+          "level": 23,
+          "upgradeToThisLevelYuan": 627,
+          "cumulativeUpgradeYuan": 7212,
+          "purchasePlusUpgradesYuan": 13412
+        },
+        {
+          "level": 24,
+          "upgradeToThisLevelYuan": 656,
+          "cumulativeUpgradeYuan": 7868,
+          "purchasePlusUpgradesYuan": 14068
+        },
+        {
+          "level": 25,
+          "upgradeToThisLevelYuan": 684,
+          "cumulativeUpgradeYuan": 8552,
+          "purchasePlusUpgradesYuan": 14752
+        },
+        {
+          "level": 26,
+          "upgradeToThisLevelYuan": 712,
+          "cumulativeUpgradeYuan": 9264,
+          "purchasePlusUpgradesYuan": 15464
+        },
+        {
+          "level": 27,
+          "upgradeToThisLevelYuan": 742,
+          "cumulativeUpgradeYuan": 10006,
+          "purchasePlusUpgradesYuan": 16206
+        },
+        {
+          "level": 28,
+          "upgradeToThisLevelYuan": 769,
+          "cumulativeUpgradeYuan": 10775,
+          "purchasePlusUpgradesYuan": 16975
+        },
+        {
+          "level": 29,
+          "upgradeToThisLevelYuan": 798,
+          "cumulativeUpgradeYuan": 11573,
+          "purchasePlusUpgradesYuan": 17773
+        },
+        {
+          "level": 30,
+          "upgradeToThisLevelYuan": 827,
+          "cumulativeUpgradeYuan": 12400,
+          "purchasePlusUpgradesYuan": 18600
+        }
+      ]
+    }
+  ],
+  "recruitment": [
+    {
+      "map": 1,
+      "recruitmentOrdinal": 1,
+      "recruitmentPriceYuan": 100,
+      "cumulativeRecruitmentPriceYuan": 100,
+      "hirePlusDLevel1Yuan": 250
+    },
+    {
+      "map": 1,
+      "recruitmentOrdinal": 2,
+      "recruitmentPriceYuan": 100,
+      "cumulativeRecruitmentPriceYuan": 200,
+      "hirePlusDLevel1Yuan": 250
+    },
+    {
+      "map": 1,
+      "recruitmentOrdinal": 3,
+      "recruitmentPriceYuan": 110,
+      "cumulativeRecruitmentPriceYuan": 310,
+      "hirePlusDLevel1Yuan": 260
+    },
+    {
+      "map": 1,
+      "recruitmentOrdinal": 4,
+      "recruitmentPriceYuan": 130,
+      "cumulativeRecruitmentPriceYuan": 440,
+      "hirePlusDLevel1Yuan": 280
+    },
+    {
+      "map": 1,
+      "recruitmentOrdinal": 5,
+      "recruitmentPriceYuan": 150,
+      "cumulativeRecruitmentPriceYuan": 590,
+      "hirePlusDLevel1Yuan": 300
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 6,
+      "recruitmentPriceYuan": 180,
+      "cumulativeRecruitmentPriceYuan": 770,
+      "hirePlusDLevel1Yuan": 330
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 7,
+      "recruitmentPriceYuan": 210,
+      "cumulativeRecruitmentPriceYuan": 980,
+      "hirePlusDLevel1Yuan": 360
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 8,
+      "recruitmentPriceYuan": 250,
+      "cumulativeRecruitmentPriceYuan": 1230,
+      "hirePlusDLevel1Yuan": 400
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 9,
+      "recruitmentPriceYuan": 290,
+      "cumulativeRecruitmentPriceYuan": 1520,
+      "hirePlusDLevel1Yuan": 440
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 10,
+      "recruitmentPriceYuan": 340,
+      "cumulativeRecruitmentPriceYuan": 1860,
+      "hirePlusDLevel1Yuan": 490
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 11,
+      "recruitmentPriceYuan": 400,
+      "cumulativeRecruitmentPriceYuan": 2260,
+      "hirePlusDLevel1Yuan": 550
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 12,
+      "recruitmentPriceYuan": 460,
+      "cumulativeRecruitmentPriceYuan": 2720,
+      "hirePlusDLevel1Yuan": 610
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 13,
+      "recruitmentPriceYuan": 530,
+      "cumulativeRecruitmentPriceYuan": 3250,
+      "hirePlusDLevel1Yuan": 680
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 14,
+      "recruitmentPriceYuan": 610,
+      "cumulativeRecruitmentPriceYuan": 3860,
+      "hirePlusDLevel1Yuan": 760
+    },
+    {
+      "map": 2,
+      "recruitmentOrdinal": 15,
+      "recruitmentPriceYuan": 690,
+      "cumulativeRecruitmentPriceYuan": 4550,
+      "hirePlusDLevel1Yuan": 840
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 16,
+      "recruitmentPriceYuan": 780,
+      "cumulativeRecruitmentPriceYuan": 5330,
+      "hirePlusDLevel1Yuan": 930
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 17,
+      "recruitmentPriceYuan": 870,
+      "cumulativeRecruitmentPriceYuan": 6200,
+      "hirePlusDLevel1Yuan": 1020
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 18,
+      "recruitmentPriceYuan": 970,
+      "cumulativeRecruitmentPriceYuan": 7170,
+      "hirePlusDLevel1Yuan": 1120
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 19,
+      "recruitmentPriceYuan": 1070,
+      "cumulativeRecruitmentPriceYuan": 8240,
+      "hirePlusDLevel1Yuan": 1220
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 20,
+      "recruitmentPriceYuan": 1180,
+      "cumulativeRecruitmentPriceYuan": 9420,
+      "hirePlusDLevel1Yuan": 1330
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 21,
+      "recruitmentPriceYuan": 1300,
+      "cumulativeRecruitmentPriceYuan": 10720,
+      "hirePlusDLevel1Yuan": 1450
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 22,
+      "recruitmentPriceYuan": 1420,
+      "cumulativeRecruitmentPriceYuan": 12140,
+      "hirePlusDLevel1Yuan": 1570
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 23,
+      "recruitmentPriceYuan": 1550,
+      "cumulativeRecruitmentPriceYuan": 13690,
+      "hirePlusDLevel1Yuan": 1700
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 24,
+      "recruitmentPriceYuan": 1690,
+      "cumulativeRecruitmentPriceYuan": 15380,
+      "hirePlusDLevel1Yuan": 1840
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 25,
+      "recruitmentPriceYuan": 1830,
+      "cumulativeRecruitmentPriceYuan": 17210,
+      "hirePlusDLevel1Yuan": 1980
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 26,
+      "recruitmentPriceYuan": 1980,
+      "cumulativeRecruitmentPriceYuan": 19190,
+      "hirePlusDLevel1Yuan": 2130
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 27,
+      "recruitmentPriceYuan": 2130,
+      "cumulativeRecruitmentPriceYuan": 21320,
+      "hirePlusDLevel1Yuan": 2280
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 28,
+      "recruitmentPriceYuan": 2290,
+      "cumulativeRecruitmentPriceYuan": 23610,
+      "hirePlusDLevel1Yuan": 2440
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 29,
+      "recruitmentPriceYuan": 2450,
+      "cumulativeRecruitmentPriceYuan": 26060,
+      "hirePlusDLevel1Yuan": 2600
+    },
+    {
+      "map": 3,
+      "recruitmentOrdinal": 30,
+      "recruitmentPriceYuan": 2620,
+      "cumulativeRecruitmentPriceYuan": 28680,
+      "hirePlusDLevel1Yuan": 2770
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 31,
+      "recruitmentPriceYuan": 2800,
+      "cumulativeRecruitmentPriceYuan": 31480,
+      "hirePlusDLevel1Yuan": 2950
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 32,
+      "recruitmentPriceYuan": 2980,
+      "cumulativeRecruitmentPriceYuan": 34460,
+      "hirePlusDLevel1Yuan": 3130
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 33,
+      "recruitmentPriceYuan": 3170,
+      "cumulativeRecruitmentPriceYuan": 37630,
+      "hirePlusDLevel1Yuan": 3320
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 34,
+      "recruitmentPriceYuan": 3370,
+      "cumulativeRecruitmentPriceYuan": 41000,
+      "hirePlusDLevel1Yuan": 3520
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 35,
+      "recruitmentPriceYuan": 3570,
+      "cumulativeRecruitmentPriceYuan": 44570,
+      "hirePlusDLevel1Yuan": 3720
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 36,
+      "recruitmentPriceYuan": 3780,
+      "cumulativeRecruitmentPriceYuan": 48350,
+      "hirePlusDLevel1Yuan": 3930
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 37,
+      "recruitmentPriceYuan": 3990,
+      "cumulativeRecruitmentPriceYuan": 52340,
+      "hirePlusDLevel1Yuan": 4140
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 38,
+      "recruitmentPriceYuan": 4210,
+      "cumulativeRecruitmentPriceYuan": 56550,
+      "hirePlusDLevel1Yuan": 4360
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 39,
+      "recruitmentPriceYuan": 4430,
+      "cumulativeRecruitmentPriceYuan": 60980,
+      "hirePlusDLevel1Yuan": 4580
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 40,
+      "recruitmentPriceYuan": 4660,
+      "cumulativeRecruitmentPriceYuan": 65640,
+      "hirePlusDLevel1Yuan": 4810
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 41,
+      "recruitmentPriceYuan": 4900,
+      "cumulativeRecruitmentPriceYuan": 70540,
+      "hirePlusDLevel1Yuan": 5050
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 42,
+      "recruitmentPriceYuan": 5140,
+      "cumulativeRecruitmentPriceYuan": 75680,
+      "hirePlusDLevel1Yuan": 5290
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 43,
+      "recruitmentPriceYuan": 5390,
+      "cumulativeRecruitmentPriceYuan": 81070,
+      "hirePlusDLevel1Yuan": 5540
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 44,
+      "recruitmentPriceYuan": 5650,
+      "cumulativeRecruitmentPriceYuan": 86720,
+      "hirePlusDLevel1Yuan": 5800
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 45,
+      "recruitmentPriceYuan": 5910,
+      "cumulativeRecruitmentPriceYuan": 92630,
+      "hirePlusDLevel1Yuan": 6060
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 46,
+      "recruitmentPriceYuan": 6180,
+      "cumulativeRecruitmentPriceYuan": 98810,
+      "hirePlusDLevel1Yuan": 6330
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 47,
+      "recruitmentPriceYuan": 6450,
+      "cumulativeRecruitmentPriceYuan": 105260,
+      "hirePlusDLevel1Yuan": 6600
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 48,
+      "recruitmentPriceYuan": 6730,
+      "cumulativeRecruitmentPriceYuan": 111990,
+      "hirePlusDLevel1Yuan": 6880
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 49,
+      "recruitmentPriceYuan": 7010,
+      "cumulativeRecruitmentPriceYuan": 119000,
+      "hirePlusDLevel1Yuan": 7160
+    },
+    {
+      "map": 4,
+      "recruitmentOrdinal": 50,
+      "recruitmentPriceYuan": 7300,
+      "cumulativeRecruitmentPriceYuan": 126300,
+      "hirePlusDLevel1Yuan": 7450
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 51,
+      "recruitmentPriceYuan": 7600,
+      "cumulativeRecruitmentPriceYuan": 133900,
+      "hirePlusDLevel1Yuan": 7750
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 52,
+      "recruitmentPriceYuan": 7900,
+      "cumulativeRecruitmentPriceYuan": 141800,
+      "hirePlusDLevel1Yuan": 8050
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 53,
+      "recruitmentPriceYuan": 8210,
+      "cumulativeRecruitmentPriceYuan": 150010,
+      "hirePlusDLevel1Yuan": 8360
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 54,
+      "recruitmentPriceYuan": 8530,
+      "cumulativeRecruitmentPriceYuan": 158540,
+      "hirePlusDLevel1Yuan": 8680
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 55,
+      "recruitmentPriceYuan": 8850,
+      "cumulativeRecruitmentPriceYuan": 167390,
+      "hirePlusDLevel1Yuan": 9000
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 56,
+      "recruitmentPriceYuan": 9180,
+      "cumulativeRecruitmentPriceYuan": 176570,
+      "hirePlusDLevel1Yuan": 9330
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 57,
+      "recruitmentPriceYuan": 9510,
+      "cumulativeRecruitmentPriceYuan": 186080,
+      "hirePlusDLevel1Yuan": 9660
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 58,
+      "recruitmentPriceYuan": 9850,
+      "cumulativeRecruitmentPriceYuan": 195930,
+      "hirePlusDLevel1Yuan": 10000
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 59,
+      "recruitmentPriceYuan": 10190,
+      "cumulativeRecruitmentPriceYuan": 206120,
+      "hirePlusDLevel1Yuan": 10340
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 60,
+      "recruitmentPriceYuan": 10540,
+      "cumulativeRecruitmentPriceYuan": 216660,
+      "hirePlusDLevel1Yuan": 10690
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 61,
+      "recruitmentPriceYuan": 10900,
+      "cumulativeRecruitmentPriceYuan": 227560,
+      "hirePlusDLevel1Yuan": 11050
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 62,
+      "recruitmentPriceYuan": 11260,
+      "cumulativeRecruitmentPriceYuan": 238820,
+      "hirePlusDLevel1Yuan": 11410
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 63,
+      "recruitmentPriceYuan": 11630,
+      "cumulativeRecruitmentPriceYuan": 250450,
+      "hirePlusDLevel1Yuan": 11780
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 64,
+      "recruitmentPriceYuan": 12010,
+      "cumulativeRecruitmentPriceYuan": 262460,
+      "hirePlusDLevel1Yuan": 12160
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 65,
+      "recruitmentPriceYuan": 12390,
+      "cumulativeRecruitmentPriceYuan": 274850,
+      "hirePlusDLevel1Yuan": 12540
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 66,
+      "recruitmentPriceYuan": 12780,
+      "cumulativeRecruitmentPriceYuan": 287630,
+      "hirePlusDLevel1Yuan": 12930
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 67,
+      "recruitmentPriceYuan": 13170,
+      "cumulativeRecruitmentPriceYuan": 300800,
+      "hirePlusDLevel1Yuan": 13320
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 68,
+      "recruitmentPriceYuan": 13570,
+      "cumulativeRecruitmentPriceYuan": 314370,
+      "hirePlusDLevel1Yuan": 13720
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 69,
+      "recruitmentPriceYuan": 13970,
+      "cumulativeRecruitmentPriceYuan": 328340,
+      "hirePlusDLevel1Yuan": 14120
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 70,
+      "recruitmentPriceYuan": 14380,
+      "cumulativeRecruitmentPriceYuan": 342720,
+      "hirePlusDLevel1Yuan": 14530
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 71,
+      "recruitmentPriceYuan": 14800,
+      "cumulativeRecruitmentPriceYuan": 357520,
+      "hirePlusDLevel1Yuan": 14950
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 72,
+      "recruitmentPriceYuan": 15220,
+      "cumulativeRecruitmentPriceYuan": 372740,
+      "hirePlusDLevel1Yuan": 15370
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 73,
+      "recruitmentPriceYuan": 15650,
+      "cumulativeRecruitmentPriceYuan": 388390,
+      "hirePlusDLevel1Yuan": 15800
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 74,
+      "recruitmentPriceYuan": 16090,
+      "cumulativeRecruitmentPriceYuan": 404480,
+      "hirePlusDLevel1Yuan": 16240
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 75,
+      "recruitmentPriceYuan": 16530,
+      "cumulativeRecruitmentPriceYuan": 421010,
+      "hirePlusDLevel1Yuan": 16680
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 76,
+      "recruitmentPriceYuan": 16980,
+      "cumulativeRecruitmentPriceYuan": 437990,
+      "hirePlusDLevel1Yuan": 17130
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 77,
+      "recruitmentPriceYuan": 17430,
+      "cumulativeRecruitmentPriceYuan": 455420,
+      "hirePlusDLevel1Yuan": 17580
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 78,
+      "recruitmentPriceYuan": 17890,
+      "cumulativeRecruitmentPriceYuan": 473310,
+      "hirePlusDLevel1Yuan": 18040
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 79,
+      "recruitmentPriceYuan": 18350,
+      "cumulativeRecruitmentPriceYuan": 491660,
+      "hirePlusDLevel1Yuan": 18500
+    },
+    {
+      "map": 5,
+      "recruitmentOrdinal": 80,
+      "recruitmentPriceYuan": 18820,
+      "cumulativeRecruitmentPriceYuan": 510480,
+      "hirePlusDLevel1Yuan": 18970
+    }
+  ]
+}

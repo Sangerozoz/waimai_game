@@ -1,0 +1,102 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -138,7 +138,7 @@
+   }
+   private rebuildLayout(resetCamera=false):void {
+     if(this.book.active)this.orderCardOpen=true;
+-    const oldScroll=this.panel?.getChildByName('DeliverySheet')?.getChildByName('ScrollableContent')?.getComponent(ScrollView);
++    const oldScroll=this.panel?.getChildByName('DeliverySheet')?.getChildByName('SheetContent')?.getChildByName('ScrollableContent')?.getComponent(ScrollView);
+     const scrollY=oldScroll?.getScrollOffset().y||0;
+     const camera=resetCamera?null:this.city?.captureView?.();
+     const wasPhone=!!this.phone,wasDialog=this.modalKind,wasNotice=this.noticeMessage;
+@@ -172,7 +172,7 @@
+     if(wasDialog==='garage')this.openGarage();
+     if(wasDialog==='maps'&&!this.modal)this.openMaps();
+     if(wasDialog==='bills'&&!this.modal)this.openBills();
+-    this.renderPanel();const nextScroll=this.panel.getChildByName('DeliverySheet')?.getChildByName('ScrollableContent')?.getComponent(ScrollView);if(nextScroll&&scrollY)nextScroll.scrollToOffset(new Vec2(0,scrollY),0);if(wasPhone&&!this.gameplayFrozen)this.openPhone();
++    this.renderPanel();const nextScroll=this.panel.getChildByName('DeliverySheet')?.getChildByName('SheetContent')?.getChildByName('ScrollableContent')?.getComponent(ScrollView);if(nextScroll&&scrollY)nextScroll.scrollToOffset(new Vec2(0,scrollY),0);if(wasPhone&&!this.gameplayFrozen)this.openPhone();
+     if(this.gameplayFrozen){this.city.cancelLocate();this.openPauseDialog();}
+     if(wasNotice)this.showMessage(wasNotice);
+   }
+@@ -180,16 +180,17 @@
+   private metrics(){return presentationMetrics(1280+this.screenExtra);}
+   // OrderPanel already applies -screenExtra/2 and the bottom safe inset.
+   // Focused orders have no navigation or central-button clearance to reserve.
+-  private sheetBottomFor(screenHeight:number):number{return (this.book.active?-640:-479.4)+pageMargin(screenHeight);}
++  private sheetBottomFor(screenHeight:number):number{return this.book.active?-640-this.safeInsets.bottom:-479.4+pageMargin(screenHeight);}
+   private sheetBottom():number{return this.sheetBottomFor(1280+this.screenExtra);}
+   private compactData():CompactOrder|null {
+     const active=this.book?.active;if(!active)return null;const r=active.routes[active.selected];
+     return {offer:active.offer,from:this.book.data.pois[active.offer.from].name,to:this.book.data.pois[active.offer.to].name,metres:r.metres};
+   }
+   private sheetHeightFor(screenHeight:number):number {
+-    const data=this.compactData();if(!data)return 440;const m=presentationMetrics(screenHeight),width=720-this.safeInsets.left-this.safeInsets.right-2*pageMargin(screenHeight)-40;
++    const data=this.compactData();if(!data)return 440;const m=presentationMetrics(screenHeight),width=720-this.safeInsets.left-this.safeInsets.right-2*pageMargin(screenHeight);
+     const body=compactOrderHeight(data,width,screenHeight),route=this.book.active?.mode==='routes'?Math.ceil(m.aux*4.5)+16:60;
+-    return Math.max(440,Math.min(690,body+route+m.action+146));
++    const extra=this.safeInsets.bottom+cssUnits(24,screenHeight)-16;
++    return Math.max(440,Math.min(690,body+route+m.action+146))+extra;
+   }
+   private sheetHeight():number{return this.sheetHeightFor(1280+this.screenExtra);}
+   private action(parent:Node,text:string,x:number,y:number,width:number,action:()=>void,fill=C.primary,enabled=true):Node {
+@@ -278,10 +279,20 @@
+   private controls():void {
+     const station=item(this.root,'StationEntry',296-this.safeInsets.right,628-this.profileCard.getComponent(UITransform)!.height-70+this.screenExtra/2-this.safeInsets.top,100,100);
+     const picture=box(station,'PlaceholderIcon-station',0,11,36,32,'#F0EEE7',8);
+-    label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,86.4,86.4,picture);stationArt.getComponent(Sprite)!.grayscale=true;const position=()=>this.positionStation(station);stationArt.on(Node.EventType.SIZE_CHANGED,position);stationArt.on(Node.EventType.ACTIVE_CHANGED,position);position();readable(station,'站点',0,-52,this.metrics().aux,'#AAA69C',94,true,'center');
++    label(picture,'站',0,0,20,'#AAA69C',32,true,'center');const stationArt=cartoonArt(station,'station',0,11,86.4,86.4,picture);stationArt.getComponent(Sprite)!.grayscale=true;
++    readable(station,'站点',0,-52,this.metrics().aux,'#AAA69C',94,true,'center');
+     const y=this.book.mode==='idle'||!this.orderCardOpen?-400:this.sheetBottom()+this.sheetHeight()+this.metrics().action/2+20;
+-    const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-this.outerMargin(),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
+-    icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locateAnimated());
++    const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',0,0,locateSize,locateSize);
++    const locateArt=icon(locate,'target',0,0,C.ink,86.4/48);tap(locate,()=>this.city.locateAnimated());
++    const position=()=>{
++      if(!station.isValid||!locate.isValid)return;this.positionStation(station);
++      const stationHeight=stationArt.active?stationArt.getComponent(UITransform)!.height:32;
++      const targetHeight=locateArt.active?locateArt.getComponent(UITransform)!.height:86.4;
++      const stationY=stationArt.active?11:picture.position.y;
++      locate.setPosition(360-this.safeInsets.right-locateSize/2-this.outerMargin(),station.position.y+stationY-stationHeight/2+targetHeight/2);
++    };
++    stationArt.on(Node.EventType.SIZE_CHANGED,position);stationArt.on(Node.EventType.ACTIVE_CHANGED,position);
++    locateArt.on(Node.EventType.SIZE_CHANGED,position);locateArt.on(Node.EventType.ACTIVE_CHANGED,position);position();
+     const statusHeight=this.metrics().action*.65,statusWidth=cssUnits(94,1280+this.screenExtra);
+     const statusY=this.profileCard.position.y+this.screenExtra/2-this.safeInsets.top-90-this.outerMargin()-statusHeight/2;
+     this.deliveryStatus=box(this.root,'DeliveryStatus',0,statusY,statusWidth,statusHeight,'#FFFCF5',12);
+@@ -400,13 +411,15 @@
+       return;
+     }
+     if(!active||!this.orderCardOpen)return;
+-    const height=this.sheetHeight(),width=720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin(),m=this.metrics();
+-    const p=box(this.panel,'DeliverySheet',(this.safeInsets.left-this.safeInsets.right)/2,this.sheetBottom()+height/2,width,height,C.paper,24);
+-    const top=height/2,inner=width-40;
++    const height=this.sheetHeight(),inner=720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin(),m=this.metrics();
++    const sheet=item(this.panel,'DeliverySheet',0,this.sheetBottom()+height/2,720,height),surface=item(sheet,'Surface'),ink=surface.addComponent(Graphics);
++    ink.fillColor=col(C.paper);ink.roundRect(-360,-height/2,720,height,18);ink.fill();ink.rect(-360,-height/2,720,18);ink.fill();
++    const p=item(sheet,'SheetContent',(this.safeInsets.left-this.safeInsets.right)/2,0,inner,height);
++    const top=height/2;
+     const offer=active.offer,route=active.routes[active.selected],timing=this.book.timingForRoute(route),receipt=active.receipt,phase=active.handoff?.phase;
+     const title=readable(p,(offer.source==='transfer'?'转单 · ':'')+deadlineText(active.deadlineSeconds)+(offer.type==='urgent'?' · 加急':''),-36,top-40,m.body,C.ink,inner-90,true,'left',64);
+ 
+-    const planning=active.mode==='routes',footer=m.action+32,info=this.compactData()!,infoHeight=compactOrderHeight(info,inner,1280+this.screenExtra);
++    const planning=active.mode==='routes',footer=this.safeInsets.bottom+cssUnits(24,1280+this.screenExtra)+m.action+16,info=this.compactData()!,infoHeight=compactOrderHeight(info,inner,1280+this.screenExtra);
+     const routeHeight=Math.ceil(m.aux*4.5)+16,detailsHeight=infoHeight+(planning?routeHeight+28:70);
+     const content=scrollContent(p,inner,top-84,-top+footer,detailsHeight);content.name='OrderDetails';
+     const infoNode=item(content,'CompactOrderInfo',0,0,inner,infoHeight);compactOrderInfo(infoNode,info,inner,1280+this.screenExtra);
+@@ -424,7 +437,7 @@
+     }else if(active.mode==='running'){
+       this.tripLabel=readable(content,'',0,-infoHeight-30,m.body,C.ink,inner,true,'left',60);this.updateProgress();
+     }
+-    const allowCancel=phase?['planning','toPickup','awaitPickup'].indexOf(phase)>=0:(active.mode==='routes'||active.mode==='running'&&this.book.tripStage==='pickup'),buttonY=-top+16+m.action/2,cancelWidth=Math.max(144,cssUnits(44,1280+this.screenExtra),m.body*4+24);
++    const allowCancel=phase?['planning','toPickup','awaitPickup'].indexOf(phase)>=0:(active.mode==='routes'||active.mode==='running'&&this.book.tripStage==='pickup'),buttonY=-top+this.safeInsets.bottom+cssUnits(24,1280+this.screenExtra)+m.action/2,cancelWidth=Math.max(144,cssUnits(44,1280+this.screenExtra),m.body*4+24);
+     if(allowCancel)this.action(p,'取消订单',-inner/2+cancelWidth/2,buttonY,cancelWidth,()=>{if(!this.act(()=>this.book.cancel()))return;this.rebuildLayout(true);},'#DE4258');
+     const mainWidth=allowCancel?inner-cancelWidth-12:inner,mainX=allowCancel?(cancelWidth+12)/2:0;
+     if(active.mode==='routes')this.action(p,'去取餐',mainX,buttonY,mainWidth,()=>{if(!this.act(()=>this.book.depart()))return;this.rebuildLayout();this.city.locate(true);this.presentHandoff();});
+@@ -694,6 +707,6 @@
+     const remaining=active.deadlineSeconds-progress.displaySeconds*progress.progress;
+     if(this.tripLabel){const phase=active.handoff?.phase,stage=phase==='awaitPickup'?'已到店，等待取餐':phase==='awaitDeliveryStart'?'取餐完成，准备送餐':this.book.tripStage==='pickup'?'前往餐厅取餐':this.book.tripStage==='collecting'?`正在取餐中 · ${Math.ceil(this.book.pickupWaitRemaining)}秒`:'正在送往顾客';this.tripLabel.string=stage+' · '+(remaining>=0?'剩余 ':'已超时 ')+formatRemaining(Math.abs(remaining));}
+     if(this.timer)this.timer.string=active.mode==='done'?'已到达':remaining>=0?'剩余 '+formatRemaining(remaining):'已超时 '+formatRemaining(-remaining);
+-    if(this.progressFill){this.progressFill.setScale(progress.progress,1,1);this.progressFill.setPosition(-(720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin()-40)/2*(1-progress.progress),-60);}
++    if(this.progressFill){this.progressFill.setScale(progress.progress,1,1);this.progressFill.setPosition(-(720-this.safeInsets.left-this.safeInsets.right-2*this.outerMargin())/2*(1-progress.progress),-60);}
+   }
+ }

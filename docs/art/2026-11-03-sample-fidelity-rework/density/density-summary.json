@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-03",
+  "status": "density-v2-produced-not-engine-integrated-or-user-accepted",
+  "bounds": {
+    "minX": -1720,
+    "maxX": -1340,
+    "minY": -240,
+    "maxY": 200
+  },
+  "sampleAreaSquareMetres": 167200,
+  "maskResolutionMetres": 0.5,
+  "sourceBuildingCount": 134,
+  "newBuildingCount": 110,
+  "floorDistribution": {
+    "3": 37,
+    "4": 37,
+    "5": 18,
+    "6": 18
+  },
+  "moduleDistribution": {
+    "corner-shop-house": 16,
+    "continuous-shop-house": 84,
+    "courtyard-apartment": 10
+  },
+  "sourceFootprintAreaSumClippedExactSquareMetres": 25450.7191,
+  "sourceFootprintUnionRasterSquareMetres": 26133.75,
+  "newFootprintAreaSumExactSquareMetres": 40976.0097,
+  "newFootprintUnionRasterSquareMetres": 42510.0,
+  "preplacementFreeGroundAreaSquareMetres": 77954.5,
+  "newExactFootprintCoverageOfPreplacementFreeGround": 0.52564,
+  "newRasterFootprintCoverageOfPreplacementFreeGround": 0.545318,
+  "newAndOriginalBuildingUnionFractionOfWholeSampleApprox": 0.410549,
+  "greenAreaSquareMetresApprox": 1580.5,
+  "greenFractionOfPreplacementFreeGroundApprox": 0.020275,
+  "greenFractionOfWholeSampleApprox": 0.009453,
+  "pavingAndNecessaryOpenLandAreaSquareMetresApprox": 63809.5,
+  "pavingAndNecessaryOpenLandFractionOfWholeSampleApprox": 0.381636,
+  "pavingBreakdownSquareMetresApprox": {
+    "requiredProtectedSetbacksAndSidewalks": 29947.75,
+    "remainingPreplacementFreeGroundPaving": 33861.75,
+    "ofFreePavingWithin3mOfNewBuildings": 20177.75,
+    "ofFreePavingFurtherThan3mFromNewBuildings": 13684.0
+  },
+  "buildingCoverageOfNonRoadNonWaterLandApprox": 0.511967,
+  "wholeSampleDisjointCoverageSquareMetresApprox": {
+    "water": 7517.25,
+    "originalRoadSurface": 25696.0,
+    "originalBuildings": 26086.75,
+    "newBuildings": 42510.0,
+    "green": 1580.5,
+    "pavingAndNecessaryOpenLand": 63809.5
+  },
+  "disjointCoverageTotalSquareMetres": 167200.0,
+  "unassignedRasterSquareMetres": 0.0,
+  "parcels": 154,
+  "groundParcels": 125,
+  "buildingGroupReferenceParcels": 29,
+  "trees": 18,
+  "features": 40,
+  "pocketGardenMaximumConnectedAreaSquareMetresApprox": 86.25,
+  "placementPasses": [
+    {
+      "moduleSizeMetres": [
+        38,
+        24
+      ],
+      "placed": 23,
+      "newFootprintAreaAccumulated": 20976.0,
+      "coverageOfPreplacementFreeGround": 0.26908
+    },
+    {
+      "moduleSizeMetres": [
+        34,
+        20
+      ],
+      "placed": 10,
+      "newFootprintAreaAccumulated": 27776.0,
+      "coverageOfPreplacementFreeGround": 0.35631
+    },
+    {
+      "moduleSizeMetres": [
+        30,
+        22
+      ],
+      "placed": 3,
+      "newFootprintAreaAccumulated": 29756.0,
+      "coverageOfPreplacementFreeGround": 0.38171
+    },
+    {
+      "moduleSizeMetres": [
+        28,
+        18
+      ],
+      "placed": 3,
+      "newFootprintAreaAccumulated": 31268.0,
+      "coverageOfPreplacementFreeGround": 0.401106
+    },
+    {
+      "moduleSizeMetres": [
+        24,
+        16
+      ],
+      "placed": 2,
+      "newFootprintAreaAccumulated": 32036.0,
+      "coverageOfPreplacementFreeGround": 0.410958
+    },
+    {
+      "moduleSizeMetres": [
+        22,
+        14
+      ],
+      "placed": 5,
+      "newFootprintAreaAccumulated": 33576.0,
+      "coverageOfPreplacementFreeGround": 0.430713
+    },
+    {
+      "moduleSizeMetres": [
+        18,
+        12
+      ],
+      "placed": 9,
+      "newFootprintAreaAccumulated": 35520.0,
+      "coverageOfPreplacementFreeGround": 0.45565
+    },
+    {
+      "moduleSizeMetres": [
+        14,
+        10
+      ],
+      "placed": 19,
+      "newFootprintAreaAccumulated": 38180.0,
+      "coverageOfPreplacementFreeGround": 0.489773
+    },
+    {
+      "moduleSizeMetres": [
+        12,
+        8
+      ],
+      "placed": 16,
+      "newFootprintAreaAccumulated": 39716.0,
+      "coverageOfPreplacementFreeGround": 0.509477
+    },
+    {
+      "moduleSizeMetres": [
+        9,
+        7
+      ],
+      "placed": 20,
+      "newFootprintAreaAccumulated": 40976.0,
+      "coverageOfPreplacementFreeGround": 0.52564
+    }
+  ],
+  "targetInterpretation": "PM production target, not user-approved numerical parameter: new footprint about50-65% of preplacement free ground; green <=8-12%; small lawns not target to fill",
+  "targetNewCoverageReached": true,
+  "targetGreenUpperLimitReached": true,
+  "precisionNotes": [
+    "Original raw floating geometry unchanged.",
+    "Analytic per-original-footprint areas are clipped to the sample then summed; overlaps can double count. Union figures use 0.5m raster instead.",
+    "Exact new-footprint sum uses shoelace and nonoverlapping rectangles; raster footprint area includes conservative edge pixels.",
+    "Free denominator excludes actual roads plus2.5m per-side sidewalk, conservative20m waterway+1m bank margin, original buildings+1.5m margin,5m entrance disks,1m sample edge.",
+    "Placement adds1m expanded mask around each new building; adjacent buildings retain about2m service/pedestrian spacing plus raster conservatism.",
+    "Paving includes required sidewalks, original-building setbacks, bank access, microcourtyards and residual alleys; it is not all a plaza."
+  ],
+  "runtimeTestsRun": false,
+  "userVisualAcceptance": false
+}

@@ -39,3 +39,7 @@ export function experienceProgress(experience:number):{level:number;start:number
 }
 
 export function cssUnits(pixels:number,screenHeight=1280):number {const frame=view.getFrameSize();return pixels/(Math.min(frame.width/720,frame.height/screenHeight)||1);}
+
+// Default outer spacing is measured in browser CSS pixels, inside safe insets.
+export const DEFAULT_PAGE_MARGIN_CSS=16;
+export function pageMargin(screenHeight=1280):number{return cssUnits(DEFAULT_PAGE_MARGIN_CSS,screenHeight);}

@@ -1,0 +1,146 @@
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -59,6 +59,7 @@
+   private lastSaveError='';
+   private pendingSave=false;
+   private paused=false;
++  private cancellationPendingReturn=false;
+   private entryGate=false;
+   private get gameplayFrozen():boolean{return this.paused||this.entryGate;}
+   private readonly writerLease=new WebWriterLease();
+@@ -192,9 +193,11 @@
+     
+     box(identity,'ExperienceTrack',0,0,1,1,C.line,10);
+     box(identity,'ExperienceFill',0,0,1,1,C.primary,10);
+-    if(this.book.active){
++    {
+       const pause=box(identity,'Button-暂停',0,0,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action,C.light,12);
+-      readable(pause,'暂停',0,0,m.aux,'#FFFFFF',104,true,'center',m.action-8);tap(pause,()=>this.pauseGame());
++      const symbol=item(pause,'PauseSymbol');const ink=symbol.addComponent(Graphics);ink.fillColor=col('#FFFFFF');
++      for(const x of [-13,5]){ink.roundRect(x,-18,8,36,2);ink.fill();}
++      pause.active=this.canPauseDelivery;tap(pause,()=>this.pauseGame());
+     }
+     const avatar=item(identity,'PlayerAvatar',0,0,104,104);
+     const face=box(avatar,'AvatarPlaceholder',-10,0,84,90,C.light,17);
+@@ -226,7 +229,7 @@
+     paint(identity.getChildByName('ExperienceTrack')!,0,barY,avatarWidth,32,C.light,10);
+     const fill=identity.getChildByName('ExperienceFill')!;fill.active=progress>0;paint(fill,-avatarWidth*(1-progress)/2,barY,Math.max(0,avatarWidth*progress),32,C.primary,10);
+     this.experience.fontSize=28;this.experience.lineHeight=28;place(this.experience.node,0,barY,avatarWidth,32);this.experience.horizontalAlign=Label.HorizontalAlign.CENTER;this.experience.enableWrapText=false;this.experience.overflow=Label.Overflow.SHRINK;
+-    const pause=identity.getChildByName('Button-暂停');if(pause)place(pause,0,barY-16-12-m.action/2,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action);
++    const pause=identity.getChildByName('Button-暂停');if(pause){pause.active=this.canPauseDelivery;place(pause,0,barY-16-12-m.action/2,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action);}
+     const font=Math.max(24,Math.ceil(m.body*.8)),iconSize=40,pad=14,gap=12,available=width-avatarWidth-18;
+     const wanted=(v:string)=>Math.ceil(Array.from(v).length*font*.66)+iconSize+pad*3;
+     const ratingWidth=wanted(this.rating.string),moneyWidth=Math.min(available,wanted(this.money.string));
+@@ -353,7 +356,7 @@
+     if(!this.gameplayFrozen)this.city.advanceLocate(dt);
+ 
+     if(this.skipNextFrame){this.skipNextFrame=false;return;}
+-    if(this.pendingSave){this.saveElapsed+=dt;if(this.saveElapsed>=1){this.saveElapsed=0;if(this.save()){this.onlineAt=this.gameplayFrozen?null:Date.now();if(this.phone&&this.book.active)this.closePhone();this.rebuildLayout(!this.book.active);if(!this.gameplayFrozen)this.presentHandoff();}}return;}
++    if(this.pendingSave){this.saveElapsed+=dt;if(this.saveElapsed>=1){this.saveElapsed=0;if(this.save()){if(this.cancellationPendingReturn){this.finishCancelledDelivery();return;}this.onlineAt=this.gameplayFrozen?null:Date.now();if(this.phone&&this.book.active)this.closePhone();this.rebuildLayout(!this.book.active);if(!this.gameplayFrozen)this.presentHandoff();}}return;}
+     if(this.gameplayFrozen){this.foregroundClock.reset();this.onlineAt=null;return;}
+     const now=Date.now();if(this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,now);this.onlineAt=now;
+     this.saveElapsed+=dt;this.billElapsed+=dt;
+@@ -403,8 +406,9 @@
+     readable(node,message,0,0,m.body,C.ink,width-32,true,'center',height-16);
+     this.scheduleOnce(()=>{if(this.pendingSave)return;if(node.isValid)node.destroy();if(this.toast===node){this.toast=null;this.noticeMessage='';}},4);
+   }
++  private get canPauseDelivery():boolean {return !!this.book?.canCancelDelivery;}
+   private pauseGame():void {
+-    if(!this.book.active||this.gameplayFrozen)return;
++    if(!this.canPauseDelivery||this.gameplayFrozen)return;
+     if(!this.pendingSave&&this.writerLease.writable&&this.onlineAt!==null&&!this.hidden)this.book.recordOnlineTime(this.onlineAt,Date.now());
+     this.paused=true;this.onlineAt=null;this.foregroundClock.reset();this.city.cancelLocate();
+     this.closePhone();if(!this.pendingSave)this.save();this.openPauseDialog();
+@@ -412,17 +416,18 @@
+   private openPauseDialog():void {
+     if(!this.gameplayFrozen)return;
+     const m=this.metrics(),entry=this.entryGate;
+-    const message=this.pendingSave?(this.store.message||'进度保存待重试，请检查存储权限后重试。'):(entry?'当前配送已保留，点击继续游戏恢复。':'行驶、取餐服务与在线统计已暂停。');
++    const message=this.pendingSave?(this.store.message||'进度保存待重试，请检查存储权限后重试。'):(entry?'当前配送已保留，点击继续游戏恢复。':'行驶、取餐服务与在线统计已暂停。取消配送将结束本单，不发收益或经验，不扣钱或评价。');
+     const requested=textHeight(message,m.aux,580)+m.action*(entry?1:2)+224;
+     const {card,width,height,top,bottom}=this.dialog(entry?'继续配送':'游戏已暂停',requested,entry?'entry':'pause',false),inner=width-48;
+     const buttonCount=entry?1:2,content=scrollContent(card,inner,top,bottom+buttonCount*(m.action+12)+8,textHeight(message,m.aux,inner)+16);
+     readable(content,message,0,-textHeight(message,m.aux,inner)/2,m.aux,C.ink,inner,false,'center');
+     const firstY=-height/2+24+m.action/2+(entry?0:m.action+12);
+-    this.action(card,'继续游戏',0,firstY,inner,()=>this.resumeGame());
+-    if(!entry)this.action(card,'退出游戏',0,-height/2+24+m.action/2,inner,()=>this.exitGame(),C.light);
++    this.action(card,'继续游戏',0,firstY,inner,()=>this.resumeGame(),C.primary,!this.cancellationPendingReturn);
++    if(!entry)this.action(card,'取消配送',0,-height/2+24+m.action/2,inner,()=>this.cancelDelivery(),C.light);
+   }
+   private resumeGame():void {
+     if(!this.gameplayFrozen)return;
++    if(this.cancellationPendingReturn){this.cancelDelivery();return;}
+     // Retry the exact frozen snapshot before permitting any new gameplay command.
+     if(!this.save()){this.openPauseDialog();return;}
+     this.paused=false;this.entryGate=false;this.closeDialog();
+@@ -430,13 +435,22 @@
+     if(this.book.mode==='arrived'&&!this.act(()=>this.book.settle(this.book.active?.offer.demand==='door'?true:null))){this.rebuildLayout();return;}
+     this.rebuildLayout();if(this.book.mode==='done')this.openReceipt();else this.presentHandoff();
+   }
+-  private exitGame():void {
+-    if(!this.paused)return;
++  private cancelDelivery():void {
++    if(!this.paused||!this.writerLease.writable)return;
++    if(!this.cancellationPendingReturn){
++      // A pre-existing failed submit must finish before creating another command.
++      if(this.pendingSave&&!this.save()){this.openPauseDialog();return;}
++      try{this.book.cancelDelivery();this.cancellationPendingReturn=true;}
++      catch(error){this.noticeMessage=error instanceof Error?error.message:'取消未完成';this.openPauseDialog();return;}
++    }
+     if(!this.save()){this.openPauseDialog();return;}
+-    this.foregroundClock.reset();this.onlineAt=null;
+-    // Every active-order restore enters the gate before the first simulation frame.
+-    if(typeof window!=='undefined')window.location.reload();
+-    else {this.paused=false;this.entryGate=true;this.rebuildLayout();}
++    this.finishCancelledDelivery();
++  }
++  private finishCancelledDelivery():void {
++    this.cancellationPendingReturn=false;this.paused=false;this.entryGate=false;
++    this.lastHandoffEvent='';this.closeDialog();this.closePhone();
++    this.foregroundClock.reset();this.skipNextFrame=true;this.onlineAt=this.hidden?null:Date.now();
++    this.rebuildLayout(true);
+   }
+   private dismissDialog():void {
+     if(this.gameplayFrozen)return;
+@@ -553,6 +567,7 @@
+     this.action(card,text,0,-height/2+24+m.action/2,inner,()=>{if(!this.act(()=>this.book.upgradeVehicle()))return;this.closeDialog();this.renderPanel();this.showMessage('已升级为 D+');},enabled?C.primary:C.light,enabled);
+   }
+   private updateProgress():void {
++    const pause=this.profileCard?.getChildByName('HeaderContent')?.getChildByName('ProfileIdentity')?.getChildByName('Button-暂停');if(pause)pause.active=this.canPauseDelivery;
+     const active=this.book.active;if(!active)return;
+     const progress=this.book.progress;
+     const remaining=active.deadlineSeconds-progress.displaySeconds*progress.progress;
+--- before/CartoonArt.ts
++++ after/CartoonArt.ts
+@@ -15,6 +15,7 @@
+ crops.avatar={resource:'map-sample/anime/au01/rider-master-original',rect:[340/1024,0,360/1024,360/1536]};
+ // Keep the entire alpha canvas, including warm translucent edge pixels. North-facing art
+ // continues through MapVehicle's existing -90 degree correction and road rotation.
++crops['side-d']={resource:'map-sample/anime/au02/vehicle-d-three-quarter-original',rect:[0,0,1,1]};
+ crops['top-d']={resource:'map-sample/anime/au01/vehicle-top-original',rect:[0,0,1,1]};
+ const atlases=new Map<string,Promise<Texture2D>>(),frames=new Map<string,SpriteFrame>();
+ function loadAtlas(resource:string):Promise<Texture2D> {
+--- before/OrderBook.ts
++++ after/OrderBook.ts
+@@ -197,6 +197,21 @@
+     else if(phase==='toPickup'&&active.elapsed>0){this.riderAnchor=anchorAt(active.routes[active.selected],this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;}
+     this.accepted=null;
+   }
++  /** Post-pickup abandonment is distinct from the original pre-pickup cancel. */
++  get canCancelDelivery():boolean {
++    const active=this.accepted;if(!active||active.mode!=='running')return false;
++    const phase=active.handoff?.phase;
++    return phase?phase==='awaitDeliveryStart'||phase==='toDropoff':this.tripStage==='delivery';
++  }
++  cancelDelivery():void {
++    if(!this.canCancelDelivery)throw new Error('当前阶段不能取消配送');
++    const active=this.accepted!,anchor=anchorAt(active.routes[active.selected],this.progress.routeElapsedSeconds);
++    // Resolve first: malformed routes must not partially clear the activity.
++    anchorExits(this.data,anchor);
++    this.riderAnchor=anchor;this.currentNode=anchor.from;this.snapshotVersion=5;
++    this.accepted=null;
++    // Preserve player, ledger, candidate pool, RNG and refresh quota byte-for-byte.
++  }
+   private handoffState():HandoffState {
+     const a=this.accepted!;return {version:1,phase:a.handoff!.phase,elapsed:a.elapsed,serviceElapsed:a.pickupWaitElapsed||0};
+   }

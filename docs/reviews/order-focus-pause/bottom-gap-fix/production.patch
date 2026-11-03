@@ -1,0 +1,23 @@
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -136,7 +136,7 @@
+     const wasPhone=!!this.phone,wasDialog=this.modalKind,wasNotice=this.noticeMessage;
+     const frame=view.getFrameSize(),requestedExtra=Math.max(0,720*frame.height/frame.width-1280);
+     // Use the next frame's SHOW_ALL scale, rather than the previous layout's extra height.
+-    const idle=this.book.mode==='idle'||!this.orderCardOpen,provisionalHeight=this.sheetHeightFor(1280+requestedExtra),baseMapHeight=idle?1280:640-(-479.4+cssUnits(12,1280+requestedExtra))-provisionalHeight;
++    const idle=this.book.mode==='idle'||!this.orderCardOpen,provisionalHeight=this.sheetHeightFor(1280+requestedExtra),baseMapHeight=idle?1280:640-this.sheetBottomFor(1280+requestedExtra)-provisionalHeight;
+     // Very tall windows must still fit the whole map viewport inside town at 100m.
+     this.screenExtra=CityMap.fitViewportHeight(this.book.data,baseMapHeight+requestedExtra)-baseMapHeight;
+     view.setDesignResolutionSize(720,1280+this.screenExtra,ResolutionPolicy.SHOW_ALL);
+@@ -163,7 +163,10 @@
+     if(wasNotice)this.showMessage(wasNotice);
+   }
+   private metrics(){return presentationMetrics(1280+this.screenExtra);}
+-  private sheetBottom():number{return -479.4+cssUnits(12,1280+this.screenExtra);}
++  // OrderPanel already applies -screenExtra/2 and the bottom safe inset.
++  // Focused orders have no navigation or central-button clearance to reserve.
++  private sheetBottomFor(screenHeight:number):number{return (this.book.active?-640:-479.4)+cssUnits(12,screenHeight);}
++  private sheetBottom():number{return this.sheetBottomFor(1280+this.screenExtra);}
+   private compactData():CompactOrder|null {
+     const active=this.book?.active;if(!active)return null;const r=active.routes[active.selected];
+     return {offer:active.offer,from:this.book.data.pois[active.offer.from].name,to:this.book.data.pois[active.offer.to].name,metres:r.metres};

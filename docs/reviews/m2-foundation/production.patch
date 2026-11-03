@@ -1,0 +1,450 @@
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -1,3 +1,5 @@
++import { ForegroundClock } from './TripClock';
++import { WebWriterLease } from './WebWriterLease';
+ import { _decorator, BlockInputEvents, Component, Game, game, Graphics, JsonAsset, Label, Node, ScrollView, Vec2, resources, Sprite, UITransform, ResolutionPolicy, sys, view } from 'cc';
+ import { CityMap, ROUTE_COLORS } from './CityMap';
+ import { prepareCity } from './PlaceCatalog';
+@@ -56,6 +58,8 @@
+   private saveElapsed=0;
+   private lastSaveError='';
+   private pendingSave=false;
++  private readonly writerLease=new WebWriterLease();
++  private readonly foregroundClock=new ForegroundClock();
+   private lastHandoffEvent='';
+   private readonly pageHide=()=>this.onHide();
+   private readonly viewportResize=()=>this.onResize();
+@@ -63,13 +67,14 @@
+   start():void {
+     const canvas=this.node.parent!;
+     const loading=label(canvas,'正在打开澄川骑手地图…',0,0,26,C.ink,650,true,'center');
+-    resources.load('map-sample/city',JsonAsset,(error,asset)=>{
++    resources.load('map-sample/city',JsonAsset,async(error,asset)=>{
+       if(!this.isValid)return;
+       if(error){loading.string='地图加载失败，请重新打开';console.error(error);return;}
+       let recovery='';
+       try {
++        await this.writerLease.acquire();if(!this.isValid){this.writerLease.release();return;}
+         const data=prepareCity(asset.json as CityData);
+-        this.store=new CountySaveStore({getItem:key=>sys.localStorage.getItem(key),setItem:(key,value)=>sys.localStorage.setItem(key,value)});
++        this.store=new CountySaveStore({getItem:key=>sys.localStorage.getItem(key),setItem:(key,value)=>sys.localStorage.setItem(key,value)},undefined,()=>this.writerLease.writable);
+         const loaded=this.store.load(raw=>OrderBook.restore(data,raw),()=>new OrderBook(data));this.book=loaded.session;recovery=loaded.message;
+       }
+       catch(error){loading.string='路网暂时不可用，请重新打开';console.error(error);return;}
+@@ -84,6 +89,7 @@
+     }
+   }
+   onDestroy():void {
++    this.writerLease.release();
+     this.city?.cancelLocate();
+     view.off('canvas-resize',this.onResize,this);
+     game.off(Game.EVENT_HIDE,this.onHide,this);game.off(Game.EVENT_SHOW,this.onShow,this);
+@@ -94,11 +100,13 @@
+     }
+   }
+   private onHide():void{
++    this.foregroundClock.reset();
+     this.city?.cancelLocate();
+-    if(this.book&&!this.hidden&&this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,Date.now());
++    if(this.writerLease.writable&&!this.pendingSave&&this.book&&!this.hidden&&this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,Date.now());
+     this.onlineAt=null;this.hidden=true;if(this.book)this.save();
+   }
+   private onShow():void{
++    this.foregroundClock.reset();
+     this.onlineAt=Date.now();this.hidden=false;this.skipNextFrame=true;
+     if(this.book){
+       const next=this.readSafeInsets();
+@@ -327,11 +335,13 @@
+   }
+ 
+   update(dt:number):void {
+-    if(!this.book||this.hidden)return;
++    if(!this.book||this.hidden||!this.writerLease.writable)return;
++    dt=this.foregroundClock.frame();
+     this.city.advanceLocate(dt);
++
++    if(this.skipNextFrame){this.skipNextFrame=false;return;}
++    if(this.pendingSave){this.saveElapsed+=dt;if(this.saveElapsed>=1){this.saveElapsed=0;if(this.save()){this.onlineAt=Date.now();if(this.phone&&this.book.active)this.closePhone();this.rebuildLayout(!this.book.active);this.presentHandoff();}}return;}
+     const now=Date.now();if(this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,now);this.onlineAt=now;
+-    if(this.skipNextFrame){this.skipNextFrame=false;return;}
+-    if(this.pendingSave){this.saveElapsed+=dt;if(this.saveElapsed>=1){this.saveElapsed=0;if(this.save()){if(this.phone&&this.book.active)this.closePhone();this.rebuildLayout(!this.book.active);this.presentHandoff();}}return;}
+     this.saveElapsed+=dt;this.billElapsed+=dt;
+     if(this.billElapsed>=1){this.billElapsed=0;this.updateBills();}
+     if(this.damageNoticeSeconds>0){
+@@ -350,6 +360,7 @@
+     if(arrived&&!this.pendingSave){this.renderPanel();this.presentHandoff();}
+   }
+   private act(action:()=>void):boolean {
++    if(!this.writerLease.writable){this.showMessage('当前页面只读，请关闭其他游戏页后重新打开。');return false;}
+     if(this.pendingSave)return false;
+     try{action();return this.save();}
+     catch(error){this.showMessage(error instanceof Error?error.message:'操作未完成，请重试');return false;}
+--- before/WebWriterLease.ts
++++ after/WebWriterLease.ts
+@@ -0,0 +1,20 @@
++import { COUNTY_SAVE_KEY } from './CountySaveStore';
++/** An origin-wide exclusive Web Lock, held until this page is destroyed. No lease timeout. */
++export class WebWriterLease {
++ private releaseLock:(()=>void)|null=null;
++ private owned=false;
++ get writable():boolean{return this.owned;}
++ async acquire():Promise<boolean> {
++  const locks=typeof navigator!=='undefined'?(navigator as any).locks:null;
++  if(!locks?.request)return false;
++  return new Promise(resolve=>{
++   try{locks.request(COUNTY_SAVE_KEY+':writer',{mode:'exclusive',ifAvailable:true},async(lock:unknown)=>{
++    if(!lock){resolve(false);return;}
++    this.owned=true;
++    await new Promise<void>(release=>{this.releaseLock=release;resolve(true);});
++    this.owned=false;
++   }).catch(()=>resolve(false));}catch{resolve(false);}
++  });
++ }
++ release():void{this.owned=false;this.releaseLock?.();this.releaseLock=null;}
++}
+--- before/OrderBook.ts
++++ after/OrderBook.ts
+@@ -1,3 +1,4 @@
++import { TRIP_PROFILE, tripTiming, travelDelta } from './TripClock';
+ import { CityData, MapRoute, Point, Preference } from './MapTypes';
+ import { RoadRouter, routePosition } from './RoadRouter';
+ import { advancePickupClock, DeliveryProgress, DeliveryTiming, deliveryProgress, deliveryTiming, legacyDeliveryTiming, PICKUP_STOP_SECONDS } from './DeliveryClock';
+@@ -21,11 +22,12 @@
+   offer:DeliveryOffer; routes:MapRoute[]; selected:number; elapsed:number; ruleVersion?:1|2; pickupWaitElapsed?:number;
+   mode:'routes'|'running'|'paused'|'arrived'|'done';
+   handoff?:{version:1;phase:HandoffPhase};
++  tripProfile?:typeof TRIP_PROFILE;
+   damageNoticeShown?:boolean;
+   deadlineSeconds:number; damage:Damage|null; playerBefore:Player; receipt:CountyReceipt|null;
+ }
+ export interface CountySnapshot {
+-  version:1|2|3|4;riderAnchor?:RiderAnchor|null;mapId:string;player:Player;offers:DeliveryOffer[];currentNode:string;sequence:number;
++  version:1|2|3|4|5;randomState?:number;riderAnchor?:RiderAnchor|null;mapId:string;player:Player;offers:DeliveryOffer[];currentNode:string;sequence:number;
+   recent:number[];lobbyHistory?:number[];billing?:BillingSnapshot;tutorialComplete:boolean;daily:{day:string;used:number};active:AcceptedDelivery|null;
+ }
+ function localDay():string{const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;}
+@@ -42,7 +44,8 @@
+   private accepted:AcceptedDelivery|null=null;
+   private currentNode:string;
+   private riderAnchor:RiderAnchor|null=null;
+-  private snapshotVersion:3|4=3;
++  private snapshotVersion:3|4|5=5;
++  private randomState=1;
+   private sequence=1;
+   private playerState:Player=newCountyPlayer();
+   private tutorialComplete=false;
+@@ -53,6 +56,7 @@
+   private readonly ledger:DeliveryLedger;
+ 
+   constructor(readonly data:CityData,private readonly random:()=>number=Math.random,private readonly today:()=>string=localDay,saved?:CountySnapshot) {
++    this.randomState=saved?.randomState??(Math.floor(this.random()*4294967296)>>>0);
+     this.router=new RoadRouter(data);
+     this.cityRouter=data.playBounds?new RoadRouter({...data,nodes:data.nodes.filter(n=>contains(data.playBounds!,[n.x,n.y]))}):this.router;
+     this.operatingNodes=data.operatingPOIs?new Set(data.operatingPOIs.map(i=>data.pois[i].node)):null;
+@@ -62,7 +66,7 @@
+     if(!start)throw new Error('No restaurant in the delivery map');
+     this.currentNode=start.node;
+     if(saved){
+-      this.snapshotVersion=saved.version===4?4:3;this.riderAnchor=saved.version===4?(saved.riderAnchor||null):null;
++      this.snapshotVersion=5;this.riderAnchor=saved.version>=4?(saved.riderAnchor||null):null;
+       this.playerState=saved.player;this.offers=saved.offers;this.currentNode=saved.currentNode;
+       this.sequence=saved.sequence;this.recent=saved.recent;this.lobbyHistory=saved.lobbyHistory||[];this.tutorialComplete=saved.tutorialComplete;this.daily=saved.daily;this.accepted=saved.active;
+       if(saved.version<3&&this.accepted)this.accepted.ruleVersion=1;
+@@ -83,7 +87,7 @@
+     validateCountySnapshot(data,saved);return new OrderBook(data,random,today,saved);
+   }
+   serialize():string {
+-    const snapshot:CountySnapshot={version:this.snapshotVersion,...(this.snapshotVersion===4?{riderAnchor:this.riderAnchor}:{}),mapId:this.mapId,player:this.playerState,offers:this.offers,currentNode:this.currentNode,sequence:this.sequence,recent:this.recent,lobbyHistory:this.lobbyHistory,billing:this.ledger.snapshot(),tutorialComplete:this.tutorialComplete,daily:this.daily,active:this.accepted};
++    const snapshot:CountySnapshot={version:5,randomState:this.randomState,...(this.snapshotVersion>=4?{riderAnchor:this.riderAnchor}:{}),mapId:this.mapId,player:this.playerState,offers:this.offers,currentNode:this.currentNode,sequence:this.sequence,recent:this.recent,lobbyHistory:this.lobbyHistory,billing:this.ledger.snapshot(),tutorialComplete:this.tutorialComplete,daily:this.daily,active:this.accepted};
+     return JSON.stringify(snapshot);
+   }
+   get player():Readonly<Player>{return {...this.playerState};}
+@@ -134,7 +138,9 @@
+       const timing=legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier),progress=Math.max(0,Math.min(1,active.elapsed/timing.animationSeconds));
+       return {...timing,progress,routeElapsedSeconds:route.seconds*progress,routeElapsedMetres:route.metres*progress,remainingSeconds:timing.displaySeconds*(1-progress)};
+     }
+-    const progress=deliveryProgress(route.metres,active.elapsed,vehicle.speedKph);
++    const timing=active.tripProfile?tripTiming(route.metres,vehicle.speedKph):deliveryTiming(route.metres,vehicle.speedKph);
++    const fraction=timing.animationSeconds===0?1:Math.max(0,Math.min(1,active.elapsed/timing.animationSeconds));
++    const progress:DeliveryProgress={...timing,progress:fraction,routeElapsedSeconds:0,routeElapsedMetres:route.metres*fraction,remainingSeconds:active.tripProfile?(timing.displaySeconds-60)*(1-fraction)+60*(1-(active.pickupWaitElapsed||0)/2):timing.displaySeconds*(1-fraction)};
+     // Keep routeElapsedSeconds meaningful for callers using the router's road-time parameter.
+     return {...progress,routeElapsedSeconds:this.roadSecondsAtDistance(route,progress.routeElapsedMetres)};
+   }
+@@ -150,7 +156,7 @@
+       if(!route)return {offer,available:false,pickupMetres:0,deliveryMetres:0,timing:{displaySeconds:0,animationSeconds:0},deadlineSeconds:0,estimatedIncomeCents};
+       const pickupMetres=(route.origin?.exit.metres||0)+route.segments.slice(0,route.pickupIndex||0).reduce((sum,segment)=>sum+segment.metres,0),deliveryMetres=route.metres-pickupMetres,timing=this.timing(route.metres);
+       let deadlineSeconds=this.accepted?.offer.id===offer.id?this.accepted.deadlineSeconds:0,available=true;
+-      if(!deadlineSeconds){try{deadlineSeconds=Math.min(...this.legalRoutes(offer).map(r=>this.timing(r.metres).displaySeconds))+(offer.type==='urgent'?0:300);}catch(_){available=false;}}
++      if(!deadlineSeconds){try{deadlineSeconds=Math.min(...this.legalRoutes(offer).map(r=>this.timing(r.metres).displaySeconds))+(offer.type==='urgent'?120:300);}catch(_){available=false;}}
+       return {offer,available,pickupMetres,deliveryMetres,timing,deadlineSeconds,estimatedIncomeCents};
+     });
+   }
+@@ -161,7 +167,7 @@
+     if(offer.weightKg>COUNTY_VEHICLES[this.playerState.vehicleTier-1].capacityKg)throw new Error('这单超出当前车辆载重');
+     const routes=this.legalRoutes(offer);
+     const fastest=Math.min(...routes.map(r=>this.timing(r.metres).displaySeconds));
+-    this.snapshotVersion=4;this.accepted={offer,routes,ruleVersion:2,handoff:{version:1,phase:'planning'},pickupWaitElapsed:0,selected:0,elapsed:0,mode:'routes',deadlineSeconds:fastest+(offer.type==='urgent'?0:300),damage:null,playerBefore:{...this.playerState},receipt:null};
++    this.snapshotVersion=5;this.accepted={offer,routes,ruleVersion:2,tripProfile:TRIP_PROFILE,handoff:{version:1,phase:'planning'},pickupWaitElapsed:0,selected:0,elapsed:0,mode:'routes',deadlineSeconds:fastest+(offer.type==='urgent'?120:300),damage:null,playerBefore:{...this.playerState},receipt:null};
+   }
+   private legalRoutes(offer:DeliveryOffer):MapRoute[] {
+     const routes:MapRoute[]=[],seen=new Set<string>();
+@@ -185,7 +191,7 @@
+     if(!phase&&active.mode!=='routes'){
+       const route=active.routes[active.selected],pickup=route.segments.slice(0,route.pickupIndex||0).reduce((sum,segment)=>sum+segment.seconds,0);
+       if(active.mode!=='running'||this.progress.routeElapsedSeconds>=pickup)throw new Error('取餐开始后不能取消');
+-      if(active.elapsed>0){this.riderAnchor=anchorAt(route,this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;this.snapshotVersion=4;}
++      if(active.elapsed>0){this.riderAnchor=anchorAt(route,this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;this.snapshotVersion=5;}
+     }
+     if(phase==='awaitPickup'){this.currentNode=this.data.pois[active.offer.from].node;this.riderAnchor=null;}
+     else if(phase==='toPickup'&&active.elapsed>0){this.riderAnchor=anchorAt(active.routes[active.selected],this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;}
+@@ -208,11 +214,11 @@
+   deliver():void {if(!this.accepted?.handoff)throw new Error('当前订单无需手动送餐');this.applyHandoff(startDelivery(this.handoffState()));}
+   // Kept for old view integrations; deliveries no longer support manual pausing.
+   togglePause():void {}
+-  advance(seconds:number):boolean {
++  advance(seconds:number,multiplier=1):boolean {
+     const active=this.accepted;
+     if(!active||active.mode!=='running'||!Number.isFinite(seconds)||seconds<=0)return false;
+     if(active.handoff){
+-      const next=advanceHandoff(this.handoffState(),seconds,this.pickupAt(),this.progress.animationSeconds),changed=next.phase!==active.handoff.phase;this.applyHandoff(next);
++      const next=advanceHandoff(this.handoffState(),active.tripProfile&&active.handoff.phase!=='picking'?travelDelta(seconds,multiplier):seconds,this.pickupAt(),this.progress.animationSeconds),changed=next.phase!==active.handoff.phase;this.applyHandoff(next);
+       if(next.phase==='arrived'){active.mode='arrived';this.currentNode=this.data.pois[active.offer.to].node;this.riderAnchor=null;this.settle(active.offer.demand==='door'?true:null);}
+       return changed;
+     }
+@@ -239,9 +245,10 @@
+     return JSON.parse(JSON.stringify(result.receipt));
+   }
+   finish():void{if(this.accepted&&this.accepted.mode==='done')this.accepted=null;}
+-  timing(distanceMetres:number):DeliveryTiming{return deliveryTiming(distanceMetres,COUNTY_VEHICLES[this.playerState.vehicleTier-1].speedKph);}
++  timing(distanceMetres:number):DeliveryTiming{return tripTiming(distanceMetres,COUNTY_VEHICLES[this.playerState.vehicleTier-1].speedKph);}
+   timingForRoute(route:MapRoute):DeliveryTiming {
+     if(this.accepted&&this.accepted.ruleVersion===1&&this.accepted.routes.indexOf(route)>=0)return legacyDeliveryTiming(route.seconds,COUNTY_VEHICLES[this.accepted.playerBefore.vehicleTier-1].speedMultiplier);
++    if(this.accepted&&this.accepted.routes.indexOf(route)>=0&&!this.accepted.tripProfile)return deliveryTiming(route.metres,COUNTY_VEHICLES[this.accepted.playerBefore.vehicleTier-1].speedKph);
+     return this.timing(route.metres);
+   }
+   private roadSecondsAtDistance(route:MapRoute,distance:number):number {
+@@ -268,7 +275,7 @@
+     const refreshed=this.nearbyOffers([],null,history);this.offers.splice(0,this.offers.length,...refreshed);this.lobbyHistory=history;
+     this.daily.used++;
+   }
+-  private roll():number{const value=this.migrating?((Math.imul(this.sequence+ ++this.migrationRoll,1664525)+1013904223)>>>0)/4294967296:this.random();return Number.isFinite(value)?Math.max(0,Math.min(1-Number.EPSILON,value)):.99;}
++  private roll():number{const value=this.migrating?((Math.imul(this.sequence+ ++this.migrationRoll,1664525)+1013904223)>>>0)/4294967296:((this.randomState=(Math.imul(this.randomState,1664525)+1013904223)>>>0)/4294967296);return Number.isFinite(value)?Math.max(0,Math.min(1-Number.EPSILON,value)):.99;}
+   private path(from:string,to:string,preference:Preference,bounded=false):MapRoute|null {
+     const key=`${bounded?'city':'full'}/${from}/${to}/${preference}`;
+     if(!this.cache.has(key)){if(this.cache.size>400)this.cache.clear();this.cache.set(key,(bounded?this.cityRouter:this.router).find(from,to,preference));}
+--- before/TripClock.ts
++++ after/TripClock.ts
+@@ -0,0 +1,25 @@
++import { DeliveryTiming } from './DeliveryClock';
++/** Frozen profile identifier. Changing these values requires a new profile. */
++export const TRIP_PROFILE='m2-120-service60-v1';
++export function tripTiming(metres:number,speedKph:number):DeliveryTiming {
++ if(!Number.isFinite(metres)||metres<0||!Number.isFinite(speedKph)||speedKph<=0)throw new Error('无效行程');
++ const road=metres*3.6/speedKph;
++ return {displaySeconds:road+60,animationSeconds:road/120};
++}
++export function travelDelta(realSeconds:number,multiplier=1):number {
++ if(!Number.isFinite(realSeconds)||realSeconds<=0)return 0;
++ if(!Number.isFinite(multiplier)||multiplier<1||multiplier>4)throw new Error('无效行驶倍率');
++ return realSeconds*multiplier;
++}
++
++/** Monotonic foreground intervals. Background/resume and pending commits reset the origin. */
++export class ForegroundClock {
++ private previous:number|null=null;
++ reset():void{this.previous=null;}
++ frame():number {
++  const now=typeof performance!=='undefined'?performance.now():NaN;
++  const delta=this.previous===null?0:Math.max(0,(now-this.previous)/1000);
++  this.previous=Number.isFinite(now)?now:null;
++  return Number.isFinite(delta)?delta:0;
++ }
++}
+--- before/CountySaveStore.ts
++++ after/CountySaveStore.ts
+@@ -13,13 +13,24 @@
+     private primaryKnown = false;
+     private expectedPrimary: string | null = null;
+ 
+-    constructor(private storage: StoragePort, private key: string = COUNTY_SAVE_KEY) {}
++    private revision=0;
++    private lastCommand='';
++    private pending:{id:string;serialized:string;expectedRevision:number}|null=null;
++    constructor(private storage: StoragePort, private key: string = COUNTY_SAVE_KEY, private canWrite:()=>boolean=()=>false) {}
++    get currentRevision():number{return this.revision;}
++    private decode<T>(raw:string,restore:(serialized:string)=>T):T {
++        const value=JSON.parse(raw);
++        if(value?.format!=='county-commit')return restore(raw);
++        if(value.version!==1||!Number.isSafeInteger(value.revision)||value.revision<1||typeof value.commandId!=='string'||!value.commandId||typeof value.snapshot!=='string')throw new Error('无效提交记录');
++        const session=restore(value.snapshot);this.revision=value.revision;this.lastCommand=value.commandId;return session;
++    }
+ 
+-    get available(): boolean { return this.statusAvailable; }
++    get available(): boolean { return this.statusAvailable&&this.canWrite(); }
+     get message(): string { return this.statusMessage; }
+ 
+     load<T>(restore: (serialized: string) => T, fresh: () => T): { session: T; message: string } {
+         this.knownGood = null;
++        this.revision=0;this.lastCommand='';this.pending=null;
+         this.statusAvailable = true;
+         this.writeBlocked = false;
+         this.primaryKnown = false;
+@@ -35,14 +46,14 @@
+         let prefix = '';
+         if (raw !== null) {
+             try {
+-                const session = restore(raw);
++                const session = this.decode(raw,restore);
+                 this.knownGood = raw;
+                 this.statusMessage = '已恢复县城存档。';
+                 return { session, message: this.statusMessage };
+             } catch (_) {
+                 // A newer version is not corruption: preserve it and prohibit writes.
+                 let future = false;
+-                try { const value = JSON.parse(raw); future = !!value && Number.isSafeInteger(value.version) && value.version > 3; } catch (_) {}
++                try { const value = JSON.parse(raw); future = this.futureVersion(value); } catch (_) {}
+                 if (future) {
+                     this.fail('存档版本较新，已暂停保存以保护原数据。', true);
+                     return { session: fresh(), message: this.statusMessage };
+@@ -50,6 +61,7 @@
+                 prefix = '主存档损坏，原始数据已保留；';
+             }
+             try {
++                if(!this.canWrite())throw new Error('只读');
+                 this.storage.setItem(this.key + ':corrupt', raw);
+             } catch (_) {
+                 prefix = '主存档损坏，无法保留原始数据，已暂停保存以避免覆盖；';
+@@ -65,13 +77,13 @@
+         }
+         if (backup !== null) {
+             try {
+-                const session = restore(backup);
++                const session = this.decode(backup,restore);
+                 this.knownGood = backup;
+                 this.statusMessage = prefix + '已从备份恢复。';
+                 return { session, message: this.statusMessage };
+             } catch (_) {
+                 let future = false;
+-                try { const value = JSON.parse(backup); future = !!value && Number.isSafeInteger(value.version) && value.version > 3; } catch (_) {}
++                try { const value = JSON.parse(backup); future = this.futureVersion(value); } catch (_) {}
+                 if (future) {
+                     this.fail(prefix + '备份存档版本较新，已暂停保存以保护原数据。', true);
+                     return { session: fresh(), message: this.statusMessage };
+@@ -83,7 +95,13 @@
+         return { session: fresh(), message: this.statusMessage };
+     }
+ 
+-    save(serialized: string): boolean {
++    save(serialized: string, commandId?:string, expectedRevision=this.revision): boolean {
++        if(!this.canWrite())return this.fail('当前页面只读：需要安全写入权限，请关闭其他游戏页后重新打开。',true);
++        if(commandId&&commandId===this.lastCommand)return serialized===this.decodeSnapshot(this.knownGood);
++        if(!this.pending)this.pending={id:commandId||`${this.revision+1}-${Date.now()}-${Math.random().toString(36).slice(2)}`,serialized,expectedRevision};
++        const pending=this.pending;
++        if(pending.serialized!==serialized||pending.expectedRevision!==this.revision)return this.fail('有未完成提交或版本冲突，请重试原操作或重新打开。');
++        const committed=JSON.stringify({format:'county-commit',version:1,revision:this.revision+1,commandId:pending.id,snapshot:serialized});
+         if (this.writeBlocked) return false;
+         let current: string | null;
+         try {
+@@ -108,17 +126,33 @@
+             }
+         }
+         try {
+-            this.storage.setItem(this.key, serialized);
++            // The original pre-envelope snapshot is retained once, before migration.
++            if(this.expectedPrimary!==null&&!this.isCommit(this.expectedPrimary)&&this.storage.getItem(this.key+':pre-foundation')===null)this.storage.setItem(this.key+':pre-foundation',this.expectedPrimary);
++            this.storage.setItem(this.key, committed);
+         } catch (_) {
+             return this.fail('存档写入失败，未确认保存成功，请检查存储空间或浏览器权限。');
+         }
+-        this.knownGood = serialized;
+-        this.expectedPrimary = serialized;
++        this.knownGood = committed;
++        this.expectedPrimary = committed;
++        this.revision++;this.lastCommand=pending.id;this.pending=null;
+         this.statusAvailable = true;
+         this.statusMessage = '县城进度已保存。';
+         return true;
+     }
+ 
++    private futureVersion(value:any):boolean {
++        if(!value||typeof value!=='object')return false;
++        if(value.format==='county-commit') {
++            if(value.version!==1)return true;
++            try{return this.futureVersion(JSON.parse(value.snapshot));}catch{return false;}
++        }
++        return Number.isSafeInteger(value.version)&&value.version>5 || value.active?.tripProfile!==undefined&&value.active.tripProfile!=='m2-120-service60-v1';
++    }
++    private isCommit(raw:string):boolean {try{return JSON.parse(raw)?.format==='county-commit';}catch{return false;}}
++    private decodeSnapshot(raw:string|null):string|null {
++        if(raw===null)return null;
++        try{const value=JSON.parse(raw);return value.format==='county-commit'?value.snapshot:raw;}catch{return null;}
++    }
+     private fail(message: string, block = false): false {
+         this.statusAvailable = false;
+         this.statusMessage = message;
+--- before/CountySnapshot.ts
++++ after/CountySnapshot.ts
+@@ -1,3 +1,4 @@
++import { TRIP_PROFILE, tripTiming } from './TripClock';
+ import type { AcceptedDelivery, CountySnapshot, DeliveryOffer } from './OrderBook';
+ import { CityData } from './MapTypes';
+ import { getExperienceLevel, Player } from '../domain/GameConfig';
+@@ -40,10 +41,11 @@
+   valid(value.buyerNote===undefined||typeof value.buyerNote==='string'&&value.buyerNote.length<=300,'买家备注');
+ }
+ export function validateCountySnapshot(data:CityData,value:unknown):asserts value is CountySnapshot {
+-  valid(object(value)&&(value.version===1||value.version===2||value.version===3||value.version===4),'版本');valid(value.mapId===countyMapId(data)||(data.legacyMapIds||[]).indexOf(value.mapId as string)>=0,'路网已变化');
++  valid(object(value)&&(value.version===1||value.version===2||value.version===3||value.version===4||value.version===5),'版本');valid(value.mapId===countyMapId(data)||(data.legacyMapIds||[]).indexOf(value.mapId as string)>=0,'路网已变化');
++  if(value.version===5)valid(integer(value.randomState,0,4294967295),'随机状态');
+   player(value.player,value.version<3);valid(integer(value.sequence,1),'订单序号');valid(typeof value.tutorialComplete==='boolean'&&value.tutorialComplete===(value.player.completedOrders>0),'引导标记');
+   if(value.billing!==undefined)validateBillingSnapshot(value.billing,value.player.completedOrders);
+-  if(value.version===4&&value.riderAnchor!==null){valid(object(value.riderAnchor),'骑手锚点');anchorExits(data,value.riderAnchor as unknown as import('./RiderAnchor').RiderAnchor);valid(value.currentNode===value.riderAnchor.from,'锚点与骑手节点');}
++  if(value.version>=4&&value.riderAnchor!==null){valid(object(value.riderAnchor),'骑手锚点');anchorExits(data,value.riderAnchor as unknown as import('./RiderAnchor').RiderAnchor);valid(value.currentNode===value.riderAnchor.from,'锚点与骑手节点');}
+   const nodes=new Map(data.nodes.map(n=>[n.id,n]));valid(typeof value.currentNode==='string'&&nodes.has(value.currentNode),'骑手位置');
+   valid(Array.isArray(value.offers)&&value.offers.length===(value.version===1?30:10),'候选订单数量');value.offers.forEach(o=>offer(o,data));
+   const offers=value.offers as DeliveryOffer[],ids=offers.map(o=>o.id);valid(new Set(ids).size===ids.length,'重复订单');
+@@ -54,7 +56,8 @@
+   for(let i=0;i<offers.length;i+=5)valid(offers.slice(i,i+5).filter(o=>o.weightKg<=capacity).length>=3,'可接单容量保证');
+   if(value.active!==null){
+     valid(object(value.active),'当前订单');const raw=value.active;offer(raw.offer,data);
+-    if(value.version===4)valid(object(raw.handoff)&&raw.handoff.version===1,'取送规则版本');else valid(raw.handoff===undefined,'旧档取送规则');
++    if(value.version===4||value.version===5&&raw.handoff!==undefined)valid(object(raw.handoff)&&raw.handoff.version===1,'取送规则版本');else valid(raw.handoff===undefined,'旧档取送规则');
++    valid(raw.tripProfile===undefined||value.version===5&&raw.tripProfile===TRIP_PROFILE&&object(raw.handoff)&&raw.ruleVersion===2,'行程时钟版本');
+     valid(value.version<3||raw.ruleVersion===1||raw.ruleVersion===2,'履约规则版本');
+     const legacy=value.version<3||raw.ruleVersion===1;player(raw.playerBefore,legacy);
+     valid(['routes','running','paused','arrived','done'].indexOf(raw.mode as string)>=0,'配送状态');
+@@ -75,13 +78,13 @@
+       valid(route.nodes[route.nodes.length-1]===data.pois[active.offer.to].node,'送达终点');
+       let metres=0,seconds=0;
+       if(route.origin){
+-        valid(value.version===4&&object(route.origin)&&object(route.origin.anchor)&&object(route.origin.exit),'路线起始段');
++        valid(value.version>=4&&object(route.origin)&&object(route.origin.anchor)&&object(route.origin.exit),'路线起始段');
+         const resolved=anchorExits(data,route.origin.anchor),exit=resolved.exits.find(e=>e.node===route.origin!.exit.node&&e.reverse===route.origin!.exit.reverse);
+         valid(exit&&route.nodes[0]===exit.node&&JSON.stringify(route.origin.start)===JSON.stringify(resolved.point),'路线起始点');
+         valid(Math.abs(route.origin.exit.metres-exit.metres)<1e-7&&Math.abs(route.origin.exit.seconds-exit.seconds)<1e-7,'路线起始段距离');
+         metres=exit.metres;seconds=exit.seconds;
+         if(active.mode!=='done'&&active.mode!=='arrived')valid(JSON.stringify(value.riderAnchor)===JSON.stringify(route.origin.anchor),'路线起始锚点');
+-      }else if(value.version===4&&value.riderAnchor&&active.mode!=='done'&&active.mode!=='arrived')valid(false,'缺少路线起始段');
++      }else if(value.version>=4&&value.riderAnchor&&active.mode!=='done'&&active.mode!=='arrived')valid(false,'缺少路线起始段');
+       for(let i=0;i<route.nodes.length;i++){
+         const n=nodes.get(route.nodes[i]),point=route.points[i];
+         valid(n&&Array.isArray(point)&&point.length===2&&point[0]===n.x&&point[1]===n.y,'道路坐标');
+@@ -97,7 +100,7 @@
+       valid(route.origin?!!active.routes[0].origin&&JSON.stringify(route.origin.anchor)===JSON.stringify(active.routes[0].origin!.anchor):!active.routes[0].origin&&route.nodes[0]===active.routes[0].nodes[0],'路线起点');
+     }
+     const vehicle=COUNTY_VEHICLES[active.playerBefore.vehicleTier-1];
+-    const timingFor=(route:typeof active.routes[number])=>legacy?legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier):deliveryTiming(route.metres,vehicle.speedKph);
++    const timingFor=(route:typeof active.routes[number])=>legacy?legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier):active.tripProfile?tripTiming(route.metres,vehicle.speedKph):deliveryTiming(route.metres,vehicle.speedKph);
+     const timing=timingFor(active.routes[active.selected]);
+     if(active.damageNoticeShown!==undefined){
+       valid(typeof active.damageNoticeShown==='boolean','餐损提示状态');
+@@ -116,7 +119,7 @@
+       valid(active.handoff.phase==='planning'?active.mode==='routes':active.handoff.phase==='arrived'?active.mode==='done':active.mode==='running','取送阶段与订单状态');
+     }
+     const fastest=Math.min(...active.routes.map(r=>timingFor(r).displaySeconds));
+-    valid(active.deadlineSeconds===fastest+(active.offer.type==='urgent'?0:300),'时限');
++    valid(active.deadlineSeconds===fastest+(active.offer.type==='urgent'?(active.tripProfile?120:0):300),'时限');
+     valid(active.elapsed<=timing.animationSeconds,'动画进度');
+     valid(active.playerBefore.vehicleTier===value.player.vehicleTier,'配送中车辆变化');
+     if(active.mode==='routes')valid(active.elapsed===0&&active.damage===null&&active.receipt===null,'未出发状态');

@@ -1,0 +1,56 @@
+--- before/MapVehicle.ts
++++ delivery-game/assets/scripts/map-sample/MapVehicle.ts
+@@ -1,4 +1,4 @@
+-import { Graphics, isValid, Node, Rect, resources, Size, Sprite, SpriteFrame, Texture2D } from 'cc';
++import { Graphics, isValid, Node, Rect, resources, Size, Sprite, SpriteFrame, Texture2D, UITransform } from 'cc';
+ import { item } from './SampleUI';
+ import { vehicleArtForTier } from './VehicleCatalog';
+ import { loadCartoonFrame } from './CartoonArt';
+@@ -35,8 +35,9 @@
+     this.tier=art.tier;const request=++this.request;
+     this.picture.active=false;this.fallback.enabled=true;
+     const current=()=>request===this.request&&isValid(this.parent,true)&&isValid(this.picture,true)&&this.parent.activeInHierarchy!==false;
+-    (art.tier<=2?loadCartoonFrame(art.tier===2?'top-d-plus':'top-d'):loadImage(art.resource)).then(frame=>{
++    loadCartoonFrame(art.tier===1?'top-d':`top-${['d','d-plus','c','c-plus','b','b-plus','a','s','ss','sss'][art.tier-1]}`).then(frame=>{
+       if(!current())return;
++      if(art.tier===1)this.picture.getComponent(UITransform)!.setContentSize(80,128);else {const scale=Math.min(80/frame.originalSize.width,128/frame.originalSize.height);this.picture.getComponent(UITransform)!.setContentSize(frame.originalSize.width*scale,frame.originalSize.height*scale);}
+       this.sprite.spriteFrame=frame;this.picture.active=true;this.fallback.enabled=false;
+     },()=>{if(current())this.tier=0;});
+   }
+--- before/VehicleSideArt.ts
++++ delivery-game/assets/scripts/map-sample/VehicleSideArt.ts
+@@ -2,5 +2,5 @@
+ import { cartoonArt } from './CartoonArt';
+ // Each immutable picture belongs to one dialog; the shared loader protects closed pages.
+ export function vehicleSideArt(parent:Node,tier:number,x:number,y:number,width:number,height:number,fallback:Node):Node {
+- return cartoonArt(parent,tier===2?'side-d-plus':'side-d',x,y,width,height,fallback);
++ return cartoonArt(parent,['side-d','side-d-plus','side-c','side-c-plus','side-b','side-b-plus','side-a','side-s','side-ss','side-sss'][tier-1]||'side-d',x,y,width,height,fallback);
+ }
+--- before/CartoonArt.ts
++++ delivery-game/assets/scripts/map-sample/CartoonArt.ts
+@@ -86,6 +86,25 @@
+ crops['confirm']={resource:'map-sample/anime/au05/supplementary-icons-v2-original',rect:[78/1536,568/1024,386/1536,382/1024]};
+ crops['close']={resource:'map-sample/anime/au05/supplementary-icons-v2-original',rect:[593/1536,607/1024,348/1536,338/1024]};
+ crops['pause']={resource:'map-sample/anime/au05/supplementary-icons-v2-original',rect:[1133/1536,566/1024,292/1536,383/1024]};
++// User-delivered vehicle originals, full alpha canvas; retain source aspect ratio.
++crops['side-d-plus']={resource:'map-sample/anime/vehicles-20261031/V01-d-plus-45',rect:[0,0,1,1]};
++crops['top-d-plus']={resource:'map-sample/anime/vehicles-20261031/V01-d-plus-top',rect:[0,0,1,1]};
++crops['side-c']={resource:'map-sample/anime/vehicles-20261031/V02-c-45',rect:[0,0,1,1]};
++crops['top-c']={resource:'map-sample/anime/vehicles-20261031/V02-c-top',rect:[0,0,1,1]};
++crops['side-c-plus']={resource:'map-sample/anime/vehicles-20261031/V03-c-plus-45',rect:[0,0,1,1]};
++crops['top-c-plus']={resource:'map-sample/anime/vehicles-20261031/V03-c-plus-top',rect:[0,0,1,1]};
++crops['side-b']={resource:'map-sample/anime/vehicles-20261031/V04-b-45',rect:[0,0,1,1]};
++crops['top-b']={resource:'map-sample/anime/vehicles-20261031/V04-b-top',rect:[0,0,1,1]};
++crops['side-b-plus']={resource:'map-sample/anime/vehicles-20261031/V05-b-plus-45',rect:[0,0,1,1]};
++crops['top-b-plus']={resource:'map-sample/anime/vehicles-20261031/V05-b-plus-top',rect:[0,0,1,1]};
++crops['top-a']={resource:'map-sample/anime/vehicles-20261031/V06-a-top',rect:[0,0,1,1]};
++crops['side-s']={resource:'map-sample/anime/vehicles-20261031/V07-s-45',rect:[0,0,1,1]};
++crops['top-s']={resource:'map-sample/anime/vehicles-20261031/V07-s-top',rect:[0,0,1,1]};
++crops['side-ss']={resource:'map-sample/anime/vehicles-20261031/V08-ss-45',rect:[0,0,1,1]};
++crops['top-ss']={resource:'map-sample/anime/vehicles-20261031/V08-ss-top',rect:[0,0,1,1]};
++crops['side-sss']={resource:'map-sample/anime/vehicles-20261031/V09-sss-45',rect:[0,0,1,1]};
++crops['top-sss']={resource:'map-sample/anime/vehicles-20261031/V09-sss-top',rect:[0,0,1,1]};
++crops['side-a']={resource:'map-sample/anime/vehicles-20261031/vV06-a-45',rect:[0,0,1,1]};
+ const atlases=new Map<string,Promise<Texture2D>>(),frames=new Map<string,SpriteFrame>();
+ function loadAtlas(resource:string):Promise<Texture2D> {
+  const cached=atlases.get(resource);if(cached)return cached;

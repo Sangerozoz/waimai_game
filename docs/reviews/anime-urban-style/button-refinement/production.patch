@@ -1,0 +1,43 @@
+--- before/SampleUI.ts
++++ after/SampleUI.ts
+@@ -13,8 +13,30 @@
+  if(radius>0||stroke){g.strokeColor=col(stroke||C.line);g.lineWidth=1;g.roundRect(-w/2+.5,-h/2+.5,w-1,h-1,r);g.stroke();}
+ }
+ 
++// Original geometry inspired by the approved references; dynamic captions remain separate.
++function refinedButton(g:Graphics,w:number,h:number,primary:boolean):void {
++ const tip=Math.min(12,h*.16),half=w/2,hh=h/2;
++ const contour=(inset:number)=>{const x=half-inset,y=hh-inset,t=Math.max(2,tip-inset*.25);g.moveTo(-x+t,-y);g.lineTo(x-t,-y);g.lineTo(x,0);g.lineTo(x-t,y);g.lineTo(-x+t,y);g.lineTo(-x,0);g.close();};
++ g.fillColor=col('#35271922');contour(0);g.fill();
++ const bottom=col(primary?'#EDAC63':'#392C24E8'),top=col(primary?'#F9E6B8':'#63503BE8');
++ // Bands follow the bevel contour, avoiding an external texture or shader dependency.
++ const steps=36;
++ for(let i=0;i<steps;i++){
++  const y0=-hh+h*i/steps,y1=-hh+h*(i+1)/steps,t=(i+.5)/steps;
++  const edge=(y:number)=>half-tip*Math.abs(y)/hh;
++  g.fillColor=new Color(Math.round(bottom.r+(top.r-bottom.r)*t),Math.round(bottom.g+(top.g-bottom.g)*t),Math.round(bottom.b+(top.b-bottom.b)*t),primary?255:232);
++  g.moveTo(-edge(y0),y0);g.lineTo(edge(y0),y0);g.lineTo(edge(y1),y1);g.lineTo(-edge(y1),y1);g.close();g.fill();
++ }
++ g.strokeColor=col(primary?'#BE8B46':'#BDA078');g.lineWidth=1.3;contour(1);g.stroke();
++ g.strokeColor=col(primary?'#FFF3D1B8':'#E2C59A65');g.lineWidth=.8;contour(4);g.stroke();
++ if(w>150){
++  const d=Math.min(3.5,h*.045),cx=half-tip-3;
++  for(const sign of [-1,1]){const x=cx*sign;g.fillColor=col(primary?'#FFF4D7':'#D7B77D');g.moveTo(x-d,0);g.lineTo(x,d*1.4);g.lineTo(x+d,0);g.lineTo(x,-d*1.4);g.close();g.fill();}
++ }
++}
+ export function material(n:Node,w:number,h:number,fill:string,radius=Math.min(h*.35,w/2)):void {
+  const surface=n.getChildByName('Surface')||item(n,'Surface'),g=surface.getComponent(Graphics)||surface.addComponent(Graphics);g.clear();
++ if(n.name.startsWith('Button-')&&(fill===C.primary||fill===C.blue||fill===C.light)){refinedButton(g,w,h,fill===C.primary);return;}
+  const face=fill===C.light?C.blue:fill,r=Math.min(14,radius);
+  g.fillColor=col('#30362D1C');g.roundRect(-w/2,-h/2-3,w,h,r);g.fill();
+  g.fillColor=col(face);g.roundRect(-w/2,-h/2,w,h,r);g.fill();
+@@ -95,7 +117,8 @@
+  const surface=item(node,'Surface'),g=surface.addComponent(Graphics),r=size/2;
+  g.fillColor=col('#34373522');g.circle(0,-4,r);g.fill();
+  g.fillColor=col(enabled?C.primary:'#AAA99F');g.circle(0,0,r-2);g.fill();
+- g.strokeColor=col(C.paper);g.lineWidth=3;g.circle(0,0,r-2);g.stroke();
++ g.strokeColor=col(enabled?'#DDB376':C.paper);g.lineWidth=1.5;g.circle(0,0,r-2);g.stroke();
++ g.strokeColor=col('#FFE5AD99');g.lineWidth=1;g.circle(0,0,r-6);g.stroke();
+ }
+ export function topOnlyBar(node:Node,w:number,h:number):void {
+  const g=item(node,'Surface').addComponent(Graphics);g.fillColor=col(C.paper);g.rect(-w/2,-h/2,w,h);g.fill();

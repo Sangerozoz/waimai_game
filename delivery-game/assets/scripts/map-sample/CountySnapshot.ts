@@ -1,3 +1,5 @@
+import { validateVehicleInventory } from './VehicleOwnership';
+import { isTripProfile, tripTiming } from './TripClock';
 import type { AcceptedDelivery, CountySnapshot, DeliveryOffer } from './OrderBook';
 import { CityData } from './MapTypes';
 import { getExperienceLevel, Player } from '../domain/GameConfig';
@@ -40,10 +42,11 @@ function offer(value:unknown,data:CityData):asserts value is DeliveryOffer {
   valid(value.buyerNote===undefined||typeof value.buyerNote==='string'&&value.buyerNote.length<=300,'买家备注');
 }
 export function validateCountySnapshot(data:CityData,value:unknown):asserts value is CountySnapshot {
-  valid(object(value)&&(value.version===1||value.version===2||value.version===3||value.version===4),'版本');valid(value.mapId===countyMapId(data)||(data.legacyMapIds||[]).indexOf(value.mapId as string)>=0,'路网已变化');
-  player(value.player,value.version<3);valid(integer(value.sequence,1),'订单序号');valid(typeof value.tutorialComplete==='boolean'&&value.tutorialComplete===(value.player.completedOrders>0),'引导标记');
+  valid(object(value)&&(value.version===1||value.version===2||value.version===3||value.version===4||value.version===5||value.version===6||value.version===7),'版本');valid(value.mapId===countyMapId(data)||(data.legacyMapIds||[]).indexOf(value.mapId as string)>=0,'路网已变化');
+  if(value.version>=5)valid(integer(value.randomState,0,4294967295),'随机状态');
+  player(value.player,value.version<3);if(value.version===7)validateVehicleInventory(value.vehicles,value.player.vehicleTier);else valid(value.vehicles===undefined,'旧档车辆库存');valid(integer(value.sequence,1),'订单序号');valid(typeof value.tutorialComplete==='boolean'&&value.tutorialComplete===(value.player.completedOrders>0),'引导标记');
   if(value.billing!==undefined)validateBillingSnapshot(value.billing,value.player.completedOrders);
-  if(value.version===4&&value.riderAnchor!==null){valid(object(value.riderAnchor),'骑手锚点');anchorExits(data,value.riderAnchor as unknown as import('./RiderAnchor').RiderAnchor);valid(value.currentNode===value.riderAnchor.from,'锚点与骑手节点');}
+  if(value.version>=4&&value.riderAnchor!==null){valid(object(value.riderAnchor),'骑手锚点');anchorExits(data,value.riderAnchor as unknown as import('./RiderAnchor').RiderAnchor);valid(value.currentNode===value.riderAnchor.from,'锚点与骑手节点');}
   const nodes=new Map(data.nodes.map(n=>[n.id,n]));valid(typeof value.currentNode==='string'&&nodes.has(value.currentNode),'骑手位置');
   valid(Array.isArray(value.offers)&&value.offers.length===(value.version===1?30:10),'候选订单数量');value.offers.forEach(o=>offer(o,data));
   const offers=value.offers as DeliveryOffer[],ids=offers.map(o=>o.id);valid(new Set(ids).size===ids.length,'重复订单');
@@ -54,12 +57,14 @@ export function validateCountySnapshot(data:CityData,value:unknown):asserts valu
   for(let i=0;i<offers.length;i+=5)valid(offers.slice(i,i+5).filter(o=>o.weightKg<=capacity).length>=3,'可接单容量保证');
   if(value.active!==null){
     valid(object(value.active),'当前订单');const raw=value.active;offer(raw.offer,data);
-    if(value.version===4)valid(object(raw.handoff)&&raw.handoff.version===1,'取送规则版本');else valid(raw.handoff===undefined,'旧档取送规则');
+    if(value.version===4||value.version>=5&&raw.handoff!==undefined)valid(object(raw.handoff)&&raw.handoff.version===1,'取送规则版本');else valid(raw.handoff===undefined,'旧档取送规则');
+    valid(raw.tripProfile===undefined||value.version>=5&&isTripProfile(raw.tripProfile)&&object(raw.handoff)&&raw.ruleVersion===2,'行程时钟版本');
     valid(value.version<3||raw.ruleVersion===1||raw.ruleVersion===2,'履约规则版本');
     const legacy=value.version<3||raw.ruleVersion===1;player(raw.playerBefore,legacy);
     valid(['routes','running','paused','arrived','done'].indexOf(raw.mode as string)>=0,'配送状态');
     valid(Array.isArray(raw.routes)&&raw.routes.length>=1&&raw.routes.length<=3,'路线候选');
     valid(integer(raw.selected,0,raw.routes.length-1)&&number(raw.elapsed,0)&&number(raw.deadlineSeconds,1),'当前进度');
+    valid(raw.mileage===undefined||value.version>=6&&object(raw.mileage)&&raw.mileage.profile==='road-increment-v1'&&number(raw.mileage.accountedMetres,0)&&isTripProfile(raw.tripProfile)&&object(raw.handoff),'里程计量版本');
     const active=raw as unknown as AcceptedDelivery;
     valid(active.offer.weightKg<=capacity,'当前订单超载');
     const roads=new Map(data.roads.map(r=>[r.id,r])),edges=new Set<string>();
@@ -75,13 +80,13 @@ export function validateCountySnapshot(data:CityData,value:unknown):asserts valu
       valid(route.nodes[route.nodes.length-1]===data.pois[active.offer.to].node,'送达终点');
       let metres=0,seconds=0;
       if(route.origin){
-        valid(value.version===4&&object(route.origin)&&object(route.origin.anchor)&&object(route.origin.exit),'路线起始段');
+        valid(value.version>=4&&object(route.origin)&&object(route.origin.anchor)&&object(route.origin.exit),'路线起始段');
         const resolved=anchorExits(data,route.origin.anchor),exit=resolved.exits.find(e=>e.node===route.origin!.exit.node&&e.reverse===route.origin!.exit.reverse);
         valid(exit&&route.nodes[0]===exit.node&&JSON.stringify(route.origin.start)===JSON.stringify(resolved.point),'路线起始点');
         valid(Math.abs(route.origin.exit.metres-exit.metres)<1e-7&&Math.abs(route.origin.exit.seconds-exit.seconds)<1e-7,'路线起始段距离');
         metres=exit.metres;seconds=exit.seconds;
         if(active.mode!=='done'&&active.mode!=='arrived')valid(JSON.stringify(value.riderAnchor)===JSON.stringify(route.origin.anchor),'路线起始锚点');
-      }else if(value.version===4&&value.riderAnchor&&active.mode!=='done'&&active.mode!=='arrived')valid(false,'缺少路线起始段');
+      }else if(value.version>=4&&value.riderAnchor&&active.mode!=='done'&&active.mode!=='arrived')valid(false,'缺少路线起始段');
       for(let i=0;i<route.nodes.length;i++){
         const n=nodes.get(route.nodes[i]),point=route.points[i];
         valid(n&&Array.isArray(point)&&point.length===2&&point[0]===n.x&&point[1]===n.y,'道路坐标');
@@ -97,7 +102,8 @@ export function validateCountySnapshot(data:CityData,value:unknown):asserts valu
       valid(route.origin?!!active.routes[0].origin&&JSON.stringify(route.origin.anchor)===JSON.stringify(active.routes[0].origin!.anchor):!active.routes[0].origin&&route.nodes[0]===active.routes[0].nodes[0],'路线起点');
     }
     const vehicle=COUNTY_VEHICLES[active.playerBefore.vehicleTier-1];
-    const timingFor=(route:typeof active.routes[number])=>legacy?legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier):deliveryTiming(route.metres,vehicle.speedKph);
+    if(active.mileage){const route=active.routes[active.selected],timing=tripTiming(route.metres,COUNTY_VEHICLES[active.playerBefore.vehicleTier-1].speedKph,active.tripProfile!);valid(Math.abs(active.mileage.accountedMetres-route.metres*active.elapsed/timing.animationSeconds)<1e-5,'已计里程与行程进度');}
+    const timingFor=(route:typeof active.routes[number])=>legacy?legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier):active.tripProfile?tripTiming(route.metres,vehicle.speedKph,active.tripProfile):deliveryTiming(route.metres,vehicle.speedKph);
     const timing=timingFor(active.routes[active.selected]);
     if(active.damageNoticeShown!==undefined){
       valid(typeof active.damageNoticeShown==='boolean','餐损提示状态');
@@ -116,7 +122,7 @@ export function validateCountySnapshot(data:CityData,value:unknown):asserts valu
       valid(active.handoff.phase==='planning'?active.mode==='routes':active.handoff.phase==='arrived'?active.mode==='done':active.mode==='running','取送阶段与订单状态');
     }
     const fastest=Math.min(...active.routes.map(r=>timingFor(r).displaySeconds));
-    valid(active.deadlineSeconds===fastest+(active.offer.type==='urgent'?0:300),'时限');
+    valid(active.deadlineSeconds===fastest+(active.offer.type==='urgent'?(active.tripProfile?120:0):300),'时限');
     valid(active.elapsed<=timing.animationSeconds,'动画进度');
     valid(active.playerBefore.vehicleTier===value.player.vehicleTier,'配送中车辆变化');
     if(active.mode==='routes')valid(active.elapsed===0&&active.damage===null&&active.receipt===null,'未出发状态');

@@ -1,0 +1,48 @@
+{
+  "id": "REGION-A-v1",
+  "productionUnit": "whole-multi-block-region",
+  "tool": "built-in image_gen",
+  "originalPath": "/Users/sanger/.codex/generated_images/01a19fc9-58f4-7ad1-880b-1c1a948527ed/exec-68196925-fdfd-4b65-bb56-2b869edbc2a4.png",
+  "file": "REGION-A-v1.png",
+  "promptFile": "prompts/REGION-A-v1.json",
+  "status": "native-whole-region-candidate-not-registered-not-stitched-not-engine-deployed",
+  "observations": [
+    "One native generation contains many buildings, connected streets, planted public gardens, varied paving/tree beds and coherent fixed shadows.",
+    "Source structural input references20 building footprints and9 roads; native result has local footprint/road/height drawing deviations, not exact calibration.",
+    "No separate building sprites were assembled to form this output; dynamic rider is absent and remains independent.",
+    "Region-edge shape/road exits require actual map registration and neighboring-edge correction before claiming seamless stitching. Native edge clipping and perspective differences remain.",
+    "No new game screenshot, runtime integration, game tests or user acceptance claimed."
+  ],
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "sha256": "6e16bad55413c12d04468e1bc78374ddd48514389d6cb08bb802752c8300b059",
+  "nativeBytesPreserved": true,
+  "prompt": {
+    "id": "REGION-A-v1",
+    "productionUnit": "whole-multi-block-region",
+    "prompt": "Use case: WHOLE REGION game map painting, ONE SINGLE IMAGE GENERATION for the ENTIRE REGION. This is a complete town region containing multiple connected streets, roughly20 buildings, landscaped public areas and full ground design. It is NOT one building sprite or one/two-building parcel, and must NOT be a collage/contact sheet of separate assets.\nINPUT ROLES: Image1 is AUTHORITATIVE FULL-REGION GEOMETRY GUIDE from the real game map. Preserve its continuous road centerlines, junction positions, road directions/widths, the region boundary diamond, and the positions/groups of the approximately20 building footprints. The plain boxes are geometry guides ONLY: completely repaint them as beautiful varied architecture. Image2 is the user's WHOLE CITY REFERENCE for coherent scene richness, natural building/road/planting relationships and urban variety. Do not copy its different road grid/camera/layout. Image3 is the approved PAINTED MATERIAL/STYLE reference; use that polished cream/orange architecture and planted-ground detail across the ENTIRE region, without copying its one small parcel composition.\nONE REGION:120x120metres of existing small-city neighborhood, roughly20 primary buildings in several connected street blocks, all shown in one continuous coherent map. Use the SAME orthographic high camera as image1:62.5degrees above horizontal ground, azimuth45degrees, ground map axes slope+/-sin62.5=+/-0.887, no convergence. Preserve the oblique main avenue angle/irregular side-road joins from image1 rather than replacing it with a generic45degree grid. Frame the WHOLE region with the same diamond outline and safe margin, square1536x1536 if supported. Broad roofs, relatively short projected facades. No zoomed single building, no giant tower, no horizon.\nBuildings: mature elegant warm ivory/cream urban anime architecture, varied4-5storey apartments/ground-floor shops, occasional modest taller inner building; varied roof forms, subtle grey vents/skylights, recessed blue-grey glass, slim balconies and restrained orange awnings. Keep groups and source footprint positions from guide, fit buildings within their plots. All public entrances lead to their actual nearest street/entry court. If a frontage is hidden behind a roof, keep the door hidden; do not put a false shop door on its visible back wall. Retain clear street center corridors: reduce/inset a tight wall or roof inside its candidate plot if needed; do NOT move road geometry. No trees on roofs. Let reasonable plot setbacks and high view keep the street centers visible, not a forest of tall walls.\nPaint the WHOLE ground in the same generation: natural asphalt roads on the EXACT guide paths, pale curb/sidewalk slabs, taupe shop-entry paving, residential courtyards, low garden fences, soil/grass tree pools, small planted verges, subtle drains/markings and a modest neighborhood square. All green open areas are intentionally designed full scenes, not blank uniform lawn: the broad upper/side spaces become a small public garden with connected curved footpaths/benches/flower beds, a compact fenced recreation area and quiet residential greenery, without inventing new vehicle streets. Use restrained trees with visible planting beds and low stone edging, moderate greenery, no massive tree canopy covering roads. Material variety should emerge coherently across blocks with continuous road/sidewalk interfaces. No empty featureless quadrants or isolated floating lots. No extruded diorama/foundation slab.\nPreserve ALL road junctions and region-edge road exits from image1. Road surfaces are fully painted as part of THIS image. Region edge itself has no decorative border/wall; roads continue naturally to edge with constant width for future adjoining regions, not dead ends, cul-de-sacs or perimeter loop invented for this tile. Keep all other static content inside plot envelope and avoid tall objects straddling the region boundary. True transparent RGBA outside region ground/object silhouette, clean native alpha, no checkerboard/background plane.\nSTYLE: detailed bright Japanese urban anime painted game city, matching image3 craftsmanship and image2 continuous environmental composition. Fixed warm screen-upper-left daylight, coherent soft down-right cast shadows plus wall/tree contact shadows; consistent palette across all buildings, no blue color cast. No plastic low-poly/procedural-box look, no thick cartoon outlines, no photo look. NO PEOPLE, RIDER, SCOOTER, CARS, BUS or moving traffic baked into this static map; dynamic characters will be separate. No UI, labels, lettering, logo, watermark, fake street names. Deliver ONE beautifully finished COMPLETE MULTI-BLOCK REGION, not separate building assets.",
+    "references": [
+      "guides/region-A-structure.png",
+      "../2026-11-03-map-production-method-review/user-region-map-reference.png",
+      "../2026-11-03-high-camera-city/HC-P-WEST-v1.png"
+    ],
+    "transparent_background": true
+  },
+  "referenceSources": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-whole-region-map/guides/region-A-structure.png",
+      "sha256": "2d2585a9c5e242c1604de0314e7ef6cd98e1123061264de99a85c6fb16d79ad8"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-map-production-method-review/user-region-map-reference.png",
+      "sha256": "c3d14eb676aa82479dca11d929666f327c05c9006b582b4324d714e5d925b100"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-high-camera-city/HC-P-WEST-v1.png",
+      "sha256": "b40f2024ce841de95c26ad443b3303c5c352c7d9e8a15e7b80d649acf1160fed"
+    }
+  ]
+}

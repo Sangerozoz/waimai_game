@@ -1,0 +1,559 @@
+{
+  "version": 1,
+  "created_date": "2026-11-03",
+  "status": "已制作、静态文件与目视检查完成；未用户验收、未引擎验证、未游戏测试",
+  "tool": "built-in image_gen.imagegen; transparent_background=true; no raster postprocessing",
+  "references": [
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+  ],
+  "identity_master": "rider-d-se.png",
+  "camera": "固定斜俯视正交目标；各朝向由生成模型重绘，非平面旋转/程序镜像。",
+  "coordinates": "原生图片坐标，原点左上，x向右y向下。按groundAnchor贴地，不能将画布底部中心作车辆坐标。",
+  "limitations": [
+    "独立生成并非同一3D模型的严格多视图，箱体比例、轮毂和左右机械细节存在小差异；侧面机械外壳在左右视图仍有近似对称重绘，尚未精确收口。",
+    "N/S轮接地点存在遮挡推断；所有锚点为粗略视觉候选，需开发接入后在阶段集中测试时确认。",
+    "各图原生画布大小和占幅不同，未裁切或重采样，开发需按主体框/轮距统一显示尺度。",
+    "E/W alpha最大254是原生结果，非完全255；透明背景已保留。部分RGB通道在alpha为0处含暖色，不代表需显示背景。",
+    "未进行实际场景叠放、游戏测试、typecheck、回归、浏览器操作或Cocos；未宣称用户验收。"
+  ],
+  "assets": [
+    {
+      "file": "rider-d-n.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-n.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-f7fb0805-fed3-4e7b-af1a-d3d81deb724e.png",
+      "sha256": "74954620545243447cbd9a379e2b22268e38e373989325c5e9d5a04694d39b90",
+      "actual_size": [
+        1157,
+        1359
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "subject_bbox_alpha_gt_16": [
+        312,
+        111,
+        845,
+        1254
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-n.txt",
+      "copy_matches_original_sha256": true,
+      "screen_heading": "n",
+      "screen_heading_description": "上，远离观者，主要车尾/后箱",
+      "screen_vector": [
+        0,
+        -1
+      ],
+      "frontWheelContact": [
+        578,
+        825
+      ],
+      "backWheelContact": [
+        578,
+        1250
+      ],
+      "groundAnchor": [
+        578.0,
+        1037.5
+      ],
+      "groundAnchorNormalized": [
+        0.499568,
+        0.763429
+      ],
+      "anchor_status": "视觉候选，未引擎验证；地面中心为前后轮投影接地点中点。N前轮/S后轮被遮挡，接地点是推断。",
+      "visual_review": "已查看原生生成图：人车完整、指定朝向、全橙D级车身、黑座与橙箱保留；可见前灯已为圆/近圆竖椭圆。",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1e068181-aa82-49cd-9cce-4c759b1e53eb.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    },
+    {
+      "file": "rider-d-ne.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-ne.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-9dfad0e6-1a80-4148-8afb-5758dc984672.png",
+      "sha256": "ca358184fa199f25b40c095e22f6e4ca3f1ca4263cdf21630078dc98dc441332",
+      "actual_size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "subject_bbox_alpha_gt_16": [
+        177,
+        110,
+        1193,
+        1134
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-ne.txt",
+      "copy_matches_original_sha256": true,
+      "screen_heading": "ne",
+      "screen_heading_description": "右上，后侧三分之四",
+      "screen_vector": [
+        1,
+        -1
+      ],
+      "frontWheelContact": [
+        1120,
+        815
+      ],
+      "backWheelContact": [
+        405,
+        1129
+      ],
+      "groundAnchor": [
+        762.5,
+        972.0
+      ],
+      "groundAnchorNormalized": [
+        0.581174,
+        0.810676
+      ],
+      "anchor_status": "视觉候选，未引擎验证；地面中心为前后轮投影接地点中点。N前轮/S后轮被遮挡，接地点是推断。",
+      "visual_review": "已查看原生生成图：人车完整、指定朝向、全橙D级车身、黑座与橙箱保留；可见前灯已为圆/近圆竖椭圆。",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1e068181-aa82-49cd-9cce-4c759b1e53eb.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    },
+    {
+      "file": "rider-d-e.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-e.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-eced430f-37b5-4fda-aa8c-8d29046cd820.png",
+      "sha256": "8d6c4ef2dc1ed735f5bc7777d1a6f05b6dbc3d0a40d0a1043e1135ffbb1b2df6",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "subject_bbox_alpha_gt_16": [
+        195,
+        30,
+        1424,
+        993
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-e-roundlamp.txt",
+      "copy_matches_original_sha256": true,
+      "screen_heading": "e",
+      "screen_heading_description": "右，侧向",
+      "screen_vector": [
+        1,
+        0
+      ],
+      "frontWheelContact": [
+        1280,
+        988
+      ],
+      "backWheelContact": [
+        410,
+        968
+      ],
+      "groundAnchor": [
+        845.0,
+        978.0
+      ],
+      "groundAnchorNormalized": [
+        0.55013,
+        0.955078
+      ],
+      "anchor_status": "视觉候选，未引擎验证；地面中心为前后轮投影接地点中点。N前轮/S后轮被遮挡，接地点是推断。",
+      "visual_review": "已查看原生生成图：人车完整、指定朝向、全橙D级车身、黑座与橙箱保留；可见前灯已为圆/近圆竖椭圆。",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-b34d3f29-d3de-4628-9855-a294b74068cb.png",
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1b2b68dc-1900-405f-95c1-7ba598233b3e.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png"
+      ]
+    },
+    {
+      "file": "rider-d-se.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-se.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1b2b68dc-1900-405f-95c1-7ba598233b3e.png",
+      "sha256": "e29c2010bcb1fc1394f2d3c3a130253c8072db49b5c8e14e3557528452763b0d",
+      "actual_size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "subject_bbox_alpha_gt_16": [
+        198,
+        93,
+        1153,
+        1174
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-se-roundlamp.txt",
+      "copy_matches_original_sha256": true,
+      "screen_heading": "se",
+      "screen_heading_description": "右下，前侧三分之四",
+      "screen_vector": [
+        1,
+        1
+      ],
+      "frontWheelContact": [
+        1045,
+        1165
+      ],
+      "backWheelContact": [
+        340,
+        898
+      ],
+      "groundAnchor": [
+        692.5,
+        1031.5
+      ],
+      "groundAnchorNormalized": [
+        0.52782,
+        0.8603
+      ],
+      "anchor_status": "视觉候选，未引擎验证；地面中心为前后轮投影接地点中点。N前轮/S后轮被遮挡，接地点是推断。",
+      "visual_review": "已查看原生生成图：人车完整、指定朝向、全橙D级车身、黑座与橙箱保留；可见前灯已为圆/近圆竖椭圆。",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1e068181-aa82-49cd-9cce-4c759b1e53eb.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png"
+      ]
+    },
+    {
+      "file": "rider-d-s.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-s.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-afa6d168-4eb4-48e4-a330-39b1310e9de1.png",
+      "sha256": "9305da69325c8e4bbd499a5a5dcd5297be50214d7dac055b1876b17ba50c16bb",
+      "actual_size": [
+        1133,
+        1388
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "subject_bbox_alpha_gt_16": [
+        288,
+        107,
+        846,
+        1313
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-s.txt",
+      "copy_matches_original_sha256": true,
+      "screen_heading": "s",
+      "screen_heading_description": "下，向观者，正面圆灯",
+      "screen_vector": [
+        0,
+        1
+      ],
+      "frontWheelContact": [
+        566,
+        1308
+      ],
+      "backWheelContact": [
+        566,
+        900
+      ],
+      "groundAnchor": [
+        566.0,
+        1104.0
+      ],
+      "groundAnchorNormalized": [
+        0.499559,
+        0.795389
+      ],
+      "anchor_status": "视觉候选，未引擎验证；地面中心为前后轮投影接地点中点。N前轮/S后轮被遮挡，接地点是推断。",
+      "visual_review": "已查看原生生成图：人车完整、指定朝向、全橙D级车身、黑座与橙箱保留；可见前灯已为圆/近圆竖椭圆。",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1b2b68dc-1900-405f-95c1-7ba598233b3e.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    },
+    {
+      "file": "rider-d-sw.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-sw.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-ced215d0-9e39-44f2-9fc8-adabf93fc6b9.png",
+      "sha256": "3c2353479e45ebded53caa0dc2c63cd15999fa8b2c930562fe94a41868fe9d9b",
+      "actual_size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "subject_bbox_alpha_gt_16": [
+        164,
+        74,
+        1141,
+        1167
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-sw.txt",
+      "copy_matches_original_sha256": true,
+      "screen_heading": "sw",
+      "screen_heading_description": "左下，前侧三分之四",
+      "screen_vector": [
+        -1,
+        1
+      ],
+      "frontWheelContact": [
+        300,
+        1162
+      ],
+      "backWheelContact": [
+        983,
+        903
+      ],
+      "groundAnchor": [
+        641.5,
+        1032.5
+      ],
+      "groundAnchorNormalized": [
+        0.488948,
+        0.861134
+      ],
+      "anchor_status": "视觉候选，未引擎验证；地面中心为前后轮投影接地点中点。N前轮/S后轮被遮挡，接地点是推断。",
+      "visual_review": "已查看原生生成图：人车完整、指定朝向、全橙D级车身、黑座与橙箱保留；可见前灯已为圆/近圆竖椭圆。",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1b2b68dc-1900-405f-95c1-7ba598233b3e.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    },
+    {
+      "file": "rider-d-w.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-w.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-3defe19c-da0a-4c50-a952-713719d94e3d.png",
+      "sha256": "3a72f426cb4ecb9e06851f73f1193747557e90e37cdd1f9a74fa73e38ca21b60",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "subject_bbox_alpha_gt_16": [
+        184,
+        44,
+        1367,
+        971
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-w.txt",
+      "copy_matches_original_sha256": true,
+      "screen_heading": "w",
+      "screen_heading_description": "左，侧向",
+      "screen_vector": [
+        -1,
+        0
+      ],
+      "frontWheelContact": [
+        330,
+        966
+      ],
+      "backWheelContact": [
+        1140,
+        961
+      ],
+      "groundAnchor": [
+        735.0,
+        963.5
+      ],
+      "groundAnchorNormalized": [
+        0.478516,
+        0.940918
+      ],
+      "anchor_status": "视觉候选，未引擎验证；地面中心为前后轮投影接地点中点。N前轮/S后轮被遮挡，接地点是推断。",
+      "visual_review": "已查看原生生成图：人车完整、指定朝向、全橙D级车身、黑座与橙箱保留；可见前灯已为圆/近圆竖椭圆。",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1b2b68dc-1900-405f-95c1-7ba598233b3e.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    },
+    {
+      "file": "rider-d-nw.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-nw.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-c29253de-485e-4476-96f7-11b98a0e9431.png",
+      "sha256": "4bd08536ce7fb754b1f9a0906a375ec026f6519c86d9e330e0c19a94b83494e5",
+      "actual_size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "subject_bbox_alpha_gt_16": [
+        186,
+        113,
+        1162,
+        1149
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-nw.txt",
+      "copy_matches_original_sha256": true,
+      "screen_heading": "nw",
+      "screen_heading_description": "左上，后侧三分之四",
+      "screen_vector": [
+        -1,
+        -1
+      ],
+      "frontWheelContact": [
+        285,
+        858
+      ],
+      "backWheelContact": [
+        910,
+        1146
+      ],
+      "groundAnchor": [
+        597.5,
+        1002.0
+      ],
+      "groundAnchorNormalized": [
+        0.455412,
+        0.835696
+      ],
+      "anchor_status": "视觉候选，未引擎验证；地面中心为前后轮投影接地点中点。N前轮/S后轮被遮挡，接地点是推断。",
+      "visual_review": "已查看原生生成图：人车完整、指定朝向、全橙D级车身、黑座与橙箱保留；可见前灯已为圆/近圆竖椭圆。",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1b2b68dc-1900-405f-95c1-7ba598233b3e.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    }
+  ],
+  "superseded_variants": [
+    {
+      "file": "rider-d-se-v1-cream-rejected.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-se-v1-cream-rejected.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-0dc0e17e-3a6b-44be-a6f9-e8ec4380e3aa.png",
+      "sha256": "3bc757962f6a44d4a254548db3f2b591efd357f55e11e767e7a1c4609fefe273",
+      "actual_size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "subject_bbox_alpha_gt_16": [
+        200,
+        97,
+        1150,
+        1172
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-se-v1.txt",
+      "copy_matches_original_sha256": true,
+      "status": "superseded-do-not-use",
+      "reason": "误混入C级奶白前板及横方灯，已覆盖为全橙圆灯版",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    },
+    {
+      "file": "rider-d-se-v2-squarelamp-rejected.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-se-v2-squarelamp-rejected.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1e068181-aa82-49cd-9cce-4c759b1e53eb.png",
+      "sha256": "10113e453cde28053c66268f743b1d7b603af1c71cad327984d669b017d022c8",
+      "actual_size": [
+        1312,
+        1199
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "subject_bbox_alpha_gt_16": [
+        200,
+        96,
+        1151,
+        1172
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-se-v2.txt",
+      "copy_matches_original_sha256": true,
+      "status": "superseded-do-not-use",
+      "reason": "全橙车板正确，C级横方灯被圆灯版本覆盖",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-0dc0e17e-3a6b-44be-a6f9-e8ec4380e3aa.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    },
+    {
+      "file": "rider-d-e-v1-squarelamp-rejected.png",
+      "project_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/rider-directions/rider-d-e-v1-squarelamp-rejected.png",
+      "original_generated_path": "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-b34d3f29-d3de-4628-9855-a294b74068cb.png",
+      "sha256": "ed085c211571b68c20562e202aaf6963feed335a417bc7bb4482a50fd5459e6e",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "subject_bbox_alpha_gt_16": [
+        195,
+        30,
+        1423,
+        991
+      ],
+      "bbox_convention": "left,top,right-exclusive,bottom-exclusive; native pixels",
+      "prompt_file": "prompts/rider-d-e.txt",
+      "copy_matches_original_sha256": true,
+      "status": "superseded-do-not-use",
+      "reason": "侧向前灯按新圆灯母版修正，保留原生成",
+      "generation_referenced_image_paths": [
+        "/Users/sanger/.codex/generated_images/01a19d2f-bc6f-7461-bb24-cb7ca2e51149/exec-1e068181-aa82-49cd-9cce-4c759b1e53eb.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/user-deliveries/2026-10-30-au02/vehicle-d-three-quarter-original.png",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-county-sample-production/03-art-sample-v1.png"
+      ]
+    }
+  ]
+}

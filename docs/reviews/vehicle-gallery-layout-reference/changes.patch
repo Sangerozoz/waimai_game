@@ -1,0 +1,55 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -712,26 +712,37 @@
+     const page=this.gallery=item(this.root,'VehicleGallery',0,0,720,height);page.addComponent(BlockInputEvents);
+     box(page,'GalleryBackground',0,0,720,height,C.paper,0);
+     const width=720-safe.left-safe.right-2*margin,cx=(safe.left-safe.right)/2,top=height/2-safe.top-margin,bottom=-height/2+safe.bottom+margin;
+-    readable(page,'车辆',cx,top-40,m.body+8,C.ink,width-130,true,'center',70);
+-    closeButton(page,cx+width/2-36,top-38,64,()=>this.closeGarage());
+-    const tabWidth=(width-12)/2;
+-    this.action(page,'全部车辆',cx-tabWidth/2-6,top-120,tabWidth,()=>{this.galleryMine=false;this.openGarage();},this.galleryMine?C.light:C.primary);
+-    this.action(page,'我的车辆',cx+tabWidth/2+6,top-120,tabWidth,()=>{this.galleryMine=true;this.openGarage();},this.galleryMine?C.primary:C.light);
+-    const inv=this.book.vehicleInventory,rows=this.galleryMine?inv.instances.map(v=>({tier:v.tier,id:v.id})):VEHICLE_GRADES.map((_,i)=>({tier:i+1,id:''}));
+-    const gap=12,cellWidth=(width-gap)/2,cellHeight=300,rowCount=Math.ceil(rows.length/2);
+-    const holder=item(page,'GalleryList',cx,0,width,height),content=scrollContent(holder,width,top-180,bottom,rowCount*(cellHeight+gap));
++    readable(page,'车辆',cx,top-36,m.body+8,C.ink,width-150,true,'center',64);
++    closeButton(page,cx-width/2+36,top-36,64,()=>this.closeGarage());
++    const inv=this.book.vehicleInventory,current=inv.instances.find(v=>v.id===inv.playerVehicleId)!,tier=current.tier;
++    const hero=box(page,'CurrentVehicle',cx,top-178,width,190,'#F8EFE0',18,'#D7B987');
++    const fallback=readable(hero,VEHICLE_NAMES[tier-1],-width*.28,0,m.aux,C.muted,width*.38,true,'center').node;
++    vehicleSideArt(hero,tier,-width*.28,0,width*.4,160,fallback);
++    readable(hero,'当前使用',width*.16,58,m.aux,'#A4582C',width*.55,true,'center',36);
++    readable(hero,`${VEHICLE_GRADES[tier-1]} · ${VEHICLE_NAMES[tier-1]}`,width*.16,18,m.body,C.ink,width*.55,true,'center',44);
++    readable(hero,`${VEHICLE_SPEED[tier-1]} km/h · 载重 ${VEHICLE_CAPACITY[tier-1]} kg`,width*.16,-26,m.aux,C.ink,width*.55,false,'center',40);
++    readable(hero,`余额 ¥${(this.book.player.cashCents/100).toFixed(2)}`,width*.16,-66,m.aux,C.ink,width*.55,true,'center',40);
++    const tabWidth=(width-12)/2,tabY=top-315;
++    this.action(page,'全部车辆',cx-tabWidth/2-6,tabY,tabWidth,()=>{this.galleryMine=false;this.openGarage();},this.galleryMine?C.light:C.primary);
++    this.action(page,'我的车辆',cx+tabWidth/2+6,tabY,tabWidth,()=>{this.galleryMine=true;this.openGarage();},this.galleryMine?C.primary:C.light);
++    const rows=this.galleryMine?inv.instances.map(v=>({tier:v.tier,id:v.id})):VEHICLE_GRADES.map((_,i)=>({tier:i+1,id:''}));
++    const gap=cssUnits(6,height),columns=(width-2*gap)/3>=cssUnits(100,height)?3:2,cellWidth=(width-gap*(columns-1))/columns,cellHeight=Math.max(220,cellWidth*1.14),rowCount=Math.ceil(rows.length/columns);
++    const holder=item(page,'GalleryList',cx,0,width,height),content=scrollContent(holder,width,tabY-m.action/2-18,bottom,rowCount*(cellHeight+gap));
+     if(!rows.length)readable(content,'暂无车辆',0,-70,m.body,C.muted,width,true,'center');
+     rows.forEach((row,i)=>{
+-      const t=row.tier,card=box(content,'Vehicle-'+(row.id||t),(i%2===0?-1:1)*(cellWidth+gap)/2,-Math.floor(i/2)*(cellHeight+gap)-cellHeight/2,cellWidth,cellHeight,C.paper,18,C.line);
+-      const fallback=readable(card,VEHICLE_NAMES[t-1],0,45,m.aux,C.muted,cellWidth-20,true,'center').node;
+-      vehicleSideArt(card,t,0,45,cellWidth-24,154,fallback);
+-      readable(card,VEHICLE_GRADES[t-1]+' · '+VEHICLE_NAMES[t-1],0,125,m.aux,C.ink,cellWidth-16,true,'center',44);
+-      const count=inv.instances.filter(v=>v.tier===t).length;
+-      readable(card,`${VEHICLE_SPEED[t-1]} km/h · ${VEHICLE_CAPACITY[t-1]} kg`,0,-60,m.aux,C.ink,cellWidth-16,false,'center',42);
+-      readable(card,row.id?(row.id===inv.playerVehicleId?'当前使用':'已拥有'):`¥${(VEHICLE_PRICE[t-1]/100).toFixed(0)} · ${count}/${VEHICLE_LIMITS[t-1]}`,0,-112,m.aux,t>2?C.muted:C.ink,cellWidth-16,true,'center',44);
++      const t=row.tier,x=-width/2+cellWidth/2+(i%columns)*(cellWidth+gap),y=-Math.floor(i/columns)*(cellHeight+gap)-cellHeight/2;
++      const count=inv.instances.filter(v=>v.tier===t).length,using=row.id?row.id===inv.playerVehicleId:current.tier===t,locked=t>2;
++      const card=box(content,'Vehicle-'+(row.id||t),x,y,cellWidth,cellHeight,'#FFFBF3',14,using?'#D59A50':'#D8CBB6');
++      const fallback=readable(card,VEHICLE_NAMES[t-1],0,15,m.aux,C.muted,cellWidth-16,true,'center').node;
++      vehicleSideArt(card,t,0,18,cellWidth-14,cellHeight*.58,fallback);
++      const badge=box(card,'Grade',-cellWidth/2+30,cellHeight/2-23,52,34,'#A95E32',10);
++      readable(badge,VEHICLE_GRADES[t-1],0,0,m.aux,'#FFFFFF',48,true,'center',32);
++      readable(card,VEHICLE_NAMES[t-1],0,-cellHeight/2+62,m.aux,C.ink,cellWidth-12,true,'center',42);
++      readable(card,`${count}/${VEHICLE_LIMITS[t-1]}  ${using?'使用中':locked?'未开放':count?'已拥有':'未拥有'}`,0,-cellHeight/2+24,m.aux,using?'#A45A29':C.muted,cellWidth-12,true,'center',40);
+       tap(card,()=>this.showVehicleDetail(t,row.id));
+     });
+   }
++
+   private showVehicleDetail(tier:number,id:string):void {
+     const inv=this.book.vehicleInventory,m=this.metrics(),count=inv.instances.filter(v=>v.tier===tier).length;
+     const {card,width,height,top,bottom}=this.dialog(VEHICLE_GRADES[tier-1]+' 车辆详情',950,'garage'),inner=width-48;

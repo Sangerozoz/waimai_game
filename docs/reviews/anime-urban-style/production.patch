@@ -1,0 +1,273 @@
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -268,7 +268,7 @@
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+       const slot=item(bar,'Nav-'+entry.key,entry.x,main?28.8:0,main?145.6:116,main?145.6:100);
+       if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right)/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,10,foreground,2.25);
+-      const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,'#FFFFFF',main?132:108,true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
++      const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,main?'#FFFFFF':foreground,main?132:108,true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+     }
+   }
+@@ -303,7 +303,7 @@
+       const gap=8,count=active.routes.length,w=(inner-gap*(count-1))/count,y=-infoHeight-12-routeHeight/2;
+       active.routes.forEach((r,i)=>{
+         const selected=i===active.selected,color=ROUTE_COLORS[r.preference],x=-inner/2+w/2+i*(w+gap);
+-        const card=box(content,'Route-'+r.preference,x,y,w,routeHeight,selected?'#FFF5CE':'#F7F5EF',12,selected?color:C.line);
++        const card=box(content,'Route-'+r.preference,x,y,w,routeHeight,selected?'#F8E5CD':'#F7F5EF',12,selected?color:C.line);
+         const estimated=this.book.timingForRoute(r).displaySeconds,late=estimated>active.deadlineSeconds;
+         readable(card,(selected?'✓ ':'')+TITLES[r.preference],0,routeHeight/2-26,m.aux,selected?color:C.ink,w-12,true,'center',44);
+         readable(card,`${Math.ceil(estimated/60)}分 ${(r.metres/1000).toFixed(1)}km`,0,0,m.aux,C.ink,w-12,true,'center',48);
+@@ -384,7 +384,7 @@
+     if(!this.root)return;if(this.toast){this.toast.active=false;this.toast.destroy();}
+     this.noticeMessage=message;
+     const m=this.metrics(),width=720-this.safeInsets.left-this.safeInsets.right-36,height=textHeight(message,m.body,width-32)+24;
+-    const node=this.toast=box(this.root,'NoticeToast',(this.safeInsets.left-this.safeInsets.right)/2,-230-this.screenExtra/2,width,height,'#FFF0B7',16,'#D6B65A');
++    const node=this.toast=box(this.root,'NoticeToast',(this.safeInsets.left-this.safeInsets.right)/2,-230-this.screenExtra/2,width,height,'#FFF0D9',16,'#D6B65A');
+     readable(node,message,0,0,m.body,C.ink,width-32,true,'center',height-16);
+     this.scheduleOnce(()=>{if(this.pendingSave)return;if(node.isValid)node.destroy();if(this.toast===node){this.toast=null;this.noticeMessage='';}},4);
+   }
+@@ -433,8 +433,8 @@
+     const context=typeof document!=='undefined'&&document.createElement?document.createElement('canvas').getContext('2d'):null;
+     const incomeWidth=(size:number)=>{if(context){context.font=`bold ${size}px Arial Rounded MT Bold, sans-serif`;return context.measureText(income).width;}return income.length*size*.62;};
+     while(incomeSize>1&&incomeWidth(incomeSize)>inner-8)incomeSize--;
+-    const entries=[{text:'本单收益',size:m.body,bold:true,color:'#795020'},
+-      {text:income,size:incomeSize,bold:true,color:'#795020'},
++    const entries=[{text:'本单收益',size:m.body,bold:true,color:'#A95226'},
++      {text:income,size:incomeSize,bold:true,color:'#A95226'},
+       {text:status,size:m.body},...(parts&&parts.lateImpact?[{text:effect('晚到',parts.lateImpact),size:m.body}]:[]),
+       ...(parts&&parts.damageImpact?[{text:effect('餐损',parts.damageImpact),size:m.body}]:[]),
+       {text:`评价 ${receipt.ratingDelta>=0?'+':''}${receipt.ratingDelta} · 经验 +${receipt.experienceGained}`,size:m.body,bold:true}];
+@@ -474,7 +474,7 @@
+         const row=rows[index],prominent=index===3||index===0,cell=item(content,'BillMetric-'+index,0,-offset-rowHeight/2,inner,rowHeight);
+         const titleWidth=inner*.43,valueWidth=inner*.55;
+         readable(cell,row.title,-inner/2+titleWidth/2,0,m.aux,C.muted,titleWidth,false,'left',rowHeight-10);
+-        this.billValues[index]=readable(cell,row.value,inner/2-valueWidth/2,0,prominent?m.body+8:m.body,prominent?'#795020':C.ink,valueWidth,true,'right',rowHeight-10);
++        this.billValues[index]=readable(cell,row.value,inner/2-valueWidth/2,0,prominent?m.body+8:m.body,prominent?'#A95226':C.ink,valueWidth,true,'right',rowHeight-10);
+         box(cell,'Divider',0,-rowHeight/2,inner,1,C.line,0);offset+=rowHeight;
+       }
+     }
+--- before/OrderPhone.ts
++++ after/OrderPhone.ts
+@@ -18,23 +18,23 @@
+  private render():void {
+   const m=presentationMetrics(this.screenHeight),insets=this.safeInsets;
+   const width=Math.min(684,720-insets.left-insets.right-36),height=Math.min(1240,this.screenHeight-insets.top-insets.bottom-24);
+-  box(this.node,'PhoneShadow',(insets.left-insets.right)/2+6,(insets.bottom-insets.top)/2-8,width+12,height+10,'#081E4270',48);
+-  box(this.node,'PhoneSide',(insets.left-insets.right)/2+5,(insets.bottom-insets.top)/2-2,width+8,height+2,'#102956',46);
+-  const frame=box(this.node,'PhoneFrame',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.navy,46,'#FFFFFF');frame.addComponent(BlockInputEvents);
++  box(this.node,'PhoneShadow',(insets.left-insets.right)/2+6,(insets.bottom-insets.top)/2-8,width+4,height+4,'#34373524',48);
++  box(this.node,'PhoneSide',(insets.left-insets.right)/2+5,(insets.bottom-insets.top)/2-2,width+2,height+2,'#353B38',46);
++  const frame=box(this.node,'PhoneFrame',(insets.left-insets.right)/2,(insets.bottom-insets.top)/2,width,height,C.navy,22,'#FFFCF5');frame.addComponent(BlockInputEvents);
+   box(frame,'SideButton',width/2+3,height/2-180,7,92,C.blue,3);
+-  box(frame,'Screen',0,0,width-26,height-26,C.paper,34);
+-  box(frame,'RimHighlight',-width/2+7,0,3,height-76,'#93C7FF',2);
++  box(frame,'Screen',0,0,width-18,height-18,C.paper,18);
++  box(frame,'RimHighlight',-width/2+7,0,3,height-76,'#D8D1C4',2);
+   const top=height/2;
+   const header=box(frame,'AppHeader',0,top-104,width-28,180,C.blue,30);
+   box(frame,'HeaderJoin',0,top-157,width-28,74,C.blue,0);
+-  readable(frame,'09:41',-width/2+76,top-38,22,'#FFFFFF',80,true,'center');box(frame,'SpeakerIsland',0,top-38,119,25,C.navy,12);
+-  for(let i=0;i<3;i++)box(frame,'Signal-'+i,width/2-113+i*7,top-43+i*2,4,5+i*4,'#FFFFFF',1);
+-  const battery=box(frame,'Battery',width/2-56,top-38,28,13,'#FFFFFF',3);box(battery,'BatteryTip',16,0,3,6,'#FFFFFF',1);
+-  outline(readable(frame,'接单大厅',-65,top-100,m.body+4,'#FFFFFF',width-190,true),'#14549B');
+-  readable(frame,'附近10单 · 全程10km以内',-64,top-151,m.aux,'#FFFFFF',width-190);
++  readable(frame,'09:41',-width/2+76,top-38,22,'#FFFCF5',80,true,'center');box(frame,'SpeakerIsland',0,top-38,119,25,C.navy,12);
++  for(let i=0;i<3;i++)box(frame,'Signal-'+i,width/2-113+i*7,top-43+i*2,4,5+i*4,'#FFFCF5',1);
++  const battery=box(frame,'Battery',width/2-56,top-38,28,13,'#FFFCF5',3);box(battery,'BatteryTip',16,0,3,6,'#FFFCF5',1);
++  outline(readable(frame,'接单大厅',-65,top-100,m.body+4,'#FFFCF5',width-190,true),'#14549B');
++  readable(frame,'附近10单 · 全程10km以内',-64,top-151,m.aux,'#FFFCF5',width-190);
+   closeButton(frame,width/2-55,top-114,64,this.onClose);
+   const noticeHeight=Math.max(m.action,88),noticeY=top-190-noticeHeight/2;
+-  readable(frame,this.book.isFirstDelivery?'首单推荐，先赚第一笔':'每日免费刷新，送完自动补单',-82,noticeY,m.aux,'#806017',width-240,true,'left',noticeHeight);
++  readable(frame,this.book.isFirstDelivery?'首单推荐，先赚第一笔':'每日免费刷新，送完自动补单',-82,noticeY,m.aux,'#806953',width-240,true,'left',noticeHeight);
+   this.action(frame,this.book.refreshesLeft?`刷新 ${this.book.refreshesLeft}/2`:'广告未开放',width/2-112,noticeY,174,m.action,this.onRefresh,this.book.refreshesLeft?C.primary:'#EEE9DD',!!this.book.refreshesLeft);
+   const listTop=top-202-noticeHeight,listBottom=-top+88,cardWidth=width-64,rows=this.book.list();
+   const layouts=rows.map(preview=>{
+@@ -58,7 +58,7 @@
+   if(enabled&&(fill===C.primary||fill===C.light))skin(node,fill===C.primary?'button-yellow':'button-blue');
+   if(enabled&&fill===C.green)material(node,width,height,C.green);
+   if(!enabled)material(node,width,height,'#C5CCD5');
+-  const white=enabled&&(fill===C.light||fill===C.green),caption=readable(node,text,0,0,presentationMetrics(this.screenHeight).body,white?'#FFFFFF':enabled?C.ink:C.muted,width-16,true,'center',height-8);
++  const white=enabled&&(fill===C.light||fill===C.green),caption=readable(node,text,0,0,presentationMetrics(this.screenHeight).body,white?'#FFFCF5':enabled?C.ink:C.muted,width-16,true,'center',height-8);
+   if(white)outline(caption);if(enabled)tap(node,action);
+  }
+  close():void{this.node.active=false;this.node.destroy();}
+--- before/CityMap.ts
++++ after/CityMap.ts
+@@ -3,7 +3,7 @@
+ import { box, C, col, item, label, tap } from './SampleUI';
+ import { clampCamera, compatibilityBounds, contains } from './CityExtent';
+ import { MapVehicle } from './MapVehicle';
+-export const ROUTE_COLORS:Record<Preference,string>={fast:'#BE7620',main:'#E88338',smooth:C.green};
++export const ROUTE_COLORS:Record<Preference,string>={fast:'#C36A31',main:'#6C8982',smooth:C.green};
+ const MAP_W=720,MAP_Y=83;
+ const TILE_SIZE=600;
+ const DEFAULT_SCALE=60/30,MIN_SCALE=60/100,MAX_SCALE=60/10;
+@@ -47,7 +47,7 @@
+  constructor(parent:Node,private readonly data:CityData,private readonly mapHeight=748,onAttribution:()=>void=()=>{},mapY=MAP_Y,footerInset=0,safeSides:{left:number;right:number;top?:number}={left:0,right:0}){
+    const MAP_H=this.mapHeight;this.routeInsets={top:232+(safeSides.top||0),bottom:252,left:90+safeSides.left,right:90+safeSides.right};
+    this.viewport=item(parent,'CityViewport',0,mapY,MAP_W,MAP_H);this.viewport.addComponent(Mask).type=Mask.Type.GRAPHICS_RECT;
+-   box(this.viewport,'MapGround',0,0,MAP_W,MAP_H,'#EAF5DD',0);
++   box(this.viewport,'MapGround',0,0,MAP_W,MAP_H,'#E9E5D7',0);
+    this.world=item(this.viewport,'RealRoadGeometry');
+    for(const n of data.nodes)this.nodePoints.set(n.id,[n.x,n.y]);
+    this.drawCity();this.routeInk=item(this.world,'Routes').addComponent(Graphics);
+@@ -59,7 +59,7 @@
+    }
+    for(const index of data.operatingPOIs||data.pois.map((_p,i)=>i)){const p=data.pois[index],xy=this.nodePoints.get(p.node)!;const pin=item(this.overlay,'Place-'+p.name);const g=pin.addComponent(Graphics);g.fillColor=col('#FFFFFF');g.circle(0,0,10);g.fill();g.strokeColor=col('#C1C7C7');g.lineWidth=1;g.circle(0,0,10);g.stroke();g.fillColor=col(p.kind==='restaurant'?'#D4A254':'#8398AA');g.circle(0,0,4);g.fill();this.poiDots.push({n:pin,x:xy[0],y:xy[1]});}
+    this.startPin=this.pin('取','#D59831');this.endPin=this.pin('送','#F05B70');
+-   const shadow=item(this.overlay,'VehicleGroundShadow');const sg=shadow.addComponent(Graphics);for(let i=5;i>=1;i--){sg.fillColor=col('#30465A08');sg.ellipse(0,0,38+i*2,17+i*2);sg.fill();}
++   const shadow=item(this.overlay,'VehicleGroundShadow');const sg=shadow.addComponent(Graphics);for(let i=5;i>=1;i--){sg.fillColor=col('#49443508');sg.ellipse(0,0,38+i*2,17+i*2);sg.fill();}
+    this.rider=item(this.overlay,'DeliveryRider');this.vehicle=new MapVehicle(this.rider,this.drawRider());
+    this.startPin.setSiblingIndex(this.overlay.children.length-1);this.endPin.setSiblingIndex(this.overlay.children.length-1);
+    this.scaleLabel=label(this.viewport,'30 m',-279+safeSides.left,-MAP_H/2+footerInset+32,12,'#758080',110);
+@@ -79,11 +79,11 @@
+  private line(g:Graphics,ps:Point[],width:number,color:string):void{if(ps.length<2)return;g.strokeColor=col(color);g.lineWidth=width;g.lineJoin=Graphics.LineJoin.ROUND;g.lineCap=Graphics.LineCap.ROUND;g.moveTo(ps[0][0],ps[0][1]);for(const p of ps.slice(1))g.lineTo(p[0],p[1]);g.stroke();}
+  private drawCity():void{
+    const g=item(this.world,'MapBase').addComponent(Graphics);
+-   const areaColor:Record<string,string>={water:'#85D8EF',green:'#BFE8B0',farmland:'#DBEAB5',residential:'#EAF5DD',commercial:'#FFECC1'};
++   const areaColor:Record<string,string>={water:'#96BDB8',green:'#BAC8A1',farmland:'#D4D2AC',residential:'#E9E5D7',commercial:'#E6D8C1'};
+    const areaOrder:Record<string,number>={residential:0,commercial:1,farmland:2,green:3,water:4};
+    const areas=this.data.areas.slice().sort((a,b)=>(areaOrder[a.kind]||0)-(areaOrder[b.kind]||0));
+-   for(const a of areas){g.fillColor=col(areaColor[a.kind]||'#EAF5DD');this.polygon(g,a.points);}
+-   for(const water of this.data.waterways){this.line(g,water,23,'#C6F4F5');this.line(g,water,17,'#85D8EF');}
++   for(const a of areas){g.fillColor=col(areaColor[a.kind]||'#E9E5D7');this.polygon(g,a.points);}
++   for(const water of this.data.waterways){this.line(g,water,23,'#D8E4DA');this.line(g,water,17,'#96BDB8');}
+    const tile=(x:number,y:number):DetailTile=>{
+      const key=`${Math.floor(x/TILE_SIZE)}/${Math.floor(y/TILE_SIZE)}`;
+      if(!this.detailData.has(key))this.detailData.set(key,{buildings:[],roads:[]});return this.detailData.get(key)!;
+@@ -98,8 +98,8 @@
+  private drawMajorRoads():void{
+    const boost=Math.max(1,.18/this.scale);if(this.majorScale===boost)return;this.majorScale=boost;this.majorInk.clear();
+    const roads=this.data.roads.filter(r=>r.width>=8).sort((a,b)=>a.width-b.width);
+-   for(const r of roads)this.line(this.majorInk,r.nodes.map(n=>this.nodePoints.get(n)!),(r.width+2.6)*boost,'#E7C67B');
+-   for(const r of roads)this.line(this.majorInk,r.nodes.map(n=>this.nodePoints.get(n)!),r.width*boost,'#FFF0BA');
++   for(const r of roads)this.line(this.majorInk,r.nodes.map(n=>this.nodePoints.get(n)!),(r.width+2.6)*boost,'#BEB9AD');
++   for(const r of roads)this.line(this.majorInk,r.nodes.map(n=>this.nodePoints.get(n)!),r.width*boost,'#E8E4D9');
+  }
+  private syncDetails():void{
+    const visible=new Set<string>();
+@@ -111,10 +111,22 @@
+        let node=this.detailNodes.get(key);
+        if(!node){
+          node=item(this.world,'Detail-'+key);const g=node.addComponent(Graphics);
+-         for(let i=0;i<data.buildings.length;i++){const p=data.buildings[i];g.fillColor=col('#B7C9A7');this.polygon(g,p,1.2,-1.5);g.fillColor=col(['#FFCFA9','#B8DFF1','#FFE6AA','#D6D0F4'][i%4]);this.polygon(g,p);}
++         for(let i=0;i<data.buildings.length;i++){
++           const p=data.buildings[i];
++           // Warm roof planes, fine ink edges and one consistent afternoon shadow.
++           g.fillColor=col('#6C695331');this.polygon(g,p,3,-4);
++           g.fillColor=col('#BCB5A1');this.polygon(g,p,1,-1.5);
++           g.fillColor=col(['#F4EFDF','#E9DECB','#E5E5D9','#DDCBB8'][i%4]);this.polygon(g,p);
++           g.strokeColor=col('#A49D893F');g.lineWidth=.65;g.stroke();
++           if(i%3===0){
++             const cx=p.reduce((v,a)=>v+a[0],0)/p.length,cy=p.reduce((v,a)=>v+a[1],0)/p.length;
++             const roof=p.map(a=>[cx+(a[0]-cx)*.64,cy+(a[1]-cy)*.64] as Point);
++             g.fillColor=col('#FFFCF349');this.polygon(g,roof);g.strokeColor=col('#B3AB9340');g.lineWidth=.5;g.stroke();
++           }
++         }
+          const roads=data.roads.slice().sort((a,b)=>a.width-b.width);
+-         for(const r of roads)this.line(g,r.points,r.width+2.6,r.width>=8?'#E7C67B':'#D7CBA8');
+-         for(const r of roads)this.line(g,r.points,r.width,r.width>=8?'#FFF0BA':'#FFF9DC');
++         for(const r of roads)this.line(g,r.points,r.width+2.6,r.width>=8?'#BEB9AD':'#CBC5B8');
++         for(const r of roads)this.line(g,r.points,r.width,r.width>=8?'#E8E4D9':'#F2EDE1');
+          node.setSiblingIndex(this.routeInk.node.getSiblingIndex());this.detailNodes.set(key,node);
+        }
+        node.active=true;
+@@ -186,7 +198,7 @@
+  }
+  private drawRoutes():void{
+    this.routeInk.clear();const order=this.routes.map((r,i)=>({r,i})).sort((a,b)=>Number(a.i===this.selected)-Number(b.i===this.selected));
+-   for(const {r,i} of order){this.line(this.routeInk,routePoints(r),(i===this.selected?13:7)/this.scale,'#FFFFFF');this.line(this.routeInk,routePoints(r),(i===this.selected?8:4)/this.scale,i===this.selected?ROUTE_COLORS[r.preference]:'#ACB4C6');}
++   for(const {r,i} of order){this.line(this.routeInk,routePoints(r),(i===this.selected?13:7)/this.scale,'#FFFFFF');this.line(this.routeInk,routePoints(r),(i===this.selected?8:4)/this.scale,i===this.selected?ROUTE_COLORS[r.preference]:'#B1B2A6');}
+  }
+  private project(p:Point):Point{return[p[0]*this.scale+this.offset[0],p[1]*this.scale+this.offset[1]];}
+  private syncOverlay():void{
+--- before/CompactOrderInfo.ts
++++ after/CompactOrderInfo.ts
+@@ -39,7 +39,7 @@
+  const middleTop=-(foodH-nameH-weightH)/2;
+  compactText(parent,food,mx,middleTop-nameH/2,m.body,C.ink,middle,true,'left',nameH);
+  compactText(parent,weight,mx,middleTop-nameH-weightH/2,m.aux,C.muted,middle,false,'left',weightH);
+- compactText(parent,fee,px,-feeH/2,amount.size,'#B87513',price,true,'right',feeH);
++ compactText(parent,fee,px,-feeH/2,amount.size,'#BB6028',price,true,'right',feeH);
+  compactText(parent,data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',px,-feeH-distanceH/2,m.aux,C.ink,price,false,'right',distanceH);
+  let y=-foodH-10;const from='取餐\n'+data.from,to='送达\n'+data.to,fh=compactHeight(from,m.aux,side),th=compactHeight(to,m.aux,side),ah=Math.max(fh,th);
+  compactText(parent,from,-width/2+side/2,y-ah/2,m.aux,C.ink,side,true,'left',ah);
+--- before/SampleUI.ts
++++ after/SampleUI.ts
+@@ -1,28 +1,24 @@
+ import { Color, EventTouch, Graphics, Label, Layers, Node, Sprite, UITransform, Tween, tween, Vec3 } from 'cc';
+ import { cartoonArt } from './CartoonArt';
+-export const C={navy:'#173A78',ink:'#193D75',muted:'#59769A',paper:'#FFFEF8',primary:'#FFD23F',gold:'#B87513',green:'#239A77',line:'#C4D9F3',light:'#E9F4FF',blue:'#2878EB',violet:'#7361D9'};
++export const C={navy:'#343735',ink:'#303633',muted:'#777B73',paper:'#FFFCF5',primary:'#ED782E',gold:'#BB6028',green:'#4C8269',line:'#D8D1C4',light:'#ECE8DE',blue:'#444C48',violet:'#444C48'};
+ export function col(hex:string):Color{return new Color(parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16),hex.length===9?parseInt(hex.slice(7,9),16):255);}
+ export function item(parent:Node,name:string,x=0,y=0,w=0,h=0):Node{const n=new Node(name);n.layer=Layers.Enum.UI_2D;parent.addChild(n);n.setPosition(x,y);n.addComponent(UITransform).setContentSize(w,h);return n;}
+ // One surface drawn at the final target size, inside the touch rectangle.
+ export function paintBox(n:Node,w:number,h:number,fill:string,radius=16,stroke?:string):void {
+  const surface=n.getChildByName('Surface')||item(n,'Surface');
+  const g=surface.getComponent(Graphics)||surface.addComponent(Graphics);g.clear();
+- const r=Math.max(0,Math.min(radius,w/2,h/2));
+- const shape=(i:number,color:string)=>{g.fillColor=col(color);g.roundRect(-w/2+i,-h/2+i,w-i*2,h-i*2,Math.max(0,r-i));g.fill();};
+- shape(0,stroke||fill);
+- if(stroke&&w>4&&h>4)shape(2,fill);
+- if(radius>=12&&w>=60&&h>=42&&!/Experience|Progress|Screen|Plate|Pill|Header/.test(n.name)){
+-  g.strokeColor=col('#FFFFFF99');g.lineWidth=2;g.roundRect(-w/2+4,-h/2+4,w-8,h-8,Math.max(0,r-4));g.stroke();
+- }
++ const r=Math.max(0,Math.min(radius,18,w/2,h/2));
++ if(radius>0&&w>60&&h>42){g.fillColor=col('#36382F14');g.roundRect(-w/2+1,-h/2-3,w,h,r);g.fill();}
++ g.fillColor=col(fill);g.roundRect(-w/2,-h/2,w,h,r);g.fill();
++ if(radius>0||stroke){g.strokeColor=col(stroke||C.line);g.lineWidth=1;g.roundRect(-w/2+.5,-h/2+.5,w-1,h-1,r);g.stroke();}
+ }
+ 
+ export function material(n:Node,w:number,h:number,fill:string,radius=Math.min(h*.35,w/2)):void {
+  const surface=n.getChildByName('Surface')||item(n,'Surface'),g=surface.getComponent(Graphics)||surface.addComponent(Graphics);g.clear();
+- const yellow=fill===C.primary,red=fill==='#DE4258',blue=fill===C.light||fill===C.blue;
+- const base=yellow?'#B87513':red?'#982640':blue?'#174D9C':fill===C.green?'#12664E':'#777F8A',face=blue?C.blue:fill;
+- const draw=(inset:number,bottom:number,top:number,color:string)=>{g.fillColor=col(color);g.roundRect(-w/2+inset,-h/2+bottom,w-inset*2,h-bottom-top,Math.max(0,radius-inset));g.fill();};
+- draw(0,0,0,'#193D7538');draw(1,2,1,base);draw(3,7,2,'#FFFFFF');draw(5,9,4,face);
+- g.fillColor=col('#FFFFFF65');g.roundRect(-w/2+9,h/2-Math.min(23,h*.3),w-18,Math.min(15,h*.18),Math.min(7,radius/2));g.fill();
++ const face=fill===C.light?C.blue:fill,r=Math.min(14,radius);
++ g.fillColor=col('#30362D1C');g.roundRect(-w/2,-h/2-3,w,h,r);g.fill();
++ g.fillColor=col(face);g.roundRect(-w/2,-h/2,w,h,r);g.fill();
++ g.strokeColor=col('#34373522');g.lineWidth=1;g.roundRect(-w/2+.5,-h/2+.5,w-1,h-1,r);g.stroke();
+ }
+ export function box(parent:Node,name:string,x:number,y:number,w:number,h:number,fill:string,radius=16,stroke?:string):Node{
+  const n=item(parent,name,x,y,w,h);paintBox(n,w,h,fill,radius,stroke);if(/^(Button-|CloseButton|NavigationBackdrop|Region-|Route-)/.test(name))material(n,w,h,fill,radius===0?18:Math.min(h*.35,w/2));return n;
+@@ -35,7 +31,7 @@
+  return node;
+ }
+ export function outline(text:Label,color='#124784',width=3):void {
+- text.enableOutline=true;text.outlineColor=col(color);text.outlineWidth=width;
++ text.enableOutline=false;text.outlineColor=col(color);text.outlineWidth=0;
+ }
+ export function label(parent:Node,value:string,x:number,y:number,size=20,fill=C.ink,width=600,bold=false,align:'left'|'center'|'right'='left'):Label{
+  const n=item(parent,'Label',x,y,width,size*1.6);const l=n.addComponent(Label);l.string=value;l.fontSize=size;l.lineHeight=size*1.45;l.color=col(fill);l.isBold=bold;l.fontFamily='Arial Rounded MT Bold, sans-serif';
+@@ -68,7 +64,7 @@
+  const n=box(parent,'Button-'+text,x,y,w,h,fill,14,fill===C.paper?C.line:undefined);if(enabled&&fill===C.primary)skin(n,'button-yellow');if(!enabled)material(n,w,h,'#C5CCD5');label(n,text,0,0,22,foreground,w-12,true,'center');if(enabled)tap(n,action);return n;
+ }
+ export function icon(parent:Node,kind:string,x:number,y:number,fill=C.navy,scale=1):Node{
+- const generated=['avatar','recruit','vehicle','map','bills','station','coin','star','bag','target','confirm'].indexOf(kind)>=0;
++ const generated=['avatar','station','coin','star','bag','confirm'].indexOf(kind)>=0;
+  const n=item(parent,'Icon-'+kind,x,y,32,32),g=n.addComponent(Graphics);n.setScale(scale,scale,1);g.lineWidth=2.4;g.strokeColor=col(fill);g.fillColor=col(fill);
+  if(kind==='heart'){
+   const heart=(scale:number,dy:number,color:string)=>{g.fillColor=col(color);g.moveTo(0,-14*scale+dy);g.bezierCurveTo(-30*scale,5*scale+dy,-12*scale,25*scale+dy,0,13*scale+dy);g.bezierCurveTo(12*scale,25*scale+dy,30*scale,5*scale+dy,0,-14*scale+dy);g.fill();};
+@@ -96,12 +92,12 @@
+ }
+ 
+ export function roundAction(node:Node,size:number,enabled=true):void {
+- const surface=item(node,'Surface'),g=surface.addComponent(Graphics),r=size/2,f=size/112;
+- for(const [radius,y,color] of [[r,0,enabled?'#831831':'#646C77'],[r-3*f,3*f,'#FFF0EC'],[r-5*f,4*f,enabled?'#CD2138':'#8C949E'],[r-9*f,7*f,enabled?'#F0444F':'#AAAEB5'],[r-14*f,11*f,enabled?'#FF5960':'#BAC0C8']] as [number,number,string][]){g.fillColor=col(color);g.circle(0,y,radius);g.fill();}
+- g.fillColor=col('#FFFFFF66');g.ellipse(-12*f,r*.48,r*.4,7*f);g.fill();
++ const surface=item(node,'Surface'),g=surface.addComponent(Graphics),r=size/2;
++ g.fillColor=col('#34373522');g.circle(0,-4,r);g.fill();
++ g.fillColor=col(enabled?C.primary:'#AAA99F');g.circle(0,0,r-2);g.fill();
++ g.strokeColor=col(C.paper);g.lineWidth=3;g.circle(0,0,r-2);g.stroke();
+ }
+ export function topOnlyBar(node:Node,w:number,h:number):void {
+- material(node,w,h,C.primary,20);const surface=node.getChildByName('Surface')!,g=surface.getComponent(Graphics)!;
+- // Fill lower corners through every inset layer, including the highlight rims.
+- for(const [inset,color] of [[0,'#B87513'],[3,'#FFFFFF'],[5,C.primary]] as [number,string][]){g.fillColor=col(color);g.rect(-w/2+inset,-h/2,w-inset*2,24);g.fill();}
++ const g=item(node,'Surface').addComponent(Graphics);g.fillColor=col(C.paper);g.rect(-w/2,-h/2,w,h);g.fill();
++ g.strokeColor=col(C.line);g.lineWidth=1;g.moveTo(-w/2,h/2);g.lineTo(w/2,h/2);g.stroke();
+ }

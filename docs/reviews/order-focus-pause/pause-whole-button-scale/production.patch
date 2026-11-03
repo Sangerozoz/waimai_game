@@ -1,0 +1,27 @@
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -196,9 +196,13 @@
+     box(identity,'ExperienceFill',0,0,1,1,C.primary,10);
+     {
+       const pause=box(identity,'Button-暂停',0,0,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action,C.light,12);
+-      const symbol=item(pause,'PauseSymbol');symbol.setScale(.5,.5,1);const ink=symbol.addComponent(Graphics);ink.fillColor=col('#FFFFFF');
++      pause.setScale(.5,.5,1);
++      const symbol=item(pause,'PauseSymbol');const ink=symbol.addComponent(Graphics);ink.fillColor=col('#FFFFFF');
+       for(const x of [-13,5]){ink.roundRect(x,-18,8,36,2);ink.fill();}
+-      pause.active=this.canPauseDelivery;tap(pause,()=>this.pauseGame());
++      pause.active=this.canPauseDelivery;
++      // Small independent hit target: the rendered frame remains exactly half size.
++      const hit=item(pause,'PauseHitTarget',0,0,Math.max(112,2*cssUnits(32,1280+this.screenExtra)),Math.max(m.action,2*cssUnits(32,1280+this.screenExtra)));
++      tap(hit,()=>this.pauseGame());
+     }
+     const avatar=item(identity,'PlayerAvatar',0,0,104,104);
+     const face=box(avatar,'AvatarPlaceholder',-10,0,84,90,C.light,17);
+@@ -230,7 +234,7 @@
+     paint(identity.getChildByName('ExperienceTrack')!,0,barY,avatarWidth,32,C.light,10);
+     const fill=identity.getChildByName('ExperienceFill')!;fill.active=progress>0;paint(fill,-avatarWidth*(1-progress)/2,barY,Math.max(0,avatarWidth*progress),32,C.primary,10);
+     this.experience.fontSize=28;this.experience.lineHeight=28;place(this.experience.node,0,barY,avatarWidth,32);this.experience.horizontalAlign=Label.HorizontalAlign.CENTER;this.experience.enableWrapText=false;this.experience.overflow=Label.Overflow.SHRINK;
+-    const pause=identity.getChildByName('Button-暂停');if(pause){pause.active=this.canPauseDelivery;place(pause,0,barY-16-12-m.action/2,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action);}
++    const pause=identity.getChildByName('Button-暂停');if(pause){pause.active=this.canPauseDelivery;place(pause,0,barY-16-12-Math.max(m.action/2,cssUnits(32,1280+this.screenExtra))/2,Math.max(112,cssUnits(44,1280+this.screenExtra)),m.action);}
+     const font=Math.max(24,Math.ceil(m.body*.8)),iconSize=40,pad=14,gap=12,available=width-avatarWidth-18;
+     const wanted=(v:string)=>Math.ceil(Array.from(v).length*font*.66)+iconSize+pad*3;
+     const ratingWidth=wanted(this.rating.string),moneyWidth=Math.min(available,wanted(this.money.string));

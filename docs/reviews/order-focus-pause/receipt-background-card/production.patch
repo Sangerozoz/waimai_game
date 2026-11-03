@@ -1,0 +1,63 @@
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -274,7 +274,7 @@
+   }
+   private closePhone():void{if(this.phone)this.phone.close();this.phone=null;}
+   private navigation():void {
+-    if(this.book.active)return;
++    if(this.book.active||this.pendingSave)return;
+     const idle=this.book.mode==='idle';
+     const backdrop=item(this.panel,'NavigationBackdrop',0,-581-this.safeInsets.bottom/2,720,118+this.safeInsets.bottom);topOnlyBar(backdrop,720,118+this.safeInsets.bottom);
+     const bar=item(this.panel,'MainNavigation',(this.safeInsets.left-this.safeInsets.right)/2,-581,720,118);bar.addComponent(BlockInputEvents);
+@@ -309,6 +309,11 @@
+     this.updatePlayerHeader();
+     this.navigation();
+     const active=this.book.active;
++    // Keep receipt data in the book, but never construct a completed-order sheet.
++    if(active?.mode==='done'){
++      if(!this.gameplayFrozen&&!this.pendingSave&&!this.modal&&this.receipts.observe(active))this.openReceipt();
++      return;
++    }
+     if(!active||!this.orderCardOpen)return;
+     const height=this.sheetHeight(),width=720-this.safeInsets.left-this.safeInsets.right-20,m=this.metrics();
+     const p=box(this.panel,'DeliverySheet',(this.safeInsets.left-this.safeInsets.right)/2,this.sheetBottom()+height/2,width,height,C.paper,24);
+@@ -333,9 +338,6 @@
+       });
+     }else if(active.mode==='running'){
+       this.tripLabel=readable(content,'',0,-infoHeight-30,m.body,C.ink,inner,true,'left',60);this.updateProgress();
+-    }else if(active.mode==='done'&&receipt){
+-      readable(content,'配送完成 · 收入已到账',0,-infoHeight-30,m.body,C.green,inner,true,'left',60);
+-      if(!this.gameplayFrozen&&!this.pendingSave&&!this.modal&&this.receipts.observe(active))this.openReceipt();
+     }
+     const allowCancel=phase?['planning','toPickup','awaitPickup'].indexOf(phase)>=0:(active.mode==='routes'||active.mode==='running'&&this.book.tripStage==='pickup'),buttonY=-top+16+m.action/2,cancelWidth=Math.max(144,cssUnits(44,1280+this.screenExtra),m.body*4+24);
+     if(allowCancel)this.action(p,'取消订单',-inner/2+cancelWidth/2,buttonY,cancelWidth,()=>{if(!this.act(()=>this.book.cancel()))return;this.rebuildLayout(true);},'#DE4258');
+@@ -350,7 +352,6 @@
+       this.updatePickupServiceFill();
+     }
+     else if(active.mode==='running')this.action(p,phase==='toPickup'?'前往取餐中':'配送中',mainX,buttonY,mainWidth,()=>{},C.light,false);
+-    else if(active.mode==='done')this.action(p,this.pendingSave?'结算保存待重试':'结算详情',0,buttonY,inner,()=>this.openReceipt(),C.light,!this.pendingSave);
+   }
+   private presentHandoff():void {
+     if(this.pendingSave||this.gameplayFrozen)return;
+@@ -394,6 +395,7 @@
+   }
+   private save():boolean {
+     if(!this.book||!this.store)return false;
++    if(this.book.mode==='done')this.removeDeliverySheet();
+     const ok=this.store.save(this.book.serialize());
+     if(!ok&&this.lastSaveError!==this.store.message){this.lastSaveError=this.store.message;this.showMessage(this.store.message);}
+     this.pendingSave=!ok;if(ok&&this.lastSaveError){this.lastSaveError='';if(this.toast){this.toast.destroy();this.toast=null;this.noticeMessage='';}}this.updatePlayerHeader();this.updateBills();return ok;
+@@ -497,7 +499,13 @@
+     const notice=this.damageNotice=box(this.root,'DamageNotice',0,330+this.screenExtra/2,626,88,'#FFF0CF',18,'#DAAB64');
+     label(notice,'路程颠簸，餐品损坏了',0,0,25,'#9B592E',590,true,'center');
+   }
++  private removeDeliverySheet():void {
++    const sheet=this.panel?.getChildByName('DeliverySheet');
++    if(sheet){sheet.removeFromParent();sheet.destroy();}
++    this.timer=null;this.tripLabel=null;this.progressFill=null;this.pickupServiceButton=null;
++  }
+   private openReceipt():void {
++    if(this.book.mode==='done')this.removeDeliverySheet();
+     const receipt=this.book.active?.receipt;if(!receipt||this.pendingSave||this.gameplayFrozen)return;
+     const m=this.metrics(),inner=Math.min(684,720-this.safeInsets.left-this.safeInsets.right-36)-48,offer=this.book.active!.offer;
+     const status=[receipt.lateSeconds>0?'晚到':'准时',receipt.damage==='none'?'餐品完好':'餐品损坏',offer.demand==='door'?(receipt.outcome.doorAnswer?'按备注':'未按备注'):'无交付要求'].join(' · ');

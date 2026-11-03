@@ -39,7 +39,7 @@ export function compactOrderInfo(parent:Node,data:CompactOrder,width:number,scre
  const middleTop=-(foodH-nameH-weightH)/2;
  compactText(parent,food,mx,middleTop-nameH/2,m.body,C.ink,middle,true,'left',nameH);
  compactText(parent,weight,mx,middleTop-nameH-weightH/2,m.aux,C.muted,middle,false,'left',weightH);
- compactText(parent,fee,px,-feeH/2,amount.size,'#B87513',price,true,'right',feeH);
+ compactText(parent,fee,px,-feeH/2,amount.size,'#BB6028',price,true,'right',feeH);
  compactText(parent,data.metres===null?'距离不可用':(data.metres/1000).toFixed(1)+'km',px,-feeH-distanceH/2,m.aux,C.ink,price,false,'right',distanceH);
  let y=-foodH-10;const from='取餐\n'+data.from,to='送达\n'+data.to,fh=compactHeight(from,m.aux,side),th=compactHeight(to,m.aux,side),ah=Math.max(fh,th);
  compactText(parent,from,-width/2+side/2,y-ah/2,m.aux,C.ink,side,true,'left',ah);

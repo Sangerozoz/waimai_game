@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "created": "2026-11-03",
+  "status": "生成候选，未用户验收，未引擎验证",
+  "generator": {
+    "tool": "built-in image_gen.imagegen",
+    "mode": "reference-guided generation; three independent calls",
+    "transparent_background": false,
+    "pixelProcessing": "none; byte-identical copies of native outputs, no crop/resize/recolor/alpha edit"
+  },
+  "references": {
+    "generation": [
+      {
+        "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-sample-fidelity-rework/user-target-concept.png",
+        "role": "唯一视觉风格参考"
+      }
+    ],
+    "viewedOnly": [
+      {
+        "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-sample-fidelity-rework/user-rejected-engine.png",
+        "role": "反例，只理解需避免问题，未传入生成"
+      },
+      {
+        "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+        "role": "原认可母版辅助理解，未传入生成"
+      }
+    ]
+  },
+  "assets": [
+    {
+      "file": "SF01-storefront-bay.png",
+      "source": "/Users/sanger/.codex/generated_images/01a19eea-0482-7aa0-a814-db3630151eef/exec-9fb72ecf-9148-4f18-96d4-253b9379ea9a.png",
+      "width": 1254,
+      "height": 1254,
+      "colorMode": "RGB",
+      "alpha": false,
+      "sha256": "dde0a1bd8e8c2175240319149e91c9d64db493b21f022496c525175e82c6ec65",
+      "physicalSizeCandidateMeters": [
+        4,
+        4
+      ],
+      "projection": "front orthographic facade",
+      "prompt": "Use case: stylized-concept. Asset type: SF01-storefront-bay, a full-bleed opaque square diffuse texture for ONE 4 metre wide by 4 metre tall ground-floor storefront bay on real 3D geometry. Create new material artwork; the referenced urban concept supplies ONLY its bright clear Japanese contemporary city anime painterly finish, warm white structure, clear blue-grey glass and warm interiors. Output 1024x1024. STRICT FRONT ORTHOGRAPHIC ELEVATION, completely flat frontal projection, four square image edges exactly bound one rectangular wall module, no camera perspective, no exterior depth or side wall, no surrounding margin. One generous floor-to-ceiling storefront with slim warm white side piers occupying only about 9 percent each side, thin white top lintel and bottom sill, slender dark charcoal metal mullions. A central glass entrance door flanked by large glass panes, broad transparent glazing, gently blue-grey reflections, softly visible muted amber / coffee-brown everyday cafe interior without lettering. Bright clean painted surfaces, crisp refined silhouettes, broad simple painterly values, fresh contrast, natural daylight, neutral warm whites, subtle recessed-frame local shadows only. Match the supplied target concept's glass richness and warm interior, never a flat saturated blue panel. Full opaque coverage to every edge. NO signage, text, logos, watermark, awning, roof, pavement, ground, trees, people, cars, building volume, floating panel, perspective, deep large cast shadows, blue overall tint, dirty noise, faded beige small-window grid. Material artwork only; no preview mockup.",
+      "visualReview": "正面边界清楚；大玻璃/深色细框/暖白边框和咖啡色室内；无整楼、街道、雨棚或文字。已目视。",
+      "limits": [
+        "室内包含透视、灯具和盆栽，玻璃烘焙绿叶反射，重复时可见同店重复与反射方向固定",
+        "不是动态玻璃或透明材质；RGB不透明应仅作表面颜色，不应依赖alpha看见真实内景",
+        "侧立柱和顶/底框已烘焙，横向平铺会叠加柱宽；需依模块分段控制UV"
+      ]
+    },
+    {
+      "file": "SF02-upper-floor-bay.png",
+      "source": "/Users/sanger/.codex/generated_images/01a19eea-0482-7aa0-a814-db3630151eef/exec-797c099a-0065-4b1c-aa42-c8dc5c3d9f8b.png",
+      "width": 1374,
+      "height": 1145,
+      "colorMode": "RGB",
+      "alpha": false,
+      "sha256": "60691a96d8ec0c3a580a29e4b023d9928521b4e9252edd2abd137bf723d060b0",
+      "physicalSizeCandidateMeters": [
+        3.6,
+        3
+      ],
+      "projection": "front orthographic facade",
+      "prompt": "Use case: stylized-concept. Asset type SF02-upper-floor-bay, full-bleed opaque diffuse texture for ONE 3.6 metre wide by 3 metre tall upper-floor facade wall bay on real game geometry. Create only a material, not a whole building or scene. The referenced target concept supplies its bright clear modern Japanese urban anime painterly finish, warm whites and restrained blue-grey glass with warm reflections. Image aspect 6:5 landscape. STRICT FRONT ORTHOGRAPHIC ELEVATION: perfectly parallel vertical and horizontal lines, no camera perspective, no visible sides, no exterior depth, no surroundings or margins. Four image edges exactly bound the single rectangular wall module. One generous paired vertically elongated glass window opening, occupying about 63 percent of module width and 79 percent of its height; elegant thin charcoal/blue-grey metal frame with only one central vertical mullion, no crossbars or small panes. Large clean warm-white wall surround, a slender warm-white horizontal floor band along the bottom, a very restrained pale cream/gold accent on one pier. Blue-grey glass is translucent with softened muted amber interior suggestion, gentle broad sky reflections, clean rich values, no saturated blue panel. Local gentle reveal shadows only, no baked large facade shadow. Smooth hand-painted architectural surfaces, fresh clear daylight, bright contemporary street architecture matching the target's facade scale. Full opaque coverage to every edge. No text, logo, watermark, balcony, railing, awning, cornice, roof, pavement, ground, trees, people, cars, complete building, angled wall, floating sample, gritty noise, dirty grunge, pale faded beige dormitory or repetitive little four-window grid. No strong mirror images of trees or neighboring buildings. Material artwork only.",
+      "visualReview": "正面大双竖窗，无四小窗格；暖白墙框、左侧浅金结构、克制蓝灰玻璃和暖室内；无阳台/整楼/地面。已目视。",
+      "limits": [
+        "玻璃带天空云反射、暖室内灯和模糊盆栽；均为固定绘制",
+        "浅金侧柱位置固定，重复时会形成固定节奏；非整面任意拉伸贴图",
+        "仅窗框局部明暗烘焙，未做引擎光照匹配"
+      ]
+    },
+    {
+      "file": "RF01-clean-roof.png",
+      "source": "/Users/sanger/.codex/generated_images/01a19eea-0482-7aa0-a814-db3630151eef/exec-b8191b68-dac4-4bde-a16b-c8f11c94a8a6.png",
+      "width": 1254,
+      "height": 1254,
+      "colorMode": "RGB",
+      "alpha": false,
+      "sha256": "9d5c2fdb1a6dded8511057e3265e7988b4e0b69ad71cb5946449ef3b7c1e2479",
+      "physicalSizeCandidateMeters": [
+        6,
+        6
+      ],
+      "projection": "top orthographic plane",
+      "prompt": "Use case: stylized-concept. Asset type RF01-clean-roof: full-bleed opaque diffuse roof surface texture, physical repeat candidate 6 metres by 6 metres, square 1024x1024. Create ONLY a flat roof surface material for mapping onto real arbitrary building roof polygons, not a whole roof or building illustration. The supplied target city concept is ONLY a palette and painterly style reference: bright clear modern Japanese urban anime painted architectural surfaces. STRICT ORTHOGRAPHIC TOP VIEW, flat uninterrupted near-white / warm off-white very pale grey mineral concrete or fine stone roofing. Clean bright neutral surface, extremely subtle broad hand-painted mineral variation, scarcely visible fine surface texture, a few thin quiet pale grey stone panel joints crossing the image on a simple large square panel grid. Four edges continue the same surface material; NO perimeter or edge border. Entire image is one uniform flat plane with low contrast and mostly off-white values. Neutral even diffuse light without directional gradients or shadows. No objects at all. NO parapet, edging, border, equipment, vents, HVAC, stairs, skylight, trees, foliage, walls, camera perspective, building volume, isometric view, surrounding ground, sky, text, labels, logo, watermark, transparent background, dirt, grime, gritty noise, brown speckling, grey grunge, cracks, wear, dramatic highlights or cast shadows. Do not reproduce the scene, road, building silhouette or rooftop geometry from the reference. Roof base surface only, supplied to geometry.",
+      "visualReview": "满幅浅暖白表面，低对比细拼缝、轻微质感，无女儿墙/设备/树/大阴影。已目视。",
+      "limits": [
+        "仅为重复候选，不承诺无缝；四边含细边界线，连续平铺接缝需阶段验证",
+        "石材/混凝土微弱变化仍有色差，工程缩小时可调整使用尺度",
+        "屋顶轮廓/女儿墙/设备必须独立真实几何，不能按矩形贴图决定建筑轮廓"
+      ]
+    }
+  ],
+  "unverified": [
+    "用户视觉验收",
+    "UV密度/任意footprint与楼层组合",
+    "横向/竖向接缝、远景mipmap和重复感",
+    "引擎最终色彩管理、光照、阴影与实际镜头",
+    "浏览器/游戏/Cocos运行效果"
+  ],
+  "verificationPerformed": [
+    "逐张生成后目视原图",
+    "只读PIL读取实际尺寸和RGB通道；SHA256记录"
+  ],
+  "prohibitedActionsNotPerformed": [
+    "无浏览器或游戏页面操作",
+    "无Cocos/游戏测试",
+    "无代码/存档修改",
+    "无原图像素后处理"
+  ]
+}

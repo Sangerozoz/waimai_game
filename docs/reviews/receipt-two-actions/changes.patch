@@ -1,0 +1,54 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -66,6 +66,7 @@
+   private readonly writerLease=new WebWriterLease();
+   private readonly foregroundClock=new ForegroundClock();
+   private readonly clickBoost=new ClickBoost();
++  private receiptReturn: boolean|null=null;
+   private layoutDone=false;
+   private deliveryStatus:Node|null=null;
+   private boostControl:Node|null=null;
+@@ -432,7 +433,7 @@
+     if(!this.gameplayFrozen)this.city.advanceLocate(dt);
+ 
+     if(this.skipNextFrame){this.skipNextFrame=false;this.clickBoost.reset();return;}
+-    if(this.pendingSave){this.saveElapsed+=dt;if(this.saveElapsed>=1){this.saveElapsed=0;if(this.save()){if(this.cancellationPendingReturn){this.finishCancelledDelivery();return;}this.onlineAt=this.gameplayFrozen?null:Date.now();if(this.phone&&this.book.active)this.closePhone();this.rebuildLayout(!this.book.active);if(!this.gameplayFrozen)this.presentHandoff();}}return;}
++    if(this.pendingSave){this.saveElapsed+=dt;if(this.saveElapsed>=1){this.saveElapsed=0;if(this.save()){if(this.cancellationPendingReturn){this.finishCancelledDelivery();return;}this.onlineAt=this.gameplayFrozen?null:Date.now();if(this.phone&&this.book.active)this.closePhone();this.rebuildLayout(!this.book.active);if(this.receiptReturn!==null){const open=this.receiptReturn;this.receiptReturn=null;if(open)this.openPhone();}if(!this.gameplayFrozen)this.presentHandoff();}}return;}
+     if(this.gameplayFrozen){this.foregroundClock.reset();this.onlineAt=null;return;}
+     const now=Date.now();if(this.onlineAt!==null)this.book.recordOnlineTime(this.onlineAt,now);this.onlineAt=now;
+     this.saveElapsed+=dt;this.billElapsed+=dt;
+@@ -537,7 +538,7 @@
+   }
+   private dismissDialog():void {
+     if(this.gameplayFrozen)return;
+-    if(this.modalKind==='receipt'&&this.book?.mode==='done'){if(!this.act(()=>this.book.finish()))return;this.closeDialog();this.rebuildLayout();return;}
++    if(this.modalKind==='receipt'){this.finishReceipt(false);return;}
+     this.closeDialog();if(this.book?.mode==='arrived'&&this.orderCardOpen)this.renderPanel();
+   }
+   private closeDialog():void{if(this.modal){this.modal.active=false;this.modal.destroy();this.modal=null;}this.modalKind=null;this.billValues=[];this.billDate=null;}
+@@ -593,15 +594,17 @@
+       ...(parts&&parts.damageImpact?[{text:effect('餐损',parts.damageImpact),size:m.body}]:[]),
+       {text:`评价 ${receipt.ratingDelta>=0?'+':''}${receipt.ratingDelta} · 经验 +${receipt.experienceGained}`,size:m.body,bold:true}];
+     const heights=entries.map(row=>textHeight(row.text,row.size,inner)+12),contentHeight=heights.reduce((a,b)=>a+b,0)+12;
+-    const {card,height,top,bottom}=this.dialog('配送结算',contentHeight+m.action+180,'receipt');
+-    const content=scrollContent(card,inner,top,bottom+m.action+24,contentHeight);
++    const {card,height,top,bottom}=this.dialog('配送结算',contentHeight+2*m.action+196,'receipt');
++    const content=scrollContent(card,inner,top,bottom+2*m.action+40,contentHeight);
+     let offset=0;entries.forEach((row,i)=>{readable(content,row.text,0,-offset-heights[i]/2,row.size,row.color||C.ink,inner,!!row.bold,'center',heights[i]);offset+=heights[i];});
+-    this.action(card,'确认，返回首页',0,-height/2+24+m.action/2,inner,()=>this.continueOrders());
+-  }
+-  private continueOrders():void {
+-    if(this.book.mode!=='done')return;
+-    if(!this.act(()=>this.book.finish()))return;
+-    this.closeDialog();this.rebuildLayout();
++    this.action(card,'继续接单',0,-height/2+24+m.action*1.5+16,inner,()=>this.finishReceipt(true));
++    this.action(card,'返回首页',0,-height/2+24+m.action/2,inner,()=>this.finishReceipt(false),C.light);
++  }
++  private finishReceipt(openOrders:boolean):void {
++    if(this.book.mode!=='done'||this.pendingSave||this.gameplayFrozen)return;
++    this.receiptReturn=openOrders;
++    if(!this.act(()=>this.book.finish())){if(!this.pendingSave)this.receiptReturn=null;return;}
++    this.receiptReturn=null;this.closeDialog();this.rebuildLayout();if(openOrders)this.openPhone();
+   }
+   private openMaps():void {
+     const {card,width,top,bottom}=this.dialog('地图',1060,'maps'),m=this.metrics(),inner=width-48;

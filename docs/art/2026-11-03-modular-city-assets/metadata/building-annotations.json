@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "status": "manual-static-candidates-not-calibrated-not-user-accepted",
+  "sourceReference": "user-oblique-view-reference.png",
+  "sourceReferenceSha256": "ee2b250d2f1521e8dccb116ba0672934f5897ffea0fdf894317193eda43b3167",
+  "projection": {
+    "axisX": [
+      0.8660254,
+      0.5
+    ],
+    "axisY": [
+      -0.8660254,
+      0.5
+    ],
+    "vertical": [
+      0,
+      -1
+    ],
+    "pixelsPerMeter": 32
+  },
+  "normalization": "u=pixelX/nativeWidth, v=pixelY/nativeHeight; continuous image coordinates from top left; no image edits",
+  "assets": [
+    {
+      "id": "B01",
+      "file": "B01-cafe.png",
+      "sourceSha256": "9e5d191ea45f3c3ee5b2f090bdbbd3ed76e5c108299bfa80da375704e2b556bf",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "displayWidthMeters": 18,
+      "scaleInterpretation": "entire native canvas width occupies 18 screen-world units; pixelsPerMeter for this asset = nativeWidth/18 before common display zoom",
+      "anchor": [
+        0.53748006,
+        0.9569378
+      ],
+      "anchorPixel": [
+        674,
+        1200
+      ],
+      "anchorMeaning": "foremost structural wall-ground corner; image-top-left normalized UV, v increases down; not alpha bbox center or roof center",
+      "groundPolygon": [
+        [
+          0.07575758,
+          0.74162679
+        ],
+        [
+          0.38277512,
+          0.55661882
+        ],
+        [
+          0.49441786,
+          0.62599681
+        ],
+        [
+          0.66985646,
+          0.51834131
+        ],
+        [
+          0.84130781,
+          0.62998405
+        ],
+        [
+          0.95215311,
+          0.72169059
+        ],
+        [
+          0.53748006,
+          0.9569378
+        ],
+        [
+          0.27910686,
+          0.81339713
+        ],
+        [
+          0.23125997,
+          0.83811802
+        ]
+      ],
+      "groundPolygonPixels": [
+        [
+          95,
+          930
+        ],
+        [
+          480,
+          698
+        ],
+        [
+          620,
+          785
+        ],
+        [
+          840,
+          650
+        ],
+        [
+          1055,
+          790
+        ],
+        [
+          1194,
+          905
+        ],
+        [
+          674,
+          1200
+        ],
+        [
+          350,
+          1020
+        ],
+        [
+          290,
+          1051
+        ]
+      ],
+      "hiddenEstimatedVertexIndices": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "concaveVertexIndices": [
+        2,
+        7
+      ],
+      "localGroundFootprintMeters": [
+        [
+          -8.673959,
+          0.922763
+        ],
+        [
+          -8.813483,
+          -5.598001
+        ],
+        [
+          -6.404453,
+          -5.509422
+        ],
+        [
+          -6.519041,
+          -9.270433
+        ],
+        [
+          -2.727697,
+          -9.042638
+        ],
+        [
+          0.074959,
+          -8.543858
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          -5.268825,
+          0.101361
+        ],
+        [
+          -5.321089,
+          1.043577
+        ]
+      ],
+      "footprintMeters": [
+        8.888,
+        10.314
+      ],
+      "footprintMetersMeaning": "axis-aligned extent after inverse nominal projection; not a surveyed rectangular width/depth",
+      "facing": "front corner toward screen bottom; front facades approximately map +X/+Y; stepped/concave building",
+      "alpha": {
+        "mode": "RGBA",
+        "zeroPixels": 570282,
+        "fullyOpaquePixels": 420,
+        "partialAlphaPixels": 1001814,
+        "pixelsAtLeast250": 962797,
+        "boundsByThreshold": {
+          "1": [
+            0,
+            0,
+            1254,
+            1254
+          ],
+          "16": [
+            91,
+            56,
+            1194,
+            1206
+          ],
+          "128": [
+            92,
+            57,
+            1193,
+            1205
+          ],
+          "250": [
+            93,
+            60,
+            1192,
+            1203
+          ]
+        },
+        "notes": "Native alpha preserved. Sparse faint residual pixels make threshold-1 bbox unsuitable for anchors; most building pixels are alpha 250..253, not alpha 255."
+      },
+      "projectionAssessment": {
+        "status": "approximate-compatible",
+        "manualGroundEdgeSamplesPixels": [
+          [
+            [
+              350,
+              1020
+            ],
+            [
+              674,
+              1200
+            ]
+          ],
+          [
+            [
+              674,
+              1200
+            ],
+            [
+              1194,
+              905
+            ]
+          ]
+        ],
+        "screenEdgeDegrees": [
+          29.055,
+          -29.567
+        ],
+        "inferredOrthographicElevationDegreesIfRectangular": 29.31,
+        "nominalProjectionInverseEdgeAngleDegrees": 88.395,
+        "nominalProjectionOrthogonalityErrorDegrees": 1.605,
+        "method": "Two observed neighboring ground edges; if they represent orthogonal horizontal edges, elevation = atan(sqrt(-slope1*slope2)). Inverse projection uses axisX=(.8660254,.5), axisY=(-.8660254,.5). Manual endpoints and stylized perspective limit precision.",
+        "horizontalRotationAloneExplainsDifference": true
+      },
+      "uncertainty": {
+        "anchorPixels": 8,
+        "visibleGroundCornersPixels": 10,
+        "hiddenGroundCornersPixels": 65,
+        "recommendedExtraClearanceMeters": 0.5,
+        "status": "manual candidate, not calibrated measurements or user acceptance"
+      },
+      "notes": [
+        "B01 visible wall-ground chain traced manually; rear outline and rear notch are occluded and estimated using roof/vertical alignment.",
+        "Foreground pots are baked into the image; allow additional 0.5m clearance around proposed structural polygon.",
+        "Stepped roof heights and small edge inconsistencies prevent an exact footprint survey."
+      ]
+    },
+    {
+      "id": "B02",
+      "file": "B02-glass.png",
+      "sourceSha256": "53be69ba7787c250210654485152f4eaabdfda7f83eb35a36f02eb24d47bb6ce",
+      "nativeSize": [
+        1199,
+        1312
+      ],
+      "displayWidthMeters": 18,
+      "scaleInterpretation": "entire native canvas width occupies 18 screen-world units; pixelsPerMeter for this asset = nativeWidth/18 before common display zoom",
+      "anchor": [
+        0.43619683,
+        0.99009146
+      ],
+      "anchorPixel": [
+        523,
+        1299
+      ],
+      "anchorMeaning": "foremost structural wall-ground corner; image-top-left normalized UV, v increases down; not alpha bbox center or roof center",
+      "groundPolygon": [
+        [
+          0.18181818,
+          0.90853659
+        ],
+        [
+          0.59466222,
+          0.67073171
+        ],
+        [
+          0.84904087,
+          0.75228659
+        ],
+        [
+          0.43619683,
+          0.99009146
+        ]
+      ],
+      "groundPolygonPixels": [
+        [
+          218,
+          1192
+        ],
+        [
+          713,
+          880
+        ],
+        [
+          1018,
+          987
+        ],
+        [
+          523,
+          1299
+        ]
+      ],
+      "hiddenEstimatedVertexIndices": [
+        1
+      ],
+      "concaveVertexIndices": [],
+      "localGroundFootprintMeters": [
+        [
+          -4.249919,
+          1.037242
+        ],
+        [
+          -4.643421,
+          -7.937062
+        ],
+        [
+          -0.393502,
+          -8.974304
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "footprintMeters": [
+        4.643,
+        10.012
+      ],
+      "footprintMetersMeaning": "axis-aligned extent after inverse nominal projection; not a surveyed rectangular width/depth",
+      "facing": "narrow front facade screen lower-left; long facade screen lower-right; oblique image differs from nominal camera",
+      "alpha": {
+        "mode": "RGBA",
+        "zeroPixels": 736081,
+        "fullyOpaquePixels": 339,
+        "partialAlphaPixels": 836668,
+        "pixelsAtLeast250": 810355,
+        "boundsByThreshold": {
+          "1": [
+            0,
+            15,
+            1179,
+            1312
+          ],
+          "16": [
+            218,
+            26,
+            1017,
+            1301
+          ],
+          "128": [
+            219,
+            26,
+            1016,
+            1300
+          ],
+          "250": [
+            220,
+            29,
+            1015,
+            1298
+          ]
+        },
+        "notes": "Native alpha preserved. Sparse faint residual pixels make threshold-1 bbox unsuitable for anchors; most building pixels are alpha 250..253, not alpha 255."
+      },
+      "projectionAssessment": {
+        "status": "camera-mismatch",
+        "manualGroundEdgeSamplesPixels": [
+          [
+            [
+              218,
+              1192
+            ],
+            [
+              523,
+              1299
+            ]
+          ],
+          [
+            [
+              523,
+              1299
+            ],
+            [
+              1018,
+              987
+            ]
+          ]
+        ],
+        "screenEdgeDegrees": [
+          19.332,
+          -32.223
+        ],
+        "inferredOrthographicElevationDegreesIfRectangular": 25.185,
+        "nominalProjectionInverseEdgeAngleDegrees": 78.795,
+        "nominalProjectionOrthogonalityErrorDegrees": 11.205,
+        "method": "Two observed neighboring ground edges; if they represent orthogonal horizontal edges, elevation = atan(sqrt(-slope1*slope2)). Inverse projection uses axisX=(.8660254,.5), axisY=(-.8660254,.5). Manual endpoints and stylized perspective limit precision.",
+        "horizontalRotationAloneExplainsDifference": false
+      },
+      "uncertainty": {
+        "anchorPixels": 8,
+        "visibleGroundCornersPixels": 10,
+        "hiddenGroundCornersPixels": 65,
+        "recommendedExtraClearanceMeters": 0.5,
+        "status": "manual candidate, not calibrated measurements or user acceptance"
+      },
+      "notes": [
+        "Rear ground corner is invisible; completed as a screen-space parallelogram from three visible corners, not a measured rear corner.",
+        "Image appears to use a lower elevation and unequal front/side directions; road-aligned rectangular 30-degree geometry is not an exact match."
+      ]
+    },
+    {
+      "id": "B03",
+      "file": "B03-residential.png",
+      "sourceSha256": "a989ace35f8224325acf3701293c4662cd66707fe5ddebca8403e25a1b07b6e6",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "displayWidthMeters": 18,
+      "scaleInterpretation": "entire native canvas width occupies 18 screen-world units; pixelsPerMeter for this asset = nativeWidth/18 before common display zoom",
+      "anchor": [
+        0.65470494,
+        0.98086124
+      ],
+      "anchorPixel": [
+        821,
+        1230
+      ],
+      "anchorMeaning": "foremost structural wall-ground corner; image-top-left normalized UV, v increases down; not alpha bbox center or roof center",
+      "groundPolygon": [
+        [
+          0.11722488,
+          0.86602871
+        ],
+        [
+          0.34370016,
+          0.69617225
+        ],
+        [
+          0.88118022,
+          0.81100478
+        ],
+        [
+          0.65470494,
+          0.98086124
+        ]
+      ],
+      "groundPolygonPixels": [
+        [
+          147,
+          1086
+        ],
+        [
+          431,
+          873
+        ],
+        [
+          1105,
+          1017
+        ],
+        [
+          821,
+          1230
+        ]
+      ],
+      "hiddenEstimatedVertexIndices": [
+        1
+      ],
+      "concaveVertexIndices": [],
+      "localGroundFootprintMeters": [
+        [
+          -7.652642,
+          3.518671
+        ],
+        [
+          -8.356458,
+          -1.892345
+        ],
+        [
+          -0.703816,
+          -5.411016
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "footprintMeters": [
+        8.356,
+        8.93
+      ],
+      "footprintMetersMeaning": "axis-aligned extent after inverse nominal projection; not a surveyed rectangular width/depth",
+      "facing": "broad shopfront screen lower-left, narrow side screen lower-right; shallower camera elevation than B01",
+      "alpha": {
+        "mode": "RGBA",
+        "zeroPixels": 589292,
+        "fullyOpaquePixels": 330,
+        "partialAlphaPixels": 982894,
+        "pixelsAtLeast250": 948866,
+        "boundsByThreshold": {
+          "1": [
+            0,
+            0,
+            1206,
+            1254
+          ],
+          "16": [
+            147,
+            43,
+            1106,
+            1232
+          ],
+          "128": [
+            148,
+            44,
+            1105,
+            1231
+          ],
+          "250": [
+            149,
+            46,
+            1105,
+            1228
+          ]
+        },
+        "notes": "Native alpha preserved. Sparse faint residual pixels make threshold-1 bbox unsuitable for anchors; most building pixels are alpha 250..253, not alpha 255."
+      },
+      "projectionAssessment": {
+        "status": "camera-mismatch",
+        "manualGroundEdgeSamplesPixels": [
+          [
+            [
+              147,
+              1086
+            ],
+            [
+              821,
+              1230
+            ]
+          ],
+          [
+            [
+              821,
+              1230
+            ],
+            [
+              1105,
+              1017
+            ]
+          ]
+        ],
+        "screenEdgeDegrees": [
+          12.06,
+          -36.87
+        ],
+        "inferredOrthographicElevationDegreesIfRectangular": 21.816,
+        "nominalProjectionInverseEdgeAngleDegrees": 72.718,
+        "nominalProjectionOrthogonalityErrorDegrees": 17.282,
+        "method": "Two observed neighboring ground edges; if they represent orthogonal horizontal edges, elevation = atan(sqrt(-slope1*slope2)). Inverse projection uses axisX=(.8660254,.5), axisY=(-.8660254,.5). Manual endpoints and stylized perspective limit precision.",
+        "horizontalRotationAloneExplainsDifference": false
+      },
+      "uncertainty": {
+        "anchorPixels": 8,
+        "visibleGroundCornersPixels": 10,
+        "hiddenGroundCornersPixels": 65,
+        "recommendedExtraClearanceMeters": 0.5,
+        "status": "manual candidate, not calibrated measurements or user acceptance"
+      },
+      "notes": [
+        "Rear ground corner is invisible; completed as a screen-space parallelogram from three visible corners.",
+        "Both front and side ground edges differ from +/-30 degrees. A horizontal building rotation alone under the specified camera cannot explain this orthogonality residual.",
+        "Balconies, stair and canopy are baked into the whole image; do not rotate or shear the bitmap to force road alignment."
+      ]
+    }
+  ]
+}

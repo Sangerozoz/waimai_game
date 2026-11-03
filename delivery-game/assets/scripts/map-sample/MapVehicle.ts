@@ -1,4 +1,4 @@
-import { Graphics, isValid, Node, Rect, resources, Size, Sprite, SpriteFrame, Texture2D } from 'cc';
+import { Graphics, isValid, Node, Rect, resources, Size, Sprite, SpriteFrame, Texture2D, UITransform } from 'cc';
 import { item } from './SampleUI';
 import { vehicleArtForTier } from './VehicleCatalog';
 import { loadCartoonFrame } from './CartoonArt';
@@ -35,8 +35,9 @@ export class MapVehicle {
     this.tier=art.tier;const request=++this.request;
     this.picture.active=false;this.fallback.enabled=true;
     const current=()=>request===this.request&&isValid(this.parent,true)&&isValid(this.picture,true)&&this.parent.activeInHierarchy!==false;
-    (art.tier<=2?loadCartoonFrame(art.tier===2?'top-d-plus':'top-d'):loadImage(art.resource)).then(frame=>{
+    loadCartoonFrame(art.tier===1?'top-d':`top-${['d','d-plus','c','c-plus','b','b-plus','a','s','ss','sss'][art.tier-1]}`).then(frame=>{
       if(!current())return;
+      if(art.tier===1)this.picture.getComponent(UITransform)!.setContentSize(80,128);else {const scale=Math.min(80/frame.originalSize.width,128/frame.originalSize.height);this.picture.getComponent(UITransform)!.setContentSize(frame.originalSize.width*scale,frame.originalSize.height*scale);}
       this.sprite.spriteFrame=frame;this.picture.active=true;this.fallback.enabled=false;
     },()=>{if(current())this.tier=0;});
   }

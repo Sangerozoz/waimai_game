@@ -1,3 +1,5 @@
+import { VehicleInventory, initialInventory, VEHICLE_LIMITS, VEHICLE_PRICE } from './VehicleOwnership';
+import { TRIP_PROFILE, TripProfile, tripTiming, travelDelta } from './TripClock';
 import { CityData, MapRoute, Point, Preference } from './MapTypes';
 import { RoadRouter, routePosition } from './RoadRouter';
 import { advancePickupClock, DeliveryProgress, DeliveryTiming, deliveryProgress, deliveryTiming, legacyDeliveryTiming, PICKUP_STOP_SECONDS } from './DeliveryClock';
@@ -21,11 +23,13 @@ export interface AcceptedDelivery {
   offer:DeliveryOffer; routes:MapRoute[]; selected:number; elapsed:number; ruleVersion?:1|2; pickupWaitElapsed?:number;
   mode:'routes'|'running'|'paused'|'arrived'|'done';
   handoff?:{version:1;phase:HandoffPhase};
+  tripProfile?:TripProfile;
+  mileage?:{profile:'road-increment-v1';accountedMetres:number};
   damageNoticeShown?:boolean;
   deadlineSeconds:number; damage:Damage|null; playerBefore:Player; receipt:CountyReceipt|null;
 }
 export interface CountySnapshot {
-  version:1|2|3|4;riderAnchor?:RiderAnchor|null;mapId:string;player:Player;offers:DeliveryOffer[];currentNode:string;sequence:number;
+  version:1|2|3|4|5|6|7;vehicles?:VehicleInventory;randomState?:number;riderAnchor?:RiderAnchor|null;mapId:string;player:Player;offers:DeliveryOffer[];currentNode:string;sequence:number;
   recent:number[];lobbyHistory?:number[];billing?:BillingSnapshot;tutorialComplete:boolean;daily:{day:string;used:number};active:AcceptedDelivery|null;
 }
 function localDay():string{const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;}
@@ -42,9 +46,11 @@ export class OrderBook {
   private accepted:AcceptedDelivery|null=null;
   private currentNode:string;
   private riderAnchor:RiderAnchor|null=null;
-  private snapshotVersion:3|4=3;
+  private snapshotVersion:3|4|5=5;
+  private randomState=1;
   private sequence=1;
   private playerState:Player=newCountyPlayer();
+  private vehicles:VehicleInventory=initialInventory(1);
   private tutorialComplete=false;
   private daily:{day:string;used:number};
   private readonly mapId:string;
@@ -53,6 +59,7 @@ export class OrderBook {
   private readonly ledger:DeliveryLedger;
 
   constructor(readonly data:CityData,private readonly random:()=>number=Math.random,private readonly today:()=>string=localDay,saved?:CountySnapshot) {
+    this.randomState=saved?.randomState??(Math.floor(this.random()*4294967296)>>>0);
     this.router=new RoadRouter(data);
     this.cityRouter=data.playBounds?new RoadRouter({...data,nodes:data.nodes.filter(n=>contains(data.playBounds!,[n.x,n.y]))}):this.router;
     this.operatingNodes=data.operatingPOIs?new Set(data.operatingPOIs.map(i=>data.pois[i].node)):null;
@@ -62,8 +69,8 @@ export class OrderBook {
     if(!start)throw new Error('No restaurant in the delivery map');
     this.currentNode=start.node;
     if(saved){
-      this.snapshotVersion=saved.version===4?4:3;this.riderAnchor=saved.version===4?(saved.riderAnchor||null):null;
-      this.playerState=saved.player;this.offers=saved.offers;this.currentNode=saved.currentNode;
+      this.snapshotVersion=5;this.riderAnchor=saved.version>=4?(saved.riderAnchor||null):null;
+      this.playerState=saved.player;this.vehicles=saved.version===7?JSON.parse(JSON.stringify(saved.vehicles)):initialInventory(saved.player.vehicleTier);this.offers=saved.offers;this.currentNode=saved.currentNode;
       this.sequence=saved.sequence;this.recent=saved.recent;this.lobbyHistory=saved.lobbyHistory||[];this.tutorialComplete=saved.tutorialComplete;this.daily=saved.daily;this.accepted=saved.active;
       if(saved.version<3&&this.accepted)this.accepted.ruleVersion=1;
       this.playerState={...this.playerState,level:countyExperienceLevel(this.playerState.experience)};
@@ -83,9 +90,10 @@ export class OrderBook {
     validateCountySnapshot(data,saved);return new OrderBook(data,random,today,saved);
   }
   serialize():string {
-    const snapshot:CountySnapshot={version:this.snapshotVersion,...(this.snapshotVersion===4?{riderAnchor:this.riderAnchor}:{}),mapId:this.mapId,player:this.playerState,offers:this.offers,currentNode:this.currentNode,sequence:this.sequence,recent:this.recent,lobbyHistory:this.lobbyHistory,billing:this.ledger.snapshot(),tutorialComplete:this.tutorialComplete,daily:this.daily,active:this.accepted};
+    const snapshot:CountySnapshot={version:7,vehicles:this.vehicles,randomState:this.randomState,...(this.snapshotVersion>=4?{riderAnchor:this.riderAnchor}:{}),mapId:this.mapId,player:this.playerState,offers:this.offers,currentNode:this.currentNode,sequence:this.sequence,recent:this.recent,lobbyHistory:this.lobbyHistory,billing:this.ledger.snapshot(),tutorialComplete:this.tutorialComplete,daily:this.daily,active:this.accepted};
     return JSON.stringify(snapshot);
   }
+  get vehicleInventory():VehicleInventory{return JSON.parse(JSON.stringify(this.vehicles));}
   get player():Readonly<Player>{return {...this.playerState};}
   get isFirstDelivery():boolean{return !this.tutorialComplete;}
   get refreshesLeft():number{return this.daily.day===this.today()?2-this.daily.used:2;}
@@ -134,7 +142,9 @@ export class OrderBook {
       const timing=legacyDeliveryTiming(route.seconds,vehicle.speedMultiplier),progress=Math.max(0,Math.min(1,active.elapsed/timing.animationSeconds));
       return {...timing,progress,routeElapsedSeconds:route.seconds*progress,routeElapsedMetres:route.metres*progress,remainingSeconds:timing.displaySeconds*(1-progress)};
     }
-    const progress=deliveryProgress(route.metres,active.elapsed,vehicle.speedKph);
+    const timing=active.tripProfile?tripTiming(route.metres,vehicle.speedKph,active.tripProfile):deliveryTiming(route.metres,vehicle.speedKph);
+    const fraction=timing.animationSeconds===0?1:Math.max(0,Math.min(1,active.elapsed/timing.animationSeconds));
+    const progress:DeliveryProgress={...timing,progress:fraction,routeElapsedSeconds:0,routeElapsedMetres:route.metres*fraction,remainingSeconds:active.tripProfile?(timing.displaySeconds-60)*(1-fraction)+60*(1-(active.pickupWaitElapsed||0)/2):timing.displaySeconds*(1-fraction)};
     // Keep routeElapsedSeconds meaningful for callers using the router's road-time parameter.
     return {...progress,routeElapsedSeconds:this.roadSecondsAtDistance(route,progress.routeElapsedMetres)};
   }
@@ -150,7 +160,7 @@ export class OrderBook {
       if(!route)return {offer,available:false,pickupMetres:0,deliveryMetres:0,timing:{displaySeconds:0,animationSeconds:0},deadlineSeconds:0,estimatedIncomeCents};
       const pickupMetres=(route.origin?.exit.metres||0)+route.segments.slice(0,route.pickupIndex||0).reduce((sum,segment)=>sum+segment.metres,0),deliveryMetres=route.metres-pickupMetres,timing=this.timing(route.metres);
       let deadlineSeconds=this.accepted?.offer.id===offer.id?this.accepted.deadlineSeconds:0,available=true;
-      if(!deadlineSeconds){try{deadlineSeconds=Math.min(...this.legalRoutes(offer).map(r=>this.timing(r.metres).displaySeconds))+(offer.type==='urgent'?0:300);}catch(_){available=false;}}
+      if(!deadlineSeconds){try{deadlineSeconds=Math.min(...this.legalRoutes(offer).map(r=>this.timing(r.metres).displaySeconds))+(offer.type==='urgent'?120:300);}catch(_){available=false;}}
       return {offer,available,pickupMetres,deliveryMetres,timing,deadlineSeconds,estimatedIncomeCents};
     });
   }
@@ -161,7 +171,7 @@ export class OrderBook {
     if(offer.weightKg>COUNTY_VEHICLES[this.playerState.vehicleTier-1].capacityKg)throw new Error('这单超出当前车辆载重');
     const routes=this.legalRoutes(offer);
     const fastest=Math.min(...routes.map(r=>this.timing(r.metres).displaySeconds));
-    this.snapshotVersion=4;this.accepted={offer,routes,ruleVersion:2,handoff:{version:1,phase:'planning'},pickupWaitElapsed:0,selected:0,elapsed:0,mode:'routes',deadlineSeconds:fastest+(offer.type==='urgent'?0:300),damage:null,playerBefore:{...this.playerState},receipt:null};
+    this.snapshotVersion=5;this.accepted={offer,routes,ruleVersion:2,tripProfile:TRIP_PROFILE,mileage:{profile:'road-increment-v1',accountedMetres:0},handoff:{version:1,phase:'planning'},pickupWaitElapsed:0,selected:0,elapsed:0,mode:'routes',deadlineSeconds:fastest+(offer.type==='urgent'?120:300),damage:null,playerBefore:{...this.playerState},receipt:null};
   }
   private legalRoutes(offer:DeliveryOffer):MapRoute[] {
     const routes:MapRoute[]=[],seen=new Set<string>();
@@ -185,11 +195,26 @@ export class OrderBook {
     if(!phase&&active.mode!=='routes'){
       const route=active.routes[active.selected],pickup=route.segments.slice(0,route.pickupIndex||0).reduce((sum,segment)=>sum+segment.seconds,0);
       if(active.mode!=='running'||this.progress.routeElapsedSeconds>=pickup)throw new Error('取餐开始后不能取消');
-      if(active.elapsed>0){this.riderAnchor=anchorAt(route,this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;this.snapshotVersion=4;}
+      if(active.elapsed>0){this.riderAnchor=anchorAt(route,this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;this.snapshotVersion=5;}
     }
     if(phase==='awaitPickup'){this.currentNode=this.data.pois[active.offer.from].node;this.riderAnchor=null;}
     else if(phase==='toPickup'&&active.elapsed>0){this.riderAnchor=anchorAt(active.routes[active.selected],this.progress.routeElapsedSeconds);this.currentNode=this.riderAnchor.from;}
     this.accepted=null;
+  }
+  /** Post-pickup abandonment is distinct from the original pre-pickup cancel. */
+  get canCancelDelivery():boolean {
+    const active=this.accepted;if(!active||active.mode!=='running')return false;
+    const phase=active.handoff?.phase;
+    return phase?phase==='awaitDeliveryStart'||phase==='toDropoff':this.tripStage==='delivery';
+  }
+  cancelDelivery():void {
+    if(!this.canCancelDelivery)throw new Error('当前阶段不能取消配送');
+    const active=this.accepted!,anchor=anchorAt(active.routes[active.selected],this.progress.routeElapsedSeconds);
+    // Resolve first: malformed routes must not partially clear the activity.
+    anchorExits(this.data,anchor);
+    this.riderAnchor=anchor;this.currentNode=anchor.from;this.snapshotVersion=5;
+    this.accepted=null;
+    // Preserve player, ledger, candidate pool, RNG and refresh quota byte-for-byte.
   }
   private handoffState():HandoffState {
     const a=this.accepted!;return {version:1,phase:a.handoff!.phase,elapsed:a.elapsed,serviceElapsed:a.pickupWaitElapsed||0};
@@ -208,12 +233,13 @@ export class OrderBook {
   deliver():void {if(!this.accepted?.handoff)throw new Error('当前订单无需手动送餐');this.applyHandoff(startDelivery(this.handoffState()));}
   // Kept for old view integrations; deliveries no longer support manual pausing.
   togglePause():void {}
-  advance(seconds:number):boolean {
+  advance(seconds:number,multiplier=1,day=this.today()):boolean {
     const active=this.accepted;
     if(!active||active.mode!=='running'||!Number.isFinite(seconds)||seconds<=0)return false;
     if(active.handoff){
-      const next=advanceHandoff(this.handoffState(),seconds,this.pickupAt(),this.progress.animationSeconds),changed=next.phase!==active.handoff.phase;this.applyHandoff(next);
-      if(next.phase==='arrived'){active.mode='arrived';this.currentNode=this.data.pois[active.offer.to].node;this.riderAnchor=null;this.settle(active.offer.demand==='door'?true:null);}
+      const next=advanceHandoff(this.handoffState(),active.tripProfile&&active.handoff.phase!=='picking'?travelDelta(seconds,multiplier):seconds,this.pickupAt(),this.progress.animationSeconds),changed=next.phase!==active.handoff.phase;this.applyHandoff(next);
+      if(active.mileage){const route=active.routes[active.selected],distance=Math.min(route.metres,route.metres*active.elapsed/this.progress.animationSeconds),delta=Math.max(0,distance-active.mileage.accountedMetres);this.ledger.recordDistance(delta,day);active.mileage.accountedMetres=distance;}
+      if(next.phase==='arrived'){active.mode='arrived';this.currentNode=this.data.pois[active.offer.to].node;this.riderAnchor=null;this.settle(active.offer.demand==='door'?true:null,day);}
       return changed;
     }
     if(active.pickupWaitElapsed===undefined)active.elapsed=Math.min(this.progress.animationSeconds,active.elapsed+seconds);
@@ -223,25 +249,27 @@ export class OrderBook {
     }
     if(this.progress.progress<1)return false;
     active.mode='arrived';this.currentNode=this.data.pois[active.offer.to].node;
-    this.riderAnchor=null;this.settle(active.offer.demand==='door'?true:null);
+    this.riderAnchor=null;this.settle(active.offer.demand==='door'?true:null,day);
     return true;
   }
-  settle(doorAnswer:boolean|null=null):CountyReceipt {
+  settle(doorAnswer:boolean|null=null,day=this.today()):CountyReceipt {
     const active=this.accepted;if(!active)throw new Error('没有待结算订单');
     if(active.mode==='done')return JSON.parse(JSON.stringify(active.receipt));
     if(active.mode!=='arrived')throw new Error('尚未送达，不能结算');
     const result=(active.ruleVersion===1?legacyCountySettlement:countySettlement)(active.playerBefore,active.offer,{displaySeconds:this.progress.displaySeconds,deadlineSeconds:active.deadlineSeconds,damage:active.damage!,doorAnswer});
     const refill=this.nearbyOffers(this.offers.filter(o=>o.id!==active.offer.id));
-    this.ledger.recordDelivery(result.receipt,active.routes[active.selected].metres,this.today());
+    this.ledger.recordDelivery(result.receipt,active.mileage?0:active.routes[active.selected].metres,day);
     this.playerState={...result.player,level:countyExperienceLevel(result.player.experience)};active.receipt=result.receipt;active.mode='done';this.tutorialComplete=true;
     this.recent.push(active.offer.to);if(this.recent.length>20)this.recent.shift();
     this.offers.splice(0,this.offers.length,...refill);
     return JSON.parse(JSON.stringify(result.receipt));
   }
   finish():void{if(this.accepted&&this.accepted.mode==='done')this.accepted=null;}
-  timing(distanceMetres:number):DeliveryTiming{return deliveryTiming(distanceMetres,COUNTY_VEHICLES[this.playerState.vehicleTier-1].speedKph);}
+  timing(distanceMetres:number):DeliveryTiming{return tripTiming(distanceMetres,COUNTY_VEHICLES[this.playerState.vehicleTier-1].speedKph);}
   timingForRoute(route:MapRoute):DeliveryTiming {
     if(this.accepted&&this.accepted.ruleVersion===1&&this.accepted.routes.indexOf(route)>=0)return legacyDeliveryTiming(route.seconds,COUNTY_VEHICLES[this.accepted.playerBefore.vehicleTier-1].speedMultiplier);
+    if(this.accepted&&this.accepted.routes.indexOf(route)>=0&&!this.accepted.tripProfile)return deliveryTiming(route.metres,COUNTY_VEHICLES[this.accepted.playerBefore.vehicleTier-1].speedKph);
+    if(this.accepted?.tripProfile&&this.accepted.routes.indexOf(route)>=0)return tripTiming(route.metres,COUNTY_VEHICLES[this.accepted.playerBefore.vehicleTier-1].speedKph,this.accepted.tripProfile);
     return this.timing(route.metres);
   }
   private roadSecondsAtDistance(route:MapRoute,distance:number):number {
@@ -258,7 +286,26 @@ export class OrderBook {
     if(this.playerState.vehicleTier>=2)throw new Error('县城当前站点最高为D+');
     const fee=COUNTY_VEHICLES[1].upgradeFeeCents;
     if(this.playerState.cashCents<fee)throw new Error(`余额不足，还差¥${((fee-this.playerState.cashCents)/100).toFixed(2)}`);
-    this.playerState={...this.playerState,cashCents:this.playerState.cashCents-fee,vehicleTier:2};
+    if(this.vehicles.instances.filter(v=>v.tier===2).length>=VEHICLE_LIMITS[1])throw new Error('D+拥有数量已达上限');
+    const instances=this.vehicles.instances.map(v=>v.id===this.vehicles.playerVehicleId?{...v,tier:2}:v);
+    this.vehicles={...this.vehicles,instances};this.playerState={...this.playerState,cashCents:this.playerState.cashCents-fee,vehicleTier:2};
+  }
+  buyVehicle(tier:number):void {
+    if(this.accepted)throw new Error('配送中不可购买车辆');
+    if(!Number.isInteger(tier)||tier<1||tier>10)throw new Error('车型无效');
+    if(tier>2)throw new Error('该车型当前阶段尚未开放');
+    if(this.vehicles.instances.filter(v=>v.tier===tier).length>=VEHICLE_LIMITS[tier-1])throw new Error('该车型拥有数量已达上限');
+    const price=VEHICLE_PRICE[tier-1],id=this.vehicles.nextId;
+    if(this.playerState.cashCents<price)throw new Error('余额不足');
+    if(!Number.isSafeInteger(id+1))throw new Error('车辆编号已达上限');
+    const instances=[...this.vehicles.instances,{id:`vehicle-${id}`,tier}];
+    this.vehicles={...this.vehicles,nextId:id+1,instances};this.playerState={...this.playerState,cashCents:this.playerState.cashCents-price};
+  }
+  selectPlayerVehicle(id:string):void {
+    if(this.accepted)throw new Error('配送中不可更换车辆');const vehicle=this.vehicles.instances.find(v=>v.id===id);
+    if(!vehicle||vehicle.tier>2)throw new Error('车辆不可用');
+    const capacity=COUNTY_VEHICLES[vehicle.tier-1].capacityKg;for(let i=0;i<this.offers.length;i+=5)if(this.offers.slice(i,i+5).filter(o=>o.weightKg<=capacity).length<3)throw new Error('当前候选订单载重不适合此车，请先完成或刷新订单');
+    this.vehicles={...this.vehicles,playerVehicleId:id};this.playerState={...this.playerState,vehicleTier:vehicle.tier};
   }
   refreshFree():void {
     if(this.accepted)throw new Error('请先完成当前订单');
@@ -268,7 +315,7 @@ export class OrderBook {
     const refreshed=this.nearbyOffers([],null,history);this.offers.splice(0,this.offers.length,...refreshed);this.lobbyHistory=history;
     this.daily.used++;
   }
-  private roll():number{const value=this.migrating?((Math.imul(this.sequence+ ++this.migrationRoll,1664525)+1013904223)>>>0)/4294967296:this.random();return Number.isFinite(value)?Math.max(0,Math.min(1-Number.EPSILON,value)):.99;}
+  private roll():number{const value=this.migrating?((Math.imul(this.sequence+ ++this.migrationRoll,1664525)+1013904223)>>>0)/4294967296:((this.randomState=(Math.imul(this.randomState,1664525)+1013904223)>>>0)/4294967296);return Number.isFinite(value)?Math.max(0,Math.min(1-Number.EPSILON,value)):.99;}
   private path(from:string,to:string,preference:Preference,bounded=false):MapRoute|null {
     const key=`${bounded?'city':'full'}/${from}/${to}/${preference}`;
     if(!this.cache.has(key)){if(this.cache.size>400)this.cache.clear();this.cache.set(key,(bounded?this.cityRouter:this.router).find(from,to,preference));}

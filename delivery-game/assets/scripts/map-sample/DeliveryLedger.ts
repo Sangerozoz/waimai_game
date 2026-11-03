@@ -4,7 +4,7 @@ export interface DayBilling {
   incomeCents:number;orders:number;good:number;bad:number;late:number;metres:number;onlineMs:number;
 }
 export interface BillingSnapshot {
-  version:1;baselineOrders:number;lastCompletedOrders:number;startedDay:string;legacyStart:boolean;days:Record<string,DayBilling>;
+  version:1|2;baselineOrders:number;lastCompletedOrders:number;startedDay:string;legacyStart:boolean;days:Record<string,DayBilling>;
 }
 export interface BillingView {
   day:string;today:DayBilling;walletCents:number;completedOrders:number;totalIncomeCents:number;highestDailyOrders:number;
@@ -26,14 +26,14 @@ function dayKey(day:unknown):day is string {
   return date.getFullYear()===y&&date.getMonth()===m-1&&date.getDate()===d;
 }
 export function validateBillingSnapshot(raw:unknown,completedOrders:number):asserts raw is BillingSnapshot {
-  valid(object(raw)&&raw.version===1&&natural(raw.baselineOrders)&&raw.baselineOrders<=completedOrders);
+  valid(object(raw)&&(raw.version===1||raw.version===2)&&natural(raw.baselineOrders)&&raw.baselineOrders<=completedOrders);
   valid(raw.lastCompletedOrders===completedOrders&&dayKey(raw.startedDay)&&typeof raw.legacyStart==='boolean'&&object(raw.days));
   let count=0,income=0;
   for(const key of Object.keys(raw.days)){
     const day=raw.days[key];valid(dayKey(key)&&object(day));
     for(const field of ['incomeCents','orders','good','bad','late','onlineMs'])valid(natural(day[field]));
     valid(positive(day.metres)&&Number(day.good)+Number(day.bad)<=Number(day.orders)&&Number(day.late)<=Number(day.orders));
-    if(day.orders===0)valid(day.incomeCents===0&&day.metres===0);
+    if(day.orders===0)valid(day.incomeCents===0&&(raw.version===2||day.metres===0));
     count+=Number(day.orders);income+=Number(day.incomeCents);valid(natural(count)&&natural(income));
   }
   valid(count===completedOrders-raw.baselineOrders);
@@ -43,7 +43,7 @@ export function validateBillingSnapshot(raw:unknown,completedOrders:number):asse
 export class DeliveryLedger {
   private readonly state:BillingSnapshot;
   constructor(saved:BillingSnapshot|undefined,baselineOrders:number,day:string,legacyStart=false){
-    this.state=saved?JSON.parse(JSON.stringify(saved)):{version:1,baselineOrders,lastCompletedOrders:baselineOrders,startedDay:canonicalDay(day),legacyStart,days:{}};
+    this.state=saved?{...JSON.parse(JSON.stringify(saved)),version:2}:{version:2,baselineOrders,lastCompletedOrders:baselineOrders,startedDay:canonicalDay(day),legacyStart,days:{}};
   }
   snapshot():BillingSnapshot{return JSON.parse(JSON.stringify(this.state));}
   recordDelivery(receipt:CountyReceipt,metres:number,day:string):void {
@@ -53,6 +53,11 @@ export class DeliveryLedger {
     const next:DayBilling={...before,incomeCents:before.incomeCents+receipt.incomeCents,orders:before.orders+1,good:before.good+(receipt.ratingDelta>0?1:0),bad:before.bad+(receipt.ratingDelta<0?1:0),late:before.late+(receipt.lateSeconds>0?1:0),metres:before.metres+metres};
     if(!natural(next.incomeCents)||!positive(next.metres))throw new Error('账单数值超出范围');
     this.state.days[key]=next;this.state.lastCompletedOrders=receipt.completedOrders;
+  }
+  recordDistance(metres:number,day:string):void {
+    if(!positive(metres))throw new Error('账单里程无效');if(metres===0)return;
+    const key=canonicalDay(day),before=this.state.days[key]||empty(),total=before.metres+metres;
+    if(!positive(total))throw new Error('账单里程超出范围');this.state.days[key]={...before,metres:total};
   }
   recordOnlineTime(start:number,end:number):void {
     if(!Number.isFinite(start)||!Number.isFinite(end)||end<=start)return;

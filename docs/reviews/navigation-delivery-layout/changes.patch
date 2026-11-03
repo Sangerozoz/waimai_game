@@ -1,0 +1,138 @@
+--- before/MapSample.ts
++++ delivery-game/assets/scripts/map-sample/MapSample.ts
+@@ -66,6 +66,8 @@
+   private readonly writerLease=new WebWriterLease();
+   private readonly foregroundClock=new ForegroundClock();
+   private readonly clickBoost=new ClickBoost();
++  private layoutDone=false;
++  private deliveryStatus:Node|null=null;
+   private boostControl:Node|null=null;
+   private boostLabel:Label|null=null;
+   private lastHandoffEvent='';
+@@ -141,21 +143,22 @@
+     const wasPhone=!!this.phone,wasDialog=this.modalKind,wasNotice=this.noticeMessage;
+     const frame=view.getFrameSize(),requestedExtra=Math.max(0,720*frame.height/frame.width-1280);
+     // Use the next frame's SHOW_ALL scale, rather than the previous layout's extra height.
+-    const idle=this.book.mode==='idle'||!this.orderCardOpen,provisionalHeight=this.sheetHeightFor(1280+requestedExtra),baseMapHeight=idle?1280:640-this.sheetBottomFor(1280+requestedExtra)-provisionalHeight;
++    const idle=this.book.mode==='idle'||this.book.mode==='done'||!this.orderCardOpen,provisionalHeight=this.sheetHeightFor(1280+requestedExtra),baseMapHeight=idle?1280:640-this.sheetBottomFor(1280+requestedExtra)-provisionalHeight;
+     // Very tall windows must still fit the whole map viewport inside town at 100m.
+     this.screenExtra=CityMap.fitViewportHeight(this.book.data,baseMapHeight+requestedExtra)-baseMapHeight;
+     view.setDesignResolutionSize(720,1280+this.screenExtra,ResolutionPolicy.SHOW_ALL);
+     this.safeInsets=this.readSafeInsets();
+     const sheetHeight=this.sheetHeight(),bottom=this.safeInsets.bottom,mapHeight=Math.max(1,(idle?1280:640-this.sheetBottom()-sheetHeight)+this.screenExtra-(idle?0:bottom)),mapY=idle?0:(this.sheetBottom()+sheetHeight+640)/2+bottom/2;
+     if(this.root){this.city?.cancelLocate();this.root.active=false;this.root.destroy();}this.phone=null;this.modal=null;this.modalKind=null;this.billValues=[];this.billDate=null;this.toast=null;this.damageNotice=null;
++    this.layoutDone=this.book.mode==='done';this.boostControl=null;this.boostLabel=null;this.deliveryStatus=null;
+     this.root=item(this.node.parent!,'DeliveryUI');
+     box(this.root,'Background',0,0,720,1280+this.screenExtra,C.light,0);
+-    this.city=new CityMap(this.root,this.book.data,mapHeight,()=>sys.openURL('https://www.openstreetmap.org/copyright'),mapY,idle?118+bottom:0,this.safeInsets,1280+this.screenExtra);
++    this.city=new CityMap(this.root,this.book.data,mapHeight,()=>sys.openURL('https://www.openstreetmap.org/copyright'),mapY,idle&&this.book.mode!=='done'?118+bottom:0,this.safeInsets,1280+this.screenExtra);
+     this.city.setVehicle(this.book.player.vehicleTier);
+     this.header(item(this.root,'HeaderGroup',0,this.screenExtra/2-this.safeInsets.top));this.controls();
+     this.panel=item(this.root,'OrderPanel',0,-this.screenExtra/2+bottom);
+     const active=this.book.active;
+-    if(active){
++    if(active&&active.mode!=='done'){
+       const from=this.book.data.pois[active.offer.from],to=this.book.data.pois[active.offer.to];
+       const point=(id:string):Point=>{const node=this.book.data.nodes.find(n=>n.id===id)!;return [node.x,node.y];};
+       if(active.mode!=='done')this.city.setNavigationStops({pickupName:from.name,deliveryName:to.name,food:active.offer.food,pickup:point(from.node),delivery:point(to.node)});
+@@ -278,7 +281,11 @@
+     const y=this.book.mode==='idle'||!this.orderCardOpen?-400:this.sheetBottom()+this.sheetHeight()+this.metrics().action/2+20;
+     const locateSize=Math.max(this.metrics().action,116);const locate=item(this.root,'FollowRider',360-this.safeInsets.right-locateSize/2-this.outerMargin(),y-this.screenExtra/2+this.safeInsets.bottom,locateSize,locateSize);
+     icon(locate,'target',0,0,C.ink,2.1);tap(locate,()=>this.city.locateAnimated());
+-    this.createBoostControl(y);
++    const statusHeight=this.metrics().action*.65,statusWidth=cssUnits(94,1280+this.screenExtra);
++    const statusY=this.profileCard.position.y+this.screenExtra/2-this.safeInsets.top-90-this.outerMargin()-statusHeight/2;
++    this.deliveryStatus=box(this.root,'DeliveryStatus',0,statusY,statusWidth,statusHeight,'#FFFCF5',12);
++    readable(this.deliveryStatus,'配送中',0,0,this.metrics().aux,'#111111',statusWidth-12,true,'center',statusHeight);
++    this.deliveryStatus.active=this.book.active?.handoff?.phase==='toDropoff';
+     const planning=this.book.mode==='routes'&&this.orderCardOpen;station.active=!planning;locate.active=!planning;this.city.setPlanningControlsHidden?.(planning);
+     const viewportBottom=this.city.viewport.position.y-this.city.viewport.getComponent(UITransform)!.height/2;
+     const controlTop=Math.max(station.position.y+65,locate.position.y+locateSize/2,y-this.screenExtra/2+this.safeInsets.bottom+this.metrics().action/2);
+@@ -291,12 +298,13 @@
+   }
+   private refreshBoost():void {
+     if(!this.canBoost)this.clickBoost.reset();
++    if(this.deliveryStatus?.isValid)this.deliveryStatus.active=this.book.active?.handoff?.phase==='toDropoff'&&this.book.mode==='running';
+     if(this.boostControl?.isValid)this.boostControl.active=this.canBoost;
+     if(this.boostLabel?.isValid)this.boostLabel.string='点击加速';
+   }
+-  private createBoostControl(y:number):void {
+-    const width=Math.min(280,720-this.safeInsets.left-this.safeInsets.right-320),height=this.metrics().action;
+-    const control=box(this.root,'ClickBoost',0,y-this.screenExtra/2+this.safeInsets.bottom,width,height,C.primary,16);
++  private createBoostControl(parent:Node,buttonX:number,buttonY:number,width:number):void {
++    const height=this.metrics().action;
++    const control=box(parent,'ClickBoost',buttonX,buttonY,width,height,C.primary,16);
+     this.boostControl=control;this.boostLabel=readable(control,'点击加速',0,0,this.metrics().aux,C.ink,width-16,true,'center');
+     control.addComponent(BlockInputEvents);
+     const caption=this.boostLabel.node;
+@@ -387,7 +395,7 @@
+         const selected=i===active.selected,color=ROUTE_COLORS[r.preference],x=-inner/2+w/2+i*(w+gap);
+         const card=box(content,'Route-'+r.preference,x,y,w,routeHeight,selected?'#F8E5CD':'#F7F5EF',12,selected?color:C.line);
+         const estimated=this.book.timingForRoute(r).displaySeconds,late=estimated>active.deadlineSeconds;
+-        readable(card,(selected?'✓ ':'')+TITLES[r.preference],0,routeHeight/2-26,m.aux,selected?color:C.ink,w-12,true,'center',44);
++        readable(card,(selected?'✓ ':'')+TITLES[r.preference],0,routeHeight/2-26,m.aux,color,w-12,true,'center',44);
+         readable(card,`${Math.ceil(estimated/60)}分 ${(r.metres/1000).toFixed(1)}km`,0,0,m.aux,C.ink,w-12,true,'center',48);
+         readable(card,`${late?'晚到':'准时'} 餐损${Math.round(r.risk*100)}%`,0,-routeHeight/2+28,m.aux,late?'#B76A3A':C.muted,w-12,false,'center',48);
+         tap(card,()=>{if(!this.act(()=>this.book.select(i)))return;this.city.setRoutes(active.routes,i,true);this.renderPanel();});
+@@ -407,7 +415,7 @@
+       const caption=this.pickupServiceButton.getComponentInChildren(Label);if(caption)caption.color=col(C.ink);
+       this.updatePickupServiceFill();
+     }
+-    else if(active.mode==='running')this.action(p,phase==='toPickup'?'前往取餐中':'配送中',mainX,buttonY,mainWidth,()=>{},C.light,false);
++    else if(active.mode==='running'){if(isTripProfile(active.tripProfile)&&(phase==='toPickup'||phase==='toDropoff'))this.createBoostControl(p,mainX,buttonY,mainWidth);else this.action(p,phase==='toPickup'?'前往取餐中':'配送中',mainX,buttonY,mainWidth,()=>{},C.light,false);}
+   }
+   private presentHandoff():void {
+     if(this.pendingSave||this.gameplayFrozen)return;
+@@ -461,7 +469,7 @@
+     if(this.book.mode==='done')this.removeDeliverySheet();
+     const ok=this.store.save(this.book.serialize());
+     if(!ok&&this.lastSaveError!==this.store.message){this.lastSaveError=this.store.message;this.showMessage(this.store.message);}
+-    this.pendingSave=!ok;this.refreshBoost();if(ok&&this.lastSaveError){this.lastSaveError='';if(this.toast){this.toast.destroy();this.toast=null;this.noticeMessage='';}}this.updatePlayerHeader();this.updateBills();return ok;
++    this.pendingSave=!ok;this.refreshBoost();if(ok&&this.lastSaveError){this.lastSaveError='';if(this.toast){this.toast.destroy();this.toast=null;this.noticeMessage='';}}this.updatePlayerHeader();this.updateBills();if(this.book.mode==='done'&&!this.layoutDone)this.rebuildLayout();return ok;
+   }
+   private updatePlayerHeader():void {
+     if(!this.money)return;const p=this.book.player;
+@@ -555,7 +563,7 @@
+   }
+   private deliverAtDoor(answer:boolean):void{
+     if(this.book.mode!=='arrived')return;
+-    if(this.act(()=>this.book.settle(answer))){this.closeDialog();this.renderPanel();}
++    this.closeDialog();this.act(()=>this.book.settle(answer));
+   }
+   private renderDamageNotice():void {
+     if(this.damageNotice){this.damageNotice.destroy();this.damageNotice=null;}
+@@ -588,12 +596,12 @@
+     const {card,height,top,bottom}=this.dialog('配送结算',contentHeight+m.action+180,'receipt');
+     const content=scrollContent(card,inner,top,bottom+m.action+24,contentHeight);
+     let offset=0;entries.forEach((row,i)=>{readable(content,row.text,0,-offset-heights[i]/2,row.size,row.color||C.ink,inner,!!row.bold,'center',heights[i]);offset+=heights[i];});
+-    this.action(card,'确认，继续接单',0,-height/2+24+m.action/2,inner,()=>this.continueOrders());
++    this.action(card,'确认，返回首页',0,-height/2+24+m.action/2,inner,()=>this.continueOrders());
+   }
+   private continueOrders():void {
+     if(this.book.mode!=='done')return;
+     if(!this.act(()=>this.book.finish()))return;
+-    this.closeDialog();this.rebuildLayout();this.openPhone();
++    this.closeDialog();this.rebuildLayout();
+   }
+   private openMaps():void {
+     const {card,width,top,bottom}=this.dialog('地图',1060,'maps'),m=this.metrics(),inner=width-48;
+--- before/CityMap.ts
++++ delivery-game/assets/scripts/map-sample/CityMap.ts
+@@ -5,7 +5,7 @@
+ import { cssUnits, pageMargin, readable } from './PresentationLayout';
+ import { foodImage } from './FoodImages';
+ import { MapVehicle } from './MapVehicle';
+-export const ROUTE_COLORS:Record<Preference,string>={fast:'#C36A31',main:'#6C8982',smooth:C.green};
++export const ROUTE_COLORS:Record<Preference,string>={fast:'#168BFF',main:'#D49A00',smooth:'#24965A'};
+ const MAP_W=720,MAP_Y=83;
+ const TILE_SIZE=600;
+ const DEFAULT_METRES=15,DEFAULT_SCALE=60/DEFAULT_METRES,MIN_SCALE=60/100,MAX_SCALE=60/10;
+@@ -248,7 +248,7 @@
+  }
+  private drawRoutes():void{
+    this.routeInk.clear();const order=this.routes.map((r,i)=>({r,i})).sort((a,b)=>Number(a.i===this.selected)-Number(b.i===this.selected));
+-   for(const {r,i} of order){const selected=i===this.selected;if(selected)this.line(this.routeInk,routePoints(r),cssUnits(NAVIGATION_STYLE.outlineCss,this.screenHeight)/this.scale,NAVIGATION_STYLE.outline);this.line(this.routeInk,routePoints(r),cssUnits(selected?NAVIGATION_STYLE.selectedCss:NAVIGATION_STYLE.alternativeCss,this.screenHeight)/this.scale,selected?NAVIGATION_STYLE.selected:NAVIGATION_STYLE.alternative);}
++   for(const {r,i} of order){const selected=i===this.selected;if(selected)this.line(this.routeInk,routePoints(r),cssUnits(NAVIGATION_STYLE.outlineCss,this.screenHeight)/this.scale,NAVIGATION_STYLE.outline);this.line(this.routeInk,routePoints(r),cssUnits(selected?NAVIGATION_STYLE.selectedCss:NAVIGATION_STYLE.alternativeCss,this.screenHeight)/this.scale,ROUTE_COLORS[r.preference]);}
+  }
+  private project(p:Point):Point{return[p[0]*this.scale+this.offset[0],p[1]*this.scale+this.offset[1]];}
+  private syncOverlay():void{

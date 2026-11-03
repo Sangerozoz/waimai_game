@@ -1,0 +1,21 @@
+{
+  "status": "manual-native-image-authoring-observations-not-game-test",
+  "method": "Read native images and facade-ground edge candidates; never warp image pixels. Camera inference assumes a rectangular footprint.",
+  "firstPass": {
+    "decision": "retain-for-history-not-selected-for-final-integration",
+    "reason": "Facade-ground edge slopes on several first-pass sprites imply a much shallower camera than the existing nominal 30-degree map; prompts alone do not prove perspective.",
+    "samples": {
+      "B12-E-v1": {"approxFrontPixel": [489,1208], "approxGroundSamples": [[230,1029],[430,1164],[630,1163],[1030,1035]]},
+      "B13-E-v1": {"approxFrontPixel": [491,1243], "approxGroundSamples": [[230,1107],[430,1210],[630,1210],[1030,1116]]}
+    }
+  },
+  "correctedCandidate": {
+    "file": "B12-E-v2.png",
+    "approxVisibleGroundCornersPixels": [[143,945],[590,1236],[1108,945]],
+    "reference": "docs/art/2026-11-03-modular-city-assets/B01-cafe.png",
+    "observation": "Higher oblique redraw; both visible ground edges now close to nominal 30-degree directions. Exact corner and hidden-geometry measurements remain candidates.",
+    "userAccepted": false,
+    "integrated": false
+  },
+  "pending": ["B11-E-v2","B13-E-v2","B12-W-v2","B13-W-v2","B11-N-v2","B12-N-v2","B13-N-v2"]
+}

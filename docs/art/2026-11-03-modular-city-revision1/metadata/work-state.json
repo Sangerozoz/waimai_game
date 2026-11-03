@@ -1,0 +1,112 @@
+{
+  "date": "2026-11-03",
+  "task": "MC-REV1-1103",
+  "status": "native-old-view-assets-retained-high-camera-pilot-deployed-separately",
+  "complete": false,
+  "userChoice": "Continue built-in image generation; complete missing assets after service recovers. No API/CLI fallback.",
+  "automation": {
+    "id": "automation",
+    "name": "补齐街角建筑机位",
+    "status": "DELETED",
+    "intervalMinutes": 15,
+    "targetThreadId": "01a19fc9-58f4-7ad1-880b-1c1a948527ed",
+    "stoppedReason": "Missing native images were produced; user is discussing a higher view, so prevent repeated generation and automatic old-angle deployment."
+  },
+  "availableNativeOutputs": 19,
+  "available": [
+    "B11-E-v1.png",
+    "B11-E-v2.png",
+    "B11-N-v1.png",
+    "B11-N-v2.png",
+    "B11-W-v1.png",
+    "B12-E-v1.png",
+    "B12-E-v2.png",
+    "B12-N-v1.png",
+    "B12-N-v2.png",
+    "B12-W-v1.png",
+    "B12-W-v2.png",
+    "B13-E-v1.png",
+    "B13-E-v2.png",
+    "B13-N-v1.png",
+    "B13-N-v2.png",
+    "B13-W-v1.png",
+    "B13-W-v2.png",
+    "S03-entry-brick-v1.png",
+    "S04-soil-grass-v1.png"
+  ],
+  "firstPassBuildingStatus": "camera-too-shallow-retain-history-do-not-deploy-as-corrected",
+  "pendingImageJobs": [],
+  "promptFile": "prompts/camera-corrections.json",
+  "lastFailure": null,
+  "failureRounds": [
+    "7-job camera correction group",
+    "2-job smaller group",
+    "1-job serial retry",
+    "1-job retry after user selected built-in continuation"
+  ],
+  "sourceCode": "delivery-game/modular-city-project/assets/scripts/ModularCity.ts",
+  "sourceImplemented": [
+    "Separate ground regions and entrance/side paving",
+    "Soil/grass/tree pools/low edging and limited fence",
+    "Visible and hidden frontage/entrance interfaces",
+    "Rider 6.4m and original fixed camera scale",
+    "Directional building/tree/lamp ground shadows and moving rider contact shadow"
+  ],
+  "compiledOutput": "delivery-game/modular-city-project/build/modular-city/",
+  "compileEvidence": "delivery-game/modular-city-project/revision-build-evidence/mc-rev1-compile-record.json",
+  "compileResult": {
+    "finishedLog": true,
+    "processExitCode": 36,
+    "files": 26,
+    "diagnosticsRetained": [
+      "build-script SIGTERM",
+      "trackTime missing timing",
+      "plugin update check network failure"
+    ]
+  },
+  "integrated": false,
+  "deployed": false,
+  "runtimeManifestCreated": false,
+  "previousPreviewPreserved": "http://127.0.0.1:4181/modular-city/",
+  "previousDeploymentFilesUnchanged": 68,
+  "developerThreadId": "01a19fc8-7058-7091-8dcc-5f2bc428a6aa",
+  "next": [
+    "Conclude high-camera and visible-road-corridor discussion",
+    "Only after explicit direction is clear issue a concrete production/integration task",
+    "Retain the original source road, all art versions, isolated code/build and existing preview"
+  ],
+  "limitations": [
+    "No new runtime view has been seen",
+    "Work local browser automation is disabled; do not bypass",
+    "No game tests until user says stage complete",
+    "No formal-game/save operation",
+    "Hidden front door positions remain geometry candidates",
+    "2D ground shadows do not receive on vertical facades"
+  ],
+  "lastHeartbeatAttempt": {
+    "triggeredAt": "2026-11-03T05:53:24.684Z",
+    "result": "all-seven-pending-native-camera-corrections-produced"
+  },
+  "lastHistoricalFailure": "image generation failed: connection failed: error sending request",
+  "cameraDiscussion": {
+    "confirmedNotNeeded": [
+      "Free camera rotation",
+      "Per-building demolition/construction",
+      "Continuously changing physical lighting"
+    ],
+    "userProposal": "Raise camera/view angle and keep rider in centre of road to reduce occlusion",
+    "pmCandidateElevationDegrees": [
+      60,
+      70
+    ],
+    "exactAngleApproved": false,
+    "newAngleImplementationAuthorized": false,
+    "note": "Existing 30-degree sprite candidates retained; no warping old PNGs to fake new view."
+  },
+  "supersededIntegrationBy": {
+    "task": "HC-CITY-1103",
+    "report": "docs/team/reports/2026-11-03-high-camera-city-pm-delivery.md",
+    "url": "http://127.0.0.1:4181/high-camera-city/",
+    "note": "Old19 sources and MC-REV1 code/compiled output retained. Old modular deployment not overwritten. No automation recreated."
+  }
+}

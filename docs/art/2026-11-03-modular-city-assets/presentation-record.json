@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-03",
+  "url": "http://127.0.0.1:4181/modular-city/",
+  "evidence": {
+    "asset-manifest.json": {
+      "source": "d914d743664cb28ac45941509191256e803e7f9f56d2dd1d264e70cdf54faf05",
+      "deployed": "d914d743664cb28ac45941509191256e803e7f9f56d2dd1d264e70cdf54faf05",
+      "match": true
+    },
+    "sample-layout.json": {
+      "source": "a190dd06c3f95aa244c9a759ed13d5d6d3b88a91539eb3e2c7af750d5e07aac6",
+      "deployed": "a190dd06c3f95aa244c9a759ed13d5d6d3b88a91539eb3e2c7af750d5e07aac6",
+      "match": true
+    },
+    "engine-v1.jpg": {
+      "sha256": "3f2a5e507085f6e35639eeac399cf689a64d0f76a0fc01fad794c7ce9b309073",
+      "bytes": 35437
+    },
+    "engine-v2.jpg": {
+      "sha256": "a2e2a93ea12973d0a56e28695b632b007efaa3b98ccd6db428ef6fa94984a54b",
+      "bytes": 59585
+    },
+    "engine-v3.jpg": {
+      "sha256": "922ec4f10360aa7a34625f5103e62862953e093e02981185ce6b7c07e1f87a66",
+      "bytes": 59939
+    },
+    "city.json SHA256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20"
+  },
+  "observed": "Cocos2D complete image sprite assembly actually displayed; current engine-v3 shows street-facing block and rider.",
+  "notPerformed": [
+    "formal game operation",
+    "save access",
+    "typecheck",
+    "game tests/regression",
+    "user visual acceptance"
+  ],
+  "limits": [
+    "single-direction rider demonstration",
+    "whole-sprite foot-point sorting lacks fine occlusion",
+    "B02 estimated camera residual",
+    "repeated background variants and incomplete full-county coverage"
+  ]
+}

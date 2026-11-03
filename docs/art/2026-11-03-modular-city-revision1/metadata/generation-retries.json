@@ -1,0 +1,45 @@
+{
+  "tool": "built-in image_gen",
+  "failedBatch": [
+    "B11-E-v2",
+    "B13-E-v2",
+    "B12-W-v2",
+    "B13-W-v2",
+    "B11-N-v2",
+    "B12-N-v2",
+    "B13-N-v2"
+  ],
+  "error": "image generation failed: connection failed: error sending request",
+  "result": "No images produced for this attempt; prior native files preserved.",
+  "nextAction": "Retry built-in tool in smaller groups; do not switch to CLI/API without explicit authorization.",
+  "subsequentFailures": [
+    {
+      "attempt": "smaller-group",
+      "jobs": [
+        "B11-E-v2",
+        "B13-E-v2"
+      ],
+      "sameConnectionError": true
+    },
+    {
+      "attempt": "serial-single",
+      "jobs": [
+        "B11-E-v2"
+      ],
+      "sameConnectionError": true
+    },
+    {
+      "attempt": "after-user-builtin-choice",
+      "jobs": [
+        "B11-E-v2"
+      ],
+      "sameConnectionError": true
+    }
+  ],
+  "userDecision": "Continue built-in only after recovery; do not use API/CLI.",
+  "followupAutomationId": "automation",
+  "serviceRecoveredDuringHeartbeat": "2026-11-03T05:53:24.684Z",
+  "allSevenMissingDirectionsProduced": true,
+  "followupAutomationStatus": "DELETED",
+  "currentAction": "No further retry needed; retain generated candidates while camera method is discussed."
+}

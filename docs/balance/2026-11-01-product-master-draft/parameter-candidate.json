@@ -1,0 +1,329 @@
+{
+  "id": "product-master-review-20261102-v2",
+  "status": "historical-review-config-superseded-by-product-v1-not-for-implementation",
+  "confirmed": {
+    "mapNpcAdditions": [
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "maxNpcCount": 30,
+    "maxTeamIncludingProtagonist": 31,
+    "baseFeeYuan": 10,
+    "maxSimultaneousPlayerOrders": null,
+    "vehicleMaxLevel": 30,
+    "supplyAccess": "anywhere-button-no-shop-detour",
+    "display": "round half up to integers; preserve actual calculation precision",
+    "npcJobs": "automatic acceptance and delivery; player recruits, assigns vehicles and upgrades",
+    "visualDirection": {
+      "decisionDate": "2026-11-02",
+      "layoutAndInformation": "concept B",
+      "mapRendering": "concept C",
+      "fusionPreviewNeedsReview": true
+    },
+    "orderSelection": {
+      "fixedOrderCountCap": false,
+      "capacityCheck": "sum-selected-batch-weight-not-above-actual-vehicle-capacity",
+      "addOrdersMidTrip": false,
+      "nextBatchAfterAllCurrentOrdersCompleted": true
+    },
+    "routeSelection": "system-offers-fast-balanced-smooth-and-arranges-pickup-delivery-order-player-selects-one",
+    "npcIncome": {
+      "limited": true,
+      "idleIncomeHasCap": true,
+      "purpose": "encourage-return-and-active-play",
+      "capAmountPeriodAndRecovery": "not-yet-decided"
+    },
+    "stageProgression": {
+      "earlyRisk": "low",
+      "riskIncreasesWithProgress": true,
+      "earlySupplies": [
+        "purified-water",
+        "instant-noodles"
+      ],
+      "laterSupplies": [
+        "drinks",
+        "milk-tea",
+        "fast-food",
+        "premium-meals"
+      ],
+      "supplySpendingIncreasesWithProgress": true,
+      "retainCheapOptionsOrForceReplacement": "not-yet-decided"
+    },
+    "investmentBalanceCorrection": "later-user-triggered-stage-testing-not-verified-now",
+    "zeroEnergy": {
+      "movement": "stop-at-current-location",
+      "recovery": [
+        "paid-food-or-drink",
+        "free-rest-if-no-money"
+      ],
+      "freeRestTakesLongerThanPaidSupply": true,
+      "recoveryTimeMayCauseOrderLateness": true,
+      "resume": "same-location-current-batch",
+      "exactRecoveryAmountsAndDurations": "not-yet-decided"
+    },
+    "deliverySettlementPresentation": {
+      "perOrderIncome": "immediate-on-delivery-once",
+      "perOrderFeedback": [
+        "income",
+        "on-time-or-late",
+        "food-condition",
+        "customer-feedback"
+      ],
+      "perOrderConfirmationRequired": false,
+      "briefFeedbackAddsBlockingPause": false,
+      "fullSummaryWhen": "all-orders-in-batch-delivered",
+      "summaryFields": [
+        "delivery-income",
+        "actual-supply-expenses",
+        "net-delivery-income",
+        "experience"
+      ],
+      "summaryGrantsRewardsAgain": false,
+      "cancelledPartialBatchSummary": "return-home-retain-completed-results-and-real-expenses-not-all-delivered"
+    },
+    "deliveryCancellation": {
+      "scope": "all-unfinished-orders-in-current-batch",
+      "endsBatch": true,
+      "returnTo": "home",
+      "preserveCurrentRoadPosition": true,
+      "retainCompletedOrderIncomeAndExperience": true,
+      "unfinishedOrderRewards": false,
+      "extraMoneyOrReputationPenalty": false,
+      "refundConsumedSupplies": false,
+      "cancelledOrdersCountAsCompleted": false,
+      "allowNewBatchAfterCancellation": true,
+      "closingAppMeansCancellation": false
+    },
+    "progressionGuidance": {
+      "affordabilityPromptsGoToRelevantPage": true,
+      "rewardOnlyAfterSuccessfulPurchaseRecruitmentOrUnlock": true,
+      "rewardKinds": [
+        "coins",
+        "supplies"
+      ],
+      "mapUnlockRequiresFeeAndOperatingProgress": true
+    },
+    "mapUnlock": {
+      "paymentRequired": true,
+      "operatingProgressRequired": true,
+      "exactFeeAndConditionCombination": "pm-candidate-for-unified-review"
+    }
+  },
+  "proposed": {
+    "energy": {
+      "max": 100,
+      "roadPerKm": 2,
+      "perPickupService": 1,
+      "perDelivery": 1,
+      "water": {
+        "priceYuan": 1,
+        "restore": 20,
+        "realSeconds": 1,
+        "gameSeconds": 30
+      },
+      "meal": {
+        "priceYuan": 3,
+        "restore": 70,
+        "realSeconds": 3,
+        "gameSeconds": 120
+      },
+      "idleRest": {
+        "priceYuan": 0,
+        "realSeconds": 20,
+        "restoreTo": 100
+      },
+      "activeRest": {
+        "priceYuan": 0,
+        "realSeconds": 10,
+        "gameSeconds": 600,
+        "restore": 20
+      },
+      "supplyValueScope": "old-low-cost-reference-not-all-stages-current-staged-values-need-design"
+    },
+    "timing": {
+      "roadGameSecondsPerRealSecond": 40,
+      "ordinarySlackGameSeconds": 300,
+      "urgentSlackGameSeconds": 180,
+      "planningReadingReceiptsPauseTripClock": true,
+      "clickingOnlyShortensRealWait": true
+    },
+    "weather": {
+      "rainProbabilityPercentByMap": [
+        15,
+        20,
+        25,
+        30,
+        35
+      ],
+      "severeProbabilityPercentByMap": [
+        0,
+        2,
+        3,
+        5,
+        8
+      ],
+      "rainRoadTimeExtraPercent": 10,
+      "severeRoadTimeExtraPercent": 25,
+      "midTripChangeProbabilityPercent": 5,
+      "maxMidTripChanges": 1,
+      "status": "old-pm-numeric-reference-stage-curve-not-approved"
+    },
+    "redLights": {
+      "probabilityPercentByMap": [
+        15,
+        20,
+        25,
+        30,
+        35
+      ],
+      "maxEventsPerTrip": 2,
+      "maxTotalDelayGameSeconds": 180
+    },
+    "damage": {
+      "routeOrder": [
+        "fast",
+        "balanced",
+        "smooth"
+      ],
+      "fragileProbabilitiesPercent": [
+        12,
+        6,
+        2
+      ],
+      "normalProbabilitiesPercent": [
+        6,
+        3,
+        1
+      ],
+      "durableProbabilitiesPercent": [
+        2,
+        1,
+        0
+      ],
+      "rainExtraPercentagePoints": 2,
+      "severeExtraPercentagePoints": 5,
+      "probabilityCapPercent": 25,
+      "oneFinalOutcomePerOrder": true,
+      "severityProbabilityPercent": [
+        70,
+        25,
+        5
+      ],
+      "incomeRetentionPercent": [
+        90,
+        75,
+        50
+      ],
+      "status": "old-pm-numeric-reference-stage-scaling-needs-design"
+    },
+    "lateness": {
+      "onTimeRetentionPercent": 100,
+      "bands": [
+        {
+          "aboveGameSecondsLate": 0,
+          "upToGameSecondsLate": 300,
+          "retainPercent": 95,
+          "reputationDelta": -1
+        },
+        {
+          "aboveGameSecondsLate": 300,
+          "upToGameSecondsLate": 600,
+          "retainPercent": 85,
+          "reputationDelta": -3
+        },
+        {
+          "aboveGameSecondsLate": 600,
+          "upToGameSecondsLate": null,
+          "retainPercent": 75,
+          "reputationDelta": -5
+        }
+      ],
+      "canCompleteAfterDeadline": true,
+      "reputationDoesNotMultiplySameOrderIncomeAgain": true
+    },
+    "npcTraining": {
+      "maxLevel": 30,
+      "incomeBonusAtMaxPercent": 20,
+      "fixedWorkTimeReductionAtMaxPercent": 15,
+      "growthProgress": "same G(L) as vehicle-growth candidate",
+      "fixedCostReferenceYuan": 1800,
+      "cumulativeCost": "roundHalfUp(1800*L*(L-1)/435) whole yuan",
+      "independentOfHiringOrdinalAndAssignedVehicle": true
+    },
+    "npcRest": {
+      "referenceCycleIncludesRoutineRest": true,
+      "separateFoodChargesInFirstPass": false
+    },
+    "offline": {
+      "status": "old-proposal-superseded-as-default-by-user-idle-income-cap-decision",
+      "historicalOnly": {
+        "maxRealHours": 8,
+        "normalIncomeRetentionPercent": 70,
+        "noPlayerDailyActiveRevenueGate": true
+      },
+      "oneTeamOneNonOverlappingTimeInterval": true
+    },
+    "mapEntry": [
+      {
+        "map": 2,
+        "teamLifetimeCompletedOrders": 60,
+        "npcOwned": 1,
+        "ownedVehicleTierAtLeast": "C",
+        "vehicleLevelAtLeast": 5,
+        "unlockFeeYuanCandidate": 500
+      },
+      {
+        "map": 3,
+        "teamLifetimeCompletedOrders": 240,
+        "npcOwned": 4,
+        "ownedVehicleTierAtLeast": "B",
+        "vehicleLevelAtLeast": 5,
+        "unlockFeeYuanCandidate": 1500
+      },
+      {
+        "map": 4,
+        "teamLifetimeCompletedOrders": 700,
+        "npcOwned": 8,
+        "ownedVehicleTierAtLeast": "A",
+        "vehicleLevelAtLeast": 5,
+        "unlockFeeYuanCandidate": 4000
+      },
+      {
+        "map": 5,
+        "teamLifetimeCompletedOrders": 1800,
+        "npcOwned": 14,
+        "ownedVehicleTierAtLeast": "SS",
+        "vehicleLevelAtLeast": 5,
+        "unlockFeeYuanCandidate": 10000
+      }
+    ],
+    "npcIncomeCap": {
+      "status": "direction-confirmed-details-open",
+      "amountYuan": null,
+      "period": null,
+      "recoveryCondition": null,
+      "sharedWithOnlineAutoIncome": null,
+      "doNotAssumeOpeningAppResetsCap": true,
+      "doNotSilentlyRestoreHistorical500OrderCap": true
+    },
+    "progressionTasks": {
+      "candidate": "../2026-11-02-progression-tasks/candidate.json",
+      "detailsStatus": "pm-recommended-not-approved"
+    }
+  },
+  "subtables": {
+    "pricing": "../2026-11-01-vehicle-economy/pricing-candidate.json",
+    "growth": "../2026-11-01-vehicle-growth/candidate.json",
+    "progressionTasks": "../2026-11-02-progression-tasks/candidate.json"
+  },
+  "reviewRequired": [
+    "four-final-product-decisions-see-finalization-checklist",
+    "six-page-preview-and-unified-product-v2-review",
+    "pm-unified-stage-values-and-growth-budgets-including-task-rewards-and-map-fees"
+  ],
+  "revisionDate": "2026-11-02",
+  "supersededBy": "../2026-11-02-product-v1/parameters.json"
+}

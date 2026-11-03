@@ -1,0 +1,67 @@
+--- before/MapSample.ts
++++ after/MapSample.ts
+@@ -209,7 +209,7 @@
+       box(group,name+'Pill',0,0,1,1,C.light,24,C.line);
+       const badge=item(group,name+'Badge',0,0,42,42);
+       const symbol=readable(badge,mark,0,0,m.aux,C.ink,38,true,'center',40);
+-      if(art==='heart'){symbol.node.active=false;const heart=icon(badge,'heart',0,0,C.ink,1.05);heart.setScale(1.05,1.098,1);}else cartoonArt(badge,art,0,0,40,40,symbol.node);
++      if(art==='heart'){symbol.node.active=false;const heart=icon(badge,'heart',0,0,C.ink,.8);cartoonArt(badge,'heart',0,0,40,40,heart);}else cartoonArt(badge,art,0,0,40,40,symbol.node);
+     }
+     this.money=readable(wallet,'',0,0,m.amount,C.ink,160,true,'center');
+     this.rating=readable(rating,'',0,0,m.body,C.ink,100,true,'center');
+@@ -284,7 +284,7 @@
+     for(const entry of entries){
+       const main=entry.key==='orders',enabled=entry.enabled,foreground=enabled?C.ink:'#AAA69C';
+       const slot=item(bar,'Nav-'+entry.key,entry.x,main?28.8:0,main?145.6:116,main?145.6:100);
+-      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right)/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,10,foreground,2.25);
++      if(main){const scaleX=(720-this.safeInsets.left-this.safeInsets.right)/720;slot.setScale(1/scaleX,1,1);slot.getComponent(UITransform)!.setContentSize(145.6,145.6);roundAction(slot,145.6,enabled);}else icon(slot,entry.key,0,31,foreground,1.15);
+       const caption=readable(slot,entry.name,0,main?0:-23,main?57.2:this.metrics().aux,main?'#FFFFFF':foreground,main?132:108,true,'center',main?62.4:48);outline(caption,enabled?(main?'#831831':C.navy):'#6F747D',3);
+       if(enabled)tap(slot,entry.action);
+     }
+--- before/CityMap.ts
++++ after/CityMap.ts
+@@ -6,7 +6,7 @@
+ export const ROUTE_COLORS:Record<Preference,string>={fast:'#C36A31',main:'#6C8982',smooth:C.green};
+ const MAP_W=720,MAP_Y=83;
+ const TILE_SIZE=600;
+-const DEFAULT_SCALE=60/30,MIN_SCALE=60/100,MAX_SCALE=60/10;
++const DEFAULT_METRES=15,DEFAULT_SCALE=60/DEFAULT_METRES,MIN_SCALE=60/100,MAX_SCALE=60/10;
+ interface DetailTile { buildings:Point[][]; roads:Array<{points:Point[];width:number}> }
+ export class CityMap {
+  static fitViewportHeight(data:CityData,requestedHeight:number):number {
+@@ -62,7 +62,7 @@
+    const shadow=item(this.overlay,'VehicleGroundShadow');const sg=shadow.addComponent(Graphics);for(let i=5;i>=1;i--){sg.fillColor=col('#49443508');sg.ellipse(0,0,38+i*2,17+i*2);sg.fill();}
+    this.rider=item(this.overlay,'DeliveryRider');this.vehicle=new MapVehicle(this.rider,this.drawRider());
+    this.startPin.setSiblingIndex(this.overlay.children.length-1);this.endPin.setSiblingIndex(this.overlay.children.length-1);
+-   this.scaleLabel=label(this.viewport,'30 m',-279+safeSides.left,-MAP_H/2+footerInset+32,12,'#758080',110);
++   this.scaleLabel=label(this.viewport,`${DEFAULT_METRES} m`,-279+safeSides.left,-MAP_H/2+footerInset+32,12,'#758080',110);
+    const scaleLine=item(this.viewport,'MapScale',-297+safeSides.left,-MAP_H/2+footerInset+20).addComponent(Graphics);scaleLine.strokeColor=col('#758080');scaleLine.lineWidth=2;scaleLine.moveTo(-30,4);scaleLine.lineTo(-30,0);scaleLine.lineTo(30,0);scaleLine.lineTo(30,4);scaleLine.stroke();
+    const attributionWidth=Math.max(1,410-safeSides.left-safeSides.right);
+    const attribution=item(this.viewport,'MapAttribution',339-safeSides.right-attributionWidth/2,-MAP_H/2+footerInset+19,attributionWidth,26);
+--- before/CartoonArt.ts
++++ after/CartoonArt.ts
+@@ -21,6 +21,13 @@
+ // These aliases are not independently delivered D+ artwork and apply no recoloring.
+ crops['top-d-plus']=crops['top-d'];
+ crops['side-d-plus']=crops['side-d'];
++// AU03 hand-framed silhouettes: the vehicle front wheel extends beyond x=512.
++crops['coin']={resource:'map-sample/anime/au03/ui-icons-six-original',rect:[56/1536,72/1024,420/1536,424/1024]};
++crops['heart']={resource:'map-sample/anime/au03/ui-icons-six-original',rect:[540/1536,92/1024,456/1536,400/1024]};
++crops['station']={resource:'map-sample/anime/au03/ui-icons-six-original',rect:[1008/1536,50/1024,516/1536,456/1024]};
++crops['vehicle']={resource:'map-sample/anime/au03/ui-icons-six-original',rect:[8/1536,500/1024,528/1536,500/1024]};
++crops['bills']={resource:'map-sample/anime/au03/ui-icons-six-original',rect:[538/1536,516/1024,448/1536,480/1024]};
++crops['map']={resource:'map-sample/anime/au03/ui-icons-six-original',rect:[990/1536,548/1024,534/1536,432/1024]};
+ const atlases=new Map<string,Promise<Texture2D>>(),frames=new Map<string,SpriteFrame>();
+ function loadAtlas(resource:string):Promise<Texture2D> {
+  const cached=atlases.get(resource);if(cached)return cached;
+--- before/SampleUI.ts
++++ after/SampleUI.ts
+@@ -86,7 +86,7 @@
+  const n=box(parent,'Button-'+text,x,y,w,h,fill,14,fill===C.paper?C.line:undefined);if(enabled&&fill===C.primary)skin(n,'button-yellow');if(!enabled)material(n,w,h,'#C5CCD5');label(n,text,0,0,22,foreground,w-12,true,'center');if(enabled)tap(n,action);return n;
+ }
+ export function icon(parent:Node,kind:string,x:number,y:number,fill=C.navy,scale=1):Node{
+- const generated=['avatar','station','coin','star','bag','confirm'].indexOf(kind)>=0;
++ const generated=['avatar','station','coin','star','bag','confirm','vehicle','bills','map'].indexOf(kind)>=0;
+  const n=item(parent,'Icon-'+kind,x,y,32,32),g=n.addComponent(Graphics);n.setScale(scale,scale,1);g.lineWidth=2.4;g.strokeColor=col(fill);g.fillColor=col(fill);
+  if(kind==='heart'){
+   const heart=(scale:number,dy:number,color:string)=>{g.fillColor=col(color);g.moveTo(0,-14*scale+dy);g.bezierCurveTo(-30*scale,5*scale+dy,-12*scale,25*scale+dy,0,13*scale+dy);g.bezierCurveTo(12*scale,25*scale+dy,30*scale,5*scale+dy,0,-14*scale+dy);g.fill();};
