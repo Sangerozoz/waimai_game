@@ -1,0 +1,2 @@
+已完成源码支持：AtlasModel.ts新增region.registration.routeCoverageMapPolygon（原图map米坐标）。status=ready时，骑手allowed及连续路线分段检查均按该可信polygon；多个ready走廊支持联合覆盖，蓝框和源道路中心线约束保留。不修改ownership绘制或完整原图，不新增像素残差验收阈值。未提供/null时兼容旧ownership覆盖；preview-only仍不放行。
+接口atlas-interface.json和implementation-report.md已同步；源码SHA单列route-coverage-source-record.json，既有deployment-record仍代表上次构建。此次未构建、未改runtime/部署、未改ready、未测试/浏览器，也未碰Git索引。等首A/B实际修缝包集中必要构建。

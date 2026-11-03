@@ -1,0 +1,16 @@
+{
+  "id": "REGION-B-v4",
+  "prompt": "Use case: precise-object-edit / whole-region road and building registration correction. Image1 is the EDIT TARGET, native REGION-B-v3 map 1254x1254. Image2 is a DIAGNOSTIC REFERENCE ONLY, its first1254 rows use exactly Image1 coordinates; its extra bottom explanation is NOT map content. Deliver ONLY the revised clean complete1254x1254 transparent native region, no diagnostic lines, no labels, no extra bottom band.\nNONNEGOTIABLE POSITION CORRECTION: In Image2 RED and CYAN show the authoritative continuous original road centerline. The current painted northwestern/upper-left road is too far left and too steep. REPLACE that existing upper-left road with a new real asphalt street along the RED line, from native image(220,509) through(330,455),(420,411),(498,373), continuing in a straight/shallow angle along CYAN toward(733,208). About34px asphalt width and52px total including two sidewalks. The lower-left extension goes from(220,509) toward(44,619). Remove the old displaced parallel road/paving in the upper-left region so there is ONE road, never two parallel roads.\nThe BLUE OUTLINED L-shaped apartment group is in the way of this required street. Move/rebuild that ENTIRE blue building group toward screen lower-right, on the blue ground footprint around(403,531),(529,608),(571,559),(445,486). Reduce it to a compact4–5storey stepped residential group if needed. Delete or move the tiny ground courtyard kiosk that obstructs the new footprint. All roofs/facades must be fully clear of the red road band. Likewise move the upper-center long apartment slab currently crossing the CYAN line slightly down-right or shorten it within its own ground lot; ensure cyan from(498,373) to(733,208) becomes CLEAR ASPHALT, never a line passing across a roof. The road is not allowed to detour around the current buildings. Move the obstructing buildings to make the street fit, retain complete whole buildings. The left space vacated by the old road becomes coherent ground planted courtyards/side paths in the existing region boundary; preserve original outer transparent silhouette where possible, no empty hole.\nKEEP UNCHANGED: Image1 right half glass office, school/civic courtyard, right lower glass annex, bottom residential/shops, lower right main intersection near(765,846), main diagonal cross street beyond the shared junction, removed false central public branch remains pedestrian courtyard, global high orthographic camera/scale/framing/daylight/painterly finish. Do NOT redesign unaffected buildings or shrink/rotate/warp the whole image.\nAll plants on actual ground soil beds ONLY, no rooftop plants/trees/shrubs/lawns/planters/vines. No moving objects, riders, cars, people, text/UI, blue outline, cyan/red stroke or diagnostic marks. The red/cyan reference must become natural painted asphalt with aligned sidewalks and unobstructed rider corridor. Whole-region native image edit, no separate building collage. Genuine transparent alpha outside.",
+  "references": [
+    {
+      "file": "images/REGION-B-v3.png",
+      "role": "whole-region-edit-target"
+    },
+    {
+      "file": "registration/diagnostic/B-v3-north-seam-edit-guide.png",
+      "role": "road-and-whole-building-move-diagnostic-only"
+    }
+  ],
+  "tool": "built-in image_gen",
+  "transparent_background": true
+}

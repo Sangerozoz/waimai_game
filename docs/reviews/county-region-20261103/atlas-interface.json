@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "runtimeFile": "assets/region-atlas.json",
+  "coordinateConvention": "Map metres unchanged. Projected X right, Y down. Native image UV top-left. No art rotation, skew or nonuniform scale.",
+  "requiredRootFields": [
+    "schemaVersion",
+    "projection",
+    "displayBounds",
+    "deliveryPolygon",
+    "camera",
+    "regions"
+  ],
+  "projection": {
+    "originMap": [
+      -1580,
+      80
+    ],
+    "elevationDeg": 62.5,
+    "azimuthDeg": 45
+  },
+  "regionExample": {
+    "id": "REGION-A",
+    "file": "REGION-A-v3.png",
+    "sha256": "4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e",
+    "nativeSize": [
+      1254,
+      1254
+    ],
+    "anchorMap": [
+      -1580,
+      80
+    ],
+    "anchorUV": [
+      0.5,
+      0.5
+    ],
+    "nativePixelsPerUnit": 7.8,
+    "sortOrder": 0,
+    "registration": {
+      "status": "preview-only",
+      "evidence": "registration report path",
+      "controlPoints": [],
+      "maxResidualPixels": null,
+      "routeCoverageMapPolygon": null
+    },
+    "ownershipPolygonUV": null,
+    "note": "Example anchor/scale nominal ONLY, not measured A-v3 alignment. preview-only draws native art; route/rider disabled. ready requires real registration evidence."
+  },
+  "cameraExample": {
+    "focusMap": [
+      -1580,
+      80
+    ],
+    "viewWidthUnits": 190,
+    "minViewWidthUnits": 35,
+    "maxViewWidthUnits": 6500
+  },
+  "optionalRootFields": {
+    "roads": "array of {id,width,nodes:[[mapX,mapY],...]}; independent original-road debug overlay, default hidden",
+    "rider": "{frames:[{direction,file,sha256,nativeSize,wheelContactAnchorUV,widthUnits}],initialMap:[x,y]}; no autonomous demo route",
+    "streaming": "{paddingScreenPixels:256,releaseDelaySeconds:3,maxConcurrentLoads:2}"
+  },
+  "registrationContract": {
+    "ready": "At least 3 spread noncollinear observed correspondences {map:[x,y],pixel:[u,v]}, evidence path, finite measured maxResidualPixels; PM explicitly marks ready. Renderer does not solve/warp art.",
+    "anchor": "anchorUV is measured native image location corresponding to anchorMap. One global uniform nativePixelsPerUnit per image, same camera axes.",
+    "ownership": "Optional simple non-self-intersecting polygon in native UV, runtime clipping only. PM supplies complementary polygons for overlap ownership; transparent alpha remains intact. Higher sortOrder draws later. Default whole alpha rectangle; no claim of seamlessness.",
+    "routeGate": "PM explicitly marks region.registration.status ready; route/rider must stay inside blue deliveryPolygon and the union of ready routeCoverageMapPolygon polygons (fallback: image ownership for entries without this optional field). Entire continuous route segments are checked, including boundary crossings; original-road centreline constraints remain. No numerical residual acceptance threshold is imposed by the renderer; PM selects usable corridors and retains measurement evidence.",
+    "unavailable": "Missing art remains blank with status count; never repeats other region art or draws replacement buildings.",
+    "routeCoverageMapPolygon": "Optional region.registration.routeCoverageMapPolygon: simple polygon of [mapX,mapY] in original map metres. When supplied, it replaces image ownership as route/rider trust coverage only. It never clips or changes original art. Missing/null retains legacy image-ownership coverage. preview-only never enables route/rider, even when a polygon is supplied."
+  },
+  "source": {
+    "city": "delivery-game/assets/resources/map-sample/city.json",
+    "sha256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20"
+  },
+  "handoff": "PM supplies region-atlas.json plus native images relative to its directory. preparation tool copies byte-identical assets, records SHA. planning/ and registration/ stay data-agent owned."
+}

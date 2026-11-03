@@ -1,0 +1,26 @@
+# 整县连续区域生产
+
+用户已在BB `thr_7w55f3h66f` 明确满意A-v3，授权按其规划持续完成整张地图、可自主分配Agent/新对话；完成地图前不转其他任务。正式玩法/经济不变。源路、红蓝绿三界与完整地块要求保留。
+
+## 当前真实产物
+
+- 已认可A-v3原生图保留在 `../2026-11-03-whole-region-map/`，认可原话/范围为该目录 `approval-v3.json`。
+- B-v1至v4均为内置原生整区生成/编辑，原字节保留在 `images/`，实际prompt与源SHA在 `prompts/`、`records/`。v1屋顶绿植已修，v3移除虚构公网支路，v4道路/整楼迁让后共享路段连续；不是逐栋图片再组合。
+- C-v1与D-v1/v2已实际原生生成并保存；标定分别在 `registration/C/` 和 `registration/D/`。C有缺服务路/下支路、D有合并路口/边缘漂移，仍为待修订配准候选，未代填无缝或用户验收。
+- `planning/`：1056个120m级覆盖单元、506蓝框相交、187绿框相交、2047邻边均为规划数；不是已生成数量。提供惰性中性guide/结构生成CLI及1056区/264批连续队列。外围可按实际信息密度评估合并，但不能低细节缩图或复制A冒充整县完成。
+- `registration/`：A/B源路人工观测、误差、共享world归属及制作诊断。`diagnostic/A-B-v4-ownership-composite.jpg` 是组合制作诊断，**不是引擎运行截图**。观察到内部接头连续，保留纹理/边缘差，不称像素级无缝。
+- `runtime-package-ab/`：PM已明确同意A/B内部实见走廊的ready及互补ownership。routeCoverageMapPolygon独立限定原路骑手可用范围；不拿边缘误差否定全部内路，也不把不可信边界开放为可行驶。
+
+## 独立工程交付
+
+地图开发BB `thr_v8eu5ahv2e`，工程 `delivery-game/county-region-project/`；只改独立地图显示，不动正式游戏业务/存档。A/B包已接入、必要构建Finished并复制独立部署 `delivery-game/build/map-sample/county-region/`，入口 `http://127.0.0.1:4181/county-region/`。静态骑手点配置为[-1596.7,96.27]，启动仍受内部走廊/蓝框/原路校验；未实看运行画面，不保证已实显。源图SHA/源码与包拷贝记录见 `docs/reviews/county-region-20261103/ab-final-delivery.md` 及工程build-evidence。
+
+旧high-camera-city、v1副本及所有历史工程保留。过程未运行tests/typecheck/回归/浏览器自动化/游戏/存档。集中测试仍等用户明确“阶段完成”。
+
+## 持续任务接续
+
+下一批可持续工作流 `.bb/workflows/county-region-next-batch.js` 已验证并实际运行 `wfr_d03b3988-81eb-4c9b-b58c-630bddcb5c01`：先两片贴A的真实相邻区，再两片有依赖的相邻区；产图后逐区实际标定。每区独占 `production/<id>/`，不和PM或开发写同文件。完成通知自动回本PM，继续收口A/C、B/D、C/D与新邻区接缝、包接入，再从production-order派下一批；不得将此小批结束当整县完成或转新任务。生成失败则记录具体错误，不假造产物或切API。
+
+内置生图曾单次401 token_revoked，后续同内置重试已恢复，B3/B4/C/D均真实产出，无API/CLI替代。
+
+用户要求及时备份GitHub。origin为Sangerozoz/waimai_game；首批源码/既有原生美术/产品资料已本地提交6fc9605。首次push因HTTPS账户认证失效失败，gh auth status确认现凭据无效，已请用户重新gh auth login；尚不能称推送成功。只推开发分支codex/food-delivery，不强推/不改main。原生素材/源文件提交，编译缓存/重复runtime-data/打包备份不提交。

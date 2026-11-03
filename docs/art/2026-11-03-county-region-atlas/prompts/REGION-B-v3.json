@@ -1,0 +1,16 @@
+{
+  "id": "REGION-B-v3",
+  "prompt": "Use case: precise-object-edit / neighboring map seam correction. Image1 is the complete finished REGION-B-v2 EDIT TARGET, 1254x1254. Image2 is approved REGION-A-v3, reference for the common edge and style ONLY. Preserve Image1 framing, camera, transparent padding, all main buildings/roof silhouettes/greenery amount/lighting and streets away from the shared upper-left boundary. NO roof vegetation.\nChange only the narrow shared northwest road/crossing zone and its immediately adjacent curbs/planting to match A's painted shared streets; retain original network, do not move source roads. Pixel coordinates below refer to native1254x1254 Image1, not percent. (1) Move the left shared intersection center from about(246,499) to(220,509). (2) On the long upper-left to top edge road the source shared northern exit is currently near(478,318); curve its centerline within this narrow shared strip toward(498,373) and connect smoothly, no abrupt kink, keeping the upper road width consistent. (3) At the lower-left end of that same shared boundary road, move its center around(69,611) to(44,619), taking curb and sidewalk with it. (4) The road arm just after the shared intersection leaves the overlap near(295,531); make it pass through(287,549), then smoothly rejoin the untouched main road toward Image1's right/lower intersection around(765,846). Make a natural continuous road, pavement, curbs and soil tree-bed connection. Keep all buildings complete; if a building immediately conflicts, shift its whole small frontage a little within its existing plot, never slice a facade/roof. Do not redesign the whole region.\nRemove the invented PUBLIC road branch that currently runs from around(545,654) toward(881,453): this is not in the source public network. Replace its same corridor with a narrow pedestrian/civic courtyard entrance path, pale walkway paving without yellow/white vehicle lane lines, with visibly connected ground-level planted margins. Keep main two long source streets intact. No vehicles, people, text, labels, UI, numerical marks, arrows or red dots. Render a native whole-region edit with genuine alpha, same bright urban Japanese anime painterly finish, no script pixel edits. Matching coordinates are production goals and need later actual measurement, but make the positional corrections faithfully.",
+  "references": [
+    {
+      "file": "images/REGION-B-v2.png",
+      "role": "edit-target"
+    },
+    {
+      "file": "../2026-11-03-whole-region-map/REGION-A-v3.png",
+      "role": "approved-neighbor-only"
+    }
+  ],
+  "tool": "built-in image_gen",
+  "transparent_background": true
+}

@@ -1,0 +1,37 @@
+{
+  "id": "REGION-C-v1",
+  "status": "generated-native-not-registered-not-user-accepted",
+  "tool": "built-in image_gen.imagegen",
+  "sourceNativePath": "/Users/sanger/.codex/generated_images/01a1a102-d692-7c10-a0b4-ee9d9761f235/exec-ffaec4e7-303e-4386-8c2d-a8955f5d68ec.png",
+  "outputPath": "docs/art/2026-11-03-county-region-atlas/images/REGION-C-v1.png",
+  "outputSha256": "852fa31855e57b3aed52d3f569891882e255487685cbfbb761a6a31db023525a",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "prompt": "Use case: stylized-concept. Asset: complete continuous county game map REGION REGION-C, not a collection of separate building sprites. Generate one whole 120m by 120m multi-block region with streets, sidewalks, architecture, entrances, courtyard planting and fixed painted shadows in one image.\nReference image 1 is this region's neutral source-geometry guide: it is the sole authority for original road positions, relative widths, intersections, water and edge connections. Reference image 2 is user-approved REGION-A-v3: use ONLY its bright modern Japanese urban anime painterly rendering, material richness, greenery balance, 62.5-degree elevated orthographic camera, 45-degree azimuth, building scale, soft fixed daylight and detailed streetscape. Do not copy its buildings or road arrangement into this different region. Guide boxes indicate location and camera, not identical architecture.\nSource region world bounds {\"minX\": -1640, \"maxX\": -1520, \"minY\": 124, \"maxY\": 244}. Guide is 1536 square, origin-map [-1580.0, 184.0], ground pixels/unit 7.8, origin pixel [768,810]. Preserve its exact diamond framing, camera axes and original roads, including roads that enter/exit the edge. Do not add a new grid or straighten source curves to make prettier blocks. Region core {\"minX\": -1632, \"maxX\": -1528, \"minY\": 132, \"maxY\": 236}; 8m each-side halo and 16m neighbor overlap are real shared world content. Coordinate with the supplied A edge and shared source roads; no isolated vignette border or decorative base.\nTheme: 繁华城区：多样住宅、沿街商业、办公、学校/公共庭院及口袋绿化；不整片刷公园. Local planned uses: garden, mixed, plaza, residential. Complete all urban plots with varied mid-rise/low-rise residential, L/U courtyards, offices, shops, school/public facilities as supported by this local plan. Architectural diversity must involve massing, height, roof profiles and uses, not just different color on repeated apartment slabs. Ground greenery is measured visually against approved A-v3 and latest reference about 0.9; no giant parks, blanket green lawns, empty plazas, or rooftop trees. Keep rider streets visibly open; typically building setbacks 6–10m. Slightly larger buildings allowed, no arbitrary new hard height limit.\nDo not draw rider, vehicles, characters, HUD, text, labels, tile outlines or registration marks. Keep transparent outside the actual region ground/art silhouette and preserve complete buildings that project beyond its ground edge. No black background, watermarks, 3D low-poly substitute, repeated-window program boxes, mirrored art, flat-color final diagram or screenshot UI. Do not sacrifice approved building detail to shrink an entire county into this region.\nThis prompt is a production request, not evidence that geometry/seams already match. Save full native RGBA source; never script-edit generated pixels. Final control-point registration and seam review follow generation.\nABSOLUTE GREENERY CONSTRAINT: No rooftop trees, roof grass, rooftop shrubs, roof planters, roof vines, green roofs or planted terraces anywhere. Every tree, shrub, flowerbed and lawn must stand on ground level only. Roofs contain only conventional roof materials and small mechanical equipment. Keep the complete original region ground diamond, with no missing land or cutouts.",
+  "inputs": [
+    {
+      "path": "docs/art/2026-11-03-county-region-atlas/planning/guides/REGION-C-structure-neutral.png",
+      "sha256": "1224874ba28dcd6df051a1b03a7e1ed56fe5ec001162118b1b463c4d6ef88121",
+      "role": "source-geometry-only"
+    },
+    {
+      "path": "docs/art/2026-11-03-whole-region-map/REGION-A-v3.png",
+      "sha256": "4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e",
+      "role": "approved-style-and-neighbor-reference"
+    }
+  ],
+  "structure": {
+    "path": "docs/art/2026-11-03-county-region-atlas/planning/structures/REGION-C-structure.json",
+    "sha256": "ae80ba953b9c1ce31f6e3601198ee605294b91397738e3e883e2e53960972554"
+  },
+  "observations": [
+    "Whole region native generation; no pixel edits.",
+    "No obvious roof vegetation observed; ground planting only in visual inspection.",
+    "Road topology broadly follows C guide; precise geometry, overlap, edge road registration and seamless stitching remain unverified.",
+    "Some white fringe/speckling near upper silhouette; retain native alpha for registration review."
+  ],
+  "verification": "Visual art inspection only; no game/tests/typecheck/build/save operations."
+}

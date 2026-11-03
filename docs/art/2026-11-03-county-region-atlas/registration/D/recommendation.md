@@ -1,0 +1,15 @@
+# D-v2 production registration recommendation
+
+D-v2 remains **preview-only**. PM decides `ready`; no seamless claim is made. Measured native art is 1254×1254, preserved byte-identical. `measure-region-D.py` recomputes the records and diagnostic from manual observations; running this production measurement script is not a game test.
+
+Fixed 62.5° elevation / 45° azimuth, uniform scale **7.260790609 px/m**, anchorMap `[-1476,184]`, anchorPixel `[666.068243,593.932944]`, anchorUV `[0.5311548984,0.4736307365]`. No rotation, skew, nonuniform scale or source geometry edits.
+
+Three dispersed noncollinear controls comprise one distinct central intersection (high), one lower crossing (medium because two source parallel roads are merged in art), and one upper-left road boundary point (medium because the generated silhouette is approximate). Fit RMS 10.99px and max 13.97px are not independent accuracy measures. All seven paired observations max 76.48px, dominated by low-confidence disconnected northern stub. Independent medium edge observations drift around 28px; low-confidence right short branch around 60px. Every residual is retained in measurement.json, including unpaired nulls.
+
+The proposed `routeCoverageMapPolygon` is only the narrow internal central road corridor with vertices `[-1518,176],[-1444,170],[-1444,181],[-1518,188]`. This intentionally excludes outer exits, both seam bands and lower ambiguous junction. It is a provisional coverage proposal supported by the diagnostic road overlay, not all-pixel precision. Original road centreline constraints must still apply; PM may reject or shrink it. No routes have been run.
+
+B-D east corridor: the B measured south-edge point and a manually interpolated D point imply a **1.69m / 12.24 D-native-pixel** discrepancy. D's point is estimated along a street, 14px uncertainty; that discrepancy is smaller than observation uncertainty and cannot establish a closed seam. B-D west is **null**: D only has an isolated, shifted northern road stub. C-D cross-art difference is **null** pending C counterpart registration; D upper-left main-road exit fit residual is 12.8px, while southwest exit is 28.9px. Those are D internal residuals, not a C-D seam difference.
+
+Do not use coreBounds or a rectangular UV clip as solved ownership. West edge contains projecting small buildings, north contains the disconnected stub and roof projections, east includes school and a separate short branch, south/southeast has buildings on both sides of source parallel roads. Straight clipping can cut facades or roofs and cut off ground entrances. OwnershipPolygonUV stays null. Building continuity requires joint seam production; a 16m overlap alone does not solve duplicated buildings or cut facades.
+
+The diagnostic copy shows original-road turquoise overlay, yellow manual marks, red residual vectors and magenta provisional coverage. Native art is never resampled or modified. Geometry, road curvature, margin drift and merged lower roads remain material risks. No browser, game, saves, tests, commit or push were used.

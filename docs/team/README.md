@@ -1,5 +1,7 @@
 # 《送外卖》项目团队与协作规则
 
+> **BB当前地图开发登记：** 用户授权新Agent/新对话后，本轮地图开发为 `thr_v8eu5ahv2e`（唯一写独立county-region业务工程），PM为 `thr_7w55f3h66f`。原ChatGPT开发保留来源，不在旧工程并行派工。本轮实际产出、持续任务与GitHub备份状态见[地图批次接续](reports/2026-11-03-county-region-bb-progress.md)。下方旧“固定开发登记保持”为此次新授权前历史。
+
 > **2026-11-03迁入BB，最终交接已读：** 用户明确后续在BB会话 `thr_7w55f3h66f` 与当前PM沟通，覆盖下方旧PM入口登记；固定开发登记保持。旧PM已落盘[最终交接](handoffs/project-manager-current.mdsvg)并停止派工，新PM已完整读取、核看区域A-v3并记录回执，见[本次接续记录](reports/2026-11-03-bb-pm-takeover.md)。旧会话保留来源，未归档。
 
 > **2026-11-03最新迁移：** 用户要求PM/开发分别新开会话，先在旧对话重发方案与效果图；已发送并生成[便捷查看入口](../product/2026-11-03-product-visual-review-index.md)。[迁移状态与回执](reports/2026-11-03-pm-development-migration.md)、[共享精简快照](handoffs/2026-11-03-migration-state.md)。当前地图为已实际显示的二维完整素材拼装小样，尚未美术验收/全县完成，树正视旧图已剔除；不恢复下文早前Canvas/3D/扩城任务。旧聊天保留未归档，停止派工。

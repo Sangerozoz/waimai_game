@@ -1,5 +1,7 @@
 # 游戏PM当前精简交接：2026-11-03
 
+> **BB最新实际执行：** A/B/C/D四片原生整区已产，A/B4共享街道与整楼避让已收口，PM内部走廊ready包交开发，county-region独立必要构建/静态部署完成，未实看运行或游戏测试。C/D仍需配准/接缝修订。下一批可持续工作流 `wfr_d03b3988-81eb-4c9b-b58c-630bddcb5c01` 已运行，结束自动通知本PM后继续地图（不是整县完成或新任务）。入口 `docs/art/2026-11-03-county-region-atlas/README.md`。Git本地首commit6fc9605，远端push认证失效未成功；已请用户gh auth login，恢复后继续推普通开发分支。
+
 > **BB最新实施授权：** 用户已满意A-v3并要求继续完成整张地图，允许自主Agent/新对话；当前地图开发BB `thr_v8eu5ahv2e`。此前A-v3待审状态由本次认可覆盖；配准/相邻区域/接缝仍需实际产出。用户要求及时推送GitHub，已核实origin Sangerozoz/waimai_game，允许commit/push项目分支，保留存档/不过程测试边界。
 
 > **新PM已读回执（2026-11-03）：** BB `thr_7w55f3h66f` 已完整读取 `project-manager-current.mdsvg` 最终交接，读取长期基准与区域work-state，并实际查看REGION-A-v3，SHA256与交接一致。当前接续点为A-v3待用户反馈；配准、邻区B、接缝及引擎接入未启动。旧PM停止派工；开发idle、无旧PM未完成生图或自动续办均为交接所报状态，本会话未独立查询旧应用运行状态。下方“待收取”已由本回执覆盖。

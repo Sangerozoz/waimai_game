@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "developerContract": "docs/reviews/county-region-20261103/atlas-interface.json",
+  "originMap": [
+    -1580,
+    80
+  ],
+  "displayBounds": {
+    "minX": -3187.43,
+    "maxX": 136.05,
+    "minY": -1817.63,
+    "maxY": 1505.84
+  },
+  "deliveryPolygon": [
+    [
+      -2652.59,
+      -1282.79
+    ],
+    [
+      -361.42,
+      -1282.79
+    ],
+    [
+      -361.42,
+      867.46
+    ],
+    [
+      -2652.59,
+      867.46
+    ]
+  ],
+  "mapping": {
+    "id": "Same REGION-A/B/C/D and grid IDs across planning and runtime.",
+    "anchorMap": "Source region center from structure.originMap.",
+    "anchorUV": "Must be observed/fitted in generated native image; guide originPixel is not native art registration.",
+    "nativePixelsPerUnit": "Guide 7.8 at1536; 1254 gives nominal6.368 only if composition preserved, not observed. Registration worker owns actual fitted value.",
+    "ownershipPolygonUV": "Map nominal core or adjusted natural seam through actual fitted transform; complementary across neighbors. Do not derive from guide alone.",
+    "registration": "Only measured report plus >=3 spread observed correspondences can be ready; root PM marks ready.",
+    "artAbsent": "Do not include 1055 nonexistent PNGs as ready. Production queue separate from actual runtime regions.",
+    "roads": "Original nodes/widths, display clipped to blue if necessary; no source edit.",
+    "rider": "Keep independent, gate by ready region plus full blue route."
+  },
+  "firstBatch": [
+    {
+      "id": "REGION-B",
+      "sourceStructure": "docs/art/2026-11-03-county-region-atlas/planning/structures/REGION-B-structure.json",
+      "artStatus": "not-generated"
+    },
+    {
+      "id": "REGION-C",
+      "sourceStructure": "docs/art/2026-11-03-county-region-atlas/planning/structures/REGION-C-structure.json",
+      "artStatus": "not-generated"
+    },
+    {
+      "id": "REGION-D",
+      "sourceStructure": "docs/art/2026-11-03-county-region-atlas/planning/structures/REGION-D-structure.json",
+      "artStatus": "not-generated"
+    }
+  ],
+  "status": "planning-to-runtime-mapping-only-no-published-atlas"
+}
