@@ -36,6 +36,30 @@ def clip(a,b,bb):
  return None if lo>hi else [[a[0]+lo*dx,a[1]+lo*dy],[a[0]+hi*dx,a[1]+hi*dy]]
 
 
+def point_in_ring(p, ring):
+ inside_ring=False
+ for a,b in zip(ring,ring[1:]+ring[:1]):
+  if (a[1]>p[1])!=(b[1]>p[1]) and p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0]:inside_ring=not inside_ring
+ return inside_ring
+
+
+def architecture_intent(parcels, buildings, added, region):
+ # Stable world identities keep the same choices across neighboring input halos.
+ parcel_by_id={p['id']:p for p in parcels};assignments=[]
+ for b in buildings+added:
+  foot=b['footprint'];center=[sum(p[k] for p in foot)/len(foot) for k in (0,1)]
+  parcel=parcel_by_id.get(b.get('parcelId'))
+  if parcel is None:
+   parcel=next((p for p in parcels if p['rings'] and point_in_ring(center,p['rings'][0]) and not any(point_in_ring(center,h) for h in p['rings'][1:])),None)
+  use=parcel['landUse'] if parcel else 'unresolved'
+  ident=b.get('id','source-'+str(b.get('sourceReferenceIndex')))
+  candidates=[f for f in architecture_policy['forms'] if use in f['landUses'] and f['id']!='landscape']
+  # No civic/retail inference from a source box with unresolved land use.
+  recipe=candidates[int(hashlib.sha256(ident.encode()).hexdigest()[:8],16)%len(candidates)] if candidates else None
+  assignments.append(dict(buildingId=ident,parcelId=parcel['id'] if parcel else None,landUse=use,footprint=foot,nominalHeight=b.get('heightMetres',b.get('heightNominal')),recipe=recipe,status='proposed-not-generated',constraint='Keep original ground footprint and roads. Guide height is nominal visual framing, not a new hard height limit; use varied coherent massing without blocking roads. No new buildings on landscape parcels; unmatched use remains unresolved.'))
+ return dict(policyVersion=architecture_policy['version'],palette=architecture_policy['palette'],neighborRole=architecture_policy['neighborRole'],rules=architecture_policy['rules'],parcelCombinations=[dict(parcelId=p['id'],landUse=p['landUse'],availableRecipes=[f for f in architecture_policy['forms'] if p['landUse'] in f['landUses']],instruction='Use distinct compatible recipes across actual existing footprints; no compulsory landmark or identical region package.') for p in parcels],buildingAssignments=assignments,status='design-intent-only-no-achieved-counts')
+
+
 def make_region(i,j):
  r=bygrid[(i,j)];ident=r['id'];bb=r['renderBounds'];origin=[(bb['minX']+bb['maxX'])/2,(bb['minY']+bb['maxY'])/2]
  def project(p):
@@ -55,7 +79,9 @@ def make_region(i,j):
  for n,foot in enumerate(city['buildings']):
   if intersects(box(foot),bb) and all(inside(p,zones['city']) for p in foot):buildings.append(dict(sourceReferenceIndex=n,footprint=foot,heightNominal=[12,15,18,15,12][n%5],wholeBuilding=True,extendsRenderBoundary=not all(inside(p,bb) for p in foot)))
  added=[b for b in layout['addedBuildings'] if intersects(box(b['footprint']),bb)]
- parcels=[dict(id=p['id'],landUse=p['landUse'],name=p.get('name'),center=p['center']) for p in layout['parcels'] if intersects(box([pt for ring in p['rings'] for pt in ring]),bb)]
+ parcels=[dict(id=p['id'],landUse=p['landUse'],name=p.get('name'),center=p['center'],rings=p['rings']) for p in layout['parcels'] if intersects(box([pt for ring in p['rings'] for pt in ring]),bb)]
+ intent=architecture_intent(parcels,buildings,added,r)
+ save(R/'architecture'/f'{ident}-architecture-intent.json',intent)
  water=[a['points'] for a in city['areas'] if a.get('kind')=='water' and intersects(box(a['points']),bb)]
  waterways=[]
  for line in city['waterways']:
@@ -70,7 +96,7 @@ def make_region(i,j):
     seg=clip(a,b,ob)
     if seg:segments.append(dict(roadId=road['id'],width=road['width'],map=seg,guidePixels=[project(p) for p in seg]))
   shared.append(dict(seamId=other['id'],regions=other['regions'],overlapBounds=ob,sourceRoadSegments=segments,paintingStatus='not-generated-not-stitched'))
- im=Image.new('RGBA',(1536,1536),(0,0,0,0));dr=ImageDraw.Draw(im);ground=[[bb['minX'],bb['minY']],[bb['maxX'],bb['minY']],[bb['maxX'],bb['maxY']],[bb['minX'],bb['maxY']]];dr.polygon([tuple(project(p)) for p in ground],fill='#dfdad1')
+ im=Image.new('RGBA',(1536,1536),(0,0,0,0));dr=ImageDraw.Draw(im);ground=[[bb['minX'],bb['minY']],[bb['maxX'],bb['minY']],[bb['maxX'],bb['maxY']],[bb['minX'],bb['maxY']]];dr.polygon([tuple(project(p)) for p in ground],fill='#dddddd')
  def corridor(part,width,color):
   a,b=part;dx,dy=b[0]-a[0],b[1]-a[1];length=math.hypot(dx,dy)
   if length<1e-8:return
@@ -78,7 +104,7 @@ def make_region(i,j):
  for w in water:dr.polygon([tuple(project(p)) for p in w],fill='#9fb6bd')
  for w in waterways:corridor(w,4,'#9fb6bd')
  for road in roads:
-  for seg in road['displaySegments']:corridor(seg,road['width']+3.6,'#c4bfae')
+  for seg in road['displaySegments']:corridor(seg,road['width']+3.6,'#bfbfbf')
  for road in roads:
   for seg in road['displaySegments']:corridor(seg,road['width'],'#828887')
  guide_buildings=buildings+[dict(footprint=b['footprint'],heightNominal=b['heightMetres'],plannedId=b['id']) for b in added]
@@ -86,10 +112,10 @@ def make_region(i,j):
   foot=b['footprint'];h=b['heightNominal'];top=[p+[h] for p in foot];faces=[]
   for k in range(len(foot)):
    l=(k+1)%len(foot);faces.append(([foot[k],foot[l],top[l],top[k]],sum(project(p)[1] for p in [foot[k],foot[l]])))
-  for face,_ in sorted(faces,key=lambda f:f[1]):dr.polygon([tuple(project(p)) for p in face],fill='#d0cbbf',outline='#9f9d94')
-  dr.polygon([tuple(project(p)) for p in top],fill='#f4f0e7',outline='#989c96',width=2)
+  for face,_ in sorted(faces,key=lambda f:f[1]):dr.polygon([tuple(project(p)) for p in face],fill='#cecece',outline='#9f9d94')
+  dr.polygon([tuple(project(p)) for p in top],fill='#eeeeee',outline='#989c96',width=2)
  out=R/'guides'/f'{ident}-structure-neutral.png';out.parent.mkdir(exist_ok=True);im.save(out)
- structure=dict(id=ident,atlasGrid=[i,j],bounds=bb,coreBounds=r['coreBounds'],originMap=origin,projection=dict(elevationDeg=62.5,azimuthDeg=45,canvasYDown=True,axisX=[q,s*q],axisY=[-q,s*q],axisZ=[0,-c],nativePixelsPerUnit=P,originPixel=offset),source=dict(file=str(S),sha256=sha(S)),roads=roads,buildingReferences=buildings,plannedAddedBuildings=added,landUseParcels=parcels,waterPolygons=water,waterwaySegments=waterways,controlPoints=controls,neighborSharedRoadControls=shared,guide=dict(file=str(out),sha256=sha(out),nativeSize=[1536,1536]),notes=['Structural code-native drawing only; not generated final art.','Full source footprints retained; viewport clipping is not an architectural design change.','New-region artwork not yet generated; no pixel alignment to A is claimed.','Neutral areas require complete planned urban content, not blanket paving or park.'])
+ structure=dict(id=ident,atlasGrid=[i,j],bounds=bb,coreBounds=r['coreBounds'],originMap=origin,projection=dict(elevationDeg=62.5,azimuthDeg=45,canvasYDown=True,axisX=[q,s*q],axisY=[-q,s*q],axisZ=[0,-c],nativePixelsPerUnit=P,originPixel=offset),source=dict(file=str(S),sha256=sha(S)),roads=roads,buildingReferences=buildings,plannedAddedBuildings=added,landUseParcels=parcels,architectureIntent=intent,waterPolygons=water,waterwaySegments=waterways,controlPoints=controls,neighborSharedRoadControls=shared,guide=dict(file=str(out),sha256=sha(out),nativeSize=[1536,1536]),notes=['Structural code-native drawing only; not generated final art.','Full source footprints retained; viewport clipping is not an architectural design change.','New-region artwork not yet generated; no pixel alignment to A is claimed.','Neutral areas require complete planned urban content, not blanket paving or park.'])
  save(R/'structures'/f'{ident}-structure.json',structure)
  local_uses=sorted(set(p['landUse'] for p in parcels))
  campus_ids=[p['id'] for p in parcels if p['landUse'] in ['campus','school']]
@@ -97,17 +123,19 @@ def make_region(i,j):
  facility_policy=('Local school/campus facilities are allowed ONLY inside these original campus/school parcels: '+', '.join(campus_ids)+'. Keep their actual land-use and bounds; do not add a second school or replicate the reference school/basketball complex.' if campus_ids else 'No local school/campus parcel is present: DO NOT invent any standalone school, campus, basketball court or sports stadium.')
  facility_policy+=(' Community-service structures are allowed only inside these original community parcels: '+', '.join(community_ids)+'.' if community_ids else ' No explicit community parcel is present: do not invent a civic center, municipal landmark or community landmark complex.')
  facility_policy+=(' Ordinary residential land can use distinct residential courtyard massings, grouped housing and small convenience storefronts consistent with its land use, without inserting a school/civic landmark. Public facilities are not a mandatory ingredient for every120m region.' if r['zone']!='outerLandscape' else ' This outer landscape has no new residential or civic facility requirement; natural forest/terrain/water forms the complete scene.')
- prompt=f'''Use case: stylized-concept. Asset: complete continuous county game map REGION {ident}, not a collection of separate building sprites. Generate one whole 120m by 120m multi-block region with streets, sidewalks, architecture, entrances, courtyard planting and fixed painted shadows in one image.\nReference image 1 is this region's neutral source-geometry guide: it is the sole authority for original road positions, relative widths, intersections, water and edge connections. Reference image 2 is user-approved REGION-A-v3: MATERIAL AND PAINTING STYLE reference only, for bright modern Japanese urban anime painterly rendering, material richness, approved ground-greenery balance and soft fixed daylight. It is NOT the authority for this region camera, road lines, framing, facility list or layout. STRICT PRIORITY: source geometry guide framing/62.5deg camera/source-road junctions FIRST; actual adjacent ground overlap where consistent with source SECOND; A painting/material style LAST. Do not copy the repeated landmark package of glass tower + L-shaped school/basketball court + arched-roof hall + gray pitched-roof rowhouses into every region. Guide boxes indicate location and source camera, not identical architecture.\nSource region world bounds {json.dumps(bb)}. Guide is 1536 square, origin-map {origin}, guide pixels/unit {P}, origin pixel {offset}. Preserve its exact diamond framing, 62.5deg orthographic camera axes and every original road centerline/width/intersection, including upper road branches and edge entry points. Do not replace an upper road with a low-angle straight line, tilt the upper part of the map, move roads through buildings, copy A street layout or invent a prettier grid. Original source-road controls override style-reference composition. Buildings and their setbacks must be arranged around the original road corridor, never vice versa. Region core {json.dumps(r['coreBounds'])}; 8m each-side halo and 16m neighbor overlap are real shared world content. Coordinate with actual adjacent-region edges only for ids listed in neighborSharedRoadControls and preserve shared source roads; A is not a neighbor for distant regions. No isolated vignette border or decorative base.\nRegion zone: {r['zone']}; local parcel land-use is the only facility authority. Local planned uses: {', '.join(sorted(set(p['landUse'] for p in parcels)))}. {theme_instructions} {facility_policy} ABSOLUTELY NO greenery on any roof: no rooftop trees, shrubs, turf, planters, garden, vine or vegetation. Keep rider streets visibly open; typically building setbacks 6–10m. Slightly larger buildings allowed, no arbitrary new hard height limit.\nDo not draw rider, vehicles, characters, HUD, text, labels, tile outlines or registration marks. Keep transparent outside the actual region ground/art silhouette and preserve complete buildings that project beyond its ground edge. No black background, watermarks, 3D low-poly substitute, repeated-window program boxes, mirrored art, flat-color final diagram or screenshot UI. Do not sacrifice approved building detail to shrink an entire county into this region.\nThis prompt is a production request, not evidence that geometry/seams already match. Save full native RGBA source; never script-edit generated pixels. Final control-point registration and seam review follow generation.'''
- save(R/'prompts'/f'{ident}-v1.json',dict(id=ident+'-v1',status='prompt-ready-not-generated',localParcelLandUses=local_uses,facilityPolicy=facility_policy,prompt=prompt,referenceImages=[dict(file=str(out),role='source-geometry-only',sha256=sha(out)),dict(file='docs/art/2026-11-03-whole-region-map/REGION-A-v3.png',role='approved-material-and-painting-style-only',sha256='4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e')],structureFile=str(R/'structures'/f'{ident}-structure.json'),sharedControls=shared))
+ architecture_text=json.dumps(intent,ensure_ascii=False)
+ prompt=f'''Use case: stylized-concept. Asset: complete continuous county game map REGION {ident}, not a collection of separate building sprites. Generate one whole 120m by 120m multi-block region with streets, sidewalks, architecture, entrances, courtyard planting and fixed painted shadows in one image.\nReference image 1 is this region's neutral source-geometry guide: it is the sole authority for original road positions, relative widths, intersections, water and edge connections. Reference image 2 is user-approved REGION-A-v3: MATERIAL AND PAINTING STYLE reference only, for bright modern Japanese urban anime painterly rendering, material richness, approved ground-greenery balance and neutral fixed daylight. Neutral white/grey walls and real grey asphalt, local material colors only; NO global cream/yellow/orange wash and NO global blue tint. Later batch regions are NEVER style masters. It is NOT the authority for this region camera, road lines, framing, facility list or layout. STRICT PRIORITY: source geometry guide framing/62.5deg camera/source-road junctions FIRST; actual adjacent ground overlap where consistent with source SECOND; A painting/material style governs color independently of geometry; adjacent images govern ONLY edge geometry and silhouettes, NEVER color or interior building forms. Do not copy the repeated landmark package of glass tower + L-shaped school/basketball court + arched-roof hall + gray pitched-roof rowhouses into every region. Guide boxes indicate location and source camera, not identical architecture.\nSource region world bounds {json.dumps(bb)}. Guide is 1536 square, origin-map {origin}, guide pixels/unit {P}, origin pixel {offset}. Preserve its exact diamond framing, 62.5deg orthographic camera axes and every original road centerline/width/intersection, including upper road branches and edge entry points. Do not replace an upper road with a low-angle straight line, tilt the upper part of the map, move roads through buildings, copy A street layout or invent a prettier grid. Original source-road controls override style-reference composition. Buildings and their setbacks must be arranged around the original road corridor, never vice versa. Region core {json.dumps(r['coreBounds'])}; 8m each-side halo and 16m neighbor overlap are real shared world content. Coordinate with actual adjacent-region edges only for ids listed in neighborSharedRoadControls and preserve shared source roads; A is not a neighbor for distant regions. No isolated vignette border or decorative base.\nExplicit parcel/building architectural design intent (not evidence of achieved diversity): {architecture_text}. Honor individual recipes; never turn all volumes into white boxes with orange awnings. Preserve ground footprints and road corridors; nominal guide heights are visual framing, not a universal same-height rule. Vary floor rhythm and upper massing coherently.\nRegion zone: {r['zone']}; local parcel land-use is the only facility authority. Local planned uses: {', '.join(sorted(set(p['landUse'] for p in parcels)))}. {theme_instructions} {facility_policy} ABSOLUTELY NO greenery on any roof: no rooftop trees, shrubs, turf, planters, garden, vine or vegetation. Keep rider streets visibly open; typically building setbacks 6–10m. Preserve existing whole-building ground footprints and open road corridors. Vary heights and upper massing coherently; nominal guide heights are not a new hard cap.\nDo not draw rider, vehicles, characters, HUD, text, labels, tile outlines or registration marks. Keep transparent outside the actual region ground/art silhouette and preserve complete buildings that project beyond its ground edge. No black background, watermarks, 3D low-poly substitute, repeated-window program boxes, mirrored art, flat-color final diagram or screenshot UI. Do not sacrifice approved building detail to shrink an entire county into this region.\nThis prompt is a production request, not evidence that geometry/seams already match. Save full native RGBA source; never script-edit generated pixels. Final control-point registration and seam review follow generation.'''
+ save(R/'prompts'/f'{ident}-v1.json',dict(id=ident+'-v1',status='prompt-ready-not-generated',localParcelLandUses=local_uses,facilityPolicy=facility_policy,architectureIntent=intent,prompt=prompt,referenceImages=[dict(file=str(out),role='source-geometry-only',sha256=sha(out)),dict(file='docs/art/2026-11-03-whole-region-map/REGION-A-v3.png',role='approved-material-and-painting-style-only',sha256='4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e')],structureFile=str(R/'structures'/f'{ident}-structure.json'),sharedControls=shared))
  print(ident,len(roads),len(buildings),len(controls),str(out),flush=True)
 
 
 def main():
- global R,S,Z,L,city,zoning,layout,nodes,zones,plan,bygrid,q,s,c,P,offset,theme_instructions
+ global R,S,Z,L,city,zoning,layout,nodes,zones,plan,bygrid,q,s,c,P,offset,theme_instructions,architecture_policy
  parser=argparse.ArgumentParser(description=__doc__)
  parser.add_argument('--id',required=True,help='Exact atlas region id, e.g. REGION-B or R-+02-+00')
  parser.add_argument('--output-dir',required=True,help='Dedicated empty worker output directory, normally docs/art/2026-11-03-county-region-atlas/production/<id>')
  parser.add_argument('--neighbor-art',action='append',default=[],metavar='REGION_ID=PATH',help='Actual adjacent native image, repeatable. SHA stored; no pixel manipulation.')
+ parser.add_argument('--accepted-style-reference',help='PM-accepted correction image; workflow verifies its acceptance evidence before generation. A-v3 remains original style anchor.')
  parser.add_argument('--match-approved-scale',action='store_true',help='Match A registration scale/anchor framing in guide, instead of historical1536 guide framing. Does not fix painted edge drift.')
  args=parser.parse_args()
  repo=Path(__file__).resolve().parents[4]
@@ -117,6 +145,7 @@ def main():
  if R.resolve()==planning.resolve() or planning.resolve() in R.resolve().parents:
   parser.error('Worker output must be isolated from planning/.')
  if R.exists() and any(R.iterdir()):parser.error('Output directory is not empty; use a new versioned directory. Existing inputs never overwritten.')
+ architecture_policy=json.loads((planning/'architecture-diversity-policy.json').read_text())
  plan=json.loads((planning/'atlas-plan.json').read_text());matches=[r for r in plan['regions'] if r['id']==args.id]
  if not matches:parser.error('Region id is absent from atlas-plan.json')
  r=matches[0];bygrid={tuple(x['grid']):x for x in plan['regions']}
@@ -148,7 +177,13 @@ def main():
  # Rebase references to absolute paths so a worker can run from any cwd.
  for ref in prompt['referenceImages']:
   pp=Path(ref['file']);ref['file']=str(pp if pp.is_absolute() else repo/pp)
- prompt['prompt']+='\nA registration warning: fitted native scale7.1345800795px/m@1254 and anchor[613.8999,640.6815]; its painted edge can deviate15–42px from nominal source square. Copy a complete visible shared road/ground strip from the actual neighbor reference, then measure new art; no promise of automatic seamlessness. Never move source roads. Every roof completely free of trees, shrubs, planters, turf or any vegetation.'
+ if args.accepted_style_reference:
+  corrected=Path(args.accepted_style_reference)
+  if not corrected.is_absolute():corrected=repo/corrected
+  if not corrected.is_file():parser.error('Accepted correction image missing: '+str(corrected))
+  prompt['referenceImages'].insert(2,dict(file=str(corrected),role='PM-accepted-correction-primary-palette-and-painting-style-not-building-set',sha256=sha(corrected)))
+  prompt['prompt']+='\nReference image 3 is the PM-accepted corrected sample, PRIMARY palette/painting-style reference, anchored to approved A-v3. Source guide still controls geometry; local architecture intent controls building variety. Never copy the corrected sample building set into all regions. Neighbors appended after it are geometry/silhouette ONLY, never palette.'
+ prompt['prompt']+='\nA registration warning: fitted native scale7.1345800795px/m@1254 and anchor[613.8999,640.6815]; its painted edge can deviate15–42px from nominal source square. Use shared road/ground edge geometry from the actual neighbor reference without inheriting its palette, then measure new art; no promise of automatic seamlessness. Never move source roads. Every roof completely free of trees, shrubs, planters, turf or any vegetation.'
  for spec in args.neighbor_art:
   if '=' not in spec:parser.error('--neighbor-art requires REGION_ID=PATH')
   neighbor_id,neighbor_path=spec.split('=',1)
@@ -156,8 +191,8 @@ def main():
   neighbor=Path(neighbor_path)
   if not neighbor.is_absolute():neighbor=repo/neighbor
   if not neighbor.is_file():parser.error('Neighbor native image missing: '+str(neighbor))
-  prompt['referenceImages'].append(dict(file=str(neighbor),role='actual-adjacent-region-edge-reference',regionId=neighbor_id,sha256=sha(neighbor)))
-  prompt['prompt']+='\nAdditional reference image '+str(len(prompt['referenceImages']))+' is actual adjacent '+neighbor_id+'. Preserve its complete shared road/ground overlap in the source seam specified in structure.neighborSharedRoadControls; match building/terrain silhouettes and fixed shadows at that edge while preserving the source guide camera/framing/road controls as highest priority. Neighbor painted drift is not permission to move the original road. Do not copy its independent interior layout or landmark combinations.'
+  prompt['referenceImages'].append(dict(file=str(neighbor),role='adjacent-edge-geometry-silhouette-only-never-palette-or-interior',regionId=neighbor_id,sha256=sha(neighbor)))
+  prompt['prompt']+='\nAdditional reference image '+str(len(prompt['referenceImages']))+' is actual adjacent '+neighbor_id+'. Preserve only shared road/ground geometry and silhouette continuity in the source seam specified in structure.neighborSharedRoadControls; match building/terrain silhouettes at that edge using A-v3 neutral daylight; do not inherit neighbor color, warm wash, internal building recipes or shadow color while preserving the source guide camera/framing/road controls as highest priority. Neighbor painted drift is not permission to move the original road. Do not copy its independent interior layout or landmark combinations.'
  prompt['adjacentRegionIds']=list(r['neighbors'].values())
  prompt['neighborReferenceStatus']='actual-neighbor-supplied' if args.neighbor_art else 'needs-real-neighbor-art-before-seam-production'
  prompt['registrationScaleReference']=d['registrationScaleReference'];save(prompt_file,prompt)

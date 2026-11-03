@@ -1,0 +1,47 @@
+{
+  "tool": "image_gen.imagegen",
+  "createdAt": "2026-11-03T16:59:15.978580+00:00",
+  "sourcePath": "/Users/sanger/.codex/generated_images/01a1a0c1-dadb-7bd1-9f67-fe2e1e79d06a/exec-d2e8e10a-2901-422a-a29e-b4a1c1e822e6.png",
+  "outputFile": "docs/art/2026-11-04-county-style-correction/R-+01-+03-style-v2.png",
+  "sourceSha256": "b6594b88d090f3e2a6a50bdc17e93fb398c08b6f079b70decd73e0a79dd62632",
+  "sha256": "b6594b88d090f3e2a6a50bdc17e93fb398c08b6f079b70decd73e0a79dd62632",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "prompt": "Use case: precise-object-edit / whole-region architectural redraw.\nCreate a corrected whole-region map image, not separate sprites. Four image roles: IMAGE 1 is the existing R-+01-+03 EDIT TARGET. IMAGE 2 REGION-A-v3 is the APPROVED COLOR/LIGHT/PAINTING reference only. IMAGE 3 is the user's ARCHITECTURAL VARIETY reference only, NOT its low camera angle, streets, objects or blue saturation. IMAGE 4 is this region's authoritative source GEOMETRY GUIDE for its 120m ground footprint, water polygons, paths and camera. No copied camera/layout from images 2 or 3.\nThe target is rejected because nearly every building is the same beige-white flat-topped balcony apartment with orange structural strips, copy repeated at different sizes. Fundamentally redesign those buildings while keeping this region's actual waterfront/land position and source guide projection. Color grading alone does not solve this.\nReplace the upper bank's four repeated apartment blocks with distinct residential typologies: at upper-left a LOW two-storey white-plaster townhouse group with dark slate pitched roofs and individual front doors; next a medium-height warm-gray stepped apartment with recessed terraces and dark metal railings; next a brick-and-white three-storey courtyard dwelling whose pitched roof and vertical windows differ clearly; at the far upper-right a compact curved-corner residential block with rounded balconies and a flat gray roof. Do not repeat the same structural frame, balconies, rooftop utility-box template or orange pillar stripe.\nLower bank: redesign the long central slab as a broken-height U-shaped residential courtyard with a restrained dark red-brick ground floor and white upper floors, articulated wings and an entrance into its court; redesign the lower-left block as a narrow five-storey dark stone/gray concrete residential tower with vertical window rhythm and no continuous balcony bands; lower-right group as distinct two/three-storey pale-plaster homes with dark gabled roofs; a remaining small residential block may use neutral gray/white horizontal windows, but not a copy of any other building. Adapt each typology to real guide land plots and preserve pedestrian waterfront access, don't place towers in water. These are residential types, NOT invented schools/offices/stadiums. Building forms should differ in silhouette, height, roof, façade rhythm and entrance, not merely color.\nCOLOR/LIGHT LOCK: reproduce IMAGE 2's clean neutral daylight and local material colors. White walls read neutral off-white, roofs concrete gray / slate gray, shadows neutral slightly cool gray, paving pale gray stone rather than peach-yellow. No global yellow/cream/amber cast, orange light bloom or warm sunset. No compensating all-blue wash. Local brick/clay/warm wood material accents are allowed sparingly as individual building materials, not as the shared color of every façade. Preserve restrained natural greens and true blue water, no oversaturated cyan. Same Japanese urban anime painterly polish and material richness as approved A.\nFixed HIGH 62.5-degree orthographic elevation and 45-degree azimuth, same native square framing and approximate detail scale as target. Follow image4's WATER AND LAND geometry, preserve guide waterways and existing source roads/paths; never move the source road to fit architecture. Complete whole-region scene with coherent ground-level gardens/paths and painted fixed daylight shadows, no massive new lawn. No roof plants of any kind, no trees on roofs. No vehicle, rider, people, labels, UI, border or registration lines. True transparent outside actual region silhouette. Return one native RGBA whole-region image.\n",
+  "references": [
+    {
+      "file": "docs/art/2026-11-03-county-region-atlas/production/R-+01-+03/art/R-+01-+03-v1.png",
+      "sha256": "4963c9d06bb8ea7d350aaeab4f35054c1d95122cc10bd753649d3e8c0373d987"
+    },
+    {
+      "file": "docs/art/2026-11-03-whole-region-map/REGION-A-v3.png",
+      "sha256": "4e266eb23f4d165828fabc6c51ab0334a5d38db02a411ac84008f52ea949911e"
+    },
+    {
+      "file": "docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+      "sha256": "de5d9bb9bc89fe28af93b29536368e90478beb044e545c649d6b10ee51a7fdb8"
+    },
+    {
+      "file": "docs/art/2026-11-03-county-region-atlas/production/R-+01-+03/input/guides/R-+01-+03-structure-neutral.png",
+      "sha256": "c396bdc15db3e09f0f9414de29fe3092094568042bee7b98c4fd23479c8dc67b"
+    }
+  ],
+  "nativePixelOperations": "none, byte-identical copy",
+  "status": "first-correction-candidate-roof-terrace-greenery-being-corrected",
+  "observed": [
+    "neutral white/gray rather than shared yellow-orange façade wash",
+    "visibly different gabled townhouses/stepped apartment/brick pitched-roof dwelling/curved corner block/vertical-window tower/U-courtyard",
+    "green strips on elevated terraces remain; one targeted native edit requested"
+  ],
+  "deployed": false,
+  "userAccepted": false,
+  "registered": false,
+  "countyComplete": false
+}

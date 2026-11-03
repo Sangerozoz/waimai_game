@@ -1,0 +1,148 @@
+{
+  "version": "2026-11-04-correction-v1",
+  "status": "production-intent-not-observed-art-quality",
+  "styleAnchor": "docs/art/2026-11-03-whole-region-map/REGION-A-v3.png",
+  "palette": "Neutral daylight, white/grey walls, real grey asphalt; each material retains its local color. No global cream/yellow/orange wash, no global blue shift.",
+  "neighborRole": "Shared edge geometry and silhouette ONLY; never inherit neighbor palette, internal buildings or landmark set.",
+  "rules": [
+    "Assign by actual parcel use and existing ground footprint; do not change source roads, parcel bounds or ground footprint. Guide heights are nominal visual framing, not a same-height mandate or new hard cap; use coherent height/massing variety while keeping roads visibly open.",
+    "Combinations are selected per parcel and per existing building using stable identity; do not impose a universal region building package. No minimum seven-type quota per 120m region.",
+    "Landscape parcels receive designed landscape, not mandatory public buildings. School/civic forms only on explicitly matching land use. Unknown source-building use stays explicit and unresolved, no invented civic use.",
+    "Differentiate silhouette, upper massing, floor rhythm, roof, facade and door organization. Recoloring repeated white boxes with orange awnings is insufficient.",
+    "No roof vegetation. Complete whole regions generated once, retain original 62.5/45 camera and three boundaries.",
+    "Assignments describe intent, never count achieved building diversity or claim acceptance."
+  ],
+  "forms": [
+    {
+      "id": "slab-housing",
+      "landUses": [
+        "residential",
+        "mixed"
+      ],
+      "massing": "long slender residential slab with recessed stair bay",
+      "floors": "4–6",
+      "roof": "flat parapet with small service enclosure",
+      "facadeRhythm": "horizontal balcony bands alternating solid white/grey bays",
+      "entrance": "separate recessed residential stair doors; no mandatory retail"
+    },
+    {
+      "id": "compact-housing",
+      "landUses": [
+        "residential",
+        "mixed"
+      ],
+      "massing": "compact vertical residential volume with corner recess",
+      "floors": "3–5",
+      "roof": "shallow pitched grey metal roof",
+      "facadeRhythm": "paired vertical windows and plain pale-grey end wall",
+      "entrance": "small sheltered side entrance without orange awning"
+    },
+    {
+      "id": "terraced-housing",
+      "landUses": [
+        "residential",
+        "mixed"
+      ],
+      "massing": "stepped upper residential terraces inside unchanged footprint",
+      "floors": "3–5",
+      "roof": "staggered flat roofs without vegetation",
+      "facadeRhythm": "offset loggias, timber accents limited to individual bays",
+      "entrance": "shared courtyard-facing lobby"
+    },
+    {
+      "id": "townhouses",
+      "landUses": [
+        "residential",
+        "mixed"
+      ],
+      "massing": "attached narrow residential bays within existing single footprint",
+      "floors": "2–3",
+      "roof": "segmented grey pitched roofs",
+      "facadeRhythm": "narrow window pairs with brick ground accents",
+      "entrance": "individual stoops on existing access side"
+    },
+    {
+      "id": "corner-retail",
+      "landUses": [
+        "mixed"
+      ],
+      "massing": "low commercial corner volume with recessed upper floor",
+      "floors": "2–3",
+      "roof": "flat roof and narrow metal cornice",
+      "facadeRhythm": "broad ground glazing, tighter upper window rhythm",
+      "entrance": "corner glazed door; local muted fabric canopy optional, never universal orange"
+    },
+    {
+      "id": "office",
+      "landUses": [
+        "mixed"
+      ],
+      "massing": "compact office volume with upper setback",
+      "floors": "3–6",
+      "roof": "flat grey service roof",
+      "facadeRhythm": "neutral grey glass bands alternating white stone piers",
+      "entrance": "one clearly recessed glazed lobby"
+    },
+    {
+      "id": "market",
+      "landUses": [
+        "mixed"
+      ],
+      "massing": "low broad commercial hall within footprint",
+      "floors": "1–2",
+      "roof": "shallow segmented metal roof",
+      "facadeRhythm": "regular tall shop openings and narrow solid piers",
+      "entrance": "several small street shop doors, restrained varied signage shapes without text"
+    },
+    {
+      "id": "campus-bar",
+      "landUses": [
+        "campus",
+        "school"
+      ],
+      "massing": "linear teaching wing inside actual campus footprint",
+      "floors": "2–4",
+      "roof": "flat pale-grey parapet",
+      "facadeRhythm": "regular classroom windows with contrasting stair core",
+      "entrance": "covered school-side entrance, no invented sports court"
+    },
+    {
+      "id": "campus-hall",
+      "landUses": [
+        "campus",
+        "school"
+      ],
+      "massing": "low broad campus service or assembly hall",
+      "floors": "1–2",
+      "roof": "shallow curved or folded grey roof only where existing height permits",
+      "facadeRhythm": "tall sparse windows and opaque neutral masonry",
+      "entrance": "single generous covered campus entrance"
+    },
+    {
+      "id": "community",
+      "landUses": [
+        "community"
+      ],
+      "massing": "compact neighborhood service building",
+      "floors": "1–3",
+      "roof": "flat or shallow folded grey roof",
+      "facadeRhythm": "stone entrance bay and horizontal windows",
+      "entrance": "accessible recessed entrance facing actual path"
+    },
+    {
+      "id": "landscape",
+      "landUses": [
+        "garden",
+        "park",
+        "plaza",
+        "riverfront",
+        "outerLandscape"
+      ],
+      "massing": "complete planted/path/forecourt or riparian scene; no new building",
+      "floors": "none",
+      "roof": "none",
+      "facadeRhythm": "none",
+      "entrance": "existing pedestrian openings; no new city streets"
+    }
+  ]
+}
