@@ -1,0 +1,48 @@
+{
+  "status": "pilot-executed;visual-continuity-improved;geometry-lock-failed;not-integrated",
+  "sourceControlPoints": 7,
+  "validGlobalRegistrationFit": false,
+  "reasonNoGlobalFit": "Multiple source controls have no unique same-junction counterpart in TR21 art; semantic content changed, do not fabricate an affine fit.",
+  "nativeCandidates": [
+    {
+      "file": "joint-repair-v1.png",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "d7be0e02c4a1feb52515505b93a8d2c50de3b01625d5c31b4f2846dd542bc3cf"
+    },
+    {
+      "file": "joint-repair-v2.png",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "sha256": "47dafaa3dbc7c44726383359cb00091afb1bac44f96ff2981e18c8b3a421074c"
+    }
+  ],
+  "manualResidualExample": {
+    "landmark": "isolated center-right source dead-end tip",
+    "sourceCapturePixel1000": [
+      652,
+      475
+    ],
+    "v2NativePixel1254Approx": [
+      810,
+      534
+    ],
+    "v2NormalizedPixel1000Approx": [
+      645.933014354067,
+      425.8373205741627
+    ],
+    "manualPickUncertaintyPixels1000": 8,
+    "purpose": "demonstrate residual source mismatch only;not exact registration acceptance",
+    "approxResidualPixels1000": 49.5
+  },
+  "region02Finding": "Source arterial has visible approach/resumption around generated campus connector. It is a local road-visibility failure plus registration uncertainty, not neighbor seam alone. True source ground corridor area not measured.",
+  "fullAtlasOriginalsReplaced": false,
+  "wholeAtlasReady": false,
+  "nextRecommended": "Protect/reuse actual source road-water pixels in final ground layer;art restricted to land/complete object layers;use this pilot pair to validate, not independent prompt-only whole-region redraws."
+}
