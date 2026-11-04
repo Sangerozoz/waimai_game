@@ -1,0 +1,66 @@
+{
+  "status": "conditional25region-fallback-discussion-only;current-active-plan16",
+  "sourceGeometry": "geometry/sixteen-regions.json",
+  "sourceNativeSizeEvidence": "review-006/generation-record.json",
+  "nativeSizeScenarioIsObserved": true,
+  "assumptions": "whole projected ground fits square without extra border/height; internal region, fixed32m halo each side; actual usable density lower with padding",
+  "scenarios": [
+    {
+      "layout": "4x4",
+      "nativeRegionCount": 16,
+      "coreMetres": [
+        830.87,
+        830.8675000000001
+      ],
+      "internalRenderMetres": [
+        894.87,
+        894.8675000000001
+      ],
+      "nativeSizeScenario": [
+        1254,
+        1254
+      ],
+      "groundProjectedWidthMetres": 1265.5355227938587,
+      "projectedPixelsPerMetre": 0.9908848684323042,
+      "8mRoadWidthPixelsRange": [
+        7.031404901854645,
+        7.927078947458433
+      ],
+      "sourcePixelsAcrossExisting35MapUnitView": 34.68097039513064,
+      "sourcePixelsAcross300MapUnitView": 297.26546052969127
+    },
+    {
+      "layout": "5x5",
+      "nativeRegionCount": 25,
+      "coreMetres": [
+        664.696,
+        664.6940000000001
+      ],
+      "internalRenderMetres": [
+        728.696,
+        728.6940000000001
+      ],
+      "nativeSizeScenario": [
+        1254,
+        1254
+      ],
+      "groundProjectedWidthMetres": 1030.5303518334624,
+      "projectedPixelsPerMetre": 1.2168491668090637,
+      "8mRoadWidthPixelsRange": [
+        8.63486714642826,
+        9.73479333447251
+      ],
+      "sourcePixelsAcrossExisting35MapUnitView": 42.589720838317234,
+      "sourcePixelsAcross300MapUnitView": 365.05475004271915
+    }
+  ],
+  "25versus16": {
+    "imageCountIncreaseFraction": 0.5625,
+    "linearCoreOnlyGain": 1.25,
+    "linearInternalRenderGainWith32mHalo": 1.228042939775901
+  },
+  "userLatest": "如果4x4十六张仍无法解决，可否5x5二十五张在数量/清晰度之间取得平衡？",
+  "decision": "Consider25 as fallback, not automatic current switch; compare against acceptable real zoom. Small shortfall may benefit, severe near-view shortfall needs more native detail or an explicit user-approved view tradeoff. No unknown resolution promise, no silent camera/source-map changes.",
+  "noNewImageGeneratedForThisComparison": true,
+  "noGameOrBrowserTest": true
+}
