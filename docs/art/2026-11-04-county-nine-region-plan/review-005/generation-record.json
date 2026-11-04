@@ -1,0 +1,48 @@
+{
+  "regionId": "NR-22",
+  "reviewId": "review-005",
+  "createdAt": "2026-11-04T02:43:52.816995+00:00",
+  "tool": "image_gen.imagegen",
+  "sourcePath": "/Users/sanger/.codex/generated_images/01a1a0c1-dadb-7bd1-9f67-fe2e1e79d06a/exec-4bb2bddf-4c35-4dbf-9212-be9f2fa51d02.png",
+  "file": "docs/art/2026-11-04-county-nine-region-plan/review-005/NR-22-v4.png",
+  "sourceSHA256": "16a696bb6338d23bf50b4c6247d7900ff5b27a3c5660da26d2702ba99bcbb435",
+  "sha256": "16a696bb6338d23bf50b4c6247d7900ff5b27a3c5660da26d2702ba99bcbb435",
+  "nativeSize": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "nativePixelOperations": "none; byte-identical copy",
+  "promptFile": "docs/art/2026-11-04-county-nine-region-plan/review-005/prompt.txt",
+  "prompt": "Use case: precise-object-edit. Edit the attached NR-22-v3 approved-direction city map with ONLY TWO small changes to EXISTING GROUND VEGETATION. Return ONE image.\n1. Make ground-level foliage and grass a LITTLE DEEPER GREEN: gently deepen natural leaf/grass greens, reducing pale yellow-green tendency. Subtle darker natural green, retaining sunlit leaves and soft shadows. Not dark forest paint, not teal/blue, not global saturation or contrast. Do not recolor buildings, pavement, roads, roofs, canals, sky or any nonplant material.\n2. Reduce ground PLANTING DENSITY by ABOUT10% RELATIVE TO THIS EXACT INPUT. Retain roughly90% of existing planted density. Thin a small selection of crowded street trees, shrubs and little planted patches distributed across the district; improve breathing room. Do not reduce greenery by10percentage points of whole map area. Preserve the existing park, mature landmark trees, coherent canopy sizes, riverbank planting purpose, entry gardens, planting-bed edges and street identity; do not clear major green areas or shrink every tree. Where a small plant is removed, reveal naturally matching existing ground/planting soil or pavement, with no new building or road.\nSTRICT INVARIANTS: preserve this exact whole-region composition, ALL building identities/shapes/heights/roof materials/windows/entrances, museum, library, office, exhibition hall, science dome, mall, theater, playground, their positions, road network/widths/junctions, source waterways, original footprints, camera62.5deg/45deg, scale, boundary, native framing, exterior transparency and nonvegetation palette/light. Approximate50percent residential planning is unchanged. NO roof or terrace plants. Do not redesign architecture, rearrange blocks, insert or remove facilities, change global sunlight, add yellow/blue tint or lit windows. This input is an EDIT TARGET whose approved architecture must be kept, not a new reference for redesigning the city. Native whole-region RGBA with preserved alpha; one candidate only.\n",
+  "references": [
+    {
+      "file": "docs/art/2026-11-04-county-nine-region-plan/review-004/NR-22-v3.png",
+      "sha256": "f52deee817da3c302999039ab82378662c1689fcad80ae9a643316e644f478ae",
+      "role": "specific user-approved-direction image as EDIT TARGET, not a new style authority"
+    }
+  ],
+  "editRequest": {
+    "groundVegetationColor": "slightly deeper natural green",
+    "densityMultiplierTarget": 0.9,
+    "measured": false,
+    "baseline": "NR-22-v3;relative density not minus10percentage points of whole image",
+    "preserve": "approved building and layout direction, original roads/water/camera and nonplant palette"
+  },
+  "status": "awaiting-user-vegetation-review;old-nine-grid-art-not-new16region",
+  "userAccepted": false,
+  "registered": false,
+  "deployed": false,
+  "nextGenerationAuthorized": false,
+  "countyComplete": false,
+  "observed": [
+    "Ground greens appear somewhat deeper and planted areas less crowded, but exact10percent not measured.",
+    "Architecture and major facilities appear broadly retained; not claiming pixel-identical invariants.",
+    "Transparent outer fringe persists; close-detail source is still1254x1254."
+  ],
+  "supersededGeometry": "user subsequently requests4x4 sixteen source regions; this NR-22 edit remains historical review artifact, cannot be relabeled as a16-region source"
+}

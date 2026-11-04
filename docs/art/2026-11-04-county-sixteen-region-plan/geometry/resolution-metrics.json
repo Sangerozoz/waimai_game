@@ -1,0 +1,1474 @@
+{
+  "status": "mathematical-estimate-only;native-size-support-unverified",
+  "targetPixelsPerProjectionUnit": 7.13458,
+  "targetProvenance": "task-supplied approximate A scale; not new image registration",
+  "nativeSquareSizes": [
+    1254,
+    2048,
+    4096,
+    8192
+  ],
+  "canvasReserveAssumedForBaseTable": 0,
+  "vectorFormula": "L*scale*sqrt(cos(theta-45deg)^2+sin(elevation)^2*sin(theta-45deg)^2)",
+  "apparentRoadWidthFormula": "W*scale*sin(elevation)/sqrt(cos(theta-45deg)^2+sin(elevation)^2*sin(theta-45deg)^2); perpendicular separation of parallel projected road edges",
+  "directionNote": "world X/Y length factor sqrt((1+sin(elevation)^2)/2); global range sin(elevation)..1; road-normal vector length and apparent perpendicular road width differ for individual directions",
+  "heightReserveFormula": "at target scale, z metres adds at most z*cos(62.5deg)*target pixels above ground; choose final padding after tallest buildings/shadows fixed",
+  "regions": [
+    {
+      "regionId": "CR-11",
+      "groundSizeMetres": [
+        862.8699999999999,
+        862.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1220.2806887979195,
+        1082.402190481937
+      ],
+      "nativeSquareForTargetGroundOnly": 8707,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.3209714687198948,
+        1.35805706256021
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9674,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0276324222054984,
+          "projected8mVectorPixelsRange": [
+            7.292168728171626,
+            8.221059377643988
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.292168728171626,
+            8.221059377643988
+          ],
+          "projected8mAlongWorldXorY": 7.77050648448582,
+          "projected20mBuildingWidthPixelsRange": [
+            18.23042182042907,
+            20.55264844410997
+          ],
+          "projected20mAlongWorldXorY": 19.42626621121455
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6783023928842589,
+          "projected8mVectorPixelsRange": [
+            11.909379230698157,
+            13.426419143074071
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.909379230698157,
+            13.426419143074071
+          ],
+          "projected8mAlongWorldXorY": 12.690587942764719,
+          "projected20mBuildingWidthPixelsRange": [
+            29.773448076745396,
+            33.56604785768518
+          ],
+          "projected20mAlongWorldXorY": 31.726469856911798
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.3566047857685177,
+          "projected8mVectorPixelsRange": [
+            23.818758461396314,
+            26.852838286148142
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.818758461396314,
+            26.852838286148142
+          ],
+          "projected8mAlongWorldXorY": 25.381175885529437,
+          "projected20mBuildingWidthPixelsRange": [
+            59.54689615349079,
+            67.13209571537035
+          ],
+          "projected20mAlongWorldXorY": 63.452939713823596
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.7132095715370355,
+          "projected8mVectorPixelsRange": [
+            47.63751692279263,
+            53.705676572296284
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            47.63751692279263,
+            53.705676572296284
+          ],
+          "projected8mAlongWorldXorY": 50.762351771058874,
+          "projected20mBuildingWidthPixelsRange": [
+            119.09379230698158,
+            134.2641914307407
+          ],
+          "projected20mAlongWorldXorY": 126.90587942764719
+        }
+      ]
+    },
+    {
+      "regionId": "CR-12",
+      "groundSizeMetres": [
+        894.8700000000001,
+        862.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1242.9081057958895,
+        1102.4729544859772
+      ],
+      "nativeSquareForTargetGroundOnly": 8868,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2969228909322346,
+        1.3333333333333333
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9853,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.008924146646391,
+          "projected8mVectorPixelsRange": [
+            7.159413183443533,
+            8.071393173171128
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.159413183443533,
+            8.071393173171128
+          ],
+          "projected8mAlongWorldXorY": 7.6290426950954515,
+          "projected20mBuildingWidthPixelsRange": [
+            17.898532958608833,
+            20.17848293292782
+          ],
+          "projected20mAlongWorldXorY": 19.07260673773863
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6477485265803897,
+          "projected8mVectorPixelsRange": [
+            11.69256634744207,
+            13.181988212643118
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.69256634744207,
+            13.181988212643118
+          ],
+          "projected8mAlongWorldXorY": 12.459552982101663,
+          "projected20mBuildingWidthPixelsRange": [
+            29.231415868605175,
+            32.95497053160779
+          ],
+          "projected20mAlongWorldXorY": 31.14888245525416
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.2954970531607795,
+          "projected8mVectorPixelsRange": [
+            23.38513269488414,
+            26.363976425286236
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.38513269488414,
+            26.363976425286236
+          ],
+          "projected8mAlongWorldXorY": 24.919105964203325,
+          "projected20mBuildingWidthPixelsRange": [
+            58.46283173721035,
+            65.90994106321558
+          ],
+          "projected20mAlongWorldXorY": 62.29776491050832
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.590994106321559,
+          "projected8mVectorPixelsRange": [
+            46.77026538976828,
+            52.72795285057247
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            46.77026538976828,
+            52.72795285057247
+          ],
+          "projected8mAlongWorldXorY": 49.83821192840665,
+          "projected20mBuildingWidthPixelsRange": [
+            116.9256634744207,
+            131.81988212643117
+          ],
+          "projected20mAlongWorldXorY": 124.59552982101664
+        }
+      ]
+    },
+    {
+      "regionId": "CR-13",
+      "groundSizeMetres": [
+        894.8700000000001,
+        862.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1242.9081057958892,
+        1102.472954485977
+      ],
+      "nativeSquareForTargetGroundOnly": 8868,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2969228909322348,
+        1.3333333333333335
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9853,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0089241466463912,
+          "projected8mVectorPixelsRange": [
+            7.159413183443534,
+            8.07139317317113
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.159413183443534,
+            8.07139317317113
+          ],
+          "projected8mAlongWorldXorY": 7.629042695095453,
+          "projected20mBuildingWidthPixelsRange": [
+            17.898532958608836,
+            20.178482932927825
+          ],
+          "projected20mAlongWorldXorY": 19.072606737738635
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.64774852658039,
+          "projected8mVectorPixelsRange": [
+            11.692566347442071,
+            13.18198821264312
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.692566347442071,
+            13.18198821264312
+          ],
+          "projected8mAlongWorldXorY": 12.459552982101664,
+          "projected20mBuildingWidthPixelsRange": [
+            29.23141586860518,
+            32.9549705316078
+          ],
+          "projected20mAlongWorldXorY": 31.148882455254164
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.29549705316078,
+          "projected8mVectorPixelsRange": [
+            23.385132694884142,
+            26.36397642528624
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.385132694884142,
+            26.36397642528624
+          ],
+          "projected8mAlongWorldXorY": 24.91910596420333,
+          "projected20mBuildingWidthPixelsRange": [
+            58.46283173721036,
+            65.9099410632156
+          ],
+          "projected20mAlongWorldXorY": 62.29776491050833
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.59099410632156,
+          "projected8mVectorPixelsRange": [
+            46.770265389768284,
+            52.72795285057248
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            46.770265389768284,
+            52.72795285057248
+          ],
+          "projected8mAlongWorldXorY": 49.83821192840666,
+          "projected20mBuildingWidthPixelsRange": [
+            116.92566347442072,
+            131.8198821264312
+          ],
+          "projected20mAlongWorldXorY": 124.59552982101665
+        }
+      ]
+    },
+    {
+      "regionId": "CR-14",
+      "groundSizeMetres": [
+        862.8699999999997,
+        862.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1220.2806887979198,
+        1082.4021904819367
+      ],
+      "nativeSquareForTargetGroundOnly": 8707,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.3209714687198946,
+        1.3580570625602097
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9674,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0276324222054982,
+          "projected8mVectorPixelsRange": [
+            7.2921687281716245,
+            8.221059377643986
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.2921687281716245,
+            8.221059377643986
+          ],
+          "projected8mAlongWorldXorY": 7.770506484485818,
+          "projected20mBuildingWidthPixelsRange": [
+            18.23042182042906,
+            20.552648444109963
+          ],
+          "projected20mAlongWorldXorY": 19.426266211214546
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6783023928842586,
+          "projected8mVectorPixelsRange": [
+            11.909379230698155,
+            13.42641914307407
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.909379230698155,
+            13.42641914307407
+          ],
+          "projected8mAlongWorldXorY": 12.690587942764717,
+          "projected20mBuildingWidthPixelsRange": [
+            29.773448076745392,
+            33.56604785768517
+          ],
+          "projected20mAlongWorldXorY": 31.726469856911795
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.3566047857685173,
+          "projected8mVectorPixelsRange": [
+            23.81875846139631,
+            26.85283828614814
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.81875846139631,
+            26.85283828614814
+          ],
+          "projected8mAlongWorldXorY": 25.381175885529434,
+          "projected20mBuildingWidthPixelsRange": [
+            59.546896153490785,
+            67.13209571537034
+          ],
+          "projected20mAlongWorldXorY": 63.45293971382359
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.713209571537035,
+          "projected8mVectorPixelsRange": [
+            47.63751692279262,
+            53.70567657229628
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            47.63751692279262,
+            53.70567657229628
+          ],
+          "projected8mAlongWorldXorY": 50.76235177105887,
+          "projected20mBuildingWidthPixelsRange": [
+            119.09379230698157,
+            134.26419143074068
+          ],
+          "projected20mAlongWorldXorY": 126.90587942764718
+        }
+      ]
+    },
+    {
+      "regionId": "CR-21",
+      "groundSizeMetres": [
+        862.8699999999999,
+        894.8674999999998
+      ],
+      "projectedGroundSpan": [
+        1242.9081057958892,
+        1102.4729544859767
+      ],
+      "nativeSquareForTargetGroundOnly": 8868,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2969228909322348,
+        1.3333333333333335
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9853,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0089241466463912,
+          "projected8mVectorPixelsRange": [
+            7.159413183443534,
+            8.07139317317113
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.159413183443534,
+            8.07139317317113
+          ],
+          "projected8mAlongWorldXorY": 7.629042695095453,
+          "projected20mBuildingWidthPixelsRange": [
+            17.898532958608836,
+            20.178482932927825
+          ],
+          "projected20mAlongWorldXorY": 19.072606737738635
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.64774852658039,
+          "projected8mVectorPixelsRange": [
+            11.692566347442071,
+            13.18198821264312
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.692566347442071,
+            13.18198821264312
+          ],
+          "projected8mAlongWorldXorY": 12.459552982101664,
+          "projected20mBuildingWidthPixelsRange": [
+            29.23141586860518,
+            32.9549705316078
+          ],
+          "projected20mAlongWorldXorY": 31.148882455254164
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.29549705316078,
+          "projected8mVectorPixelsRange": [
+            23.385132694884142,
+            26.36397642528624
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.385132694884142,
+            26.36397642528624
+          ],
+          "projected8mAlongWorldXorY": 24.91910596420333,
+          "projected20mBuildingWidthPixelsRange": [
+            58.46283173721036,
+            65.9099410632156
+          ],
+          "projected20mAlongWorldXorY": 62.29776491050833
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.59099410632156,
+          "projected8mVectorPixelsRange": [
+            46.770265389768284,
+            52.72795285057248
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            46.770265389768284,
+            52.72795285057248
+          ],
+          "projected8mAlongWorldXorY": 49.83821192840666,
+          "projected20mBuildingWidthPixelsRange": [
+            116.92566347442072,
+            131.8198821264312
+          ],
+          "projected20mAlongWorldXorY": 124.59552982101665
+        }
+      ]
+    },
+    {
+      "regionId": "CR-22",
+      "groundSizeMetres": [
+        894.8700000000001,
+        894.8674999999998
+      ],
+      "projectedGroundSpan": [
+        1265.5355227938587,
+        1122.543718490017
+      ],
+      "nativeSquareForTargetGroundOnly": 9030,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2737342766746516,
+        1.309493710669861
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 10033,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 0.9908848684323042,
+          "projected8mVectorPixelsRange": [
+            7.031404901854645,
+            7.927078947458433
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.031404901854645,
+            7.927078947458433
+          ],
+          "projected8mAlongWorldXorY": 7.492637570744505,
+          "projected20mBuildingWidthPixelsRange": [
+            17.578512254636617,
+            19.817697368646083
+          ],
+          "projected20mAlongWorldXorY": 18.731593926861265
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6182872492419131,
+          "projected8mVectorPixelsRange": [
+            11.483506570174095,
+            12.946297993935305
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.483506570174095,
+            12.946297993935305
+          ],
+          "projected8mAlongWorldXorY": 12.23677970086503,
+          "projected20mBuildingWidthPixelsRange": [
+            28.70876642543524,
+            32.365744984838265
+          ],
+          "projected20mAlongWorldXorY": 30.59194925216258
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.2365744984838263,
+          "projected8mVectorPixelsRange": [
+            22.96701314034819,
+            25.89259598787061
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            22.96701314034819,
+            25.89259598787061
+          ],
+          "projected8mAlongWorldXorY": 24.47355940173006,
+          "projected20mBuildingWidthPixelsRange": [
+            57.41753285087048,
+            64.73148996967653
+          ],
+          "projected20mAlongWorldXorY": 61.18389850432516
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.473148996967653,
+          "projected8mVectorPixelsRange": [
+            45.93402628069638,
+            51.78519197574122
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            45.93402628069638,
+            51.78519197574122
+          ],
+          "projected8mAlongWorldXorY": 48.94711880346012,
+          "projected20mBuildingWidthPixelsRange": [
+            114.83506570174096,
+            129.46297993935306
+          ],
+          "projected20mAlongWorldXorY": 122.36779700865031
+        }
+      ]
+    },
+    {
+      "regionId": "CR-23",
+      "groundSizeMetres": [
+        894.8700000000001,
+        894.8674999999998
+      ],
+      "projectedGroundSpan": [
+        1265.5355227938585,
+        1122.5437184900168
+      ],
+      "nativeSquareForTargetGroundOnly": 9030,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2737342766746518,
+        1.3094937106698612
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 10033,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 0.9908848684323044,
+          "projected8mVectorPixelsRange": [
+            7.031404901854647,
+            7.927078947458435
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.031404901854647,
+            7.927078947458435
+          ],
+          "projected8mAlongWorldXorY": 7.492637570744507,
+          "projected20mBuildingWidthPixelsRange": [
+            17.57851225463662,
+            19.817697368646087
+          ],
+          "projected20mAlongWorldXorY": 18.73159392686127
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6182872492419134,
+          "projected8mVectorPixelsRange": [
+            11.483506570174097,
+            12.946297993935307
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.483506570174097,
+            12.946297993935307
+          ],
+          "projected8mAlongWorldXorY": 12.236779700865032,
+          "projected20mBuildingWidthPixelsRange": [
+            28.708766425435243,
+            32.365744984838265
+          ],
+          "projected20mAlongWorldXorY": 30.591949252162582
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.2365744984838267,
+          "projected8mVectorPixelsRange": [
+            22.967013140348193,
+            25.892595987870614
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            22.967013140348193,
+            25.892595987870614
+          ],
+          "projected8mAlongWorldXorY": 24.473559401730064,
+          "projected20mBuildingWidthPixelsRange": [
+            57.41753285087049,
+            64.73148996967653
+          ],
+          "projected20mAlongWorldXorY": 61.183898504325164
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.4731489969676534,
+          "projected8mVectorPixelsRange": [
+            45.934026280696386,
+            51.78519197574123
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            45.934026280696386,
+            51.78519197574123
+          ],
+          "projected8mAlongWorldXorY": 48.94711880346013,
+          "projected20mBuildingWidthPixelsRange": [
+            114.83506570174097,
+            129.46297993935306
+          ],
+          "projected20mAlongWorldXorY": 122.36779700865033
+        }
+      ]
+    },
+    {
+      "regionId": "CR-24",
+      "groundSizeMetres": [
+        862.8699999999997,
+        894.8674999999998
+      ],
+      "projectedGroundSpan": [
+        1242.9081057958888,
+        1102.4729544859765
+      ],
+      "nativeSquareForTargetGroundOnly": 8868,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2969228909322352,
+        1.333333333333334
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9853,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0089241466463914,
+          "projected8mVectorPixelsRange": [
+            7.159413183443536,
+            8.071393173171131
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.159413183443536,
+            8.071393173171131
+          ],
+          "projected8mAlongWorldXorY": 7.629042695095455,
+          "projected20mBuildingWidthPixelsRange": [
+            17.89853295860884,
+            20.178482932927828
+          ],
+          "projected20mAlongWorldXorY": 19.07260673773864
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6477485265803906,
+          "projected8mVectorPixelsRange": [
+            11.692566347442076,
+            13.181988212643125
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.692566347442076,
+            13.181988212643125
+          ],
+          "projected8mAlongWorldXorY": 12.45955298210167,
+          "projected20mBuildingWidthPixelsRange": [
+            29.231415868605193,
+            32.95497053160781
+          ],
+          "projected20mAlongWorldXorY": 31.148882455254174
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.2954970531607812,
+          "projected8mVectorPixelsRange": [
+            23.385132694884152,
+            26.36397642528625
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.385132694884152,
+            26.36397642528625
+          ],
+          "projected8mAlongWorldXorY": 24.91910596420334,
+          "projected20mBuildingWidthPixelsRange": [
+            58.46283173721039,
+            65.90994106321563
+          ],
+          "projected20mAlongWorldXorY": 62.29776491050835
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.5909941063215625,
+          "projected8mVectorPixelsRange": [
+            46.770265389768305,
+            52.7279528505725
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            46.770265389768305,
+            52.7279528505725
+          ],
+          "projected8mAlongWorldXorY": 49.83821192840668,
+          "projected20mBuildingWidthPixelsRange": [
+            116.92566347442077,
+            131.81988212643125
+          ],
+          "projected20mAlongWorldXorY": 124.5955298210167
+        }
+      ]
+    },
+    {
+      "regionId": "CR-31",
+      "groundSizeMetres": [
+        862.8699999999999,
+        894.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1242.908105795889,
+        1102.472954485977
+      ],
+      "nativeSquareForTargetGroundOnly": 8868,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.296922890932235,
+        1.3333333333333337
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9853,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0089241466463914,
+          "projected8mVectorPixelsRange": [
+            7.159413183443536,
+            8.071393173171131
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.159413183443536,
+            8.071393173171131
+          ],
+          "projected8mAlongWorldXorY": 7.629042695095455,
+          "projected20mBuildingWidthPixelsRange": [
+            17.89853295860884,
+            20.178482932927828
+          ],
+          "projected20mAlongWorldXorY": 19.07260673773864
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6477485265803904,
+          "projected8mVectorPixelsRange": [
+            11.692566347442074,
+            13.181988212643123
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.692566347442074,
+            13.181988212643123
+          ],
+          "projected8mAlongWorldXorY": 12.459552982101668,
+          "projected20mBuildingWidthPixelsRange": [
+            29.23141586860519,
+            32.954970531607806
+          ],
+          "projected20mAlongWorldXorY": 31.14888245525417
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.295497053160781,
+          "projected8mVectorPixelsRange": [
+            23.38513269488415,
+            26.363976425286246
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.38513269488415,
+            26.363976425286246
+          ],
+          "projected8mAlongWorldXorY": 24.919105964203336,
+          "projected20mBuildingWidthPixelsRange": [
+            58.46283173721038,
+            65.90994106321561
+          ],
+          "projected20mAlongWorldXorY": 62.29776491050834
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.590994106321562,
+          "projected8mVectorPixelsRange": [
+            46.7702653897683,
+            52.72795285057249
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            46.7702653897683,
+            52.72795285057249
+          ],
+          "projected8mAlongWorldXorY": 49.83821192840667,
+          "projected20mBuildingWidthPixelsRange": [
+            116.92566347442076,
+            131.81988212643122
+          ],
+          "projected20mAlongWorldXorY": 124.59552982101668
+        }
+      ]
+    },
+    {
+      "regionId": "CR-32",
+      "groundSizeMetres": [
+        894.8700000000001,
+        894.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1265.5355227938587,
+        1122.543718490017
+      ],
+      "nativeSquareForTargetGroundOnly": 9030,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2737342766746516,
+        1.309493710669861
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 10033,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 0.9908848684323042,
+          "projected8mVectorPixelsRange": [
+            7.031404901854645,
+            7.927078947458433
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.031404901854645,
+            7.927078947458433
+          ],
+          "projected8mAlongWorldXorY": 7.492637570744505,
+          "projected20mBuildingWidthPixelsRange": [
+            17.578512254636617,
+            19.817697368646083
+          ],
+          "projected20mAlongWorldXorY": 18.731593926861265
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6182872492419131,
+          "projected8mVectorPixelsRange": [
+            11.483506570174095,
+            12.946297993935305
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.483506570174095,
+            12.946297993935305
+          ],
+          "projected8mAlongWorldXorY": 12.23677970086503,
+          "projected20mBuildingWidthPixelsRange": [
+            28.70876642543524,
+            32.365744984838265
+          ],
+          "projected20mAlongWorldXorY": 30.59194925216258
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.2365744984838263,
+          "projected8mVectorPixelsRange": [
+            22.96701314034819,
+            25.89259598787061
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            22.96701314034819,
+            25.89259598787061
+          ],
+          "projected8mAlongWorldXorY": 24.47355940173006,
+          "projected20mBuildingWidthPixelsRange": [
+            57.41753285087048,
+            64.73148996967653
+          ],
+          "projected20mAlongWorldXorY": 61.18389850432516
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.473148996967653,
+          "projected8mVectorPixelsRange": [
+            45.93402628069638,
+            51.78519197574122
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            45.93402628069638,
+            51.78519197574122
+          ],
+          "projected8mAlongWorldXorY": 48.94711880346012,
+          "projected20mBuildingWidthPixelsRange": [
+            114.83506570174096,
+            129.46297993935306
+          ],
+          "projected20mAlongWorldXorY": 122.36779700865031
+        }
+      ]
+    },
+    {
+      "regionId": "CR-33",
+      "groundSizeMetres": [
+        894.8700000000001,
+        894.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1265.535522793859,
+        1122.543718490017
+      ],
+      "nativeSquareForTargetGroundOnly": 9030,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2737342766746513,
+        1.3094937106698608
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 10033,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 0.9908848684323041,
+          "projected8mVectorPixelsRange": [
+            7.031404901854645,
+            7.9270789474584324
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.031404901854645,
+            7.9270789474584324
+          ],
+          "projected8mAlongWorldXorY": 7.492637570744504,
+          "projected20mBuildingWidthPixelsRange": [
+            17.578512254636614,
+            19.81769736864608
+          ],
+          "projected20mAlongWorldXorY": 18.73159392686126
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6182872492419127,
+          "projected8mVectorPixelsRange": [
+            11.483506570174093,
+            12.946297993935302
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.483506570174093,
+            12.946297993935302
+          ],
+          "projected8mAlongWorldXorY": 12.236779700865027,
+          "projected20mBuildingWidthPixelsRange": [
+            28.708766425435233,
+            32.36574498483825
+          ],
+          "projected20mAlongWorldXorY": 30.591949252162568
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.2365744984838254,
+          "projected8mVectorPixelsRange": [
+            22.967013140348186,
+            25.892595987870603
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            22.967013140348186,
+            25.892595987870603
+          ],
+          "projected8mAlongWorldXorY": 24.473559401730054,
+          "projected20mBuildingWidthPixelsRange": [
+            57.417532850870465,
+            64.7314899696765
+          ],
+          "projected20mAlongWorldXorY": 61.183898504325136
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.473148996967651,
+          "projected8mVectorPixelsRange": [
+            45.93402628069637,
+            51.785191975741206
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            45.93402628069637,
+            51.785191975741206
+          ],
+          "projected8mAlongWorldXorY": 48.94711880346011,
+          "projected20mBuildingWidthPixelsRange": [
+            114.83506570174093,
+            129.462979939353
+          ],
+          "projected20mAlongWorldXorY": 122.36779700865027
+        }
+      ]
+    },
+    {
+      "regionId": "CR-34",
+      "groundSizeMetres": [
+        862.8699999999997,
+        894.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1242.908105795889,
+        1102.4729544859767
+      ],
+      "nativeSquareForTargetGroundOnly": 8868,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.296922890932235,
+        1.3333333333333337
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9853,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0089241466463914,
+          "projected8mVectorPixelsRange": [
+            7.159413183443536,
+            8.071393173171131
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.159413183443536,
+            8.071393173171131
+          ],
+          "projected8mAlongWorldXorY": 7.629042695095455,
+          "projected20mBuildingWidthPixelsRange": [
+            17.89853295860884,
+            20.178482932927828
+          ],
+          "projected20mAlongWorldXorY": 19.07260673773864
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6477485265803904,
+          "projected8mVectorPixelsRange": [
+            11.692566347442074,
+            13.181988212643123
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.692566347442074,
+            13.181988212643123
+          ],
+          "projected8mAlongWorldXorY": 12.459552982101668,
+          "projected20mBuildingWidthPixelsRange": [
+            29.23141586860519,
+            32.954970531607806
+          ],
+          "projected20mAlongWorldXorY": 31.14888245525417
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.295497053160781,
+          "projected8mVectorPixelsRange": [
+            23.38513269488415,
+            26.363976425286246
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.38513269488415,
+            26.363976425286246
+          ],
+          "projected8mAlongWorldXorY": 24.919105964203336,
+          "projected20mBuildingWidthPixelsRange": [
+            58.46283173721038,
+            65.90994106321561
+          ],
+          "projected20mAlongWorldXorY": 62.29776491050834
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.590994106321562,
+          "projected8mVectorPixelsRange": [
+            46.7702653897683,
+            52.72795285057249
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            46.7702653897683,
+            52.72795285057249
+          ],
+          "projected8mAlongWorldXorY": 49.83821192840667,
+          "projected20mBuildingWidthPixelsRange": [
+            116.92566347442076,
+            131.81988212643122
+          ],
+          "projected20mAlongWorldXorY": 124.59552982101668
+        }
+      ]
+    },
+    {
+      "regionId": "CR-41",
+      "groundSizeMetres": [
+        862.8699999999999,
+        862.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1220.2806887979195,
+        1082.4021904819365
+      ],
+      "nativeSquareForTargetGroundOnly": 8707,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.3209714687198948,
+        1.35805706256021
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9674,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0276324222054984,
+          "projected8mVectorPixelsRange": [
+            7.292168728171626,
+            8.221059377643988
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.292168728171626,
+            8.221059377643988
+          ],
+          "projected8mAlongWorldXorY": 7.77050648448582,
+          "projected20mBuildingWidthPixelsRange": [
+            18.23042182042907,
+            20.55264844410997
+          ],
+          "projected20mAlongWorldXorY": 19.42626621121455
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.6783023928842589,
+          "projected8mVectorPixelsRange": [
+            11.909379230698157,
+            13.426419143074071
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.909379230698157,
+            13.426419143074071
+          ],
+          "projected8mAlongWorldXorY": 12.690587942764719,
+          "projected20mBuildingWidthPixelsRange": [
+            29.773448076745396,
+            33.56604785768518
+          ],
+          "projected20mAlongWorldXorY": 31.726469856911798
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.3566047857685177,
+          "projected8mVectorPixelsRange": [
+            23.818758461396314,
+            26.852838286148142
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.818758461396314,
+            26.852838286148142
+          ],
+          "projected8mAlongWorldXorY": 25.381175885529437,
+          "projected20mBuildingWidthPixelsRange": [
+            59.54689615349079,
+            67.13209571537035
+          ],
+          "projected20mAlongWorldXorY": 63.452939713823596
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.7132095715370355,
+          "projected8mVectorPixelsRange": [
+            47.63751692279263,
+            53.705676572296284
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            47.63751692279263,
+            53.705676572296284
+          ],
+          "projected8mAlongWorldXorY": 50.762351771058874,
+          "projected20mBuildingWidthPixelsRange": [
+            119.09379230698158,
+            134.2641914307407
+          ],
+          "projected20mAlongWorldXorY": 126.90587942764719
+        }
+      ]
+    },
+    {
+      "regionId": "CR-42",
+      "groundSizeMetres": [
+        894.8700000000001,
+        862.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1242.9081057958892,
+        1102.4729544859774
+      ],
+      "nativeSquareForTargetGroundOnly": 8868,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2969228909322348,
+        1.3333333333333335
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9853,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0089241466463912,
+          "projected8mVectorPixelsRange": [
+            7.159413183443534,
+            8.07139317317113
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.159413183443534,
+            8.07139317317113
+          ],
+          "projected8mAlongWorldXorY": 7.629042695095453,
+          "projected20mBuildingWidthPixelsRange": [
+            17.898532958608836,
+            20.178482932927825
+          ],
+          "projected20mAlongWorldXorY": 19.072606737738635
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.64774852658039,
+          "projected8mVectorPixelsRange": [
+            11.692566347442071,
+            13.18198821264312
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.692566347442071,
+            13.18198821264312
+          ],
+          "projected8mAlongWorldXorY": 12.459552982101664,
+          "projected20mBuildingWidthPixelsRange": [
+            29.23141586860518,
+            32.9549705316078
+          ],
+          "projected20mAlongWorldXorY": 31.148882455254164
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.29549705316078,
+          "projected8mVectorPixelsRange": [
+            23.385132694884142,
+            26.36397642528624
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.385132694884142,
+            26.36397642528624
+          ],
+          "projected8mAlongWorldXorY": 24.91910596420333,
+          "projected20mBuildingWidthPixelsRange": [
+            58.46283173721036,
+            65.9099410632156
+          ],
+          "projected20mAlongWorldXorY": 62.29776491050833
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.59099410632156,
+          "projected8mVectorPixelsRange": [
+            46.770265389768284,
+            52.72795285057248
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            46.770265389768284,
+            52.72795285057248
+          ],
+          "projected8mAlongWorldXorY": 49.83821192840666,
+          "projected20mBuildingWidthPixelsRange": [
+            116.92566347442072,
+            131.8198821264312
+          ],
+          "projected20mAlongWorldXorY": 124.59552982101665
+        }
+      ]
+    },
+    {
+      "regionId": "CR-43",
+      "groundSizeMetres": [
+        894.8700000000001,
+        862.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1242.9081057958892,
+        1102.472954485977
+      ],
+      "nativeSquareForTargetGroundOnly": 8868,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.2969228909322348,
+        1.3333333333333335
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9853,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0089241466463912,
+          "projected8mVectorPixelsRange": [
+            7.159413183443534,
+            8.07139317317113
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.159413183443534,
+            8.07139317317113
+          ],
+          "projected8mAlongWorldXorY": 7.629042695095453,
+          "projected20mBuildingWidthPixelsRange": [
+            17.898532958608836,
+            20.178482932927825
+          ],
+          "projected20mAlongWorldXorY": 19.072606737738635
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.64774852658039,
+          "projected8mVectorPixelsRange": [
+            11.692566347442071,
+            13.18198821264312
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.692566347442071,
+            13.18198821264312
+          ],
+          "projected8mAlongWorldXorY": 12.459552982101664,
+          "projected20mBuildingWidthPixelsRange": [
+            29.23141586860518,
+            32.9549705316078
+          ],
+          "projected20mAlongWorldXorY": 31.148882455254164
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.29549705316078,
+          "projected8mVectorPixelsRange": [
+            23.385132694884142,
+            26.36397642528624
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.385132694884142,
+            26.36397642528624
+          ],
+          "projected8mAlongWorldXorY": 24.91910596420333,
+          "projected20mBuildingWidthPixelsRange": [
+            58.46283173721036,
+            65.9099410632156
+          ],
+          "projected20mAlongWorldXorY": 62.29776491050833
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.59099410632156,
+          "projected8mVectorPixelsRange": [
+            46.770265389768284,
+            52.72795285057248
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            46.770265389768284,
+            52.72795285057248
+          ],
+          "projected8mAlongWorldXorY": 49.83821192840666,
+          "projected20mBuildingWidthPixelsRange": [
+            116.92566347442072,
+            131.8198821264312
+          ],
+          "projected20mAlongWorldXorY": 124.59552982101665
+        }
+      ]
+    },
+    {
+      "regionId": "CR-44",
+      "groundSizeMetres": [
+        862.8699999999997,
+        862.8675000000001
+      ],
+      "projectedGroundSpan": [
+        1220.2806887979193,
+        1082.4021904819367
+      ],
+      "nativeSquareForTargetGroundOnly": 8707,
+      "linearDensityGainVsNineSameNativeSizeRange": [
+        1.320971468719895,
+        1.3580570625602102
+      ],
+      "nativeSquareForTargetWithTenPercentCanvasReserve": 9674,
+      "scenarios": [
+        {
+          "nativeSquare": 1254,
+          "groundScalePxPerProjectionUnit": 1.0276324222054984,
+          "projected8mVectorPixelsRange": [
+            7.292168728171626,
+            8.221059377643988
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            7.292168728171626,
+            8.221059377643988
+          ],
+          "projected8mAlongWorldXorY": 7.77050648448582,
+          "projected20mBuildingWidthPixelsRange": [
+            18.23042182042907,
+            20.55264844410997
+          ],
+          "projected20mAlongWorldXorY": 19.42626621121455
+        },
+        {
+          "nativeSquare": 2048,
+          "groundScalePxPerProjectionUnit": 1.678302392884259,
+          "projected8mVectorPixelsRange": [
+            11.909379230698159,
+            13.426419143074073
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            11.909379230698159,
+            13.426419143074073
+          ],
+          "projected8mAlongWorldXorY": 12.69058794276472,
+          "projected20mBuildingWidthPixelsRange": [
+            29.7734480767454,
+            33.566047857685184
+          ],
+          "projected20mAlongWorldXorY": 31.7264698569118
+        },
+        {
+          "nativeSquare": 4096,
+          "groundScalePxPerProjectionUnit": 3.356604785768518,
+          "projected8mVectorPixelsRange": [
+            23.818758461396317,
+            26.852838286148145
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            23.818758461396317,
+            26.852838286148145
+          ],
+          "projected8mAlongWorldXorY": 25.38117588552944,
+          "projected20mBuildingWidthPixelsRange": [
+            59.5468961534908,
+            67.13209571537037
+          ],
+          "projected20mAlongWorldXorY": 63.4529397138236
+        },
+        {
+          "nativeSquare": 8192,
+          "groundScalePxPerProjectionUnit": 6.713209571537036,
+          "projected8mVectorPixelsRange": [
+            47.637516922792635,
+            53.70567657229629
+          ],
+          "apparent8mRoadWidthPixelsRange": [
+            47.637516922792635,
+            53.70567657229629
+          ],
+          "projected8mAlongWorldXorY": 50.76235177105888,
+          "projected20mBuildingWidthPixelsRange": [
+            119.0937923069816,
+            134.26419143074074
+          ],
+          "projected20mAlongWorldXorY": 126.9058794276472
+        }
+      ]
+    }
+  ]
+}
