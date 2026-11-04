@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "status": "user-directed-planning-target;not-measured-generated-output",
+  "userFeedback": "还算行，地图存在一些区域差异了，雷同区域变少。但是依然还有调整空间，建筑。可考虑写字楼，商场，美术馆，图书馆，公园，游乐场，工业区，天文台，展览中心，大剧院，动物园，科学中心等等。住宅占比大概50%。",
+  "housingShare": {
+    "target": 0.5,
+    "denominator": "programmed urban/neighborhood land area within blue boundary, including facility yards and designed neighborhood parks; excluding source roads, water and red-blue outer natural scenery",
+    "interpretation": "PM area-based working assumption, not housing building-count quota or whole-image pixel threshold",
+    "precision": "approximate visual planning target; no claim rendered image achieves50%"
+  },
+  "landUseAreaTargetsPercent": {
+    "residential": 50,
+    "officeAndCommercial": 15,
+    "cultureEducationAndScience": 12,
+    "parksPlayAndRecreation": 13,
+    "lightIndustryWorkshopsAndServiceYards": 10
+  },
+  "massingRule": "Nonresidential must differ in footprint articulation, height, roof/structure, entrances and site organization; labels and recoloring do not count. Distribute across map, not only central landmarks.",
+  "cityRoles": {
+    "NR-11": [
+      "hill observatory within suitable blue-edge neighborhood land",
+      "low-density housing",
+      "outer natural forest retained"
+    ],
+    "NR-12": [
+      "light-industry/workshops on suitable blue-side plots",
+      "exhibition/creative-work campus",
+      "housing and local shops",
+      "red-side background retained"
+    ],
+    "NR-13": [
+      "blue-side compact theme/play district as fit allows",
+      "low-density housing and park",
+      "red-side natural background"
+    ],
+    "NR-21": [
+      "neighborhood retail and workshops",
+      "varied small housing",
+      "community green"
+    ],
+    "NR-22": [
+      "offices",
+      "shopping mall and varied small commerce",
+      "art gallery",
+      "public library",
+      "science center",
+      "theater",
+      "small exhibition hall",
+      "distributed parks and small playground",
+      "mixed residential neighborhoods"
+    ],
+    "NR-23": [
+      "zoo/animal-education park on suitable blue-side large ground plots",
+      "housing and visitor services",
+      "outer natural setting"
+    ],
+    "NR-31": [
+      "blue-corner low-density housing and local production",
+      "red-side landscape retained"
+    ],
+    "NR-32": [
+      "blue-side residential and light-industry/service yards",
+      "neighborhood park",
+      "red-side landscape retained"
+    ],
+    "NR-33": [
+      "blue-corner housing and local recreation",
+      "outer landscape retained"
+    ]
+  },
+  "NR22NextImage": {
+    "residentialTarget": 0.5,
+    "programNodes": [
+      {
+        "position": "upper/northern large plots",
+        "uses": [
+          "low-rise exhibition halls with folded long-span roofs",
+          "small clean workshop campus with service yards"
+        ]
+      },
+      {
+        "position": "upper-left near existing river/main-street plots",
+        "uses": [
+          "art museum with interlocking solid volumes and outdoor sculpture court",
+          "continuous varied low shopfronts"
+        ]
+      },
+      {
+        "position": "upper-right outer large plot",
+        "uses": [
+          "public library with fan/sawtooth reading-room roof and sheltered entrance courtyard"
+        ]
+      },
+      {
+        "position": "center-left arterial corner",
+        "uses": [
+          "one stepped office complex",
+          "varied individual retail masses"
+        ]
+      },
+      {
+        "position": "center-right suitable larger plots",
+        "uses": [
+          "science center with small low dome and rectilinear exhibit wing",
+          "mall with atrium roof, loading court and distinct street entrances"
+        ]
+      },
+      {
+        "position": "lower-left waterside developable ground",
+        "uses": [
+          "neighborhood riverside park",
+          "small civic/theater volume with clearly different fan/shell roof"
+        ]
+      },
+      {
+        "position": "lower-right ground plot",
+        "uses": [
+          "compact neighborhood playground with actual play equipment",
+          "mixed small businesses"
+        ]
+      },
+      {
+        "position": "ordinary plots between all program nodes",
+        "uses": [
+          "varied detached/attached homes",
+          "mid-rise street-wall residential",
+          "small courtyard housing",
+          "occasional slender walk-ups"
+        ]
+      }
+    ],
+    "notAllFacilitiesInThisImage": "Large zoo and hill observatory are reserved for appropriate other large regions; no checklist crammed into center."
+  },
+  "boundaries": "All operational/new delivery addresses and full routes remain blue; red-blue is scenery only. New functions are art/program suggestions, not newly implemented gameplay or source POI changes.",
+  "sourceRoadsModified": false,
+  "sourceCityModified": false,
+  "acceptance": "User approved improvement direction inreview003, not final architecture, percentage measurement or whole county."
+}
