@@ -1,7 +1,7 @@
 {
   "plannedRegions": 25,
-  "uniqueRegionsWithCandidate": 7,
-  "nativeVersionCount": 11,
+  "uniqueRegionsWithCandidate": 17,
+  "nativeVersionCount": 21,
   "visualDirectionAccepted": [
     "TR-22",
     "TR-23",
@@ -11,8 +11,8 @@
     "TR-24",
     "TR-25"
   ],
-  "currentReview": "TR-25",
-  "currentReviewFile": "review-014/TR-25-v3.png",
+  "currentReview": "TR-14",
+  "currentReviewFile": "review-024/TR-14-v1.png",
   "readyRegionCount": 0,
   "runtimeIntegratedRegionCount": 0,
   "nativeResolution": [
@@ -22,7 +22,7 @@
   "resolutionGoalAchieved": false,
   "candidatePresentation": "opaque only;not alpha-ready runtime atlas",
   "sourceGeographyModified": false,
-  "nextGeneration": "wait-individual-user-review",
+  "nextGeneration": "continue remaining25 sequentially without per-image approval",
   "regions": [
     {
       "id": "TR-22",
@@ -56,10 +56,62 @@
     },
     {
       "id": "TR-25",
-      "latestFile": "review-014/TR-25-v3.png",
-      "userVisualAccepted": false,
+      "latestFile": "review-014/TR-25-v2.png",
+      "userVisualAccepted": true,
       "acceptedVisualDirectionVersion": "v2"
+    },
+    {
+      "id": "TR-44",
+      "latestFile": "review-015/TR-44-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-43",
+      "latestFile": "review-016/TR-43-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-42",
+      "latestFile": "review-017/TR-42-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-32",
+      "latestFile": "review-018/TR-32-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-31",
+      "latestFile": "review-019/TR-31-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-21",
+      "latestFile": "review-020/TR-21-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-11",
+      "latestFile": "review-021/TR-11-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-12",
+      "latestFile": "review-022/TR-12-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-13",
+      "latestFile": "review-023/TR-13-v1.png",
+      "userVisualAccepted": false
+    },
+    {
+      "id": "TR-14",
+      "latestFile": "review-024/TR-14-v1.png",
+      "userVisualAccepted": false
     }
   ],
-  "currentReviewStatus": "v3 boundary/road correction candidate awaiting review"
+  "currentReviewStatus": "awaiting-consolidated-user-review",
+  "outerBlueScenicPolicy": "Sparse scenic homes permitted outside blue to soften fringe; no pickups/dropoffs/navigation/delivery routes outside blue",
+  "reviewWorkflow": "User supersedes per-image waiting: produce remaining regions continuously one native image at a time; label all25, user reviews individually via labels then consolidate revisions."
 }
