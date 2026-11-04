@@ -1,5 +1,7 @@
 # 5×5共25张：当前逐张制作与审阅
 
+**当前：用户25图视觉检查通过，已进入拼接。** [拼接起步包](assembly/README.md) · [名义坐标诊断预览](assembly/preview.html)。25图已摆放，尚未实测配准/处理接缝或运行接入。
+
 **11-04新PM接任恢复第6张：** 当前PM `thr_4w3ji6nqcn`，旧PM `thr_7w55f3h66f`保留来源。旧工具日志确认TR-24已返回，本次从原输出恢复至 `docs/art/2026-11-04-county-twentyfive-region-plan/review-013/TR-24-v1.png`，未重复生成。TR35已获继续授权；当前6独立区/7版本/5视觉方向认可/0ready运行接入，TR24等逐张审阅，不出第7张。原生1254不透明，高清、配准接缝仍未解决；原路/业务/存档未改，未游戏测试。
 
 <!-- current-progress:start -->
