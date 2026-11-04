@@ -39,7 +39,7 @@
     "R-+02-+02": "runtime-package-progress36/R-+02-+02-v1.png",
     "R--01-+03": "runtime-package-progress36/R--01-+03-v1.png"
   },
-  "plannedCoverageUnits": 1056,
+  "plannedCoverageUnits": 9,
   "actualNativeRegions": 36,
   "runtimeReadyInternalRegions": [
     "REGION-A",
@@ -85,7 +85,7 @@
   "stageTests": "not-triggered-not-run",
   "activeWorkflow": null,
   "workflowSource": ".bb/workflows/county-region-fill.js",
-  "workflowCompletionAction": "接续真实原图并批量数据接入，继续原队列；整图后集中修明显遮挡，再做产品经济调整",
+  "workflowCompletionAction": "old-fill-disabled;do-not-resume-old1056-queue",
   "developer": "BB thr_v8eu5ahv2e",
   "localGitCommit": "8750d3a",
   "githubPush": "verified-remote-codex/food-delivery-8750d3a22a381e3a339774bc83381d78c70ddea2",
@@ -118,14 +118,19 @@
     "newNativeOutputsBeforeStop": 0,
     "inputsPreserved": true
   },
-  "nextProductionRegionCount": 16,
+  "nextProductionRegionCount": 1,
   "overviewLOD": "implemented/built/deployed:36 actual source regions;2048x1871 derived display-only;runtime not observed",
   "deferredRepairIndex": "deferred-repair-index.json",
-  "artQualityStatus": "bulk-expansion-stopped;corrected-native-style-v3-created;not-user-accepted-or-deployed",
+  "artQualityStatus": "review001-direction-accepted;more-diversity-required;user-original-reference-authoritative;old-generated-style-defaults-superseded",
   "stoppedForStyleWorkflow": "wfr_5335b248-d355-4954-afe2-45eaaf40b5fc",
   "styleCorrection": "../2026-11-04-county-style-correction/README.md",
   "correctedStyleCandidate": "../2026-11-04-county-style-correction/R-+01-+03-style-v3.png",
-  "productionMode": "one-native-image-then-user-review;no-parallel-or-batch-generation",
+  "productionMode": "nine-large-region-plan;one-native-image-then-user-review;original-user-style-reference-only",
   "currentReviewCandidate": "../2026-11-04-county-style-correction/review-001/R-+02-+00-redraw-v1.png",
-  "reviewStatus": "review-001-native-image-delivered-awaiting-user-feedback"
+  "reviewStatus": "review001-direction-accepted-not-final-style-acceptance",
+  "legacyPlannedCoverageUnits": 1056,
+  "currentPlan": "../2026-11-04-county-nine-region-plan/README.md",
+  "maximumProductionRegionCount": 16,
+  "largeRegionNativeArtsProduced": 0,
+  "actualNativeRegionsMeaning": "36 legacy small regions retained; not progress toward new nine-region delivery"
 }
