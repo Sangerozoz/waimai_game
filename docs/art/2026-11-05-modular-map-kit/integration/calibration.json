@@ -1,0 +1,218 @@
+{
+  "status": "manual-candidates-not-accepted",
+  "method": "Visible building left/front/right ground corners hand read from native PNG; opposite left/right midpoint is footprint center. Fit single positive pixels-per-unit by least squares to two adjacent base edge lengths under fixed projection. Never rotate, mirror, trim or resample bitmap.",
+  "assets": [
+    {
+      "id": "B01-F00",
+      "file": "B01-F00-v2.png",
+      "groundCornersPixels": {
+        "left": [
+          156,
+          715
+        ],
+        "front": [
+          732,
+          1188
+        ],
+        "right": [
+          1128,
+          832
+        ]
+      },
+      "footprintMeters": [
+        16,
+        11
+      ],
+      "heightMeters": 8,
+      "anchorMap": [
+        -1610,
+        65
+      ],
+      "orientationVariant": "F00",
+      "observations": [
+        "Two visible ground edges only; rear ground corner inferred. Estimated pixels are manual candidates.",
+        "Pale/chromatic isolated fringe pixels visible around native cutout. Alpha edge acceptance pending.",
+        "Edge slopes and body height differ among independently painted variants; metadata fit is not proof of exact62.5degree camera or multi-view identity."
+      ]
+    },
+    {
+      "id": "B01-F90",
+      "file": "B01-F90-v1.png",
+      "groundCornersPixels": {
+        "left": [
+          158,
+          852
+        ],
+        "front": [
+          520,
+          1175
+        ],
+        "right": [
+          1154,
+          640
+        ]
+      },
+      "footprintMeters": [
+        11,
+        16
+      ],
+      "heightMeters": 8,
+      "anchorMap": [
+        -1604,
+        37
+      ],
+      "orientationVariant": "F90",
+      "observations": [
+        "Two visible ground edges only; rear ground corner inferred. Estimated pixels are manual candidates.",
+        "Pale/chromatic isolated fringe pixels visible around native cutout. Alpha edge acceptance pending.",
+        "Edge slopes and body height differ among independently painted variants; metadata fit is not proof of exact62.5degree camera or multi-view identity."
+      ]
+    },
+    {
+      "id": "B01-F180",
+      "file": "B01-F180-v1.png",
+      "groundCornersPixels": {
+        "left": [
+          158,
+          680
+        ],
+        "front": [
+          708,
+          1178
+        ],
+        "right": [
+          1110,
+          839
+        ]
+      },
+      "footprintMeters": [
+        16,
+        11
+      ],
+      "heightMeters": 8,
+      "anchorMap": [
+        -1571,
+        75
+      ],
+      "orientationVariant": "F180",
+      "observations": [
+        "Two visible ground edges only; rear ground corner inferred. Estimated pixels are manual candidates.",
+        "Pale/chromatic isolated fringe pixels visible around native cutout. Alpha edge acceptance pending.",
+        "Edge slopes and body height differ among independently painted variants; metadata fit is not proof of exact62.5degree camera or multi-view identity."
+      ]
+    },
+    {
+      "id": "B01-F270",
+      "file": "B01-F270-v1.png",
+      "groundCornersPixels": {
+        "left": [
+          188,
+          863
+        ],
+        "front": [
+          532,
+          1177
+        ],
+        "right": [
+          1118,
+          697
+        ]
+      },
+      "footprintMeters": [
+        11,
+        16
+      ],
+      "heightMeters": 8,
+      "anchorMap": [
+        -1567,
+        48
+      ],
+      "orientationVariant": "F270",
+      "observations": [
+        "Two visible ground edges only; rear ground corner inferred. Estimated pixels are manual candidates.",
+        "Pale/chromatic isolated fringe pixels visible around native cutout. Alpha edge acceptance pending.",
+        "Edge slopes and body height differ among independently painted variants; metadata fit is not proof of exact62.5degree camera or multi-view identity."
+      ]
+    },
+    {
+      "id": "T01",
+      "file": "T01-v2.png",
+      "groundCornersPixels": {
+        "left": [
+          407,
+          891
+        ],
+        "front": [
+          623,
+          1077
+        ],
+        "right": [
+          848,
+          891
+        ]
+      },
+      "footprintMeters": [
+        2.6,
+        2.6
+      ],
+      "heightMeters": 6,
+      "anchorMap": [
+        -1593,
+        49
+      ],
+      "observations": [
+        "V2 replacement has fuller top canopy and shorter visible trunk than rejected v1. Complete integrated pit and tree source copied unchanged.",
+        "Pit2.6m calibration remains a manual candidate: canopy-top to ground pixel span still differs from nominal6m at exact62.5degree camera. Improved visual view does not prove exact dimensions.",
+        "Thin coloured/white boundary remnants need normal-alpha browser composition review; native image and alpha preserved."
+      ]
+    },
+    {
+      "id": "L01",
+      "file": "L01-v1.png",
+      "anchorPixel": [
+        462,
+        1274
+      ],
+      "nativePixelsPerUnit": 264.21302956442446,
+      "scaleMethod": "manual pole-top420 to base1274 pixel vertical span / (nominal7m * abs(axisZ.y)); pad size not used to force fit",
+      "heightMeters": 7,
+      "footprintMeters": [
+        0.3,
+        0.3
+      ],
+      "anchorMap": [
+        -1599,
+        81
+      ],
+      "observations": [
+        "Manual pole/base anchor; height derived from nominal7m design target, not real measured physical size.",
+        "Native image preview shows broad exterior glow RGB, but sampled exterior pixels have alpha0; do not label visible glow from RGB preview alone. Need actual composited viewer inspection.",
+        "Lamp head underside pale region and very slender pole need runtime daylight/visibility review. Camera not validated."
+      ]
+    },
+    {
+      "id": "L02",
+      "file": "L02-v1.png",
+      "anchorPixel": [
+        632,
+        1080
+      ],
+      "nativePixelsPerUnit": 281.538474126026,
+      "scaleMethod": "manual pole fork-joint300 to mounting-base1080 pixel span / (nominal6m pole * abs(axisZ.y)); curved arms not treated as pole height",
+      "heightMeters": 6,
+      "footprintMeters": [
+        0.3,
+        0.3
+      ],
+      "anchorMap": [
+        -1583,
+        89
+      ],
+      "observations": [
+        "Single native double-arm lamp,1265×1243RGBA, complete square foot. No raster rotation/mirroring.",
+        "Pole joint/base hand estimates and6m nominal target set uniform scale. Curved head dimensions and pad width remain unvalidated.",
+        "Thin pale/chromatic edge fragments visible in native preview; require actual-alpha composition review. Daytime LED undersides pale, no acceptance implied."
+      ]
+    }
+  ]
+}
