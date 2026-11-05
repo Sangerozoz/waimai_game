@@ -1,0 +1,1685 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.11.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 56,
+  "height": 56,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "backgroundcolor": "#dedbd0",
+  "nextobjectid": 38,
+  "nextlayerid": 10,
+  "properties": [
+    {
+      "name": "projectionId",
+      "type": "string",
+      "value": "orthographic-e62.5-a45-v1"
+    },
+    {
+      "name": "pixelsPerUnit",
+      "type": "float",
+      "value": 16
+    },
+    {
+      "name": "note",
+      "type": "string",
+      "value": "Seven native candidates. Hidden templates are editable repeated instances. Do not rotate/mirror PNG objects."
+    }
+  ],
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "name": "B01 facade revision and restored T01-v1 — candidates",
+      "tilewidth": 1536,
+      "tileheight": 1536,
+      "tilecount": 7,
+      "columns": 0,
+      "objectalignment": "bottomleft",
+      "tiles": [
+        {
+          "id": 0,
+          "image": "assets/B01-F00-v3.png",
+          "imagewidth": 1312,
+          "imageheight": 1199,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-F00"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "image": "assets/B01-F90-v2.png",
+          "imagewidth": 1312,
+          "imageheight": 1199,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-F90"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "image": "assets/B01-F180-v2.png",
+          "imagewidth": 1312,
+          "imageheight": 1199,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-F180"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "image": "assets/B01-F270-v2.png",
+          "imagewidth": 1536,
+          "imageheight": 1024,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-F270"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "image": "assets/T01-v1.png",
+          "imagewidth": 1254,
+          "imageheight": 1254,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "image": "assets/L01-v1.png",
+          "imagewidth": 1024,
+          "imageheight": 1536,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L01"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "image": "assets/L02-v1.png",
+          "imagewidth": 1265,
+          "imageheight": 1243,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L02"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "image": "original-roads.png",
+      "imageheight": 1792,
+      "imagewidth": 1792,
+      "locked": true,
+      "name": "Original roads — locked reference",
+      "opacity": 1,
+      "properties": [
+        {
+          "name": "manualLocked",
+          "type": "bool",
+          "value": true
+        },
+        {
+          "name": "sourceRoadsSHA256",
+          "type": "string",
+          "value": "6235c8a09c60897cef26308b5bae9795da77065275f800e41dc2eba92505474a"
+        }
+      ],
+      "type": "imagelayer",
+      "visible": true,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": 2,
+      "name": "Editable pilot objects",
+      "type": "objectgroup",
+      "draworder": "topdown",
+      "visible": true,
+      "opacity": 1,
+      "objects": [
+        {
+          "id": 1,
+          "name": "pilot-B01-F00",
+          "type": "sprite",
+          "gid": 1,
+          "x": 600.2785404054612,
+          "y": 706.0839070476453,
+          "width": 400.84479495033395,
+          "height": 366.32081489744695,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "pilot-B01-F00"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-F00"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "F00"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "pilot-B01-F90",
+          "type": "sprite",
+          "gid": 2,
+          "x": 984.3165531236748,
+          "y": 480.98123981498094,
+          "width": 399.9669772916374,
+          "height": 365.51860196087904,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "pilot-B01-F90"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-F90"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "F90"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "pilot-B01-F180",
+          "type": "sprite",
+          "gid": 3,
+          "x": 926.9087152683047,
+          "y": 1199.1112443945385,
+          "width": 405.634574328852,
+          "height": 370.6980599240042,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "pilot-B01-F180"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-F180"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "F180"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "pilot-B01-F270",
+          "type": "sprite",
+          "gid": 4,
+          "x": 1277.1519744410646,
+          "y": 924.3764206275506,
+          "width": 403.6916663761107,
+          "height": 269.1277775840738,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "pilot-B01-F270"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-F270"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "F270"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "pilot-T01",
+          "type": "sprite",
+          "gid": 5,
+          "x": 1085.064851734665,
+          "y": 654.6624975897345,
+          "width": 180.71503988991932,
+          "height": 180.71503988991932,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "pilot-T01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "native"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "pilot-L01",
+          "type": "sprite",
+          "gid": 6,
+          "x": 716.1549712132996,
+          "y": 897.5823586592644,
+          "width": 62.01056786264586,
+          "height": 93.01585179396879,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "pilot-L01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L01"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "native"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "pilot-L02",
+          "type": "sprite",
+          "gid": 7,
+          "x": 798.7251250927156,
+          "y": 1131.8289291349895,
+          "width": 71.89070716828529,
+          "height": 70.6404340001412,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "pilot-L02"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L02"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "native"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Optional 3-tree and 3/9-lamp templates — hidden by default",
+      "type": "group",
+      "visible": false,
+      "opacity": 1,
+      "layers": [
+        {
+          "id": 4,
+          "name": "T01 x3 world-axis-0 independent instances",
+          "type": "objectgroup",
+          "draworder": "topdown",
+          "visible": true,
+          "opacity": 1,
+          "objects": [
+            {
+              "id": 8,
+              "name": "template-T01-3-axis0-1",
+              "type": "sprite",
+              "gid": 5,
+              "x": 689.0850542701983,
+              "y": 162.9287794907544,
+              "width": 180.71503988991932,
+              "height": 180.71503988991932,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-T01-3-axis0-1"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "T01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "name": "template-T01-3-axis0-2",
+              "type": "sprite",
+              "gid": 5,
+              "x": 745.6535967651221,
+              "y": 213.10568950085448,
+              "width": 180.71503988991932,
+              "height": 180.71503988991932,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-T01-3-axis0-2"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "T01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "name": "template-T01-3-axis0-3",
+              "type": "sprite",
+              "gid": 5,
+              "x": 802.2221392600459,
+              "y": 263.28259951095447,
+              "width": 180.71503988991932,
+              "height": 180.71503988991932,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-T01-3-axis0-3"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "T01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "T01 x3 world-axis-1 independent instances",
+          "type": "objectgroup",
+          "draworder": "topdown",
+          "visible": true,
+          "opacity": 1,
+          "objects": [
+            {
+              "id": 11,
+              "name": "template-T01-3-axis1-1",
+              "type": "sprite",
+              "gid": 5,
+              "x": 689.0850542701983,
+              "y": 162.9287794907544,
+              "width": 180.71503988991932,
+              "height": 180.71503988991932,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-T01-3-axis1-1"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "T01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 12,
+              "name": "template-T01-3-axis1-2",
+              "type": "sprite",
+              "gid": 5,
+              "x": 632.5165117752745,
+              "y": 213.10568950085448,
+              "width": 180.71503988991932,
+              "height": 180.71503988991932,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-T01-3-axis1-2"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "T01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 13,
+              "name": "template-T01-3-axis1-3",
+              "type": "sprite",
+              "gid": 5,
+              "x": 575.9479692803507,
+              "y": 263.2825995109546,
+              "width": 180.71503988991932,
+              "height": 180.71503988991932,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-T01-3-axis1-3"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "T01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "L01 x3 world-axis-0 independent instances",
+          "type": "objectgroup",
+          "draworder": "topdown",
+          "visible": true,
+          "opacity": 1,
+          "objects": [
+            {
+              "id": 14,
+              "name": "template-L01-3-axis0-1",
+              "type": "sprite",
+              "gid": 6,
+              "x": 750.0960967102538,
+              "y": 144.92870850776433,
+              "width": 62.01056786264586,
+              "height": 93.01585179396879,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L01-3-axis0-1"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 15,
+              "name": "template-L01-3-axis0-2",
+              "type": "sprite",
+              "gid": 6,
+              "x": 817.9783477041624,
+              "y": 205.14100051988441,
+              "width": 62.01056786264586,
+              "height": 93.01585179396879,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L01-3-axis0-2"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 16,
+              "name": "template-L01-3-axis0-3",
+              "type": "sprite",
+              "gid": 6,
+              "x": 885.860598698071,
+              "y": 265.3532925320044,
+              "width": 62.01056786264586,
+              "height": 93.01585179396879,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L01-3-axis0-3"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "L01 x3 world-axis-1 independent instances",
+          "type": "objectgroup",
+          "draworder": "topdown",
+          "visible": true,
+          "opacity": 1,
+          "objects": [
+            {
+              "id": 17,
+              "name": "template-L01-3-axis1-1",
+              "type": "sprite",
+              "gid": 6,
+              "x": 750.0960967102538,
+              "y": 144.92870850776433,
+              "width": 62.01056786264586,
+              "height": 93.01585179396879,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L01-3-axis1-1"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 18,
+              "name": "template-L01-3-axis1-2",
+              "type": "sprite",
+              "gid": 6,
+              "x": 682.2138457163453,
+              "y": 205.14100051988441,
+              "width": 62.01056786264586,
+              "height": 93.01585179396879,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L01-3-axis1-2"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 19,
+              "name": "template-L01-3-axis1-3",
+              "type": "sprite",
+              "gid": 6,
+              "x": 614.3315947224368,
+              "y": 265.3532925320044,
+              "width": 62.01056786264586,
+              "height": 93.01585179396879,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L01-3-axis1-3"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L01"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "L02 x9 world-axis-0 independent instances",
+          "type": "objectgroup",
+          "draworder": "topdown",
+          "visible": true,
+          "opacity": 1,
+          "objects": [
+            {
+              "id": 20,
+              "name": "template-L02-9-axis0-1",
+              "type": "sprite",
+              "gid": 7,
+              "x": 742.1565825977918,
+              "y": 138.32611093500938,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-1"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "name": "template-L02-9-axis0-2",
+              "type": "sprite",
+              "gid": 7,
+              "x": 798.7251250927156,
+              "y": 188.50302094510945,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-2"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 22,
+              "name": "template-L02-9-axis0-3",
+              "type": "sprite",
+              "gid": 7,
+              "x": 855.2936675876394,
+              "y": 238.67993095520941,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-3"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 23,
+              "name": "template-L02-9-axis0-4",
+              "type": "sprite",
+              "gid": 7,
+              "x": 911.8622100825633,
+              "y": 288.85684096530935,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-4"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 24,
+              "name": "template-L02-9-axis0-5",
+              "type": "sprite",
+              "gid": 7,
+              "x": 968.430752577487,
+              "y": 339.0337509754094,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-5"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 25,
+              "name": "template-L02-9-axis0-6",
+              "type": "sprite",
+              "gid": 7,
+              "x": 1024.999295072411,
+              "y": 389.2106609855094,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-6"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 26,
+              "name": "template-L02-9-axis0-7",
+              "type": "sprite",
+              "gid": 7,
+              "x": 1081.567837567335,
+              "y": 439.3875709956094,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-7"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 27,
+              "name": "template-L02-9-axis0-8",
+              "type": "sprite",
+              "gid": 7,
+              "x": 1138.1363800622587,
+              "y": 489.5644810057094,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-8"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 28,
+              "name": "template-L02-9-axis0-9",
+              "type": "sprite",
+              "gid": 7,
+              "x": 1194.7049225571825,
+              "y": 539.7413910158095,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis0-9"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "L02 x9 world-axis-1 independent instances",
+          "type": "objectgroup",
+          "draworder": "topdown",
+          "visible": true,
+          "opacity": 1,
+          "objects": [
+            {
+              "id": 29,
+              "name": "template-L02-9-axis1-1",
+              "type": "sprite",
+              "gid": 7,
+              "x": 742.1565825977918,
+              "y": 138.32611093500938,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-1"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 30,
+              "name": "template-L02-9-axis1-2",
+              "type": "sprite",
+              "gid": 7,
+              "x": 685.588040102868,
+              "y": 188.50302094510945,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-2"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 31,
+              "name": "template-L02-9-axis1-3",
+              "type": "sprite",
+              "gid": 7,
+              "x": 629.0194976079442,
+              "y": 238.67993095520953,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-3"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 32,
+              "name": "template-L02-9-axis1-4",
+              "type": "sprite",
+              "gid": 7,
+              "x": 572.4509551130204,
+              "y": 288.85684096530946,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-4"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 33,
+              "name": "template-L02-9-axis1-5",
+              "type": "sprite",
+              "gid": 7,
+              "x": 515.8824126180966,
+              "y": 339.0337509754094,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-5"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 34,
+              "name": "template-L02-9-axis1-6",
+              "type": "sprite",
+              "gid": 7,
+              "x": 459.3138701231728,
+              "y": 389.2106609855095,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-6"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 35,
+              "name": "template-L02-9-axis1-7",
+              "type": "sprite",
+              "gid": 7,
+              "x": 402.745327628249,
+              "y": 439.38757099560945,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-7"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 36,
+              "name": "template-L02-9-axis1-8",
+              "type": "sprite",
+              "gid": 7,
+              "x": 346.1767851333252,
+              "y": 489.5644810057094,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-8"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 37,
+              "name": "template-L02-9-axis1-9",
+              "type": "sprite",
+              "gid": 7,
+              "x": 289.6082426384014,
+              "y": 539.7413910158095,
+              "width": 71.89070716828529,
+              "height": 70.6404340001412,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "template-L02-9-axis1-9"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "L02"
+                },
+                {
+                  "name": "orientationVariant",
+                  "type": "string",
+                  "value": "native"
+                },
+                {
+                  "name": "scale",
+                  "type": "float",
+                  "value": 1
+                },
+                {
+                  "name": "manualLocked",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
