@@ -1,6 +1,6 @@
 {
   "status": "conditional-budget-not-production-release",
-  "recordedAt": "2026-11-07T08:12:51.621494+00:00",
+  "recordedAt": "2026-11-07T09:55:12.138190+00:00",
   "authorThread": "thr_fs5qphhxgc",
   "targetDesignMetres": [
     1661.74,
@@ -1768,7 +1768,8 @@
   ],
   "imageRequestsSinceHandoff": 6,
   "successfulImagesSinceHandoff": 5,
-  "latestArtworkCandidate": "organic-adjacent-005/index.html",
+  "latestArtworkCandidate": "organic-adjacent-005/native.png",
+  "latestCompositeCandidate": "organic-adjacent-005/seam-003/index.html",
   "organicLayoutCorrection": {
     "source": "organic-layout-004/authorization.json",
     "nativeSize": [
@@ -1788,7 +1789,8 @@
       1671,
       941
     ],
-    "userArtApproved": false,
+    "userArtApproved": true,
+    "userReview": "organic-adjacent-005/user-review-001.json",
     "ordinaryRegionAdmitted": false,
     "observedBuildingBearingEnclosures": 5,
     "tracedBuildingBearingEnclosures": 4,
@@ -1814,8 +1816,28 @@
     "occludedInferenceEdgeIds": [
       "OC1--EJ"
     ],
-    "ownershipProposalsOnly": true,
-    "ownershipObjectGroups": 8
+    "ownershipProposalsOnly": false,
+    "ownershipObjectGroups": 9,
+    "implementedOwnershipRecord": "organic-adjacent-005/seam-003/ownership.json"
+  },
+  "objectCutPairCandidate": {
+    "source": "organic-adjacent-005/seam-003/assembly/record.json",
+    "size": [
+      3192,
+      941
+    ],
+    "generatedArtwork": false,
+    "nativePixelSelectionOnly": true,
+    "objectGroupsRecorded": 9,
+    "partialGraphNodes": 26,
+    "partialGraphEdges": 30,
+    "mainRoutePixels": 3104.665882998501,
+    "alternativeRoutePixels": 3605.865679963086,
+    "forbiddenRoofInferenceIncludedInNavigation": false,
+    "userCompositeApproved": false,
+    "wholeSeamReady": false,
+    "metreCalibration": null,
+    "ordinaryRegionAdmitted": false
   },
   "increasedCountRouteAuthorization": {
     "recordedAt": "2026-11-07T01:20:37.904756+00:00",
@@ -1835,7 +1857,7 @@
     "priorManifestSHA256": "d706e42a4f91ce3554d1759524a31573f97618060a91a8b4c04e3ca54222c47c"
   },
   "latestIndependentRoadEvidence": "adjacent-pair-003/index.html",
-  "latestPartialOrganicRoadEvidence": "organic-adjacent-005/revision-002/index.html",
+  "latestPartialOrganicRoadEvidence": "organic-adjacent-005/seam-003/index.html",
   "previousEightBlockEvidence": "road-evidence-002/index.html",
   "adjacentPairEvidence": {
     "nativeSizes": [
@@ -1895,7 +1917,12 @@
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/trace-input.json": "8fc4557c66c269d6aa458c6689d8db891f1d5326aaaaf83eeafa627bc79a596e",
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/actual-005-graph.json": "16b03de99b50cfbbe38492ec6e2e9ce6e5f3a22eee71c3ee2cfe17dff4582602",
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/ownership.json": "4a1982b6a283a9f0808c447dedee4caea57c26511fdad79ce9b43f42d50afc5b",
-    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/independent-review.json": "fde60a4c7bb3d162e6226910dcf9e73a21860f509001b3516c28bf33bdf28382"
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/independent-review.json": "fde60a4c7bb3d162e6226910dcf9e73a21860f509001b3516c28bf33bdf28382",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/user-review-001.json": "e5ea1563fc02e742a62dc368160416f2fbc69b01d7f928e3900cc990f8d4b134",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/seam-input.json": "37bb92f68a592c00581e0119e442584c25c729717fe813a2e71a1fe32fa5666c",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/assembly/record.json": "7685bfe41b0cd50f2ce935738237c191d2407e90812795be9e9d587bd18f6a8e",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/ownership.json": "70f7c183f3408c091c71b6abad7475165ef3e0704a8148d936163c75f7b7d410",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/actual-pair-graph.json": "7c1a412e01851fd589c2ee4906e319bfec0173403167d7e11609e419b972a485"
   },
   "protectedFilesChecked": 91,
   "protectedFilesMatched": 91,
@@ -1909,7 +1936,7 @@
     "4K is unavailable/unverified here; the first built-in request failed HTTP502, the second returned1672x941.",
     "Two additional native1672x941 images now provide a measured adjacent pair; this does not calibrate metres or freeze the illustrative20–24 count.",
     "The pair has one roof-occluded structural inference explicitly excluded from both navigation routes.",
-    "004 local artwork is user approved.005 is awaiting art review; its partial trace is distinct from design geometry. W/E grid composition is not a city production template.",
+    "004 and005 local artwork are user approved. The object-cut pair candidate awaits separate composite review; W/E grid composition is not a city production template.",
     "005 shared buildings were redrawn; the rectangular assembly is diagnostic only. Three common asphalt points do not establish a completed whole seam or exclusive new-block count.",
     "Rectangular raster packing is only a capacity example; organic streets and corridor-based image partitions must be planned separately.",
     "Existing ABC pixels are not assigned arbitrary metres or a fake coverage fraction.",

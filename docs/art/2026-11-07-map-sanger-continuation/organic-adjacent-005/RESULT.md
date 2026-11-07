@@ -1,3 +1,5 @@
+> 本轮用户已认可005单图，记录见[user-review-001.json](user-review-001.json)。最新两区对象绕切候选见[seam-003](seam-003/index.html)，拼接画面仍未用户验收。以下记录保留原交付时状态。
+
 > 最新补充见[revision-002/RESULT.md](revision-002/RESULT.md)与[看图页](revision-002/index.html)：第五共享结构围合已补描，含禁导航遮挡推定；8组对象仅来源建议，接缝仍未完成。以下为初次交付记录，原图和旧证据保持。
 
 # 西邻005：原生候选与独立描路证据

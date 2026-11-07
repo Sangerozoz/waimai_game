@@ -1,0 +1,23 @@
+{
+  "scope": "nine identified visible building groups at the004/005 cut; not a city building inventory",
+  "method": "select one native source for each visible building group, following visible exterior/occlusion boundaries. Source probes are integrity checks, not a complete silhouette certificate; whole-object judgment comes from original-resolution visual inspection.",
+  "sourceSelectionRecordedForAllIdentifiedGroups": true,
+  "objectGroups": 9,
+  "newGroupSinceRevision002": "S-4 foreground white apartment; originally omitted from the eight approximate inspection groups",
+  "originalFramesWritten": false,
+  "originalFrameTruncationsReconstructed": false,
+  "candidateOnly": true,
+  "userCompositeApproved": false,
+  "ordinaryRegionAdmitted": false,
+  "objects": [
+    {"id":"N-1","name":"北段跨界住宅组","owner":"005","probePointsInOwnerNative":[[1570,60],[1560,120],[1608,70],[1525,20]],"inheritedFrameTruncation":"top","decision":"保持005可见楼群的同一来源，裁界绕其东侧树隙；原北框截断保持，不补称框外完整楼体。"},
+    {"id":"N-2","name":"北端东侧公寓","owner":"004","probePointsInOwnerNative":[[155,40],[200,80],[120,65]],"inheritedFrameTruncation":"top","decision":"使用004原有可见公寓，排除005东框残片；顶部原框仍有限制。"},
+    {"id":"M-1","name":"中段灰色商住楼","owner":"005","probePointsInOwnerNative":[[1477,350],[1510,407],[1545,397],[1485,453]],"inheritedFrameTruncation":null,"decision":"完整可见屋顶、主体和檐棚取005，004对应左框残片不再拼入立面。"},
+    {"id":"M-2","name":"灰棚、支柱及停车庭院","owner":"004","probePointsInOwnerNative":[[80,330],[107,357],[90,371],[125,390]],"inheritedFrameTruncation":null,"decision":"棚顶与支柱、停车场地使用004；边界经过其西侧路面/绿化，未只裁一个屋顶框。"},
+    {"id":"S-0","name":"斜路东侧坡顶住宅","owner":"004","probePointsInOwnerNative":[[112,575],[155,620],[90,563]],"inheritedFrameTruncation":null,"decision":"取004完整入框住宅及门前环境，排除005右框残片。"},
+    {"id":"S-1","name":"南段白色公寓","owner":"005","probePointsInOwnerNative":[[1503,749],[1551,772],[1480,820],[1549,814],[1528,835]],"inheritedFrameTruncation":null,"decision":"保持005完整可见公寓；东边界在楼体之外，经庭院绿化下绕。"},
+    {"id":"S-2","name":"南端东侧高公寓","owner":"004","probePointsInOwnerNative":[[123,814],[165,844],[134,899],[75,830]],"inheritedFrameTruncation":null,"decision":"取004完整入框屋顶和立面，与前方S-3/S-4的自然遮挡分别记录。"},
+    {"id":"S-3","name":"灰屋顶住宅","owner":"004","probePointsInOwnerNative":[[68,862],[95,884],[72,910],[36,855]],"inheritedFrameTruncation":"southern vegetation/context touches frame; no complete courtyard claim","decision":"可见灰屋顶与立面取004，裁界沿其与前景S-4的遮挡边缘经过。"},
+    {"id":"S-4","name":"南框前景白色平顶公寓","owner":"005","probePointsInOwnerNative":[[1514,886],[1533,913],[1562,924],[1470,925]],"inheritedFrameTruncation":"bottom","decision":"新增单列此前漏记的前景对象；可见屋顶/立面使用005，南框已有截断不冒充完整楼体。"}
+  ]
+}

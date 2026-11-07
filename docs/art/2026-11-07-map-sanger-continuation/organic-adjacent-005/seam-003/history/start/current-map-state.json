@@ -1,0 +1,697 @@
+{
+  "recordedAt": "2026-11-07T08:19:34.704113+00:00",
+  "mapPrimaryThread": "thr_fs5qphhxgc",
+  "sourceThread": "thr_2qc9rtsa9r",
+  "sourceThreadReceivesNoNewWork": true,
+  "provider": "codex",
+  "model": "ccs-sanger/gpt-6.1-sol",
+  "reasoning": "max",
+  "environment": "env_e54zrbdgxt",
+  "branch": "codex/food-delivery",
+  "route": "whole-region native background + independent vector-road tracing",
+  "previousProgressReadOnly": "../2026-11-06-city-image-map/planning/progress-current.json",
+  "admittedArt": [
+    "A2",
+    "B1",
+    "C-001"
+  ],
+  "imageRequestsSinceHandoff": 6,
+  "newImagesReturnedSinceHandoff": 5,
+  "imageRequestsThisIncrement": 0,
+  "imagesReturnedThisIncrement": 0,
+  "imageAttemptRecords": [
+    "builtin-capacity-001/result.json",
+    "builtin-capacity-002/result.json",
+    "adjacent-pair-003/W/result.json",
+    "adjacent-pair-003/E/result.json",
+    "organic-layout-004/result.json",
+    "organic-adjacent-005/result.json"
+  ],
+  "latestImageAssessment": "organic-adjacent-005/revision-002/RESULT.md",
+  "newAdmittedRegions": 0,
+  "DResumed": false,
+  "targetAreaRatioToLegacy25": 0.25,
+  "currentABCMetreCalibration": null,
+  "currentTargetAreaCoverage": null,
+  "wholeCityOrHalfCoverageDemonstrated": false,
+  "highNativeReturnSizeVerified": false,
+  "latestConnectionRecoveredForOneRequest": true,
+  "status": "005-road-supplement-and-object-proposals-ready-for-limited-review-seam-unresolved",
+  "actualRoadEvidence": {
+    "source": "organic-adjacent-005/revision-002/actual-005-graph.json",
+    "context": "005 single native supplement; shared inference is forbidden; old pair graph remains separate and unchanged",
+    "nativeSize": [
+      1671,
+      941
+    ],
+    "nodes": 27,
+    "structuralEdgesIncludingInference": 32,
+    "permittedNavigationEdges": 31,
+    "connectedComponents": 1,
+    "structuralBoundedFaces": 6,
+    "navigationBoundedFaces": 5,
+    "structuralBuildingEnclosures": 5,
+    "fullyVisibleRoadBuildingEnclosures": 4,
+    "channelizingIslands": 1,
+    "sharedEnclosures": 1,
+    "sharedEnclosureIncludesOccludedInference": true,
+    "occludedInferenceEdgeIds": [
+      "OC1--EJ"
+    ],
+    "exclusiveNewBlockOwnershipResolved": false,
+    "mainRoutePixels": 1556.2561112788953,
+    "alternativeRoutePixels": 2057.4559082434807,
+    "excludedEdge": "M1--ML",
+    "fullStreetInventoryComplete": false,
+    "trafficDirectionValidated": false,
+    "geometricBidirectionalAssumption": true,
+    "metreCalibration": null,
+    "wholeSeamReady": false,
+    "ordinaryRegion": false
+  },
+  "separateInheritedPlanning": {
+    "blocks": 64,
+    "junctions": 81,
+    "edges": 144,
+    "corridors": 18,
+    "sourcePlanChanged": false,
+    "residentialShareOfAssignedBlockNet": 0.5010358614218446,
+    "completeBlueNetDevelopableDenominatorKnown": false,
+    "blueOutsideStreetBlockEnclosuresMetres2": 129642.59999999963,
+    "finalResidentialAboutHalfAccepted": false,
+    "roadLayoutStatus": "quantity/loop organization baseline, not a final grid or user-approved road shape"
+  },
+  "verification": {
+    "recordedAt": "2026-11-07T08:19:34.704113+00:00",
+    "scope": "005 single-native supplement with forbidden structural inference; object-source proposals only",
+    "status": "passed-bounded-artifact-display-and-independent-delta-review",
+    "staticChecks": 1071,
+    "structuralStatistics": {
+      "nodes": 27,
+      "edges": 32,
+      "components": 1,
+      "segments": 108,
+      "segmentPairsExamined": 5778,
+      "boundedFaces": 6,
+      "unexpectedIntersections": []
+    },
+    "navigationStatistics": {
+      "nodes": 27,
+      "edges": 31,
+      "components": 1,
+      "segments": 103,
+      "segmentPairsExamined": 5253,
+      "boundedFaces": 5,
+      "unexpectedIntersections": []
+    },
+    "protectedFilesMatched": 91,
+    "priorArtifactsAudited": 343,
+    "officialTiledVersion": "1.12.2",
+    "officialTiledCommands": 4,
+    "officialTiledExports": 4,
+    "nativeBackgroundRGBPixelExact": true,
+    "nativeAlphaAll255": true,
+    "tiledRecord": "organic-adjacent-005/revision-002/verification/tiled-cli-004/result.json",
+    "browserDisplayChecksPassed": 13,
+    "browserCapturesSaved": 4,
+    "browserSessionClosed": true,
+    "browserRecord": "organic-adjacent-005/revision-002/verification/browser-checks.json",
+    "nativeArtworkModified": false,
+    "newImagesGenerated": 0,
+    "imageRequestTotal": 6,
+    "successfulImageTotal": 5,
+    "independentReview": {
+      "threadId": "thr_978x3n893w",
+      "provider": "codex",
+      "model": "ccs-sanger/gpt-6.1-sol",
+      "reasoning": "max",
+      "status": "approved-limited-display-after-occlusion-and-sidewalk-tail-corrections",
+      "report": "INDEPENDENT-FOLLOWUP.md",
+      "remainingCritical": 0,
+      "remainingImportant": 0,
+      "remainingMinorInTargetedDelta": 0,
+      "wholeSeamReady": false,
+      "completeObjectOwnershipResolved": false,
+      "fifthSharedEnclosureIncludesOccludedInference": true,
+      "userArtApproved": false,
+      "ordinaryRegionAdmitted": false,
+      "finalReviewInMemoryAssertions": 36,
+      "finalReviewSourceAndDOMStubChecks": 9,
+      "reviewerDidNotPerform": [
+        "author writing verifier",
+        "official Tiled exports",
+        "browser session",
+        "directory-external91 protected-source hashes",
+        "game tests"
+      ],
+      "previousFindingHistory": [
+        {
+          "severity": "Important",
+          "finding": "NEJ-EJ marked visible asphalt while crossing building projection",
+          "resolved": true,
+          "resolution": "OC1-EJ hidden inference, navigation disabled"
+        },
+        {
+          "severity": "Minor",
+          "finding": "M-1 004 inspection box excludes visible right facade",
+          "resolved": true,
+          "resolution": "right bound expanded18 to45"
+        },
+        {
+          "severity": "Minor",
+          "finding": "OC2 permitted tail starts on sidewalk",
+          "resolved": true,
+          "resolution": "OC2 node and permitted tail removed; inference extends to established main junctionEJ"
+        }
+      ]
+    },
+    "completeObjectOwnershipResolved": false,
+    "wholeSeamReady": false,
+    "userArtApproved": false,
+    "ordinaryRegionAdmitted": false,
+    "formalGameTestsPerformed": false,
+    "boundRuntimeArtifacts": {
+      "trace-input.json": {
+        "sha256": "8fc4557c66c269d6aa458c6689d8db891f1d5326aaaaf83eeafa627bc79a596e",
+        "bytes": 1740
+      },
+      "actual-005-graph.json": {
+        "sha256": "16b03de99b50cfbbe38492ec6e2e9ce6e5f3a22eee71c3ee2cfe17dff4582602",
+        "bytes": 39294
+      },
+      "ownership.json": {
+        "sha256": "4a1982b6a283a9f0808c447dedee4caea57c26511fdad79ce9b43f42d50afc5b",
+        "bytes": 4497
+      },
+      "tiled/native005.tmj": {
+        "sha256": "30c4c76a194bff587a1018ae4f56b5da1719be9769c4685623c122c843571637",
+        "bytes": 134989
+      },
+      "viewer-template.html": {
+        "sha256": "7ec69ee5a643481c9a1082966669bcf05bac2514a3ff7b41153eb3ea75c7fa7e",
+        "bytes": 8546
+      },
+      "index.html": {
+        "sha256": "6aa1976474291ec2d81342b1121933e15ce35cc2b3ee020b5743cd13b8b9a315",
+        "bytes": 28150
+      },
+      "verify_revision.py": {
+        "sha256": "3497f78dd0367373accb5d1823a3db3dccd05613f3a03eef8f7d90d8d3fde735",
+        "bytes": 18030
+      }
+    }
+  },
+  "blockingEvidence": [
+    "005 remains awaiting user art review;004 approved native is unchanged. No image request in this increment, total6 requests/5 returns.",
+    "Fifth shared enclosure is structurally mapped but its eastern boundary crosses building projection; OC1-EJ is forbidden inference. Four fully visible-road building enclosures remain, plus one excluded island.",
+    "Eight object-source proposals locate three building groups crossed by the x1520 rectangle. Silhouette masks, occlusion ownership and a no-cut seam remain incomplete; current assembly is diagnostic only.",
+    "004 full tracing, traffic semantics, credible metre coverage and final image count remain incomplete. No full-city or half-area claim; no game tests."
+  ],
+  "imageBudgetChoice": {
+    "status": "user-approved-increased-count-route-bounded-adjacent-pair-first",
+    "directUserQuote": "允许",
+    "authorizationRecord": "adjacent-pair-003/authorization.json",
+    "original4to6IsPMPlanningBudgetNotUserHardCount": true,
+    "illustrative20to24IsNotFrozenProductionCount": true,
+    "actualFinalImageCount": null,
+    "scopeAndClarityGatesStillRequired": true
+  },
+  "outputs": [
+    "organic-adjacent-005/revision-002/index.html",
+    "organic-adjacent-005/revision-002/RESULT.md",
+    "organic-adjacent-005/revision-002/tiled/native005.tmj",
+    "organic-adjacent-005/revision-002/actual-005-graph.json",
+    "organic-adjacent-005/revision-002/ownership.json",
+    "organic-adjacent-005/index.html",
+    "organic-adjacent-005/RESULT.md",
+    "organic-adjacent-005/tiled/native005.tmj",
+    "organic-adjacent-005/tiled/native004-partial.tmj",
+    "organic-adjacent-005/tiled/organic-pair.tmj",
+    "organic-layout-004/user-review-001.json",
+    "organic-layout-004/index.html",
+    "organic-layout-004/RESULT.md",
+    "organic-layout-004/DESIGN.md",
+    "adjacent-pair-003/index.html",
+    "adjacent-pair-003/RESULT.md",
+    "adjacent-pair-003/OCCLUSION-FIX.md",
+    "adjacent-pair-003/tiled/adjacent-pair.tmj",
+    "adjacent-pair-003/tiled/W-native.tmj",
+    "adjacent-pair-003/tiled/E-native.tmj",
+    "REPORT.md",
+    "index.html",
+    "sampling-budget.json",
+    "road-evidence-002/index.html",
+    "road-evidence-002/RESULT.md",
+    "adjacent-pair-003/INDEPENDENT-FOLLOWUP.md"
+  ],
+  "nextAction": "005 art review remains pending; do not generate another image. Preserve004 native and all evidence. Next seam work: trace complete outlines for N-1/M-1/S-1 using005, preserve004 complete canopy/east homes, resolve S-2/S-3 occlusion before any composite; keep inference forbidden and old pair diagnostic. No D, legacy queue or game tests.",
+  "productionReady": false,
+  "formalGameTestsPerformed": false,
+  "gameSourceWrites": false,
+  "originalsAndUserLayoutsWritten": false,
+  "legacyQueuesResumed": false,
+  "previousEightBlockRoadEvidence": {
+    "nativeSize": [
+      1672,
+      941
+    ],
+    "nodes": 31,
+    "edges": 38,
+    "connectedComponents": 1,
+    "completeBlocks": 8,
+    "boundaryContinuations": 16,
+    "trafficDirectionValidated": false,
+    "geometricBidirectionalAssumption": true,
+    "metreCalibration": null,
+    "mainRoutePixels": 1705.2853126757716,
+    "alternativeRoutePixels": 1714.2233100246167,
+    "ordinaryRegion": false
+  },
+  "previousEightBlockVerification": {
+    "staticChecks": 125,
+    "officialTiledCommands": 6,
+    "officialTiledExports": 5,
+    "backgroundRGBPixelExact": true,
+    "backgroundAlphaAll255": true,
+    "browserInteractionAndDisplayChecks": 7,
+    "browserSessionClosed": true,
+    "independentReview": "approved standalone evidence only; both Minor findings independently resolved",
+    "protectedFilesMatched": 91
+  },
+  "latestArtworkCandidate": {
+    "source": "organic-adjacent-005/result.json",
+    "viewer": "organic-adjacent-005/index.html",
+    "nativeSize": [
+      1671,
+      941
+    ],
+    "nativeSHA256": "e7f8394a9f9b83d907fea7587f5a725348baa2f13df6edf155ebb637ff5775cc",
+    "nativeBytes": 3986067,
+    "designGuide": "organic-adjacent-005/structure-guide.json",
+    "designOnlyBoundedFaces": 6,
+    "observedBuildingBearingEnclosures": 5,
+    "tracedBuildingBearingEnclosures": 4,
+    "channelizingIslandsExcludedFromBlocks": 1,
+    "exclusiveNewBlockOwnershipResolved": false,
+    "actualRoadTraceCompleted": false,
+    "fullStreetInventoryComplete": false,
+    "actualCompleteBlockCount": null,
+    "metreCalibration": null,
+    "userArtApproved": false,
+    "ordinaryRegionAdmitted": false,
+    "roadEvidence": "organic-adjacent-005/revision-002/actual-005-graph.json",
+    "structurallyTracedBuildingBearingEnclosures": 5,
+    "sharedEnclosureIncludesOccludedInference": true
+  },
+  "layoutCorrection": {
+    "directUserQuote": "好的，不可以太规整。我们实际的地图，包括前面生成的 25 张图，整个城市的面貌、道路都是曲折的、多变的，要更加真实。",
+    "record": "organic-layout-004/DESIGN.md",
+    "status": "004-user-art-approved-005-organic-adjacent-awaiting-art-review",
+    "previousPairGridApprovedForCityProduction": false,
+    "finalCityRoadLayoutOrImagePartitionFrozen": false,
+    "latestContinuation": "organic-adjacent-005/DESIGN.md"
+  },
+  "currentIncrementVerification": {
+    "recordedAt": "2026-11-07T08:19:34.704113+00:00",
+    "scope": "005 single-native supplement with forbidden structural inference; object-source proposals only",
+    "status": "passed-bounded-artifact-display-and-independent-delta-review",
+    "staticChecks": 1071,
+    "structuralStatistics": {
+      "nodes": 27,
+      "edges": 32,
+      "components": 1,
+      "segments": 108,
+      "segmentPairsExamined": 5778,
+      "boundedFaces": 6,
+      "unexpectedIntersections": []
+    },
+    "navigationStatistics": {
+      "nodes": 27,
+      "edges": 31,
+      "components": 1,
+      "segments": 103,
+      "segmentPairsExamined": 5253,
+      "boundedFaces": 5,
+      "unexpectedIntersections": []
+    },
+    "protectedFilesMatched": 91,
+    "priorArtifactsAudited": 343,
+    "officialTiledVersion": "1.12.2",
+    "officialTiledCommands": 4,
+    "officialTiledExports": 4,
+    "nativeBackgroundRGBPixelExact": true,
+    "nativeAlphaAll255": true,
+    "tiledRecord": "organic-adjacent-005/revision-002/verification/tiled-cli-004/result.json",
+    "browserDisplayChecksPassed": 13,
+    "browserCapturesSaved": 4,
+    "browserSessionClosed": true,
+    "browserRecord": "organic-adjacent-005/revision-002/verification/browser-checks.json",
+    "nativeArtworkModified": false,
+    "newImagesGenerated": 0,
+    "imageRequestTotal": 6,
+    "successfulImageTotal": 5,
+    "independentReview": {
+      "threadId": "thr_978x3n893w",
+      "provider": "codex",
+      "model": "ccs-sanger/gpt-6.1-sol",
+      "reasoning": "max",
+      "status": "approved-limited-display-after-occlusion-and-sidewalk-tail-corrections",
+      "report": "INDEPENDENT-FOLLOWUP.md",
+      "remainingCritical": 0,
+      "remainingImportant": 0,
+      "remainingMinorInTargetedDelta": 0,
+      "wholeSeamReady": false,
+      "completeObjectOwnershipResolved": false,
+      "fifthSharedEnclosureIncludesOccludedInference": true,
+      "userArtApproved": false,
+      "ordinaryRegionAdmitted": false,
+      "finalReviewInMemoryAssertions": 36,
+      "finalReviewSourceAndDOMStubChecks": 9,
+      "reviewerDidNotPerform": [
+        "author writing verifier",
+        "official Tiled exports",
+        "browser session",
+        "directory-external91 protected-source hashes",
+        "game tests"
+      ],
+      "previousFindingHistory": [
+        {
+          "severity": "Important",
+          "finding": "NEJ-EJ marked visible asphalt while crossing building projection",
+          "resolved": true,
+          "resolution": "OC1-EJ hidden inference, navigation disabled"
+        },
+        {
+          "severity": "Minor",
+          "finding": "M-1 004 inspection box excludes visible right facade",
+          "resolved": true,
+          "resolution": "right bound expanded18 to45"
+        },
+        {
+          "severity": "Minor",
+          "finding": "OC2 permitted tail starts on sidewalk",
+          "resolved": true,
+          "resolution": "OC2 node and permitted tail removed; inference extends to established main junctionEJ"
+        }
+      ]
+    },
+    "completeObjectOwnershipResolved": false,
+    "wholeSeamReady": false,
+    "userArtApproved": false,
+    "ordinaryRegionAdmitted": false,
+    "formalGameTestsPerformed": false,
+    "boundRuntimeArtifacts": {
+      "trace-input.json": {
+        "sha256": "8fc4557c66c269d6aa458c6689d8db891f1d5326aaaaf83eeafa627bc79a596e",
+        "bytes": 1740
+      },
+      "actual-005-graph.json": {
+        "sha256": "16b03de99b50cfbbe38492ec6e2e9ce6e5f3a22eee71c3ee2cfe17dff4582602",
+        "bytes": 39294
+      },
+      "ownership.json": {
+        "sha256": "4a1982b6a283a9f0808c447dedee4caea57c26511fdad79ce9b43f42d50afc5b",
+        "bytes": 4497
+      },
+      "tiled/native005.tmj": {
+        "sha256": "30c4c76a194bff587a1018ae4f56b5da1719be9769c4685623c122c843571637",
+        "bytes": 134989
+      },
+      "viewer-template.html": {
+        "sha256": "7ec69ee5a643481c9a1082966669bcf05bac2514a3ff7b41153eb3ea75c7fa7e",
+        "bytes": 8546
+      },
+      "index.html": {
+        "sha256": "6aa1976474291ec2d81342b1121933e15ce35cc2b3ee020b5743cd13b8b9a315",
+        "bytes": 28150
+      },
+      "verify_revision.py": {
+        "sha256": "3497f78dd0367373accb5d1823a3db3dccd05613f3a03eef8f7d90d8d3fde735",
+        "bytes": 18030
+      }
+    }
+  },
+  "previousAdjacentPairRoadEvidence": {
+    "source": "adjacent-pair-003/actual-pair-graph.json",
+    "nativeSizes": [
+      [
+        1672,
+        941
+      ],
+      [
+        1672,
+        941
+      ]
+    ],
+    "assemblySize": [
+      3248,
+      937
+    ],
+    "nodes": 24,
+    "structuralEdgesIncludingInference": 35,
+    "permittedNavigationEdges": 34,
+    "connectedComponents": 1,
+    "completeBlocks": 12,
+    "structuralBoundedFaces": 12,
+    "permittedNavigationBoundedFaces": 11,
+    "occludedInferenceEdgeIds": [
+      "W-h-0-2"
+    ],
+    "inferenceAffectedEnclosure": "B-05-04",
+    "trafficDirectionValidated": false,
+    "geometricBidirectionalAssumption": true,
+    "metreCalibration": null,
+    "mainRoutePixels": 3158.369316876853,
+    "alternativeRoutePixels": 3973.6525698173054,
+    "bothRoutesExcludeOccludedInference": true,
+    "ordinaryRegion": false,
+    "userArtApproved": false,
+    "context": "previous adjacent-pair-003 technical sample; not organic-layout-004 tracing"
+  },
+  "previousAdjacentPairVerification": {
+    "staticChecks": 566,
+    "regressionChecks": 4,
+    "pairSegmentPairsExamined": 1953,
+    "officialTiledCommands": 6,
+    "officialTiledExports": 6,
+    "officialTiledVersion": "1.12.2",
+    "backgroundRGBPixelExact": true,
+    "backgroundAlphaAll255": true,
+    "desktopBrowserChecks": 10,
+    "mobileBrowserChecks": 2,
+    "browserSessionClosed": true,
+    "independentReview": "approved standalone evidence only; original Important independently resolved; no new findings",
+    "protectedFilesMatched": 91,
+    "recordDirectory": "adjacent-pair-003/verification/",
+    "independentReviewReport": "adjacent-pair-003/INDEPENDENT-FOLLOWUP.md",
+    "context": "previous adjacent-pair-003; current increment has separate artifact/display checks"
+  },
+  "previousOrganic004Verification": {
+    "recordedAt": "2026-11-07T04:13:36.780751+00:00",
+    "status": "passed-bounded-artifact-and-display-checks",
+    "nativeSHA256Matched": true,
+    "nativeBytesCopiedExactly": true,
+    "nativeSize": [
+      1672,
+      941
+    ],
+    "inputFingerprintsMatched": 4,
+    "protectedFilesMatched": 91,
+    "priorArtifactCount": 183,
+    "priorAllowedOwnedUpdates": [
+      "REPORT.md",
+      "budget-template.html",
+      "build_sampling_budget.py",
+      "continuation-plan.md",
+      "current-map-state.json",
+      "index.html",
+      "sampling-budget.json"
+    ],
+    "allOtherPriorArtifactHashesMatched": true,
+    "designSegmentPairsExamined": 608856,
+    "designBoundedFaces": 8,
+    "actualImageRoadTracingCompleted": false,
+    "actualImageCompleteBlockCountCertified": false,
+    "browserDisplayChecksPassed": 5,
+    "browserCapturesSaved": 3,
+    "browserSessionClosed": true,
+    "userArtApproved": false,
+    "ordinaryRegionAdmitted": false,
+    "formalGameTestsPerformed": false
+  },
+  "lastUserApprovedArtwork": {
+    "source": "organic-layout-004/result.json",
+    "viewer": "organic-layout-004/index.html",
+    "nativeSize": [
+      1672,
+      941
+    ],
+    "nativeSHA256": "dd6390062ddd54d1270dc0b2c3e86b49d2ff45abd9191b93ad6e6fd791ffbc30",
+    "userArtApproved": true,
+    "userArtReview": "organic-layout-004/user-review-001.json",
+    "actualRoadTraceCompleted": false,
+    "traceScope": "main street for005 connection only",
+    "ordinaryRegionAdmitted": false,
+    "metreCalibration": null
+  },
+  "previousOrganic005InitialVerification": {
+    "recordedAt": "2026-11-07T05:24:46.067888+00:00",
+    "status": "passed-bounded-artifact-and-display-checks",
+    "nativeSize": [
+      1671,
+      941
+    ],
+    "nativeSHA256Matched": true,
+    "nativeBytesCopiedExactly": true,
+    "inputFingerprintsMatched": 3,
+    "staticChecks": 944,
+    "pairSegmentPairsExamined": 6441,
+    "priorArtifactCount": 222,
+    "priorAllowedOwnedUpdates": [
+      "REPORT.md",
+      "budget-template.html",
+      "build_sampling_budget.py",
+      "continuation-plan.md",
+      "current-map-state.json",
+      "index.html",
+      "organic-layout-004/RESULT.md",
+      "organic-layout-004/index.html",
+      "sampling-budget.json"
+    ],
+    "allOtherPriorArtifactHashesMatched": true,
+    "allowedPriorFilesArchivedWithMatchingSHA": true,
+    "protectedFilesMatched": 91,
+    "officialTiledCommands": 6,
+    "officialTiledExports": 6,
+    "officialTiledVersion": "1.12.2",
+    "backgroundRGBPixelExact": true,
+    "backgroundAlphaAll255": true,
+    "browserDisplayChecksPassed": 12,
+    "browserCapturesSaved": 4,
+    "browserSessionClosed": true,
+    "independentReview": {
+      "recordedAt": "2026-11-07T05:24:46.005554+00:00",
+      "threadId": "thr_978x3n893w",
+      "status": "approved-bounded-display-with-two-known-important-limitations",
+      "report": "INDEPENDENT-FOLLOWUP.md",
+      "criticalFindings": 0,
+      "newCodeBlockers": 0,
+      "knownImportantLimitations": 2,
+      "minorArtworkLimitationsRemain": true,
+      "userArtApproved": false,
+      "wholeSeamReady": false,
+      "ordinaryRegionAdmitted": false,
+      "formalGameTestsPerformed": false,
+      "reviewerPersonallyPerformed": [
+        "native and overlay inspection including corrected ND-MD",
+        "independent26-node30-edge geometry and6441 segment-pair checks",
+        "face and route recomputation",
+        "all three TMJ vertices names typed properties and offsets",
+        "native hashes reference crop and diagnostic pixel comparison",
+        "254 in-memory viewer probes"
+      ],
+      "reviewerInspectedExistingRecordsOnly": [
+        "944 static checks",
+        "six official Tiled v2 exports",
+        "12 browser checks and4 captures"
+      ],
+      "reviewerDidNotPerform": [
+        "writing verifier",
+        "Tiled exports",
+        "browser or GUI session",
+        "directory-external91 protected-file rehash",
+        "game tests"
+      ],
+      "boundRuntimeArtifacts": {
+        "native.png": {
+          "sha256": "e7f8394a9f9b83d907fea7587f5a725348baa2f13df6edf155ebb637ff5775cc",
+          "bytes": 3986067
+        },
+        "actual-005-graph.json": {
+          "sha256": "28192e3989e08913d3ee97dc7f94b68ce6580d927d9dfe9c94c9921332887ac9",
+          "bytes": 25647
+        },
+        "004-main-trace.json": {
+          "sha256": "9bd0353b2f5a3248821ffee04269c657fdd78d84a5d1ba63e440ce74a72fa4bb",
+          "bytes": 3573
+        },
+        "actual-pair-graph.json": {
+          "sha256": "1f2fb7a404413f044fead5c0b8506dd8b9d38b16d3fcd2751be68f79bace9666",
+          "bytes": 32980
+        },
+        "contacts.json": {
+          "sha256": "467e4254d171332546f29f837e2ddc40db87fba2d1b9d2407bd453446bb3cc84",
+          "bytes": 1705
+        },
+        "tiled/native005.tmj": {
+          "sha256": "dbd80e0d941b558da872c5d455c1114994bbde7b71070d323d63585a0db0c265",
+          "bytes": 111182
+        },
+        "tiled/native004-partial.tmj": {
+          "sha256": "92ffb24e1fa24cb64ee1c03e44c61d79ffde6a782ccc886c3f35709d60bbf254",
+          "bytes": 8888
+        },
+        "tiled/organic-pair.tmj": {
+          "sha256": "5ae63737b16134a7fce473a1dc1a8fae837c907003520201fde4dafe2e67c238",
+          "bytes": 59199
+        },
+        "viewer-template.html": {
+          "sha256": "44e78c37e6862150de578a337c3c327f6f2be2b20a9003ea117fc2832c54bf8b",
+          "bytes": 7560
+        },
+        "index.html": {
+          "sha256": "9814e1bd425876d4049f708b55e416195340290e7a798f06f6b87811a7ab1939",
+          "bytes": 39008
+        },
+        "verify_005.py": {
+          "sha256": "f4ed198f7b602521f0c361c50120c8e89fdac97d4a34b998aa56ff7caa11e5de",
+          "bytes": 16588
+        }
+      }
+    },
+    "fullStreetInventoryComplete": false,
+    "wholeSeamReady": false,
+    "completeObjectOwnershipResolved": false,
+    "userArtApproved": false,
+    "ordinaryRegionAdmitted": false,
+    "formalGameTestsPerformed": false
+  },
+  "retainedOrganic005PartialPairEvidence": {
+    "source": "organic-adjacent-005/actual-pair-graph.json",
+    "context": "005 plus004 main-street partial trace on diagnostic assembly",
+    "nativeSizes": [
+      [
+        1671,
+        941
+      ],
+      [
+        1672,
+        941
+      ]
+    ],
+    "diagnosticAssemblySize": [
+      3192,
+      941
+    ],
+    "nodes": 26,
+    "edges": 30,
+    "connectedComponents": 1,
+    "boundedFaces": 5,
+    "005TracedBuildingBearingEnclosures": 4,
+    "005ObservedBuildingBearingEnclosures": 5,
+    "channelizingIslandsExcludedFromBlockCount": 1,
+    "exclusiveNewBlockOwnershipResolved": false,
+    "fullStreetInventoryComplete": false,
+    "wholeSeamReady": false,
+    "completeObjectOwnershipResolved": false,
+    "mainRoutePixels": 3104.134459187516,
+    "alternativeRoutePixels": 3605.3342561521013,
+    "excludedEdge": "W-M1--ML",
+    "geometricBidirectionalAssumption": true,
+    "trafficDirectionValidated": false,
+    "metreCalibration": null,
+    "ordinaryRegion": false,
+    "userArtApproved": false
+  },
+  "latestRoadSupplement": "organic-adjacent-005/revision-002/index.html"
+}
