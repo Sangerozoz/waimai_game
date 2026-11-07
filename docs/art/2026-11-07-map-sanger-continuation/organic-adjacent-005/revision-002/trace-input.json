@@ -1,0 +1,28 @@
+{
+  "unit": "005 native source pixels",
+  "sourceSHA256": "e7f8394a9f9b83d907fea7587f5a725348baa2f13df6edf155ebb637ff5775cc",
+  "method": "manual sampling of visible asphalt after original-resolution inspection; approximately 2–3 pixel placement precision",
+  "newNodes": {
+    "NEJ": [1534, 213],
+    "EJ": [1603, 477],
+    "NRight": [1671, 130],
+    "MRight": [1671, 453],
+    "OC1": [1509, 313]
+  },
+  "newEdges": [
+    {"from": "NP", "to": "NEJ", "mids": []},
+    {"from": "NEJ", "to": "NRight", "mids": [[1591,172],[1634,150]]},
+    {"from": "MP", "to": "EJ", "mids": [[1558,495],[1584,486]]},
+    {"from": "EJ", "to": "MRight", "mids": [[1637,465]]},
+    {"from": "NEJ", "to": "OC1", "mids": [[1520,247],[1509,279]]},
+    {"from": "OC1", "to": "EJ", "mids": [[1516,345],[1532,379],[1555,415],[1581,450]], "navigationAllowed": false, "surfaceObservation": "roof-occluded-inference-not-navigable"}
+  ],
+  "sharedEnclosureNodeSet": ["NE", "NP", "NEJ", "OC1", "EJ", "MP", "ME"],
+  "channelizingIslandNodeSet": ["MI", "ME", "SBranch", "J"],
+  "sharedBand005": [1520, 0, 1671, 941],
+  "navigationContext": "005 single native only. Shared-band additions are not admitted to the 004/005 pair graph until source ownership and seam geometry are resolved.",
+  "occlusionCorrection": "Original NEJ--EJ sampled through the gray building projection around1532,379 to1555,415. After review, inference extends fromOC1 all the way to the establishedEJ main-road junction: formerOC2 and its sidewalk-adjacent tail are no longer permitted navigation. OC1--EJ is hidden structural inference only. Fifth enclosure is not a fully visible-asphalt closure.",
+  "fullStreetInventoryComplete": false,
+  "metreCalibration": null,
+  "userArtApproved": false
+}

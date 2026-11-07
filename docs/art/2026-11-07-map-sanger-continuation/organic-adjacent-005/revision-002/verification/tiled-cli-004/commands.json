@@ -1,0 +1,74 @@
+[
+  {
+    "case": "native",
+    "argv": [
+      "/Applications/Tiled.app/Contents/MacOS/tmxrasterizer",
+      "--scale",
+      "1",
+      "--no-smoothing",
+      "--hide-object-layers",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/tiled/native005.tmj",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/verification/tiled-cli-004/native.png"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "case": "roads",
+    "argv": [
+      "/Applications/Tiled.app/Contents/MacOS/tmxrasterizer",
+      "--scale",
+      "1",
+      "--no-smoothing",
+      "--ignore-visibility",
+      "--show-layer",
+      "005 unchanged native",
+      "--show-layer",
+      "visible-asphalt-trace",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/tiled/native005.tmj",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/verification/tiled-cli-004/roads.png"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "case": "main",
+    "argv": [
+      "/Applications/Tiled.app/Contents/MacOS/tmxrasterizer",
+      "--scale",
+      "1",
+      "--no-smoothing",
+      "--ignore-visibility",
+      "--show-layer",
+      "005 unchanged native",
+      "--show-layer",
+      "main-route",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/tiled/native005.tmj",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/verification/tiled-cli-004/main.png"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "case": "alternative",
+    "argv": [
+      "/Applications/Tiled.app/Contents/MacOS/tmxrasterizer",
+      "--scale",
+      "1",
+      "--no-smoothing",
+      "--ignore-visibility",
+      "--show-layer",
+      "005 unchanged native",
+      "--show-layer",
+      "alternative-route",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/tiled/native005.tmj",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/revision-002/verification/tiled-cli-004/alternative.png"
+    ],
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,68 @@
+{
+  "coordinateConvention": "sourceBounds are approximate native-pixel inspection rectangles, not silhouette masks; 004 maps to pair coordinates with +1520x",
+  "boundsPrecisionNote": "approximately 5–15 pixels for inspection rectangles; not sufficient for a production cut",
+  "sourceSHA256": {
+    "005": "e7f8394a9f9b83d907fea7587f5a725348baa2f13df6edf155ebb637ff5775cc",
+    "004": "dd6390062ddd54d1270dc0b2c3e86b49d2ff45abd9191b93ad6e6fd791ffbc30"
+  },
+  "translation005RelativeTo004": [-1520, 0],
+  "sharedBandIn005": [1520, 0, 1671, 941],
+  "summary": "三组楼体跨过x1520直裁线。已列出逐对象来源建议，但轮廓、前后遮挡与实际裁界未完成；矩形诊断图继续停用为正式底图。建议选择005完整可见楼体和004完整入框对象，原始004认可图保持不变。",
+  "objectOwnershipResolved": false,
+  "sourceSelectionsAreProposalsOnly": true,
+  "silhouetteMasksProduced": false,
+  "wholeSeamRegistrationComplete": false,
+  "rectangularCutReady": false,
+  "ordinaryRegionAdmitted": false,
+  "reviewSource": "INDEPENDENT-OWNERSHIP-PREFLIGHT.md",
+  "objects": [
+    {
+      "id": "N-1", "name": "北段跨界住宅组", "sourceBounds": {"005": [1450,0,1620,160], "004": [0,0,105,145]},
+      "x1520CrossingObserved": true, "proposedOwner": "005完整可见部分；外框仍有源截断",
+      "limitation": "005跨过直裁线，004对应部分从其左边缘开始。不能把两版左右半楼混为一栋；顶部本身入框截断，不能补称完整。",
+      "selectionApprovedForAssembly": false
+    },
+    {
+      "id": "N-2", "name": "北端右侧公寓", "sourceBounds": {"005": [1634,0,1671,105], "004": [114,0,243,105]},
+      "x1520CrossingObserved": false, "proposedOwner": "004可见原像素",
+      "limitation": "005只含右侧截断版本，004覆盖更多可见楼体；顶部仍触外框。须与N-1逐轮廓确定界线。",
+      "selectionApprovedForAssembly": false
+    },
+    {
+      "id": "M-1", "name": "中段灰色商住楼", "sourceBounds": {"005": [1425,330,1560,463], "004": [0,327,18,442]},
+      "x1520CrossingObserved": true, "proposedOwner": "005整栋；004边缘残片不参与合楼",
+      "limitation": "005中该栋完整可见，004为左边缘残片。须保留005外轮廓与地面接触，并避开M-2棚顶支柱；检查框不是裁图蒙版。",
+      "selectionApprovedForAssembly": false
+    },
+    {
+      "id": "M-2", "name": "灰棚、支柱与停车庭院", "sourceBounds": {"005": [1560,304,1655,383], "004": [40,300,138,386]},
+      "x1520CrossingObserved": false, "proposedOwner": "优先004完整入框棚顶与庭院",
+      "limitation": "棚顶本身不被x1520直裁切中。归属须包含支柱、车辆与庭院，且与M-1楼体同查；不能只按屋顶框裁切。",
+      "selectionApprovedForAssembly": false
+    },
+    {
+      "id": "S-0", "name": "南侧斜路东侧坡顶住宅", "sourceBounds": {"005": [1590,540,1671,648], "004": [66,535,178,649]},
+      "x1520CrossingObserved": false, "proposedOwner": "004完整入框住宅",
+      "limitation": "005右框截断本栋。004可保留更多完整可见外轮廓，须连同门前地面核定。",
+      "selectionApprovedForAssembly": false
+    },
+    {
+      "id": "S-1", "name": "南段白色公寓", "sourceBounds": {"005": [1430,714,1585,852], "004": [0,708,48,827]},
+      "x1520CrossingObserved": true, "proposedOwner": "005整栋；004边缘残片不参与合楼",
+      "limitation": "直裁会把005左部和004重绘右部拼成混合立面。需绕出005完整公寓，同时保留东邻S-2。",
+      "selectionApprovedForAssembly": false
+    },
+    {
+      "id": "S-2", "name": "南端东侧高公寓", "sourceBounds": {"005": [1590,790,1671,941], "004": [70,791,214,932]},
+      "x1520CrossingObserved": false, "proposedOwner": "004完整入框公寓",
+      "limitation": "005被右框截断；004本栋更完整。其西侧与S-1、前景S-3共同约束裁界，尚无无切楼证明。",
+      "selectionApprovedForAssembly": false
+    },
+    {
+      "id": "S-3", "name": "南端灰屋顶前景住宅", "sourceBounds": {"005": [1530,847,1639,941], "004": [0,843,120,941]},
+      "x1520CrossingObserved": false, "proposedOwner": "待逐轮廓及遮挡关系核定",
+      "limitation": "两版均触南外框，且遮挡S-2。单一竖向折线未必同时保全这两栋，不能把矩形检查框当成不可拼的精确证明。",
+      "selectionApprovedForAssembly": false
+    }
+  ]
+}
