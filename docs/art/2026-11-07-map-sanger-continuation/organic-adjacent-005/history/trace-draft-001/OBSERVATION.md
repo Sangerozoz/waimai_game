@@ -1,0 +1,1 @@
+This is a superseded unpublished trace draft. Native zoom inspection found the ND-to-MD upper turn too close to the projected tower roof. The current trace is moved to the visibly open lane centre before any navigation evidence is certified. Original artwork remains unchanged.

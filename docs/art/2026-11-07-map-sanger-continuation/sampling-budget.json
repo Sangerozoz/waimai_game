@@ -1,6 +1,6 @@
 {
   "status": "conditional-budget-not-production-release",
-  "recordedAt": "2026-11-07T04:13:37.125612+00:00",
+  "recordedAt": "2026-11-07T05:24:46.305794+00:00",
   "authorThread": "thr_fs5qphhxgc",
   "targetDesignMetres": [
     1661.74,
@@ -1578,32 +1578,27 @@
     }
   ],
   "newImageToolAttempt": {
-    "recordedAt": "2026-11-07T04:02:15.096396+00:00",
-    "status": "actual-native-organic-structure-candidate-awaiting-user-art-review",
+    "recordedAt": "2026-11-07T04:39:25.728855+00:00",
+    "status": "native-west-adjacent-candidate-returned-awaiting-art-and-seam-review",
     "tool": "image_gen.imagegen",
-    "toolDefaultOutputPath": "/Users/sanger/.codex/generated_images/01a1b1c7-6f40-7843-b5a2-73be0057536f/exec-4dadaeff-b52c-4447-ac4b-f0390b86f70f.png",
+    "mode": "built-in",
+    "toolDefaultOutputPath": "/Users/sanger/.codex/generated_images/01a1b1c7-6f40-7843-b5a2-73be0057536f/exec-630ad24f-d677-4635-9c21-67507149acb8.png",
     "workspaceNative": "native.png",
     "actualSize": [
-      1672,
+      1671,
       941
     ],
-    "mode": "RGB",
-    "bytes": 4120033,
-    "sha256": "dd6390062ddd54d1270dc0b2c3e86b49d2ff45abd9191b93ad6e6fd791ffbc30",
+    "modeRGB": "RGB",
+    "bytes": 3986067,
+    "sha256": "e7f8394a9f9b83d907fea7587f5a725348baa2f13df6edf155ebb637ff5775cc",
     "copiedBytesExact": true,
     "localResamplingOrWarping": false,
     "metreCalibration": null,
-    "guideFramePreservedExactly": false,
-    "completeBlocksObserved": null,
     "userArtApproved": false,
     "ordinaryRegionAdmitted": false,
     "formalGameTestsPerformed": false,
-    "visualPreflight": [
-      "curved primary street, staggered side streets, wedge park and river-side street organization visible",
-      "this is a local structure candidate, not a new whole-city layout or measured coverage",
-      "related modern residential facades and some warm facade/window details remain; user art review pending",
-      "guide pixels are not copied into the actual road trace"
-    ]
+    "actualCompleteBlockCount": null,
+    "actualRoadTraceCompleted": false
   },
   "imageToolAttempts": [
     {
@@ -1746,23 +1741,69 @@
         "related modern residential facades and some warm facade/window details remain; user art review pending",
         "guide pixels are not copied into the actual road trace"
       ]
+    },
+    {
+      "recordedAt": "2026-11-07T04:39:25.728855+00:00",
+      "status": "native-west-adjacent-candidate-returned-awaiting-art-and-seam-review",
+      "tool": "image_gen.imagegen",
+      "mode": "built-in",
+      "toolDefaultOutputPath": "/Users/sanger/.codex/generated_images/01a1b1c7-6f40-7843-b5a2-73be0057536f/exec-630ad24f-d677-4635-9c21-67507149acb8.png",
+      "workspaceNative": "native.png",
+      "actualSize": [
+        1671,
+        941
+      ],
+      "modeRGB": "RGB",
+      "bytes": 3986067,
+      "sha256": "e7f8394a9f9b83d907fea7587f5a725348baa2f13df6edf155ebb637ff5775cc",
+      "copiedBytesExact": true,
+      "localResamplingOrWarping": false,
+      "metreCalibration": null,
+      "userArtApproved": false,
+      "ordinaryRegionAdmitted": false,
+      "formalGameTestsPerformed": false,
+      "actualCompleteBlockCount": null,
+      "actualRoadTraceCompleted": false
     }
   ],
-  "imageRequestsSinceHandoff": 5,
-  "successfulImagesSinceHandoff": 4,
-  "latestArtworkCandidate": "organic-layout-004/index.html",
+  "imageRequestsSinceHandoff": 6,
+  "successfulImagesSinceHandoff": 5,
+  "latestArtworkCandidate": "organic-adjacent-005/index.html",
   "organicLayoutCorrection": {
     "source": "organic-layout-004/authorization.json",
     "nativeSize": [
       1672,
       941
     ],
-    "userArtApproved": false,
+    "userArtApproved": true,
     "ordinaryRegionAdmitted": false,
+    "userReview": "organic-layout-004/user-review-001.json",
     "actualRoadTraceCompleted": false,
     "metreCalibration": null,
     "roadLayoutFollowsTerrainAndUnequalBlocks": true,
     "regularRectanglePackingIsNotCityRoadLayout": true
+  },
+  "organicAdjacent005": {
+    "nativeSize": [
+      1671,
+      941
+    ],
+    "userArtApproved": false,
+    "ordinaryRegionAdmitted": false,
+    "observedBuildingBearingEnclosures": 5,
+    "tracedBuildingBearingEnclosures": 4,
+    "channelizingIslands": 1,
+    "exclusiveNewBlockOwnershipResolved": false,
+    "fullStreetInventoryComplete": false,
+    "partialPairNodes": 26,
+    "partialPairEdges": 30,
+    "diagnosticAssemblySize": [
+      3192,
+      941
+    ],
+    "wholeSeamReady": false,
+    "metreCalibration": null,
+    "finalImageCount": null
   },
   "increasedCountRouteAuthorization": {
     "recordedAt": "2026-11-07T01:20:37.904756+00:00",
@@ -1782,6 +1823,7 @@
     "priorManifestSHA256": "d706e42a4f91ce3554d1759524a31573f97618060a91a8b4c04e3ca54222c47c"
   },
   "latestIndependentRoadEvidence": "adjacent-pair-003/index.html",
+  "latestPartialOrganicRoadEvidence": "organic-adjacent-005/index.html",
   "previousEightBlockEvidence": "road-evidence-002/index.html",
   "adjacentPairEvidence": {
     "nativeSizes": [
@@ -1830,7 +1872,14 @@
     "docs/art/2026-11-07-map-sanger-continuation/organic-layout-004/authorization.json": "e92d3482e89f06f3b619bd065c9721a8aa2aa15a24b411c1fffeca7237ca4e94",
     "docs/art/2026-11-07-map-sanger-continuation/organic-layout-004/request-record.json": "ec3a7289721f5d73489c9b5b80e4a39b390a1e956a20d838010b89f13733574c",
     "docs/art/2026-11-07-map-sanger-continuation/organic-layout-004/input-fingerprints.json": "b46d8475c14b29d30b9dfcfd4be8e069ff67cb7ffc1d4b2d6b03e5c96b1639d5",
-    "docs/art/2026-11-07-map-sanger-continuation/organic-layout-004/result.json": "c5d9ff85a02714d9d6744e512b6607f1958d9a5246ec390b77829a5e4db864b3"
+    "docs/art/2026-11-07-map-sanger-continuation/organic-layout-004/result.json": "c5d9ff85a02714d9d6744e512b6607f1958d9a5246ec390b77829a5e4db864b3",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-layout-004/user-review-001.json": "7bf63259edda51e182fb7ec3c9b9025654cd551f2439dba7794d72d975de12ea",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/authorization.json": "1531a672f4e0018ce81d4df25ed453681f4d4377602243da094b9d6dec0e8ffd",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/request-record.json": "4a3e3f212a0bdda296ac97b5d9a96e24d75bf20aab851ae10befd0320ca9f990",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/input-fingerprints.json": "8940c3964d5a95736c0cae95d130702b632a88a0e03fefe21d3a8fa7991502cb",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/result.json": "a06f5c0149cac635512c9ef3742f746ba686b1e57997711493735807e65df7f3",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/actual-pair-graph.json": "1f2fb7a404413f044fead5c0b8506dd8b9d38b16d3fcd2751be68f79bace9666",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/assembly/record.json": "b9f5535699bc667296f898a5ef39c0e9c0bc9978eb24428a49631bf4be471ba3"
   },
   "protectedFilesChecked": 91,
   "protectedFilesMatched": 91,
@@ -1844,7 +1893,8 @@
     "4K is unavailable/unverified here; the first built-in request failed HTTP502, the second returned1672x941.",
     "Two additional native1672x941 images now provide a measured adjacent pair; this does not calibrate metres or freeze the illustrative20–24 count.",
     "The pair has one roof-occluded structural inference explicitly excluded from both navigation routes.",
-    "The new organic-road image is an artwork candidate only; its design geometry is not actual road tracing. W/E grid composition is not a city production template.",
+    "004 local artwork is user approved.005 is awaiting art review; its partial trace is distinct from design geometry. W/E grid composition is not a city production template.",
+    "005 shared buildings were redrawn; the rectangular assembly is diagnostic only. Three common asphalt points do not establish a completed whole seam or exclusive new-block count.",
     "Rectangular raster packing is only a capacity example; organic streets and corridor-based image partitions must be planned separately.",
     "Existing ABC pixels are not assigned arbitrary metres or a fake coverage fraction.",
     "A2 native 53/54px asphalt evidence does not establish a real-world road width or map ground scale."

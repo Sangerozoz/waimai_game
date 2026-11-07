@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>城市结构纠偏 · 曲折道路样片</title>
+<style>
+html,body{margin:0;background:transparent;color:var(--foreground,#28353c);font:14px/1.6 var(--font-sans,system-ui,sans-serif)}
+button,a{font:inherit}p{margin:8px 0}.muted{color:var(--muted-foreground,#62717a)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}button{padding:7px 12px;border:1px solid var(--border,#c7cfd0);border-radius:8px;color:inherit;background:var(--card,#eef2ef);cursor:pointer}
+button[aria-pressed=true]{border-color:var(--brand,#347c72);box-shadow:inset 0 -2px var(--brand,#347c72)}
+#viewport{max-height:720px;overflow:auto;border-radius:9px;background:var(--surface-recessed,#e5e9e6);line-height:0;overscroll-behavior:contain}
+#art{display:block;width:100%;height:auto;max-width:none}#viewport.native #art{width:var(--source-width)}
+.note{padding:12px 16px;border-left:3px solid var(--brand,#347c72);background:var(--card,#eef2ef);border-radius:8px;margin:12px 0}
+a{color:var(--brand,#347c72)}summary{cursor:pointer}li{margin:5px 0}
+</style></head><body>
+<p><b>弯曲主路、错位支路和不同形状的街坊</b> · 新局部样片，待审画</p>
+<p class="muted">以旧25图的城市组织为参考，让道路和地形决定街坊，再安排出图范围。建筑继续沿各自街道组织。</p>
+<div class="controls" aria-label="对照图片">
+<button data-view="native" aria-pressed="true">新原生图</button><button data-view="guide" aria-pressed="false">结构底稿</button><button data-view="legacy" aria-pressed="false">旧25图总览参考</button><button id="zoom" aria-pressed="false">原生大小</button>
+</div>
+<div id="viewport"><img id="art" src="native.png" alt="弯曲道路、楔形公园和沿河街坊组成的局部城市新原生候选"></div>
+<p id="caption" class="muted">原生1672×941，未作放大、变形或滤色。可切换原生大小并拖动滚动条查看。</p>
+<div class="note">本张展示结构纠偏。现代住宅立面仍有相近语言，少量窗面带暖色；画面尚待用户审阅。实际道路需要按本张重新描绘，当前底稿线没有被当作导航线。</div>
+<details><summary>来源与当前范围</summary>
+<ul><li>主路有连续弯向，支路错位接入，小楔形公园与沿河街坊形成不同的地块组织。</li><li>结构底稿有八个不等形围合；这是局部设计，不是已核实际街坊数或整城数量。</li><li>约旧25面积1/4的整体目标保持。当前无米制校准，最终图数与面积覆盖率未定。</li><li>旧W/E保留为独立拼接和导航技术证据。当前新画面未接入普通地图，未做正式游戏测试。</li></ul>
+<p><a href="RESULT.md">本张记录</a> · <a href="prompt.txt">生图提示词</a> · <a href="input-fingerprints.json">输入来源</a> · <a href="../adjacent-pair-003/index.html">前轮两区技术样片</a></p>
+</details>
+<script>
+const views={native:{file:'native.png',width:1672,alt:'弯曲道路、楔形公园和沿河街坊组成的局部城市新原生候选',caption:'原生1672×941，未作放大、变形或滤色。可切换原生大小并拖动滚动条查看。'},guide:{file:'structure-input.png',width:1672,alt:'八个不等形街坊与弯曲、错位道路的像素结构底稿',caption:'像素结构设计，用于对照路型意图；不等于实际道路描线或米制覆盖。'},legacy:{file:'references/legacy25-nominal-overview.jpg',width:1152,alt:'旧25区名义坐标总图的实际浏览器截图',caption:'旧25图名义拼图截图，只参考整体城市组织、道路走向与疏密；不作为实测配准真值。'}};
+let active='native',nativeSize=false;
+const art=document.getElementById('art'),viewport=document.getElementById('viewport');
+function render(){const v=views[active];art.src=v.file;art.alt=v.alt;art.style.setProperty('--source-width',v.width+'px');viewport.classList.toggle('native',nativeSize);document.getElementById('caption').textContent=v.caption;document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===active)));document.getElementById('zoom').setAttribute('aria-pressed',String(nativeSize));document.getElementById('zoom').textContent=nativeSize?'适应宽度':'原生大小';viewport.scrollTo(0,0);window.artViewerState={active,nativeSize,sourceWidth:v.width};}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{active=b.dataset.view;render()}));
+document.getElementById('zoom').addEventListener('click',()=>{nativeSize=!nativeSize;render()});render();
+</script></body></html>

@@ -1,0 +1,17 @@
+{
+  "firstFailure": "tiled-cli-v1/commands.json",
+  "firstExitCode": -6,
+  "firstFailureStage": "Cocoa pasteboard / keyboard / hiservices initialization",
+  "offscreenProbe": {
+    "command": "QT_QPA_PLATFORM=offscreen /Applications/Tiled.app/Contents/MacOS/tmxrasterizer --version",
+    "exitCode": 134,
+    "stderr": "Could not find Qt platform plugin offscreen; available platform plugins: cocoa"
+  },
+  "globalConfigurationChanged": false,
+  "hypothesis": "macOS Cocoa services unavailable to sandboxed rasterizer; inspect with narrowly scoped official CLI escalation",
+  "confirmedRootCause": false,
+  "successfulNarrowEscalation": "tiled-cli-v2/result.json",
+  "sameOfficialBinaryAndMapInputs": true,
+  "confirmedEnvironmentDependent": true,
+  "exactMacOSServiceRootCauseNotProven": true
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>西邻005 · 曲折街道地图审阅</title>
+<style>
+:root{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;color:var(--foreground,#263632);background:var(--background,#f7f8f5);font-size:14px}*{box-sizing:border-box}body{margin:0;padding:16px;line-height:1.6}main{max-width:1600px;margin:auto}p{margin:8px 0}.muted{color:var(--muted-foreground,#63716d)}.controls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}button,a{font:inherit}button{padding:7px 12px;border:1px solid var(--border,#c7d2cc);border-radius:8px;color:inherit;background:var(--card,#edf2ed);cursor:pointer}button[aria-pressed=true]{border-color:#26796a;box-shadow:inset 0 -2px #26796a}button:disabled{opacity:.45;cursor:default}#viewport{overflow:auto;max-height:740px;background:#e7eae5;border-radius:8px;overscroll-behavior:contain;line-height:0}#canvas{position:relative;width:100%}#art{display:block;width:100%;height:auto}#overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}#viewport.native #canvas{width:var(--source-width)}.note{padding:10px 14px;border-left:3px solid #b0833d;background:var(--card,#eef1eb);border-radius:6px}.note[hidden]{display:none}a{color:var(--brand,#247965)}summary{cursor:pointer}li{margin:5px 0}code{overflow-wrap:anywhere}
+</style></head><body><main>
+<p><b>西邻005：弯曲街道与不等形街坊</b> · 待你审画</p>
+<p class="muted">延续004认可的路型、比例和日间画风。这张有社区服务楼、商住与住宅组合；004原图保留。</p>
+<div class="controls" aria-label="图片对照"><button data-view="005" aria-pressed="true">005新原图</button><button data-view="004" aria-pressed="false">004已认可</button><button data-view="guide" aria-pressed="false">005结构底稿</button><button data-view="pair" aria-pressed="false">接续诊断</button><button id="zoom" aria-pressed="false">原生大小</button></div>
+<div class="controls" aria-label="独立描线"><button id="roads" aria-pressed="false">实际描线</button><button data-route="main" aria-pressed="false">主路径</button><button data-route="alternative" aria-pressed="false">绕行路径</button></div>
+<p id="diagnostic" class="note" hidden><b>接续诊断，尚未拼接就绪。</b>这里按矩形裁界对照道路；共享建筑被重画，完整对象归属待核。三处可见沥青出口不能证明整带已配准。</p>
+<div id="viewport"><div id="canvas"><img id="art" src="native.png" alt="西邻005原生地图，曲折道路与错位街坊"><svg id="overlay" aria-hidden="true"></svg></div></div>
+<p id="caption" class="muted"></p><p id="route-note" class="muted" hidden></p>
+<details><summary>描线范围与本张记录</summary>
+<p>原图观察到5处承载楼群的道路围合；当前部分描线证明其中4处，另有1个导流岛。右上共享围合未纳入当前图，也未核定为005独占新增。004仅描本次连接所需主路，完整路网清单尚未完成。</p>
+<p>底稿道路没有照搬为导航；变成庭院/棚顶的设计通道已排除。路线只说明当前部分图的像素几何和假设双向连通，未核交通规则或米数。</p>
+<p>005原生1671×941，004为1672×941，均保留原字节。当前无4K或米制覆盖结论，整体目标约旧25图面积1/4，最终图数未定。本张尚未入普通地图，未做正式游戏测试。</p>
+<p><a href="RESULT.md">本张记录</a> · <a href="native.png">005原生文件</a> · <a href="tiled/native005.tmj">005可编辑Tiled</a> · <a href="tiled/organic-pair.tmj">接续诊断Tiled</a> · <a href="verification/static-checks.json">文件与几何核验</a> · <a href="INDEPENDENT-PREFLIGHT.md">原图独立预检</a></p>
+</details>
+</main><script>
+const DATA=__VIEWER_DATA__;
+const views={
+ '005':{file:'native.png',size:[1671,941],caption:'005原生1671×941，未作重采样、变形或滤色。当前待审画。'},
+ '004':{file:'../organic-layout-004/native.png',size:[1672,941],caption:'004已获用户美术认可；本页只叠加本次连接所需的部分主路描线。'},
+ guide:{file:'structure-input.png',size:[1672,941],caption:'005像素结构底稿：6个设计围合，不是原图实际街坊数；实际道路存在合并与改道。'},
+ pair:{file:'assembly/pair-diagnostic.png',size:[3192,941],caption:'005＋004接续诊断：3192×941，源像素矩形裁拼；完整对象归属与整带配准未完成。'}
+};
+let active='005',nativeSize=false,roads=false,route=null;
+const art=document.getElementById('art'),viewport=document.getElementById('viewport'),overlay=document.getElementById('overlay');
+function polyline(points,color,width){const e=document.createElementNS('http://www.w3.org/2000/svg','polyline');e.setAttribute('points',points.map(p=>p.join(',')).join(' '));e.setAttribute('fill','none');e.setAttribute('stroke',color);e.setAttribute('stroke-width',width);e.setAttribute('stroke-linecap','round');e.setAttribute('stroke-linejoin','round');return e;}
+function render(){
+ const v=views[active],g=DATA.graphs[active];art.src=v.file;art.alt=active==='guide'?'005设计底稿，不作为实际道路':active==='pair'?'005和004接续诊断，完整对象归属未完成':active+'原生地图';
+ document.getElementById('canvas').style.setProperty('--source-width',v.size[0]+'px');viewport.classList.toggle('native',nativeSize);overlay.setAttribute('viewBox','0 0 '+v.size.join(' '));overlay.replaceChildren();
+ if(roads&&g)for(const e of g.edges)overlay.append(polyline(e.points,'#dc328f',2.5));
+ const r=g&&g.routes&&g.routes[route];if(r){overlay.append(polyline(r.points,'#fff',9));overlay.append(polyline(r.points,route==='main'?'#087d66':'#d77c10',5));}
+ document.getElementById('caption').textContent=v.caption;document.getElementById('diagnostic').hidden=active!=='pair';
+ const note=document.getElementById('route-note');note.hidden=!r;note.textContent=r?(route==='main'?'主路径':'绕行路径')+'：'+r.lengthPixels.toFixed(2)+'源像素；'+(r.excludedEdge?'排除 '+r.excludedEdge+'。':'')+'仅当前部分描线图，双向为几何假设，米数未标定。':'';
+ document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===active)));
+ document.getElementById('zoom').setAttribute('aria-pressed',String(nativeSize));document.getElementById('zoom').textContent=nativeSize?'适应宽度':'原生大小';
+ document.getElementById('roads').disabled=!g;document.getElementById('roads').setAttribute('aria-pressed',String(roads&&!!g));
+ document.querySelectorAll('[data-route]').forEach(b=>{b.disabled=!(g&&g.routes&&g.routes[b.dataset.route]);b.setAttribute('aria-pressed',String(!!r&&route===b.dataset.route));});
+ window.map005ViewerState={active,nativeSize,roads:roads&&!!g,route:r?route:null,sourceSize:v.size,renderedRoadEdges:roads&&g?g.edges.length:0,routeLengthPixels:r?r.lengthPixels:null,diagnostic:active==='pair',wholeSeamReady:false};
+}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{active=b.dataset.view;render();viewport.scrollTo(0,0);}));
+document.querySelectorAll('[data-route]').forEach(b=>b.addEventListener('click',()=>{route=route===b.dataset.route?null:b.dataset.route;render();}));
+document.getElementById('roads').addEventListener('click',()=>{roads=!roads;render();});document.getElementById('zoom').addEventListener('click',()=>{nativeSize=!nativeSize;render();});render();
+</script></body></html>
