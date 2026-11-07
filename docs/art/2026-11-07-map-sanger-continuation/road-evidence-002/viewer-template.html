@@ -1,0 +1,42 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>八街坊实际描路与整城规划副本</title>
+<style>
+:root{font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif);color:var(--foreground,#273e34);font-size:14px;--radius:10px}body{margin:0;line-height:1.6}*{box-sizing:border-box}p{margin:8px 0 14px}button{font:inherit;color:inherit;background:var(--card,#eef4ef);border:1px solid var(--border,#ccdbd1);border-radius:7px;padding:7px 11px;cursor:pointer}button[aria-pressed=true]{border-color:var(--brand,#20816b);background:var(--secondary,#d8eee5)}.bar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.muted{color:var(--muted-foreground,#65776b);font-size:12px}.note{border-left:3px solid var(--warning,#aa7a28);padding-left:12px}.viewport{overflow:auto;max-height:640px;border-radius:var(--radius);background:var(--card,#edf2ec)}svg{display:block;width:100%;height:auto}.viewport.full svg{width:1672px;max-width:none}#roads{fill:none;stroke:#28d2da;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.route{fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.selection{fill:none;stroke:#f5de7c;stroke-width:5;pointer-events:none}.cell{fill:transparent;cursor:pointer;stroke:transparent}.cell:hover{stroke:#fff;stroke-width:3}.info{padding:16px;margin:12px 0;background:var(--card,#f0f5f1);border-radius:var(--radius)}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;min-width:450px}td,th{text-align:left;padding:8px;border-bottom:1px solid var(--border,#d5ded8);font-variant-numeric:tabular-nums}th{font-size:12px}.hidden{display:none}a{color:var(--brand,#1c806a)}.stats{display:flex;gap:12px;flex-wrap:wrap}.stats div{padding:16px;flex:1;min-width:150px;background:var(--card,#f0f5f1);border-radius:var(--radius)}.stats b{display:block;font-size:22px}
+</style><body>
+<p><b>本轮已返回 1 张真实图：1672×941；4K 尺寸仍未过关。</b>下面是这张八街坊图的实际像素描路，以及另存的整城规划副本。A2/B1/C 保持，D 未恢复，不计整城面积完成度。</p>
+<div class="bar"><button id="tabActual" aria-pressed="true">八街坊实际描路</button><button id="tabPlan" aria-pressed="false">整城规划／净地账</button></div>
+<section id="actualPanel">
+<div class="bar"><button id="toggleRoads" aria-pressed="true">道路中心线</button><button id="mainRoute" aria-pressed="true">几何主路径</button><button id="altRoute" aria-pressed="false">单边排除后替代路径</button><button id="nativeScale" aria-pressed="false">原生 1:1 检视</button></div>
+<div class="viewport" id="nativeViewport"><svg id="actualSvg" viewBox="0 0 1672 941" role="img" aria-label="实际八街坊原生图与可切换道路中心线"><image href="../builtin-capacity-002/native.png" width="1672" height="941"/><g id="roads"></g><g id="path"></g><g id="cells"></g><g id="selected"></g></svg></div>
+<p class="muted">默认适配宽度供总览；1:1 仅是源像素/CSS 像素观察，不是设备 DPR 或游戏近景验收。文件未放大、未变形。</p>
+<div id="actualInfo" class="info"></div><p id="routeInfo" class="muted"></p>
+<p class="note">青线来自本张实际图，独立像素图为 <b>31 节点 / 38 边 / 1 连通分量 / 8 个围合街坊</b>，含 16 条边缘续接口。路径只验证几何连通，双向通行是假设；车道箭头、转向限制、米制配准与游戏业务均未绑定。</p>
+<p><a href="tiled/actual-eight.tmj">可编辑 Tiled 八街坊文件</a> · <a href="actual-graph.json">实际像素路网</a> · <a href="../builtin-capacity-002/prompt.txt">完整生图提示词</a></p>
+</section>
+<section id="planPanel" class="hidden">
+<p>原 64 街坊提案原样转为可编辑副本：81 交口、144 几何路段、18 走廊，含主干/次干/生活支路。这里是<b>设计米</b>，没有与上面的原生像素绑定；不是已经画齐或描齐的整城。</p>
+<div class="stats"><div>已分配街坊净地中的住宅占比<b id="resShare"></b><span class="muted">仅扣各临路半幅沥青</span></div><div>蓝内街坊围合之外余量<b id="unassigned"></b><span class="muted">含环路外半幅等，不能全算净地</span></div></div>
+<div class="viewport"><svg id="planSvg" viewBox="0 0 1662 1662" role="img" aria-label="既有整城规划的可编辑副本预览"><image href="tiled/plan-schematic.png" width="1662" height="1662"/><g id="planCells"></g><g id="planSelected"></g></svg></div>
+<div id="planInfo" class="info">点击街坊查看临路与条件净地面积。</div>
+<div class="scroll"><table><thead><tr><th>用途</th><th>街坊数</th><th>扣半幅沥青后净地</th></tr></thead><tbody id="landRows"></tbody></table></div>
+<p class="note">住宅占比的分母仅覆盖这 64 个已分配街坊。蓝框余量、最终人行道/水域/不可开发地尚未完整设计，不能据此宣称“蓝内净地住宅约半”已验收。另列 +2m 人行道情景，属于敏感性而非已采用规格。</p>
+<p><a href="tiled/whole-city-planning.tmj">可编辑 Tiled 整城规划</a> · <a href="planning-land-ledger.json">64 街坊面积明细</a> · <a href="planning-graph.json">完整规划路网</a></p>
+</section><p class="muted">这是独立地图证据；未接正式游戏、未动用户布局和存档，未运行正式游戏测试。原生字节、Tiled 读回和独立复核分别留档。</p>
+<script>
+const ACTUAL=__ACTUAL__,NET=__NET__,NS='http://www.w3.org/2000/svg';
+const NAMES={'residential':'住宅','commercial-office':'商办','civic':'公建','workshop-service':'工坊服务','park-community-open':'社区公园／开放'};
+function shape(tag,attributes,group){const node=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attributes))node.setAttribute(k,v);document.getElementById(group).appendChild(node);return node}
+function polyline(points,group,attrs={}){return shape('polyline',{points:points.map(p=>p.join(',')).join(' '),...attrs},group)}
+for(const e of ACTUAL.edges)polyline(e.points,'roads',{'data-edge':e.id});
+function showRoute(alternate){const selected=alternate?ACTUAL.alternativeRoute:ACTUAL.mainRoute;document.getElementById('path').replaceChildren();for(const id of selected.edgeIds){const e=ACTUAL.edges.find(e=>e.id===id);polyline(e.points,'path',{class:'route',stroke:alternate?'#f4b846':'#21e5a0'});}document.getElementById('mainRoute').setAttribute('aria-pressed',String(!alternate));document.getElementById('altRoute').setAttribute('aria-pressed',String(alternate));document.getElementById('routeInfo').textContent=`${alternate?'排除 '+ACTUAL.excludedEdgeForAlternative+' 后的替代':'主'}路径：${selected.length.toFixed(1)} 原生像素；不是米数。`;window.activeRouteIds=selected.edgeIds;}
+function selectActual(b){document.getElementById('selected').replaceChildren();shape('polygon',{points:b.pixelEnclosure.map(p=>p.join(',')).join(' '),class:'selection'},'selected');document.getElementById('actualInfo').textContent=`${b.id} · 底稿用途：${NAMES[b.programmeFromGuide]}。本张图中的完整道路围合街坊；身份对应不等于已完成米制配准。`;window.selectedActualBlock=b.id;}
+for(const b of ACTUAL.blocks){const el=shape('polygon',{points:b.pixelEnclosure.map(p=>p.join(',')).join(' '),class:'cell','data-block':b.id},'cells');el.addEventListener('click',()=>selectActual(b));}
+function selectPlan(b){const flip=p=>[p[0],1661.735-p[1]];document.getElementById('planSelected').replaceChildren();shape('polygon',{points:b.netAsphaltOnlyPolygon.map(flip).map(p=>p.join(',')).join(' '),class:'selection'},'planSelected');document.getElementById('planInfo').textContent=`${b.id} · ${NAMES[b.programme]} · 临路 ${b.boundaryRoadIds.join(' / ')}；扣半幅沥青后 ${b.netAsphaltOnlyMetres2.toFixed(1)} 设计m²；再加2m人行道假设 ${b.netWith2mSidewalkHypothesisMetres2.toFixed(1)} 设计m²。`;window.selectedPlanBlock=b.id;}
+for(const b of NET.blocks){const pts=b.centrelinePolygon.map(p=>[p[0],1661.735-p[1]]);const el=shape('polygon',{points:pts.map(p=>p.join(',')).join(' '),class:'cell','data-block':b.id},'planCells');el.addEventListener('click',()=>selectPlan(b));}
+document.getElementById('resShare').textContent=(NET.residentialShareOfAssignedBlockNetAsphaltOnly*100).toFixed(2)+'%';document.getElementById('unassigned').textContent=(NET.blueOutsideStreetBlockEnclosuresMetres2/1e4).toFixed(2)+' 万m²';
+document.getElementById('landRows').innerHTML=Object.entries(NET.programmeTotals).map(([key,v])=>`<tr><td>${NAMES[key]}</td><td>${v.blocks}</td><td>${(v.netAsphaltOnlyMetres2/1e4).toFixed(2)} 万设计m²</td></tr>`).join('');
+document.getElementById('mainRoute').onclick=()=>showRoute(false);document.getElementById('altRoute').onclick=()=>showRoute(true);
+document.getElementById('toggleRoads').onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));document.getElementById('roads').style.display=on?'':'none';};
+document.getElementById('nativeScale').onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));document.getElementById('nativeViewport').classList.toggle('full',on);};
+function tab(plan){document.getElementById('actualPanel').classList.toggle('hidden',plan);document.getElementById('planPanel').classList.toggle('hidden',!plan);document.getElementById('tabActual').setAttribute('aria-pressed',String(!plan));document.getElementById('tabPlan').setAttribute('aria-pressed',String(plan));}
+document.getElementById('tabActual').onclick=()=>tab(false);document.getElementById('tabPlan').onclick=()=>tab(true);showRoute(false);selectActual(ACTUAL.blocks[0]);selectPlan(NET.blocks[0]);
+</script></body></html>

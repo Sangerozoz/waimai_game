@@ -1,0 +1,6 @@
+**Both named Minor findings are resolved.** No remaining issue found in this targeted revision.
+
+- **Offset verification:** [verify_evidence.py:108](</Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/road-evidence-002/verify_evidence.py:108>) independently constructs shifted-line intersections. The comparison at line 201 runs inside both per-block scenarios, checking vertices and area. My in-memory rectangle and skewed-block controls passed; an extra 1 m deduction was rejected.
+- **Planning TMJ verification:** [verify_evidence.py:97](</Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/road-evidence-002/verify_evidence.py:97>) requires two vertices and matching property values. Line 190 enforces complete name coverage. Independent probes rejected a third vertex, changed `from`, changes to all seven property values, and duplicate/missing/extra objects. A valid 144-object control passed.
+
+I inspected only the three requested files and ran read-only Python checks using extracted functions and synthetic in-memory data. The fresh report contains **125 check entries**, including the three new rejection probes. The reproduction record correctly describes the old failures. I did not invoke the writing verifier or modify files.

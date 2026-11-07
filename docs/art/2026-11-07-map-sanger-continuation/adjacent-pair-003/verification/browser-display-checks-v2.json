@@ -1,0 +1,288 @@
+{
+  "recordedAt": "2026-11-07T02:27:53.938194+00:00",
+  "sessionId": "eae9f1b1-bcb2-4f7d-bac2-0ac6c3239117",
+  "hostId": "host_tr578kqahd",
+  "revision": "occlusion-fix-v2",
+  "checks": {
+    "desktop": {
+      "status": "passed",
+      "checks": [
+        {
+          "label": "two natives and native-pixel assembly actually decoded",
+          "passed": true,
+          "details": [
+            [
+              "W/native.png",
+              1672,
+              941
+            ],
+            [
+              "E/native.png",
+              1672,
+              941
+            ],
+            [
+              "assembly/pair-native-pixels.png",
+              3248,
+              937
+            ]
+          ]
+        },
+        {
+          "label": "rendered 34 permitted traces, one hidden inference, twelve blocks and three mismatch rows",
+          "passed": true,
+          "details": {
+            "roads": 34,
+            "blocks": 12,
+            "seamRows": 3,
+            "inferred": 1,
+            "inferencesHidden": true,
+            "roadIds": [
+              "W-h-0-0",
+              "W-h-0-1",
+              "W-h-1-0",
+              "W-h-1-1",
+              "W-h-1-2",
+              "W-h-2-0",
+              "W-h-2-1",
+              "W-h-2-2",
+              "W-v-0-0",
+              "W-v-0-1",
+              "W-v-0-2",
+              "W-v-1-0",
+              "W-v-1-1",
+              "W-v-1-2",
+              "E-h-0-0",
+              "E-h-0-1",
+              "E-h-0-2",
+              "E-h-1-0",
+              "E-h-1-1",
+              "E-h-1-2",
+              "E-h-2-0",
+              "E-h-2-1",
+              "E-h-2-2",
+              "E-v-0-1",
+              "E-v-0-2",
+              "E-v-0-3",
+              "E-v-1-1",
+              "E-v-1-2",
+              "E-v-1-3",
+              "seam-0",
+              "seam-1",
+              "seam-2",
+              "seam-3",
+              "seam-4"
+            ]
+          }
+        },
+        {
+          "label": "main cross-region route selected",
+          "passed": true,
+          "details": {
+            "label": "跨区主路径：3158.37 原生像素；均排除屋顶遮挡推定段。仅双向几何导航，演示速度不代表游戏时间。",
+            "ids": [
+              "W-h-1-0",
+              "W-h-1-1",
+              "W-h-1-2",
+              "seam-2",
+              "E-h-1-0",
+              "E-h-1-1",
+              "E-h-1-2"
+            ]
+          }
+        },
+        {
+          "label": "alternative route excludes requested edge",
+          "passed": true,
+          "details": {
+            "label": "排除 W-h-1-2 后绕行：3973.65 原生像素；均排除屋顶遮挡推定段。仅双向几何导航，演示速度不代表游戏时间。",
+            "ids": [
+              "W-h-1-0",
+              "W-h-1-1",
+              "W-v-1-2",
+              "W-h-2-2",
+              "seam-4",
+              "E-h-2-0",
+              "E-v-1-1",
+              "E-h-1-1",
+              "E-h-1-2"
+            ]
+          }
+        },
+        {
+          "label": "showing the roof inference never makes it a navigation edge",
+          "passed": true,
+          "details": {
+            "visible": true,
+            "ids": [
+              "W-h-1-0",
+              "W-h-1-1",
+              "W-v-1-2",
+              "W-h-2-2",
+              "seam-4",
+              "E-h-2-0",
+              "E-v-1-1",
+              "E-h-1-1",
+              "E-h-1-2"
+            ],
+            "roadIds": [
+              "W-h-0-0",
+              "W-h-0-1",
+              "W-h-1-0",
+              "W-h-1-1",
+              "W-h-1-2",
+              "W-h-2-0",
+              "W-h-2-1",
+              "W-h-2-2",
+              "W-v-0-0",
+              "W-v-0-1",
+              "W-v-0-2",
+              "W-v-1-0",
+              "W-v-1-1",
+              "W-v-1-2",
+              "E-h-0-0",
+              "E-h-0-1",
+              "E-h-0-2",
+              "E-h-1-0",
+              "E-h-1-1",
+              "E-h-1-2",
+              "E-h-2-0",
+              "E-h-2-1",
+              "E-h-2-2",
+              "E-v-0-1",
+              "E-v-0-2",
+              "E-v-0-3",
+              "E-v-1-1",
+              "E-v-1-2",
+              "E-v-1-3",
+              "seam-0",
+              "seam-1",
+              "seam-2",
+              "seam-3",
+              "seam-4"
+            ]
+          }
+        },
+        {
+          "label": "seam inspected at one source pixel per CSS pixel without page overflow",
+          "passed": true,
+          "details": {
+            "width": 3248,
+            "scrollLeft": 1124,
+            "bodyWidth": 985,
+            "viewportWidth": 1000
+          }
+        },
+        {
+          "label": "animated independent marker crossed the actual seam",
+          "passed": true,
+          "details": {
+            "before": {
+              "progress": 0.48,
+              "pixel": [
+                1581.0172721008894,
+                479
+              ],
+              "playing": false,
+              "trafficVerified": false
+            },
+            "after": {
+              "progress": 0.5191084726349047,
+              "pixel": [
+                1695.1669552240376,
+                491
+              ],
+              "playing": false,
+              "trafficVerified": false
+            }
+          }
+        },
+        {
+          "label": "navigation slider reaches exact final graph coordinate",
+          "passed": true,
+          "details": {
+            "progress": 1,
+            "pixel": [
+              3214,
+              491
+            ],
+            "playing": false,
+            "trafficVerified": false
+          }
+        },
+        {
+          "label": "park selection handler displays real block use",
+          "passed": true,
+          "details": {
+            "block": "B-05-06",
+            "text": "B-05-06 · 社区公园 · 核心密度 · E区；实际像素围合，未标米。"
+          }
+        },
+        {
+          "label": "affected block enclosure discloses its non-navigable inferred boundary",
+          "passed": true,
+          "details": {
+            "block": "B-05-04",
+            "text": "B-05-04 · 商办 · 核心密度 · W区；实际像素围合，未标米。 北侧边含屋顶遮挡推定，已禁导航。"
+          }
+        }
+      ],
+      "formalGameTestsPerformed": false,
+      "nativeOneToOneMeaning": "source pixel per CSS pixel; no DPR/game certification",
+      "inputMethods": "fresh snapshot button refs; DOM slider and polygon events"
+    },
+    "mobile": {
+      "status": "passed",
+      "checks": [
+        {
+          "label": "375 CSS viewport fit without full-page horizontal overflow",
+          "passed": true,
+          "details": {
+            "body": 360,
+            "width": 375,
+            "map": 358,
+            "images": [
+              [
+                true,
+                1672,
+                941
+              ],
+              [
+                true,
+                1672,
+                941
+              ]
+            ]
+          }
+        },
+        {
+          "label": "375 CSS native seam inspection scrolls inside image viewport",
+          "passed": true,
+          "details": {
+            "body": 360,
+            "width": 375,
+            "map": 3248,
+            "scroll": 1437
+          }
+        }
+      ],
+      "formalGameTestsPerformed": false,
+      "userDeviceOrDPRNotAssumed": true
+    }
+  },
+  "rawResults": [
+    "browser-desktop-result-v2.json",
+    "browser-mobile-result-v2.json"
+  ],
+  "manualImagesViewed": [
+    "desktop-alternative-v2.jpg",
+    "desktop-seam-after-crossing-v2.jpg",
+    "alternative-native-crop-v2.png",
+    "occlusion-roads-crop-v2.png",
+    "mobile-fit-v2.jpg",
+    "mobile-seam-native-v2.jpg"
+  ],
+  "formalGameTestsPerformed": false,
+  "sessionClosed": true,
+  "limits": "Geometry animation only; source-pixel/CSS-pixel viewing is not a measured device/DPR or game acceptance."
+}

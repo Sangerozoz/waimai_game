@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "bb",
+    "browser-automation",
+    "run",
+    "08205ff1-f734-40ab-bed4-5467aed1b022",
+    "--script-file",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-07-map-sanger-continuation/road-evidence-002/verification/browser-checks.js",
+    "--script-host",
+    "host_tr578kqahd",
+    "--json"
+  ],
+  "exitCode": 0,
+  "stderr": "",
+  "result": {
+    "text": "BROWSER_CHECKS={\"status\":\"passed\",\"checks\":[{\"label\":\"native image decoded without resizing the file\",\"passed\":true,\"details\":[1672,941]},{\"label\":\"rendered graph and block counts\",\"passed\":true,\"details\":{\"roads\":38,\"actual\":8,\"planning\":64,\"main\":\"主路径：1705.3 原生像素；不是米数。\"}},{\"label\":\"alternative route excludes h-0-1\",\"passed\":true,\"details\":{\"text\":\"排除 h-0-1 后的替代路径：1714.2 原生像素；不是米数。\",\"ids\":[\"out-s-1\",\"v-1-1\",\"h-1-1\",\"v-2-0\",\"h-0-2\",\"out-n-3\"]}},{\"label\":\"roads toggle hides overlay\",\"passed\":true,\"details\":{\"pressed\":\"false\",\"display\":\"none\"}},{\"label\":\"native view uses 1672 CSS pixels with internal scrolling\",\"passed\":true,\"details\":{\"svgWidth\":1672,\"scrollWidth\":1672,\"scrollLeft\":600,\"viewportWidth\":960,\"bodyWidth\":945}},{\"label\":\"actual block DOM click and 375px main route display\",\"passed\":true,\"details\":{\"block\":\"B-04-06\",\"label\":\"B-04-06 · 底稿用途：住宅。本张图中的完整道路围合街坊；身份对应不等于已完成米制配准。\",\"route\":\"主路径：1705.3 原生像素；不是米数。\",\"viewportWidth\":375,\"bodyWidth\":375}},{\"label\":\"planning tab selection, denominator display and contained table\",\"passed\":true,\"details\":{\"block\":\"B-05-05\",\"label\":\"B-05-05 · 商办 · 临路 h-4-4 / v-5-4 / h-5-4 / v-4-4；扣半幅沥青后 15386.8 设计m²；再加2m人行道假设 14409.2 设计m²。\",\"share\":\"50.10%\",\"rows\":5,\"actualHidden\":true,\"planHidden\":false,\"viewportWidth\":375,\"bodyWidth\":360}}],\"formalGameTestsPerformed\":false,\"blockSelectionMethod\":\"DOM MouseEvent handlers; buttons clicked through fresh snapshot refs\",\"nativeOneToOneMeaning\":\"one source pixel per CSS pixel; no DPR/game acceptance\"}\n",
+    "images": [
+      {
+        "path": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-PXEeIs/db-0o2HGt/tmp/shot-1794008018427-3.jpg",
+        "mimeType": "image/jpeg",
+        "width": 960,
+        "height": 900
+      },
+      {
+        "path": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-PXEeIs/db-0o2HGt/tmp/shot-1794008018510-4.jpg",
+        "mimeType": "image/jpeg",
+        "width": 960,
+        "height": 900
+      },
+      {
+        "path": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-PXEeIs/db-0o2HGt/tmp/shot-1794008018576-5.jpg",
+        "mimeType": "image/jpeg",
+        "width": 375,
+        "height": 900
+      },
+      {
+        "path": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-PXEeIs/db-0o2HGt/tmp/shot-1794008018620-6.jpg",
+        "mimeType": "image/jpeg",
+        "width": 375,
+        "height": 900
+      }
+    ],
+    "exitCode": 0,
+    "hostId": "host_tr578kqahd"
+  }
+}

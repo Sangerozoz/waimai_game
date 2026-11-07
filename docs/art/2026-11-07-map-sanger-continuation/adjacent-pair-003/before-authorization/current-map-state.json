@@ -1,0 +1,107 @@
+{
+  "recordedAt": "2026-11-06T23:47:52.363802+00:00",
+  "mapPrimaryThread": "thr_fs5qphhxgc",
+  "sourceThread": "thr_2qc9rtsa9r",
+  "sourceThreadReceivesNoNewWork": true,
+  "provider": "codex",
+  "model": "ccs-sanger/gpt-6.1-sol",
+  "reasoning": "max",
+  "environment": "env_e54zrbdgxt",
+  "branch": "codex/food-delivery",
+  "route": "whole-region native background + independent vector-road tracing",
+  "previousProgressReadOnly": "../2026-11-06-city-image-map/planning/progress-current.json",
+  "admittedArt": [
+    "A2",
+    "B1",
+    "C-001"
+  ],
+  "imageRequestsSinceHandoff": 2,
+  "newImagesReturnedSinceHandoff": 1,
+  "imageRequestsThisIncrement": 1,
+  "imagesReturnedThisIncrement": 1,
+  "imageAttemptRecords": [
+    "builtin-capacity-001/result.json",
+    "builtin-capacity-002/result.json"
+  ],
+  "latestImageAssessment": "builtin-capacity-002/assessment.json",
+  "newAdmittedRegions": 0,
+  "DResumed": false,
+  "targetAreaRatioToLegacy25": 0.25,
+  "currentABCMetreCalibration": null,
+  "currentTargetAreaCoverage": null,
+  "wholeCityOrHalfCoverageDemonstrated": false,
+  "highNativeReturnSizeVerified": false,
+  "latestConnectionRecoveredForOneRequest": true,
+  "status": "standalone-eight-block-evidence-verified-image-budget-decision-pending",
+  "actualRoadEvidence": {
+    "nativeSize": [
+      1672,
+      941
+    ],
+    "nodes": 31,
+    "edges": 38,
+    "connectedComponents": 1,
+    "completeBlocks": 8,
+    "boundaryContinuations": 16,
+    "trafficDirectionValidated": false,
+    "geometricBidirectionalAssumption": true,
+    "metreCalibration": null,
+    "mainRoutePixels": 1705.2853126757716,
+    "alternativeRoutePixels": 1714.2233100246167,
+    "ordinaryRegion": false
+  },
+  "separateInheritedPlanning": {
+    "blocks": 64,
+    "junctions": 81,
+    "edges": 144,
+    "corridors": 18,
+    "sourcePlanChanged": false,
+    "residentialShareOfAssignedBlockNet": 0.5010358614218446,
+    "completeBlueNetDevelopableDenominatorKnown": false,
+    "blueOutsideStreetBlockEnclosuresMetres2": 129642.59999999963,
+    "finalResidentialAboutHalfAccepted": false
+  },
+  "verification": {
+    "staticChecks": 125,
+    "officialTiledCommands": 6,
+    "officialTiledExports": 5,
+    "backgroundRGBPixelExact": true,
+    "backgroundAlphaAll255": true,
+    "browserInteractionAndDisplayChecks": 7,
+    "browserSessionClosed": true,
+    "independentReview": "approved standalone evidence only; both Minor findings independently resolved",
+    "protectedFilesMatched": 91
+  },
+  "blockingEvidence": [
+    "Current built-in request returned1672x941 for prompt-requested3840x2160; no explicit tool size control",
+    "A/B/C and this sample still have no credible metre calibration or accepted new-map near-view sampling",
+    "4-6 image budget unproven; 20-24 example placements remain conditional, not a production plan",
+    "New sample has repeated commercial combinations and warm-looking windows; no user art approval"
+  ],
+  "imageBudgetChoice": {
+    "status": "pending-user-selection",
+    "original4to6IsPMPlanningBudgetNotUserHardCount": true,
+    "illustrative20to24IsNotFrozenProductionCount": true,
+    "choices": [
+      "allow a bounded adjacent-pair proof on increased-image-count route, then freeze count from full blocks and seam evidence",
+      "retain 4-6 planning images and wait for a genuine larger-size channel"
+    ],
+    "noSelectionInferredFromDefaultOrElapsedTime": true
+  },
+  "outputs": [
+    "REPORT.md",
+    "index.html",
+    "sampling-budget.json",
+    "road-evidence-002/index.html",
+    "road-evidence-002/RESULT.md",
+    "road-evidence-002/tiled/actual-eight.tmj",
+    "road-evidence-002/tiled/whole-city-planning.tmj",
+    "road-evidence-002/independent-review.json"
+  ],
+  "nextAction": "Await the concrete image-budget choice. If increased-image-count route is accepted, first propose full-block divisions and verify one adjacent-pair art/seam proof, correcting repeated commercial combinations/daylight windows; keep target area and camera/scale requirements. Freeze counts only from native scale/detail and seam evidence. Otherwise wait for a genuine larger-size channel. No ordinary-region queue or D restart yet.",
+  "productionReady": false,
+  "formalGameTestsPerformed": false,
+  "gameSourceWrites": false,
+  "originalsAndUserLayoutsWritten": false,
+  "legacyQueuesResumed": false
+}

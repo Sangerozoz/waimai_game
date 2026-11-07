@@ -1,0 +1,88 @@
+{
+  "recordedAt": "2026-11-07T02:13:09.344471+00:00",
+  "status": "passed",
+  "sessionId": "633028ae-6cee-4fb5-81ec-25de07541dc7",
+  "hostId": "host_tr578kqahd",
+  "backend": "local-headless",
+  "formalGameTestsPerformed": false,
+  "firstDesktopInvocation": {
+    "exitCode": 1,
+    "scriptExecuted": false,
+    "error": "HTTP 400: Path must be absolute",
+    "correction": "Used the absolute path with --script-host; no script/source issue or permission rejection"
+  },
+  "desktop": {
+    "exitCode": 0,
+    "recordSource": "observed JSON console output from browser-desktop.js invocation",
+    "checksPassed": 8,
+    "checks": [
+      "two natives and native-pixel assembly decoded",
+      "rendered35roads/12blocks/3mismatchrows",
+      "cross-region main3158.37px selected",
+      "alternative3933.62px excludesW-h-1-2",
+      "source1:1width3248/internalscroll1124/no pageoverflow",
+      "animated marker crossedactualcut",
+      "sliderexactend3214,491",
+      "parkB-05-06selection"
+    ],
+    "crossingBefore": {
+      "progress": 0.48,
+      "pixel": [
+        1581.0172721008894,
+        479
+      ],
+      "playing": false
+    },
+    "crossingAfter": {
+      "progress": 0.5191024568723089,
+      "pixel": [
+        1695.1479552240376,
+        491
+      ],
+      "playing": false
+    },
+    "oneToOne": {
+      "svgWidthCSS": 3248,
+      "scrollLeftCSS": 1124,
+      "bodyWidthCSS": 985,
+      "viewportWidthCSS": 1000
+    }
+  },
+  "mobile": {
+    "rawResult": "browser-mobile-result.json",
+    "exitCode": 0,
+    "checksPassed": 2,
+    "assumedCSSViewportWidth": 375,
+    "isUserDeviceOrDPRMeasurement": false
+  },
+  "screenshots": {
+    "initial-desktop.jpg": {
+      "bytes": 176538,
+      "sha256": "5b5e4ca6d0047afc6a668a99b45a98cb061e04c7bd99bd2072ce485ff652b115",
+      "originalBrowserPath": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-FmDUhD/db-MCl5r0/tmp/shot-1794017155326-1.jpg"
+    },
+    "desktop-main.jpg": {
+      "bytes": 121306,
+      "sha256": "b93a73647960ca6735b6ae675e8da7fe24e6f038e899ba3e50a163304cb3bb9a",
+      "originalBrowserPath": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-FmDUhD/db-MCl5r0/tmp/shot-1794017423188-2.jpg"
+    },
+    "desktop-seam-after-crossing.jpg": {
+      "bytes": 126234,
+      "sha256": "1bc2fc9f48c2476e0880269ea81437eb61ee1995ae5a6daa9c1ece41633225ab",
+      "originalBrowserPath": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-FmDUhD/db-MCl5r0/tmp/shot-1794017423953-3.jpg"
+    },
+    "mobile-fit.jpg": {
+      "bytes": 58017,
+      "sha256": "1e0003db353fbdeb94e6922859417732268c7ec561542add26d9ab9b2fefe79c",
+      "originalBrowserPath": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-FmDUhD/db-MCl5r0/tmp/shot-1794017461583-4.jpg"
+    },
+    "mobile-seam-native.jpg": {
+      "bytes": 65162,
+      "sha256": "852d38c413b1945af0195b1472b1b55458e0d3bf6fe8bb8c46a62e41717f6bc5",
+      "originalBrowserPath": "/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/bb-host-browser-automation-FmDUhD/db-MCl5r0/tmp/shot-1794017461900-5.jpg"
+    }
+  },
+  "inputMethods": "button clicks via fresh DevBrowser snapshot refs; polygon and slider via DOM events",
+  "nativeMeaning": "one source pixel per CSS pixel, not DPR/game acceptance",
+  "visualInspection": "parent viewed official overlay and desktop/mobile native seam captures; no owned building chopped observed, asphalt continuous with staggered mouths/marking differences"
+}

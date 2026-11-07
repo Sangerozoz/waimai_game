@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>相邻两区原生与描路实测</title>
+<style>
+:root{font-family:var(--font-sans,system-ui);color:var(--foreground,#263630);--line:var(--border,#c6cec7);--soft:var(--surface-recessed,#eef2ee)}*{box-sizing:border-box}body{margin:0;background:transparent;line-height:1.55}button,a{font:inherit}button{padding:7px 11px;border:1px solid var(--line);border-radius:7px;background:var(--card,#fff);color:inherit;cursor:pointer}button[aria-pressed=true]{background:var(--primary,#245f4d);color:var(--primary-foreground,#fff)}.tools{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.note{padding:12px 16px;background:var(--soft);border-radius:9px;margin:10px 0}.muted{color:var(--muted-foreground,#5c6e62);font-size:13px}.viewport{width:100%;overflow:auto;max-height:650px;border:1px solid var(--line);border-radius:7px;touch-action:pan-x pan-y}.map{display:block;width:100%;height:auto}.map.native{width:3248px;max-width:none}.hidden{display:none!important}svg polyline{fill:none;stroke-linecap:round;stroke-linejoin:round}#roadLines polyline{stroke:#ff417e;stroke-width:3;vector-effect:non-scaling-stroke}#blockShapes polygon{fill:#2ccea826;stroke:#41c3aa;stroke-width:1;cursor:pointer;vector-effect:non-scaling-stroke}#routeLine{stroke:#19b87b;stroke-width:5;vector-effect:non-scaling-stroke}#seamLine{stroke:#dd7337;stroke-width:2;stroke-dasharray:8 7;vector-effect:non-scaling-stroke}.stat{display:flex;flex-wrap:wrap;gap:8px}.stat span{padding:6px 10px;background:var(--soft);border-radius:6px}.raws{display:grid;grid-template-columns:1fr 1fr;gap:10px}.raws img{display:block;width:100%}.smallView{overflow:auto;width:100%;max-height:530px;border:1px solid var(--line);border-radius:6px}.smallView img{width:1672px;max-width:none;display:block}.scrollTable{overflow:auto;max-width:100%}table{border-collapse:collapse;font-size:13px;width:100%}td,th{text-align:left;padding:6px;border-bottom:1px solid var(--line);white-space:nowrap}a{color:var(--brand,#247c66)}summary{cursor:pointer}h1{font-size:20px;margin:8px 0}h2{font-size:16px;margin:16px 0 7px}p{margin:8px 0}@media(max-width:520px){.raws{grid-template-columns:1fr}.viewport{max-height:560px}}
+</style>
+<style>#inferenceLines polyline{stroke:#9a6fe5;stroke-width:3;stroke-dasharray:8 6;vector-effect:non-scaling-stroke}</style>
+<h1>相邻两区：原生图＋独立描路</h1>
+<p>西、东各六个完整街坊。两张原生均为 <b>1672×941</b>；下图按原像素沿共享道路裁界拼接，完整母图保留。</p>
+<div class="note">当前是独立实测样片，尚未获用户美术验收。总城目标仍约旧25图面积的1/4；米制覆盖与最终图数尚未冻结。原有 A2/B1/C 保留，D 与旧队列未恢复。</div>
+<p class="muted">导航只使用34条可见路面描线。西区北侧有1条经过屋顶遮挡的推定边，仅保留为街坊围合参考；主路径与绕行均排除该段。</p>
+<div class="stat"><span>12 完整街坊</span><span id="graphCount"></span><span id="seamStat"></span></div>
+<div class="tools">
+<button id="roadsButton" aria-pressed="false">道路中心线</button><button id="blocksButton" aria-pressed="false">街坊用途</button><button id="seamButton" aria-pressed="true">接缝标记</button>
+<button id="inferenceButton" aria-pressed="false">遮挡推定（禁导航）</button>
+<button id="mainButton" aria-pressed="false">跨区主路径</button><button id="altButton" aria-pressed="false">排除一边后绕行</button><button id="playButton" aria-pressed="false">播放导航小样</button><button id="nativeButton" aria-pressed="false">原生 1:1</button><button id="focusSeam">查看接缝近景</button>
+</div>
+<div class="viewport" id="pairViewport"><svg id="pairSvg" class="map" viewBox="0 0 3248 937" xmlns="http://www.w3.org/2000/svg"><image href="assembly/pair-native-pixels.png" width="3248" height="937"/><g id="blockShapes" class="hidden"></g><g id="roadLines" class="hidden"></g><g id="inferenceLines" class="hidden"></g><polyline id="routeLine" class="hidden"/><path id="seamLine" d="M1608 0V937" fill="none"/><circle id="navMarker" class="hidden" r="9" fill="#fff" stroke="#168864" stroke-width="3"/></svg></div>
+<label class="muted" for="progressSlider">几何路径进度</label> <input id="progressSlider" type="range" min="0" max="1000" value="0" style="max-width:100%;width:260px;vertical-align:middle" aria-label="几何路径进度">
+<p id="routeInfo" class="muted">可切换路径。距离只以原生像素记录；双向通行是假设，未验证车道/交通规则。</p>
+<p id="blockInfo" class="muted">打开“街坊用途”可点选；这些是新样片的实际围合街坊，不是已完成的整城。</p>
+<details><summary>三处接口的实际差异</summary><div class="scrollTable"><table><thead><tr><th>接口</th><th>东减西偏移 px</th><th>距离 px</th></tr></thead><tbody id="seamRows"></tbody></table></div><p class="muted">六个实际街口分别保留，通过共享沥青路面的短段连接。标线和口部轻微错位仍可见，未将它们虚报成完全重合。</p></details>
+<h2>完整原生母图</h2><div class="raws"><div><p>W 西区 · 商住核心过渡</p><a href="W/native.png"><img src="W/native.png" alt="西区完整原生，六街坊"></a></div><div><p>E 东区 · 商住、社区公园与住宅</p><a href="E/native.png"><img src="E/native.png" alt="东区完整原生，六街坊"></a></div></div>
+<details id="nativeDetail"><summary>各自原生 1:1 细节（可拖动）</summary><p class="muted">1个源像素对应1个CSS像素，仅供查看原始细节；未声称DPR或游戏近景验收。</p><div class="tools"><button id="westDetail">西区核心</button><button id="eastDetail">东区核心</button></div><div class="smallView" id="detailViewport"><img id="detailImage" src="W/native.png" alt="原生局部滚动检视"></div></details>
+<p class="muted">已知限制：部分店面仍偏暖亮，住宅楼形语言仍有重复；两图未严格保留设计导向的尺度与留边。当前未建立可信米制标定，不能由这十二街坊推算整城覆盖百分比。</p>
+<p><a href="tiled/adjacent-pair.tmj">可编辑 Tiled</a> · <a href="RESULT.md">实测记录</a> · <a href="W/prompt.txt">西区提示词</a> · <a href="E/prompt.txt">东区提示词</a> · <a href="../road-evidence-002/index.html">前一轮八街坊证据</a></p>
+<script>
+const data=__PAIR_DATA__;
+window.pairData=data;window.activeRouteIds=[];window.selectedBlock=null;
+const $=id=>document.getElementById(id), ns='http://www.w3.org/2000/svg';
+const el=(tag,attrs)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e};
+const points=p=>p.map(p=>p.join(',')).join(' ');
+data.graph.edges.forEach(e=>$(e.navigationAllowed===true?'roadLines':'inferenceLines').append(el('polyline',{points:points(e.points),'data-edge':e.id,'data-navigation-allowed':String(e.navigationAllowed)})));
+const programs={'residential':'住宅','commercial-office':'商办','park-community-open':'社区公园'};
+data.blocks.forEach(b=>{const p=el('polygon',{points:points(b.polygonPixels),'data-block':b.id});p.addEventListener('click',()=>{window.selectedBlock=b.id;$('blockInfo').textContent=b.id+' · '+programs[b.programme]+' · '+(b.densityIntent==='high'?'核心密度':'过渡密度')+' · '+b.region+'区；实际像素围合，未标米。'+(b.enclosureUsesOccludedInference?' 北侧边含屋顶遮挡推定，已禁导航。':'')});$('blockShapes').append(p)});
+$('graphCount').textContent=data.graph.stats.nodes+'节点 / '+data.graph.navigationStats.edges+'条可导航描线 + '+data.graph.occludedInferenceEdgeIds.length+'条遮挡推定';
+$('seamStat').textContent='三接口最大差 '+data.assembly.maxSharedJunctionDistancePixels.toFixed(2)+' px';
+data.assembly.sharedJunctionMismatches.forEach(m=>{const r=document.createElement('tr');[m.id,m.delta.map(x=>x.toFixed(1)).join(', '),m.distancePixels.toFixed(2)].forEach(t=>{const c=document.createElement('td');c.textContent=t;r.append(c)});$('seamRows').append(r)});
+function toggle(button,target){const show=$(button).getAttribute('aria-pressed')!=='true';$(button).setAttribute('aria-pressed',String(show));$(target).classList.toggle('hidden',!show)}
+$('roadsButton').onclick=()=>toggle('roadsButton','roadLines');$('blocksButton').onclick=()=>toggle('blocksButton','blockShapes');$('seamButton').onclick=()=>toggle('seamButton','seamLine');
+$('inferenceButton').onclick=()=>toggle('inferenceButton','inferenceLines');
+let activeRoute=null,progress=0,playing=false,lastTime=null,frameId=null;
+function pointOnRoute(r,t){let remain=r.lengthPixels*Math.max(0,Math.min(1,t));for(let i=1;i<r.points.length;i++){const a=r.points[i-1],b=r.points[i],len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(remain<=len)return[a[0]+(b[0]-a[0])*remain/len,a[1]+(b[1]-a[1])*remain/len];remain-=len}return r.points.at(-1)}
+function setProgress(t){if(!activeRoute)return;progress=Math.max(0,Math.min(1,t));const p=pointOnRoute(activeRoute,progress);$('navMarker').setAttribute('cx',p[0]);$('navMarker').setAttribute('cy',p[1]);$('navMarker').classList.remove('hidden');$('progressSlider').value=String(Math.round(progress*1000));window.navSample={progress,pixel:p,playing,trafficVerified:false};}
+function stop(){playing=false;lastTime=null;if(frameId!==null)cancelAnimationFrame(frameId);frameId=null;$('playButton').setAttribute('aria-pressed','false');if(activeRoute)setProgress(progress)}
+function selectRoute(key){stop();const r=data.graph.routes[key];activeRoute=r;$('routeLine').setAttribute('points',points(r.points));$('routeLine').classList.remove('hidden');$('routeLine').style.stroke=key==='main-route'?'#19b87b':'#e6a038';$('mainButton').setAttribute('aria-pressed',String(key==='main-route'));$('altButton').setAttribute('aria-pressed',String(key==='alternative-route'));window.activeRouteIds=r.edgeIds;$('routeInfo').textContent=(key==='main-route'?'跨区主路径':'排除 W-h-1-2 后绕行')+'：'+r.lengthPixels.toFixed(2)+' 原生像素；均排除屋顶遮挡推定段。仅双向几何导航，演示速度不代表游戏时间。';setProgress(0)}
+function animate(now){frameId=null;if(!playing)return;if(lastTime!==null)setProgress(progress+(now-lastTime)*0.001*190/activeRoute.lengthPixels);lastTime=now;if(progress>=1){stop();return}frameId=requestAnimationFrame(animate)}
+$('playButton').onclick=()=>{if(playing){stop();return}if(!activeRoute)selectRoute('main-route');if(progress>=1)setProgress(0);playing=true;lastTime=null;$('playButton').setAttribute('aria-pressed','true');frameId=requestAnimationFrame(animate)};
+$('progressSlider').oninput=()=>{const value=Number($('progressSlider').value)/1000;if(!activeRoute)selectRoute('main-route');stop();setProgress(value)};
+$('mainButton').onclick=()=>selectRoute('main-route');$('altButton').onclick=()=>selectRoute('alternative-route');
+$('nativeButton').onclick=()=>{const active=$('nativeButton').getAttribute('aria-pressed')!=='true';$('nativeButton').setAttribute('aria-pressed',String(active));$('pairSvg').classList.toggle('native',active)};
+$('focusSeam').onclick=()=>{$('nativeButton').setAttribute('aria-pressed','true');$('pairSvg').classList.add('native');const v=$('pairViewport');v.scrollLeft=1608-v.clientWidth/2;v.scrollTop=230};
+function detail(k){$('nativeDetail').open=true;$('detailImage').src=k+'/native.png';$('detailImage').onload=()=>{$('detailViewport').scrollLeft=k==='W'?1040:80;$('detailViewport').scrollTop=430};}
+$('westDetail').onclick=()=>detail('W');$('eastDetail').onclick=()=>detail('E');
+</script></html>

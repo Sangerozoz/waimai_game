@@ -1,0 +1,69 @@
+{
+  "recordedAt": "2026-11-07T02:44:34.715987+00:00",
+  "authorThread": "thr_fs5qphhxgc",
+  "reviewThread": "thr_978x3n893w",
+  "scope": "targeted read-only followup for W-h-0-2 occlusion",
+  "provider": "codex",
+  "model": "ccs-sanger/gpt-6.1-sol",
+  "reasoning": "max",
+  "routeInheritedFromExistingReviewer": true,
+  "brief": "review-occlusion-fix.md",
+  "briefSHA256": "4fdd929a942633698e277615e40e798c4b82318df2554b95d8b3d4c987a19c29",
+  "originalReview": "INDEPENDENT-REVIEW.md",
+  "initialFindings": {
+    "critical": 0,
+    "important": 1,
+    "minorArtworkLimitationsRemain": true
+  },
+  "authorCorrectionComplete": true,
+  "independentCorrectionAccepted": true,
+  "status": "approved-standalone-evidence-only",
+  "providerInterruption": {
+    "reason": "Provider unavailable",
+    "automaticRetryObserved": true,
+    "manualDuplicateSent": false
+  },
+  "readOnly": true,
+  "formalGameTestsAllowed": false,
+  "fileEditsAllowed": false,
+  "sourceFilesSHA256": {
+    "build_pair_evidence.py": "2c31cc835609baddba3c720040d3d1421029537354e4a9a6503d433cdc40384f",
+    "verify_pair.py": "329d375065886e8124b7c72f7a8a43d8d606cc79d4f5fab92a47a2f0e6aa7ec4",
+    "viewer-template.html": "8d05cc8f3a286a593365dfaa5deb06bc5911f06bf2962a7eff3f474baa230ec3",
+    "actual-pair-graph.json": "588ecea6441257f821e5bcef3b18784f00fb094fa7df56b0e8c5e85373e67e16",
+    "actual-blocks.json": "cf02325a1cb1ec3d2f83158e5cbb52183312b9329c872b1b64c3e3a955436a61",
+    "tiled/adjacent-pair.tmj": "00ca11db6604e57816315ad19dc1dc8476f92f786125db75dcf66e914b493e11",
+    "tiled/W-native.tmj": "87ad60083d88a2199b3e3fbc693a4700c88f7c41a3158e3bec97c228409c6050",
+    "tiled/E-native.tmj": "9440e17a981f3fedff7051a28f04abac87b26e6ddb1f561a0978df2411bbc43f",
+    "verification/static-checks.json": "a0739b671bfa39cc63f590ad62bb89a51ed7ce5c62a94d86575ab06a2e951d13",
+    "verification/occlusion-evidence.json": "a6e95e73e367898b4250b72c69c1298e11914cb46d4b002b83b733cacf9eedc3"
+  },
+  "lastUpdatedAt": "2026-11-07T02:48:55.365212+00:00",
+  "originalImportantResolved": true,
+  "newFindings": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "followupReport": "INDEPENDENT-FOLLOWUP.md",
+  "followupReportSHA256": "d7dcf70b171b471c4bb7c000bbe325dd01648405f8720e4a9167376ce37803d2",
+  "noExhibitionBlocker": true,
+  "ordinaryProductionApproved": false,
+  "userArtApproved": false,
+  "formalGameTestsPerformed": false,
+  "independentChecksPerformed": [
+    "native/pair visual inspection",
+    "native SHA and assembly pixel comparison",
+    "1953 segment pairs",
+    "structural and navigation face counts",
+    "independent shortest paths",
+    "AST-extracted four pure regression checks",
+    "all TMJ vertices, names, typed properties",
+    "viewer source execution in memory"
+  ],
+  "recordsInspectedNotRerun": [
+    "official Tiled six exports",
+    "browser desktop10/mobile2 checks"
+  ],
+  "providerRetryCompleted": true
+}
