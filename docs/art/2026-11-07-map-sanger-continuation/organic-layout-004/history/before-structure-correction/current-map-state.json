@@ -1,0 +1,165 @@
+{
+  "recordedAt": "2026-11-07T02:48:55.365212+00:00",
+  "mapPrimaryThread": "thr_fs5qphhxgc",
+  "sourceThread": "thr_2qc9rtsa9r",
+  "sourceThreadReceivesNoNewWork": true,
+  "provider": "codex",
+  "model": "ccs-sanger/gpt-6.1-sol",
+  "reasoning": "max",
+  "environment": "env_e54zrbdgxt",
+  "branch": "codex/food-delivery",
+  "route": "whole-region native background + independent vector-road tracing",
+  "previousProgressReadOnly": "../2026-11-06-city-image-map/planning/progress-current.json",
+  "admittedArt": [
+    "A2",
+    "B1",
+    "C-001"
+  ],
+  "imageRequestsSinceHandoff": 4,
+  "newImagesReturnedSinceHandoff": 3,
+  "imageRequestsThisIncrement": 2,
+  "imagesReturnedThisIncrement": 2,
+  "imageAttemptRecords": [
+    "builtin-capacity-001/result.json",
+    "builtin-capacity-002/result.json",
+    "adjacent-pair-003/W/result.json",
+    "adjacent-pair-003/E/result.json"
+  ],
+  "latestImageAssessment": "adjacent-pair-003/RESULT.md",
+  "newAdmittedRegions": 0,
+  "DResumed": false,
+  "targetAreaRatioToLegacy25": 0.25,
+  "currentABCMetreCalibration": null,
+  "currentTargetAreaCoverage": null,
+  "wholeCityOrHalfCoverageDemonstrated": false,
+  "highNativeReturnSizeVerified": false,
+  "latestConnectionRecoveredForOneRequest": true,
+  "status": "adjacent-pair-verified-standalone-ready-for-user-art-review",
+  "actualRoadEvidence": {
+    "source": "adjacent-pair-003/actual-pair-graph.json",
+    "nativeSizes": [
+      [
+        1672,
+        941
+      ],
+      [
+        1672,
+        941
+      ]
+    ],
+    "assemblySize": [
+      3248,
+      937
+    ],
+    "nodes": 24,
+    "structuralEdgesIncludingInference": 35,
+    "permittedNavigationEdges": 34,
+    "connectedComponents": 1,
+    "completeBlocks": 12,
+    "structuralBoundedFaces": 12,
+    "permittedNavigationBoundedFaces": 11,
+    "occludedInferenceEdgeIds": [
+      "W-h-0-2"
+    ],
+    "inferenceAffectedEnclosure": "B-05-04",
+    "trafficDirectionValidated": false,
+    "geometricBidirectionalAssumption": true,
+    "metreCalibration": null,
+    "mainRoutePixels": 3158.369316876853,
+    "alternativeRoutePixels": 3973.6525698173054,
+    "bothRoutesExcludeOccludedInference": true,
+    "ordinaryRegion": false,
+    "userArtApproved": false
+  },
+  "separateInheritedPlanning": {
+    "blocks": 64,
+    "junctions": 81,
+    "edges": 144,
+    "corridors": 18,
+    "sourcePlanChanged": false,
+    "residentialShareOfAssignedBlockNet": 0.5010358614218446,
+    "completeBlueNetDevelopableDenominatorKnown": false,
+    "blueOutsideStreetBlockEnclosuresMetres2": 129642.59999999963,
+    "finalResidentialAboutHalfAccepted": false
+  },
+  "verification": {
+    "staticChecks": 566,
+    "regressionChecks": 4,
+    "pairSegmentPairsExamined": 1953,
+    "officialTiledCommands": 6,
+    "officialTiledExports": 6,
+    "officialTiledVersion": "1.12.2",
+    "backgroundRGBPixelExact": true,
+    "backgroundAlphaAll255": true,
+    "desktopBrowserChecks": 10,
+    "mobileBrowserChecks": 2,
+    "browserSessionClosed": true,
+    "independentReview": "approved standalone evidence only; original Important independently resolved; no new findings",
+    "protectedFilesMatched": 91,
+    "recordDirectory": "adjacent-pair-003/verification/",
+    "independentReviewReport": "adjacent-pair-003/INDEPENDENT-FOLLOWUP.md"
+  },
+  "blockingEvidence": [
+    "Current built-in native return remains1672x941; no verified4K or explicit tool size control.",
+    "A/B/C and the new pair still lack credible metre calibration and accepted new-map near-view sampling.",
+    "Two new images retain related residential facades and warm storefront details; no user art approval.",
+    "Increased-count route is authorized, but final count depends on accepted pair readability, complete-block packing and measured scope;20–24 remains illustrative."
+  ],
+  "imageBudgetChoice": {
+    "status": "user-approved-increased-count-route-bounded-adjacent-pair-first",
+    "directUserQuote": "允许",
+    "authorizationRecord": "adjacent-pair-003/authorization.json",
+    "original4to6IsPMPlanningBudgetNotUserHardCount": true,
+    "illustrative20to24IsNotFrozenProductionCount": true,
+    "actualFinalImageCount": null,
+    "scopeAndClarityGatesStillRequired": true
+  },
+  "outputs": [
+    "adjacent-pair-003/index.html",
+    "adjacent-pair-003/RESULT.md",
+    "adjacent-pair-003/OCCLUSION-FIX.md",
+    "adjacent-pair-003/tiled/adjacent-pair.tmj",
+    "adjacent-pair-003/tiled/W-native.tmj",
+    "adjacent-pair-003/tiled/E-native.tmj",
+    "REPORT.md",
+    "index.html",
+    "sampling-budget.json",
+    "road-evidence-002/index.html",
+    "road-evidence-002/RESULT.md",
+    "adjacent-pair-003/INDEPENDENT-FOLLOWUP.md"
+  ],
+  "nextAction": "Present the two native images and corrected cross-region navigation for user art review. After artwork/readability feedback, establish credible sampling and metre coverage before freezing total image count. Increased-count route remains authorized; no assumed20–24 batch or D queue.",
+  "productionReady": false,
+  "formalGameTestsPerformed": false,
+  "gameSourceWrites": false,
+  "originalsAndUserLayoutsWritten": false,
+  "legacyQueuesResumed": false,
+  "previousEightBlockRoadEvidence": {
+    "nativeSize": [
+      1672,
+      941
+    ],
+    "nodes": 31,
+    "edges": 38,
+    "connectedComponents": 1,
+    "completeBlocks": 8,
+    "boundaryContinuations": 16,
+    "trafficDirectionValidated": false,
+    "geometricBidirectionalAssumption": true,
+    "metreCalibration": null,
+    "mainRoutePixels": 1705.2853126757716,
+    "alternativeRoutePixels": 1714.2233100246167,
+    "ordinaryRegion": false
+  },
+  "previousEightBlockVerification": {
+    "staticChecks": 125,
+    "officialTiledCommands": 6,
+    "officialTiledExports": 5,
+    "backgroundRGBPixelExact": true,
+    "backgroundAlphaAll255": true,
+    "browserInteractionAndDisplayChecks": 7,
+    "browserSessionClosed": true,
+    "independentReview": "approved standalone evidence only; both Minor findings independently resolved",
+    "protectedFilesMatched": 91
+  }
+}

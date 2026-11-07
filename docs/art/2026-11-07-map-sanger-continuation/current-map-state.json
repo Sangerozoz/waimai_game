@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-11-07T02:48:55.365212+00:00",
+  "recordedAt": "2026-11-07T04:13:36.780751+00:00",
   "mapPrimaryThread": "thr_fs5qphhxgc",
   "sourceThread": "thr_2qc9rtsa9r",
   "sourceThreadReceivesNoNewWork": true,
@@ -15,17 +15,18 @@
     "B1",
     "C-001"
   ],
-  "imageRequestsSinceHandoff": 4,
-  "newImagesReturnedSinceHandoff": 3,
-  "imageRequestsThisIncrement": 2,
-  "imagesReturnedThisIncrement": 2,
+  "imageRequestsSinceHandoff": 5,
+  "newImagesReturnedSinceHandoff": 4,
+  "imageRequestsThisIncrement": 1,
+  "imagesReturnedThisIncrement": 1,
   "imageAttemptRecords": [
     "builtin-capacity-001/result.json",
     "builtin-capacity-002/result.json",
     "adjacent-pair-003/W/result.json",
-    "adjacent-pair-003/E/result.json"
+    "adjacent-pair-003/E/result.json",
+    "organic-layout-004/result.json"
   ],
-  "latestImageAssessment": "adjacent-pair-003/RESULT.md",
+  "latestImageAssessment": "organic-layout-004/RESULT.md",
   "newAdmittedRegions": 0,
   "DResumed": false,
   "targetAreaRatioToLegacy25": 0.25,
@@ -34,7 +35,7 @@
   "wholeCityOrHalfCoverageDemonstrated": false,
   "highNativeReturnSizeVerified": false,
   "latestConnectionRecoveredForOneRequest": true,
-  "status": "adjacent-pair-verified-standalone-ready-for-user-art-review",
+  "status": "organic-structure-native-returned-awaiting-user-art-review",
   "actualRoadEvidence": {
     "source": "adjacent-pair-003/actual-pair-graph.json",
     "nativeSizes": [
@@ -69,7 +70,8 @@
     "alternativeRoutePixels": 3973.6525698173054,
     "bothRoutesExcludeOccludedInference": true,
     "ordinaryRegion": false,
-    "userArtApproved": false
+    "userArtApproved": false,
+    "context": "previous adjacent-pair-003 technical sample; not organic-layout-004 tracing"
   },
   "separateInheritedPlanning": {
     "blocks": 64,
@@ -80,7 +82,8 @@
     "residentialShareOfAssignedBlockNet": 0.5010358614218446,
     "completeBlueNetDevelopableDenominatorKnown": false,
     "blueOutsideStreetBlockEnclosuresMetres2": 129642.59999999963,
-    "finalResidentialAboutHalfAccepted": false
+    "finalResidentialAboutHalfAccepted": false,
+    "roadLayoutStatus": "quantity/loop organization baseline, not a final grid or user-approved road shape"
   },
   "verification": {
     "staticChecks": 566,
@@ -97,13 +100,14 @@
     "independentReview": "approved standalone evidence only; original Important independently resolved; no new findings",
     "protectedFilesMatched": 91,
     "recordDirectory": "adjacent-pair-003/verification/",
-    "independentReviewReport": "adjacent-pair-003/INDEPENDENT-FOLLOWUP.md"
+    "independentReviewReport": "adjacent-pair-003/INDEPENDENT-FOLLOWUP.md",
+    "context": "previous adjacent-pair-003; current increment has separate artifact/display checks"
   },
   "blockingEvidence": [
-    "Current built-in native return remains1672x941; no verified4K or explicit tool size control.",
-    "A/B/C and the new pair still lack credible metre calibration and accepted new-map near-view sampling.",
-    "Two new images retain related residential facades and warm storefront details; no user art approval.",
-    "Increased-count route is authorized, but final count depends on accepted pair readability, complete-block packing and measured scope;20–24 remains illustrative."
+    "Native return remains1672x941; no verified4K or accepted near-view sampling/metre coverage.",
+    "New organic layout is an artwork candidate; actual tracing, adjacent organic samples and user art review remain pending.",
+    "Related residential facade vocabulary and some warm window details remain in004.",
+    "Increased-count route is authorized; final count is unknown, and20–24 remains conditional capacity arithmetic."
   ],
   "imageBudgetChoice": {
     "status": "user-approved-increased-count-route-bounded-adjacent-pair-first",
@@ -115,6 +119,9 @@
     "scopeAndClarityGatesStillRequired": true
   },
   "outputs": [
+    "organic-layout-004/index.html",
+    "organic-layout-004/RESULT.md",
+    "organic-layout-004/DESIGN.md",
     "adjacent-pair-003/index.html",
     "adjacent-pair-003/RESULT.md",
     "adjacent-pair-003/OCCLUSION-FIX.md",
@@ -128,7 +135,7 @@
     "road-evidence-002/RESULT.md",
     "adjacent-pair-003/INDEPENDENT-FOLLOWUP.md"
   ],
-  "nextAction": "Present the two native images and corrected cross-region navigation for user art review. After artwork/readability feedback, establish credible sampling and metre coverage before freezing total image count. Increased-count route remains authorized; no assumed20–24 batch or D queue.",
+  "nextAction": "Present004 organic-road candidate and native detail for art/structure review. Then refine terrain-led whole-city skeleton and complete-block image partitions, trace the actual visible asphalt with occlusion exclusions, and verify new Tiled/navigation separately. Do not extend the W/E grid or restart D/legacy queues.",
   "productionReady": false,
   "formalGameTestsPerformed": false,
   "gameSourceWrites": false,
@@ -161,5 +168,63 @@
     "browserSessionClosed": true,
     "independentReview": "approved standalone evidence only; both Minor findings independently resolved",
     "protectedFilesMatched": 91
+  },
+  "latestArtworkCandidate": {
+    "source": "organic-layout-004/result.json",
+    "viewer": "organic-layout-004/index.html",
+    "nativeSize": [
+      1672,
+      941
+    ],
+    "nativeSHA256": "dd6390062ddd54d1270dc0b2c3e86b49d2ff45abd9191b93ad6e6fd791ffbc30",
+    "nativeBytes": 4120033,
+    "designGuide": "organic-layout-004/structure-guide.json",
+    "designCheck": "organic-layout-004/structure-check.json",
+    "designOnlyBoundedFaces": 8,
+    "actualRoadTraceCompleted": false,
+    "actualCompleteBlockCount": null,
+    "metreCalibration": null,
+    "userArtApproved": false,
+    "ordinaryRegionAdmitted": false
+  },
+  "layoutCorrection": {
+    "directUserQuote": "好的，不可以太规整。我们实际的地图，包括前面生成的 25 张图，整个城市的面貌、道路都是曲折的、多变的，要更加真实。",
+    "record": "organic-layout-004/DESIGN.md",
+    "status": "applied-to-new-local-artwork-candidate",
+    "previousPairGridApprovedForCityProduction": false,
+    "finalCityRoadLayoutOrImagePartitionFrozen": false
+  },
+  "currentIncrementVerification": {
+    "recordedAt": "2026-11-07T04:13:36.780751+00:00",
+    "status": "passed-bounded-artifact-and-display-checks",
+    "nativeSHA256Matched": true,
+    "nativeBytesCopiedExactly": true,
+    "nativeSize": [
+      1672,
+      941
+    ],
+    "inputFingerprintsMatched": 4,
+    "protectedFilesMatched": 91,
+    "priorArtifactCount": 183,
+    "priorAllowedOwnedUpdates": [
+      "REPORT.md",
+      "budget-template.html",
+      "build_sampling_budget.py",
+      "continuation-plan.md",
+      "current-map-state.json",
+      "index.html",
+      "sampling-budget.json"
+    ],
+    "allOtherPriorArtifactHashesMatched": true,
+    "designSegmentPairsExamined": 608856,
+    "designBoundedFaces": 8,
+    "actualImageRoadTracingCompleted": false,
+    "actualImageCompleteBlockCountCertified": false,
+    "browserDisplayChecksPassed": 5,
+    "browserCapturesSaved": 3,
+    "browserSessionClosed": true,
+    "userArtApproved": false,
+    "ordinaryRegionAdmitted": false,
+    "formalGameTestsPerformed": false
   }
 }
