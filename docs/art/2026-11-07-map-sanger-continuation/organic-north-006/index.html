@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>006北邻 · 学校与社区服务</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f4f1;color:#233b30;font:16px/1.6 system-ui,sans-serif}main{max-width:1740px;margin:auto;padding:18px}h1{font-size:26px;line-height:1.35;margin:0 0 10px}h2{font-size:21px}p{margin:8px 0}a{color:#16624f}nav,.controls{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}button{font:inherit;padding:6px 12px;border:1px solid #8eaa99;border-radius:5px;background:#fff;color:#24503d;cursor:pointer}button[aria-pressed=true]{background:#20543e;color:white}.notice{padding:12px;background:#fff0c9;border-left:4px solid #b78324}.viewport{overflow:auto;border:1px solid #bac9be;background:#c7d0c8}#art{display:block;width:100%;height:auto}#art.native{width:1672px;max-width:none}.band{margin:14px 0;background:#fff;padding:9px}.band img{display:block;width:100%;height:auto}.muted{color:#536f5e}figcaption{margin-bottom:6px}figure{margin:0}code{overflow-wrap:anywhere}@media(max-width:650px){main{padding:10px}h1{font-size:23px}}
+</style>
+<main>
+<h1>006北邻：学校、诊所与社区市场</h1>
+<p>延续已认可的004＋005城市，向北展开。006为一张新的原生候选，仍待审画；前一幅拼接画面已获认可。</p>
+<nav><a href="native.png">原生文件</a><a href="RESULT.md">本张记录</a><a href="tiled/native006.tmj" download>可编辑Tiled底图</a><a href="../organic-adjacent-005/seam-003/assembly/pair-native.png">已认可004＋005原件</a></nav>
+<div class="notice">006尚未拼接就绪。共享楼体与路面被重新生成，不能直接沿y701整带裁拼；五个设计围合不是实际完整街坊数。实际路网尚未描线，本页和Tiled不提供006导航通过声明。</div>
+<div class="controls"><button id="native" aria-pressed="true">006原图</button><button id="guide" aria-pressed="false">设计底稿（非导航）</button><button id="size" aria-pressed="false">原生大小</button></div>
+<div class="viewport"><img id="art" src="native.png" width="1672" height="941" alt="006北邻原生候选，学校诊所市场与曲折街道"></div>
+<p id="caption">006原图 · RGB1672×941 · 3,934,287字节。未缩放或滤色，当前适应页面显示。</p>
+<h2>共同带原像素对照</h2>
+<p>以下两条为同一拟定位置的原像素裁区，分别独立显示，没有拼成一幅通过图。006拟相对已认可拼图放置(1520,-701)，此平移是接续设计，尚未验证为整带配准。</p>
+<figure class="band"><figcaption>006返回图下沿：x0–1672，y701–941</figcaption><img src="inspection/006-shared-band.png" width="1672" height="240" alt="006实际返回的共同带"></figure>
+<figure class="band"><figcaption>认可拼图北沿参考：x1520–3192，y0–240</figcaption><img src="inspection/approved-shared-band.png" width="1672" height="240" alt="已认可拼图原像素参考带"></figure>
+<p id="comparison"></p>
+<p>学校翼楼与球场、社区诊所、市场棚顶在新画面中可辨。局部住宅组合仍相似，原生细节和少量暖色窗面留待审画；设计J3—L3短支路实际被楼体、棚顶和步行前场占用，未形成连续车行沥青，不能按底稿补导航。</p>
+<p class="muted">本轮只请求一张006，接续累计7次图像请求／6张成功。实际尺寸与文件SHA见本张记录。约旧25图面积1/4目标保持，未报面积完成率、最终图数、全城或正式游戏验收。原图、旧路与用户手调保留。</p>
+</main>
+<script>
+const DATA={"native": {"recordedAt": "2026-11-07T12:51:47.167056+00:00", "status": "native-north-adjacent-candidate-returned-awaiting-art-and-seam-review", "tool": "image_gen.imagegen", "mode": "built-in", "toolDefaultOutputPath": "/Users/sanger/.codex/generated_images/01a1b1c7-6f40-7843-b5a2-73be0057536f/exec-918e9ba2-9648-4ac7-86ae-2a58e5255bd3.png", "workspaceNative": "native.png", "actualSize": [1672, 941], "modeRGB": "RGB", "bytes": 3934287, "sha256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3", "copiedBytesExact": true, "localResamplingOrWarping": false, "userArtApproved": false, "ordinaryRegionAdmitted": false, "formalGameTestsPerformed": false, "metreCalibration": null, "actualRoadTraceCompleted": false, "actualCompleteBlockCount": null}, "sharedComparison": {"translation006RelativeToApprovedPairDesign": [1520, -701], "comparisonNewCrop": [0, 701, 1672, 941], "comparisonParentCrop": [1520, 0, 3192, 240], "comparisonPixels": 401280, "pixelsExactlyEqual": 25, "meanAbsoluteRGBError": 56.859909124136095, "matchingOnlyChecksPixelsNotRegistration": true, "wholeSeamReady": false, "actualRoadHandoffsVerified": false, "sourceReferenceSHA256": "9161f3d2f5545173e3eadf6a957fa01b32fcbda0422067998db51fda0a92f615"}};
+let active='native';
+const image=document.getElementById('art'),nativeButton=document.getElementById('native'),guideButton=document.getElementById('guide'),sizeButton=document.getElementById('size');
+function show(which){active=which;image.src=which==='native'?'native.png':'structure-input.png';image.alt=which==='native'?'006北邻原生候选，学校诊所市场与曲折街道':'006像素设计底稿，仅布局意图，非实际道路或导航';nativeButton.setAttribute('aria-pressed',String(which==='native'));guideButton.setAttribute('aria-pressed',String(which==='guide'));document.getElementById('caption').textContent=which==='native'?'006原图 · RGB1672×941 · 3,934,287字节。原文件未缩放或滤色。':'像素设计底稿 · 21节点／25边／5个设计围合，仅为布局意图；不是返回图实际街坊数或可导航道路。'}
+nativeButton.addEventListener('click',()=>show('native'));guideButton.addEventListener('click',()=>show('guide'));
+sizeButton.addEventListener('click',()=>{const on=!image.classList.contains('native');image.classList.toggle('native',on);sizeButton.setAttribute('aria-pressed',String(on))});
+const c=DATA.sharedComparison;document.getElementById('comparison').textContent=`共同带${c.comparisonPixels.toLocaleString('en-US')}像素中${c.pixelsExactlyEqual}像素完全相同，RGB平均绝对差${c.meanAbsoluteRGBError.toFixed(3)}。这说明原像素未保留；低相同比本身不证明全部无法拼接。完整对象归属、实际道路接头和裁界须另做。`;
+</script>
+</html>

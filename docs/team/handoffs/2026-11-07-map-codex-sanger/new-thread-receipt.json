@@ -476,6 +476,98 @@
           "bytes": 12198
         }
       }
+    },
+    "organicNorth006": {
+      "recordedAt": "2026-11-07T13:30:44.006669+00:00",
+      "status": "passed-single-native-artifact-and-display-audit",
+      "nativeSize": [
+        1672,
+        941
+      ],
+      "nativeSHA256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+      "nativeBytesCopiedExactly": true,
+      "inputFingerprintsMatched": 3,
+      "priorArtifactCount": 526,
+      "protectedFilesMatched": 91,
+      "hiddenNonNavigableDesignObjectsVerified": 25,
+      "actualRoadGraphCreated": false,
+      "officialTiledVersion": "1.12.2",
+      "officialTiledCommands": 1,
+      "officialTiledExports": 1,
+      "backgroundRGBPixelExact": true,
+      "backgroundAlphaAll255": true,
+      "browserDisplayChecksPassed": 7,
+      "browserCapturesSaved": 3,
+      "browserSessionClosed": true,
+      "integrityReport": "organic-north-006/verification/integrity-check.json",
+      "independentReview": {
+        "threadId": "thr_978x3n893w",
+        "provider": "codex",
+        "model": "ccs-sanger/gpt-6.1-sol",
+        "reasoning": "max",
+        "status": "approved-single-native-and-design-difference-display-with-two-important-followup-limits",
+        "report": "INDEPENDENT-PREFLIGHT.md",
+        "criticalFindings": 0,
+        "importantFollowupLimitations": 2,
+        "remainingLimitations": [
+          "designJ3-L3 vehicle connection not realized",
+          "shared objects redrawn; y701 rectangular cut not seam-ready"
+        ],
+        "minorArtReviewOpinionsRemain": true,
+        "reviewerVerifiedOriginalResolutionArtwork": true,
+        "reviewerVerifiedNativeSHA256": true,
+        "reviewerVerifiedReferenceCrop": true,
+        "reviewerVerifiedSharedBandStatistics": true,
+        "followupReport": "INDEPENDENT-FOLLOWUP.md",
+        "followupCriticalFindings": 0,
+        "followupNewImportantFindings": 0,
+        "followupNewMinorFindings": 0,
+        "followupTiledObjectsVerified": 25,
+        "followupTiledVerticesVerified": 98,
+        "followupDOMStubVerified": true,
+        "reviewerDidNotPerform": [
+          "writing builder/verifier",
+          "Tiled exports",
+          "browser session",
+          "directory-external91-source audit",
+          "game tests"
+        ],
+        "userArtApproved": false,
+        "wholeSeamReady": false,
+        "actualNavigationReady": false,
+        "ordinaryRegionAdmitted": false,
+        "formalGameTestsPerformed": false
+      },
+      "userArtApproved": false,
+      "wholeSeamReady": false,
+      "ordinaryRegionAdmitted": false,
+      "formalGameTestsPerformed": false,
+      "boundRuntimeArtifacts": {
+        "native.png": {
+          "sha256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+          "bytes": 3934287
+        },
+        "observations.json": {
+          "sha256": "db630309aa2fb12d3ffc85b269002609969dcb42a4d582fe24e1599eb1a5bc8f",
+          "bytes": 1859
+        },
+        "inspection/shared-band-comparison.json": {
+          "sha256": "3f662cbc77cc467a0163b432421fb53f8206183c3ffb68aff78417b0acfd29f6",
+          "bytes": 525
+        },
+        "tiled/native006.tmj": {
+          "sha256": "910053789713485624fe81f6d680186b58a875fef334018fc3e93dd58b2eae60",
+          "bytes": 26673
+        },
+        "index.html": {
+          "sha256": "823dde4952e9f50cfff240269c8aa3b084ea7ffb742ab8018f5237286d5ea289",
+          "bytes": 6433
+        },
+        "verify_006.py": {
+          "sha256": "6794b98f824d7ae777b6745dc179d6e073ebd65b1d4dbc5875b186362315a532",
+          "bytes": 9001
+        }
+      }
     }
   },
   "readEntrances": [
@@ -511,7 +603,13 @@
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/RESULT.md",
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/ownership.json",
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/INDEPENDENT-PREFLIGHT.md",
-    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/INDEPENDENT-FOLLOWUP.md"
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/INDEPENDENT-FOLLOWUP.md",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/PLAN.md",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/DESIGN.md",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/RESULT.md",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/observations.json",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/INDEPENDENT-PREFLIGHT.md",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/INDEPENDENT-FOLLOWUP.md"
   ],
   "currentStage": {
     "route": "whole-region native background plus independent vector road tracing",
@@ -525,13 +623,13 @@
     "wholeCityOrHalfCoverageDemonstrated": false,
     "highNativeReturnSizeVerified": false,
     "productionReady": false,
-    "stage": "004-005-art-approved-object-cut-pair-candidate-ready-for-review",
-    "newImageToolRequests": 6,
-    "newImagesReturned": 5,
+    "stage": "006-north-native-ready-for-art-review-design-road-and-shared-band-limits",
+    "newImageToolRequests": 7,
+    "newImagesReturned": 6,
     "newAdmittedRegions": 0,
     "DResumed": false,
     "latestNativeSize": [
-      1671,
+      1672,
       941
     ],
     "actualStandaloneTraceNodes": 26,
@@ -540,6 +638,10 @@
     "permittedNavigationEdges": 30,
     "occludedInferenceEdges": 1,
     "latestNativeSizes": [
+      [
+        1672,
+        941
+      ],
       [
         1671,
         941
@@ -553,18 +655,24 @@
       3192,
       941
     ],
-    "actualStandaloneTraceContext": "new object-cut pair, partial005 core plus004 main street; not complete inventory",
+    "actualStandaloneTraceContext": "retained004+005 seam003 partial graph only; not new006 navigation",
     "assemblyIsDiagnosticOnly": true,
     "wholeSeamReady": false,
-    "newImagesThisIncrement": 0,
+    "newImagesThisIncrement": 1,
     "completeObjectOwnershipResolved": false,
     "assemblyIsObjectCutCandidate": true,
     "assemblyIsRectangularHardCut": false,
     "forbiddenInferenceIncludedInNavigation": false,
-    "userCompositeApproved": false,
-    "identifiedSeamObjectSourcesRecorded": true
+    "userCompositeApproved": true,
+    "identifiedSeamObjectSourcesRecorded": true,
+    "latest006ActualRoadTraceCompleted": false,
+    "latest006ActualTraceNodes": null,
+    "latest006ActualTraceEdges": null,
+    "userCompositeApprovalScope": "previous004+005 visible object-cut pair",
+    "current006WholeSeamReady": false,
+    "current006DesignConnectionJ3L3Realized": false
   },
-  "nextConcreteAction": "Present the3192x941 object-cut pair for visual checking. Preserve both approved natives, all old evidence and forbidden roof inference. Continue bounded organic adjacency from complete objects/corridors after addressing any pair feedback; do not revive grids/old queues, assume metres or final image count, or start formal game tests.",
+  "nextConcreteAction": "Present006 native for user art review; do not generate007 or revise006 automatically. If006 art is accepted, trace actual visible roads excluding unrealizedJ3-L3, choose whole shared objects and inspect north/south road handoffs without overwriting the approved004/005 pair. Keep metre coverage/final image count unknown and no formal game tests.",
   "authorization": {
     "latestDirectUserAllowsContinuedImageWork": true,
     "doesNotPassTechnicalGates": true,
@@ -586,7 +694,7 @@
     "legacy Hermes queue recovery",
     "formal game tests"
   ],
-  "lastUpdatedAt": "2026-11-07T10:03:50.502536+00:00",
+  "lastUpdatedAt": "2026-11-07T13:30:44.006669+00:00",
   "newCurrentEntrances": [
     "docs/art/2026-11-07-map-sanger-continuation/current-map-state.json",
     "docs/art/2026-11-07-map-sanger-continuation/REPORT.md",
@@ -618,29 +726,36 @@
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/tiled/organic-pair.tmj",
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/editable-cut.svg",
     "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/ownership.json",
-    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/user-review-001.json"
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/user-review-001.json",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/index.html",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/RESULT.md",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/native.png",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/tiled/native006.tmj",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/observations.json",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/user-review-001.json"
   ],
   "protectionCheck": {
     "filesChecked": 91,
     "matchedAtStart": 91,
     "report": "docs/art/2026-11-07-map-sanger-continuation/protected-check-before.json",
     "matchedAfterWork": 91,
-    "afterReport": "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/verification/static-checks.json"
+    "afterReport": "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/verification/integrity-check.json"
   },
   "workPerformed": {
     "currentBuiltInImageCapabilityProof": {
-      "attemptsSinceHandoff": 6,
+      "attemptsSinceHandoff": 7,
       "attemptResults": [
         "HTTP502 no image",
         "one eight-block image returned1672x941RGB",
         "W six-block image returned1672x941RGB",
         "E six-block image returned1672x941RGB",
         "organic004 image returned1672x941RGB",
-        "organic005 image returned1671x941RGB"
+        "organic005 image returned1671x941RGB",
+        "organic006 image returned1672x941RGB"
       ],
-      "successfulImages": 5,
-      "latestNativeSHA256": "e7f8394a9f9b83d907fea7587f5a725348baa2f13df6edf155ebb637ff5775cc",
-      "latestNativeBytes": 3986067,
+      "successfulImages": 6,
+      "latestNativeSHA256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+      "latestNativeBytes": 3934287,
       "largeSizeGatePassed": false,
       "connectionRecoveredForLatestRequest": true,
       "noNewBackendOrCredentialChanges": true
@@ -1226,6 +1341,141 @@
       "metreCoverageAccepted": false,
       "wholeCityAccepted": false,
       "formalGameTestsAuthorized": false
+    },
+    "organicNorth006": {
+      "artwork": {
+        "source": "organic-north-006/result.json",
+        "viewer": "organic-north-006/index.html",
+        "nativeSize": [
+          1672,
+          941
+        ],
+        "nativeSHA256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+        "nativeBytes": 3934287,
+        "designGuide": "organic-north-006/structure-guide.json",
+        "designOnlyBoundedFaces": 5,
+        "actualCompleteBlockCount": null,
+        "actualRoadTraceCompleted": false,
+        "fullStreetInventoryComplete": false,
+        "designConnectionJ3L3Realized": false,
+        "designObjectsHiddenAndNonNavigable": 25,
+        "userArtApproved": false,
+        "ordinaryRegionAdmitted": false,
+        "metreCalibration": null,
+        "wholeSeamReady": false,
+        "sharedObjectSourcesAssigned": false
+      },
+      "verification": {
+        "recordedAt": "2026-11-07T13:30:44.006669+00:00",
+        "status": "passed-single-native-artifact-and-display-audit",
+        "nativeSize": [
+          1672,
+          941
+        ],
+        "nativeSHA256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+        "nativeBytesCopiedExactly": true,
+        "inputFingerprintsMatched": 3,
+        "priorArtifactCount": 526,
+        "protectedFilesMatched": 91,
+        "hiddenNonNavigableDesignObjectsVerified": 25,
+        "actualRoadGraphCreated": false,
+        "officialTiledVersion": "1.12.2",
+        "officialTiledCommands": 1,
+        "officialTiledExports": 1,
+        "backgroundRGBPixelExact": true,
+        "backgroundAlphaAll255": true,
+        "browserDisplayChecksPassed": 7,
+        "browserCapturesSaved": 3,
+        "browserSessionClosed": true,
+        "integrityReport": "organic-north-006/verification/integrity-check.json",
+        "independentReview": {
+          "threadId": "thr_978x3n893w",
+          "provider": "codex",
+          "model": "ccs-sanger/gpt-6.1-sol",
+          "reasoning": "max",
+          "status": "approved-single-native-and-design-difference-display-with-two-important-followup-limits",
+          "report": "INDEPENDENT-PREFLIGHT.md",
+          "criticalFindings": 0,
+          "importantFollowupLimitations": 2,
+          "remainingLimitations": [
+            "designJ3-L3 vehicle connection not realized",
+            "shared objects redrawn; y701 rectangular cut not seam-ready"
+          ],
+          "minorArtReviewOpinionsRemain": true,
+          "reviewerVerifiedOriginalResolutionArtwork": true,
+          "reviewerVerifiedNativeSHA256": true,
+          "reviewerVerifiedReferenceCrop": true,
+          "reviewerVerifiedSharedBandStatistics": true,
+          "followupReport": "INDEPENDENT-FOLLOWUP.md",
+          "followupCriticalFindings": 0,
+          "followupNewImportantFindings": 0,
+          "followupNewMinorFindings": 0,
+          "followupTiledObjectsVerified": 25,
+          "followupTiledVerticesVerified": 98,
+          "followupDOMStubVerified": true,
+          "reviewerDidNotPerform": [
+            "writing builder/verifier",
+            "Tiled exports",
+            "browser session",
+            "directory-external91-source audit",
+            "game tests"
+          ],
+          "userArtApproved": false,
+          "wholeSeamReady": false,
+          "actualNavigationReady": false,
+          "ordinaryRegionAdmitted": false,
+          "formalGameTestsPerformed": false
+        },
+        "userArtApproved": false,
+        "wholeSeamReady": false,
+        "ordinaryRegionAdmitted": false,
+        "formalGameTestsPerformed": false,
+        "boundRuntimeArtifacts": {
+          "native.png": {
+            "sha256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+            "bytes": 3934287
+          },
+          "observations.json": {
+            "sha256": "db630309aa2fb12d3ffc85b269002609969dcb42a4d582fe24e1599eb1a5bc8f",
+            "bytes": 1859
+          },
+          "inspection/shared-band-comparison.json": {
+            "sha256": "3f662cbc77cc467a0163b432421fb53f8206183c3ffb68aff78417b0acfd29f6",
+            "bytes": 525
+          },
+          "tiled/native006.tmj": {
+            "sha256": "910053789713485624fe81f6d680186b58a875fef334018fc3e93dd58b2eae60",
+            "bytes": 26673
+          },
+          "index.html": {
+            "sha256": "823dde4952e9f50cfff240269c8aa3b084ea7ffb742ab8018f5237286d5ea289",
+            "bytes": 6433
+          },
+          "verify_006.py": {
+            "sha256": "6794b98f824d7ae777b6745dc179d6e073ebd65b1d4dbc5875b186362315a532",
+            "bytes": 9001
+          }
+        }
+      },
+      "observations": "organic-north-006/observations.json"
+    },
+    "organicPairSeam003UserReview": {
+      "recordedAt": "2026-11-07T10:32:06.065040+00:00",
+      "threadId": "thr_fs5qphhxgc",
+      "source": "direct user reply following paired candidate delivery",
+      "directUserQuote": "可以继续吧",
+      "artwork": "assembly/pair-native.png",
+      "size": [
+        3192,
+        941
+      ],
+      "sha256": "dbd04096fc7f7865a8419f952b93c2341d3834bd21dfd2cdb6b9717daa95b7de",
+      "userCompositeApproved": true,
+      "approvedScope": "visible004+005 object-cut pair as displayed; continued adjacent production",
+      "fullStreetInventoryAccepted": false,
+      "metreCoverageAccepted": false,
+      "wholeCityAccepted": false,
+      "formalGameTestsAuthorized": false
     }
   },
   "imageBudgetChoice": {
@@ -1238,39 +1488,34 @@
     "scopeAndClarityGatesStillRequired": true
   },
   "latestArtworkCandidate": {
-    "source": "organic-adjacent-005/result.json",
-    "viewer": "organic-adjacent-005/index.html",
+    "source": "organic-north-006/result.json",
+    "viewer": "organic-north-006/index.html",
     "nativeSize": [
-      1671,
+      1672,
       941
     ],
-    "nativeSHA256": "e7f8394a9f9b83d907fea7587f5a725348baa2f13df6edf155ebb637ff5775cc",
-    "nativeBytes": 3986067,
-    "designGuide": "organic-adjacent-005/structure-guide.json",
-    "designOnlyBoundedFaces": 6,
-    "observedBuildingBearingEnclosures": 5,
-    "tracedBuildingBearingEnclosures": 4,
-    "channelizingIslandsExcludedFromBlocks": 1,
-    "exclusiveNewBlockOwnershipResolved": false,
+    "nativeSHA256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+    "nativeBytes": 3934287,
+    "designGuide": "organic-north-006/structure-guide.json",
+    "designOnlyBoundedFaces": 5,
+    "actualCompleteBlockCount": null,
     "actualRoadTraceCompleted": false,
     "fullStreetInventoryComplete": false,
-    "actualCompleteBlockCount": null,
-    "metreCalibration": null,
-    "userArtApproved": true,
+    "designConnectionJ3L3Realized": false,
+    "designObjectsHiddenAndNonNavigable": 25,
+    "userArtApproved": false,
     "ordinaryRegionAdmitted": false,
-    "roadEvidence": "organic-adjacent-005/revision-002/actual-005-graph.json",
-    "structurallyTracedBuildingBearingEnclosures": 5,
-    "sharedEnclosureIncludesOccludedInference": true,
-    "userArtReview": "organic-adjacent-005/user-review-001.json",
-    "latestDerivedComposite": "organic-adjacent-005/seam-003/index.html"
+    "metreCalibration": null,
+    "wholeSeamReady": false,
+    "sharedObjectSourcesAssigned": false
   },
   "layoutCorrection": {
     "directUserQuote": "好的，不可以太规整。我们实际的地图，包括前面生成的 25 张图，整个城市的面貌、道路都是曲折的、多变的，要更加真实。",
     "record": "organic-layout-004/DESIGN.md",
-    "status": "004-and005-art-approved-organic-object-cut-pair-candidate",
+    "status": "004-005-pair-user-approved-006-north-native-awaiting-art-review",
     "previousPairGridApprovedForCityProduction": false,
     "finalCityRoadLayoutOrImagePartitionFrozen": false,
-    "latestContinuation": "organic-adjacent-005/seam-003/PLAN.md"
+    "latestContinuation": "organic-north-006/DESIGN.md"
   },
   "lastUserApprovedArtwork": {
     "source": "organic-adjacent-005/result.json",
@@ -1304,9 +1549,35 @@
     "sourceSelectionImplemented": true,
     "newVisibleBuildingCutsObserved": false,
     "inheritedNativeFrameTruncationsRemain": true,
-    "userCompositeApproved": false,
+    "userCompositeApproved": true,
     "wholeSeamReady": false,
     "ordinaryRegionAdmitted": false,
-    "metreCalibration": null
+    "metreCalibration": null,
+    "userCompositeReview": "organic-adjacent-005/seam-003/user-review-001.json",
+    "approvedScope": "004+005 visible object-cut pair as displayed; not full city/traffic/metre acceptance"
+  },
+  "lastUserApprovedComposite": {
+    "source": "organic-adjacent-005/seam-003/assembly/record.json",
+    "viewer": "organic-adjacent-005/seam-003/index.html",
+    "image": "organic-adjacent-005/seam-003/assembly/pair-native.png",
+    "size": [
+      3192,
+      941
+    ],
+    "sha256": "dbd04096fc7f7865a8419f952b93c2341d3834bd21dfd2cdb6b9717daa95b7de",
+    "bytes": 6941664,
+    "generatedArtwork": false,
+    "nativePixelSelectionOnly": true,
+    "identifiedObjectGroups": 9,
+    "objectSourceRecord": "organic-adjacent-005/seam-003/ownership.json",
+    "sourceSelectionImplemented": true,
+    "newVisibleBuildingCutsObserved": false,
+    "inheritedNativeFrameTruncationsRemain": true,
+    "userCompositeApproved": true,
+    "wholeSeamReady": false,
+    "ordinaryRegionAdmitted": false,
+    "metreCalibration": null,
+    "userCompositeReview": "organic-adjacent-005/seam-003/user-review-001.json",
+    "approvedScope": "004+005 visible object-cut pair as displayed; not full city/traffic/metre acceptance"
   }
 }

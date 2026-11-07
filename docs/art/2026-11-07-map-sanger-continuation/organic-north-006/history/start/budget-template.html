@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>地图接续 · 原生采样预算</title>
+<style>
+:root{font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif);color:var(--foreground,#263632);font-size:14px;--radius:10px}
+body{margin:0;line-height:1.6}*{box-sizing:border-box}p{margin:8px 0 14px}.muted{color:var(--muted-foreground,#67746f)}.tag{font-weight:650;color:var(--warning-text,#94600e)}
+.controls{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.controls label{display:grid;gap:5px;flex:1;min-width:170px}select{width:100%;padding:9px;border:1px solid var(--border,#d4ded9);border-radius:7px;background:var(--card,#f4f8f5);color:inherit;font:inherit}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.stat{background:var(--card,#f0f5f2);border-radius:var(--radius);padding:16px}.stat strong{display:block;font-size:23px;font-variant-numeric:tabular-nums;line-height:1.5}.stat span{font-size:12px;color:var(--muted-foreground,#67746f)}
+.scroll{overflow:auto;margin:16px 0}table{border-collapse:collapse;width:100%;min-width:560px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--border,#d4ded9);font-variant-numeric:tabular-nums}th{font-size:12px;color:var(--muted-foreground,#67746f)}td small{display:block;color:var(--muted-foreground,#67746f)}.hyp{background:var(--surface-recessed,#f7f1e5)}.failure{padding:16px;border-radius:var(--radius);background:var(--card,#f0f5f2);margin:16px 0}details{margin:14px 0}summary{cursor:pointer;font-weight:650}ul{padding-left:20px;margin:10px 0}a{color:var(--brand,#247965)}code{font-size:12px;overflow-wrap:anywhere}.formula{font-family:var(--font-mono,monospace);font-size:12px}.notice{border-left:3px solid var(--warning,#b07c2c);padding-left:12px}
+</style>
+<body>
+<p class="tag">最新：004与005单图已认可 · 完整可见对象绕切候选</p>
+<p><a href="organic-adjacent-005/seam-003/index.html"><b>查看004＋005实际拼接与跨区路线</b></a>。延续曲折街道、错位接入和不等形街坊；3192×941为两张原图的二值像素组合，仍待拼接画面验收。</p>
+<p>目标仍约旧 25 图面积的 1/4，参考约 <b>1.66 × 1.66 km</b>。A2/B1/C 保留，米制覆盖未知。下表用于解释容量缺口；图数和画幅均为条件估算，尚未冻结。</p>
+<div class="controls">
+<label>地图 CSS 宽度（示例，非用户设备实测）<select id="css"><option>320</option><option selected>375</option><option>430</option></select></label>
+<label>每 CSS 像素的源像素（非 DPR 实测）<select id="sampling"><option value="1">1</option><option value="1.5">1.5</option><option value="2">2</option></select></label>
+<label>地面投影仰角（敏感性假设）<select id="angle"><option value="45">45°</option><option value="62.5" selected>62.5°</option></select></label>
+</div>
+<div class="stats"><div class="stat"><span>已有源码最近全幅宽；本页不改镜头</span><strong>120 m</strong></div><div class="stat"><span>整区地面所需投影栅格（不含楼高溢出）</span><strong id="raster"></strong></div><div class="stat"><span>原生地面像素总量（条件值）</span><strong id="mp"></strong></div></div>
+<div class="scroll"><table><thead><tr><th>单幅实际 / 假设尺寸</th><th>仅按面积估算</th><th>规则矩形铺幅示意</th><th>外围半采样敏感性<br>仅按面积估算</th></tr></thead><tbody id="rows"></tbody></table></div>
+<p class="muted">矩形铺幅仅作像素容量算例，不决定城市路型；实际分图服从完整街坊和道路／绿地走廊。预算仍假设每轴90%可用核心，合计81%有效像素；两区接缝不能推广为全城边带。面积列允许理想拼排，铺幅列另计横纵向余量。完整街坊、楼高、接缝与功能组织可能增加图数。外围半采样仅供比较，尚未采用。</p>
+<p class="notice" id="conclusion"></p>
+<div class="failure"><b>当前实际画面：004＋005沿完整可见对象绕切候选</b><br>用户本轮认可005并要求继续，004/005单图美术均获认可；本轮没有新生图，累计6次请求、5张成功。3192×941候选保持两图原生像素和相机／楼路比例，9组共享建筑分别登记来源，北南原框已有截断保留，不补称框外完整。<br>部分跨区图26节点／30边，交接段按新组合重描，主路径约3104.67px、断边绕行3605.87px。第五共享结构围合中的屋顶推定仍禁导航；三处共同沥青点不是中心线零残差。004/005全路网和拼接画面验收仍未完成，旧矩形图保留诊断历史。<br><b>前轮W/E技术证据保留</b>：3248×937，34条可导航描线，屋顶推定段排除；格子构图不作扩城模板。<br>20～24仍是条件算例，米制覆盖与最终图数未定。<br><a href="organic-adjacent-005/seam-003/index.html">最新两区拼接候选</a> · <a href="organic-adjacent-005/seam-003/RESULT.md">本轮实物记录</a> · <a href="organic-adjacent-005/native.png">005原生</a> · <a href="organic-layout-004/native.png">004原生</a> · <a href="organic-adjacent-005/revision-002/index.html">上轮描路／推定诊断</a></div>
+<details><summary>计算口径与尚未通过的门禁</summary>
+<p class="formula">PPU = CSS宽 ÷ 120 × 源像素/CSS像素<br>投影宽 = 1661.74 × PPU<br>投影高 = 1661.735 × PPU × sin(假设仰角)<br>面积估算 = ceil(投影宽 × 投影高 ÷ 单幅像素 ÷ 0.81)<br>规则铺幅 = ceil(投影宽 ÷ 单幅宽 ÷ 0.9) × ceil(投影高 ÷ 单幅高 ÷ 0.9)</p>
+<ul><li>米数来自可逆规划参考，不是 A/B/C 或新两区原图标定；不据此填写面积完成率。</li><li>375 CSSpx、投影仰角、采样倍率、边带比例均是假设。1个源像素/CSSpx不等于高清屏幕验收，也不保证美术原生细节。</li><li>原生 A2 道路约53/54px是像素观察；没有据此断言道路米数。现有源码720是整幅宽，60是比例尺线。</li><li>已有八街坊与相邻两区的独立描路/Tiled证据，两区接头保留真实残差；4K、可信米制覆盖、最终图数、用户美术与车道语义仍待确认。</li><li>旧图、旧城/路网/边界及用户布局保留；未改产品/经济/存档，未做正式游戏测试。</li></ul>
+</details>
+<p class="muted">路由：Codex / ccs-sanger/gpt-6.1-sol / max。91 个保护文件已读回一致。<a href="sampling-budget.json">完整数据与输入 SHA</a> · <a href="REPORT.md">本轮说明</a></p>
+<script>
+const DATA=__BUDGET_DATA__;
+function update(){
+ const css=Number(document.getElementById('css').value),q=Number(document.getElementById('sampling').value),a=Number(document.getElementById('angle').value);
+ const s=DATA.scenarios.find(s=>s.cssWidthAssumption===css&&s.sourcePixelsPerCSSPixelAssumption===q&&s.elevationHypothesisDegrees===a);
+ document.getElementById('raster').textContent=s.projectedFullTargetRaster.map(Math.ceil).join(' × ');
+ document.getElementById('mp').textContent=(s.projectedGroundPixels/1e6).toFixed(1)+' MP';
+ document.getElementById('rows').innerHTML=s.variants.map((v,i)=>`<tr class="${i===3?'hyp':''}"><td>${v.nativeSize.join(' × ')}<small>${i===0?'已有 A/B/C 尺寸':i===1?'此前高尺寸请求实返':i===2?'004与旧控制实返；005少1列，未缩放':'4K 假设：目前未获得'}</small></td><td>${v.roundedAreaOnlyEstimate} 幅等效</td><td>${v.illustrativeAxisAlignedGrid.join(' × ')} = ${v.illustrativeGridCount} 幅</td><td>${v.outerHalfLinearSamplingAreaOnlyEstimate} 幅等效</td></tr>`).join('');
+ const now=s.variants[2],higher=s.variants[3];
+ document.getElementById('conclusion').textContent=`这些假设下，1672×941对应${now.roundedAreaOnlyEstimate}幅面积等效量 / ${now.illustrativeGridCount}幅规则铺幅；3840×2160对应${higher.illustrativeGridCount}幅规则铺幅。增图路线已获授权，相邻两区已实测；最终图数尚未冻结，不把条件算例自动转为生产队列。`;
+ window.mapBudgetSelection={cssWidth:css,sampling:q,elevation:a,projectedRaster:s.projectedFullTargetRaster,variants:s.variants};
+}
+for(const id of ['css','sampling','angle'])document.getElementById(id).addEventListener('change',update);
+update();
+</script>
+</body></html>

@@ -1,0 +1,1230 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.12.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 1672,
+  "height": 941,
+  "tilewidth": 1,
+  "tileheight": 1,
+  "tilesets": [],
+  "nextlayerid": 3,
+  "nextobjectid": 26,
+  "properties": [
+    {
+      "name": "unit",
+      "type": "string",
+      "value": "native pixels"
+    },
+    {
+      "name": "nativeArtworkSHA256",
+      "type": "string",
+      "value": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3"
+    },
+    {
+      "name": "actualRoadTraceCompleted",
+      "type": "bool",
+      "value": false
+    },
+    {
+      "name": "navigationReady",
+      "type": "bool",
+      "value": false
+    },
+    {
+      "name": "wholeSeamReady",
+      "type": "bool",
+      "value": false
+    },
+    {
+      "name": "metreCalibration",
+      "type": "string",
+      "value": "unestablished"
+    },
+    {
+      "name": "userArtApproved",
+      "type": "bool",
+      "value": false
+    },
+    {
+      "name": "ordinaryRegionAdmitted",
+      "type": "bool",
+      "value": false
+    },
+    {
+      "name": "formalGameTestsPerformed",
+      "type": "bool",
+      "value": false
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "name": "006 native unchanged",
+      "type": "imagelayer",
+      "image": "../native.png",
+      "imagewidth": 1672,
+      "imageheight": 941,
+      "offsetx": 0,
+      "offsety": 0,
+      "visible": true,
+      "locked": true,
+      "opacity": 1
+    },
+    {
+      "id": 2,
+      "name": "archived-design-hidden-not-navigation",
+      "type": "objectgroup",
+      "draworder": "index",
+      "visible": false,
+      "opacity": 1,
+      "color": "#a28d65",
+      "objects": [
+        {
+          "id": 1,
+          "name": "NW--U1",
+          "type": "design-only-pixel-polyline",
+          "x": 0,
+          "y": 130,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 130,
+              "y": 5
+            },
+            {
+              "x": 240,
+              "y": 34
+            },
+            {
+              "x": 340,
+              "y": 30
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "U1--U2",
+          "type": "design-only-pixel-polyline",
+          "x": 340,
+          "y": 160,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 110,
+              "y": 20
+            },
+            {
+              "x": 200,
+              "y": 14
+            },
+            {
+              "x": 280,
+              "y": 10
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "U2--U3",
+          "type": "design-only-pixel-polyline",
+          "x": 620,
+          "y": 170,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 130,
+              "y": -8
+            },
+            {
+              "x": 255,
+              "y": -38
+            },
+            {
+              "x": 380,
+              "y": -25
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "U3--U4",
+          "type": "design-only-pixel-polyline",
+          "x": 1000,
+          "y": 145,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 140,
+              "y": -13
+            },
+            {
+              "x": 240,
+              "y": -60
+            },
+            {
+              "x": 320,
+              "y": -65
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "U4--NE",
+          "type": "design-only-pixel-polyline",
+          "x": 1320,
+          "y": 80,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 130,
+              "y": -4
+            },
+            {
+              "x": 240,
+              "y": 19
+            },
+            {
+              "x": 352,
+              "y": 35
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "PW--J1",
+          "type": "design-only-pixel-polyline",
+          "x": 0,
+          "y": 330,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 140,
+              "y": -9
+            },
+            {
+              "x": 250,
+              "y": 3
+            },
+            {
+              "x": 340,
+              "y": 20
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "primary"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "J1--J2",
+          "type": "design-only-pixel-polyline",
+          "x": 340,
+          "y": 350,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 120,
+              "y": 5
+            },
+            {
+              "x": 190,
+              "y": -34
+            },
+            {
+              "x": 260,
+              "y": -50
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "primary"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "J2--J3",
+          "type": "design-only-pixel-polyline",
+          "x": 600,
+          "y": 300,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 140,
+              "y": 5
+            },
+            {
+              "x": 320,
+              "y": 80
+            },
+            {
+              "x": 450,
+              "y": 90
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "primary"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "J3--J4",
+          "type": "design-only-pixel-polyline",
+          "x": 1050,
+          "y": 390,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 130,
+              "y": 25
+            },
+            {
+              "x": 250,
+              "y": 41
+            },
+            {
+              "x": 345,
+              "y": 35
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "primary"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "J4--L5",
+          "type": "design-only-pixel-polyline",
+          "x": 1395,
+          "y": 425,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 95,
+              "y": 10
+            },
+            {
+              "x": 183,
+              "y": 59
+            },
+            {
+              "x": 215,
+              "y": 100
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "primary"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "L5--PE",
+          "type": "design-only-pixel-polyline",
+          "x": 1610,
+          "y": 525,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 62,
+              "y": -25
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "primary"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "SW--L1",
+          "type": "design-only-pixel-polyline",
+          "x": 0,
+          "y": 600,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 115,
+              "y": 5
+            },
+            {
+              "x": 220,
+              "y": 15
+            },
+            {
+              "x": 300,
+              "y": 10
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "name": "L1--L2",
+          "type": "design-only-pixel-polyline",
+          "x": 300,
+          "y": 610,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 115,
+              "y": -10
+            },
+            {
+              "x": 170,
+              "y": -51
+            },
+            {
+              "x": 225,
+              "y": -70
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "L2--L3",
+          "type": "design-only-pixel-polyline",
+          "x": 525,
+          "y": 540,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 165,
+              "y": 0
+            },
+            {
+              "x": 260,
+              "y": 30
+            },
+            {
+              "x": 395,
+              "y": 25
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "name": "L3--L4",
+          "type": "design-only-pixel-polyline",
+          "x": 920,
+          "y": 565,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 130,
+              "y": 3
+            },
+            {
+              "x": 250,
+              "y": 34
+            },
+            {
+              "x": 340,
+              "y": 40
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "name": "L4--L5",
+          "type": "design-only-pixel-polyline",
+          "x": 1260,
+          "y": 605,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 150,
+              "y": -4
+            },
+            {
+              "x": 280,
+              "y": -50
+            },
+            {
+              "x": 350,
+              "y": -80
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "name": "U1--J1",
+          "type": "design-only-pixel-polyline",
+          "x": 340,
+          "y": 160,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 5,
+              "y": 67
+            },
+            {
+              "x": -15,
+              "y": 134
+            },
+            {
+              "x": 0,
+              "y": 190
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "local"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "name": "U2--J2",
+          "type": "design-only-pixel-polyline",
+          "x": 620,
+          "y": 170,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -2,
+              "y": 50
+            },
+            {
+              "x": -15,
+              "y": 95
+            },
+            {
+              "x": -20,
+              "y": 130
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "U4--J4",
+          "type": "design-only-pixel-polyline",
+          "x": 1320,
+          "y": 80,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 25,
+              "y": 115
+            },
+            {
+              "x": 55,
+              "y": 250
+            },
+            {
+              "x": 75,
+              "y": 345
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "name": "J1--L1",
+          "type": "design-only-pixel-polyline",
+          "x": 340,
+          "y": 350,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -5,
+              "y": 100
+            },
+            {
+              "x": -30,
+              "y": 205
+            },
+            {
+              "x": -40,
+              "y": 260
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "local"
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "name": "J2--L2",
+          "type": "design-only-pixel-polyline",
+          "x": 600,
+          "y": 300,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -10,
+              "y": 90
+            },
+            {
+              "x": -50,
+              "y": 175
+            },
+            {
+              "x": -75,
+              "y": 240
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "J3--L3",
+          "type": "design-only-pixel-polyline",
+          "x": 1050,
+          "y": 390,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -20,
+              "y": 70
+            },
+            {
+              "x": -97,
+              "y": 132
+            },
+            {
+              "x": -130,
+              "y": 175
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "local"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "name": "L2--SP",
+          "type": "design-only-pixel-polyline",
+          "x": 525,
+          "y": 540,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -10,
+              "y": 70
+            },
+            {
+              "x": -5,
+              "y": 122
+            },
+            {
+              "x": -5,
+              "y": 161
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "name": "L5--RP",
+          "type": "design-only-pixel-polyline",
+          "x": 1610,
+          "y": 525,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 30,
+              "y": 70
+            },
+            {
+              "x": 36,
+              "y": 130
+            },
+            {
+              "x": 36,
+              "y": 176
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "name": "NT--U2",
+          "type": "design-only-pixel-polyline",
+          "x": 650,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -5,
+              "y": 55
+            },
+            {
+              "x": -20,
+              "y": 116
+            },
+            {
+              "x": -30,
+              "y": 170
+            }
+          ],
+          "properties": [
+            {
+              "name": "designOnly",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "navigationAllowed",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "kind",
+              "type": "string",
+              "value": "collector"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
