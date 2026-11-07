@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-11-07T13:30:44.006669+00:00",
+  "recordedAt": "2026-11-07T18:07:38.214498+00:00",
   "mapPrimaryThread": "thr_fs5qphhxgc",
   "sourceThread": "thr_2qc9rtsa9r",
   "sourceThreadReceivesNoNewWork": true,
@@ -17,8 +17,8 @@
   ],
   "imageRequestsSinceHandoff": 7,
   "newImagesReturnedSinceHandoff": 6,
-  "imageRequestsThisIncrement": 1,
-  "imagesReturnedThisIncrement": 1,
+  "imageRequestsThisIncrement": 0,
+  "imagesReturnedThisIncrement": 0,
   "imageAttemptRecords": [
     "builtin-capacity-001/result.json",
     "builtin-capacity-002/result.json",
@@ -37,7 +37,7 @@
   "wholeCityOrHalfCoverageDemonstrated": false,
   "highNativeReturnSizeVerified": false,
   "latestConnectionRecoveredForOneRequest": true,
-  "status": "006-north-native-ready-for-art-review-design-road-and-shared-band-limits",
+  "status": "road-topology-correction-design-review-before-further-raster-production",
   "actualRoadEvidence": {
     "source": "organic-adjacent-005/seam-003/actual-pair-graph.json",
     "context": "partial005 core plus004 main street on object-cut candidate; not complete city inventory",
@@ -71,105 +71,109 @@
     "completeBlueNetDevelopableDenominatorKnown": false,
     "blueOutsideStreetBlockEnclosuresMetres2": 129642.59999999963,
     "finalResidentialAboutHalfAccepted": false,
-    "roadLayoutStatus": "quantity/loop organization baseline, not a final grid or user-approved road shape"
+    "roadLayoutStatus": "old quantity/loop reference retained read-only; grid-like row-column organisation is rejected as the active production template"
   },
   "verification": {
-    "recordedAt": "2026-11-07T13:30:44.006669+00:00",
-    "status": "passed-single-native-artifact-and-display-audit",
-    "nativeSize": [
-      1672,
-      941
+    "recordedAt": "2026-11-07T18:07:38.214498+00:00",
+    "status": "passed-design-only-geometry-display-and-targeted-review",
+    "designOnly": true,
+    "reviewedRevision": "distributed-junctions-002",
+    "shapedStatistics": {
+      "nodes": 33,
+      "edges": 39,
+      "components": 1,
+      "segments": 50,
+      "segmentPairsExamined": 1225,
+      "boundedFaces": 7,
+      "unexpectedIntersections": []
+    },
+    "straightStatistics": {
+      "nodes": 33,
+      "edges": 39,
+      "components": 1,
+      "segments": 39,
+      "segmentPairsExamined": 741,
+      "boundedFaces": 7,
+      "unexpectedIntersections": []
+    },
+    "generatedSVGViews": [
+      "proposal.svg",
+      "proposal-straight.svg",
+      "straight.svg"
     ],
-    "nativeSHA256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
-    "nativeBytesCopiedExactly": true,
-    "inputFingerprintsMatched": 3,
-    "priorArtifactCount": 526,
-    "protectedFilesMatched": 91,
-    "hiddenNonNavigableDesignObjectsVerified": 25,
-    "actualRoadGraphCreated": false,
-    "officialTiledVersion": "1.12.2",
-    "officialTiledCommands": 1,
-    "officialTiledExports": 1,
-    "backgroundRGBPixelExact": true,
-    "backgroundAlphaAll255": true,
-    "browserDisplayChecksPassed": 7,
+    "browserDisplayChecksPassed": 11,
     "browserCapturesSaved": 3,
     "browserSessionClosed": true,
-    "integrityReport": "organic-north-006/verification/integrity-check.json",
     "independentReview": {
       "threadId": "thr_978x3n893w",
       "provider": "codex",
       "model": "ccs-sanger/gpt-6.1-sol",
       "reasoning": "max",
-      "status": "approved-single-native-and-design-difference-display-with-two-important-followup-limits",
-      "report": "INDEPENDENT-PREFLIGHT.md",
-      "criticalFindings": 0,
-      "importantFollowupLimitations": 2,
-      "remainingLimitations": [
-        "designJ3-L3 vehicle connection not realized",
-        "shared objects redrawn; y701 rectangular cut not seam-ready"
-      ],
-      "minorArtReviewOpinionsRemain": true,
-      "reviewerVerifiedOriginalResolutionArtwork": true,
-      "reviewerVerifiedNativeSHA256": true,
-      "reviewerVerifiedReferenceCrop": true,
-      "reviewerVerifiedSharedBandStatistics": true,
-      "followupReport": "INDEPENDENT-FOLLOWUP.md",
-      "followupCriticalFindings": 0,
-      "followupNewImportantFindings": 0,
-      "followupNewMinorFindings": 0,
-      "followupTiledObjectsVerified": 25,
-      "followupTiledVerticesVerified": 98,
-      "followupDOMStubVerified": true,
+      "status": "original-two-important-and-one-minor-resolved-no-new-targeted-findings",
+      "reviewedRevision": "distributed-junctions-002",
+      "report": "INDEPENDENT-FOLLOWUP.md",
+      "firstReview": "REVIEW-001.md",
+      "remainingCritical": 0,
+      "remainingImportantInTargetedDesign": 0,
+      "remainingMinorInTargetedDesign": 0,
+      "personallyRecomputedNodes": 33,
+      "personallyRecomputedEdges": 39,
+      "personallyRecomputedFaces": 7,
+      "personallyCheckedShapedSegmentPairs": 1225,
+      "personallyCheckedStraightSegmentPairs": 741,
+      "personallyVerifiedSVGRoadsPerView": 39,
       "reviewerDidNotPerform": [
-        "writing builder/verifier",
-        "Tiled exports",
         "browser session",
-        "directory-external91-source audit",
-        "game tests"
+        "export",
+        "game tests",
+        "directory-external91 protected-source audit"
       ],
-      "userArtApproved": false,
-      "wholeSeamReady": false,
+      "userApproved": false,
+      "urbanRealismCertified": false,
       "actualNavigationReady": false,
-      "ordinaryRegionAdmitted": false,
-      "formalGameTestsPerformed": false
+      "metreCalibration": null,
+      "imageRequestsThisIncrement": 0
     },
-    "userArtApproved": false,
-    "wholeSeamReady": false,
-    "ordinaryRegionAdmitted": false,
+    "priorArtifactsAudited": 578,
+    "protectedFilesMatched": 91,
+    "newImageRequests": 0,
+    "userApproved": false,
+    "urbanRealismCertified": false,
+    "actualNavigationReady": false,
+    "metreCalibration": null,
     "formalGameTestsPerformed": false,
-    "boundRuntimeArtifacts": {
-      "native.png": {
-        "sha256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
-        "bytes": 3934287
+    "boundDesignArtifacts": {
+      "proposal.json": {
+        "sha256": "cca1a0b6aed84d85cec9f1da98665864f932759eeded89c9b70db671c8fbe93c",
+        "bytes": 24509
       },
-      "observations.json": {
-        "sha256": "db630309aa2fb12d3ffc85b269002609969dcb42a4d582fe24e1599eb1a5bc8f",
-        "bytes": 1859
+      "proposal.svg": {
+        "sha256": "65d7fa395344c5ae94057ef7bdf8ac28ec8522131ea78c2184f0bbf289a712fc",
+        "bytes": 8013
       },
-      "inspection/shared-band-comparison.json": {
-        "sha256": "3f662cbc77cc467a0163b432421fb53f8206183c3ffb68aff78417b0acfd29f6",
-        "bytes": 525
+      "straight.svg": {
+        "sha256": "0b5a1f6de24609d09a98257132885fe19ef0bc8827e8e50a37a6925f42f24246",
+        "bytes": 7920
       },
-      "tiled/native006.tmj": {
-        "sha256": "910053789713485624fe81f6d680186b58a875fef334018fc3e93dd58b2eae60",
-        "bytes": 26673
+      "viewer-template.html": {
+        "sha256": "0528f7d19d56fdfaa528c3a63100dbab0d866c26e8106d57cfe800a4123abf1e",
+        "bytes": 9659
       },
       "index.html": {
-        "sha256": "823dde4952e9f50cfff240269c8aa3b084ea7ffb742ab8018f5237286d5ea289",
-        "bytes": 6433
+        "sha256": "0d80e3bcf55e89c2d9b547c6d7b08557bd3ead98ba01246eff020bd861c31aa3",
+        "bytes": 27734
       },
-      "verify_006.py": {
-        "sha256": "6794b98f824d7ae777b6745dc179d6e073ebd65b1d4dbc5875b186362315a532",
-        "bytes": 9001
+      "DESIGN.md": {
+        "sha256": "de42d0279081274cc674c7140b752e27d24ab24b43b8505d743c60a66140d1f3",
+        "bytes": 3828
       }
     }
   },
   "blockingEvidence": [
-    "006 native1672x941RGB is awaiting user art review. Prior004/005 artworks and displayed object-cut pair are user approved; admitted legacy regions remainA2/B1/C.",
-    "006 designJ3-L3 is occupied by buildings/awnings/pedestrian frontage, not a visible continuous vehicle road. No actual006 trace or route is produced; five design faces are not an actual complete-block count.",
-    "006 shared objects were redrawn, with observed displacement and a y701 straight-cut building risk. Complete-object source selection and road handoff checks are pending; pixel nonidentity does not prove the whole band impossible.",
-    "Credible metre coverage, whole-city image count and traffic semantics remain unknown. Target approximately quarter of old25 area is unchanged; no half-area/full-city or4K claim, D resume or game tests."
+    "User rejected006 road organisation as a grid with bent lines. Production on that template is stopped; original006 and all approved004/005 artwork/visible-pair records remain intact.",
+    "New topology007 is a design-only no-building discussion draft. The first single-centre fan and overstrongX junction label were independently identified and revised; no user approval or urban-realism certificate is claimed.",
+    "Current draft changes connections at separateB/S/X locations, with westernA five-way and local streets. Straightening preserves adjacency; counts/connectivity are diagnostics rather than a natural-city acceptance gate.",
+    "No new image was requested, no actual/game map was written, and no current metre coverage/final image count was established. Target quarter-old25 area remains; A2/B1/C admitted, D and old queues not resumed."
   ],
   "imageBudgetChoice": {
     "status": "user-approved-increased-count-route-bounded-adjacent-pair-first",
@@ -181,6 +185,13 @@
     "scopeAndClarityGatesStillRequired": true
   },
   "outputs": [
+    "topology-rework-007/index.html",
+    "topology-rework-007/RESULT.md",
+    "topology-rework-007/proposal.json",
+    "topology-rework-007/proposal.svg",
+    "topology-rework-007/straight.svg",
+    "topology-rework-007/DESIGN.md",
+    "organic-north-006/user-review-001.json",
     "organic-north-006/index.html",
     "organic-north-006/RESULT.md",
     "organic-north-006/native.png",
@@ -221,7 +232,7 @@
     "road-evidence-002/RESULT.md",
     "adjacent-pair-003/INDEPENDENT-FOLLOWUP.md"
   ],
-  "nextAction": "Present006 native for user art review; do not generate007 or revise006 automatically. If006 art is accepted, trace actual visible roads excluding unrealizedJ3-L3, choose whole shared objects and inspect north/south road handoffs without overwriting the approved004/005 pair. Keep metre coverage/final image count unknown and no formal game tests.",
+  "nextAction": "Present the no-building distributed-junction road skeleton and old006/straightened comparison for structural review. Stop expansion of the rejected grid template. Incorporate actual user feedback into connections/hierarchy before the next raster request; preserve all approved artwork and old maps, do not freeze metres/image count or test the formal game.",
   "productionReady": false,
   "formalGameTestsPerformed": false,
   "gameSourceWrites": false,
@@ -275,105 +286,116 @@
     "ordinaryRegionAdmitted": false,
     "metreCalibration": null,
     "wholeSeamReady": false,
-    "sharedObjectSourcesAssigned": false
+    "sharedObjectSourcesAssigned": false,
+    "roadLayoutApproved": false,
+    "roadLayoutRejectedForGridTopology": true,
+    "userArtReview": "organic-north-006/user-review-001.json",
+    "status": "not-approved-for-road-layout; original-native-preserved"
   },
   "layoutCorrection": {
     "directUserQuote": "好的，不可以太规整。我们实际的地图，包括前面生成的 25 张图，整个城市的面貌、道路都是曲折的、多变的，要更加真实。",
     "record": "organic-layout-004/DESIGN.md",
-    "status": "004-005-pair-user-approved-006-north-native-awaiting-art-review",
+    "status": "006-grid-like-topology-rejected-distributed-junction-draft-awaiting-user-review",
     "previousPairGridApprovedForCityProduction": false,
     "finalCityRoadLayoutOrImagePartitionFrozen": false,
-    "latestContinuation": "organic-north-006/DESIGN.md"
+    "latestContinuation": "topology-rework-007/DESIGN.md",
+    "latestDirectUserQuote": "现实中路，大路、小路、转弯的路、斜叉的路、十字路、丁字路，五个路口，各种情况都非常多。\n\n而你还是格子的路网，只是把原本直的这种路变得左拐右拐左拐右拐，你本质还没变化，你还是格子路网",
+    "latestUserFeedback": "organic-north-006/user-review-001.json",
+    "previousArtApprovalsDoNotAuthorizeGridCityProduction": true
   },
   "currentIncrementVerification": {
-    "recordedAt": "2026-11-07T13:30:44.006669+00:00",
-    "status": "passed-single-native-artifact-and-display-audit",
-    "nativeSize": [
-      1672,
-      941
+    "recordedAt": "2026-11-07T18:07:38.214498+00:00",
+    "status": "passed-design-only-geometry-display-and-targeted-review",
+    "designOnly": true,
+    "reviewedRevision": "distributed-junctions-002",
+    "shapedStatistics": {
+      "nodes": 33,
+      "edges": 39,
+      "components": 1,
+      "segments": 50,
+      "segmentPairsExamined": 1225,
+      "boundedFaces": 7,
+      "unexpectedIntersections": []
+    },
+    "straightStatistics": {
+      "nodes": 33,
+      "edges": 39,
+      "components": 1,
+      "segments": 39,
+      "segmentPairsExamined": 741,
+      "boundedFaces": 7,
+      "unexpectedIntersections": []
+    },
+    "generatedSVGViews": [
+      "proposal.svg",
+      "proposal-straight.svg",
+      "straight.svg"
     ],
-    "nativeSHA256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
-    "nativeBytesCopiedExactly": true,
-    "inputFingerprintsMatched": 3,
-    "priorArtifactCount": 526,
-    "protectedFilesMatched": 91,
-    "hiddenNonNavigableDesignObjectsVerified": 25,
-    "actualRoadGraphCreated": false,
-    "officialTiledVersion": "1.12.2",
-    "officialTiledCommands": 1,
-    "officialTiledExports": 1,
-    "backgroundRGBPixelExact": true,
-    "backgroundAlphaAll255": true,
-    "browserDisplayChecksPassed": 7,
+    "browserDisplayChecksPassed": 11,
     "browserCapturesSaved": 3,
     "browserSessionClosed": true,
-    "integrityReport": "organic-north-006/verification/integrity-check.json",
     "independentReview": {
       "threadId": "thr_978x3n893w",
       "provider": "codex",
       "model": "ccs-sanger/gpt-6.1-sol",
       "reasoning": "max",
-      "status": "approved-single-native-and-design-difference-display-with-two-important-followup-limits",
-      "report": "INDEPENDENT-PREFLIGHT.md",
-      "criticalFindings": 0,
-      "importantFollowupLimitations": 2,
-      "remainingLimitations": [
-        "designJ3-L3 vehicle connection not realized",
-        "shared objects redrawn; y701 rectangular cut not seam-ready"
-      ],
-      "minorArtReviewOpinionsRemain": true,
-      "reviewerVerifiedOriginalResolutionArtwork": true,
-      "reviewerVerifiedNativeSHA256": true,
-      "reviewerVerifiedReferenceCrop": true,
-      "reviewerVerifiedSharedBandStatistics": true,
-      "followupReport": "INDEPENDENT-FOLLOWUP.md",
-      "followupCriticalFindings": 0,
-      "followupNewImportantFindings": 0,
-      "followupNewMinorFindings": 0,
-      "followupTiledObjectsVerified": 25,
-      "followupTiledVerticesVerified": 98,
-      "followupDOMStubVerified": true,
+      "status": "original-two-important-and-one-minor-resolved-no-new-targeted-findings",
+      "reviewedRevision": "distributed-junctions-002",
+      "report": "INDEPENDENT-FOLLOWUP.md",
+      "firstReview": "REVIEW-001.md",
+      "remainingCritical": 0,
+      "remainingImportantInTargetedDesign": 0,
+      "remainingMinorInTargetedDesign": 0,
+      "personallyRecomputedNodes": 33,
+      "personallyRecomputedEdges": 39,
+      "personallyRecomputedFaces": 7,
+      "personallyCheckedShapedSegmentPairs": 1225,
+      "personallyCheckedStraightSegmentPairs": 741,
+      "personallyVerifiedSVGRoadsPerView": 39,
       "reviewerDidNotPerform": [
-        "writing builder/verifier",
-        "Tiled exports",
         "browser session",
-        "directory-external91-source audit",
-        "game tests"
+        "export",
+        "game tests",
+        "directory-external91 protected-source audit"
       ],
-      "userArtApproved": false,
-      "wholeSeamReady": false,
+      "userApproved": false,
+      "urbanRealismCertified": false,
       "actualNavigationReady": false,
-      "ordinaryRegionAdmitted": false,
-      "formalGameTestsPerformed": false
+      "metreCalibration": null,
+      "imageRequestsThisIncrement": 0
     },
-    "userArtApproved": false,
-    "wholeSeamReady": false,
-    "ordinaryRegionAdmitted": false,
+    "priorArtifactsAudited": 578,
+    "protectedFilesMatched": 91,
+    "newImageRequests": 0,
+    "userApproved": false,
+    "urbanRealismCertified": false,
+    "actualNavigationReady": false,
+    "metreCalibration": null,
     "formalGameTestsPerformed": false,
-    "boundRuntimeArtifacts": {
-      "native.png": {
-        "sha256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
-        "bytes": 3934287
+    "boundDesignArtifacts": {
+      "proposal.json": {
+        "sha256": "cca1a0b6aed84d85cec9f1da98665864f932759eeded89c9b70db671c8fbe93c",
+        "bytes": 24509
       },
-      "observations.json": {
-        "sha256": "db630309aa2fb12d3ffc85b269002609969dcb42a4d582fe24e1599eb1a5bc8f",
-        "bytes": 1859
+      "proposal.svg": {
+        "sha256": "65d7fa395344c5ae94057ef7bdf8ac28ec8522131ea78c2184f0bbf289a712fc",
+        "bytes": 8013
       },
-      "inspection/shared-band-comparison.json": {
-        "sha256": "3f662cbc77cc467a0163b432421fb53f8206183c3ffb68aff78417b0acfd29f6",
-        "bytes": 525
+      "straight.svg": {
+        "sha256": "0b5a1f6de24609d09a98257132885fe19ef0bc8827e8e50a37a6925f42f24246",
+        "bytes": 7920
       },
-      "tiled/native006.tmj": {
-        "sha256": "910053789713485624fe81f6d680186b58a875fef334018fc3e93dd58b2eae60",
-        "bytes": 26673
+      "viewer-template.html": {
+        "sha256": "0528f7d19d56fdfaa528c3a63100dbab0d866c26e8106d57cfe800a4123abf1e",
+        "bytes": 9659
       },
       "index.html": {
-        "sha256": "823dde4952e9f50cfff240269c8aa3b084ea7ffb742ab8018f5237286d5ea289",
-        "bytes": 6433
+        "sha256": "0d80e3bcf55e89c2d9b547c6d7b08557bd3ead98ba01246eff020bd861c31aa3",
+        "bytes": 27734
       },
-      "verify_006.py": {
-        "sha256": "6794b98f824d7ae777b6745dc179d6e073ebd65b1d4dbc5875b186362315a532",
-        "bytes": 9001
+      "DESIGN.md": {
+        "sha256": "de42d0279081274cc674c7140b752e27d24ab24b43b8505d743c60a66140d1f3",
+        "bytes": 3828
       }
     }
   },
@@ -966,5 +988,120 @@
     "metreCalibration": null,
     "userCompositeReview": "organic-adjacent-005/seam-003/user-review-001.json",
     "approvedScope": "004+005 visible object-cut pair as displayed; not full city/traffic/metre acceptance"
-  }
+  },
+  "previousOrganicNorth006Verification": {
+    "recordedAt": "2026-11-07T13:30:44.006669+00:00",
+    "status": "passed-single-native-artifact-and-display-audit",
+    "nativeSize": [
+      1672,
+      941
+    ],
+    "nativeSHA256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+    "nativeBytesCopiedExactly": true,
+    "inputFingerprintsMatched": 3,
+    "priorArtifactCount": 526,
+    "protectedFilesMatched": 91,
+    "hiddenNonNavigableDesignObjectsVerified": 25,
+    "actualRoadGraphCreated": false,
+    "officialTiledVersion": "1.12.2",
+    "officialTiledCommands": 1,
+    "officialTiledExports": 1,
+    "backgroundRGBPixelExact": true,
+    "backgroundAlphaAll255": true,
+    "browserDisplayChecksPassed": 7,
+    "browserCapturesSaved": 3,
+    "browserSessionClosed": true,
+    "integrityReport": "organic-north-006/verification/integrity-check.json",
+    "independentReview": {
+      "threadId": "thr_978x3n893w",
+      "provider": "codex",
+      "model": "ccs-sanger/gpt-6.1-sol",
+      "reasoning": "max",
+      "status": "approved-single-native-and-design-difference-display-with-two-important-followup-limits",
+      "report": "INDEPENDENT-PREFLIGHT.md",
+      "criticalFindings": 0,
+      "importantFollowupLimitations": 2,
+      "remainingLimitations": [
+        "designJ3-L3 vehicle connection not realized",
+        "shared objects redrawn; y701 rectangular cut not seam-ready"
+      ],
+      "minorArtReviewOpinionsRemain": true,
+      "reviewerVerifiedOriginalResolutionArtwork": true,
+      "reviewerVerifiedNativeSHA256": true,
+      "reviewerVerifiedReferenceCrop": true,
+      "reviewerVerifiedSharedBandStatistics": true,
+      "followupReport": "INDEPENDENT-FOLLOWUP.md",
+      "followupCriticalFindings": 0,
+      "followupNewImportantFindings": 0,
+      "followupNewMinorFindings": 0,
+      "followupTiledObjectsVerified": 25,
+      "followupTiledVerticesVerified": 98,
+      "followupDOMStubVerified": true,
+      "reviewerDidNotPerform": [
+        "writing builder/verifier",
+        "Tiled exports",
+        "browser session",
+        "directory-external91-source audit",
+        "game tests"
+      ],
+      "userArtApproved": false,
+      "wholeSeamReady": false,
+      "actualNavigationReady": false,
+      "ordinaryRegionAdmitted": false,
+      "formalGameTestsPerformed": false
+    },
+    "userArtApproved": false,
+    "wholeSeamReady": false,
+    "ordinaryRegionAdmitted": false,
+    "formalGameTestsPerformed": false,
+    "boundRuntimeArtifacts": {
+      "native.png": {
+        "sha256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+        "bytes": 3934287
+      },
+      "observations.json": {
+        "sha256": "db630309aa2fb12d3ffc85b269002609969dcb42a4d582fe24e1599eb1a5bc8f",
+        "bytes": 1859
+      },
+      "inspection/shared-band-comparison.json": {
+        "sha256": "3f662cbc77cc467a0163b432421fb53f8206183c3ffb68aff78417b0acfd29f6",
+        "bytes": 525
+      },
+      "tiled/native006.tmj": {
+        "sha256": "910053789713485624fe81f6d680186b58a875fef334018fc3e93dd58b2eae60",
+        "bytes": 26673
+      },
+      "index.html": {
+        "sha256": "823dde4952e9f50cfff240269c8aa3b084ea7ffb742ab8018f5237286d5ea289",
+        "bytes": 6433
+      },
+      "verify_006.py": {
+        "sha256": "6794b98f824d7ae777b6745dc179d6e073ebd65b1d4dbc5875b186362315a532",
+        "bytes": 9001
+      }
+    }
+  },
+  "latestPlanningAssessment": "topology-rework-007/RESULT.md",
+  "latestDesignProposal": {
+    "source": "topology-rework-007/proposal.json",
+    "viewer": "topology-rework-007/index.html",
+    "revision": "distributed-junctions-002",
+    "designOnly": true,
+    "userApproved": false,
+    "nodes": 33,
+    "edges": 39,
+    "schematicBoundedFaces": 7,
+    "arterialOrganisation": "diagonal through road, separate old-street crossing and east collector T connection; western five-way is not a common centre",
+    "old006GridTopologyRejected": true,
+    "rejectedTemplateExpansionStopped": true,
+    "imageRequestsThisIncrement": 0,
+    "actualMapWritten": false,
+    "actualNavigationReady": false,
+    "urbanRealismCertified": false,
+    "metreCalibration": null,
+    "finalCityPartitionFrozen": false,
+    "firstReviewProblemsResolvedByIndependentFollowup": true
+  },
+  "rejectedGridTemplateExpansionStopped": true,
+  "newRasterProductionPendingStructureReview": true
 }

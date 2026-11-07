@@ -1,5 +1,7 @@
 # 006北邻原生候选
 
+> 最新用户已指出本道路骨架仍是“把格子路画弯”，布局未通过，停止沿该模板扩图。原话见[user-review-001.json](user-review-001.json)，当前道路连接草案见[topology-rework-007](../topology-rework-007/index.html)。本原图及以下生成／检查记录保留；文件与显示通过不代表路网设计通过。
+
 004＋005对象绕切拼图已获用户“可以继续吧”认可，原话和成图SHA见`../organic-adjacent-005/seam-003/user-review-001.json`。本轮顺序制作一张北邻006，不扩下一张。
 
 内置`image_gen.imagegen`实际返回RGB **1672×941**、**3,934,287字节**，SHA256 `8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3`。`native.png`与工具保存的原文件逐字节一致，没有本地缩放、滤色或变形。提示词及输入角色／SHA见`prompt.txt`、`input-fingerprints.json`和`request-record.json`；使用本次既有内置通道，没有新后端或凭据改动。接续累计**7次请求／6张成功**。

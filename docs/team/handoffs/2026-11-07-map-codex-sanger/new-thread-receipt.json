@@ -568,6 +568,102 @@
           "bytes": 9001
         }
       }
+    },
+    "roadTopologyRework007": {
+      "recordedAt": "2026-11-07T18:07:38.214498+00:00",
+      "status": "passed-design-only-geometry-display-and-targeted-review",
+      "designOnly": true,
+      "reviewedRevision": "distributed-junctions-002",
+      "shapedStatistics": {
+        "nodes": 33,
+        "edges": 39,
+        "components": 1,
+        "segments": 50,
+        "segmentPairsExamined": 1225,
+        "boundedFaces": 7,
+        "unexpectedIntersections": []
+      },
+      "straightStatistics": {
+        "nodes": 33,
+        "edges": 39,
+        "components": 1,
+        "segments": 39,
+        "segmentPairsExamined": 741,
+        "boundedFaces": 7,
+        "unexpectedIntersections": []
+      },
+      "generatedSVGViews": [
+        "proposal.svg",
+        "proposal-straight.svg",
+        "straight.svg"
+      ],
+      "browserDisplayChecksPassed": 11,
+      "browserCapturesSaved": 3,
+      "browserSessionClosed": true,
+      "independentReview": {
+        "threadId": "thr_978x3n893w",
+        "provider": "codex",
+        "model": "ccs-sanger/gpt-6.1-sol",
+        "reasoning": "max",
+        "status": "original-two-important-and-one-minor-resolved-no-new-targeted-findings",
+        "reviewedRevision": "distributed-junctions-002",
+        "report": "INDEPENDENT-FOLLOWUP.md",
+        "firstReview": "REVIEW-001.md",
+        "remainingCritical": 0,
+        "remainingImportantInTargetedDesign": 0,
+        "remainingMinorInTargetedDesign": 0,
+        "personallyRecomputedNodes": 33,
+        "personallyRecomputedEdges": 39,
+        "personallyRecomputedFaces": 7,
+        "personallyCheckedShapedSegmentPairs": 1225,
+        "personallyCheckedStraightSegmentPairs": 741,
+        "personallyVerifiedSVGRoadsPerView": 39,
+        "reviewerDidNotPerform": [
+          "browser session",
+          "export",
+          "game tests",
+          "directory-external91 protected-source audit"
+        ],
+        "userApproved": false,
+        "urbanRealismCertified": false,
+        "actualNavigationReady": false,
+        "metreCalibration": null,
+        "imageRequestsThisIncrement": 0
+      },
+      "priorArtifactsAudited": 578,
+      "protectedFilesMatched": 91,
+      "newImageRequests": 0,
+      "userApproved": false,
+      "urbanRealismCertified": false,
+      "actualNavigationReady": false,
+      "metreCalibration": null,
+      "formalGameTestsPerformed": false,
+      "boundDesignArtifacts": {
+        "proposal.json": {
+          "sha256": "cca1a0b6aed84d85cec9f1da98665864f932759eeded89c9b70db671c8fbe93c",
+          "bytes": 24509
+        },
+        "proposal.svg": {
+          "sha256": "65d7fa395344c5ae94057ef7bdf8ac28ec8522131ea78c2184f0bbf289a712fc",
+          "bytes": 8013
+        },
+        "straight.svg": {
+          "sha256": "0b5a1f6de24609d09a98257132885fe19ef0bc8827e8e50a37a6925f42f24246",
+          "bytes": 7920
+        },
+        "viewer-template.html": {
+          "sha256": "0528f7d19d56fdfaa528c3a63100dbab0d866c26e8106d57cfe800a4123abf1e",
+          "bytes": 9659
+        },
+        "index.html": {
+          "sha256": "0d80e3bcf55e89c2d9b547c6d7b08557bd3ead98ba01246eff020bd861c31aa3",
+          "bytes": 27734
+        },
+        "DESIGN.md": {
+          "sha256": "de42d0279081274cc674c7140b752e27d24ab24b43b8505d743c60a66140d1f3",
+          "bytes": 3828
+        }
+      }
     }
   },
   "readEntrances": [
@@ -609,7 +705,12 @@
     "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/RESULT.md",
     "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/observations.json",
     "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/INDEPENDENT-PREFLIGHT.md",
-    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/INDEPENDENT-FOLLOWUP.md"
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/INDEPENDENT-FOLLOWUP.md",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/DESIGN.md",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/RESULT.md",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/REVIEW-001.md",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/INDEPENDENT-FOLLOWUP.md",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/006-topology-audit.json"
   ],
   "currentStage": {
     "route": "whole-region native background plus independent vector road tracing",
@@ -623,7 +724,7 @@
     "wholeCityOrHalfCoverageDemonstrated": false,
     "highNativeReturnSizeVerified": false,
     "productionReady": false,
-    "stage": "006-north-native-ready-for-art-review-design-road-and-shared-band-limits",
+    "stage": "road-topology-correction-design-review-before-further-raster-production",
     "newImageToolRequests": 7,
     "newImagesReturned": 6,
     "newAdmittedRegions": 0,
@@ -655,10 +756,10 @@
       3192,
       941
     ],
-    "actualStandaloneTraceContext": "retained004+005 seam003 partial graph only; not new006 navigation",
+    "actualStandaloneTraceContext": "retained004+005 seam003 partial navigation only; new topology007 is a non-navigable design proposal, not a generated region",
     "assemblyIsDiagnosticOnly": true,
     "wholeSeamReady": false,
-    "newImagesThisIncrement": 1,
+    "newImagesThisIncrement": 0,
     "completeObjectOwnershipResolved": false,
     "assemblyIsObjectCutCandidate": true,
     "assemblyIsRectangularHardCut": false,
@@ -670,9 +771,17 @@
     "latest006ActualTraceEdges": null,
     "userCompositeApprovalScope": "previous004+005 visible object-cut pair",
     "current006WholeSeamReady": false,
-    "current006DesignConnectionJ3L3Realized": false
+    "current006DesignConnectionJ3L3Realized": false,
+    "currentDesignOnly": true,
+    "currentDesignNodes": 33,
+    "currentDesignEdges": 39,
+    "currentDesignUserApproved": false,
+    "currentDesignActualNavigationReady": false,
+    "rejectedGridTemplateExpansionStopped": true,
+    "current006RoadLayoutApproved": false,
+    "current006UserFeedback": "organic-north-006/user-review-001.json"
   },
-  "nextConcreteAction": "Present006 native for user art review; do not generate007 or revise006 automatically. If006 art is accepted, trace actual visible roads excluding unrealizedJ3-L3, choose whole shared objects and inspect north/south road handoffs without overwriting the approved004/005 pair. Keep metre coverage/final image count unknown and no formal game tests.",
+  "nextConcreteAction": "Present the no-building distributed-junction road skeleton and old006/straightened comparison for structural review. Stop expansion of the rejected grid template. Incorporate actual user feedback into connections/hierarchy before the next raster request; preserve all approved artwork and old maps, do not freeze metres/image count or test the formal game.",
   "authorization": {
     "latestDirectUserAllowsContinuedImageWork": true,
     "doesNotPassTechnicalGates": true,
@@ -694,7 +803,7 @@
     "legacy Hermes queue recovery",
     "formal game tests"
   ],
-  "lastUpdatedAt": "2026-11-07T13:30:44.006669+00:00",
+  "lastUpdatedAt": "2026-11-07T18:07:38.214498+00:00",
   "newCurrentEntrances": [
     "docs/art/2026-11-07-map-sanger-continuation/current-map-state.json",
     "docs/art/2026-11-07-map-sanger-continuation/REPORT.md",
@@ -732,14 +841,21 @@
     "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/native.png",
     "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/tiled/native006.tmj",
     "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/observations.json",
-    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/user-review-001.json"
+    "docs/art/2026-11-07-map-sanger-continuation/organic-adjacent-005/seam-003/user-review-001.json",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/index.html",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/RESULT.md",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/proposal.json",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/proposal.svg",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/straight.svg",
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/DESIGN.md",
+    "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/user-review-001.json"
   ],
   "protectionCheck": {
     "filesChecked": 91,
     "matchedAtStart": 91,
     "report": "docs/art/2026-11-07-map-sanger-continuation/protected-check-before.json",
     "matchedAfterWork": 91,
-    "afterReport": "docs/art/2026-11-07-map-sanger-continuation/organic-north-006/verification/integrity-check.json"
+    "afterReport": "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/verification/integrity-check.json"
   },
   "workPerformed": {
     "currentBuiltInImageCapabilityProof": {
@@ -1476,6 +1592,138 @@
       "metreCoverageAccepted": false,
       "wholeCityAccepted": false,
       "formalGameTestsAuthorized": false
+    },
+    "roadTopologyRework007": {
+      "design": {
+        "source": "topology-rework-007/proposal.json",
+        "viewer": "topology-rework-007/index.html",
+        "revision": "distributed-junctions-002",
+        "designOnly": true,
+        "userApproved": false,
+        "nodes": 33,
+        "edges": 39,
+        "schematicBoundedFaces": 7,
+        "arterialOrganisation": "diagonal through road, separate old-street crossing and east collector T connection; western five-way is not a common centre",
+        "old006GridTopologyRejected": true,
+        "rejectedTemplateExpansionStopped": true,
+        "imageRequestsThisIncrement": 0,
+        "actualMapWritten": false,
+        "actualNavigationReady": false,
+        "urbanRealismCertified": false,
+        "metreCalibration": null,
+        "finalCityPartitionFrozen": false,
+        "firstReviewProblemsResolvedByIndependentFollowup": true
+      },
+      "verification": {
+        "recordedAt": "2026-11-07T18:07:38.214498+00:00",
+        "status": "passed-design-only-geometry-display-and-targeted-review",
+        "designOnly": true,
+        "reviewedRevision": "distributed-junctions-002",
+        "shapedStatistics": {
+          "nodes": 33,
+          "edges": 39,
+          "components": 1,
+          "segments": 50,
+          "segmentPairsExamined": 1225,
+          "boundedFaces": 7,
+          "unexpectedIntersections": []
+        },
+        "straightStatistics": {
+          "nodes": 33,
+          "edges": 39,
+          "components": 1,
+          "segments": 39,
+          "segmentPairsExamined": 741,
+          "boundedFaces": 7,
+          "unexpectedIntersections": []
+        },
+        "generatedSVGViews": [
+          "proposal.svg",
+          "proposal-straight.svg",
+          "straight.svg"
+        ],
+        "browserDisplayChecksPassed": 11,
+        "browserCapturesSaved": 3,
+        "browserSessionClosed": true,
+        "independentReview": {
+          "threadId": "thr_978x3n893w",
+          "provider": "codex",
+          "model": "ccs-sanger/gpt-6.1-sol",
+          "reasoning": "max",
+          "status": "original-two-important-and-one-minor-resolved-no-new-targeted-findings",
+          "reviewedRevision": "distributed-junctions-002",
+          "report": "INDEPENDENT-FOLLOWUP.md",
+          "firstReview": "REVIEW-001.md",
+          "remainingCritical": 0,
+          "remainingImportantInTargetedDesign": 0,
+          "remainingMinorInTargetedDesign": 0,
+          "personallyRecomputedNodes": 33,
+          "personallyRecomputedEdges": 39,
+          "personallyRecomputedFaces": 7,
+          "personallyCheckedShapedSegmentPairs": 1225,
+          "personallyCheckedStraightSegmentPairs": 741,
+          "personallyVerifiedSVGRoadsPerView": 39,
+          "reviewerDidNotPerform": [
+            "browser session",
+            "export",
+            "game tests",
+            "directory-external91 protected-source audit"
+          ],
+          "userApproved": false,
+          "urbanRealismCertified": false,
+          "actualNavigationReady": false,
+          "metreCalibration": null,
+          "imageRequestsThisIncrement": 0
+        },
+        "priorArtifactsAudited": 578,
+        "protectedFilesMatched": 91,
+        "newImageRequests": 0,
+        "userApproved": false,
+        "urbanRealismCertified": false,
+        "actualNavigationReady": false,
+        "metreCalibration": null,
+        "formalGameTestsPerformed": false,
+        "boundDesignArtifacts": {
+          "proposal.json": {
+            "sha256": "cca1a0b6aed84d85cec9f1da98665864f932759eeded89c9b70db671c8fbe93c",
+            "bytes": 24509
+          },
+          "proposal.svg": {
+            "sha256": "65d7fa395344c5ae94057ef7bdf8ac28ec8522131ea78c2184f0bbf289a712fc",
+            "bytes": 8013
+          },
+          "straight.svg": {
+            "sha256": "0b5a1f6de24609d09a98257132885fe19ef0bc8827e8e50a37a6925f42f24246",
+            "bytes": 7920
+          },
+          "viewer-template.html": {
+            "sha256": "0528f7d19d56fdfaa528c3a63100dbab0d866c26e8106d57cfe800a4123abf1e",
+            "bytes": 9659
+          },
+          "index.html": {
+            "sha256": "0d80e3bcf55e89c2d9b547c6d7b08557bd3ead98ba01246eff020bd861c31aa3",
+            "bytes": 27734
+          },
+          "DESIGN.md": {
+            "sha256": "de42d0279081274cc674c7140b752e27d24ab24b43b8505d743c60a66140d1f3",
+            "bytes": 3828
+          }
+        }
+      },
+      "userFeedback": {
+        "recordedAt": "2026-11-07T14:08:19.962006+00:00",
+        "threadId": "thr_fs5qphhxgc",
+        "source": "direct user feedback after006 delivery",
+        "directUserQuote": "现实中路，大路、小路、转弯的路、斜叉的路、十字路、丁字路，五个路口，各种情况都非常多。\n\n而你还是格子的路网，只是把原本直的这种路变得左拐右拐左拐右拐，你本质还没变化，你还是格子路网",
+        "rejectedArtwork": "native.png",
+        "sha256": "8c159c4dfdbe34b1bb62e7aac7bad4c097a153e99c34d40bb6f3845c30210fa3",
+        "userArtApproved": false,
+        "roadLayoutApproved": false,
+        "decision": "reject current grid-like topology and stop its expansion; design a different connection hierarchy before further raster generation",
+        "prior004005ArtAndCompositeApprovalRetained": true,
+        "oldFilesDeletedOrOverwritten": false,
+        "formalGameTestsAuthorized": false
+      }
     }
   },
   "imageBudgetChoice": {
@@ -1507,15 +1755,22 @@
     "ordinaryRegionAdmitted": false,
     "metreCalibration": null,
     "wholeSeamReady": false,
-    "sharedObjectSourcesAssigned": false
+    "sharedObjectSourcesAssigned": false,
+    "roadLayoutApproved": false,
+    "roadLayoutRejectedForGridTopology": true,
+    "userArtReview": "organic-north-006/user-review-001.json",
+    "status": "not-approved-for-road-layout; original-native-preserved"
   },
   "layoutCorrection": {
     "directUserQuote": "好的，不可以太规整。我们实际的地图，包括前面生成的 25 张图，整个城市的面貌、道路都是曲折的、多变的，要更加真实。",
     "record": "organic-layout-004/DESIGN.md",
-    "status": "004-005-pair-user-approved-006-north-native-awaiting-art-review",
+    "status": "006-grid-like-topology-rejected-distributed-junction-draft-awaiting-user-review",
     "previousPairGridApprovedForCityProduction": false,
     "finalCityRoadLayoutOrImagePartitionFrozen": false,
-    "latestContinuation": "organic-north-006/DESIGN.md"
+    "latestContinuation": "topology-rework-007/DESIGN.md",
+    "latestDirectUserQuote": "现实中路，大路、小路、转弯的路、斜叉的路、十字路、丁字路，五个路口，各种情况都非常多。\n\n而你还是格子的路网，只是把原本直的这种路变得左拐右拐左拐右拐，你本质还没变化，你还是格子路网",
+    "latestUserFeedback": "organic-north-006/user-review-001.json",
+    "previousArtApprovalsDoNotAuthorizeGridCityProduction": true
   },
   "lastUserApprovedArtwork": {
     "source": "organic-adjacent-005/result.json",
@@ -1579,5 +1834,25 @@
     "metreCalibration": null,
     "userCompositeReview": "organic-adjacent-005/seam-003/user-review-001.json",
     "approvedScope": "004+005 visible object-cut pair as displayed; not full city/traffic/metre acceptance"
+  },
+  "latestDesignProposal": {
+    "source": "topology-rework-007/proposal.json",
+    "viewer": "topology-rework-007/index.html",
+    "revision": "distributed-junctions-002",
+    "designOnly": true,
+    "userApproved": false,
+    "nodes": 33,
+    "edges": 39,
+    "schematicBoundedFaces": 7,
+    "arterialOrganisation": "diagonal through road, separate old-street crossing and east collector T connection; western five-way is not a common centre",
+    "old006GridTopologyRejected": true,
+    "rejectedTemplateExpansionStopped": true,
+    "imageRequestsThisIncrement": 0,
+    "actualMapWritten": false,
+    "actualNavigationReady": false,
+    "urbanRealismCertified": false,
+    "metreCalibration": null,
+    "finalCityPartitionFrozen": false,
+    "firstReviewProblemsResolvedByIndependentFollowup": true
   }
 }
