@@ -664,6 +664,87 @@
           "bytes": 3828
         }
       }
+    },
+    "realRoadReplica008": {
+      "recordedAt": "2026-11-08T12:49:25.197869+00:00",
+      "status": "passed-for-real-source-structure-reference-with-xml-wording-minor-author-corrected",
+      "sourceReferenceOnly": true,
+      "staticChecks": 61908,
+      "sourceSegmentsChecked": 6784,
+      "independentClipAlgorithm": "Cohen–Sutherland (builder uses Liang–Barsky)",
+      "maxProjectedEndpointError": 3.552713678800501e-15,
+      "browserChecksPassed": 10,
+      "browserCapturesSaved": 3,
+      "browserSessionClosed": true,
+      "roadPointerClickTested": false,
+      "roadClickTest": "browser DOM synthetic event",
+      "priorArtifactsAudited": 634,
+      "protectedFilesMatched": 91,
+      "newImageRequests": 0,
+      "formalGameTestsPerformed": false,
+      "independentReview": {
+        "threadId": "thr_978x3n893w",
+        "provider": "codex",
+        "model": "ccs-sanger/gpt-6.1-sol",
+        "reasoning": "max",
+        "status": "approved-for-source-road-structure-reference-only",
+        "report": "INDEPENDENT-REVIEW.md",
+        "critical": 0,
+        "important": 0,
+        "minorInReviewedRevision": 1,
+        "minor": "raw XML wording overstates rebuilt whitelisted subset",
+        "minorAuthorCorrected": true,
+        "minorCorrectionIndependentlyRereviewed": false,
+        "independentSourceSegmentsExamined": 53462,
+        "independentWayCount": 1217,
+        "independentPolylinePartCount": 1218,
+        "independentClippedSegments": 6784,
+        "independentBoundaryCuts": 91,
+        "independentDOMVertices": 8002,
+        "duplicateSourceNodeConflicts": 0,
+        "duplicateSourceWayConflicts": 0,
+        "didNotPerform": [
+          "author verifier",
+          "real browser",
+          "physical pointer",
+          "game tests",
+          "91-protection-source audit"
+        ],
+        "ordinaryProductionCertified": false,
+        "navigationCertified": false,
+        "userApproved": false
+      },
+      "boundArtifacts": {
+        "network.json": {
+          "bytes": 3891410,
+          "sha256": "b66e5e8b57ab53ebf127dbfbeda60ad30e693b778045008ee026a7a6b86206ba"
+        },
+        "roads.geojson": {
+          "bytes": 1241580,
+          "sha256": "0ac2ed9b906f743ee8fa3258b0979e72d8f530a0983b7c9f5a03eecb4ae306e8"
+        },
+        "source-extract.osm": {
+          "bytes": 706496,
+          "sha256": "775d5d77a724b379eca8e27452f6ca4091657a7b6947b38c83cf26bed72b5ab9"
+        },
+        "roads.svg": {
+          "bytes": 402725,
+          "sha256": "b693a3c80da02a53cbc1c898ed474a9a4df55931eec704b5650fbd2f18407368"
+        },
+        "selection.json": {
+          "bytes": 1008,
+          "sha256": "2903cba286e0eb1ba46b05cc6f3ba7cb3922a1b1c21363a057b73eec61196345"
+        },
+        "viewer-template.html": {
+          "bytes": 8821,
+          "sha256": "fefcadb4886002a1d2d3548eca737773dde1c157e7eb027b067f63f9bc726953"
+        },
+        "index.html": {
+          "bytes": 2529220,
+          "sha256": "dba3b0c0de86d805f772e07a89fcf34ee0f691ee1bd6ef6af97b8001882bd94e"
+        }
+      },
+      "metadataOnlyRevisionAfterBrowserEvidence": "source-extract note and additional provenance omitted-field disclosure; six other generated data files and viewer template unchanged"
     }
   },
   "readEntrances": [
@@ -710,7 +791,13 @@
     "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/RESULT.md",
     "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/REVIEW-001.md",
     "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/INDEPENDENT-FOLLOWUP.md",
-    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/006-topology-audit.json"
+    "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/006-topology-audit.json",
+    "delivery-game/data/map-sample/README.md",
+    "delivery-game/data/map-sample/source.json",
+    "delivery-game/data/map-sample/source.osm",
+    "delivery-game/data/map-sample/city-roads.osm",
+    "delivery-game/scripts/import-map-sample.py",
+    "docs/art/2026-11-02-county-zoning/selection.json"
   ],
   "currentStage": {
     "route": "whole-region native background plus independent vector road tracing",
@@ -724,7 +811,7 @@
     "wholeCityOrHalfCoverageDemonstrated": false,
     "highNativeReturnSizeVerified": false,
     "productionReady": false,
-    "stage": "road-topology-correction-design-review-before-further-raster-production",
+    "stage": "real-source-road-network-replica-preview-before-raster-production",
     "newImageToolRequests": 7,
     "newImagesReturned": 6,
     "newAdmittedRegions": 0,
@@ -756,7 +843,7 @@
       3192,
       941
     ],
-    "actualStandaloneTraceContext": "retained004+005 seam003 partial navigation only; new topology007 is a non-navigable design proposal, not a generated region",
+    "actualStandaloneTraceContext": "retained004+005 seam003 partial navigation only; latest008 is source OSM geometry evidence, not a new generated or navigable region",
     "assemblyIsDiagnosticOnly": true,
     "wholeSeamReady": false,
     "newImagesThisIncrement": 0,
@@ -772,16 +859,24 @@
     "userCompositeApprovalScope": "previous004+005 visible object-cut pair",
     "current006WholeSeamReady": false,
     "current006DesignConnectionJ3L3Realized": false,
-    "currentDesignOnly": true,
-    "currentDesignNodes": 33,
-    "currentDesignEdges": 39,
+    "currentDesignOnly": false,
+    "currentDesignNodes": null,
+    "currentDesignEdges": null,
     "currentDesignUserApproved": false,
     "currentDesignActualNavigationReady": false,
     "rejectedGridTemplateExpansionStopped": true,
     "current006RoadLayoutApproved": false,
-    "current006UserFeedback": "organic-north-006/user-review-001.json"
+    "current006UserFeedback": "organic-north-006/user-review-001.json",
+    "previous007Design": {
+      "nodes": 33,
+      "edges": 39,
+      "userApproved": false
+    },
+    "currentReferenceOnly": true,
+    "currentReferenceSourceWays": 1217,
+    "currentReferenceSourceSegments": 6784
   },
-  "nextConcreteAction": "Present the no-building distributed-junction road skeleton and old006/straightened comparison for structural review. Stop expansion of the rejected grid template. Incorporate actual user feedback into connections/hierarchy before the next raster request; preserve all approved artwork and old maps, do not freeze metres/image count or test the formal game.",
+  "nextConcreteAction": "Show the literal real-source network and magnified local view; continue from a contiguous source street patch for the next artwork trial, preserving actual road proportions/adjacency. Do not resume the invented grid/fan templates, silently shrink buildings/city or claim new raster/metre/whole-city/game approval.",
   "authorization": {
     "latestDirectUserAllowsContinuedImageWork": true,
     "doesNotPassTechnicalGates": true,
@@ -803,8 +898,11 @@
     "legacy Hermes queue recovery",
     "formal game tests"
   ],
-  "lastUpdatedAt": "2026-11-07T18:07:38.214498+00:00",
+  "lastUpdatedAt": "2026-11-08T12:49:25.197869+00:00",
   "newCurrentEntrances": [
+    "real-road-replica-008/source-provenance.json",
+    "real-road-replica-008/RESULT.md",
+    "real-road-replica-008/index.html",
     "docs/art/2026-11-07-map-sanger-continuation/current-map-state.json",
     "docs/art/2026-11-07-map-sanger-continuation/REPORT.md",
     "docs/art/2026-11-07-map-sanger-continuation/index.html",
@@ -855,7 +953,7 @@
     "matchedAtStart": 91,
     "report": "docs/art/2026-11-07-map-sanger-continuation/protected-check-before.json",
     "matchedAfterWork": 91,
-    "afterReport": "docs/art/2026-11-07-map-sanger-continuation/topology-rework-007/verification/integrity-check.json"
+    "afterReport": "docs/art/2026-11-07-map-sanger-continuation/real-road-replica-008/verification/final-check.json"
   },
   "workPerformed": {
     "currentBuiltInImageCapabilityProof": {
@@ -1724,6 +1822,113 @@
         "oldFilesDeletedOrOverwritten": false,
         "formalGameTestsAuthorized": false
       }
+    },
+    "realRoadReplica008": {
+      "reference": {
+        "source": "real-road-replica-008/source-provenance.json",
+        "viewer": "real-road-replica-008/index.html",
+        "network": "real-road-replica-008/network.json",
+        "geojson": "real-road-replica-008/roads.geojson",
+        "region": "Central Matsumoto, Japan",
+        "sourceHighwayWays": 1217,
+        "sourceSegments": 6784,
+        "sourceNodeIdentities": 5448,
+        "boundaryCutPoints": 91,
+        "sourceProjectedSize": [
+          1661.74,
+          1661.7350000000001
+        ],
+        "sourceWindowOnly": true,
+        "allSourceVerticesAndIdentityPreserved": true,
+        "newArtworkMetreCalibration": null,
+        "newCityPartitionFrozen": false,
+        "userApproved": false,
+        "navigationCertified": false,
+        "imageRequestsThisIncrement": 0,
+        "independentStructureReview": "approved-limited-source-reference",
+        "xmlExport": "reconstructed original-geometry-and-whitelisted-tags subset, omitting node tags and relations"
+      },
+      "verification": {
+        "recordedAt": "2026-11-08T12:49:25.197869+00:00",
+        "status": "passed-for-real-source-structure-reference-with-xml-wording-minor-author-corrected",
+        "sourceReferenceOnly": true,
+        "staticChecks": 61908,
+        "sourceSegmentsChecked": 6784,
+        "independentClipAlgorithm": "Cohen–Sutherland (builder uses Liang–Barsky)",
+        "maxProjectedEndpointError": 3.552713678800501e-15,
+        "browserChecksPassed": 10,
+        "browserCapturesSaved": 3,
+        "browserSessionClosed": true,
+        "roadPointerClickTested": false,
+        "roadClickTest": "browser DOM synthetic event",
+        "priorArtifactsAudited": 634,
+        "protectedFilesMatched": 91,
+        "newImageRequests": 0,
+        "formalGameTestsPerformed": false,
+        "independentReview": {
+          "threadId": "thr_978x3n893w",
+          "provider": "codex",
+          "model": "ccs-sanger/gpt-6.1-sol",
+          "reasoning": "max",
+          "status": "approved-for-source-road-structure-reference-only",
+          "report": "INDEPENDENT-REVIEW.md",
+          "critical": 0,
+          "important": 0,
+          "minorInReviewedRevision": 1,
+          "minor": "raw XML wording overstates rebuilt whitelisted subset",
+          "minorAuthorCorrected": true,
+          "minorCorrectionIndependentlyRereviewed": false,
+          "independentSourceSegmentsExamined": 53462,
+          "independentWayCount": 1217,
+          "independentPolylinePartCount": 1218,
+          "independentClippedSegments": 6784,
+          "independentBoundaryCuts": 91,
+          "independentDOMVertices": 8002,
+          "duplicateSourceNodeConflicts": 0,
+          "duplicateSourceWayConflicts": 0,
+          "didNotPerform": [
+            "author verifier",
+            "real browser",
+            "physical pointer",
+            "game tests",
+            "91-protection-source audit"
+          ],
+          "ordinaryProductionCertified": false,
+          "navigationCertified": false,
+          "userApproved": false
+        },
+        "boundArtifacts": {
+          "network.json": {
+            "bytes": 3891410,
+            "sha256": "b66e5e8b57ab53ebf127dbfbeda60ad30e693b778045008ee026a7a6b86206ba"
+          },
+          "roads.geojson": {
+            "bytes": 1241580,
+            "sha256": "0ac2ed9b906f743ee8fa3258b0979e72d8f530a0983b7c9f5a03eecb4ae306e8"
+          },
+          "source-extract.osm": {
+            "bytes": 706496,
+            "sha256": "775d5d77a724b379eca8e27452f6ca4091657a7b6947b38c83cf26bed72b5ab9"
+          },
+          "roads.svg": {
+            "bytes": 402725,
+            "sha256": "b693a3c80da02a53cbc1c898ed474a9a4df55931eec704b5650fbd2f18407368"
+          },
+          "selection.json": {
+            "bytes": 1008,
+            "sha256": "2903cba286e0eb1ba46b05cc6f3ba7cb3922a1b1c21363a057b73eec61196345"
+          },
+          "viewer-template.html": {
+            "bytes": 8821,
+            "sha256": "fefcadb4886002a1d2d3548eca737773dde1c157e7eb027b067f63f9bc726953"
+          },
+          "index.html": {
+            "bytes": 2529220,
+            "sha256": "dba3b0c0de86d805f772e07a89fcf34ee0f691ee1bd6ef6af97b8001882bd94e"
+          }
+        },
+        "metadataOnlyRevisionAfterBrowserEvidence": "source-extract note and additional provenance omitted-field disclosure; six other generated data files and viewer template unchanged"
+      }
     }
   },
   "imageBudgetChoice": {
@@ -1764,12 +1969,12 @@
   "layoutCorrection": {
     "directUserQuote": "好的，不可以太规整。我们实际的地图，包括前面生成的 25 张图，整个城市的面貌、道路都是曲折的、多变的，要更加真实。",
     "record": "organic-layout-004/DESIGN.md",
-    "status": "006-grid-like-topology-rejected-distributed-junction-draft-awaiting-user-review",
+    "status": "user-requires-real-source-network-replica-not-further-invented-topology",
     "previousPairGridApprovedForCityProduction": false,
     "finalCityRoadLayoutOrImagePartitionFrozen": false,
-    "latestContinuation": "topology-rework-007/DESIGN.md",
-    "latestDirectUserQuote": "现实中路，大路、小路、转弯的路、斜叉的路、十字路、丁字路，五个路口，各种情况都非常多。\n\n而你还是格子的路网，只是把原本直的这种路变得左拐右拐左拐右拐，你本质还没变化，你还是格子路网",
-    "latestUserFeedback": "organic-north-006/user-review-001.json",
+    "latestContinuation": "real-road-replica-008/PLAN.md",
+    "latestDirectUserQuote": "可以继续试试看，但是我还是建议你把真实的地图路网复刻出来。你做的还是太假",
+    "latestUserFeedback": "real-road-replica-008/user-feedback.json",
     "previousArtApprovalsDoNotAuthorizeGridCityProduction": true
   },
   "lastUserApprovedArtwork": {
@@ -1853,6 +2058,31 @@
     "urbanRealismCertified": false,
     "metreCalibration": null,
     "finalCityPartitionFrozen": false,
-    "firstReviewProblemsResolvedByIndependentFollowup": true
+    "firstReviewProblemsResolvedByIndependentFollowup": true,
+    "status": "historical-hand-drawn-proposal-superseded-by-user-request-for-real-source"
+  },
+  "latestRealRoadReference": {
+    "source": "real-road-replica-008/source-provenance.json",
+    "viewer": "real-road-replica-008/index.html",
+    "network": "real-road-replica-008/network.json",
+    "geojson": "real-road-replica-008/roads.geojson",
+    "region": "Central Matsumoto, Japan",
+    "sourceHighwayWays": 1217,
+    "sourceSegments": 6784,
+    "sourceNodeIdentities": 5448,
+    "boundaryCutPoints": 91,
+    "sourceProjectedSize": [
+      1661.74,
+      1661.7350000000001
+    ],
+    "sourceWindowOnly": true,
+    "allSourceVerticesAndIdentityPreserved": true,
+    "newArtworkMetreCalibration": null,
+    "newCityPartitionFrozen": false,
+    "userApproved": false,
+    "navigationCertified": false,
+    "imageRequestsThisIncrement": 0,
+    "independentStructureReview": "approved-limited-source-reference",
+    "xmlExport": "reconstructed original-geometry-and-whitelisted-tags subset, omitting node tags and relations"
   }
 }

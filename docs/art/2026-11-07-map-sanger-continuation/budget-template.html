@@ -9,8 +9,8 @@ body{margin:0;line-height:1.6}*{box-sizing:border-box}p{margin:8px 0 14px}.muted
 .scroll{overflow:auto;margin:16px 0}table{border-collapse:collapse;width:100%;min-width:560px}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid var(--border,#d4ded9);font-variant-numeric:tabular-nums}th{font-size:12px;color:var(--muted-foreground,#67746f)}td small{display:block;color:var(--muted-foreground,#67746f)}.hyp{background:var(--surface-recessed,#f7f1e5)}.failure{padding:16px;border-radius:var(--radius);background:var(--card,#f0f5f2);margin:16px 0}details{margin:14px 0}summary{cursor:pointer;font-weight:650}ul{padding-left:20px;margin:10px 0}a{color:var(--brand,#247965)}code{font-size:12px;overflow-wrap:anywhere}.formula{font-family:var(--font-mono,monospace);font-size:12px}.notice{border-left:3px solid var(--warning,#b07c2c);padding-left:12px}
 </style>
 <body>
-<p class="tag">最新：006道路布局未通过 · 先重做道路连接骨架</p>
-<p><a href="topology-rework-007/index.html"><b>查看修订路网骨架与006对照</b></a>。改变主次路汇接和局部小街连接，停止沿“三排横路画弯”的模板扩图。本轮没有生图。</p>
+<p class="tag">最新：按用户要求直接复刻真实地图路网</p>
+<p><a href="real-road-replica-008/index.html"><b>查看松本市真实路网选区</b></a>。直接复制已保存OSM的连续区域，保留原走向、折点与节点身份；007手绘草案留作历史，本轮没有生图。</p>
 <p>目标仍约旧 25 图面积的 1/4，参考约 <b>1.66 × 1.66 km</b>。A2/B1/C 保留，米制覆盖未知。下表用于解释容量缺口；图数和画幅均为条件估算，尚未冻结。</p>
 <div class="controls">
 <label>地图 CSS 宽度（示例，非用户设备实测）<select id="css"><option>320</option><option selected>375</option><option>430</option></select></label>
@@ -21,7 +21,7 @@ body{margin:0;line-height:1.6}*{box-sizing:border-box}p{margin:8px 0 14px}.muted
 <div class="scroll"><table><thead><tr><th>单幅实际 / 假设尺寸</th><th>仅按面积估算</th><th>规则矩形铺幅示意</th><th>外围半采样敏感性<br>仅按面积估算</th></tr></thead><tbody id="rows"></tbody></table></div>
 <p class="muted">矩形铺幅仅作像素容量算例，不决定城市路型；实际分图服从完整街坊和道路／绿地走廊。预算仍假设每轴90%可用核心，合计81%有效像素；两区接缝不能推广为全城边带。面积列允许理想拼排，铺幅列另计横纵向余量。完整街坊、楼高、接缝与功能组织可能增加图数。外围半采样仅供比较，尚未采用。</p>
 <p class="notice" id="conclusion"></p>
-<div class="failure"><b>当前：停止006格子式骨架扩张，审阅连接结构</b><br>用户指出006仍是把横纵格子画弯，已明确记为道路布局未通过。原图、旧25图、004/005已有画面认可与拼图都保留，不继续用该组织方式扩城。本轮0请求，累计仍7次请求／6张返回。<br>修订草案将主路交会、片区东接和北侧斜交分开，西侧老街五岔不再兼任共同中心；局部小街的接入、回接和终止关系也已改变。可在页面切换006原骨架及去掉中间折点的视图，直接判断连接关系。<br>这是无建筑的设计讨论稿，不是第007张生产图，也不是用户已认可的新城布局。道路宽度／路口数量不代表米制、车道或实际地图覆盖。旧导航证据不能代替新设计验收。<br>20～24仍是条件算例，米制覆盖与最终图数未定。<br><a href="topology-rework-007/index.html">最新连接草案</a> · <a href="topology-rework-007/RESULT.md">设计修正记录</a> · <a href="organic-north-006/native.png">006原图保留</a> · <a href="organic-adjacent-005/seam-003/assembly/pair-native.png">004＋005认可画面</a></div>
+<div class="failure"><b>当前：真实路网复刻样本，等待查看结构</b><br>用户认为手绘007仍太假，建议直接复刻真实地图。本轮改用项目保存的松本市OSM原始数据，从旧红框中央取宽高各半的连续参考窗口，保留所有相交源线段；不拉直、不补路或按交叉坐标造路口。<br>预览支持完整选区、局部放大、步行线与已有建筑轮廓，点路可查原道路编号。源数据权限、桥与层级标签保留，但不因此宣称车行导航已验证。<br>样本约1.66公里见方只说明源数据取样范围，不是新生成图的米制标定，也未冻结新城分区。006原图、旧25图、004/005画面及拼图认可、007草案全部保留。累计仍7请求／6张返回。<br>20～24仍是条件算例，米制覆盖与最终图数未定。<br><a href="real-road-replica-008/index.html">真实路网预览</a> · <a href="real-road-replica-008/RESULT.md">来源与核验</a> · <a href="topology-rework-007/index.html">007手绘历史</a> · <a href="organic-adjacent-005/seam-003/assembly/pair-native.png">004＋005认可画面</a></div>
 <details><summary>计算口径与尚未通过的门禁</summary>
 <p class="formula">PPU = CSS宽 ÷ 120 × 源像素/CSS像素<br>投影宽 = 1661.74 × PPU<br>投影高 = 1661.735 × PPU × sin(假设仰角)<br>面积估算 = ceil(投影宽 × 投影高 ÷ 单幅像素 ÷ 0.81)<br>规则铺幅 = ceil(投影宽 ÷ 单幅宽 ÷ 0.9) × ceil(投影高 ÷ 单幅高 ÷ 0.9)</p>
 <ul><li>米数来自可逆规划参考，不是 A/B/C 或新两区原图标定；不据此填写面积完成率。</li><li>375 CSSpx、投影仰角、采样倍率、边带比例均是假设。1个源像素/CSSpx不等于高清屏幕验收，也不保证美术原生细节。</li><li>原生 A2 道路约53/54px是像素观察；没有据此断言道路米数。现有源码720是整幅宽，60是比例尺线。</li><li>已有八街坊与相邻两区的独立描路/Tiled证据，两区接头保留真实残差；4K、可信米制覆盖、最终图数、用户美术与车道语义仍待确认。</li><li>旧图、旧城/路网/边界及用户布局保留；未改产品/经济/存档，未做正式游戏测试。</li></ul>

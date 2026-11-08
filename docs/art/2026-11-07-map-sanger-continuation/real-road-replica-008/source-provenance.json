@@ -1,0 +1,72 @@
+{
+  "region": "Central Matsumoto, Japan",
+  "dataOrigin": "locally retained OpenStreetMap XML",
+  "retrievedDatesFromExistingRecord": [
+    "2026-10-27",
+    "2026-10-28"
+  ],
+  "networkDownloadsThisIncrement": 0,
+  "sourceFiles": {
+    "delivery-game/data/map-sample/source.osm": {
+      "bytes": 3448537,
+      "sha256": "36c840696e5fc94ab7f1a881f7d7d545ca7dd2983dfd3fbb16d383f822c50fbb"
+    },
+    "delivery-game/data/map-sample/city-roads.osm": {
+      "bytes": 5780827,
+      "sha256": "0c33bb367967443f9d514c0fa5c74a77ecd7256c346f7f17d1f07eaa63413d6c"
+    },
+    "delivery-game/data/map-sample/source.json": {
+      "bytes": 1428,
+      "sha256": "1f05ee23ab21ec24834af74fd01098724649cc97ebaab1d1014410ccd38241d2"
+    },
+    "delivery-game/data/map-sample/README.md": {
+      "bytes": 3670,
+      "sha256": "82bdcfe069ab60fa64ab76dc07d5c2876b6e41b81f97db25caa9f345efbfe973"
+    }
+  },
+  "importerReadOnly": {
+    "path": "delivery-game/scripts/import-map-sample.py",
+    "bytes": 7833,
+    "sha256": "bc1da082e99bd472d17fb168623b15cc5a5172a9b9120de6c09fa52bb9ba4300"
+  },
+  "contextSource": {
+    "path": "delivery-game/assets/resources/map-sample/city.json",
+    "bytes": 4680266,
+    "sha256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20"
+  },
+  "approxZoningSource": {
+    "path": "docs/art/2026-11-02-county-zoning/selection.json",
+    "bytes": 4577,
+    "sha256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f"
+  },
+  "attribution": "© OpenStreetMap contributors",
+  "licence": "ODbL 1.0",
+  "licenceURL": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "copyrightURL": "https://www.openstreetmap.org/copyright",
+  "osmReferenceURL": "https://www.openstreetmap.org/#map=16/36.2335996/137.9680084",
+  "widthsAreDisplayClassesNotMeasuredMetres": true,
+  "imageryGenerated": false,
+  "xmlSubsetNature": "reconstructed subset preserving original geometry and whitelisted way tags; not a full original OSM copy",
+  "xmlSubsetOmissions": [
+    "all node tags including barriers/gates",
+    "non-whitelisted way tags including road names",
+    "relations including turn restrictions",
+    "versions/users/changeset metadata"
+  ],
+  "preserved": [
+    "source way IDs",
+    "source node IDs",
+    "all intermediate vertices",
+    "original adjacency by node identity",
+    "whitelisted access/oneway/bridge/layer tags"
+  ],
+  "notCertified": [
+    "source completeness or current field conditions",
+    "turn restrictions",
+    "vehicle access",
+    "new artwork metre scale",
+    "new-city zoning",
+    "navigation",
+    "game acceptance"
+  ]
+}

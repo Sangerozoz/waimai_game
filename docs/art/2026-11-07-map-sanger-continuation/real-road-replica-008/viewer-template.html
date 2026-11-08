@@ -1,0 +1,43 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>松本市真实路网复刻样本</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:transparent;color:var(--foreground,#273334);font:14px var(--font-sans,system-ui,sans-serif)}button,a{font:inherit}button{border:1px solid var(--border,#ccd1cf);border-radius:var(--radius,7px);padding:7px 10px;background:var(--secondary,#edf0eb);color:inherit;cursor:pointer}button[aria-pressed=true]{background:var(--primary,#356c69);color:var(--primary-foreground,#fff)}a{color:var(--brand,#327a7b)}p{line-height:1.6;margin:9px 0}.intro{font-size:17px;font-weight:650}.muted{color:var(--muted-foreground,#6b7373);font-size:12px}.controls,.legend,.links{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.legend{font-size:12px;gap:15px}.legend span:before{content:'';display:inline-block;width:20px;height:3px;background:var(--ink);margin-right:5px;vertical-align:middle}.stage{position:relative;overflow:hidden;border-radius:var(--radius,9px);background:#f3f1e9;border:1px solid var(--border,#ced2cc)}svg{width:100%;height:540px;display:block;touch-action:none;cursor:grab}svg:active{cursor:grabbing}svg polyline.road{pointer-events:stroke;cursor:pointer}.info{padding:10px 12px;background:var(--muted,#ecefea);border-radius:var(--radius,7px);min-height:42px;font-size:12px;overflow-wrap:anywhere}#scale{position:absolute;bottom:12px;left:14px;pointer-events:none;font-size:11px;color:#344448;background:#ffffffd9;padding:3px 7px;border-radius:3px}#scale i{display:block;height:6px;border:solid #344448;border-width:0 1px 2px}.source{font-size:12px;margin:12px 0 0}@media(max-width:480px){svg{height:420px}.intro{font-size:16px}button{padding:7px 9px}}
+</style>
+<p class="intro">直接复刻真实路网：松本市连续街区</p>
+<p>道路来自项目保存的OSM原始数据。保留原走向、折点和连接；没有为凑路口类型重新设计。可拖动、滚轮缩放，点道路查看来源。</p>
+<div class="controls"><button id="full">完整选区</button><button id="detail">看局部</button><button id="plus" aria-label="放大">＋</button><button id="minus" aria-label="缩小">－</button><button id="paths" aria-pressed="false">步行／骑行线</button><button id="buildings" aria-pressed="false">已有建筑轮廓</button><button id="junctions" aria-pressed="false">原节点交会</button></div>
+<div class="legend"><span style="--ink:#ab6648">较高等级道路</span><span style="--ink:#687478">街道／支路</span><span style="--ink:#9da6a5">服务通道</span></div>
+<div class="stage"><svg id="map" role="img" aria-label="OSM真实路网，可缩放查看" xmlns="http://www.w3.org/2000/svg"></svg><div id="scale"><i></i><span></span></div></div>
+<p class="muted" id="summary"></p><div class="info" id="info">点道路查看OSM编号、原道路类别和桥／层级标签。交叉不自动相连；这里不提供导航。</div>
+<p class="muted">约1.66公里见方，取样面积约为旧红框的1/4。仅作路网结构参考，尚未绑定生成图尺度或确定新城分区。线宽按类别示意；建筑轮廓来自已有数据，记录不完整。</p>
+<div class="links"><a href="roads.svg" target="_blank">矢量原形</a><a href="roads.geojson" target="_blank">经纬度数据</a><a href="source-extract.osm" target="_blank">原节点与道路</a><a id="source-map" target="_blank" rel="noreferrer">原地图位置</a></div>
+<p class="source">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a> · 数据：<a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noreferrer">ODbL 1.0</a> · 项目保存于2026-10-27／28，未重新下载底图。</p>
+<script>
+const D=/*__DATA__*/null;
+const N=D.network, box=N.selection.sourceProjectedBounds, [W,H]=N.selection.sourceProjectedSize, ns='http://www.w3.org/2000/svg';
+const svg=document.querySelector('#map');let view=[0,0,W,H];
+function el(tag,attrs,parent){const n=document.createElementNS(ns,tag);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);parent.append(n);return n}
+const defs=el('defs',{},svg),clip=el('clipPath',{id:'source-window'},defs);el('rect',{x:0,y:0,width:W,height:H},clip);
+const scene=el('g',{'clip-path':'url(#source-window)'},svg);
+const water=el('g',{},scene),built=el('g',{display:'none'},scene),roads=el('g',{},scene),joins=el('g',{display:'none'},scene);
+function point(p){return [p[0]-box[0],box[3]-p[1]]}function points(ps){return ps.map(p=>point(p).join(',')).join(' ')}
+for(const a of D.context.areas)if(a.kind==='water')el('polygon',{points:points(a.points),fill:'#cbdfe1'},water);
+for(const ps of D.context.waterways)el('polyline',{points:points(ps),fill:'none',stroke:'#bad4d9','stroke-width':5},water);
+for(const ps of D.context.buildings)el('polygon',{points:points(ps),fill:'#dedbd0',stroke:'#c8c5bc','stroke-width':.4},built);
+const cats={major:{color:'#ab6648',width:8},street:{color:'#687478',width:4.6},service:{color:'#9da6a5',width:2.8},nonvehicle:{color:'#a9aaa3',width:1.4}};
+const groups={};for(const c of ['nonvehicle','service','street','major'])groups[c]=el('g',{'data-category':c,...(c==='nonvehicle'?{display:'none'}:{})},roads);
+for(const p of N.parts){const w=N.ways[p.wayId],c=cats[w.category];const path=el('polyline',{points:points(p.nodes.map(id=>N.nodes[id].xy)),fill:'none',stroke:c.color,'stroke-width':c.width,'stroke-linecap':'round','stroke-linejoin':'round',class:'road','data-way':p.wayId,...(w.category==='nonvehicle'?{'stroke-dasharray':'3 3'}:{})},groups[w.category]);path.addEventListener('click',()=>{const info=document.querySelector('#info');info.textContent=`OSM way ${p.wayId} · ${w.tags.highway} · ${Object.entries(w.tags).filter(([k])=>k!=='highway').map(([k,v])=>k+'='+v).join(' · ')||'无额外保留标签'}　`;const a=document.createElement('a');a.href='https://www.openstreetmap.org/way/'+p.wayId;a.target='_blank';a.rel='noreferrer';a.textContent='查看源道路';info.append(a)})}
+const adj={};for(const e of N.segments){if(N.ways[e.wayId].category==='nonvehicle')continue;(adj[e.a]??=new Set()).add(e.b);(adj[e.b]??=new Set()).add(e.a)}
+for(const [id,vs]of Object.entries(adj))if(vs.size>=3&&!N.nodes[id].boundaryCut){const [x,y]=point(N.nodes[id].xy);el('circle',{cx:x,cy:y,r:3.4,fill:'#326e72',stroke:'#fff','stroke-width':1,'data-source-node':N.nodes[id].sourceNodeId},joins)}
+function render(){svg.setAttribute('viewBox',view.join(' '));const rect=svg.getBoundingClientRect();const ppm=Math.min(rect.width/view[2],rect.height/view[3]);const metres=view[2]<650?50:200;document.querySelector('#scale i').style.width=(metres*ppm)+'px';document.querySelector('#scale span').textContent=metres+' m（源投影近似）'}
+function zoom(f,x=.5,y=.5){const w=Math.max(120,Math.min(W*1.4,view[2]*f)),h=w*H/W;view=[view[0]+(view[2]-w)*x,view[1]+(view[3]-h)*y,w,h];render()}
+document.querySelector('#full').onclick=()=>{view=[0,0,W,H];render()};document.querySelector('#detail').onclick=()=>{view=[W*.37,H*.35,420,420*H/W];render()};document.querySelector('#plus').onclick=()=>zoom(.65);document.querySelector('#minus').onclick=()=>zoom(1/.65);
+function toggle(id,group){document.querySelector('#'+id).onclick=e=>{const on=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(on));group.setAttribute('display',on?'inline':'none')}}
+toggle('paths',groups.nonvehicle);toggle('buildings',built);toggle('junctions',joins);
+function screenPoint(e){const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(svg.getScreenCTM().inverse());return [p.x,p.y]}
+svg.addEventListener('wheel',e=>{e.preventDefault();const p=screenPoint(e);zoom(e.deltaY<0?.82:1/.82,(p[0]-view[0])/view[2],(p[1]-view[1])/view[3])},{passive:false});
+let drag=null;svg.addEventListener('pointerdown',e=>{const rect=svg.getBoundingClientRect();drag={x:e.clientX,y:e.clientY,view:[...view],ppm:Math.min(rect.width/view[2],rect.height/view[3])}});svg.addEventListener('pointermove',e=>{if(!drag||Math.hypot(e.clientX-drag.x,e.clientY-drag.y)<4)return;svg.setPointerCapture(e.pointerId);view=[drag.view[0]-(e.clientX-drag.x)/drag.ppm,drag.view[1]-(e.clientY-drag.y)/drag.ppm,drag.view[2],drag.view[3]];render()});svg.addEventListener('pointerup',()=>drag=null);svg.addEventListener('pointercancel',()=>drag=null);
+document.querySelector('#source-map').href=D.provenance.osmReferenceURL;
+const s=D.statistics;document.querySelector('#summary').textContent=`原始道路／通道 ${s.sourceHighwayWays} 条OSM记录；保留 ${s.preservedSourceSegments} 个源线段。记录条数不是物理道路数、路口数或街坊数。`;
+window.addEventListener('resize',render);render();
+</script></html>
