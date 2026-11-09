@@ -1,0 +1,58 @@
+{
+  "reviewer": "thr_29f6fcihz6",
+  "scope": "read-only follow-up HTTP plus TRANSPORT-ONLY packager path; no actual TinyPNG image claim",
+  "files": [
+    {
+      "path": "delivery-game/scripts/serve-web.py",
+      "sha256": "3bec029680ea48a9a565d2463f806cb3ba0ac0293e9cfb4d5bdfbf2b23035866"
+    },
+    {
+      "path": "delivery-game/scripts/serve-web.sh",
+      "sha256": "9aaa94d10a87307dc5ec0e972167c0d66ac5513e84e1502659933fb475e09d3f"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/test_web_transport.py",
+      "sha256": "aee495f6f36459b211ec479fd2d7059e7151dfa53edef11a1ba068d27ec05d01"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-red.log",
+      "sha256": "95da95c9c0df2e6b7ba6b0a20006484e01a198fedf33d61e57ae355b28e6eacb"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-green.log",
+      "sha256": "7ae2050e24700d40b7dfa87512acb4801abf9115e8b31dac0a3b3ad33996e3b5"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-11-08-package-startup-design.md",
+      "sha256": "10c5b6b957857c8ff5131975404c5bfdb211de3fc06f9c30cd6eec3c9ddcd882"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-followup-red.log",
+      "sha256": "fc4b8ca32a91758162b812dde4eb3422b965b340d384d2b5861f1fd7426e7223"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-followup-green.log",
+      "sha256": "b0ee58925d1ad07de542bd231f41d97200e24cc6cf62c1e429b066bef845b218"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-followup-red-receipt.json",
+      "sha256": "a0d204e883f7156fb0eb37dbf5f2487eeacc0f826302a714db23c4a2acf0a1d1"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-followup-green-receipt.json",
+      "sha256": "36af5472082b78eacaa1aa00cbcd5b0a3af2ad25287d434ecdb4accc04f1409e"
+    },
+    {
+      "path": "delivery-game/scripts/optimize-web-package.py",
+      "sha256": "8f1d971ee344399f68028fc671a62047407f858892f7bdf92ed61b75405ced7e"
+    }
+  ],
+  "findingsToClose": [
+    "identity rejection returns406 with wildcard/explicit/sidecar boundary",
+    "directory path redirects301 preservingquery"
+  ],
+  "tests": "RED9pass/2fail -> GREEN11/11",
+  "TinyPNG": "BLOCKED; website INVALID; officialAPI401withoutkey; secret request timed out; images not compressed",
+  "candidate": "delivery-game/build/v2-startup-transport-1108",
+  "outputMeaning": "identical businessJS/city/images, settings0splash and hash chain, gzip sidecars; image budget gate remains failing"
+}

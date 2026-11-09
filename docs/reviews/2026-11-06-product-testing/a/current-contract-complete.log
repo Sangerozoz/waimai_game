@@ -1,0 +1,136 @@
+TAP version 13
+# Subtest: current slots: finite stable candidates, canonical load, exact capacity and atomic over-capacity rejection
+ok 1 - current slots: finite stable candidates, canonical load, exact capacity and atomic over-capacity rejection
+  ---
+  duration_ms: 4.599791
+  type: 'test'
+  ...
+# Subtest: U22 production preview/acceptance share trusted held metres, batch protection and one rounded formula
+ok 2 - U22 production preview/acceptance share trusted held metres, batch protection and one rounded formula
+  ---
+  duration_ms: 10.605042
+  type: 'test'
+  ...
+# Subtest: legacy U22 protects a whole crossing batch and applies the unrounded post-protection tariff once
+ok 3 - legacy U22 protects a whole crossing batch and applies the unrounded post-protection tariff once
+  ---
+  duration_ms: 1.921084
+  type: 'test'
+  ...
+# Subtest: new slots contexts reject missing/extra/inherited metadata atomically and accept an own __proto__ ID
+ok 4 - new slots contexts reject missing/extra/inherited metadata atomically and accept an own __proto__ ID
+  ---
+  duration_ms: 0.282083
+  type: 'test'
+  ...
+# Subtest: new completed and cancelled slot quotes retain strict historical metadata validation
+ok 5 - new completed and cancelled slot quotes retain strict historical metadata validation
+  ---
+  duration_ms: 2.421292
+  type: 'test'
+  ...
+# Subtest: planned ETA is detached and mirrors approved road/service units with safe late suppression
+ok 6 - planned ETA is detached and mirrors approved road/service units with safe late suppression
+  ---
+  duration_ms: 0.760917
+  type: 'test'
+  ...
+# Subtest: legacy kg in-flight contracts preserve quote, food draw and units; next accepted batch uses slots
+ok 7 - legacy kg in-flight contracts preserve quote, food draw and units; next accepted batch uses slots
+  ---
+  duration_ms: 2.904333
+  type: 'test'
+  ...
+# Subtest: kg and slots fleet restoration enforce reserved vehicles while allowing the original rider future null/free vehicle
+ok 8 - kg and slots fleet restoration enforce reserved vehicles while allowing the original rider future null/free vehicle
+  ---
+  duration_ms: 4.994459
+  type: 'test'
+  ...
+# Subtest: NPC zero-quota 0->60 with actual hero completion at 10 equals 0->10->60; repeat/rollback never refill
+ok 9 - NPC zero-quota 0->60 with actual hero completion at 10 equals 0->10->60; repeat/rollback never refill
+  ---
+  duration_ms: 6.755375
+  type: 'test'
+  ...
+# Subtest: hero completion and supply purchase use their own absolute local-day instant and restore frame context
+ok 10 - hero completion and supply purchase use their own absolute local-day instant and restore frame context
+  ---
+  duration_ms: 3.31375
+  type: 'test'
+  ...
+# Subtest: Fleet catch-up credits each workAt on its local day without migrating old unknown-date ledger rows
+ok 11 - Fleet catch-up credits each workAt on its local day without migrating old unknown-date ledger rows
+  ---
+  duration_ms: 0.792667
+  type: 'test'
+  ...
+# Subtest: same millisecond NPC old due is settled before hero credit and quota sync
+ok 12 - same millisecond NPC old due is settled before hero credit and quota sync
+  ---
+  duration_ms: 2.782
+  type: 'test'
+  ...
+# Subtest: planned supply consumes real action/cash but not trip deadline clock; active supply retains its clock
+ok 13 - planned supply consumes real action/cash but not trip deadline clock; active supply retains its clock
+  ---
+  duration_ms: 3.439458
+  type: 'test'
+  ...
+# Subtest: food-risk metadata changes category risk without adding draws; canonical Game inputs and malformed foods reject
+ok 14 - food-risk metadata changes category risk without adding draws; canonical Game inputs and malformed foods reject
+  ---
+  duration_ms: 0.416708
+  type: 'test'
+  ...
+# Subtest: snapshot, tick context and nested frozen-effect projections are detached from live authority
+ok 15 - snapshot, tick context and nested frozen-effect projections are detached from live authority
+  ---
+  duration_ms: 0.780041
+  type: 'test'
+  ...
+# Subtest: slots NPC payouts are per-order idempotent across restore and repeated/rollback advances
+ok 16 - slots NPC payouts are per-order idempotent across restore and repeated/rollback advances
+  ---
+  duration_ms: 1.83225
+  type: 'test'
+  ...
+# Subtest: Game automatic 600-second final slice stops at its true in-flight state while NPC wall clock reaches frame end
+ok 17 - Game automatic 600-second final slice stops at its true in-flight state while NPC wall clock reaches frame end
+  ---
+  duration_ms: 1981.978375
+  type: 'test'
+  ...
+# Subtest: paused/background/resume edges freeze hero but do not freeze already-earned NPC quota
+ok 18 - paused/background/resume edges freeze hero but do not freeze already-earned NPC quota
+  ---
+  duration_ms: 6.814875
+  type: 'test'
+  ...
+# Subtest: pending advertisement is sampled before expiry, so an expired wait interval cannot become hero travel
+ok 19 - pending advertisement is sampled before expiry, so an expired wait interval cannot become hero travel
+  ---
+  duration_ms: 2.11875
+  type: 'test'
+  ...
+# Subtest: single slot refuses existing new, corrupt/future restore, lost writer, epoch and external-byte overwrite
+ok 20 - single slot refuses existing new, corrupt/future restore, lost writer, epoch and external-byte overwrite
+  ---
+  duration_ms: 0.695791
+  type: 'test'
+  ...
+# Subtest: single slot adapter write failure preserves prewrite bytes and stops later commits
+ok 21 - single slot adapter write failure preserves prewrite bytes and stops later commits
+  ---
+  duration_ms: 0.178875
+  type: 'test'
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2086.461708

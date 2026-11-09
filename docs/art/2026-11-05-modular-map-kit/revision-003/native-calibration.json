@@ -1,0 +1,70 @@
+{
+  "status": "manual-native-image-calibration-not-user-accepted",
+  "file": "B01-road-aligned-native-v1.png",
+  "sha256": "817678000e21a6d3c46bf9e95b7e9ab56d71791081616179a61a81cfe446576a",
+  "anchorUV": [
+    0.4996012759170654,
+    0.7340510366826156
+  ],
+  "nativePixelsPerUnit": 111.2618392940353,
+  "method": "Manual visible wall span approx 411px / (candidate 8 units * fixed axisZ); uniform positive sprite scale only. Not measured physical dimensions.",
+  "foundationCornersPixelsApprox": {
+    "left": [
+      198,
+      910
+    ],
+    "front": [
+      438,
+      1229
+    ],
+    "right": [
+      1055,
+      931
+    ]
+  },
+  "roofWallCornersPixelsApprox": {
+    "left": [
+      200,
+      515
+    ],
+    "front": [
+      435,
+      818
+    ],
+    "right": [
+      1048,
+      514
+    ]
+  },
+  "manualCornerUncertaintyPx": 5,
+  "measuredSilhouetteEdges": {
+    "method": "Least squares of lowest alpha>=200 pixel per x; secondary diagnostic only, includes footing/edge pixels.",
+    "frontage": {
+      "xRange": [
+        490,
+        1000
+      ],
+      "angleDeg": -25.76332687909905,
+      "targetDeg": -28.486362688849802,
+      "differenceDeg": 2.723035809750751,
+      "rmsPx": 1.3859417180792417
+    },
+    "shortSide": {
+      "xRange": [
+        225,
+        390
+      ],
+      "angleDeg": 53.078977419970435,
+      "targetDeg": 55.40598449120886,
+      "differenceDeg": -2.3270070712384268,
+      "rmsPx": 0.32003847982162786
+    }
+  },
+  "nativeBytesEqualToolOutput": true,
+  "notes": [
+    "More closely follows source-road direction, but not exact projection match.",
+    "Two-storey identity retained. Pale/colour edge fragments and sparse distant alpha specks remain.",
+    "No image warp, rotation, mirror, recolouring, trimming or alpha cleanup performed.",
+    "Do not treat this asset as a generic four-direction library or change original roads to fit it."
+  ]
+}

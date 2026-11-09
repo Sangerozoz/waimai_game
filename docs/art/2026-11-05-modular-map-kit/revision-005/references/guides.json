@@ -1,0 +1,4041 @@
+{
+  "status": "reference-package-only-no-native-generation-no-integration-no-acceptance",
+  "sourceConstraint": "docs/art/2026-11-05-modular-map-kit/revision-003/road-constraint.json",
+  "projection": {
+    "id": "orthographic-e62.5-a45-v1",
+    "elevationDeg": 62.5,
+    "azimuthDeg": 45,
+    "canvasYDown": true,
+    "axisX": [
+      0.7071067811865476,
+      0.62721137512625
+    ],
+    "axisY": [
+      -0.7071067811865476,
+      0.62721137512625
+    ],
+    "axisZ": [
+      0,
+      -0.4617486132350339
+    ],
+    "originMap": [
+      -1591.5766733668343,
+      75.0
+    ]
+  },
+  "roadId": "149397380-0",
+  "sourceNodeIds": [
+    "1623821577",
+    "1623821431"
+  ],
+  "segmentMap": [
+    [
+      -1596.7,
+      96.27
+    ],
+    [
+      -1582.32,
+      36.57
+    ]
+  ],
+  "frontageBasisMap": [
+    0.23417355683909316,
+    -0.9721948082958105
+  ],
+  "depthBasisMap": [
+    0.9721948082958105,
+    0.23417355683909316
+  ],
+  "depthSignWarning": "depthBasisMap = -constraint.outwardPerpendicularMap = left-normal of streetTangentMap, exactly matching B01 script; using outward as +depth would flip the guide.",
+  "groundEdgeAnglesScreenDeg": {
+    "frontage": -28.486362688849802,
+    "depth": 55.40598449120886
+  },
+  "localCoordinates": "s frontage along street tangent; t depth along left-normal; z vertical up. Ground origin is footprint centre. D-C is road-facing frontage.",
+  "dimensionStatus": "Canonical PM production candidates, not measured source geometry or user hard dimensions.",
+  "guideScalePolicy": "One uniform scalar PPU per asset, fitted with all rooftop/roof-overhang features. No image stretch/shear/mirror; asset PPU values intentionally differ.",
+  "acceptedB01BasisReconstructionMaxErrorPixels": 0.0,
+  "qualitativeLighting": "Match accepted B01 qualitatively: soft daylight from the upper-left, light roof/parapet highlights, restrained neutral facade shading, small rooftop shadows falling broadly away toward the lower-right. This is visual guidance, not a measured light vector; no yellow wash or glowing windows.",
+  "buildings": [
+    {
+      "id": "B02",
+      "status": "geometry-reference-only-not-native-art-or-acceptance",
+      "dimensionsCandidate": {
+        "frontage": 10,
+        "depth": 7,
+        "height": 14
+      },
+      "dimensionAuthority": "docs/art/2026-11-05-modular-map-kit/revision-005/production-brief.json",
+      "geometryFile": "B02-geometry.png",
+      "guideSizeActual": [
+        1536,
+        1536
+      ],
+      "safetyMarginPixels": 100,
+      "uniformNativeGuidePixelsPerUnit": 81.947,
+      "anchorPixel": [
+        768.0,
+        961.3160274479059
+      ],
+      "anchorMeaning": "footprint ground centre (s=0,t=0,z=0); no map placement authority",
+      "projectedGroundCornersABCD": [
+        [
+          268.80627346703676,
+          933.9628363574061
+        ],
+        [
+          967.839793212263,
+          554.6340052003031
+        ],
+        [
+          1267.1937265329632,
+          988.6692185384056
+        ],
+        [
+          568.160206787737,
+          1367.9980496955086
+        ]
+      ],
+      "projectedVisibleGroundCorners": {
+        "A": [
+          268.80627346703676,
+          933.9628363574061
+        ],
+        "C": [
+          1267.1937265329632,
+          988.6692185384056
+        ],
+        "D": [
+          568.160206787737,
+          1367.9980496955086
+        ]
+      },
+      "projectedRoofSurfaces": [
+        {
+          "name": "base-exposed-1",
+          "localVertices": [
+            [
+              -5,
+              -3.5,
+              4.6
+            ],
+            [
+              -4.7,
+              -3.5,
+              4.6
+            ],
+            [
+              -4.7,
+              3.5,
+              4.6
+            ],
+            [
+              -5,
+              3.5,
+              4.6
+            ]
+          ],
+          "projectedCorners": [
+            [
+              268.80627346703676,
+              759.903833757058
+            ],
+            [
+              289.7772790593936,
+              748.523968822345
+            ],
+            [
+              589.1312123800938,
+              1182.5591821604473
+            ],
+            [
+              568.160206787737,
+              1193.9390470951605
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "base-exposed-2",
+          "localVertices": [
+            [
+              4.7,
+              -3.5,
+              4.6
+            ],
+            [
+              5,
+              -3.5,
+              4.6
+            ],
+            [
+              5,
+              3.5,
+              4.6
+            ],
+            [
+              4.7,
+              3.5,
+              4.6
+            ]
+          ],
+          "projectedCorners": [
+            [
+              946.8687876199062,
+              391.9548675346682
+            ],
+            [
+              967.839793212263,
+              380.57500259995504
+            ],
+            [
+              1267.1937265329632,
+              814.6102159380575
+            ],
+            [
+              1246.2227209406065,
+              825.9900808727707
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "base-exposed-3",
+          "localVertices": [
+            [
+              -4.7,
+              2.1,
+              4.6
+            ],
+            [
+              4.7,
+              2.1,
+              4.6
+            ],
+            [
+              4.7,
+              3.5,
+              4.6
+            ],
+            [
+              -4.7,
+              3.5,
+              4.6
+            ]
+          ],
+          "projectedCorners": [
+            [
+              529.2604257159537,
+              1095.752139492827
+            ],
+            [
+              1186.3519342764664,
+              739.1830382051501
+            ],
+            [
+              1246.2227209406065,
+              825.9900808727707
+            ],
+            [
+              589.1312123800938,
+              1182.5591821604473
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "middle-setback-exposed-1",
+          "localVertices": [
+            [
+              -4.7,
+              -3.5,
+              9.2
+            ],
+            [
+              -4.4,
+              -3.5,
+              9.2
+            ],
+            [
+              -4.4,
+              2.1,
+              9.2
+            ],
+            [
+              -4.7,
+              2.1,
+              9.2
+            ]
+          ],
+          "projectedCorners": [
+            [
+              289.7772790593936,
+              574.4649662219969
+            ],
+            [
+              310.7482846517504,
+              563.0851012872838
+            ],
+            [
+              550.2314313083104,
+              910.3132719577659
+            ],
+            [
+              529.2604257159537,
+              921.6931368924788
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "middle-setback-exposed-2",
+          "localVertices": [
+            [
+              2.4,
+              -3.5,
+              9.2
+            ],
+            [
+              4.7,
+              -3.5,
+              9.2
+            ],
+            [
+              4.7,
+              2.1,
+              9.2
+            ],
+            [
+              2.4,
+              2.1,
+              9.2
+            ]
+          ],
+          "projectedCorners": [
+            [
+              786.0910780785042,
+              305.14149610045376
+            ],
+            [
+              946.8687876199062,
+              217.89586493432012
+            ],
+            [
+              1186.3519342764664,
+              565.124035604802
+            ],
+            [
+              1025.5742247350643,
+              652.3696667709357
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "middle-setback-exposed-3",
+          "localVertices": [
+            [
+              -4.4,
+              0.6,
+              9.2
+            ],
+            [
+              2.4,
+              0.6,
+              9.2
+            ],
+            [
+              2.4,
+              2.1,
+              9.2
+            ],
+            [
+              -4.4,
+              2.1,
+              9.2
+            ]
+          ],
+          "projectedCorners": [
+            [
+              486.08415988244616,
+              817.3057262424581
+            ],
+            [
+              961.4269533092,
+              559.362121055628
+            ],
+            [
+              1025.5742247350643,
+              652.3696667709357
+            ],
+            [
+              550.2314313083104,
+              910.3132719577659
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "upper-setback-exposed-1",
+          "localVertices": [
+            [
+              -4.4,
+              -3.5,
+              13.3
+            ],
+            [
+              -3.4,
+              -3.5,
+              13.3
+            ],
+            [
+              -3.4,
+              0.6,
+              13.3
+            ],
+            [
+              -4.4,
+              0.6,
+              13.3
+            ]
+          ],
+          "projectedCorners": [
+            [
+              310.7482846517504,
+              407.9455554913212
+            ],
+            [
+              380.651636626273,
+              370.0126723756109
+            ],
+            [
+              555.9875118569688,
+              624.2332973307853
+            ],
+            [
+              486.08415988244616,
+              662.1661804464957
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "upper-setback-exposed-2",
+          "localVertices": [
+            [
+              -1.5,
+              -3.5,
+              13.3
+            ],
+            [
+              2.4,
+              -3.5,
+              13.3
+            ],
+            [
+              2.4,
+              0.6,
+              13.3
+            ],
+            [
+              -1.5,
+              0.6,
+              13.3
+            ]
+          ],
+          "projectedCorners": [
+            [
+              513.468005377866,
+              297.94019445576134
+            ],
+            [
+              786.0910780785042,
+              150.0019503044913
+            ],
+            [
+              961.4269533092,
+              404.2225752596655
+            ],
+            [
+              688.8038806085618,
+              552.1608194109358
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "upper-setback-exposed-3",
+          "localVertices": [
+            [
+              -3.4,
+              -3.5,
+              13.3
+            ],
+            [
+              -1.5,
+              -3.5,
+              13.3
+            ],
+            [
+              -1.5,
+              -2.7,
+              13.3
+            ],
+            [
+              -3.4,
+              -2.7,
+              13.3
+            ]
+          ],
+          "projectedCorners": [
+            [
+              380.651636626273,
+              370.0126723756109
+            ],
+            [
+              513.468005377866,
+              297.94019445576134
+            ],
+            [
+              547.6798834716603,
+              347.54421883725877
+            ],
+            [
+              414.8635147200673,
+              419.61669675710834
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "name": "upper-setback-exposed-4",
+          "localVertices": [
+            [
+              -3.4,
+              -1.0,
+              13.3
+            ],
+            [
+              -1.5,
+              -1.0,
+              13.3
+            ],
+            [
+              -1.5,
+              0.6,
+              13.3
+            ],
+            [
+              -3.4,
+              0.6,
+              13.3
+            ]
+          ],
+          "projectedCorners": [
+            [
+              487.56375566938027,
+              525.0252485677904
+            ],
+            [
+              620.3801244209732,
+              452.95277064794084
+            ],
+            [
+              688.8038806085618,
+              552.1608194109358
+            ],
+            [
+              555.9875118569688,
+              624.2332973307853
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "service-core-exposed-1",
+          "localVertices": [
+            [
+              -3.4,
+              -2.7,
+              14
+            ],
+            [
+              -1.5,
+              -2.7,
+              14
+            ],
+            [
+              -1.5,
+              -1.0,
+              14
+            ],
+            [
+              -3.4,
+              -1.0,
+              14
+            ]
+          ],
+          "projectedCorners": [
+            [
+              414.8635147200673,
+              393.12945723096846
+            ],
+            [
+              547.6798834716603,
+              321.0569793111189
+            ],
+            [
+              620.3801244209732,
+              426.46553112180095
+            ],
+            [
+              487.56375566938027,
+              498.5380090416505
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "projectedVisibleRoofCorners": [
+        {
+          "local": [
+            -5,
+            -3.5,
+            4.6
+          ],
+          "pixel": [
+            268.80627346703676,
+            759.903833757058
+          ]
+        },
+        {
+          "local": [
+            -4.7,
+            -3.5,
+            4.6
+          ],
+          "pixel": [
+            289.7772790593936,
+            748.523968822345
+          ]
+        },
+        {
+          "local": [
+            -4.7,
+            3.5,
+            4.6
+          ],
+          "pixel": [
+            589.1312123800938,
+            1182.5591821604473
+          ]
+        },
+        {
+          "local": [
+            -5,
+            3.5,
+            4.6
+          ],
+          "pixel": [
+            568.160206787737,
+            1193.9390470951605
+          ]
+        },
+        {
+          "local": [
+            5,
+            3.5,
+            4.6
+          ],
+          "pixel": [
+            1267.1937265329632,
+            814.6102159380575
+          ]
+        },
+        {
+          "local": [
+            4.7,
+            3.5,
+            4.6
+          ],
+          "pixel": [
+            1246.2227209406065,
+            825.9900808727707
+          ]
+        },
+        {
+          "local": [
+            -4.7,
+            2.1,
+            4.6
+          ],
+          "pixel": [
+            529.2604257159537,
+            1095.752139492827
+          ]
+        },
+        {
+          "local": [
+            4.7,
+            2.1,
+            4.6
+          ],
+          "pixel": [
+            1186.3519342764664,
+            739.1830382051501
+          ]
+        },
+        {
+          "local": [
+            -4.7,
+            -3.5,
+            9.2
+          ],
+          "pixel": [
+            289.7772790593936,
+            574.4649662219969
+          ]
+        },
+        {
+          "local": [
+            -4.4,
+            -3.5,
+            9.2
+          ],
+          "pixel": [
+            310.7482846517504,
+            563.0851012872838
+          ]
+        },
+        {
+          "local": [
+            -4.4,
+            2.1,
+            9.2
+          ],
+          "pixel": [
+            550.2314313083104,
+            910.3132719577659
+          ]
+        },
+        {
+          "local": [
+            -4.7,
+            2.1,
+            9.2
+          ],
+          "pixel": [
+            529.2604257159537,
+            921.6931368924788
+          ]
+        },
+        {
+          "local": [
+            4.7,
+            -3.5,
+            9.2
+          ],
+          "pixel": [
+            946.8687876199062,
+            217.89586493432012
+          ]
+        },
+        {
+          "local": [
+            4.7,
+            2.1,
+            9.2
+          ],
+          "pixel": [
+            1186.3519342764664,
+            565.124035604802
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            2.1,
+            9.2
+          ],
+          "pixel": [
+            1025.5742247350643,
+            652.3696667709357
+          ]
+        },
+        {
+          "local": [
+            -4.4,
+            0.6,
+            9.2
+          ],
+          "pixel": [
+            486.08415988244616,
+            817.3057262424581
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            0.6,
+            9.2
+          ],
+          "pixel": [
+            961.4269533092,
+            559.362121055628
+          ]
+        },
+        {
+          "local": [
+            -4.4,
+            -3.5,
+            13.3
+          ],
+          "pixel": [
+            310.7482846517504,
+            407.9455554913212
+          ]
+        },
+        {
+          "local": [
+            -3.4,
+            -3.5,
+            13.3
+          ],
+          "pixel": [
+            380.651636626273,
+            370.0126723756109
+          ]
+        },
+        {
+          "local": [
+            -3.4,
+            0.6,
+            13.3
+          ],
+          "pixel": [
+            555.9875118569688,
+            624.2332973307853
+          ]
+        },
+        {
+          "local": [
+            -4.4,
+            0.6,
+            13.3
+          ],
+          "pixel": [
+            486.08415988244616,
+            662.1661804464957
+          ]
+        },
+        {
+          "local": [
+            -1.5,
+            -3.5,
+            13.3
+          ],
+          "pixel": [
+            513.468005377866,
+            297.94019445576134
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            -3.5,
+            13.3
+          ],
+          "pixel": [
+            786.0910780785042,
+            150.0019503044913
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            0.6,
+            13.3
+          ],
+          "pixel": [
+            961.4269533092,
+            404.2225752596655
+          ]
+        },
+        {
+          "local": [
+            -1.5,
+            0.6,
+            13.3
+          ],
+          "pixel": [
+            688.8038806085618,
+            552.1608194109358
+          ]
+        },
+        {
+          "local": [
+            -3.4,
+            -2.7,
+            13.3
+          ],
+          "pixel": [
+            414.8635147200673,
+            419.61669675710834
+          ]
+        },
+        {
+          "local": [
+            -3.4,
+            -1.0,
+            13.3
+          ],
+          "pixel": [
+            487.56375566938027,
+            525.0252485677904
+          ]
+        },
+        {
+          "local": [
+            -1.5,
+            -1.0,
+            13.3
+          ],
+          "pixel": [
+            620.3801244209732,
+            452.95277064794084
+          ]
+        },
+        {
+          "local": [
+            -3.4,
+            -2.7,
+            14
+          ],
+          "pixel": [
+            414.8635147200673,
+            393.12945723096846
+          ]
+        },
+        {
+          "local": [
+            -1.5,
+            -2.7,
+            14
+          ],
+          "pixel": [
+            547.6798834716603,
+            321.0569793111189
+          ]
+        },
+        {
+          "local": [
+            -1.5,
+            -1.0,
+            14
+          ],
+          "pixel": [
+            620.3801244209732,
+            426.46553112180095
+          ]
+        },
+        {
+          "local": [
+            -3.4,
+            -1.0,
+            14
+          ],
+          "pixel": [
+            487.56375566938027,
+            498.5380090416505
+          ]
+        }
+      ],
+      "visibilityMeaning": "Exact orthographic ray/convex-volume corner check on THIS proxy only, not on generated native art. Orange hidden ground constraints remain drawn dashed.",
+      "geometryBoundsPixelsIncludingRoofFeatures": [
+        268.80627346703676,
+        150.0019503044913,
+        1267.1937265329632,
+        1367.9980496955086
+      ],
+      "fitsSafetyMargin": true,
+      "wallVerticalPairsPixels": [
+        [
+          [
+            268.80627346703676,
+            933.9628363574061
+          ],
+          [
+            268.80627346703676,
+            759.903833757058
+          ]
+        ],
+        [
+          [
+            967.839793212263,
+            554.6340052003031
+          ],
+          [
+            967.839793212263,
+            380.57500259995504
+          ]
+        ],
+        [
+          [
+            1267.1937265329632,
+            988.6692185384056
+          ],
+          [
+            1267.1937265329632,
+            814.6102159380575
+          ]
+        ],
+        [
+          [
+            568.160206787737,
+            1367.9980496955086
+          ],
+          [
+            568.160206787737,
+            1193.9390470951605
+          ]
+        ],
+        [
+          [
+            289.7772790593936,
+            748.523968822345
+          ],
+          [
+            289.7772790593936,
+            574.4649662219969
+          ]
+        ],
+        [
+          [
+            946.8687876199062,
+            391.9548675346682
+          ],
+          [
+            946.8687876199062,
+            217.89586493432012
+          ]
+        ],
+        [
+          [
+            1186.3519342764664,
+            739.1830382051501
+          ],
+          [
+            1186.3519342764664,
+            565.124035604802
+          ]
+        ],
+        [
+          [
+            529.2604257159537,
+            1095.752139492827
+          ],
+          [
+            529.2604257159537,
+            921.6931368924788
+          ]
+        ],
+        [
+          [
+            310.7482846517504,
+            563.0851012872838
+          ],
+          [
+            310.7482846517504,
+            407.9455554913212
+          ]
+        ],
+        [
+          [
+            786.0910780785042,
+            305.14149610045376
+          ],
+          [
+            786.0910780785042,
+            150.0019503044913
+          ]
+        ],
+        [
+          [
+            961.4269533092,
+            559.362121055628
+          ],
+          [
+            961.4269533092,
+            404.2225752596655
+          ]
+        ],
+        [
+          [
+            486.08415988244616,
+            817.3057262424581
+          ],
+          [
+            486.08415988244616,
+            662.1661804464957
+          ]
+        ],
+        [
+          [
+            414.8635147200673,
+            419.61669675710834
+          ],
+          [
+            414.8635147200673,
+            393.12945723096846
+          ]
+        ],
+        [
+          [
+            547.6798834716603,
+            347.54421883725877
+          ],
+          [
+            547.6798834716603,
+            321.0569793111189
+          ]
+        ],
+        [
+          [
+            620.3801244209732,
+            452.95277064794084
+          ],
+          [
+            620.3801244209732,
+            426.46553112180095
+          ]
+        ],
+        [
+          [
+            487.56375566938027,
+            525.0252485677904
+          ],
+          [
+            487.56375566938027,
+            498.5380090416505
+          ]
+        ]
+      ],
+      "wallVerticalMaxHorizontalErrorPixels": 0.0,
+      "solidsCandidateLocal": [
+        {
+          "name": "base",
+          "rect": [
+            -5,
+            5,
+            -3.5,
+            3.5
+          ],
+          "z0": 0,
+          "z1": 4.6
+        },
+        {
+          "name": "middle-setback",
+          "rect": [
+            -4.7,
+            4.7,
+            -3.5,
+            2.1
+          ],
+          "z0": 4.6,
+          "z1": 9.2
+        },
+        {
+          "name": "upper-setback",
+          "rect": [
+            -4.4,
+            2.4,
+            -3.5,
+            0.6
+          ],
+          "z0": 9.2,
+          "z1": 13.3
+        },
+        {
+          "name": "service-core",
+          "rect": [
+            -3.4,
+            -1.5,
+            -2.7,
+            -1.0
+          ],
+          "z0": 13.3,
+          "z1": 14
+        }
+      ],
+      "architectureCandidate": "A genuine three-tier terraced glass office, not a single cuboid. Full 10x7 base reaches z=4.6; middle tier is inset along both ends and especially the road-facing edge and reaches z=9.2; upper tier recedes again and reaches z=13.3; small service core alone reaches total z=14. Keep the terraces open and clearly separated, with parapets but no planted trees. No B01 shop fascia.",
+      "imageRolesInOrder": [
+        "B02-geometry.png",
+        "B02-appearance.png",
+        "docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+        "docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png"
+      ],
+      "appearanceCrop": {
+        "source": "docs/art/2026-11-04-county-twentyfive-region-plan/review-007/TR-22-v1.png",
+        "sourceSHA256": "e1681189b0aa232838e014132fed8a79ee870996b3a69129dde9378d7ac5d6fb",
+        "sourceSHA256MatchesSelection": true,
+        "sourceSizeActual": [
+          1254,
+          1254
+        ],
+        "selectionBoxPixelsExact": [
+          548,
+          454,
+          657,
+          565
+        ],
+        "contextMarginPixels": 8,
+        "cropBoxPixels": [
+          540,
+          446,
+          665,
+          573
+        ],
+        "cropConvention": "Pillow half-open left,top,right,bottom; unscaled/unfiltered/unmasked",
+        "selectedBoxInCropPixels": [
+          8,
+          8,
+          117,
+          119
+        ],
+        "appearanceFile": "B02-appearance.png",
+        "appearanceSizeActual": [
+          125,
+          127
+        ],
+        "appearanceSHA256": "a5d213247aee19b48c1cf69a0f75d5908ec8a9561fd0b2c86b7449d58e008b70",
+        "sourceAppearanceNotes": "Selected TR-22 terraced office: blue-green horizontal glazing bands, pale stone/white framing, clearly receding upper storeys, compact rooftop service core. Source terrace greenery is context, not permission for rooftop trees.",
+        "approval": "PM-selected-from-user-approved-region;not-individual-asset-approved",
+        "nativeGenerationReadiness": "prepared-awaiting-parent-visual-review",
+        "sourceFramingComplete": true
+      }
+    },
+    {
+      "id": "B03",
+      "status": "geometry-reference-only-not-native-art-or-acceptance",
+      "dimensionsCandidate": {
+        "frontage": 7,
+        "depth": 6,
+        "height": 18
+      },
+      "dimensionAuthority": "docs/art/2026-11-05-modular-map-kit/revision-005/production-brief.json",
+      "geometryFile": "B03-geometry.png",
+      "guideSizeActual": [
+        1536,
+        1536
+      ],
+      "safetyMarginPixels": 100,
+      "uniformNativeGuidePixelsPerUnit": 78.624,
+      "anchorPixel": [
+        768.0,
+        1062.1427667743774
+      ],
+      "anchorMeaning": "footprint ground centre (s=0,t=0,z=0); no map placement authority",
+      "projectedGroundCornersABCD": [
+        [
+          410.1673258699972,
+          1011.0520857082361
+        ],
+        [
+          879.6484297482851,
+          756.2893120297946
+        ],
+        [
+          1125.8326741300027,
+          1113.2334478405187
+        ],
+        [
+          656.3515702517149,
+          1367.9962215189603
+        ]
+      ],
+      "projectedVisibleGroundCorners": {
+        "A": [
+          410.1673258699972,
+          1011.0520857082361
+        ],
+        "C": [
+          1125.8326741300027,
+          1113.2334478405187
+        ],
+        "D": [
+          656.3515702517149,
+          1367.9962215189603
+        ]
+      },
+      "projectedRoofSurfaces": [
+        {
+          "name": "vertical-main-shaft-exposed-1",
+          "localVertices": [
+            [
+              -3.5,
+              -3,
+              16.7
+            ],
+            [
+              -2.4,
+              -3,
+              16.7
+            ],
+            [
+              -2.4,
+              3,
+              16.7
+            ],
+            [
+              -3.5,
+              3,
+              16.7
+            ]
+          ],
+          "projectedCorners": [
+            [
+              410.1673258699972,
+              404.7665521594814
+            ],
+            [
+              483.94292790801387,
+              364.73240201001204
+            ],
+            [
+              730.1271722897316,
+              721.676537820736
+            ],
+            [
+              656.3515702517149,
+              761.7106879702055
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "vertical-main-shaft-exposed-2",
+          "localVertices": [
+            [
+              2.4,
+              -3,
+              16.7
+            ],
+            [
+              3.5,
+              -3,
+              16.7
+            ],
+            [
+              3.5,
+              3,
+              16.7
+            ],
+            [
+              2.4,
+              3,
+              16.7
+            ]
+          ],
+          "projectedCorners": [
+            [
+              805.8728277102684,
+              190.0379286305092
+            ],
+            [
+              879.6484297482851,
+              150.00377848103983
+            ],
+            [
+              1125.8326741300027,
+              506.94791429176394
+            ],
+            [
+              1052.0570720919861,
+              546.9820644412333
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "vertical-main-shaft-exposed-3",
+          "localVertices": [
+            [
+              -2.4,
+              -3,
+              16.7
+            ],
+            [
+              2.4,
+              -3,
+              16.7
+            ],
+            [
+              2.4,
+              -2.1,
+              16.7
+            ],
+            [
+              -2.4,
+              -2.1,
+              16.7
+            ]
+          ],
+          "projectedCorners": [
+            [
+              483.94292790801387,
+              364.73240201001204
+            ],
+            [
+              805.8728277102684,
+              190.0379286305092
+            ],
+            [
+              842.800464367526,
+              243.57954900211791
+            ],
+            [
+              520.8705645652715,
+              418.2740223816206
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "name": "vertical-main-shaft-exposed-4",
+          "localVertices": [
+            [
+              -2.4,
+              1.7,
+              16.7
+            ],
+            [
+              2.4,
+              1.7,
+              16.7
+            ],
+            [
+              2.4,
+              3,
+              16.7
+            ],
+            [
+              -2.4,
+              3,
+              16.7
+            ]
+          ],
+          "projectedCorners": [
+            [
+              676.7872526736927,
+              644.3386417284125
+            ],
+            [
+              998.7171524759473,
+              469.64416834890983
+            ],
+            [
+              1052.0570720919861,
+              546.9820644412333
+            ],
+            [
+              730.1271722897316,
+              721.676537820736
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "roof-service-cap-exposed-1",
+          "localVertices": [
+            [
+              -2.4,
+              -2.1,
+              18
+            ],
+            [
+              2.4,
+              -2.1,
+              18
+            ],
+            [
+              2.4,
+              1.7,
+              18
+            ],
+            [
+              -2.4,
+              1.7,
+              18
+            ]
+          ],
+          "projectedCorners": [
+            [
+              520.8705645652715,
+              371.0781425245318
+            ],
+            [
+              842.800464367526,
+              196.383669145029
+            ],
+            [
+              998.7171524759473,
+              422.4482884918209
+            ],
+            [
+              676.7872526736927,
+              597.1427618713237
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "projectedVisibleRoofCorners": [
+        {
+          "local": [
+            -3.5,
+            -3,
+            16.7
+          ],
+          "pixel": [
+            410.1673258699972,
+            404.7665521594814
+          ]
+        },
+        {
+          "local": [
+            -2.4,
+            -3,
+            16.7
+          ],
+          "pixel": [
+            483.94292790801387,
+            364.73240201001204
+          ]
+        },
+        {
+          "local": [
+            -2.4,
+            3,
+            16.7
+          ],
+          "pixel": [
+            730.1271722897316,
+            721.676537820736
+          ]
+        },
+        {
+          "local": [
+            -3.5,
+            3,
+            16.7
+          ],
+          "pixel": [
+            656.3515702517149,
+            761.7106879702055
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            -3,
+            16.7
+          ],
+          "pixel": [
+            805.8728277102684,
+            190.0379286305092
+          ]
+        },
+        {
+          "local": [
+            3.5,
+            -3,
+            16.7
+          ],
+          "pixel": [
+            879.6484297482851,
+            150.00377848103983
+          ]
+        },
+        {
+          "local": [
+            3.5,
+            3,
+            16.7
+          ],
+          "pixel": [
+            1125.8326741300027,
+            506.94791429176394
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            3,
+            16.7
+          ],
+          "pixel": [
+            1052.0570720919861,
+            546.9820644412333
+          ]
+        },
+        {
+          "local": [
+            -2.4,
+            -2.1,
+            16.7
+          ],
+          "pixel": [
+            520.8705645652715,
+            418.2740223816206
+          ]
+        },
+        {
+          "local": [
+            -2.4,
+            1.7,
+            16.7
+          ],
+          "pixel": [
+            676.7872526736927,
+            644.3386417284125
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            1.7,
+            16.7
+          ],
+          "pixel": [
+            998.7171524759473,
+            469.64416834890983
+          ]
+        },
+        {
+          "local": [
+            -2.4,
+            -2.1,
+            18
+          ],
+          "pixel": [
+            520.8705645652715,
+            371.0781425245318
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            -2.1,
+            18
+          ],
+          "pixel": [
+            842.800464367526,
+            196.383669145029
+          ]
+        },
+        {
+          "local": [
+            2.4,
+            1.7,
+            18
+          ],
+          "pixel": [
+            998.7171524759473,
+            422.4482884918209
+          ]
+        },
+        {
+          "local": [
+            -2.4,
+            1.7,
+            18
+          ],
+          "pixel": [
+            676.7872526736927,
+            597.1427618713237
+          ]
+        }
+      ],
+      "visibilityMeaning": "Exact orthographic ray/convex-volume corner check on THIS proxy only, not on generated native art. Orange hidden ground constraints remain drawn dashed.",
+      "geometryBoundsPixelsIncludingRoofFeatures": [
+        410.1673258699972,
+        150.00377848103983,
+        1125.8326741300027,
+        1367.9962215189603
+      ],
+      "fitsSafetyMargin": true,
+      "wallVerticalPairsPixels": [
+        [
+          [
+            410.1673258699972,
+            1011.0520857082361
+          ],
+          [
+            410.1673258699972,
+            404.7665521594814
+          ]
+        ],
+        [
+          [
+            879.6484297482851,
+            756.2893120297946
+          ],
+          [
+            879.6484297482851,
+            150.00377848103983
+          ]
+        ],
+        [
+          [
+            1125.8326741300027,
+            1113.2334478405187
+          ],
+          [
+            1125.8326741300027,
+            506.94791429176394
+          ]
+        ],
+        [
+          [
+            656.3515702517149,
+            1367.9962215189603
+          ],
+          [
+            656.3515702517149,
+            761.7106879702055
+          ]
+        ],
+        [
+          [
+            520.8705645652715,
+            418.2740223816206
+          ],
+          [
+            520.8705645652715,
+            371.0781425245318
+          ]
+        ],
+        [
+          [
+            842.800464367526,
+            243.57954900211791
+          ],
+          [
+            842.800464367526,
+            196.383669145029
+          ]
+        ],
+        [
+          [
+            998.7171524759473,
+            469.64416834890983
+          ],
+          [
+            998.7171524759473,
+            422.4482884918209
+          ]
+        ],
+        [
+          [
+            676.7872526736927,
+            644.3386417284125
+          ],
+          [
+            676.7872526736927,
+            597.1427618713237
+          ]
+        ]
+      ],
+      "wallVerticalMaxHorizontalErrorPixels": 0.0,
+      "solidsCandidateLocal": [
+        {
+          "name": "vertical-main-shaft",
+          "rect": [
+            -3.5,
+            3.5,
+            -3,
+            3
+          ],
+          "z0": 0,
+          "z1": 16.7
+        },
+        {
+          "name": "roof-service-cap",
+          "rect": [
+            -2.4,
+            2.4,
+            -2.1,
+            1.7
+          ],
+          "z0": 16.7,
+          "z1": 18
+        }
+      ],
+      "architectureCandidate": "A narrow vertically articulated glass mid-rise, footprint 7x6. Main shaft z=16.7 and compact roof service cap to total z=18. Strong slim vertical stone piers and continuous glazed bays, a modest recessed entry, no broad B01 horizontal shop bands; keep the tall silhouette.",
+      "imageRolesInOrder": [
+        "B03-geometry.png",
+        "B03-appearance.png",
+        "docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+        "docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png"
+      ],
+      "appearanceCrop": {
+        "source": "docs/art/2026-11-04-county-twentyfive-region-plan/review-009/TR-33-v1.png",
+        "sourceSHA256": "fe3358f7732812285879cd9b23db7a890b5f6d36eae2df56bbc4e4469b044aec",
+        "sourceSHA256MatchesSelection": true,
+        "sourceSizeActual": [
+          1254,
+          1254
+        ],
+        "selectionBoxPixelsExact": [
+          551,
+          366,
+          645,
+          521
+        ],
+        "contextMarginPixels": 8,
+        "cropBoxPixels": [
+          543,
+          358,
+          653,
+          529
+        ],
+        "cropConvention": "Pillow half-open left,top,right,bottom; unscaled/unfiltered/unmasked",
+        "selectedBoxInCropPixels": [
+          8,
+          8,
+          102,
+          163
+        ],
+        "appearanceFile": "B03-appearance.png",
+        "appearanceSizeActual": [
+          110,
+          171
+        ],
+        "appearanceSHA256": "d3d9436e247a644251fbff9e7eb2c1e06b8db3292ebe424efa1c7ad2912ea04c",
+        "sourceAppearanceNotes": "Selected TR-33 slim mid-rise: tall blue-green vertical glazed bays between pale stone piers, a narrow upright silhouette and small rooftop service cap; not an apartment/storefront clone.",
+        "approval": "PM-selected-from-user-approved-region;not-individual-asset-approved",
+        "nativeGenerationReadiness": "prepared-awaiting-parent-visual-review",
+        "sourceFramingComplete": true
+      }
+    },
+    {
+      "id": "B04",
+      "status": "geometry-reference-only-not-native-art-or-acceptance",
+      "dimensionsCandidate": {
+        "frontage": 12,
+        "depth": 9,
+        "height": 7
+      },
+      "dimensionAuthority": "docs/art/2026-11-05-modular-map-kit/revision-005/production-brief.json",
+      "geometryFile": "B04-geometry.png",
+      "guideSizeActual": [
+        1536,
+        1536
+      ],
+      "safetyMarginPixels": 100,
+      "uniformNativeGuidePixelsPerUnit": 86.251,
+      "anchorPixel": [
+        768.0,
+        832.5450956516615
+      ],
+      "anchorMeaning": "footprint ground centre (s=0,t=0,z=0); no map placement authority",
+      "projectedGroundCornersABCD": [
+        [
+          124.00201361631332,
+          778.4188083343194
+        ],
+        [
+          1006.8995953930056,
+          299.316593251918
+        ],
+        [
+          1411.9979863836866,
+          886.6713829690037
+        ],
+        [
+          529.1004046069944,
+          1365.773598051405
+        ]
+      ],
+      "projectedVisibleGroundCorners": {
+        "A": [
+          124.00201361631332,
+          778.4188083343194
+        ],
+        "C": [
+          1411.9979863836866,
+          886.6713829690037
+        ],
+        "D": [
+          529.1004046069944,
+          1365.773598051405
+        ]
+      },
+      "projectedRoofSurfaces": [
+        {
+          "name": "complete-low-plinth-exposed-1",
+          "localVertices": [
+            [
+              -3.3,
+              3.0,
+              0.35
+            ],
+            [
+              -2.45,
+              3.0,
+              0.35
+            ],
+            [
+              -2.45,
+              4.5,
+              0.35
+            ],
+            [
+              -3.3,
+              4.5,
+              0.35
+            ]
+          ],
+          "projectedCorners": [
+            [
+              660.2359620083033,
+              1146.1439368309698
+            ],
+            [
+              722.7745407174856,
+              1112.2075299292999
+            ],
+            [
+              790.2909392159326,
+              1210.0999948821475
+            ],
+            [
+              727.7523605067502,
+              1244.0364017838176
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "complete-low-plinth-exposed-2",
+          "localVertices": [
+            [
+              -2.25,
+              3.0,
+              0.35
+            ],
+            [
+              2.25,
+              3.0,
+              0.35
+            ],
+            [
+              2.25,
+              4.5,
+              0.35
+            ],
+            [
+              -2.25,
+              4.5,
+              0.35
+            ]
+          ],
+          "projectedCorners": [
+            [
+              737.4895004137638,
+              1104.2224930112598
+            ],
+            [
+              1068.5760935800236,
+              924.5591623553593
+            ],
+            [
+              1136.0924920784705,
+              1022.451627308207
+            ],
+            [
+              805.0058989122107,
+              1202.1149579641074
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "complete-low-plinth-exposed-3",
+          "localVertices": [
+            [
+              2.45,
+              3.0,
+              0.35
+            ],
+            [
+              3.3,
+              3.0,
+              0.35
+            ],
+            [
+              3.3,
+              4.5,
+              0.35
+            ],
+            [
+              2.45,
+              4.5,
+              0.35
+            ]
+          ],
+          "projectedCorners": [
+            [
+              1083.2910532763017,
+              916.5741254373193
+            ],
+            [
+              1145.829631985484,
+              882.6377185356491
+            ],
+            [
+              1213.346030483931,
+              980.5301834884967
+            ],
+            [
+              1150.8074517747486,
+              1014.4665903901669
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "complete-low-plinth-exposed-4",
+          "localVertices": [
+            [
+              2.25,
+              3.0,
+              0.35
+            ],
+            [
+              2.45,
+              3.0,
+              0.35
+            ],
+            [
+              2.45,
+              4.1,
+              0.35
+            ],
+            [
+              2.25,
+              4.1,
+              0.35
+            ]
+          ],
+          "projectedCorners": [
+            [
+              1068.5760935800236,
+              924.5591623553593
+            ],
+            [
+              1083.2910532763017,
+              916.5741254373193
+            ],
+            [
+              1132.8030788418293,
+              988.3619330694074
+            ],
+            [
+              1118.0881191455512,
+              996.3469699874476
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            3
+          ]
+        },
+        {
+          "name": "complete-low-plinth-exposed-5",
+          "localVertices": [
+            [
+              2.25,
+              4.3,
+              0.35
+            ],
+            [
+              2.45,
+              4.3,
+              0.35
+            ],
+            [
+              2.45,
+              4.5,
+              0.35
+            ],
+            [
+              2.25,
+              4.5,
+              0.35
+            ]
+          ],
+          "projectedCorners": [
+            [
+              1127.0903056120108,
+              1009.3992986478272
+            ],
+            [
+              1141.805265308289,
+              1001.4142617297872
+            ],
+            [
+              1150.8074517747486,
+              1014.4665903901669
+            ],
+            [
+              1136.0924920784705,
+              1022.451627308207
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "complete-low-plinth-exposed-6",
+          "localVertices": [
+            [
+              -2.45,
+              3.0,
+              0.35
+            ],
+            [
+              -2.25,
+              3.0,
+              0.35
+            ],
+            [
+              -2.25,
+              4.1,
+              0.35
+            ],
+            [
+              -2.45,
+              4.1,
+              0.35
+            ]
+          ],
+          "projectedCorners": [
+            [
+              722.7745407174856,
+              1112.2075299292999
+            ],
+            [
+              737.4895004137638,
+              1104.2224930112598
+            ],
+            [
+              787.0015259792915,
+              1176.010300643348
+            ],
+            [
+              772.2865662830133,
+              1183.9953375613882
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "name": "complete-low-plinth-exposed-7",
+          "localVertices": [
+            [
+              -2.45,
+              4.3,
+              0.35
+            ],
+            [
+              -2.25,
+              4.3,
+              0.35
+            ],
+            [
+              -2.25,
+              4.5,
+              0.35
+            ],
+            [
+              -2.45,
+              4.5,
+              0.35
+            ]
+          ],
+          "projectedCorners": [
+            [
+              781.2887527494729,
+              1197.047666221768
+            ],
+            [
+              796.0037124457511,
+              1189.0626293037278
+            ],
+            [
+              805.0058989122107,
+              1202.1149579641074
+            ],
+            [
+              790.2909392159326,
+              1210.0999948821475
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "left-low-wing-exposed-1",
+          "localVertices": [
+            [
+              -6,
+              -4.5,
+              3.4
+            ],
+            [
+              -3.3,
+              -4.5,
+              3.4
+            ],
+            [
+              -3.3,
+              4.5,
+              3.4
+            ],
+            [
+              -6,
+              4.5,
+              3.4
+            ]
+          ],
+          "projectedCorners": [
+            [
+              124.00201361631332,
+              643.0094575578607
+            ],
+            [
+              322.6539695160691,
+              535.2114591643203
+            ],
+            [
+              727.7523605067502,
+              1122.566248881406
+            ],
+            [
+              529.1004046069944,
+              1230.3642472749464
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "right-low-wing-exposed-1",
+          "localVertices": [
+            [
+              3.3,
+              -4.5,
+              3.0
+            ],
+            [
+              6,
+              -4.5,
+              3.0
+            ],
+            [
+              6,
+              4.5,
+              3.0
+            ],
+            [
+              3.3,
+              4.5,
+              3.0
+            ]
+          ],
+          "projectedCorners": [
+            [
+              808.2476394932498,
+              287.63575272505364
+            ],
+            [
+              1006.8995953930056,
+              179.83775433151322
+            ],
+            [
+              1411.9979863836866,
+              767.192544048599
+            ],
+            [
+              1213.346030483931,
+              874.9905424421393
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "central-exhibition-hall-exposed-1",
+          "localVertices": [
+            [
+              -3.3,
+              -4.5,
+              6.4
+            ],
+            [
+              -2.6,
+              -4.5,
+              6.4
+            ],
+            [
+              -2.6,
+              3.0,
+              6.4
+            ],
+            [
+              -3.3,
+              3.0,
+              6.4
+            ]
+          ],
+          "projectedCorners": [
+            [
+              322.6539695160691,
+              415.7326202439156
+            ],
+            [
+              374.1563284530428,
+              387.7849910307756
+            ],
+            [
+              711.738320945277,
+              877.2473157950136
+            ],
+            [
+              660.2359620083033,
+              905.1949450081537
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "central-exhibition-hall-exposed-2",
+          "localVertices": [
+            [
+              2.6,
+              -4.5,
+              6.4
+            ],
+            [
+              3.3,
+              -4.5,
+              6.4
+            ],
+            [
+              3.3,
+              3.0,
+              6.4
+            ],
+            [
+              2.6,
+              3.0,
+              6.4
+            ]
+          ],
+          "projectedCorners": [
+            [
+              756.7452805562762,
+              180.1740311617349
+            ],
+            [
+              808.2476394932498,
+              152.2264019485948
+            ],
+            [
+              1145.829631985484,
+              641.6887267128329
+            ],
+            [
+              1094.3272730485105,
+              669.636355925973
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "central-exhibition-hall-exposed-3",
+          "localVertices": [
+            [
+              -2.6,
+              -4.5,
+              6.4
+            ],
+            [
+              2.6,
+              -4.5,
+              6.4
+            ],
+            [
+              2.6,
+              -3.4,
+              6.4
+            ],
+            [
+              -2.6,
+              -3.4,
+              6.4
+            ]
+          ],
+          "projectedCorners": [
+            [
+              374.1563284530428,
+              387.7849910307756
+            ],
+            [
+              756.7452805562762,
+              180.1740311617349
+            ],
+            [
+              806.2573061218038,
+              251.96183879382318
+            ],
+            [
+              423.6683540185704,
+              459.5727986628638
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            3
+          ]
+        },
+        {
+          "name": "central-exhibition-hall-exposed-4",
+          "localVertices": [
+            [
+              -2.6,
+              -2.1,
+              6.4
+            ],
+            [
+              2.6,
+              -2.1,
+              6.4
+            ],
+            [
+              2.6,
+              3.0,
+              6.4
+            ],
+            [
+              -2.6,
+              3.0,
+              6.4
+            ]
+          ],
+          "projectedCorners": [
+            [
+              482.18256605055774,
+              544.4129349553317
+            ],
+            [
+              864.7715181537911,
+              336.8019750862911
+            ],
+            [
+              1094.3272730485105,
+              669.636355925973
+            ],
+            [
+              711.738320945277,
+              877.2473157950136
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "entrance-canopy-exposed-1",
+          "localVertices": [
+            [
+              -2.5,
+              3.0,
+              3.5
+            ],
+            [
+              2.5,
+              3.0,
+              3.5
+            ],
+            [
+              2.5,
+              4.5,
+              3.5
+            ],
+            [
+              -2.5,
+              4.5,
+              3.5
+            ]
+          ],
+          "projectedCorners": [
+            [
+              719.0958007934162,
+              988.7510082923849
+            ],
+            [
+              1086.9697932003712,
+              789.1250853413843
+            ],
+            [
+              1154.4861916988182,
+              887.0175502942319
+            ],
+            [
+              786.612199291863,
+              1086.6434732452326
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "long-narrow-roof-light-exposed-1",
+          "localVertices": [
+            [
+              -2.6,
+              -3.4,
+              7
+            ],
+            [
+              2.6,
+              -3.4,
+              7
+            ],
+            [
+              2.6,
+              -2.1,
+              7
+            ],
+            [
+              -2.6,
+              -2.1,
+              7
+            ]
+          ],
+          "projectedCorners": [
+            [
+              423.6683540185704,
+              435.6770308787829
+            ],
+            [
+              806.2573061218038,
+              228.06607100974225
+            ],
+            [
+              864.7715181537911,
+              312.9062073022102
+            ],
+            [
+              482.18256605055774,
+              520.5171671712508
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "projectedVisibleRoofCorners": [
+        {
+          "local": [
+            -2.45,
+            3.0,
+            0.35
+          ],
+          "pixel": [
+            722.7745407174856,
+            1112.2075299292999
+          ]
+        },
+        {
+          "local": [
+            -2.45,
+            4.5,
+            0.35
+          ],
+          "pixel": [
+            790.2909392159326,
+            1210.0999948821475
+          ]
+        },
+        {
+          "local": [
+            -3.3,
+            4.5,
+            0.35
+          ],
+          "pixel": [
+            727.7523605067502,
+            1244.0364017838176
+          ]
+        },
+        {
+          "local": [
+            -2.25,
+            3.0,
+            0.35
+          ],
+          "pixel": [
+            737.4895004137638,
+            1104.2224930112598
+          ]
+        },
+        {
+          "local": [
+            2.25,
+            4.5,
+            0.35
+          ],
+          "pixel": [
+            1136.0924920784705,
+            1022.451627308207
+          ]
+        },
+        {
+          "local": [
+            -2.25,
+            4.5,
+            0.35
+          ],
+          "pixel": [
+            805.0058989122107,
+            1202.1149579641074
+          ]
+        },
+        {
+          "local": [
+            3.3,
+            4.5,
+            0.35
+          ],
+          "pixel": [
+            1213.346030483931,
+            980.5301834884967
+          ]
+        },
+        {
+          "local": [
+            2.45,
+            4.5,
+            0.35
+          ],
+          "pixel": [
+            1150.8074517747486,
+            1014.4665903901669
+          ]
+        },
+        {
+          "local": [
+            2.25,
+            4.1,
+            0.35
+          ],
+          "pixel": [
+            1118.0881191455512,
+            996.3469699874476
+          ]
+        },
+        {
+          "local": [
+            2.25,
+            4.3,
+            0.35
+          ],
+          "pixel": [
+            1127.0903056120108,
+            1009.3992986478272
+          ]
+        },
+        {
+          "local": [
+            2.45,
+            4.3,
+            0.35
+          ],
+          "pixel": [
+            1141.805265308289,
+            1001.4142617297872
+          ]
+        },
+        {
+          "local": [
+            -2.45,
+            4.1,
+            0.35
+          ],
+          "pixel": [
+            772.2865662830133,
+            1183.9953375613882
+          ]
+        },
+        {
+          "local": [
+            -2.45,
+            4.3,
+            0.35
+          ],
+          "pixel": [
+            781.2887527494729,
+            1197.047666221768
+          ]
+        },
+        {
+          "local": [
+            -2.25,
+            4.3,
+            0.35
+          ],
+          "pixel": [
+            796.0037124457511,
+            1189.0626293037278
+          ]
+        },
+        {
+          "local": [
+            -6,
+            -4.5,
+            3.4
+          ],
+          "pixel": [
+            124.00201361631332,
+            643.0094575578607
+          ]
+        },
+        {
+          "local": [
+            -3.3,
+            -4.5,
+            3.4
+          ],
+          "pixel": [
+            322.6539695160691,
+            535.2114591643203
+          ]
+        },
+        {
+          "local": [
+            -3.3,
+            4.5,
+            3.4
+          ],
+          "pixel": [
+            727.7523605067502,
+            1122.566248881406
+          ]
+        },
+        {
+          "local": [
+            -6,
+            4.5,
+            3.4
+          ],
+          "pixel": [
+            529.1004046069944,
+            1230.3642472749464
+          ]
+        },
+        {
+          "local": [
+            6,
+            -4.5,
+            3.0
+          ],
+          "pixel": [
+            1006.8995953930056,
+            179.83775433151322
+          ]
+        },
+        {
+          "local": [
+            6,
+            4.5,
+            3.0
+          ],
+          "pixel": [
+            1411.9979863836866,
+            767.192544048599
+          ]
+        },
+        {
+          "local": [
+            3.3,
+            4.5,
+            3.0
+          ],
+          "pixel": [
+            1213.346030483931,
+            874.9905424421393
+          ]
+        },
+        {
+          "local": [
+            -3.3,
+            -4.5,
+            6.4
+          ],
+          "pixel": [
+            322.6539695160691,
+            415.7326202439156
+          ]
+        },
+        {
+          "local": [
+            -2.6,
+            -4.5,
+            6.4
+          ],
+          "pixel": [
+            374.1563284530428,
+            387.7849910307756
+          ]
+        },
+        {
+          "local": [
+            -2.6,
+            3.0,
+            6.4
+          ],
+          "pixel": [
+            711.738320945277,
+            877.2473157950136
+          ]
+        },
+        {
+          "local": [
+            -3.3,
+            3.0,
+            6.4
+          ],
+          "pixel": [
+            660.2359620083033,
+            905.1949450081537
+          ]
+        },
+        {
+          "local": [
+            2.6,
+            -4.5,
+            6.4
+          ],
+          "pixel": [
+            756.7452805562762,
+            180.1740311617349
+          ]
+        },
+        {
+          "local": [
+            3.3,
+            -4.5,
+            6.4
+          ],
+          "pixel": [
+            808.2476394932498,
+            152.2264019485948
+          ]
+        },
+        {
+          "local": [
+            3.3,
+            3.0,
+            6.4
+          ],
+          "pixel": [
+            1145.829631985484,
+            641.6887267128329
+          ]
+        },
+        {
+          "local": [
+            2.6,
+            3.0,
+            6.4
+          ],
+          "pixel": [
+            1094.3272730485105,
+            669.636355925973
+          ]
+        },
+        {
+          "local": [
+            -2.6,
+            -3.4,
+            6.4
+          ],
+          "pixel": [
+            423.6683540185704,
+            459.5727986628638
+          ]
+        },
+        {
+          "local": [
+            -2.6,
+            -2.1,
+            6.4
+          ],
+          "pixel": [
+            482.18256605055774,
+            544.4129349553317
+          ]
+        },
+        {
+          "local": [
+            2.6,
+            -2.1,
+            6.4
+          ],
+          "pixel": [
+            864.7715181537911,
+            336.8019750862911
+          ]
+        },
+        {
+          "local": [
+            -2.5,
+            3.0,
+            3.5
+          ],
+          "pixel": [
+            719.0958007934162,
+            988.7510082923849
+          ]
+        },
+        {
+          "local": [
+            2.5,
+            3.0,
+            3.5
+          ],
+          "pixel": [
+            1086.9697932003712,
+            789.1250853413843
+          ]
+        },
+        {
+          "local": [
+            2.5,
+            4.5,
+            3.5
+          ],
+          "pixel": [
+            1154.4861916988182,
+            887.0175502942319
+          ]
+        },
+        {
+          "local": [
+            -2.5,
+            4.5,
+            3.5
+          ],
+          "pixel": [
+            786.612199291863,
+            1086.6434732452326
+          ]
+        },
+        {
+          "local": [
+            -2.6,
+            -3.4,
+            7
+          ],
+          "pixel": [
+            423.6683540185704,
+            435.6770308787829
+          ]
+        },
+        {
+          "local": [
+            2.6,
+            -3.4,
+            7
+          ],
+          "pixel": [
+            806.2573061218038,
+            228.06607100974225
+          ]
+        },
+        {
+          "local": [
+            2.6,
+            -2.1,
+            7
+          ],
+          "pixel": [
+            864.7715181537911,
+            312.9062073022102
+          ]
+        },
+        {
+          "local": [
+            -2.6,
+            -2.1,
+            7
+          ],
+          "pixel": [
+            482.18256605055774,
+            520.5171671712508
+          ]
+        }
+      ],
+      "visibilityMeaning": "Exact orthographic ray/convex-volume corner check on THIS proxy only, not on generated native art. Orange hidden ground constraints remain drawn dashed.",
+      "geometryBoundsPixelsIncludingRoofFeatures": [
+        124.00201361631332,
+        152.2264019485948,
+        1411.9979863836866,
+        1365.773598051405
+      ],
+      "fitsSafetyMargin": true,
+      "wallVerticalPairsPixels": [
+        [
+          [
+            124.00201361631332,
+            778.4188083343194
+          ],
+          [
+            124.00201361631332,
+            764.4796104602722
+          ]
+        ],
+        [
+          [
+            1006.8995953930056,
+            299.316593251918
+          ],
+          [
+            1006.8995953930056,
+            285.3773953778708
+          ]
+        ],
+        [
+          [
+            1411.9979863836866,
+            886.6713829690037
+          ],
+          [
+            1411.9979863836866,
+            872.7321850949565
+          ]
+        ],
+        [
+          [
+            529.1004046069944,
+            1365.773598051405
+          ],
+          [
+            529.1004046069944,
+            1351.834400177358
+          ]
+        ],
+        [
+          [
+            124.00201361631332,
+            764.4796104602722
+          ],
+          [
+            124.00201361631332,
+            643.0094575578607
+          ]
+        ],
+        [
+          [
+            322.6539695160691,
+            656.6816120667319
+          ],
+          [
+            322.6539695160691,
+            535.2114591643203
+          ]
+        ],
+        [
+          [
+            727.7523605067502,
+            1244.0364017838176
+          ],
+          [
+            727.7523605067502,
+            1122.566248881406
+          ]
+        ],
+        [
+          [
+            529.1004046069944,
+            1351.834400177358
+          ],
+          [
+            529.1004046069944,
+            1230.3642472749464
+          ]
+        ],
+        [
+          [
+            808.2476394932498,
+            393.17539377141117
+          ],
+          [
+            808.2476394932498,
+            287.63575272505364
+          ]
+        ],
+        [
+          [
+            1006.8995953930056,
+            285.3773953778708
+          ],
+          [
+            1006.8995953930056,
+            179.83775433151322
+          ]
+        ],
+        [
+          [
+            1411.9979863836866,
+            872.7321850949565
+          ],
+          [
+            1411.9979863836866,
+            767.192544048599
+          ]
+        ],
+        [
+          [
+            1213.346030483931,
+            980.5301834884967
+          ],
+          [
+            1213.346030483931,
+            874.9905424421393
+          ]
+        ],
+        [
+          [
+            322.6539695160691,
+            656.6816120667319
+          ],
+          [
+            322.6539695160691,
+            415.7326202439156
+          ]
+        ],
+        [
+          [
+            808.2476394932498,
+            393.17539377141117
+          ],
+          [
+            808.2476394932498,
+            152.2264019485948
+          ]
+        ],
+        [
+          [
+            1145.829631985484,
+            882.6377185356491
+          ],
+          [
+            1145.829631985484,
+            641.6887267128329
+          ]
+        ],
+        [
+          [
+            660.2359620083033,
+            1146.1439368309698
+          ],
+          [
+            660.2359620083033,
+            905.1949450081537
+          ]
+        ],
+        [
+          [
+            719.0958007934162,
+            998.7075782024185
+          ],
+          [
+            719.0958007934162,
+            988.7510082923849
+          ]
+        ],
+        [
+          [
+            1086.9697932003712,
+            799.0816552514179
+          ],
+          [
+            1086.9697932003712,
+            789.1250853413843
+          ]
+        ],
+        [
+          [
+            1154.4861916988182,
+            896.9741202042657
+          ],
+          [
+            1154.4861916988182,
+            887.0175502942319
+          ]
+        ],
+        [
+          [
+            786.612199291863,
+            1096.6000431552661
+          ],
+          [
+            786.612199291863,
+            1086.6434732452326
+          ]
+        ],
+        [
+          [
+            772.2865662830133,
+            1183.9953375613882
+          ],
+          [
+            772.2865662830133,
+            1068.4991266049967
+          ]
+        ],
+        [
+          [
+            787.0015259792915,
+            1176.010300643348
+          ],
+          [
+            787.0015259792915,
+            1060.5140896869568
+          ]
+        ],
+        [
+          [
+            796.0037124457511,
+            1189.0626293037278
+          ],
+          [
+            796.0037124457511,
+            1073.5664183473364
+          ]
+        ],
+        [
+          [
+            781.2887527494729,
+            1197.047666221768
+          ],
+          [
+            781.2887527494729,
+            1081.5514552653765
+          ]
+        ],
+        [
+          [
+            1118.0881191455512,
+            996.3469699874476
+          ],
+          [
+            1118.0881191455512,
+            880.8507590310562
+          ]
+        ],
+        [
+          [
+            1132.8030788418293,
+            988.3619330694074
+          ],
+          [
+            1132.8030788418293,
+            872.8657221130162
+          ]
+        ],
+        [
+          [
+            1141.805265308289,
+            1001.4142617297872
+          ],
+          [
+            1141.805265308289,
+            885.918050773396
+          ]
+        ],
+        [
+          [
+            1127.0903056120108,
+            1009.3992986478272
+          ],
+          [
+            1127.0903056120108,
+            893.903087691436
+          ]
+        ],
+        [
+          [
+            423.6683540185704,
+            459.5727986628638
+          ],
+          [
+            423.6683540185704,
+            435.6770308787829
+          ]
+        ],
+        [
+          [
+            806.2573061218038,
+            251.96183879382318
+          ],
+          [
+            806.2573061218038,
+            228.06607100974225
+          ]
+        ],
+        [
+          [
+            864.7715181537911,
+            336.8019750862911
+          ],
+          [
+            864.7715181537911,
+            312.9062073022102
+          ]
+        ],
+        [
+          [
+            482.18256605055774,
+            544.4129349553317
+          ],
+          [
+            482.18256605055774,
+            520.5171671712508
+          ]
+        ]
+      ],
+      "wallVerticalMaxHorizontalErrorPixels": 0.0,
+      "solidsCandidateLocal": [
+        {
+          "name": "complete-low-plinth",
+          "rect": [
+            -6,
+            6,
+            -4.5,
+            4.5
+          ],
+          "z0": 0,
+          "z1": 0.35
+        },
+        {
+          "name": "left-low-wing",
+          "rect": [
+            -6,
+            -3.3,
+            -4.5,
+            4.5
+          ],
+          "z0": 0.35,
+          "z1": 3.4
+        },
+        {
+          "name": "right-low-wing",
+          "rect": [
+            3.3,
+            6,
+            -4.5,
+            4.5
+          ],
+          "z0": 0.35,
+          "z1": 3.0
+        },
+        {
+          "name": "central-exhibition-hall",
+          "rect": [
+            -3.3,
+            3.3,
+            -4.5,
+            3.0
+          ],
+          "z0": 0.35,
+          "z1": 6.4
+        },
+        {
+          "name": "entrance-canopy",
+          "rect": [
+            -2.5,
+            2.5,
+            3.0,
+            4.5
+          ],
+          "z0": 3.25,
+          "z1": 3.5
+        },
+        {
+          "name": "entrance-left-post",
+          "rect": [
+            -2.45,
+            -2.25,
+            4.1,
+            4.3
+          ],
+          "z0": 0.35,
+          "z1": 3.25
+        },
+        {
+          "name": "entrance-right-post",
+          "rect": [
+            2.25,
+            2.45,
+            4.1,
+            4.3
+          ],
+          "z0": 0.35,
+          "z1": 3.25
+        },
+        {
+          "name": "long-narrow-roof-light",
+          "rect": [
+            -2.6,
+            2.6,
+            -3.4,
+            -2.1
+          ],
+          "z0": 6.4,
+          "z1": 7
+        }
+      ],
+      "architectureCandidate": "A broad low public exhibition pavilion, full candidate envelope 12x9. Raised central hall to z=6.4, narrow roof-light volume to total z=7, two genuinely low asymmetric side wings z=3.4/3.0, recessed central public entrance and shallow canopy z=3.5. Retain the stepped low roofline and broad entrance, not a seven-unit-high box or shopping block.",
+      "imageRolesInOrder": [
+        "B04-geometry.png",
+        "B04-appearance.png",
+        "docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+        "docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png"
+      ],
+      "appearanceCrop": {
+        "source": "docs/art/2026-11-04-county-twentyfive-region-plan/review-007/TR-22-v1.png",
+        "sourceSHA256": "e1681189b0aa232838e014132fed8a79ee870996b3a69129dde9378d7ac5d6fb",
+        "sourceSHA256MatchesSelection": true,
+        "sourceSizeActual": [
+          1254,
+          1254
+        ],
+        "selectionBoxPixelsExact": [
+          205,
+          400,
+          377,
+          531
+        ],
+        "contextMarginPixels": 8,
+        "cropBoxPixels": [
+          197,
+          392,
+          385,
+          539
+        ],
+        "cropConvention": "Pillow half-open left,top,right,bottom; unscaled/unfiltered/unmasked",
+        "selectedBoxInCropPixels": [
+          8,
+          8,
+          180,
+          139
+        ],
+        "appearanceFile": "B04-appearance.png",
+        "appearanceSizeActual": [
+          188,
+          147
+        ],
+        "appearanceSHA256": "77edc2025296edee1040b7ffa3b6eba37f2e54aea9f634b0ff89837ea83066e0",
+        "sourceAppearanceNotes": "Selected TR-22 low public pavilion: pale stone broad low wings, a raised central hall with a long narrow roof light, warm dark entrance glazing and a prominent vertical entrance surround. Do not include the outdoor sculpture or forecourt.",
+        "approval": "PM-selected-from-user-approved-region;not-individual-asset-approved",
+        "nativeGenerationReadiness": "prepared-awaiting-parent-visual-review",
+        "sourceFramingComplete": true
+      }
+    },
+    {
+      "id": "B05",
+      "status": "geometry-reference-only-not-native-art-or-acceptance",
+      "dimensionsCandidate": {
+        "frontage": 7,
+        "depth": 5,
+        "height": 7.5,
+        "wallHeight": 5.5,
+        "roofRise": 2.0,
+        "roofOverhangFrontage": 0.25,
+        "roofOverhangDepth": 0.3
+      },
+      "dimensionAuthority": "docs/art/2026-11-05-modular-map-kit/revision-005/production-brief.json",
+      "geometryFile": "B05-geometry.png",
+      "guideSizeActual": [
+        1536,
+        1536
+      ],
+      "safetyMarginPixels": 100,
+      "uniformNativeGuidePixelsPerUnit": 122.957,
+      "anchorPixel": [
+        768.0,
+        936.2016687022303
+      ],
+      "anchorMeaning": "footprint ground centre (s=0,t=0,z=0); no map placement authority",
+      "projectedGroundCornersABCD": [
+        [
+          240.48262911707377,
+          902.8205315226211
+        ],
+        [
+          974.6857743343439,
+          504.40698905238133
+        ],
+        [
+          1295.5173708829261,
+          969.5828058818396
+        ],
+        [
+          561.3142256656561,
+          1367.9963483520794
+        ]
+      ],
+      "projectedVisibleGroundCorners": {
+        "A": [
+          240.48262911707377,
+          902.8205315226211
+        ],
+        "C": [
+          1295.5173708829261,
+          969.5828058818396
+        ],
+        "D": [
+          561.3142256656561,
+          1367.9963483520794
+        ]
+      },
+      "projectedRoofSurfaces": [
+        {
+          "name": "rear-pitched-slope",
+          "localVertices": [
+            [
+              -3.75,
+              -2.8,
+              5.5
+            ],
+            [
+              3.75,
+              -2.8,
+              5.5
+            ],
+            [
+              3.75,
+              0,
+              7.5
+            ],
+            [
+              -3.75,
+              0,
+              7.5
+            ]
+          ],
+          "projectedCorners": [
+            [
+              195.01119242354207,
+              576.875304294606
+            ],
+            [
+              981.6574194420459,
+              150.0036516479206
+            ],
+            [
+              1161.323113509252,
+              296.9516605973372
+            ],
+            [
+              374.6768864907481,
+              723.8233132440226
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "front-pitched-slope",
+          "localVertices": [
+            [
+              -3.75,
+              0,
+              7.5
+            ],
+            [
+              3.75,
+              0,
+              7.5
+            ],
+            [
+              3.75,
+              2.8,
+              5.5
+            ],
+            [
+              -3.75,
+              2.8,
+              5.5
+            ]
+          ],
+          "projectedCorners": [
+            [
+              374.6768864907481,
+              723.8233132440226
+            ],
+            [
+              1161.323113509252,
+              296.9516605973372
+            ],
+            [
+              1340.988807576458,
+              671.000566496914
+            ],
+            [
+              554.3425805579541,
+              1097.8722191435993
+            ]
+          ],
+          "visibleCornerIndicesInProxy": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "projectedVisibleRoofCorners": [
+        {
+          "local": [
+            -3.75,
+            -2.8,
+            5.5
+          ],
+          "pixel": [
+            195.01119242354207,
+            576.875304294606
+          ]
+        },
+        {
+          "local": [
+            3.75,
+            -2.8,
+            5.5
+          ],
+          "pixel": [
+            981.6574194420459,
+            150.0036516479206
+          ]
+        },
+        {
+          "local": [
+            3.75,
+            0,
+            7.5
+          ],
+          "pixel": [
+            1161.323113509252,
+            296.9516605973372
+          ]
+        },
+        {
+          "local": [
+            -3.75,
+            0,
+            7.5
+          ],
+          "pixel": [
+            374.6768864907481,
+            723.8233132440226
+          ]
+        },
+        {
+          "local": [
+            3.75,
+            2.8,
+            5.5
+          ],
+          "pixel": [
+            1340.988807576458,
+            671.000566496914
+          ]
+        },
+        {
+          "local": [
+            -3.75,
+            2.8,
+            5.5
+          ],
+          "pixel": [
+            554.3425805579541,
+            1097.8722191435993
+          ]
+        }
+      ],
+      "visibilityMeaning": "Exact orthographic ray/convex-volume corner check on THIS proxy only, not on generated native art. Orange hidden ground constraints remain drawn dashed.",
+      "geometryBoundsPixelsIncludingRoofFeatures": [
+        195.01119242354207,
+        150.0036516479206,
+        1340.988807576458,
+        1367.9963483520794
+      ],
+      "fitsSafetyMargin": true,
+      "wallVerticalPairsPixels": [
+        [
+          [
+            240.48262911707377,
+            902.8205315226211
+          ],
+          [
+            240.48262911707377,
+            590.5567982161508
+          ]
+        ],
+        [
+          [
+            974.6857743343439,
+            504.40698905238133
+          ],
+          [
+            974.6857743343439,
+            192.143255745911
+          ]
+        ],
+        [
+          [
+            1295.5173708829261,
+            969.5828058818396
+          ],
+          [
+            1295.5173708829261,
+            657.3190725753693
+          ]
+        ],
+        [
+          [
+            561.3142256656561,
+            1367.9963483520794
+          ],
+          [
+            561.3142256656561,
+            1055.732615045609
+          ]
+        ]
+      ],
+      "wallVerticalMaxHorizontalErrorPixels": 0.0,
+      "solidsCandidateLocal": [
+        {
+          "name": "two-storey-wall-body",
+          "rect": [
+            -3.5,
+            3.5,
+            -2.5,
+            2.5
+          ],
+          "z0": 0,
+          "z1": 5.5
+        }
+      ],
+      "architectureCandidate": "A compact two-storey dwelling, wall footprint 7x5, wall/eave height 5.5 plus a 2-unit pitched roof rise to ridge z=7.5. Ridge runs parallel to frontage; show both roof slopes and the visible gable end as in guide. Slate blue-grey roof, pale domestic walls, modest door and windows; no flat roof/parapet shop conversion. Roof overhang candidate is 0.25 at the ends and 0.30 at the depth edges.",
+      "imageRolesInOrder": [
+        "B05-geometry.png",
+        "B05-appearance.png",
+        "docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+        "docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png"
+      ],
+      "appearanceCrop": {
+        "source": "docs/art/2026-11-04-county-twentyfive-region-plan/review-007/TR-22-v1.png",
+        "sourceSHA256": "e1681189b0aa232838e014132fed8a79ee870996b3a69129dde9378d7ac5d6fb",
+        "sourceSHA256MatchesSelection": true,
+        "sourceSizeActual": [
+          1254,
+          1254
+        ],
+        "selectionBoxPixelsExact": [
+          677,
+          1019,
+          759,
+          1094
+        ],
+        "contextMarginPixels": 8,
+        "cropBoxPixels": [
+          669,
+          1011,
+          767,
+          1102
+        ],
+        "cropConvention": "Pillow half-open left,top,right,bottom; unscaled/unfiltered/unmasked",
+        "selectedBoxInCropPixels": [
+          8,
+          8,
+          90,
+          83
+        ],
+        "appearanceFile": "B05-appearance.png",
+        "appearanceSizeActual": [
+          98,
+          91
+        ],
+        "appearanceSHA256": "8dd7c054662bf61278fe3ac60ead0a079126d719e51389d42b9a49e0b131f8c0",
+        "sourceAppearanceNotes": "SOURCE FRAMING LIMITATION: the exact selected TR-22 box contains only a partial pale lower facade/forecourt, vegetation and much blank outer margin; the intended complete house and roof are NOT visible. Do not infer roof identity from neighboring houses or claim this crop proves a gable. The two-storey pitched dwelling is the canonical PM candidate, pending parent source-identity review before native generation.",
+        "approval": "PM-selected-from-user-approved-region;not-individual-asset-approved",
+        "nativeGenerationReadiness": "blocked-pending-parent-source-identity-review",
+        "sourceFramingComplete": false
+      },
+      "projectedRoofRidgeEndpoints": [
+        [
+          374.6768864907481,
+          723.8233132440226
+        ],
+        [
+          1161.323113509252,
+          296.9516605973372
+        ]
+      ],
+      "projectedWallEaveCornersABCD": [
+        [
+          240.48262911707377,
+          590.5567982161508
+        ],
+        [
+          974.6857743343439,
+          192.143255745911
+        ],
+        [
+          1295.5173708829261,
+          657.3190725753693
+        ],
+        [
+          561.3142256656561,
+          1055.732615045609
+        ]
+      ]
+    }
+  ],
+  "tree": {
+    "id": "T02",
+    "status": "one-contrasting-tree-brief-and-geometry-only-not-native-art",
+    "T01": "Keep accepted T01 unchanged; silhouette/size contrast only, no 10+ variant authorization.",
+    "identity": "narrow upright/columnar deciduous street tree with smaller canopy, visible slim branching trunk; not conifer, not top-only crown",
+    "dimensionsCandidate": {
+      "pitFrontage": 1.8,
+      "pitDepth": 1.8,
+      "curbHeight": 0.18,
+      "height": 6.2,
+      "canopyDiameter": 2.2,
+      "canopyBottomHeight": 3.4,
+      "canopyTopHeight": 6.2,
+      "trunkVisibleDesignIntentFromHeight": 0.18,
+      "trunkVisibleDesignIntentToHeight": 3.4
+    },
+    "candidateOnly": true,
+    "geometryFile": "T02-geometry.png",
+    "guideSizeActual": [
+      1536,
+      1536
+    ],
+    "uniformNativeGuidePixelsPerUnit": 278.869,
+    "anchorPixel": [
+      768.0,
+      1061.9152924081245
+    ],
+    "projectedGroundPitCornersABCD": [
+      [
+        422.92694867706626,
+        988.1886386414976
+      ],
+      [
+        851.1180984593606,
+        755.8317576468178
+      ],
+      [
+        1113.0730513229337,
+        1135.6419461747514
+      ],
+      [
+        684.8819015406394,
+        1367.9988271694313
+      ]
+    ],
+    "projectedPitRimCornersABCD": [
+      [
+        422.92694867706626,
+        965.0105113171344
+      ],
+      [
+        851.1180984593606,
+        732.6536303224544
+      ],
+      [
+        1113.0730513229337,
+        1112.463818850388
+      ],
+      [
+        684.8819015406394,
+        1344.8206998450678
+      ]
+    ],
+    "projectedTrunkBase": [
+      768.0,
+      1038.7371650837613
+    ],
+    "projectedCanopyBottomCentre": [
+      768.0,
+      624.1062207257062
+    ],
+    "projectedTreeTop": [
+      768.0,
+      263.5575734578323
+    ],
+    "geometryBoundsPixels": [
+      422.92694867706626,
+      150.00117283056863,
+      1113.0730513229337,
+      1367.9988271694313
+    ],
+    "fitsSafetyMargin": true,
+    "note": "Crown wire ellipsoid is an envelope only, never leaves/native tree art; visible trunk must be checked on generated PNG.",
+    "imageRolesInOrder": [
+      "T02-geometry.png",
+      "docs/art/2026-11-05-modular-map-kit/pilot/T01-v1.png",
+      "docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+      "docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png"
+    ]
+  }
+}

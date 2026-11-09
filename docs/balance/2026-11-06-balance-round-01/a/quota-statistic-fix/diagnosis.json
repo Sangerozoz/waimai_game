@@ -1,0 +1,18 @@
+{
+  "scope": "model accounting only; production unchanged",
+  "red": "../failed-full-run/narrow-red-run.log",
+  "evidence": "../failed-full-run/narrow-red-quota-assertion-context.json",
+  "observed": {
+    "intervalMs": 1200,
+    "oldBatchRemainingWorkMs": 600,
+    "predictedQuotaMsBeforeFix": 284400,
+    "actualProductionQuotaMs": 285000
+  },
+  "fix": "When no NPC has a future assigned vehicle, cap consumed shared work time at the latest outstanding batch remaining due time; remaining interval is no-worker time.",
+  "green": {
+    "command": "node docs/balance/2026-11-06-balance-round-01/a/run-model.cjs --representative-only --loan-10-only",
+    "exit": 0,
+    "events": 181,
+    "sourceDrift": []
+  }
+}

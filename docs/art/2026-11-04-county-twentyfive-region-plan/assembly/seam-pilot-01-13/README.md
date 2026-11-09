@@ -1,3 +1,12 @@
+## 11-05 预览入口恢复
+
+接续 thr_4w3ji6nqcn。原交付为本地HTML链接，无法作为远程网页访问；4181服务根目录为旧map-sample，不含本页（请求返回404）。现以25区资料目录独立启动4183静态服务，通过BB Connect分享：
+
+- [前后对比](https://sanger--4183.getbb.app/assembly/seam-pilot-01-13/comparison.html)
+- [整县拼接预览](https://sanger--4183.getbb.app/assembly/preview.html)
+
+本机浏览器已实际显示v2，点击原路水系叠加后出现SVG层；页面与4项候选图片均HTTP 200。分享需要已登录所属BB账号。未修改候选图片或接入游戏，接缝仍未通过。
+
 # 图01—13接缝样板：两版实验已完成，结构核对未通过
 
 [前后对比与原路叠加](comparison.html) · [图02占路定位](region02-occupancy.html)

@@ -1,0 +1,106 @@
+{
+  "passed": false,
+  "security_concerns": [],
+  "logic_errors": [
+    {
+      "id": "L01",
+      "severity": "P2",
+      "title": "Web 映射缺项时将原图回退写入最终成功帧缓存，后续不再尝试 Web",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:100-122",
+        "delivery-game/assets/scripts/map-sample/CartoonArt.ts:131-138"
+      ],
+      "trigger": "对已 opt-in 的四类 Cartoon key，pack 的 version/sources 顶层校验通过，但没有该原 resource，或该 source 的 regions 中没有原 pixelRect 键；原图能够成功加载。是静态条件分支反例，未修改或注入当前 pack；当前磁盘映射并不缺这些项。",
+      "trace": [
+        "UIArtResources.ts:101 将 retryWeb 初始化为 false；104-116 的 source/derived 缺项分支不抛错，也不改变该标志。",
+        "UIArtResources.ts:119-122 返回合法原图且 retryWeb=false。",
+        "CartoonArt.ts:136 因而选中 frames 而非 fallbackFrames；138 把原图帧写进最终缓存。",
+        "下一次 loadCartoonFrame 在 133 提前返回，不再进入 loadArtRegion。即使之后索引得到恢复，此 key 在当前会话也不会重试 Web。"
+      ],
+      "impact": "原图仍可显示，不是已证实的占位或缺图；但可选包不完整时的原图回退变成粘性成功，违背本次要求的临时 fallback 不永久阻断后续 Web 重试。",
+      "minimal_suggestion": "区分 web:false 的有意原图旁路与 opt-in 后未找到衍生的回退。后者也应带可重试标志，只进 fallbackFrames；同时为不完整索引提供有界、按索引身份保护的恢复路径，不以每帧轮询重试。"
+    },
+    {
+      "id": "L02",
+      "severity": "P2",
+      "title": "衍生尺寸及索引内部结构的语义校验发生在成功缓存之后，失败对象不会退出成功缓存",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:23-51",
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:71-84",
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:104-117"
+      ],
+      "trigger": "resources.load 返回无错误的 Texture2D，但其 width/height 与 derived.size 不符；或 JsonAsset 的顶层 version/sources 合法，而被访问 source 的 size/regions 或 region 的字段不合法。均为用户要求覆盖的坏包/尺寸异常条件，并非当前资产清点发现了坏文件，也未做故障注入。",
+      "trace": [
+        "loadArtTexture 经 cachedLoad 在 29、40、51 对纹理成功 addRef 并缓存 fulfilled Promise；直到 loadArtRegion:112 才检查衍生尺寸。",
+        "尺寸异常在 117 被转成 retryWeb=true 的原图回退，但 textures 中 fulfilled Promise 不拒绝，43 的失败驱逐根本不会执行。",
+        "后续打开虽不被 fallbackFrames 提前截断，却会在 24 取得同一个错误尺寸纹理，重复校验失败和回退，而不发起新的纹理加载。",
+        "索引的同类问题：77-84 只验证顶层便缓存成功 webPack；104-110 对内部结构的访问/校验失败被 117 捕获，不会触发 webPack 自身的 rejection 清理。后续仍复用同一坏索引。",
+        "Cocos 3.8.8 asset-manager/load.ts:109-111、155-161 还会复用成功 UUID 资产；因此仅删应用层 Map 后再普通 resources.load，并不充分保证取得修复后的资产。"
+      ],
+      "impact": "当前请求可以正确进入原图回退，非永久占位；但已识别为无效的可选资源仍以成功对象保留，导致同会话后续 Web 恢复重试无效。此问题独立于 resources.load 无法取消的已知限制。",
+      "minimal_suggestion": "把成功定义扩到所需结构/尺寸校验通过，再发布到成功缓存或 retain。异常时仅按匹配的 Promise/对象身份使该可选索引或纹理失效，平衡已 addRef 的坏纹理，并为该目标选择引擎支持的受控重载方式以避开同 UUID 成功缓存；不清空全局资源缓存、不改原图/原 manifest 的重试策略。"
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "S01",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/CartoonArt.ts:138-149",
+        "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts:68-75"
+      ],
+      "suggestion": "可显式固定当前四类 SIMPLE/CUSTOM 使用 trim=true 的契约，或把源尺寸的布局元数据与 SpriteFrame.originalSize 分开。当前默认 trim=true 的真实调用没有额外缩小，不能据 originalSize 大于 rect 直接判错；但将来若复用者切到 trim=false，该元数据会被解释成透明裁边而缩小画面。"
+    },
+    {
+      "id": "S02",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:7-51",
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:71-117"
+      ],
+      "suggestion": "后续获准的集中验证中分开记录 pack 等待、衍生等待、原图等待和实际渲染。衍生加载序列本身为 15000ms；冷 pack 成功但耗近 4s 时，顺序等待至原图开始可近 19000ms。原图或原 manifest 每条最长名义序列 183000ms；后台计时节流及引擎无法取消不包含在这些算术值内。不是本次逻辑阻塞或远程提速证明。"
+    }
+  ],
+  "summary": "独立第二阶段静态代码质量审查未通过：无安全发现；发现两项有条件的 Web 回退/恢复缓存逻辑问题。正常映射、CUSTOM/trim 绘制、双轴九宫格、隐藏节点与销毁保护的所查路径未见新增阻塞。未证明当前坏包发生，未验证实际显示，不构成游戏或98%验收。",
+  "sourceSHA": {
+    "primary": {
+      "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "73e29316a757f4a37a2f47f188e8f558aa074aeb8270d7ce148cecab2ec9949f",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/scripts/map-sample/CartoonArt.ts": "5b59bb9d4c15fba335754f430641d228a20ea31023cf6385f333fba200d73e52"
+    },
+    "dependencies": {
+      "delivery-game/assets/scripts/map-sample/VehicleSideArt.ts": "2fc57889b85537575651d056eec653261932869ff8227fc05a9e738eb5a2e0d9",
+      "delivery-game/assets/scripts/map-sample/FoodImages.ts": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586",
+      "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts": "aeee30bde4e3f121f39b395bd84feff5708b5dfb63cf4941cb91df6d9e00f14c",
+      "delivery-game/assets/scripts/map-sample/SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "e3be2228f8ac59746fa412146b289b2c0a267fa18184fcf5859460f59f972e8e",
+      "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30",
+      "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322",
+      "delivery-game/assets/resources/ui-v2/portraits.json": "fc35329f1f63cce69c55ea5668af0eebe86ff6962a2216a6e34e03637c2df826",
+      "delivery-game/package.json": "9168716c90720f99e33576eb2aada08330adcc2cf361b3c230445dd9084f3192",
+      "delivery-game/temp/tsconfig.cocos.json": "c7604cea24d52d5ac54d9a4fdac0a9a9d05fa0a8d35413e9c49ac2e79c81654c",
+      "delivery-game/temp/declarations/cc.d.ts": "833984f9a28da55f01c2c2d16720a82e8027658ce78d162d0fe60ee902aab40c"
+    },
+    "engineRoot": "/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/Resources/resources/3d/engine",
+    "engine": {
+      "cocos/2d/components/sprite.ts": "d82794919dbeeefd0fc6fcf89e1e8addfec8969c3c0fc028eb4a315c82e1b385",
+      "cocos/2d/assets/sprite-frame.ts": "26602a1dabe4f7739582c3db555fb0d2ba8a71c5f9a26f6fe6446821b0f90684",
+      "cocos/2d/assembler/sprite/simple.ts": "e2c2da3e1f28b38b59d815f761724de884270aebf74fabc7736ced6153d2c7e6",
+      "cocos/2d/assembler/sprite/sliced.ts": "e8438ea67f7e9afb0d6296d4f59ca4b0b6176fd48da29af8e8e25385935c7a5c",
+      "cocos/core/data/object.ts": "9dfc1fe2fd025d5f30ad4b4618e68399314b166e438e1aaf7ac65673f8d66453",
+      "cocos/asset/assets/asset.ts": "4d701b1188fad3a6df35b61b06c37fbb868506f7cf718d70d6fd2547ddf3257c",
+      "cocos/asset/asset-manager/load.ts": "6d780a266c09208625cc792a152cf51340e1d90fb30769216254dbf0ac2f7d67",
+      "cocos/asset/asset-manager/utilities.ts": "ae193ae08dc7c644055dacd70ea7ad7f3eeddd0311e6abf8905b3864d106b013",
+      "bin/.declarations/cc.d.ts": "4b549dcfd4be065f081fd842749efb8de2c44a941306ec39630ec80240f4036a"
+    }
+  },
+  "limitations": [
+    "范围：四类产品 UI 资源的第二阶段静态代码质量；独立非作者 thr_htnxptrv4w，父 PM thr_axf6i4e89t，同 checkout/env_e54zrbdgxt。仅写本 quality-review.json 与 quality-review.md，源码只读范围交回 PM。",
+    "三个主目标已完整读取，起始和收口 SHA 与交付记录一致；依赖按所记录 SHA 读取。CartoonArt 的 git diff 已读；另两主目标为未跟踪文件，没有经 SHA 认证的紧邻修改前快照，本结论是当前字节质量审查，不把 HEAD 当紧邻基线。",
+    "仅读源码、SDK 声明/实现、既有 JSON/meta/交付文档；Python 仅用于文件 SHA、JSON 数据和尺寸/时间算术。未执行 TS、tests/typecheck、游戏函数、真实/合成存档、故障注入、Creator 导入/构建、部署或浏览器操作。未因未授权测试判 FAIL。",
+    "当前 pack 按 JSON 计数为42来源/143 region，既有资产记录为146别名，与父 PM 清点吻合；本轮不重复生成图片、接触表或全量图片审计，不用此前 issues=[] 代替代码审查。L01/L02 是静态故障分支反例，不声称当前磁盘资源实际缺失/损坏，也不声称是此次远程缺图共同根因。",
+    "所查正常路径：原 resource+原 pixelRect 映射、端点 Math.round、衍生全纹理 rect、九宫格横纵独立缩放、hero 共纹理、错误/超时 Promise 身份保护清除、有限帧缓存、有效隐藏节点赋图及销毁节点防写。详见 Markdown 的逐项依据；不等于渲染/回归通过。",
+    "Cocos 3.8.8 实现中 SIMPLE 默认 trim=true；两 loader 使用 CUSTOM。CartoonArt 保留源 originalSize 与较小 rect 在当前调用并不自动造成二次缩小；alpha 在完整衍生纹理 rect 内，不因 trim 开关自动扫描裁掉。未把潜在 trim=false 复用风险当实际缺陷。",
+    "原图及原 manifest 的名义单序列183s、可选 pack4s、Web纹理15s、底层无法取消/晚回调/并发重叠与浏览器计时节流为已知边界；不是本次新增阻塞发现。失败后当前节点不会无限自动轮询，后续由页面重建触发恢复。",
+    "maps manifest 显式 web:false，Cartoon 非四类世界/地图 key 不 opt-in；未制作、加工、修复或派发任何地图任务。没有更改原 manifest、共享 ledger/plan/dispatch/baseline，没有新建子 Agent、commit、push 或 worktree。",
+    "未关闭用户缺图反馈，未声明远程缺图已清、实际图片显示、阶段游戏通过或98%达标。修复及后续独立复审/集成验证由父 PM 安排。"
+  ]
+}

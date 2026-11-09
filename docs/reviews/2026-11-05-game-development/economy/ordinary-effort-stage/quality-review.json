@@ -1,0 +1,164 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [
+    {
+      "id": "U22-PERF-01",
+      "classification": "non-blocking-unmeasured-cost",
+      "locations": [
+        "docs/reviews/2026-11-05-game-development/economy/ordinary-effort-stage/delivery-game/assets/scripts/domain/V2DispatchSession.ts:138-148",
+        "docs/reviews/2026-11-05-game-development/economy/ordinary-effort-stage/delivery-game/assets/scripts/domain/V2EconomySession.ts:56-65",
+        "docs/reviews/2026-11-05-game-development/economy/ordinary-effort-stage/delivery-game/assets/scripts/map-sample/V2GameSession.ts:122",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:101-117,133-139"
+      ],
+      "triggerChain": "Dispatch原有历史订单校验循环现在会为带ordinaryPricing的新合同重新核验冻结车辆收益、经验倍率和金额；Game恢复也增加当前Trip订单到Dispatch历史订单的查找。这些路径会随Runtime候选恢复、提交前复验及预览调用发生，成本随保留历史增长。",
+      "impact": "这是新增校验工作的源码观察，不是已测量的性能回归。Game局部fastest缓存减少重复查询，但不能据此推出整体耗时或FPS改善。",
+      "minimalRecommendation": "保留完整历史新合同及组合恢复校验，等阶段授权后测量。若后续优化，应单独审查可信冻结值的复用边界，不以性能为由跳过metadata或恢复验证。"
+    }
+  ],
+  "summary": "NEXT-A-U22-PRICING第二阶段独立静态质量审查PASS，未发现可确认的本范围安全或逻辑阻塞。已将三份暂存候选作为整体overlay审查，未改依赖从真实仓库读取；独立验证三份live原源、三份候选及补丁SHA，并以10个唯一精确上下文在内存重建，全部匹配。可信距离来自plan通过后的shop→customer heldMetres，预览和接单共用Game.acceptBatch，UI金额/距离字段不进入报价公式。整批保护、单次货币round、完整own-key上下文、冻结D与quote.weightKg、版本及新历史合同验证、当前Trip距离交叉检查均符合规则；无marker旧合同保持旧路径。NPC、special、configId、slot、ready/group、NPC时钟及validate→commit→publish未被本增量改写。metadata提供结构和组合一致性，不认证任意离线篡改。交回时候选及live原源无SHA漂移，候选尚未应用。未写文件、改权限、调用Codex或另开Agent，未运行TS、业务、游戏、浏览器、tests/typecheck/回归、存档、构建或profiling。只读范围已交还父PM；静态PASS不代表游戏、数值校准、性能或用户验收，不关闭U22。",
+  "sourceHashes": {
+    "algorithm": "SHA-256",
+    "candidateRoot": "docs/reviews/2026-11-05-game-development/economy/ordinary-effort-stage",
+    "pathPolicy": "candidateSHA256中的键表示candidateRoot下同相对路径的候选。deferredCases的candidateEvidence相对于candidateRoot/delivery-game/assets/scripts，repoEvidence相对于仓库根。",
+    "liveOriginalSHA256": {
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "7ec38bc31d32d4fbf5f72ab821db4a33c43f3edb6807396d0f71c16424cc5a14",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "09a6a67eb0e9b8fa7341a97f55e25bd5653d005cb5b738217c6c89de6cac8c67",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "90d6e5f4bb9e5322037c483d57dda65fb1c1f1473d4c406c34ef86b144610b16"
+    },
+    "candidateSHA256": {
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "affec422c530e37820354a88690f8df32010580ded276cb3f9ac697e8f142e2d",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "40c79d5443c35f2e6b3bba69fac129f07106d8d25ee76a6e27b7fde514d3fe0f",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "cd94c794d12e32cbe11d6c4e3cb5a0bfded29005e4afa49b679d9d2ba3b06232"
+    },
+    "patch": {
+      "path": "docs/reviews/2026-11-05-game-development/economy/ordinary-effort-stage/apply.v4a.patch",
+      "sha256": "a7ab9f5f257b50937eee3e87365507c60b3d7b4efa4d614ed752b8eb3045b3d1",
+      "exactUniqueContextHunks": 10,
+      "allReconstructedCandidatesMatch": true,
+      "appliedToLiveSources": false
+    },
+    "rule": {
+      "path": "docs/balance/2026-11-06-ordinary-effort-v1/rule.json",
+      "sha256": "92603b68e8cccab37916abdeb7eac7eefca281a5c52f625ce7528f774d828e64"
+    },
+    "inputReports": {
+      "docs/reviews/2026-11-05-game-development/economy/ordinary-effort-stage/spec-review.json": "3779cb821dd697f0ad023814cf815b288cc86c55be4696ed434ed92341cfeb1a",
+      "docs/reviews/2026-11-05-game-development/economy/ordinary-effort-stage/source-sha256.json": "d2591de187d7a0d7e8fdee1683e6fdc6c21d531bc504e96f6edaadb5692494b1"
+    },
+    "contextDependencies": {
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "7d4480870bcb128f729a0b6f2a130a590b6b4e45fea7dbc6e08d770e399a72c4",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+      "delivery-game/assets/scripts/domain/V2FleetSession.ts": "70cc8e526d4bb518716f50006941eab9b49e1647db1f56f9e1309040ef42e3a6",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "6ede7a45eed46a1875e187d1f728e045f44db82de6f7d83a685131d9e6093c16",
+      "delivery-game/assets/scripts/domain/V2EconomyConfig.ts": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976",
+      "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23",
+      "delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "8efdff34d0f3214a69922b9ef2b8cdd86672f1631a26b8962dc18e6efea07f7f",
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "705a2f051a53c6b39243086212673ca3f0e20ab8a0ca6a05be68ed370cc99b46"
+    },
+    "initialAndClosingHashesMatch": true,
+    "drift": [],
+    "applicationPrecondition": "父PM应用前仍须重新核对三份live原源、候选及补丁SHA；任何不匹配须停止并重基/复审，不能以本PASS覆盖后续变更。"
+  },
+  "deferredCases": [
+    {
+      "id": "D01",
+      "case": "可信距离来源、UI单卡/批次预览与正式接单",
+      "status": "static-reviewed-runtime-not-executed",
+      "candidateEvidence": [
+        "map-sample/V2GameSession.ts:23-32"
+      ],
+      "repoEvidence": [
+        "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:94-100",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:133-139,160",
+        "delivery-game/assets/scripts/map-sample/V2GameUI.ts:582,594,599"
+      ],
+      "staticReasoning": "candidate.plan先验证订单和重排后的路径，之后局部缓存现有Route.fastest结果。定价只取heldMetres，未取包含骑手到店段的metres或UI传入金额/距离。Runtime预览草稿和正式接单均调用Game.acceptBatch，报价最终由经济层显式构造并锁定；缓存不跨批保存。"
+    },
+    {
+      "id": "D02",
+      "case": "整批保护边界、N公式与单次货币round",
+      "status": "static-reviewed-runtime-not-executed",
+      "candidateEvidence": [
+        "domain/V2EconomySession.ts:11,50-65,177-185"
+      ],
+      "repoEvidence": [
+        "delivery-game/assets/scripts/domain/V2EconomyConfig.ts:7-15"
+      ],
+      "staticReasoning": "报价使用接单前heroCompletedOrders作为整批共同acceptedCount，不按每单ordinal或批内完成顺序重新分档。保护期乘固定保护系数；保护后N与权威rule的距离和实际重量封顶项一致。未先调用已round的ordinaryIncomeCents再乘系数，只有最终金额round；结算继续消费锁定报价。"
+    },
+    {
+      "id": "D03",
+      "case": "raw=0、次米、NaN、Infinity、负数及safe-integer边界",
+      "status": "static-reviewed-runtime-not-executed",
+      "candidateEvidence": [
+        "domain/V2EconomySession.ts:26,30-32,43-45,50-53",
+        "map-sample/V2GameSession.ts:31,122"
+      ],
+      "repoEvidence": [
+        "delivery-game/assets/scripts/domain/V2TripRules.ts:33-37,113"
+      ],
+      "staticReasoning": "raw先过number、finite和非负门禁，再按规则round并保底，量化结果必须为正safe integer。新计价重量与最终分金额也须为safe integer。Trip保留原heldMetres语义和下界，Game恢复用同一量化函数与冻结D对应，不把量化距离写回道路或Trip原距离。没有执行边界数值或收入案例。"
+    },
+    {
+      "id": "D04",
+      "case": "完整ordinary IDs、own-key、null-prototype、Symbol、nonenumerable与特殊属性名",
+      "status": "static-reviewed-runtime-not-executed",
+      "candidateEvidence": [
+        "domain/V2EconomySession.ts:34-47",
+        "domain/V2DispatchSession.ts:83-93",
+        "map-sample/V2GameSession.ts:27-28"
+      ],
+      "staticReasoning": "上下文仅undefined选择旧API，显式错误结构不能静默降级。Reflect.ownKeys覆盖Symbol及不可枚举额外键，完整键集合须精确对应ordinary IDs；逐单还要求hasOwn。输入项仅允许自己的deliveryMetres字段，输出写入新null-prototype字典，constructor、__proto__等名称不经原型查找补齐。合法自身不可枚举数据会被显式读取并复制，不依赖JSON枚举保留。Dispatch在奖励批次变更前完成上下文规范化，失败只丢草稿。"
+    },
+    {
+      "id": "D05",
+      "case": "新active、completed、cancelled合同的冻结信息验证",
+      "status": "static-reviewed-runtime-not-executed",
+      "candidateEvidence": [
+        "domain/V2EconomySession.ts:56-65,108-118,183-185",
+        "domain/V2DispatchSession.ts:138-151"
+      ],
+      "staticReasoning": "D存于版本化ordinaryPricing，W存于quote.weightKg；新marker要求受支持版本、精确自有字段、正safe-integer D/W、冻结车辆等级/收益、acceptedCount、XP倍率及对应金额。Economy验证active合同，Dispatch对所有保留状态调用新marker校验，因此完成或取消后不会仅因离开activeQuotes而失去验证；receipt仍与quote对应。未将这种校验表述为任意离线改档认证。"
+    },
+    {
+      "id": "D06",
+      "case": "当前Trip交叉一致、旧无marker合同及未知版本",
+      "status": "static-reviewed-runtime-not-executed",
+      "candidateEvidence": [
+        "map-sample/V2GameSession.ts:107-126",
+        "domain/V2EconomySession.ts:56-65,113-114",
+        "domain/V2DispatchSession.ts:142-148"
+      ],
+      "staticReasoning": "Game先恢复并验证Dispatch，之后才读取已验证metadata并比较当前Trip量化heldMetres；原Route/Dispatch成员与重量对应、picked/delivered及完整legs恢复链仍保留。旧无marker报价继续原公式和原历史接受路径，不补距离、不重价、不新增历史冻结字段要求；未知新marker版本拒绝，未增加清档或第二slot。"
+    },
+    {
+      "id": "D07",
+      "case": "NPC、special、时钟、服务状态与发布原子性",
+      "status": "scoped-static-preservation-reviewed-runtime-not-executed",
+      "candidateEvidence": [
+        "domain/V2EconomySession.ts:182-184,197-213",
+        "domain/V2DispatchSession.ts:56-62,97-137",
+        "map-sample/V2GameSession.ts:35-98,114-126"
+      ],
+      "repoEvidence": [
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:101-119"
+      ],
+      "staticReasoning": "special批次的ordinary上下文为空，不附普通计价marker；NPC公式不走新普通报价入口。精确增量未修改NPC时钟/no-op、ready/group、A-QUALITY-01、配置ID或保存字段。Runtime仍完整验证候选并在提交成功后发布，未提前发布局部Trip、Route或经济变更。"
+    },
+    {
+      "id": "D08",
+      "case": "自动LSP反馈与运行、性能、数值验收边界",
+      "status": "deferred",
+      "candidateEvidence": [
+        "domain/V2EconomySession.ts:100"
+      ],
+      "repoEvidence": [
+        "delivery-game/assets/scripts/domain/V2EconomySession.ts:59"
+      ],
+      "staticReasoning": "已逐字核对ownedMapIds.includes(s.selectedMapId)为相同原行，不归为本次新增问题；stage缺依赖副本不等于overlay生产缺模块。没有运行编译或typecheck，因此不宣称类型检查通过，也未扩大修改tsconfig或整库。报价恢复、预览一致性、数值边界、首次15单体验、历史增长性能和用户实际观感均仍待授权验证；不保证不同订单必有不同的round后金额。"
+    }
+  ]
+}

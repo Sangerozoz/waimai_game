@@ -1,0 +1,1193 @@
+{
+  "verdict": "safe-for-limited-integration",
+  "reviewedCandidateSHA256": "a5564388f2efb4afc55c8baa50e0f0607b1d0484ded6c2b05b6cc9abda6edb27",
+  "baselineSceneSHA256": "e781547b0767a058e47fad5459e45ab308951c67cf6e3237c9f10a48d824eaa7",
+  "baselineTiledSHA256": "5a4ee4e32ca61f88c81d97161469fa558fdfa75d1f8051ffaeef7c03badfee5c",
+  "latestPublishedReferenceSHA256": "d705fb8274b713d3a9b451ca8259243035f43360ee1a2c39dbc86660768e4167",
+  "baselineCounts": [
+    161,
+    501,
+    81
+  ],
+  "counts": {
+    "sources": 1,
+    "scenes": 1,
+    "modules": 2,
+    "grounds": 5,
+    "rendered": 0
+  },
+  "checks": [
+    {
+      "rule": "scene-source-module-bidirectional-ownership",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "125-unbound-unreserved",
+      "passed": true,
+      "evidence": {
+        "boundCount": 81,
+        "reserved": [
+          114,
+          1383,
+          1731
+        ]
+      }
+    },
+    {
+      "rule": "parsed-counts-1scene2modules5grounds1source0rendered",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "declared-counts",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "projection-exact",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "latest-published-counts",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ownership-negative-cases",
+      "passed": true,
+      "evidence": [
+        {
+          "case": "duplicate-module-id",
+          "rejected": true
+        },
+        {
+          "case": "missing-scene",
+          "rejected": true
+        },
+        {
+          "case": "orphan-module-membership",
+          "rejected": true
+        },
+        {
+          "case": "cross-scene-source-reuse",
+          "rejected": true
+        },
+        {
+          "case": "old-bound-source",
+          "rejected": true
+        },
+        {
+          "case": "reserved-source",
+          "rejected": true
+        }
+      ]
+    },
+    {
+      "rule": "exact-source-scene-copy",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "unknown-scenic-only-no-old-edit",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "surface-membership",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "complete-road-every-field-and-order",
+      "passed": true,
+      "evidence": "605760963-0"
+    },
+    {
+      "rule": "positive-scale-once-B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "canonical-world-frame-B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "native-pixel-footprint-B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "true-door-pixel-B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "exact-module-source-B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "native-runtime-integrity-B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "door-not-poi-B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "road-shoulder-B05",
+      "passed": true,
+      "evidence": 0.029999999999957172
+    },
+    {
+      "rule": "actual-1.5m-walk-polygon-B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "own-body-after-0.6m-B05",
+      "passed": true,
+      "evidence": 0.7990923698060136
+    },
+    {
+      "rule": "positive-scale-once-B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "canonical-world-frame-B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "native-pixel-footprint-B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "true-door-pixel-B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "exact-module-source-B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "native-runtime-integrity-B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "door-not-poi-B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "road-shoulder-B01",
+      "passed": true,
+      "evidence": 0.029999999999957172
+    },
+    {
+      "rule": "actual-1.5m-walk-polygon-B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "own-body-after-0.6m-B01",
+      "passed": true,
+      "evidence": 0.32863550419992454
+    },
+    {
+      "rule": "old161-contact-id-coverage",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "market-actual-contact-T02",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "market-actual-contact-P03",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "market-actual-contact-P01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "market-actual-contact-P10",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "market-actual-contact-T05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "market-published-layout-sha",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "global-latest-external-009compound-source0125-court-module-01-B05",
+      "passed": true,
+      "evidence": {
+        "id": "009compound-source0125-court-module-01-B05",
+        "kind": "body",
+        "otherSource": {
+          "gap": 13.948740820530846,
+          "id": "590"
+        },
+        "road": {
+          "gap": 2.433242163885124,
+          "id": "605760963-0:2"
+        },
+        "waterArea": {
+          "gap": 104.49274399954108,
+          "id": "area:8"
+        },
+        "waterwayMinus3": {
+          "gap": 206.11778769012588,
+          "id": "line:0:0"
+        },
+        "oldGround": {
+          "gap": 1.3123909736695167,
+          "id": "009r4-src-0587-walk-0"
+        },
+        "oldContact": {
+          "gap": 11.043371949319539,
+          "id": "market-life-waiting-bench"
+        },
+        "marketContacts": [
+          {
+            "id": "market-life-shade-tree",
+            "gap": 13.143601088416677
+          },
+          {
+            "id": "market-life-waiting-bench",
+            "gap": 11.043371949319539
+          },
+          {
+            "id": "market-life-entry-sign",
+            "gap": 16.734682370459392
+          },
+          {
+            "id": "market-life-waste-bins",
+            "gap": 14.116856221450105
+          },
+          {
+            "id": "market-life-low-shrub",
+            "gap": 16.230079984371965
+          }
+        ],
+        "poi": [
+          180.1178572670426,
+          "6438106307"
+        ],
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-latest-external-009compound-source0125-court-module-02-B01",
+      "passed": true,
+      "evidence": {
+        "id": "009compound-source0125-court-module-02-B01",
+        "kind": "body",
+        "otherSource": {
+          "gap": 14.15449545264092,
+          "id": "587"
+        },
+        "road": {
+          "gap": 2.2413890250571873,
+          "id": "1046196060-0:0"
+        },
+        "waterArea": {
+          "gap": 106.39302486868286,
+          "id": "area:10"
+        },
+        "waterwayMinus3": {
+          "gap": 195.28242015447753,
+          "id": "line:0:0"
+        },
+        "oldGround": {
+          "gap": 6.198554507793231,
+          "id": "market-life-rest-terrace"
+        },
+        "oldContact": {
+          "gap": 7.987965290611868,
+          "id": "market-life-waiting-bench"
+        },
+        "marketContacts": [
+          {
+            "id": "market-life-shade-tree",
+            "gap": 9.191710984385974
+          },
+          {
+            "id": "market-life-waiting-bench",
+            "gap": 7.987965290611868
+          },
+          {
+            "id": "market-life-entry-sign",
+            "gap": 17.616063961526596
+          },
+          {
+            "id": "market-life-waste-bins",
+            "gap": 17.4655431976312
+          },
+          {
+            "id": "market-life-low-shrub",
+            "gap": 13.038561025319972
+          }
+        ],
+        "poi": [
+          181.5106554625882,
+          "9657208284"
+        ],
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-latest-external-009compound-source0125-court-module-01-B05-entry-walk-0",
+      "passed": true,
+      "evidence": {
+        "id": "009compound-source0125-court-module-01-B05-entry-walk-0",
+        "kind": "ground",
+        "otherSource": {
+          "gap": 13.612869127589187,
+          "id": "590"
+        },
+        "road": {
+          "gap": 0.029999999999957172,
+          "id": "605760963-0:2"
+        },
+        "waterArea": {
+          "gap": 101.39854045579824,
+          "id": "area:8"
+        },
+        "waterwayMinus3": {
+          "gap": 211.41047950034553,
+          "id": "line:0:0"
+        },
+        "oldGround": {
+          "gap": 3.8169866979416693,
+          "id": "009r4-src-0587-walk-0"
+        },
+        "oldContact": {
+          "gap": 14.586854941223073,
+          "id": "market-life-waiting-bench"
+        },
+        "marketContacts": [
+          {
+            "id": "market-life-shade-tree",
+            "gap": 17.357854581408315
+          },
+          {
+            "id": "market-life-waiting-bench",
+            "gap": 14.586854941223073
+          },
+          {
+            "id": "market-life-entry-sign",
+            "gap": 19.749449087967115
+          },
+          {
+            "id": "market-life-waste-bins",
+            "gap": 17.295835573046947
+          },
+          {
+            "id": "market-life-low-shrub",
+            "gap": 19.416967314400182
+          }
+        ],
+        "poi": [
+          177.30258040970367,
+          "6438106307"
+        ],
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-latest-external-009compound-source0125-court-module-02-B01-entry-walk-0",
+      "passed": true,
+      "evidence": {
+        "id": "009compound-source0125-court-module-02-B01-entry-walk-0",
+        "kind": "ground",
+        "otherSource": {
+          "gap": 16.827231375914653,
+          "id": "587"
+        },
+        "road": {
+          "gap": 0.029999999999957172,
+          "id": "605760963-0:2"
+        },
+        "waterArea": {
+          "gap": 98.9871653179377,
+          "id": "area:8"
+        },
+        "waterwayMinus3": {
+          "gap": 201.72883279279287,
+          "id": "line:0:0"
+        },
+        "oldGround": {
+          "gap": 9.49342511453123,
+          "id": "market-life-rest-terrace"
+        },
+        "oldContact": {
+          "gap": 11.178941782143623,
+          "id": "market-life-waiting-bench"
+        },
+        "marketContacts": [
+          {
+            "id": "market-life-shade-tree",
+            "gap": 12.640783370412843
+          },
+          {
+            "id": "market-life-waiting-bench",
+            "gap": 11.178941782143623
+          },
+          {
+            "id": "market-life-entry-sign",
+            "gap": 20.25801026378457
+          },
+          {
+            "id": "market-life-waste-bins",
+            "gap": 19.598202579186122
+          },
+          {
+            "id": "market-life-low-shrub",
+            "gap": 16.37287100032232
+          }
+        ],
+        "poi": [
+          176.6534351346211,
+          "6438106307"
+        ],
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-latest-external-009compound-source0125-court-shared-court",
+      "passed": true,
+      "evidence": {
+        "id": "009compound-source0125-court-shared-court",
+        "kind": "ground",
+        "otherSource": {
+          "gap": 13.445225918518473,
+          "id": "587"
+        },
+        "road": {
+          "gap": 1.1233521411607135,
+          "id": "605760963-0:2"
+        },
+        "waterArea": {
+          "gap": 99.95727287196279,
+          "id": "area:8"
+        },
+        "waterwayMinus3": {
+          "gap": 202.16750351846665,
+          "id": "line:0:0"
+        },
+        "oldGround": {
+          "gap": 7.176454113593924,
+          "id": "market-life-rest-terrace"
+        },
+        "oldContact": {
+          "gap": 8.555701158857255,
+          "id": "market-life-waiting-bench"
+        },
+        "marketContacts": [
+          {
+            "id": "market-life-shade-tree",
+            "gap": 10.439526155969455
+          },
+          {
+            "id": "market-life-waiting-bench",
+            "gap": 8.555701158857255
+          },
+          {
+            "id": "market-life-entry-sign",
+            "gap": 16.811378965909977
+          },
+          {
+            "id": "market-life-waste-bins",
+            "gap": 15.905253861933987
+          },
+          {
+            "id": "market-life-low-shrub",
+            "gap": 13.77926203367733
+          }
+        ],
+        "poi": [
+          177.72626142469773,
+          "6438106307"
+        ],
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-latest-external-009compound-source0125-court-garden-bed",
+      "passed": true,
+      "evidence": {
+        "id": "009compound-source0125-court-garden-bed",
+        "kind": "ground",
+        "otherSource": {
+          "gap": 8.228128584313612,
+          "id": "587"
+        },
+        "road": {
+          "gap": 7.665873152063776,
+          "id": "605760963-0:2"
+        },
+        "waterArea": {
+          "gap": 107.6150937368919,
+          "id": "area:8"
+        },
+        "waterwayMinus3": {
+          "gap": 200.52104190967572,
+          "id": "line:0:0"
+        },
+        "oldGround": {
+          "gap": 3.1340561958981525,
+          "id": "market-life-rest-terrace"
+        },
+        "oldContact": {
+          "gap": 4.428228669119842,
+          "id": "market-life-waiting-bench"
+        },
+        "marketContacts": [
+          {
+            "id": "market-life-shade-tree",
+            "gap": 7.115559027359268
+          },
+          {
+            "id": "market-life-waiting-bench",
+            "gap": 4.428228669119842
+          },
+          {
+            "id": "market-life-entry-sign",
+            "gap": 11.505594160213743
+          },
+          {
+            "id": "market-life-waste-bins",
+            "gap": 10.542516269586583
+          },
+          {
+            "id": "market-life-low-shrub",
+            "gap": 9.582286557784673
+          }
+        ],
+        "poi": [
+          177.9662217950362,
+          "9657208284"
+        ],
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-latest-external-009compound-source0125-court-court-link",
+      "passed": true,
+      "evidence": {
+        "id": "009compound-source0125-court-court-link",
+        "kind": "ground",
+        "otherSource": {
+          "gap": 14.302796929272358,
+          "id": "590"
+        },
+        "road": {
+          "gap": 0.18244391573590057,
+          "id": "605760963-0:2"
+        },
+        "waterArea": {
+          "gap": 99.30058710803284,
+          "id": "area:8"
+        },
+        "waterwayMinus3": {
+          "gap": 208.4439757950081,
+          "id": "line:0:0"
+        },
+        "oldGround": {
+          "gap": 4.559438001170793,
+          "id": "009r4-src-0587-walk-0"
+        },
+        "oldContact": {
+          "gap": 15.656985080543313,
+          "id": "market-life-waiting-bench"
+        },
+        "marketContacts": [
+          {
+            "id": "market-life-shade-tree",
+            "gap": 18.365559027359268
+          },
+          {
+            "id": "market-life-waiting-bench",
+            "gap": 15.656985080543313
+          },
+          {
+            "id": "market-life-entry-sign",
+            "gap": 21.011537766873758
+          },
+          {
+            "id": "market-life-waste-bins",
+            "gap": 18.592765522234544
+          },
+          {
+            "id": "market-life-low-shrub",
+            "gap": 20.555676434644504
+          }
+        ],
+        "poi": [
+          176.840091042727,
+          "6438106307"
+        ],
+        "blue": true
+      }
+    },
+    {
+      "rule": "peer-body-gap",
+      "passed": true,
+      "evidence": 4.691031036272155
+    },
+    {
+      "rule": "peer-walk-gap",
+      "passed": true,
+      "evidence": 4.445288033340681
+    },
+    {
+      "rule": "ground-scene-ownership-009compound-source0125-court-module-01-B05-entry-walk-0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-peer-entities-009compound-source0125-court-module-01-B05-entry-walk-0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-scene-ownership-009compound-source0125-court-module-02-B01-entry-walk-0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-peer-entities-009compound-source0125-court-module-02-B01-entry-walk-0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-scene-ownership-009compound-source0125-court-shared-court",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-peer-entities-009compound-source0125-court-shared-court",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-scene-ownership-009compound-source0125-court-garden-bed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-peer-entities-009compound-source0125-court-garden-bed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-scene-ownership-009compound-source0125-court-court-link",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-peer-entities-009compound-source0125-court-court-link",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "connected-paving-union",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "garden-touches-paving",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "carrier-clip-fraction-009compound-source0125-court-module-01-B05",
+      "passed": true,
+      "evidence": {
+        "moduleId": "009compound-source0125-court-module-01-B05",
+        "area": 19.641952342557488,
+        "insideArea": 11.620839023700682,
+        "outsideArea": 8.021113318856806,
+        "insideFraction": 0.5916336024562203
+      }
+    },
+    {
+      "rule": "carrier-clip-fraction-009compound-source0125-court-module-02-B01",
+      "passed": true,
+      "evidence": {
+        "moduleId": "009compound-source0125-court-module-02-B01",
+        "area": 24.438180976110743,
+        "insideArea": 11.038143047888298,
+        "outsideArea": 13.400037928222446,
+        "insideFraction": 0.45167613165147213
+      }
+    },
+    {
+      "rule": "protected-inputs-unchanged",
+      "passed": true,
+      "evidence": []
+    }
+  ],
+  "geometry": [
+    {
+      "id": "009compound-source0125-court-module-01-B05",
+      "kind": "body",
+      "otherSource": {
+        "gap": 13.948740820530846,
+        "id": "590"
+      },
+      "road": {
+        "gap": 2.433242163885124,
+        "id": "605760963-0:2"
+      },
+      "waterArea": {
+        "gap": 104.49274399954108,
+        "id": "area:8"
+      },
+      "waterwayMinus3": {
+        "gap": 206.11778769012588,
+        "id": "line:0:0"
+      },
+      "oldGround": {
+        "gap": 1.3123909736695167,
+        "id": "009r4-src-0587-walk-0"
+      },
+      "oldContact": {
+        "gap": 11.043371949319539,
+        "id": "market-life-waiting-bench"
+      },
+      "marketContacts": [
+        {
+          "id": "market-life-shade-tree",
+          "gap": 13.143601088416677
+        },
+        {
+          "id": "market-life-waiting-bench",
+          "gap": 11.043371949319539
+        },
+        {
+          "id": "market-life-entry-sign",
+          "gap": 16.734682370459392
+        },
+        {
+          "id": "market-life-waste-bins",
+          "gap": 14.116856221450105
+        },
+        {
+          "id": "market-life-low-shrub",
+          "gap": 16.230079984371965
+        }
+      ],
+      "poi": [
+        180.1178572670426,
+        "6438106307"
+      ],
+      "blue": true
+    },
+    {
+      "id": "009compound-source0125-court-module-02-B01",
+      "kind": "body",
+      "otherSource": {
+        "gap": 14.15449545264092,
+        "id": "587"
+      },
+      "road": {
+        "gap": 2.2413890250571873,
+        "id": "1046196060-0:0"
+      },
+      "waterArea": {
+        "gap": 106.39302486868286,
+        "id": "area:10"
+      },
+      "waterwayMinus3": {
+        "gap": 195.28242015447753,
+        "id": "line:0:0"
+      },
+      "oldGround": {
+        "gap": 6.198554507793231,
+        "id": "market-life-rest-terrace"
+      },
+      "oldContact": {
+        "gap": 7.987965290611868,
+        "id": "market-life-waiting-bench"
+      },
+      "marketContacts": [
+        {
+          "id": "market-life-shade-tree",
+          "gap": 9.191710984385974
+        },
+        {
+          "id": "market-life-waiting-bench",
+          "gap": 7.987965290611868
+        },
+        {
+          "id": "market-life-entry-sign",
+          "gap": 17.616063961526596
+        },
+        {
+          "id": "market-life-waste-bins",
+          "gap": 17.4655431976312
+        },
+        {
+          "id": "market-life-low-shrub",
+          "gap": 13.038561025319972
+        }
+      ],
+      "poi": [
+        181.5106554625882,
+        "9657208284"
+      ],
+      "blue": true
+    },
+    {
+      "id": "009compound-source0125-court-module-01-B05-entry-walk-0",
+      "kind": "ground",
+      "otherSource": {
+        "gap": 13.612869127589187,
+        "id": "590"
+      },
+      "road": {
+        "gap": 0.029999999999957172,
+        "id": "605760963-0:2"
+      },
+      "waterArea": {
+        "gap": 101.39854045579824,
+        "id": "area:8"
+      },
+      "waterwayMinus3": {
+        "gap": 211.41047950034553,
+        "id": "line:0:0"
+      },
+      "oldGround": {
+        "gap": 3.8169866979416693,
+        "id": "009r4-src-0587-walk-0"
+      },
+      "oldContact": {
+        "gap": 14.586854941223073,
+        "id": "market-life-waiting-bench"
+      },
+      "marketContacts": [
+        {
+          "id": "market-life-shade-tree",
+          "gap": 17.357854581408315
+        },
+        {
+          "id": "market-life-waiting-bench",
+          "gap": 14.586854941223073
+        },
+        {
+          "id": "market-life-entry-sign",
+          "gap": 19.749449087967115
+        },
+        {
+          "id": "market-life-waste-bins",
+          "gap": 17.295835573046947
+        },
+        {
+          "id": "market-life-low-shrub",
+          "gap": 19.416967314400182
+        }
+      ],
+      "poi": [
+        177.30258040970367,
+        "6438106307"
+      ],
+      "blue": true
+    },
+    {
+      "id": "009compound-source0125-court-module-02-B01-entry-walk-0",
+      "kind": "ground",
+      "otherSource": {
+        "gap": 16.827231375914653,
+        "id": "587"
+      },
+      "road": {
+        "gap": 0.029999999999957172,
+        "id": "605760963-0:2"
+      },
+      "waterArea": {
+        "gap": 98.9871653179377,
+        "id": "area:8"
+      },
+      "waterwayMinus3": {
+        "gap": 201.72883279279287,
+        "id": "line:0:0"
+      },
+      "oldGround": {
+        "gap": 9.49342511453123,
+        "id": "market-life-rest-terrace"
+      },
+      "oldContact": {
+        "gap": 11.178941782143623,
+        "id": "market-life-waiting-bench"
+      },
+      "marketContacts": [
+        {
+          "id": "market-life-shade-tree",
+          "gap": 12.640783370412843
+        },
+        {
+          "id": "market-life-waiting-bench",
+          "gap": 11.178941782143623
+        },
+        {
+          "id": "market-life-entry-sign",
+          "gap": 20.25801026378457
+        },
+        {
+          "id": "market-life-waste-bins",
+          "gap": 19.598202579186122
+        },
+        {
+          "id": "market-life-low-shrub",
+          "gap": 16.37287100032232
+        }
+      ],
+      "poi": [
+        176.6534351346211,
+        "6438106307"
+      ],
+      "blue": true
+    },
+    {
+      "id": "009compound-source0125-court-shared-court",
+      "kind": "ground",
+      "otherSource": {
+        "gap": 13.445225918518473,
+        "id": "587"
+      },
+      "road": {
+        "gap": 1.1233521411607135,
+        "id": "605760963-0:2"
+      },
+      "waterArea": {
+        "gap": 99.95727287196279,
+        "id": "area:8"
+      },
+      "waterwayMinus3": {
+        "gap": 202.16750351846665,
+        "id": "line:0:0"
+      },
+      "oldGround": {
+        "gap": 7.176454113593924,
+        "id": "market-life-rest-terrace"
+      },
+      "oldContact": {
+        "gap": 8.555701158857255,
+        "id": "market-life-waiting-bench"
+      },
+      "marketContacts": [
+        {
+          "id": "market-life-shade-tree",
+          "gap": 10.439526155969455
+        },
+        {
+          "id": "market-life-waiting-bench",
+          "gap": 8.555701158857255
+        },
+        {
+          "id": "market-life-entry-sign",
+          "gap": 16.811378965909977
+        },
+        {
+          "id": "market-life-waste-bins",
+          "gap": 15.905253861933987
+        },
+        {
+          "id": "market-life-low-shrub",
+          "gap": 13.77926203367733
+        }
+      ],
+      "poi": [
+        177.72626142469773,
+        "6438106307"
+      ],
+      "blue": true
+    },
+    {
+      "id": "009compound-source0125-court-garden-bed",
+      "kind": "ground",
+      "otherSource": {
+        "gap": 8.228128584313612,
+        "id": "587"
+      },
+      "road": {
+        "gap": 7.665873152063776,
+        "id": "605760963-0:2"
+      },
+      "waterArea": {
+        "gap": 107.6150937368919,
+        "id": "area:8"
+      },
+      "waterwayMinus3": {
+        "gap": 200.52104190967572,
+        "id": "line:0:0"
+      },
+      "oldGround": {
+        "gap": 3.1340561958981525,
+        "id": "market-life-rest-terrace"
+      },
+      "oldContact": {
+        "gap": 4.428228669119842,
+        "id": "market-life-waiting-bench"
+      },
+      "marketContacts": [
+        {
+          "id": "market-life-shade-tree",
+          "gap": 7.115559027359268
+        },
+        {
+          "id": "market-life-waiting-bench",
+          "gap": 4.428228669119842
+        },
+        {
+          "id": "market-life-entry-sign",
+          "gap": 11.505594160213743
+        },
+        {
+          "id": "market-life-waste-bins",
+          "gap": 10.542516269586583
+        },
+        {
+          "id": "market-life-low-shrub",
+          "gap": 9.582286557784673
+        }
+      ],
+      "poi": [
+        177.9662217950362,
+        "9657208284"
+      ],
+      "blue": true
+    },
+    {
+      "id": "009compound-source0125-court-court-link",
+      "kind": "ground",
+      "otherSource": {
+        "gap": 14.302796929272358,
+        "id": "590"
+      },
+      "road": {
+        "gap": 0.18244391573590057,
+        "id": "605760963-0:2"
+      },
+      "waterArea": {
+        "gap": 99.30058710803284,
+        "id": "area:8"
+      },
+      "waterwayMinus3": {
+        "gap": 208.4439757950081,
+        "id": "line:0:0"
+      },
+      "oldGround": {
+        "gap": 4.559438001170793,
+        "id": "009r4-src-0587-walk-0"
+      },
+      "oldContact": {
+        "gap": 15.656985080543313,
+        "id": "market-life-waiting-bench"
+      },
+      "marketContacts": [
+        {
+          "id": "market-life-shade-tree",
+          "gap": 18.365559027359268
+        },
+        {
+          "id": "market-life-waiting-bench",
+          "gap": 15.656985080543313
+        },
+        {
+          "id": "market-life-entry-sign",
+          "gap": 21.011537766873758
+        },
+        {
+          "id": "market-life-waste-bins",
+          "gap": 18.592765522234544
+        },
+        {
+          "id": "market-life-low-shrub",
+          "gap": 20.555676434644504
+        }
+      ],
+      "poi": [
+        176.840091042727,
+        "6438106307"
+      ],
+      "blue": true
+    }
+  ],
+  "bodyGapMetres": 4.691031036272155,
+  "peerWalkGapMetres": 4.445288033340681,
+  "carrierFractions": [
+    {
+      "moduleId": "009compound-source0125-court-module-01-B05",
+      "area": 19.641952342557488,
+      "insideArea": 11.620839023700682,
+      "outsideArea": 8.021113318856806,
+      "insideFraction": 0.5916336024562203
+    },
+    {
+      "moduleId": "009compound-source0125-court-module-02-B01",
+      "area": 24.438180976110743,
+      "insideArea": 11.038143047888298,
+      "outsideArea": 13.400037928222446,
+      "insideFraction": 0.45167613165147213
+    }
+  ],
+  "negativeCases": [
+    {
+      "case": "duplicate-module-id",
+      "rejected": true
+    },
+    {
+      "case": "missing-scene",
+      "rejected": true
+    },
+    {
+      "case": "orphan-module-membership",
+      "rejected": true
+    },
+    {
+      "case": "cross-scene-source-reuse",
+      "rejected": true
+    },
+    {
+      "case": "old-bound-source",
+      "rejected": true
+    },
+    {
+      "case": "reserved-source",
+      "rejected": true
+    }
+  ],
+  "producerCheckCountObserved": 95,
+  "protectedFiles": 30,
+  "changedInputs": [],
+  "independentPureASTGeometryOnly": true,
+  "gameTestsRun": false,
+  "browserRun": false,
+  "noImplementationChanges": true,
+  "producerBaselineStaleButIndependentlyRechecked": true,
+  "scope": "single local integration comparison only, consumer scene contract adaptation and immediate same-SHA baseline recheck required"
+}

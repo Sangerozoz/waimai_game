@@ -1,4 +1,6 @@
-**最新入口（11-05接续）：** [修订对比](https://sanger--4186.getbb.app/revision-001/) · [Cocos](https://sanger--4186.getbb.app/revision-001/viewer/)。4185已出现空响应，改用4186。首组修订已实际显示，人物/建筑比例仍不合格；下一轮revision-002由地图任务3处理。
+**最新交付方式：先资产包，再可编辑地图雏形，由用户后续调整位置、大小和放置。** [当前规格](BRIEF.md)；现有雏形仍在`revision-006/integration/neighborhood.tmj`与`revision-006/viewer/`，最新发布状态看`revision-009/pipeline/current-integration-reference.json`。优先整理分类素材、预览、可编辑源文件和手调导出，不再用逐处精摆/庭院细化卡住首包；用户手调文件后续不得被自动生成覆盖。运行图<=280、原路网/业务/存档与原生母版保护不变。下方历次记录均为历史，不覆盖本条。
+
+**历史revision-004：当时建筑/街段观感获用户认可，路灯朝向待修。** [真实近景/全景](revision-004/index.html) · [Tiled地图](revision-004/integration/street.tmj) · [用户反馈与范围](revision-004/user-feedback-003.md)。独立Tiled→Cocos已显示1楼/3树/3灯和铺装，7静态对象坐标/相对顺序读回对应，原路与用户旧地图保持。保留本楼不为小残差重画；灯具造型保留，但挑臂/灯头需改为朝车道上方并向下照路面。认可不扩大为旧四向库或整县ready；其余建筑尚未扩量。接下来少量必要资产边搭街区边补，非先囤巨大素材库。此前[单楼角度对照](revision-003/index.html)保留，下文为历史。
 
 # 模块素材首组实际交付
 

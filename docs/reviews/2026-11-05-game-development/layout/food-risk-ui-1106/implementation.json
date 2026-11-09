@@ -1,0 +1,289 @@
+{
+  "task": "FOOD-RISK-IMPLEMENT-B-1106",
+  "state": "implemented-source-candidate; awaiting A/B integration and independent review",
+  "fixer": "thr_tviezvnwds",
+  "parent": "thr_axf6i4e89t",
+  "source": {
+    "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+    "beforeSHA256": "8fd5df4ee2cc7ca85cecd9488eec7cdd89fc08c374e8580d6bdcbc0b8336cd9c",
+    "afterSHA256": "81f54afb7d835c996a7305bb6075c7a3577c25fe33d5d928196d6a3530f80263",
+    "beforeTracking": "untracked source; exact diff derives from in-memory baseline bytes after SHA match, not an empty git diff",
+    "exactDiff": "candidate.diff"
+  },
+  "inputs": {
+    "frozenContract": "docs/reviews/2026-11-05-game-development/logic/food-risk-1106/approved-contract.md",
+    "proposalRead": "docs/reviews/2026-11-05-game-development/layout/food-risk-contract-1106/ui-proposal.json",
+    "pathResolution": "The requested layout/food-risk-ui-1106/ui-proposal.json did not exist. Read the original proposal path explicitly identified in approved-contract.md:3; did not copy or overwrite proposal.",
+    "fixedSHA256": {
+      "docs/reviews/2026-11-05-game-development/logic/food-risk-1106/approved-contract.md": "af7fb94e6d7bdf5d212a83ea070ea1579de91f4036eb8f62f20dd4dc856e9cb1",
+      "docs/reviews/2026-11-05-game-development/layout/food-risk-contract-1106/ui-proposal.json": "22a85e01f6916ff0e35bcb9ba4eb7f24dc82701a43f23ce2b866615bb191a116",
+      "delivery-game/assets/scripts/map-sample/FoodImages.ts": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "9e7e6914f8f5a7c0d8e5dba4045237fca0385d98af12d52676352221bcfd3f09",
+      "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+      "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322",
+      "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30"
+    },
+    "fixedInputDrift": [],
+    "AOwnedObservedBefore": {
+      "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "a331ad146bf7a93718846a25b89a49e96078003e48e6c82a366361724f5d42f7",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "8a96a5b5e2d4b5d5e72980757c58ae3c1aa07a7020e53c6834ad9250bb472ca6"
+    },
+    "AOwnedObservedAtStaticReceipt": {
+      "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "8a96a5b5e2d4b5d5e72980757c58ae3c1aa07a7020e53c6834ad9250bb472ca6"
+    },
+    "parallelCaution": "A was writing FoodCatalog/Trip/Game; Trip SHA changed during this receipt window. Those files were only read/hashed by B. These observations are not a final A deliverable, compilation, or integrated receipt."
+  },
+  "contractAPIEvidence": [
+    {
+      "pathLines": "delivery-game/assets/scripts/map-sample/FoodCatalog.ts:85-98",
+      "observed": "foodForV2Order(orderId:string):V2FoodRiskContract and strict foodPresentationById(foodId:string):Readonly<Pick<FoodItem,id/name/imageIndex/fragility>> already observed in A working source. UI imports only the strict presentation helper; no new-order rehash."
+    },
+    {
+      "pathLines": "delivery-game/assets/scripts/domain/V2TripRules.ts:15-38",
+      "observed": "V2FoodRiskContract and Trip2/Trip3 union plus parseV2FoodRisk(raw:unknown) observed. Parsing returns a copy and checks structure; canonical order binding remains Game authority."
+    },
+    {
+      "pathLines": "delivery-game/assets/scripts/map-sample/V2GameSession.ts:9,23,28-29",
+      "observed": "V2FoodOffer has food, tripState getter and normalCandidates/specialCandidate attach foodForV2Order. Runtime existing pass-through was not edited."
+    }
+  ],
+  "implementation": {
+    "sharedResolver": "V2GameUI.ts:28-41 orderFoodPresentation. Version2 only uses the byte-identical legacy offerFood hash after rejecting own food. Version3 requires own food, calls parseV2FoodRisk then strict foodPresentationById and rejects category mismatch. No invalid-to-legacy/first-food fallback.",
+    "authority": "Consumers only pass Game candidates or same-id records from the already-validated Game trip snapshot. UI structure/ID/category checks are defensive; they do not validate arbitrary contracts against canonical orderId and do not replace Game accept/restore validation.",
+    "lobby": "V2GameUI.ts:638-649 reads candidate food through the shared resolver with version3; same result supplies name, strict current canonical-name image and passive category badge.",
+    "trip": "V2GameUI.ts:536-543 resolves each batch id against t.orders once into a local Map using t.version; V2GameUI.ts:601-620 reuses those frozen-food displays for pending/completed/in-flight cards. Missing trip/membership throws rather than fabricating food.",
+    "ETA": "V2GameUI.ts:559-571 joins the same local Map by eta.id, uses the same food name, and adds a separate ruleText row for every ETA order in every actual choice; missing join throws. Keeps authoritative ETA/late/safe and real/game units unchanged.",
+    "legacy": "V2GameUI.ts:31-33 and 556-582 retain old hash-derived name/image, use badge 旧批 and full note 旧批规则 · 沿用原普通风险；菜名和图片仅为旧展示推测. Every legacy ETA also states old ordinary risk. Catalog fragility is never used as legacy risk identity.",
+    "imagePath": "Canonical FoodCatalog id -> foodPresentationById current unique name -> unchanged foodImage/FoodImages. Legacy only uses its known catalog name. No FoodImages/loader/manifest/PNG modification.",
+    "badge": "V2GameUI.ts:527-531 passive 72×34 panel, font20 label width64, known two-character labels; no tap or new selection handler, no font SHRINK. Slightly larger than preliminary 72×30/font18 proposal to retain readable size.",
+    "mutableState": "No food/schema/version/weight/risk/quote/deadline/seed/draw/save mutations. No serialization or migration by UI."
+  },
+  "newOldDisplayMapping": {
+    "candidate": "Game.normalCandidates food; version3 contract path; strict ID presentation; no UI hash/re-roll.",
+    "newGame5Trip3": "Read same-id Trip3.food and only its frozen contract; strict lookup and passive 脆弱/普通/耐放. Game validates canonical binding and pairing, not UI.",
+    "oldGame1To4NormalizedTrip2": "Existing legacy hash name/image only; 旧批 badge plus explicit old ordinary-risk/predicted-art note; no current catalog category label and no new food assignment.",
+    "invalidOrMissing": "Throws via membership/version/own-field/parser/strict catalog/category guards; never manufactures normal or a first dish. This is defensive failure, not business canonical validation.",
+    "suppliesAndSpecial": "Unchanged supply food illustrations and special-offer no-food placeholder; no delivery categories added there."
+  },
+  "geometry": {
+    "units": "720 design canvas; static bounds, not rendered font/device evidence",
+    "lobby": {
+      "slot": {
+        "x": [
+          -297.0,
+          -151.0
+        ],
+        "y": [
+          -64.0,
+          64.0
+        ]
+      },
+      "badge": {
+        "x": [
+          -260.0,
+          -188.0
+        ],
+        "y": [
+          -62.0,
+          -28.0
+        ]
+      },
+      "badgeInsideSlot": true,
+      "nameWidth": 314,
+      "addressTextWidth": 370,
+      "cardHeight": 164,
+      "rowStep": 178
+    },
+    "batch": {
+      "slot": {
+        "x": [
+          -321.0,
+          -209.0
+        ],
+        "y": [
+          -36.0,
+          76.0
+        ]
+      },
+      "badge": {
+        "x": [
+          -301.0,
+          -229.0
+        ],
+        "y": [
+          -30.0,
+          4.0
+        ]
+      },
+      "badgeInsideSlot": true,
+      "nameWidth": 340,
+      "addressTextWidth": 422,
+      "cardHeight": 190,
+      "rowStep": 204
+    },
+    "badge": {
+      "size": [
+        72,
+        34
+      ],
+      "font": 20,
+      "labelWidth": 64,
+      "labelNodeHeight": 32.0,
+      "knownLabels": [
+        "脆弱",
+        "普通",
+        "耐放",
+        "旧批"
+      ],
+      "maxCJKGlyphs": 2,
+      "overflow": "CLAMP, no wrap; known two-character labels, not arbitrary text"
+    },
+    "legacyNotice": {
+      "text": "旧批规则 · 沿用原普通风险；菜名和图片仅为旧展示推测",
+      "font": 20,
+      "width": 660,
+      "height": 37,
+      "extraHeight": 49,
+      "top": -132,
+      "bottom": -169,
+      "gapBelowSummary": 12,
+      "gapBeforeRouteHeader": 13.8
+    },
+    "eta": {
+      "allChoiceRows": "3 metadata + 3 rows per order; no slice/cap",
+      "width": 660,
+      "ruleLineHeight": 37,
+      "singleRuleLineGrowth": 43,
+      "cardFormula": "24 + sum(line.height+6) + 50",
+      "routeTop": "138+legacyNoticeHeight",
+      "routeHeight": "existing intro + sum(card.height+12); empty/nonplanned alternatives unchanged",
+      "contentHeight": "164+legacyNoticeHeight+routeHeight+batch.length*204+108",
+      "footerCenterBottomMargin": 84,
+      "viewportControlsGap": 8.0
+    }
+  },
+  "staticSourceComparisons": {
+    "baselineMatchesPM": true,
+    "legacyHashFunctionByteIdentical": true,
+    "legacyHashOnlyCalledInTrip2Branch": true,
+    "classBodyBeforeFoodHelpersUnchanged": true,
+    "foodThumbnailByteIdentical": true,
+    "updateThroughEOFUnchanged": true,
+    "tripFixedControlsUnchanged": true,
+    "lobbySummaryThroughOrdersEndUnchanged": true,
+    "specialOfferBlockUnchanged": true,
+    "ETASecondsFormatterUnchanged": true,
+    "ETAWarningAndSafeUnchanged": true,
+    "uniqueRouteStartUnchanged": true,
+    "realWeightNameLabelsUnchanged": true,
+    "batchDeadlineAddressAndMoneyUnchanged": true,
+    "lobbyQuotesDeadlineAddressAndSelectionUnchanged": true,
+    "newExportsUsedMatchFrozenNames": true,
+    "noUIRehashForNewFood": true,
+    "allOrdersStillEnumerated": true,
+    "legacyNoticeOffsetAndContentHeightBothIncludeGrowth": true,
+    "frozenInputsUnchanged": true,
+    "addedTrailingWhitespace": false
+  },
+  "scope": {
+    "sourceWrites": [
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts"
+    ],
+    "reportWrites": [
+      "candidate.diff",
+      "implementation.json",
+      "implementation.md"
+    ],
+    "AOwnedSources": "read-only to B; no competing patch",
+    "otherUI": "class body before food helpers and update through EOF byte-identical; covers supplied three-branch supply UI, other pages/held content, routeMotion/follow/HUD/coins; trip controls, lobby summary, special card preserved"
+  },
+  "execution": {
+    "tests": false,
+    "typecheck": false,
+    "typescriptExecution": false,
+    "creator": false,
+    "build": false,
+    "browser": false,
+    "game": false,
+    "business": false,
+    "realOrSyntheticSave": false,
+    "commitPush": false,
+    "agentsOrCodex": false,
+    "imageProductionOrMapProcessing": false,
+    "verificationPerformed": "source reads, exact diff/SHA, string-span comparison and static arithmetic only",
+    "toolAutomaticFeedback": "patch reported project tsconfig detected and per-file tsc skipped; not a compiler pass"
+  },
+  "deferredCases": [
+    {
+      "case": "候选重复打开/勾选/滚动后食品不重抽，接单后Trip3同id菜名、图和类别一致。",
+      "owner": "A/B集成",
+      "status": "not-run"
+    },
+    {
+      "case": "真实fragile/normal/durable新单分别显示脆弱/普通/耐放，不按图片或菜名判断，不修改重量/报价。",
+      "owner": "UI及领域集成",
+      "status": "not-run"
+    },
+    {
+      "case": "旧Game1—4合法恢复出的Trip2沿用旧hash名称/图，显示旧批及旧批规则/原普通风险/推测说明，不补food或改风险。",
+      "owner": "领域恢复+UI",
+      "status": "not-run"
+    },
+    {
+      "case": "Trip2显式own food，包括null/undefined，在领域clone之前拒绝；UI自己的own检查也不能把有food的Trip2当有效旧批。",
+      "owner": "领域边界为主，UI防错",
+      "status": "not-run"
+    },
+    {
+      "case": "Trip3或候选缺food、null、额外字段、未知版本/ID或fragility不一致，不走legacy hash、不回落首菜。",
+      "owner": "领域验证+UI防错",
+      "status": "not-run"
+    },
+    {
+      "case": "结构合法但foodId属于另一订单的伪造合同必须由Game canonical核验拒绝；UI的parse/目录匹配不构成该权威证明。",
+      "owner": "A领域，独立复审",
+      "status": "not-run"
+    },
+    {
+      "case": "超过3单及多个合并/独立路线方案，全部品类/身份/ETA/迟到行能滚动；长餐名和送达名换行不覆盖出发按钮/固定栏。",
+      "owner": "授权外观/阶段集中测试",
+      "status": "not-run"
+    },
+    {
+      "case": "planned、无可选路线、pickup/service/ready/travelling与本批已完成卡均保持同id食品；旧批提示在非planned分支也可读。",
+      "owner": "授权业务/阶段集中测试",
+      "status": "not-run"
+    },
+    {
+      "case": "20号两字被动标记在真实字体和餐图上可读，不挤原名称/重量/报价/地址，不改变卡片选择热区。",
+      "owner": "授权外观",
+      "status": "not-run"
+    },
+    {
+      "case": "已通过补给三分支文案/按钮/图片、专送占位、routeMotion/跟随、币图清理和原出发禁用行为维持。",
+      "owner": "后续授权回归",
+      "status": "not-run"
+    },
+    {
+      "case": "旧批完成后下一次合法新批由A升级Game5/Trip3；历史账目不追写食品、不重结算，UI不负责迁移。",
+      "owner": "A领域及集成",
+      "status": "not-run"
+    },
+    {
+      "case": "原FoodImages异步失败显示现有fallback和销毁保护保持；不因新增食品身份改资源重试、裁切或图片库存。",
+      "owner": "授权外观/资源集成",
+      "status": "not-run"
+    }
+  ],
+  "deferredCaseCount": 12,
+  "handoff": {
+    "lease": "Release UI/report lease after this handoff; stop writing. PM restores original Default; no global permission change or later lease inherited.",
+    "independentReview": "PM assigns separate reviewer after A/B delivery; fixer does not issue PASS.",
+    "integration": "A/B intermediate source is not a buildable/integrated claim. PM owns integrated review/build/external appearance evidence.",
+    "acceptance": "not run, not built, not deployed, no feedback closed, no 98% claim."
+  }
+}

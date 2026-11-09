@@ -1,0 +1,13 @@
+const p=await browser.getPage('game');
+await p.setViewport({width:390,height:844,deviceScaleFactor:2,isMobile:true,hasTouch:true});
+await p.setCacheEnabled(false);
+await p.emulateNetworkConditions({offline:false,download:200000,upload:93750,latency:150});
+p.__startupErrors=[];p.on('pageerror',e=>p.__startupErrors.push(String(e)));
+await p.goto('http://127.0.0.1:4182/?v2=1',{waitUntil:'domcontentloaded'});
+await p.waitForFunction(async()=>{if(!globalThis.System)return false;const cc=await System.import('cc');return !!cc.director.getScene()?.getComponentsInChildren(cc.Label).find(l=>l.node.activeInHierarchy&&l.string==='开始游戏');},{timeout:90000});
+const entry=await p.evaluate(async()=>{const cc=await System.import('cc'),scene=cc.director.getScene(),c=document.querySelector('canvas'),rect=c.getBoundingClientRect(),l=scene.getComponentsInChildren(cc.Label).find(l=>l.node.activeInHierarchy&&l.string==='开始游戏'),screen=scene.getComponentsInChildren(cc.Camera)[0].worldToScreen(l.node.getWorldPosition());return {atMs:performance.now(),slotEmpty:localStorage.getItem('delivery-county-single-slot-v1')===null,point:{x:rect.left+screen.x/c.width*rect.width,y:rect.top+(c.height-screen.y)/c.height*rect.height},resources:performance.getEntriesByType('resource').map(x=>({url:x.name,durationMs:x.duration,encodedBytes:x.encodedBodySize,decodedBytes:x.decodedBodySize,transferBytes:x.transferSize}))};});
+if(!entry.slotEmpty)throw Error('Isolated baseline origin has unexpected progress');
+await p.touchscreen.tap(entry.point.x,entry.point.y);
+await p.waitForFunction(async()=>{const cc=await System.import('cc');return !!cc.director.getScene()?.getComponentsInChildren(cc.Component).find(c=>cc.js.getClassName(c)==='V2RuntimeController'&&c.ready);},{timeout:90000});
+const home=await p.evaluate(async()=>{const cc=await System.import('cc'),cs=cc.director.getScene().getComponentsInChildren(cc.Component),r=cs.find(c=>cc.js.getClassName(c)==='V2RuntimeController'),ui=cs.find(c=>cc.js.getClassName(c)==='V2GameUI');return {atMs:performance.now(),phase:r.routeMotion.phase,page:ui?.page,lastError:r.lastError,resources:performance.getEntriesByType('resource').map(x=>({url:x.name,durationMs:x.duration,encodedBytes:x.encodedBodySize,decodedBytes:x.decodedBodySize,transferBytes:x.transferSize}))};});
+JSON.stringify({network:{downloadBytesPerSecond:200000,latencyMs:150,cacheDisabled:true},entry,home,errors:p.__startupErrors});

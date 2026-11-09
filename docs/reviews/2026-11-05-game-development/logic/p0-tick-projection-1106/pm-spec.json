@@ -1,0 +1,24 @@
+{
+  "task": "U01-TICK-READ-PROJECTION-1106",
+  "sourceSpecification": "passed: only detached scalar tick reads and original pending predicate; snapshot/clock/transaction schemas not modified",
+  "scope": "Game.tick pre/final reads plus Dispatch.tick pending read, backed by pure Reward getter",
+  "appliedToLive": false,
+  "codeExecutionOrTests": false,
+  "files": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "baselineSHA256": "7830032d00753395a1fa9bf30c51683f5f152e74f10dc280b62ca71f1378f1af",
+      "candidateSHA256": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+      "baselineSHA256": "803f4bbac1fe657fa6fb71969bdaa47b4d6ba9c0b68487af501ba7b8d0268583",
+      "candidateSHA256": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728"
+    },
+    {
+      "path": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts",
+      "baselineSHA256": "8efdff34d0f3214a69922b9ef2b8cdd86672f1631a26b8962dc18e6efea07f7f",
+      "candidateSHA256": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+继续产品线独立只读复审，作者PM。固定同checkout/环境及现有Codex Sanger max；不改模型/权限，不写文件，不运行游戏/测试/模型/构建。
+冻结请求：docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/review-request.json
+本次生产仅三行恢复赋值：Economy.snapshot不再clone已JSON.parse且完整验证的raw；Fleet.value不再copy本次JSON.parse的raw.fleet；Dispatch.orders/batchIds/frame不再clone本次JSON.parse的s成员。所有原验证体及顺序、嵌套钱包同一性、Runtime唯一slot完整验证/保存后发布均保持。请独立核全部SHA、重建差分，审私有解析结果是否存在外部别名/validator泄漏及kg/slots/emergency兼容；审11项新增资源边界/隔离/伪造拒绝测试、RED6fail5pass→GREEN11/11、默认167/167和typecheck0原始日志。benchmark40次完整字符串等同，原始样本/常规中位数已留。
+实际现包重现长历史卡顿证据位于performance/runtime-profile-1107/capture-04/，before包还在线4182/4196，本次未部署；读capture-04/window-1.json等即可，勿重跑。最后给Spec/质量、Critical/Important/Minor、精确触发与范围；不扩大U01/FPS/跨包恢复结论。

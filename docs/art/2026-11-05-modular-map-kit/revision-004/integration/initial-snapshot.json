@@ -1,0 +1,430 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.11.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 56,
+  "height": 56,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "backgroundcolor": "#dedbd0",
+  "nextobjectid": 9,
+  "nextlayerid": 4,
+  "properties": [
+    {
+      "name": "projectionId",
+      "type": "string",
+      "value": "orthographic-e62.5-a45-v1"
+    },
+    {
+      "name": "pixelsPerUnit",
+      "type": "float",
+      "value": 16
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "value": "editable-street-candidate-not-user-accepted"
+    }
+  ],
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "name": "Road-corrected building and approved fixtures",
+      "tilewidth": 1265,
+      "tileheight": 1536,
+      "tilecount": 4,
+      "columns": 0,
+      "objectalignment": "bottomleft",
+      "tiles": [
+        {
+          "id": 0,
+          "image": "assets/B01-road-aligned-native-v1.png",
+          "imagewidth": 1254,
+          "imageheight": 1254,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-road-tangent-candidate"
+            },
+            {
+              "name": "anchorU",
+              "type": "float",
+              "value": 0.4996012759170654
+            },
+            {
+              "name": "anchorV",
+              "type": "float",
+              "value": 0.7340510366826156
+            },
+            {
+              "name": "nativePixelsPerUnit",
+              "type": "float",
+              "value": 111.2618392940353
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "image": "assets/T01-v1.png",
+          "imagewidth": 1254,
+          "imageheight": 1254,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            },
+            {
+              "name": "anchorU",
+              "type": "float",
+              "value": 0.4944178628389155
+            },
+            {
+              "name": "anchorV",
+              "type": "float",
+              "value": 0.8133971291866029
+            },
+            {
+              "name": "nativePixelsPerUnit",
+              "type": "float",
+              "value": 175
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "image": "assets/L01-v1.png",
+          "imagewidth": 1024,
+          "imageheight": 1536,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L01"
+            },
+            {
+              "name": "anchorU",
+              "type": "float",
+              "value": 0.451171875
+            },
+            {
+              "name": "anchorV",
+              "type": "float",
+              "value": 0.8294270833333334
+            },
+            {
+              "name": "nativePixelsPerUnit",
+              "type": "float",
+              "value": 264.21302956442446
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "image": "assets/L02-v1.png",
+          "imagewidth": 1265,
+          "imageheight": 1243,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L02"
+            },
+            {
+              "name": "anchorU",
+              "type": "float",
+              "value": 0.49960474308300395
+            },
+            {
+              "name": "anchorV",
+              "type": "float",
+              "value": 0.8688656476267096
+            },
+            {
+              "name": "nativePixelsPerUnit",
+              "type": "float",
+              "value": 281.538474126026
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "name": "Original roads — locked reference",
+      "type": "imagelayer",
+      "image": "original-roads.png",
+      "x": 0,
+      "y": 0,
+      "opacity": 1,
+      "visible": true,
+      "locked": true
+    },
+    {
+      "id": 2,
+      "name": "Editable paving polygon",
+      "type": "objectgroup",
+      "draworder": "index",
+      "opacity": 1,
+      "visible": true,
+      "color": "#e0d7c8",
+      "objects": [
+        {
+          "id": 8,
+          "name": "B01-paved-forecourt",
+          "type": "ground-surface",
+          "x": 907.0977663929566,
+          "y": 673.6923681090989,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 169.24140031661204,
+              "y": -91.83843228131366
+            },
+            {
+              "x": 229.35965291288153,
+              "y": -4.672587150488425
+            },
+            {
+              "x": 60.118252596269485,
+              "y": 87.16584513082535
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Editable objects — manual index order exported",
+      "type": "objectgroup",
+      "draworder": "index",
+      "opacity": 1,
+      "visible": true,
+      "objects": [
+        {
+          "id": 4,
+          "name": "tree-far-east",
+          "type": "sprite",
+          "gid": 2,
+          "x": 1183.0345464660013,
+          "y": 614.4139267907473,
+          "width": 114.65142857142857,
+          "height": 114.65142857142857,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "tree-far-east"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "tree-east",
+          "type": "sprite",
+          "gid": 2,
+          "x": 1101.1435463128025,
+          "y": 658.8518778946092,
+          "width": 114.65142857142857,
+          "height": 114.65142857142857,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "tree-east"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "name": "building-B01",
+          "type": "sprite",
+          "gid": 1,
+          "x": 937.1111521474428,
+          "y": 727.1841544539321,
+          "width": 180.33137082136682,
+          "height": 180.33137082136682,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "building-B01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01-road-tangent-candidate"
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "lamp-single-east",
+          "type": "sprite",
+          "gid": 3,
+          "x": 1097.1116494858147,
+          "y": 701.0371767436819,
+          "width": 62.01056786264586,
+          "height": 93.01585179396879,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "lamp-single-east"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L01"
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "lamp-single-west",
+          "type": "sprite",
+          "gid": 3,
+          "x": 966.0860492406975,
+          "y": 772.1378985098621,
+          "width": 62.01056786264586,
+          "height": 93.01585179396879,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "lamp-single-west"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L01"
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "tree-west",
+          "type": "sprite",
+          "gid": 2,
+          "x": 871.8487458838463,
+          "y": 783.278140985423,
+          "width": 114.65142857142857,
+          "height": 114.65142857142857,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "tree-west"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "lamp-double-opposite",
+          "type": "sprite",
+          "gid": 4,
+          "x": 1128.2398612563736,
+          "y": 846.2629380593697,
+          "width": 71.89070716828529,
+          "height": 70.6404340001412,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "lamp-double-opposite"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L02"
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

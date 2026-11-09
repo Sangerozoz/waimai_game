@@ -1,0 +1,353 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-06T10:37:51.731735+00:00",
+  "status": "three-regions-admitted-official-render-and-fresh-C-A2-B1-navigation-demonstrated",
+  "independentNativeRegionsProduced": 3,
+  "actualAdmittedRegions": [
+    "A2",
+    "B1",
+    "C-001"
+  ],
+  "artAcceptance": {
+    "A2DensityAndDirectionApproved": true,
+    "CUserAccepted": false,
+    "wholeCityAccepted": false
+  },
+  "CNative": {
+    "path": "../regions/C-001/native.png",
+    "sha256": "6aa6063d2326c6d4004f97dee35b02fb58b87b2d2e22d1c3a89b5b6b2ebecfba",
+    "bytes": 3645688,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "provenance": "../regions/C-001/provenance.json",
+    "actualRequestCommand": "../regions/C-001/execution-commands.json",
+    "ImagesRequests": 1,
+    "automaticRetries": 0,
+    "qualityRequested": "high",
+    "qualityReturned": null,
+    "originalReturnedBytesPreserved": true,
+    "inputReferenceCount": 4
+  },
+  "geometry": {
+    "offsets": {
+      "A2": [
+        0,
+        0
+      ],
+      "B1": [
+        1472,
+        0
+      ],
+      "C": [
+        0,
+        960
+      ]
+    },
+    "CNativeCropBox": [
+      0,
+      64,
+      1536,
+      1024
+    ],
+    "CVisibleCoreStartsAtGlobalY": 1024,
+    "sharedPortalGlobal": [
+      679.5,
+      1024
+    ],
+    "CObservedNorthAsphaltIntervalAtY64": [
+      653,
+      705
+    ],
+    "CObservedNorthCenterX": 679.0,
+    "A2ObservedLastRowAsphaltInterval": [
+      653,
+      706
+    ],
+    "referenceCenterDifferencePixels": 0.5,
+    "boundaryWidthDifferencePixels": 1,
+    "wholeBuildingsNotClippedAtCoreLineObserved": true,
+    "roadJoinVisuallyContinuousAtOneToOne": true,
+    "nativeWarpRotateRecolorOrRoadPainting": false,
+    "geometryUnits": "pixels-not-metres"
+  },
+  "map": {
+    "path": "tiled/compact-three.tmj",
+    "sha256": "74e41bf595339b378ef26cc5a1fb4f6b73313b9e644a0cf50547fed0eee8b546",
+    "officialRender": "preview/tiled-cli-three.png",
+    "officialRenderSHA256": "565717d8871e954f06371de764228f83779c60eee2c6e65a9ee5d770500db706",
+    "actualRenderSize": [
+      3008,
+      1984
+    ],
+    "RGBPixelEqualToNativeCoreComposition": true,
+    "explicitOpacityOneOnVisibleLayers": true,
+    "TiledGUIVerified": false,
+    "renderCommand": "QT_QPA_PLATFORM=cocoa /Applications/Tiled.app/Contents/MacOS/tmxrasterizer --hide-object-layers --no-smoothing --scale 1 '/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-three-v1/tiled/compact-three.tmj' '/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-three-v1/preview/tiled-cli-three.png'"
+  },
+  "graph": {
+    "path": "navigation/graph.json",
+    "sha256": "69f570e2250ddbd6ae864f60ba069c9ee92dad701c1a5e1a6eb879fa5561c725",
+    "nodes": 19,
+    "edges": 21,
+    "components": 1,
+    "duplicateEdges": [],
+    "unmergedCrossings": [],
+    "offsetAppliedOnce": true,
+    "newBusinessBindings": 0
+  },
+  "runtimeImages": {
+    "regionPNGCount": 3,
+    "regionPNGBytes": 9873153,
+    "allReferencedPNGIncludingUIStatusPlate": 4,
+    "allReferencedPNGBytes": 9919930,
+    "files": [
+      {
+        "elementId": "cityD",
+        "file": "../tiled/D-not-produced-status.png",
+        "offset": [
+          1536,
+          1024
+        ],
+        "size": [
+          1472,
+          960
+        ],
+        "sha256": "a7f8675cbbc3b2966253f7897e6562894d19e6fa44ed5a0ab8170f957a6ac6e2",
+        "nativeSourceSHA256": null,
+        "role": "unproduced-D-status-only",
+        "bytes": 46777,
+        "actualSHA256": "a7f8675cbbc3b2966253f7897e6562894d19e6fa44ed5a0ab8170f957a6ac6e2"
+      },
+      {
+        "elementId": "cityA",
+        "file": "../tiled/A2-core.png",
+        "offset": [
+          0,
+          0
+        ],
+        "size": [
+          1504,
+          1024
+        ],
+        "sha256": "e217b15ab409b2e32fd00c413bb1de82d928eb0990c8e748d38aceff79d9e46f",
+        "nativeSourceSHA256": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe",
+        "role": "region-art",
+        "bytes": 3211391,
+        "actualSHA256": "e217b15ab409b2e32fd00c413bb1de82d928eb0990c8e748d38aceff79d9e46f"
+      },
+      {
+        "elementId": "cityB",
+        "file": "../tiled/B1-core.png",
+        "offset": [
+          1504,
+          0
+        ],
+        "size": [
+          1504,
+          1024
+        ],
+        "sha256": "f8c4fa767d8209f2e5f0964aa1e220d7a6951f8f2427a772106cf6ecb6a23a63",
+        "nativeSourceSHA256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+        "role": "region-art",
+        "bytes": 3510268,
+        "actualSHA256": "f8c4fa767d8209f2e5f0964aa1e220d7a6951f8f2427a772106cf6ecb6a23a63"
+      },
+      {
+        "elementId": "cityC",
+        "file": "../tiled/C-core.png",
+        "offset": [
+          0,
+          1024
+        ],
+        "size": [
+          1536,
+          960
+        ],
+        "sha256": "618f7039e4c877c97cc97749c6abe257e8e304d01f85d55b23b1f3230b45b06c",
+        "nativeSourceSHA256": "6aa6063d2326c6d4004f97dee35b02fb58b87b2d2e22d1c3a89b5b6b2ebecfba",
+        "role": "region-art",
+        "bytes": 3151494,
+        "actualSHA256": "618f7039e4c877c97cc97749c6abe257e8e304d01f85d55b23b1f3230b45b06c"
+      }
+    ],
+    "DStatusPlateIsNotNativeRegionOrGeneratedArtwork": true
+  },
+  "newNavigation": {
+    "page": "navigation/offline.html",
+    "pageSHA256": "f02cf5f4c58ea7a187236e439ec01dc991aa2127699036163dff644335e8f860",
+    "rawEvidence": "preview/browser-walkthrough.json",
+    "rawEvidenceSHA256": "c713fc3cf833ebb365ae6561da6b3669b6131e828308c3356a9776739aaf3025",
+    "screenshot": "preview/navigation-C-A2-B1-arrival.jpg",
+    "screenshotSHA256": "7e4b910daf1adbba4e57d28b780bc4400050b90ecea0e76e3bb14ce8b298edb6",
+    "sampleCount": 38,
+    "actualRegionOrder": [
+      "C",
+      "A2",
+      "B1"
+    ],
+    "start": [
+      570.5938797257965,
+      1909.6410223784455
+    ],
+    "end": [
+      2271.9999999999995,
+      304
+    ],
+    "traveledPixels": 3052.031092284349,
+    "routeEdgeIds": [
+      14,
+      13,
+      12,
+      5,
+      2,
+      3,
+      6,
+      10
+    ],
+    "maximumGapFromExportedRoadPixels": 1.1368683772161603e-13,
+    "arrivalMessage": "已沿路线到达 B。可重新选点或再次播放。",
+    "loadedImages": [
+      {
+        "elementId": "cityD",
+        "sha256": "a7f8675cbbc3b2966253f7897e6562894d19e6fa44ed5a0ab8170f957a6ac6e2",
+        "nativeSourceSHA256": null,
+        "decodedSize": [
+          1472,
+          960
+        ],
+        "displayed": true
+      },
+      {
+        "elementId": "cityA",
+        "sha256": "e217b15ab409b2e32fd00c413bb1de82d928eb0990c8e748d38aceff79d9e46f",
+        "nativeSourceSHA256": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe",
+        "decodedSize": [
+          1504,
+          1024
+        ],
+        "displayed": true
+      },
+      {
+        "elementId": "cityB",
+        "sha256": "f8c4fa767d8209f2e5f0964aa1e220d7a6951f8f2427a772106cf6ecb6a23a63",
+        "nativeSourceSHA256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+        "decodedSize": [
+          1504,
+          1024
+        ],
+        "displayed": true
+      },
+      {
+        "elementId": "cityC",
+        "sha256": "618f7039e4c877c97cc97749c6abe257e8e304d01f85d55b23b1f3230b45b06c",
+        "nativeSourceSHA256": "6aa6063d2326c6d4004f97dee35b02fb58b87b2d2e22d1c3a89b5b6b2ebecfba",
+        "decodedSize": [
+          1536,
+          960
+        ],
+        "displayed": true
+      }
+    ],
+    "oldTwoRegionEvidenceReusedAsNew": false,
+    "markerABMeaning": "A/B labels are generic start/end markers; actual region sequence is C->A2->B1."
+  },
+  "protection": {
+    "snapshot": "protected-inputs.json",
+    "immutableChanged": [],
+    "liveParentProgressChangesObservedSeparately": [
+      {
+        "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/progress-current.json",
+        "beforeSHA256": "2788c920b1b66ecc152d31106a6e4063b7bc9eebecda2b57a75dc529fc4c43d8",
+        "currentSHA256": "76e5e4009faca141b9b8ec0c46045c6cb8a491ac728b89402827e03b672bd2d9"
+      }
+    ],
+    "parentProgressIndexWrittenOrRestoredByThisThread": false,
+    "oldA2B1MapOrRoadsWritten": false
+  },
+  "notProducedOrPerformed": [
+    "D or another region native",
+    "A/B regeneration",
+    "new engine/service/port",
+    "GUI repaint matrix",
+    "formal game tests/typecheck/regression/FPS",
+    "orders/save/purchase operations",
+    "commit/push"
+  ],
+  "DUnproducedAreaExplicitlyMarked": true,
+  "newWorldMetresCalibrated": false,
+  "finalGridFrozen": false,
+  "checks": [
+    {
+      "check": "one_actual_C_request",
+      "passed": true
+    },
+    {
+      "check": "C_returned_native_SHA",
+      "passed": true
+    },
+    {
+      "check": "all_real_submitted_inputs_unchanged",
+      "passed": true
+    },
+    {
+      "check": "C_native_1536x1024_and_lossless_core",
+      "passed": true
+    },
+    {
+      "check": "A2_B1_core_bytes_unchanged",
+      "passed": true
+    },
+    {
+      "check": "A2_B1_road_data_unchanged",
+      "passed": true
+    },
+    {
+      "check": "C_join_merged_at_actual_old_exit",
+      "passed": true
+    },
+    {
+      "check": "new_graph_connected_no_duplicate_or_unmerged_crossing",
+      "passed": true
+    },
+    {
+      "check": "official_Tiled_render_pixel_exact",
+      "passed": true
+    },
+    {
+      "check": "browser_binds_final_new_TMJ",
+      "passed": true
+    },
+    {
+      "check": "actual_images_loaded_and_SHA_checked",
+      "passed": true
+    },
+    {
+      "check": "new_C_is_loaded_not_old_two_region_replay",
+      "passed": true
+    },
+    {
+      "check": "actual_continuous_C_A2_B1_order",
+      "passed": true
+    },
+    {
+      "check": "actual_new_arrival",
+      "passed": true
+    },
+    {
+      "check": "samples_follow_new_vector_geometry",
+      "passed": true
+    },
+    {
+      "check": "immutable_old_inputs_unchanged",
+      "passed": true
+    },
+    {
+      "check": "exactly_three_region_images_plus_explicit_D_status",
+      "passed": true
+    }
+  ],
+  "failedChecks": [],
+  "handoff": "Bounded C-only production/integration lease returned; parent restores default. No D production."
+}

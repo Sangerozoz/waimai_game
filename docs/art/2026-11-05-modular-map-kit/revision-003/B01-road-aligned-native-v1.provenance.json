@@ -1,0 +1,25 @@
+{
+  "status": "candidate_not_accepted",
+  "tool": "image_gen.imagegen",
+  "generation_calls": 1,
+  "source_native_png": "/Users/sanger/.codex/generated_images/01a1ab84-1bd9-7432-96f8-4cba688c31fb/exec-b963c4fd-9dd2-4656-86af-2e335acd0b61.png",
+  "saved_png": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png",
+  "requested_resolution": [
+    1536,
+    1536
+  ],
+  "actual_resolution": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "sha256": "817678000e21a6d3c46bf9e95b7e9ab56d71791081616179a61a81cfe446576a",
+  "pixel_modifications": false,
+  "copy": "byte_for_byte",
+  "geometry_validation": "not measured; candidate only",
+  "prompt": "Generate exactly ONE native transparent PNG building sprite, preferred 1536x1536. This is a new native re-render, not a rotation, mirroring, perspective warp or recolouring of an existing sprite.\n\nINPUT ROLES: Image 1 (road-aligned-building-guide.png) is the STRICT GEOMETRY reference, authoritative for camera, projected silhouette, dimensions, foundation and roof corners. Image 2 (B01-F90-v2.png) is architectural IDENTITY/APPEARANCE ONLY. Its shallow long-edge camera is WRONG and MUST NOT be retained. Apply the recognizable architectural details of image 2 to the precise building volume and camera of image 1.\n\nGEOMETRY, HIGHEST PRIORITY: Fixed orthographic camera, no vanishing points. Screen coordinates have Y down. The long building foundation and EVERY long horizontal facade band rise to the RIGHT at -28.486 degrees. The short LEFT facade goes down to the RIGHT at +55.406 degrees. These are NOT generic 30-degree isometric axes. All wall uprights exactly vertical. Corresponding roof and foundation corners on the same vertical lines. All long edges parallel; all short edges parallel. Do not rotate/tilt the final 2D picture to fake these relationships.\nIn the 1536-square canvas, visible ground corners: left (244.50,975.25), front (554.48,1424.70), right (1291.50,1024.75). Corresponding MAIN roof corners: left (244.50,576.30), front (554.48,1025.74), right (1291.50,625.80), rear (981.52,176.35). Match these proportions and relative positions if the native output size differs. Do not crop. The long right-hand visible facade is steeply rising rightward as in image 1, not shallow as in image 2. Roof equipment follows these same axes.\n\nSUBJECT: The same recognizable TWO-storey cream-white commercial/utility building from image 2. Grey flat roof, restrained parapet, dark blue-grey window frames and glazing, orange-brown shopfront trims on the short left facade, two small roof ventilators, and one modest roof access hut. Detailed clean facade panel joints, windows and restrained utility details adapted naturally to the geometry guide. Only TWO occupied storeys; the modest roof hut is rooftop equipment, do not add a third storey. Clean detailed daylight painted anime urban game-sprite style matching image 2's appearance, neutral daylight, grey roof and cream-white walls without added blue/yellow tint, no night lights.\n\nISOLATION: Full building including all foundation edges, minimal contact edge only, actual transparent alpha background. No black background, no coloured fringe, no opaque fog, no text/logo/watermark, no trees, no street lights, no rider, no road, no courtyard, no large ground patch. Render one isolated building only. Preserve geometry-guide framing and leave transparent margins."
+}

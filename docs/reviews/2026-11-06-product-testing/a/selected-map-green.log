@@ -1,0 +1,41 @@
+TAP version 13
+# Subtest: selectedMapId validators compile and reject malformed or unowned IDs without weakening legal kg/slots snapshots
+    # Subtest: kg-v1: legal initial and purchased selected maps survive validation/restoration
+    ok 1 - kg-v1: legal initial and purchased selected maps survive validation/restoration
+      ---
+      duration_ms: 0.838458
+      type: 'test'
+      ...
+    # Subtest: kg-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+    ok 2 - kg-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+      ---
+      duration_ms: 0.544666
+      type: 'test'
+      ...
+    # Subtest: slots-v1: legal initial and purchased selected maps survive validation/restoration
+    ok 3 - slots-v1: legal initial and purchased selected maps survive validation/restoration
+      ---
+      duration_ms: 0.181667
+      type: 'test'
+      ...
+    # Subtest: slots-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+    ok 4 - slots-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+      ---
+      duration_ms: 0.317542
+      type: 'test'
+      ...
+    1..4
+ok 1 - selectedMapId validators compile and reject malformed or unowned IDs without weakening legal kg/slots snapshots
+  ---
+  duration_ms: 438.191583
+  type: 'test'
+  ...
+1..1
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 546.683916

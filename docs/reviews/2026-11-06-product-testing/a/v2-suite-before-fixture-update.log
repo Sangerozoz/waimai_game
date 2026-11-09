@@ -1,0 +1,572 @@
+TAP version 13
+# Subtest: real entry IDs roll once, 80% boundary and prices are deterministic
+ok 1 - real entry IDs roll once, 80% boundary and prices are deterministic
+  ---
+  duration_ms: 0.517542
+  type: 'test'
+  ...
+# Subtest: ticket binds callback to order and benefit, duplicate and expired callbacks grant nothing
+ok 2 - ticket binds callback to order and benefit, duplicate and expired callbacks grant nothing
+  ---
+  duration_ms: 0.241583
+  type: 'test'
+  ...
+# Subtest: cancel/failure cannot later succeed; unknown callback cannot grant
+ok 3 - cancel/failure cannot later succeed; unknown callback cannot grant
+  ---
+  duration_ms: 0.061917
+  type: 'test'
+  ...
+# Subtest: auto budget clips final frame, freezes in background/pause and restores without offline accrual
+ok 4 - auto budget clips final frame, freezes in background/pause and restores without offline accrual
+  ---
+  duration_ms: 0.199667
+  type: 'test'
+  ...
+# Subtest: ordinary batches work; special requires rewarded ticket and consumes once
+ok 5 - ordinary batches work; special requires rewarded ticket and consumes once
+  ---
+  duration_ms: 0.164833
+  type: 'test'
+  ...
+# Subtest: restore rejects corrupt budgets, ticket binding and dangling entry references
+ok 6 - restore rejects corrupt budgets, ticket binding and dangling entry references
+  ---
+  duration_ms: 0.418416
+  type: 'test'
+  ...
+# Subtest: pending request restores with its binding and cannot complete before issuance
+ok 7 - pending request restores with its binding and cannot complete before issuance
+  ---
+  duration_ms: 0.175333
+  type: 'test'
+  ...
+# Subtest: normal relabeling, duplicate orders and automatic entitlement stacking are refused
+ok 8 - normal relabeling, duplicate orders and automatic entitlement stacking are refused
+  ---
+  duration_ms: 0.081791
+  type: 'test'
+  ...
+# Subtest: new entries roll independently while paid and pending rights survive a failed appearance roll
+ok 9 - new entries roll independently while paid and pending rights survive a failed appearance roll
+  ---
+  duration_ms: 0.220708
+  type: 'test'
+  ...
+# Subtest: auto request refuses an existing ordinary batch
+ok 10 - auto request refuses an existing ordinary batch
+  ---
+  duration_ms: 0.213625
+  type: 'test'
+  ...
+# Subtest: legacy migration preserves money, original bytes, old assets and unknown fields without a grant
+not ok 11 - legacy migration preserves money, original bytes, old assets and unknown fields without a grant
+  ---
+  duration_ms: 10.173333
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-county-adapter.test.cjs:10:1'
+  failureType: 'testCodeFailure'
+  error: '存档校验失败'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    check (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:28:11)
+    validateLegacyV2EconomySnapshot (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:105:9)
+    validateV2EconomySnapshot (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:247:9)
+    V2EconomySession.restore (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:305:70)
+    CountyV2Session.restore (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/map-sample/CountyV2Session.js:20:97)
+    CountyV2Session.migrate (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/map-sample/CountyV2Session.js:36:32)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-county-adapter.test.cjs:12:53)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+  ...
+# Subtest: an old in-flight delivery remains blocked from new V2 orders and settles its old quote once
+not ok 12 - an old in-flight delivery remains blocked from new V2 orders and settles its old quote once
+  ---
+  duration_ms: 2.156291
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-county-adapter.test.cjs:16:1'
+  failureType: 'testCodeFailure'
+  error: '存档校验失败'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    check (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:28:11)
+    validateLegacyV2EconomySnapshot (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:105:9)
+    validateV2EconomySnapshot (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:247:9)
+    V2EconomySession.restore (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:305:70)
+    CountyV2Session.restore (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/map-sample/CountyV2Session.js:20:97)
+    CountyV2Session.migrate (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/map-sample/CountyV2Session.js:36:32)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-county-adapter.test.cjs:18:55)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+  ...
+# Subtest: future V2 schema/config blocks storage writes and leaves primary bytes intact
+ok 13 - future V2 schema/config blocks storage writes and leaves primary bytes intact
+  ---
+  duration_ms: 0.350458
+  type: 'test'
+  ...
+# Subtest: batch capacity, individual arrival and idempotent payment with cancellation
+ok 14 - batch capacity, individual arrival and idempotent payment with cancellation
+  ---
+  duration_ms: 12.021
+  type: 'test'
+  ...
+# Subtest: batch errors leave all three states unchanged and snapshots restore partial completion
+ok 15 - batch errors leave all three states unchanged and snapshots restore partial completion
+  ---
+  duration_ms: 0.994334
+  type: 'test'
+  ...
+# Subtest: special advertised price is fixed and exclusive, authorization consumed once
+ok 16 - special advertised price is fixed and exclusive, authorization consumed once
+  ---
+  duration_ms: 1.33225
+  type: 'test'
+  ...
+# Subtest: frame IDs freeze foreground budget, duplicate does not move twice, final slice hands off
+ok 17 - frame IDs freeze foreground budget, duplicate does not move twice, final slice hands off
+  ---
+  duration_ms: 2.462208
+  type: 'test'
+  ...
+# Subtest: restore rejects mismatched economic/reward/order state and replay counters
+ok 18 - restore rejects mismatched economic/reward/order state and replay counters
+  ---
+  duration_ms: 0.818167
+  type: 'test'
+  ...
+# Subtest: cancel named pending order cancels the entire remainder, preserving prior deliveries
+ok 19 - cancel named pending order cancels the entire remainder, preserving prior deliveries
+  ---
+  duration_ms: 1.030166
+  type: 'test'
+  ...
+# Subtest: work-memory clones preserve automatic clock while clock rollback cannot replay elapsed time
+ok 20 - work-memory clones preserve automatic clock while clock rollback cannot replay elapsed time
+  ---
+  duration_ms: 1.753083
+  type: 'test'
+  ...
+# Subtest: hero completion refills fleet exactly once and all three states restore together
+ok 21 - hero completion refills fleet exactly once and all three states restore together
+  ---
+  duration_ms: 20.51025
+  type: 'test'
+  ...
+# Subtest: SDK missing callback expires on tick, expired wait interval never becomes hero travel
+ok 22 - SDK missing callback expires on tick, expired wait interval never becomes hero travel
+  ---
+  duration_ms: 0.755916
+  type: 'test'
+  ...
+# Subtest: auto ad resolving during authorized special keeps special manual but preserves auto entitlement
+ok 23 - auto ad resolving during authorized special keeps special manual but preserves auto entitlement
+  ---
+  duration_ms: 1.530625
+  type: 'test'
+  ...
+# Subtest: ten ordinary deliveries buy first new car; fifteen hire first NPC and reuse starter
+not ok 24 - ten ordinary deliveries buy first new car; fifteen hire first NPC and reuse starter
+  ---
+  duration_ms: 7.8095
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-economy.test.cjs:8:1'
+  failureType: 'testCodeFailure'
+  error: '余额不足'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    check (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:28:11)
+    V2EconomySession.transact (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:370:9)
+    V2EconomySession.hireRider (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2EconomySession.js:387:289)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-economy.test.cjs:15:4)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: recruit cost follows success ordinal and failed transactions do not advance it
+ok 25 - recruit cost follows success ordinal and failed transactions do not advance it
+  ---
+  duration_ms: 0.200416
+  type: 'test'
+  ...
+# Subtest: new prices and table-driven cumulative upgrade totals match latest frontloaded candidate
+not ok 26 - new prices and table-driven cumulative upgrade totals match latest frontloaded candidate
+  ---
+  duration_ms: 0.52725
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-economy.test.cjs:22:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    880000 !== 400000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 400000
+  actual: 880000
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-economy.test.cjs:24:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: reloading a completed receipt never pays twice; accepted quote survives equipment changes
+ok 27 - reloading a completed receipt never pays twice; accepted quote survives equipment changes
+  ---
+  duration_ms: 0.164291
+  type: 'test'
+  ...
+# Subtest: unknown future schema/config fails closed and malformed assignments are rejected
+ok 28 - unknown future schema/config fails closed and malformed assignments are rejected
+  ---
+  duration_ms: 0.082375
+  type: 'test'
+  ...
+# Subtest: money alone buys highest vehicle/map, upgrades exactly one instance, and assignment stays unique
+ok 29 - money alone buys highest vehicle/map, upgrades exactly one instance, and assignment stays unique
+  ---
+  duration_ms: 0.52375
+  type: 'test'
+  ...
+# Subtest: a repeated old completion callback cannot settle a newer active order
+ok 30 - a repeated old completion callback cannot settle a newer active order
+  ---
+  duration_ms: 0.439667
+  type: 'test'
+  ...
+# Subtest: no NPC can bank quota; repeat hero receipt does not refill; NPC-less elapsed time does not burn quota
+ok 31 - no NPC can bank quota; repeat hero receipt does not refill; NPC-less elapsed time does not burn quota
+  ---
+  duration_ms: 7.049334
+  type: 'test'
+  ...
+# Subtest: one real minute costs one shared minute regardless of NPC count; NPC never refills quota
+ok 32 - one real minute costs one shared minute regardless of NPC count; NPC never refills quota
+  ---
+  duration_ms: 2.902334
+  type: 'test'
+  ...
+# Subtest: online steps and offline interval give same unique payouts, preserve partial progress, ignore replay and rollback
+ok 33 - online steps and offline interval give same unique payouts, preserve partial progress, ignore replay and rollback
+  ---
+  duration_ms: 49.197834
+  type: 'test'
+  ...
+# Subtest: old batch keeps old price and timing through upgrade, reassignment and map switch
+ok 34 - old batch keeps old price and timing through upgrade, reassignment and map switch
+  ---
+  duration_ms: 1.446917
+  type: 'test'
+  ...
+# Subtest: legal deterministic integer batches obey capacity; new batch uses current equipment and map
+ok 35 - legal deterministic integer batches obey capacity; new batch uses current equipment and map
+  ---
+  duration_ms: 1.849875
+  type: 'test'
+  ...
+# Subtest: quota thresholds grow without gifts and only hero completions refill
+ok 36 - quota thresholds grow without gifts and only hero completions refill
+  ---
+  duration_ms: 2042.830958
+  type: 'test'
+  ...
+# Subtest: reject malformed clocks, inconsistent combined saves and forged income atomically
+ok 37 - reject malformed clocks, inconsistent combined saves and forged income atomically
+  ---
+  duration_ms: 0.505167
+  type: 'test'
+  ...
+# Subtest: economy multiple accepted orders complete in any order, keep quotes and cancel remainder without income
+ok 38 - economy multiple accepted orders complete in any order, keep quotes and cancel remainder without income
+  ---
+  duration_ms: 0.134416
+  type: 'test'
+  ...
+# Subtest: a vehicle reserved by an accepted old NPC batch cannot be reused by another rider
+ok 39 - a vehicle reserved by an accepted old NPC batch cannot be reused by another rider
+  ---
+  duration_ms: 0.546417
+  type: 'test'
+  ...
+# Subtest: restored historic hero count is a baseline and never creates retroactive quota
+ok 40 - restored historic hero count is a baseline and never creates retroactive quota
+  ---
+  duration_ms: 0.515375
+  type: 'test'
+  ...
+# node:internal/modules/cjs/loader:1433
+#   throw err;
+#   ^
+# Error: Cannot find module '/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/domain/V2ProgressTargets.js'
+# Require stack:
+# - /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-ledger-targets.test.cjs
+#     at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+#     at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+#     at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+#     at Function._load (node:internal/modules/cjs/loader:1216:25)
+#     at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+#     at Module.require (node:internal/modules/cjs/loader:1527:12)
+#     at require (node:internal/modules/helpers:147:16)
+#     at Object.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-ledger-targets.test.cjs:7:30)
+#     at Module._compile (node:internal/modules/cjs/loader:1781:14)
+#     at Object..js (node:internal/modules/cjs/loader:1913:10) {
+#   code: 'MODULE_NOT_FOUND',
+#   requireStack: [
+#     '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-ledger-targets.test.cjs'
+#   ]
+# }
+# Node.js v22.22.3
+# Subtest: /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-ledger-targets.test.cjs
+not ok 6 - /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-ledger-targets.test.cjs
+  ---
+  duration_ms: 53.332791
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-ledger-targets.test.cjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: actual directed in-bounds legs, route alternatives merge and manual pickup blocks elapsed-time rewards
+not ok 42 - actual directed in-bounds legs, route alternatives merge and manual pickup blocks elapsed-time rewards
+  ---
+  duration_ms: 9.688083
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-route.test.cjs:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'pending'
+    - 'completed'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'completed'
+  actual: 'pending'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-route.test.cjs:13:45)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: integer capacity offers and multi-order per-order pickup-before-dropoff
+not ok 43 - integer capacity offers and multi-order per-order pickup-before-dropoff
+  ---
+  duration_ms: 3.1545
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-route.test.cjs:16:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(offers.every(o=>Number.isInteger(o.weightKg)&&o.weightKg<=2))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-route.test.cjs:17:70)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: road/service progress and dispatch use the same checkpoint; restore has no offline hero travel
+ok 44 - road/service progress and dispatch use the same checkpoint; restore has no offline hero travel
+  ---
+  duration_ms: 6.3305
+  type: 'test'
+  ...
+# Subtest: cancel midway does not teleport and next trip starts at exact edge progress
+ok 45 - cancel midway does not teleport and next trip starts at exact edge progress
+  ---
+  duration_ms: 3.606291
+  type: 'test'
+  ...
+# Subtest: restore rejects forged token, shortened leg, premature service and future/map changes
+ok 46 - restore rejects forged token, shortened leg, premature service and future/map changes
+  ---
+  duration_ms: 2.162834
+  type: 'test'
+  ...
+# Subtest: unreachable plan failure leaves accepted dispatch unchanged
+ok 47 - unreachable plan failure leaves accepted dispatch unchanged
+  ---
+  duration_ms: 0.19225
+  type: 'test'
+  ...
+# Subtest: automatic entitlement accepts ordinary capacity batch and loops next frame, never special
+not ok 48 - automatic entitlement accepts ordinary capacity batch and loops next frame, never special
+  ---
+  duration_ms: 102.082084
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-route.test.cjs:45:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'service'
+    - 'finished'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'finished'
+  actual: 'service'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-route.test.cjs:47:91)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: six supplies retain V1 price/effect/time and highest purchased map unlock
+ok 49 - six supplies retain V1 price/effect/time and highest purchased map unlock
+  ---
+  duration_ms: 2.585208
+  type: 'test'
+  ...
+# Subtest: full stamina and absent inventory never charge, unknown reward never grants
+ok 50 - full stamina and absent inventory never charge, unknown reward never grants
+  ---
+  duration_ms: 0.205834
+  type: 'test'
+  ...
+# Subtest: automatic defaults are no paid/no inventory; budget lifetime survives toggles
+ok 51 - automatic defaults are no paid/no inventory; budget lifetime survives toggles
+  ---
+  duration_ms: 0.210041
+  type: 'test'
+  ...
+# Subtest: legacy pending purchases migrate once; source/cost tampering rejects
+ok 52 - legacy pending purchases migrate once; source/cost tampering rejects
+  ---
+  duration_ms: 0.14175
+  type: 'test'
+  ...
+# Subtest: approved fixture grants are idempotent, inventory action spends no cash and restores once
+ok 53 - approved fixture grants are idempotent, inventory action spends no cash and restores once
+  ---
+  duration_ms: 0.481791
+  type: 'test'
+  ...
+# Subtest: batch supply accounting starts uniformly at begin and survives cancel/restore
+ok 54 - batch supply accounting starts uniformly at begin and survives cancel/restore
+  ---
+  duration_ms: 0.281292
+  type: 'test'
+  ...
+# Subtest: finished and cancelled batch costs freeze before idle supplies
+ok 55 - finished and cancelled batch costs freeze before idle supplies
+  ---
+  duration_ms: 1.036875
+  type: 'test'
+  ...
+# Subtest: zero stamina truncates exact shared travel, supply cost/progress persists once
+ok 56 - zero stamina truncates exact shared travel, supply cost/progress persists once
+  ---
+  duration_ms: 0.721542
+  type: 'test'
+  ...
+# Subtest: late and damage each apply once, reputation never multiplies signed base
+ok 57 - late and damage each apply once, reputation never multiplies signed base
+  ---
+  duration_ms: 4.450166
+  type: 'test'
+  ...
+# Subtest: service blocked before charge can open water and survives reload
+not ok 58 - service blocked before charge can open water and survives reload
+  ---
+  duration_ms: 11.807667
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-trip-rules.test.cjs:23:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 20
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 20
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-trip-rules.test.cjs:27:116)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: blocked automatic trip preserves entitlement while fleet frame progresses
+ok 59 - blocked automatic trip preserves entitlement while fleet frame progresses
+  ---
+  duration_ms: 3.54675
+  type: 'test'
+  ...
+# Subtest: automatic budget cannot reset spent, future versions and old in-flight snapshots reject
+not ok 60 - automatic budget cannot reset spent, future versions and old in-flight snapshots reject
+  ---
+  duration_ms: 0.846625
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-trip-rules.test.cjs:34:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Got unwanted exception.
+    Actual message: "组合与路线状态版本不一致"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual:
+  error: '组合与路线状态版本不一致'
+  stack: |-
+    V2GameSession.restore (/Users/sanger/.hermes/cache/scratch/delivery-v2-test-QHaawr/map-sample/V2GameSession.js:224:19)
+    /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-trip-rules.test.cjs:39:136
+    getActual (node:assert:609:5)
+    Function.doesNotThrow (node:assert:777:32)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-trip-rules.test.cjs:39:105)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+  operator: 'doesNotThrow'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-trip-rules.test.cjs:39:105)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..60
+# tests 60
+# suites 0
+# pass 50
+# fail 10
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2168.557958

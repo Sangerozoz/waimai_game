@@ -1,0 +1,425 @@
+TAP version 13
+# Subtest: selectedMapId validators compile and reject malformed or unowned IDs without weakening legal kg/slots snapshots
+    # Subtest: kg-v1: legal initial and purchased selected maps survive validation/restoration
+    ok 1 - kg-v1: legal initial and purchased selected maps survive validation/restoration
+      ---
+      duration_ms: 0.902541
+      type: 'test'
+      ...
+    # Subtest: kg-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+    ok 2 - kg-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+      ---
+      duration_ms: 0.578417
+      type: 'test'
+      ...
+    # Subtest: slots-v1: legal initial and purchased selected maps survive validation/restoration
+    ok 3 - slots-v1: legal initial and purchased selected maps survive validation/restoration
+      ---
+      duration_ms: 0.197916
+      type: 'test'
+      ...
+    # Subtest: slots-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+    ok 4 - slots-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+      ---
+      duration_ms: 0.3475
+      type: 'test'
+      ...
+    1..4
+ok 1 - selectedMapId validators compile and reject malformed or unowned IDs without weakening legal kg/slots snapshots
+  ---
+  duration_ms: 532.426958
+  type: 'test'
+  ...
+# Subtest: real entry IDs roll once, 80% boundary and prices are deterministic
+ok 2 - real entry IDs roll once, 80% boundary and prices are deterministic
+  ---
+  duration_ms: 0.50575
+  type: 'test'
+  ...
+# Subtest: ticket binds callback to order and benefit, duplicate and expired callbacks grant nothing
+ok 3 - ticket binds callback to order and benefit, duplicate and expired callbacks grant nothing
+  ---
+  duration_ms: 0.240792
+  type: 'test'
+  ...
+# Subtest: cancel/failure cannot later succeed; unknown callback cannot grant
+ok 4 - cancel/failure cannot later succeed; unknown callback cannot grant
+  ---
+  duration_ms: 0.062458
+  type: 'test'
+  ...
+# Subtest: auto budget clips final frame, freezes in background/pause and restores without offline accrual
+ok 5 - auto budget clips final frame, freezes in background/pause and restores without offline accrual
+  ---
+  duration_ms: 0.189833
+  type: 'test'
+  ...
+# Subtest: ordinary batches work; special requires rewarded ticket and consumes once
+ok 6 - ordinary batches work; special requires rewarded ticket and consumes once
+  ---
+  duration_ms: 0.162042
+  type: 'test'
+  ...
+# Subtest: restore rejects corrupt budgets, ticket binding and dangling entry references
+ok 7 - restore rejects corrupt budgets, ticket binding and dangling entry references
+  ---
+  duration_ms: 0.413542
+  type: 'test'
+  ...
+# Subtest: pending request restores with its binding and cannot complete before issuance
+ok 8 - pending request restores with its binding and cannot complete before issuance
+  ---
+  duration_ms: 0.175292
+  type: 'test'
+  ...
+# Subtest: normal relabeling, duplicate orders and automatic entitlement stacking are refused
+ok 9 - normal relabeling, duplicate orders and automatic entitlement stacking are refused
+  ---
+  duration_ms: 0.080584
+  type: 'test'
+  ...
+# Subtest: new entries roll independently while paid and pending rights survive a failed appearance roll
+ok 10 - new entries roll independently while paid and pending rights survive a failed appearance roll
+  ---
+  duration_ms: 0.231792
+  type: 'test'
+  ...
+# Subtest: auto request refuses an existing ordinary batch
+ok 11 - auto request refuses an existing ordinary batch
+  ---
+  duration_ms: 0.258417
+  type: 'test'
+  ...
+# Subtest: retired legacy migration rejects instead of manufacturing legacy assets or a new wallet
+ok 12 - retired legacy migration rejects instead of manufacturing legacy assets or a new wallet
+  ---
+  duration_ms: 8.029833
+  type: 'test'
+  ...
+# Subtest: retired old in-flight facade does not migrate or settle into the current economy
+ok 13 - retired old in-flight facade does not migrate or settle into the current economy
+  ---
+  duration_ms: 1.423208
+  type: 'test'
+  ...
+# Subtest: future V2 schema/config blocks storage writes and leaves primary bytes intact
+ok 14 - future V2 schema/config blocks storage writes and leaves primary bytes intact
+  ---
+  duration_ms: 0.338959
+  type: 'test'
+  ...
+# Subtest: batch capacity, individual arrival and idempotent payment with cancellation
+ok 15 - batch capacity, individual arrival and idempotent payment with cancellation
+  ---
+  duration_ms: 11.25075
+  type: 'test'
+  ...
+# Subtest: batch errors leave all three states unchanged and snapshots restore partial completion
+ok 16 - batch errors leave all three states unchanged and snapshots restore partial completion
+  ---
+  duration_ms: 2.572625
+  type: 'test'
+  ...
+# Subtest: special advertised price is fixed and exclusive, authorization consumed once
+ok 17 - special advertised price is fixed and exclusive, authorization consumed once
+  ---
+  duration_ms: 3.2145
+  type: 'test'
+  ...
+# Subtest: frame IDs freeze foreground budget, duplicate does not move twice, final slice hands off
+ok 18 - frame IDs freeze foreground budget, duplicate does not move twice, final slice hands off
+  ---
+  duration_ms: 6.728
+  type: 'test'
+  ...
+# Subtest: restore rejects mismatched economic/reward/order state and replay counters
+ok 19 - restore rejects mismatched economic/reward/order state and replay counters
+  ---
+  duration_ms: 0.766
+  type: 'test'
+  ...
+# Subtest: cancel named pending order cancels the entire remainder, preserving prior deliveries
+ok 20 - cancel named pending order cancels the entire remainder, preserving prior deliveries
+  ---
+  duration_ms: 0.972458
+  type: 'test'
+  ...
+# Subtest: work-memory clones preserve automatic clock while clock rollback cannot replay elapsed time
+ok 21 - work-memory clones preserve automatic clock while clock rollback cannot replay elapsed time
+  ---
+  duration_ms: 0.892958
+  type: 'test'
+  ...
+# Subtest: hero completion refills fleet exactly once and all three states restore together
+ok 22 - hero completion refills fleet exactly once and all three states restore together
+  ---
+  duration_ms: 20.326875
+  type: 'test'
+  ...
+# Subtest: SDK missing callback expires on tick, expired wait interval never becomes hero travel
+ok 23 - SDK missing callback expires on tick, expired wait interval never becomes hero travel
+  ---
+  duration_ms: 1.311958
+  type: 'test'
+  ...
+# Subtest: auto ad resolving during authorized special keeps special manual but preserves auto entitlement
+ok 24 - auto ad resolving during authorized special keeps special manual but preserves auto entitlement
+  ---
+  duration_ms: 1.97975
+  type: 'test'
+  ...
+# Subtest: ten ordinary deliveries buy first new car; fifteen hire first NPC and reuse starter
+ok 25 - ten ordinary deliveries buy first new car; fifteen hire first NPC and reuse starter
+  ---
+  duration_ms: 9.643375
+  type: 'test'
+  ...
+# Subtest: fixed identity recruit quote and failed transactions preserve ownership
+ok 26 - fixed identity recruit quote and failed transactions preserve ownership
+  ---
+  duration_ms: 0.363
+  type: 'test'
+  ...
+# Subtest: new prices and table-driven cumulative upgrade totals match latest frontloaded candidate
+ok 27 - new prices and table-driven cumulative upgrade totals match latest frontloaded candidate
+  ---
+  duration_ms: 0.289125
+  type: 'test'
+  ...
+# Subtest: reloading a completed receipt never pays twice; accepted quote survives equipment changes
+ok 28 - reloading a completed receipt never pays twice; accepted quote survives equipment changes
+  ---
+  duration_ms: 0.18075
+  type: 'test'
+  ...
+# Subtest: unknown future schema/config fails closed and malformed assignments are rejected
+ok 29 - unknown future schema/config fails closed and malformed assignments are rejected
+  ---
+  duration_ms: 0.086583
+  type: 'test'
+  ...
+# Subtest: money alone buys highest vehicle/map, upgrades exactly one instance, and assignment stays unique
+ok 30 - money alone buys highest vehicle/map, upgrades exactly one instance, and assignment stays unique
+  ---
+  duration_ms: 0.283084
+  type: 'test'
+  ...
+# Subtest: a repeated old completion callback cannot settle a newer active order
+ok 31 - a repeated old completion callback cannot settle a newer active order
+  ---
+  duration_ms: 0.193
+  type: 'test'
+  ...
+# Subtest: no NPC can bank quota; repeat hero receipt does not refill; NPC-less elapsed time does not burn quota
+ok 32 - no NPC can bank quota; repeat hero receipt does not refill; NPC-less elapsed time does not burn quota
+  ---
+  duration_ms: 6.8065
+  type: 'test'
+  ...
+# Subtest: one real minute costs one shared minute regardless of NPC count; NPC never refills quota
+ok 33 - one real minute costs one shared minute regardless of NPC count; NPC never refills quota
+  ---
+  duration_ms: 2.532417
+  type: 'test'
+  ...
+# Subtest: online steps and offline interval give same unique payouts, preserve partial progress, ignore replay and rollback
+ok 34 - online steps and offline interval give same unique payouts, preserve partial progress, ignore replay and rollback
+  ---
+  duration_ms: 57.606958
+  type: 'test'
+  ...
+# Subtest: old batch keeps old price and timing through upgrade, reassignment and map switch
+ok 35 - old batch keeps old price and timing through upgrade, reassignment and map switch
+  ---
+  duration_ms: 2.215667
+  type: 'test'
+  ...
+# Subtest: legal deterministic integer batches obey capacity; new batch uses current equipment and map
+ok 36 - legal deterministic integer batches obey capacity; new batch uses current equipment and map
+  ---
+  duration_ms: 1.926
+  type: 'test'
+  ...
+# Subtest: quota thresholds grow without gifts and only hero completions refill
+ok 37 - quota thresholds grow without gifts and only hero completions refill
+  ---
+  duration_ms: 2251.967292
+  type: 'test'
+  ...
+# Subtest: reject malformed clocks, inconsistent combined saves and forged income atomically
+ok 38 - reject malformed clocks, inconsistent combined saves and forged income atomically
+  ---
+  duration_ms: 0.5575
+  type: 'test'
+  ...
+# Subtest: economy multiple accepted orders complete in any order, keep quotes and cancel remainder without income
+ok 39 - economy multiple accepted orders complete in any order, keep quotes and cancel remainder without income
+  ---
+  duration_ms: 0.1365
+  type: 'test'
+  ...
+# Subtest: a vehicle reserved by an accepted old NPC batch cannot be reused by another rider
+ok 40 - a vehicle reserved by an accepted old NPC batch cannot be reused by another rider
+  ---
+  duration_ms: 0.56075
+  type: 'test'
+  ...
+# Subtest: restored historic hero count is a baseline and never creates retroactive quota
+ok 41 - restored historic hero count is a baseline and never creates retroactive quota
+  ---
+  duration_ms: 0.53375
+  type: 'test'
+  ...
+# Subtest: opening plus categorized cash movements reconciles and duplicate delivery is inert
+ok 42 - opening plus categorized cash movements reconciles and duplicate delivery is inert
+  ---
+  duration_ms: 3.5625
+  type: 'test'
+  ...
+# Subtest: missing legacy ledger rejects without synthesizing historical flows or a replacement balance
+ok 43 - missing legacy ledger rejects without synthesizing historical flows or a replacement balance
+  ---
+  duration_ms: 0.168125
+  type: 'test'
+  ...
+# Subtest: dated and unknown flows keep separate scopes and malformed or drifting ledger rejects restoration
+ok 44 - dated and unknown flows keep separate scopes and malformed or drifting ledger rejects restoration
+  ---
+  duration_ms: 3.130333
+  type: 'test'
+  ...
+# Subtest: targets reflect assets and affordability without spending or granting ten percent rewards
+ok 45 - targets reflect assets and affordability without spending or granting ten percent rewards
+  ---
+  duration_ms: 0.899709
+  type: 'test'
+  ...
+# Subtest: every actual asset expense and ordinary/special/NPC income has an actual category
+ok 46 - every actual asset expense and ordinary/special/NPC income has an actual category
+  ---
+  duration_ms: 0.757416
+  type: 'test'
+  ...
+# Subtest: actual directed in-bounds legs, route alternatives merge and manual pickup blocks elapsed-time rewards
+ok 47 - actual directed in-bounds legs, route alternatives merge and manual pickup blocks elapsed-time rewards
+  ---
+  duration_ms: 19.415041
+  type: 'test'
+  ...
+# Subtest: integer slot offers and same-merchant multi-order pickup merge exactly once
+ok 48 - integer slot offers and same-merchant multi-order pickup merge exactly once
+  ---
+  duration_ms: 14.044667
+  type: 'test'
+  ...
+# Subtest: road/service progress and dispatch use the same checkpoint; restore has no offline hero travel
+ok 49 - road/service progress and dispatch use the same checkpoint; restore has no offline hero travel
+  ---
+  duration_ms: 6.88375
+  type: 'test'
+  ...
+# Subtest: cancel midway does not teleport and next trip starts at exact edge progress
+ok 50 - cancel midway does not teleport and next trip starts at exact edge progress
+  ---
+  duration_ms: 5.366458
+  type: 'test'
+  ...
+# Subtest: restore rejects forged token, shortened leg, premature service and future/map changes
+ok 51 - restore rejects forged token, shortened leg, premature service and future/map changes
+  ---
+  duration_ms: 2.324625
+  type: 'test'
+  ...
+# Subtest: unreachable plan failure leaves accepted dispatch unchanged
+ok 52 - unreachable plan failure leaves accepted dispatch unchanged
+  ---
+  duration_ms: 0.159375
+  type: 'test'
+  ...
+# Subtest: automatic entitlement accepts ordinary capacity batch and loops next frame, never special
+ok 53 - automatic entitlement accepts ordinary capacity batch and loops next frame, never special
+  ---
+  duration_ms: 331.679792
+  type: 'test'
+  ...
+# Subtest: six supplies retain V1 price/effect/time and highest purchased map unlock
+ok 54 - six supplies retain V1 price/effect/time and highest purchased map unlock
+  ---
+  duration_ms: 4.854042
+  type: 'test'
+  ...
+# Subtest: full stamina and absent inventory never charge, unknown reward never grants
+ok 55 - full stamina and absent inventory never charge, unknown reward never grants
+  ---
+  duration_ms: 0.196542
+  type: 'test'
+  ...
+# Subtest: automatic defaults are no paid/no inventory; budget lifetime survives toggles
+ok 56 - automatic defaults are no paid/no inventory; budget lifetime survives toggles
+  ---
+  duration_ms: 0.204208
+  type: 'test'
+  ...
+# Subtest: legacy pending purchases migrate once; source/cost tampering rejects
+ok 57 - legacy pending purchases migrate once; source/cost tampering rejects
+  ---
+  duration_ms: 0.145458
+  type: 'test'
+  ...
+# Subtest: approved fixture grants are idempotent, inventory action spends no cash and restores once
+ok 58 - approved fixture grants are idempotent, inventory action spends no cash and restores once
+  ---
+  duration_ms: 0.287334
+  type: 'test'
+  ...
+# Subtest: batch supply accounting starts uniformly at begin and survives cancel/restore
+ok 59 - batch supply accounting starts uniformly at begin and survives cancel/restore
+  ---
+  duration_ms: 0.599375
+  type: 'test'
+  ...
+# Subtest: finished and cancelled batch costs freeze before idle supplies
+ok 60 - finished and cancelled batch costs freeze before idle supplies
+  ---
+  duration_ms: 3.468583
+  type: 'test'
+  ...
+# Subtest: zero stamina truncates exact shared travel, supply cost/progress persists once
+ok 61 - zero stamina truncates exact shared travel, supply cost/progress persists once
+  ---
+  duration_ms: 0.728917
+  type: 'test'
+  ...
+# Subtest: late and damage each apply once, reputation never multiplies signed base
+ok 62 - late and damage each apply once, reputation never multiplies signed base
+  ---
+  duration_ms: 4.67275
+  type: 'test'
+  ...
+# Subtest: service blocked before charge can open water and survives reload
+ok 63 - service blocked before charge can open water and survives reload
+  ---
+  duration_ms: 11.530542
+  type: 'test'
+  ...
+# Subtest: blocked automatic trip preserves entitlement while fleet frame progresses
+ok 64 - blocked automatic trip preserves entitlement while fleet frame progresses
+  ---
+  duration_ms: 3.918417
+  type: 'test'
+  ...
+# Subtest: automatic budget cannot reset spent, future versions and old in-flight snapshots reject
+ok 65 - automatic budget cannot reset spent, future versions and old in-flight snapshots reject
+  ---
+  duration_ms: 2.722625
+  type: 'test'
+  ...
+1..65
+# tests 69
+# suites 0
+# pass 69
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2400.980792

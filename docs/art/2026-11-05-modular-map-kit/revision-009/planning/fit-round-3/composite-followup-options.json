@@ -1,0 +1,380 @@
+{
+  "frozenThirdBatchSHA256": "654ccb00f1f75af0f487c9d2d3f7e8f88b06258ca1f73542dcc950978c1a6a12",
+  "manyToOneRecheckAgainstFrozen20": {
+    "sourceIndex": 654,
+    "sourceIndices": [
+      654,
+      2387
+    ],
+    "clusterStrategy": "many-source-to-one-approved-scenic-courtyard",
+    "clusterParcel": {
+      "id": "CP--6--3-1108",
+      "landUse": "residential",
+      "outerRingMap": [
+        [
+          -564,
+          -200
+        ],
+        [
+          -500,
+          -200
+        ],
+        [
+          -500,
+          -246
+        ],
+        [
+          -506,
+          -246
+        ],
+        [
+          -506,
+          -248
+        ],
+        [
+          -510,
+          -248
+        ],
+        [
+          -510,
+          -258
+        ],
+        [
+          -574,
+          -258
+        ],
+        [
+          -574,
+          -240
+        ],
+        [
+          -572,
+          -240
+        ],
+        [
+          -572,
+          -242
+        ],
+        [
+          -566,
+          -242
+        ],
+        [
+          -566,
+          -212
+        ],
+        [
+          -564,
+          -212
+        ],
+        [
+          -564,
+          -200
+        ]
+      ],
+      "scope": "approved outer container including declared source-building holes; design reorganisation, not historical building-type proof"
+    },
+    "stratum": {
+      "sourceIndex": 654,
+      "sourceId": "city.buildings[654]",
+      "centerMap": [
+        -536.9,
+        -212.66200000000003
+      ],
+      "areaSquareMetres": 120.40725000000384,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 40.98904460992756,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--6--3-1108",
+      "landUseIntent": "residential",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 3,
+        "nodeId": "9620075295",
+        "name": "南门写字楼",
+        "anchorMap": [
+          -880.69,
+          -171.59
+        ],
+        "distanceMetres": 346.23470837569135,
+        "association": "proposed design association only; source schema has no building binding"
+      }
+    },
+    "assetId": "B06",
+    "anchorMap": [
+      -528.3354545454545,
+      -212.2018181818182
+    ],
+    "uniformScale": 0.9,
+    "footprintPolygonMap": [
+      [
+        -532.3036560198914,
+        -207.22763140949766
+      ],
+      [
+        -527.6221843048435,
+        -206.9981641434792
+      ],
+      [
+        -524.3672530710176,
+        -217.17600495413873
+      ],
+      [
+        -529.0487247860655,
+        -217.4054722201572
+      ]
+    ],
+    "entryMap": [
+      -526.0906670596769,
+      -211.99113617706263
+    ],
+    "entryPixel": [
+      730,
+      1038
+    ],
+    "approach": {
+      "roadId": "1433208228-0",
+      "segmentIndex": 7,
+      "routeTemplate": "direct",
+      "centrelineMap": [
+        [
+          -526.0906670596769,
+          -211.99113617706263
+        ],
+        [
+          -484.3606467782916,
+          -214.1001695994912
+        ]
+      ],
+      "polygonsMap": [
+        [
+          [
+            -526.0528104096187,
+            -211.24209220368965
+          ],
+          [
+            -484.32279012823346,
+            -213.35112562611823
+          ],
+          [
+            -484.3985034283497,
+            -214.8492135728642
+          ],
+          [
+            -526.1285237097351,
+            -212.7401801504356
+          ]
+        ]
+      ]
+    },
+    "score": 45.81328152098334
+  },
+  "oneToManyActualBoundedTrials": [
+    {
+      "sourceIndex": 1,
+      "parcelId": "CP--19-7-0130",
+      "sameUseIntent": "residential",
+      "moduleTrialOffsetsAlongFixedU": [
+        -9,
+        0,
+        9
+      ],
+      "modules": [],
+      "jointRejectionRules": [
+        "one-or-more-module-ground/door-approach-exhausted"
+      ],
+      "status": "deferred-joint-layout",
+      "uniqueSourceCount": 1,
+      "moduleCount": 0,
+      "renderedSourceCount": 0,
+      "useEvidenceScope": "approved enclosing scenery use, source historical business type still absent"
+    },
+    {
+      "sourceIndex": 377,
+      "parcelId": "CP--14-5-0302",
+      "sameUseIntent": "residential",
+      "moduleTrialOffsetsAlongFixedU": [
+        -9,
+        0,
+        9
+      ],
+      "modules": [],
+      "jointRejectionRules": [
+        "one-or-more-module-ground/door-approach-exhausted"
+      ],
+      "status": "deferred-joint-layout",
+      "uniqueSourceCount": 1,
+      "moduleCount": 0,
+      "renderedSourceCount": 0,
+      "useEvidenceScope": "approved enclosing scenery use, source historical business type still absent"
+    }
+  ],
+  "attempts": [
+    {
+      "sourceIndices": [
+        654,
+        2387
+      ],
+      "strategy": "many-source-to-one-approved-scenic-courtyard",
+      "parcelId": "CP--6--3-1108",
+      "attempts": {
+        "B06@0.9": 1,
+        "approach:direct": 1
+      },
+      "rejectedByRule": {},
+      "result": "feasible-design-cluster"
+    },
+    {
+      "sourceIndices": [
+        1
+      ],
+      "strategy": "one-source-to-three-residential-or-mixed-modules",
+      "parcelId": "CP--19-7-0130",
+      "attempts": {
+        "B06@0.9": 5,
+        "approach:direct": 135,
+        "approach:side-L": 135,
+        "B06@1": 5,
+        "B06@1.1": 5,
+        "B05@0.9": 5,
+        "B05@1": 5,
+        "B05@1.1": 5,
+        "B02@0.9": 5,
+        "B02@1": 5,
+        "B02@1.1": 5
+      },
+      "rejectedByRule": {
+        "actual-door-own-body": 49,
+        "approach-source-road": 221
+      },
+      "result": "bounded-cluster-fit-failed"
+    },
+    {
+      "sourceIndices": [
+        1
+      ],
+      "strategy": "one-source-to-three-residential-or-mixed-modules",
+      "parcelId": "CP--19-7-0130",
+      "attempts": {
+        "B06@0.9": 5,
+        "approach:direct": 135,
+        "approach:side-L": 135,
+        "B06@1": 5,
+        "B06@1.1": 5,
+        "B05@0.9": 5,
+        "B05@1": 5,
+        "B05@1.1": 5,
+        "B02@0.9": 5,
+        "B02@1": 5,
+        "B02@1.1": 5
+      },
+      "rejectedByRule": {
+        "actual-door-own-body": 56,
+        "approach-source-road": 214
+      },
+      "result": "bounded-cluster-fit-failed"
+    },
+    {
+      "sourceIndices": [
+        1
+      ],
+      "strategy": "one-source-to-three-residential-or-mixed-modules",
+      "parcelId": "CP--19-7-0130",
+      "attempts": {
+        "B06@0.9": 5,
+        "approach:direct": 135,
+        "approach:side-L": 135,
+        "B06@1": 5,
+        "B06@1.1": 5,
+        "B05@0.9": 5,
+        "B05@1": 5,
+        "B05@1.1": 5,
+        "B02@0.9": 5,
+        "B02@1": 5,
+        "B02@1.1": 5
+      },
+      "rejectedByRule": {
+        "actual-door-own-body": 78,
+        "approach-source-road": 192
+      },
+      "result": "bounded-cluster-fit-failed"
+    },
+    {
+      "sourceIndices": [
+        377
+      ],
+      "strategy": "one-source-to-three-residential-or-mixed-modules",
+      "parcelId": "CP--14-5-0302",
+      "attempts": {
+        "B06@0.9": 5,
+        "approach:direct": 135,
+        "approach:side-L": 135,
+        "B06@1": 5,
+        "B06@1.1": 5,
+        "B05@0.9": 5,
+        "B05@1": 5,
+        "B05@1.1": 5,
+        "B02@0.9": 5,
+        "B02@1": 5,
+        "B02@1.1": 5
+      },
+      "rejectedByRule": {
+        "actual-door-own-body": 45,
+        "approach-source-road": 225
+      },
+      "result": "bounded-cluster-fit-failed"
+    },
+    {
+      "sourceIndices": [
+        377
+      ],
+      "strategy": "one-source-to-three-residential-or-mixed-modules",
+      "parcelId": "CP--14-5-0302",
+      "attempts": {
+        "B06@0.9": 5,
+        "approach:direct": 135,
+        "approach:side-L": 135,
+        "B06@1": 5,
+        "B06@1.1": 5,
+        "B05@0.9": 5,
+        "B05@1": 5,
+        "B05@1.1": 5,
+        "B02@0.9": 5,
+        "B02@1": 5,
+        "B02@1.1": 5
+      },
+      "rejectedByRule": {
+        "actual-door-own-body": 72,
+        "approach-source-road": 198
+      },
+      "result": "bounded-cluster-fit-failed"
+    },
+    {
+      "sourceIndices": [
+        377
+      ],
+      "strategy": "one-source-to-three-residential-or-mixed-modules",
+      "parcelId": "CP--14-5-0302",
+      "attempts": {
+        "B06@0.9": 5,
+        "approach:direct": 135,
+        "approach:side-L": 135,
+        "B06@1": 5,
+        "B06@1.1": 5,
+        "B05@0.9": 5,
+        "B05@1": 5,
+        "B05@1.1": 5,
+        "B02@0.9": 5,
+        "B02@1": 5,
+        "B02@1.1": 5
+      },
+      "rejectedByRule": {
+        "actual-door-own-body": 45,
+        "approach-source-road": 225
+      },
+      "result": "bounded-cluster-fit-failed"
+    }
+  ],
+  "notInFrozenThirdBatch": true,
+  "mustRecheckNextPacketInteractions": true
+}

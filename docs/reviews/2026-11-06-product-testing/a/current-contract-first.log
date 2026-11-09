@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: current slots: finite stable candidates, canonical load, exact capacity and atomic over-capacity rejection
+ok 1 - current slots: finite stable candidates, canonical load, exact capacity and atomic over-capacity rejection
+  ---
+  duration_ms: 4.658083
+  type: 'test'
+  ...
+# Subtest: U22 production preview/acceptance share trusted held metres, batch protection and one rounded formula
+ok 2 - U22 production preview/acceptance share trusted held metres, batch protection and one rounded formula
+  ---
+  duration_ms: 10.493417
+  type: 'test'
+  ...
+# Subtest: legacy kg in-flight contracts preserve quote, food draw and units; next accepted batch uses slots
+ok 3 - legacy kg in-flight contracts preserve quote, food draw and units; next accepted batch uses slots
+  ---
+  duration_ms: 3.538792
+  type: 'test'
+  ...
+# Subtest: kg and slots fleet restoration enforce reserved vehicles while allowing the original rider future null/free vehicle
+ok 4 - kg and slots fleet restoration enforce reserved vehicles while allowing the original rider future null/free vehicle
+  ---
+  duration_ms: 5.050125
+  type: 'test'
+  ...
+# Subtest: NPC zero-quota 0->60 with actual hero completion at 10 equals 0->10->60; repeat/rollback never refill
+ok 5 - NPC zero-quota 0->60 with actual hero completion at 10 equals 0->10->60; repeat/rollback never refill
+  ---
+  duration_ms: 6.557375
+  type: 'test'
+  ...
+# Subtest: hero completion and supply purchase use their own absolute local-day instant and restore frame context
+ok 6 - hero completion and supply purchase use their own absolute local-day instant and restore frame context
+  ---
+  duration_ms: 4.18225
+  type: 'test'
+  ...
+# Subtest: Fleet catch-up credits each workAt on its local day without migrating old unknown-date ledger rows
+ok 7 - Fleet catch-up credits each workAt on its local day without migrating old unknown-date ledger rows
+  ---
+  duration_ms: 0.946041
+  type: 'test'
+  ...
+# Subtest: same millisecond NPC old due is settled before hero credit and quota sync
+ok 8 - same millisecond NPC old due is settled before hero credit and quota sync
+  ---
+  duration_ms: 2.801208
+  type: 'test'
+  ...
+# Subtest: planned supply consumes real action/cash but not trip deadline clock; active supply retains its clock
+ok 9 - planned supply consumes real action/cash but not trip deadline clock; active supply retains its clock
+  ---
+  duration_ms: 3.231333
+  type: 'test'
+  ...
+# Subtest: food-risk metadata changes category risk without adding draws; canonical Game inputs and malformed foods reject
+ok 10 - food-risk metadata changes category risk without adding draws; canonical Game inputs and malformed foods reject
+  ---
+  duration_ms: 0.656666
+  type: 'test'
+  ...
+# Subtest: snapshot, tick context and nested frozen-effect projections are detached from live authority
+ok 11 - snapshot, tick context and nested frozen-effect projections are detached from live authority
+  ---
+  duration_ms: 0.652083
+  type: 'test'
+  ...
+# Subtest: single slot refuses existing new, corrupt/future restore, lost writer, epoch and external-byte overwrite
+ok 12 - single slot refuses existing new, corrupt/future restore, lost writer, epoch and external-byte overwrite
+  ---
+  duration_ms: 0.832
+  type: 'test'
+  ...
+# Subtest: single slot adapter write failure preserves prewrite bytes and stops later commits
+ok 13 - single slot adapter write failure preserves prewrite bytes and stops later commits
+  ---
+  duration_ms: 0.168542
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 89.094

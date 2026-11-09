@@ -1,0 +1,134 @@
+TAP version 13
+# [V2 runtime failure] {
+#   stage: 'transaction.action',
+#   errorType: 'Error',
+#   frames: [
+#     '    at V2DispatchSession.borrowEmergencyVehicle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2DispatchSession.js:152:19)',
+#     '    at /private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2DispatchSession.js:137:23',
+#     '    at V2DispatchSession.transact (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2DispatchSession.js:95:24)',
+#     '    at V2DispatchSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2DispatchSession.js:110:21)',
+#     '    at V2GameSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/map-sample/V2GameSession.js:33:30)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:62',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:164:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at Object.setItem (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:27:102)',
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/map-sample/V2RuntimeStore.js:138:26)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:82:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:82:10)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at Object.setItem (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:27:102)',
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/map-sample/V2RuntimeStore.js:138:26)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:91:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:91:10)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/map-sample/V2RuntimeStore.js:137:23)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:106:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:106:10)',
+#     '    at async Test.run (node:internal/test_runner/test:1054:7)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.action',
+#   errorType: 'Error',
+#   frames: [
+#     '    at check (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2EconomySession.js:29:11)',
+#     '    at V2EconomySession.finishHeroEmergencyLoan (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2EconomySession.js:404:9)',
+#     '    at V2DispatchSession.returnEmergencyVehicle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2DispatchSession.js:160:22)',
+#     '    at /private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2DispatchSession.js:140:23',
+#     '    at V2DispatchSession.transact (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2DispatchSession.js:95:24)',
+#     '    at V2DispatchSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/domain/V2DispatchSession.js:110:21)',
+#     '    at V2GameSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-Ptfs84/map-sample/V2GameSession.js:33:30)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:62'
+#   ]
+# }
+# Subtest: runtime borrow is durably committed once and survives actual open clock rebasing
+ok 1 - runtime borrow is durably committed once and survives actual open clock rebasing
+  ---
+  duration_ms: 20.021
+  type: 'test'
+  ...
+# Subtest: runtime open rebases an emergency trip without moving it or changing signed terms
+ok 2 - runtime open rebases an emergency trip without moving it or changing signed terms
+  ---
+  duration_ms: 220.6325
+  type: 'test'
+  ...
+# Subtest: failed borrowing save preserves published state and slot and stops further writes
+ok 3 - failed borrowing save preserves published state and slot and stops further writes
+  ---
+  duration_ms: 3.827167
+  type: 'test'
+  ...
+# Subtest: failed return save cannot publish an unequipped loan or a half-swapped real car
+ok 4 - failed return save cannot publish an unequipped loan or a half-swapped real car
+  ---
+  duration_ms: 754.985042
+  type: 'test'
+  ...
+# Subtest: a second writer cannot acquire the slot or duplicate the emergency car
+ok 5 - a second writer cannot acquire the slot or duplicate the emergency car
+  ---
+  duration_ms: 2.729416
+  type: 'test'
+  ...
+# Subtest: slot byte conflict rejects borrowing without publishing the candidate
+ok 6 - slot byte conflict rejects borrowing without publishing the candidate
+  ---
+  duration_ms: 2.897458
+  type: 'test'
+  ...
+# Subtest: epoch loss rejects returning and preserves the active loan
+ok 7 - epoch loss rejects returning and preserves the active loan
+  ---
+  duration_ms: 1.056583
+  type: 'test'
+  ...
+# Subtest: returned loan history survives runtime reopen and repeat return cannot alter real assets
+ok 8 - returned loan history survives runtime reopen and repeat return cannot alter real assets
+  ---
+  duration_ms: 211.233333
+  type: 'test'
+  ...
+# Subtest: future or corrupt game snapshots remain untouched and cannot turn into new loan progress
+ok 9 - future or corrupt game snapshots remain untouched and cannot turn into new loan progress
+  ---
+  duration_ms: 0.500875
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1533.202583

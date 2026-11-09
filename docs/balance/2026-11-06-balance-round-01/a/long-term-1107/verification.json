@@ -1,0 +1,156 @@
+{
+  "checks": [
+    {
+      "name": "same 36 inputs before/after",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "all first-round files unchanged",
+      "ok": true,
+      "evidence": {
+        "fileCount": 35
+      }
+    },
+    {
+      "name": "executed model and strategy fingerprints",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "strict domain compile and worker exit",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "precise scratch cleanup",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "public combination restore",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "raw event sequence",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "raw ledger exactly preserved",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "all public investment commands preserved",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "cash independently sums from actual ledger",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "all investment and supply totals",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "actual hero/NPC income totals",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "unique income and order IDs",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "actual settled order counts",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "no purchased training or vehicle upgrade",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "supply allocation conserves actual charges",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "every investment uses same-source price and real deduction",
+      "ok": true,
+      "evidence": {
+        "commands": 50,
+        "errors": []
+      }
+    },
+    {
+      "name": "public-command ownership replay, cash, and hero car at every tick",
+      "ok": true,
+      "evidence": []
+    },
+    {
+      "name": "final replay equals actual assets",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "quota independently sums from raw ticks",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "operation and travel wall-clock partition",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "10/15 order budgets retained",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "first-round audited core reproduced without rerunning baseline suite",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "exact endpoint catalog denominator fixed",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "ratio only if both endpoint times reached",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "CPU/order/event/simulation bounds",
+      "ok": true,
+      "evidence": {
+        "workerCPUSeconds": 270.125168,
+        "events": 9047,
+        "ticks": 5037
+      }
+    },
+    {
+      "name": "bounded stop is explicit",
+      "ok": true,
+      "evidence": null
+    }
+  ],
+  "passed": 27,
+  "failed": 0,
+  "observedEventCount": 9047,
+  "serializedEventCountBeforeFinalMarker": 9046,
+  "eventCountNote": "result.eventCount is written before the last worker-finished marker; the raw log includes that final marker.",
+  "inputCount": 36,
+  "firstRoundFileCount": 35,
+  "runDirectory": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/balance/2026-11-06-balance-round-01/a/long-term-1107/run-01"
+}

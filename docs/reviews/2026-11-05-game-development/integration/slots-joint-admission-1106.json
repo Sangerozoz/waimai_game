@@ -1,0 +1,83 @@
+{
+  "task": "SLOTS-JOINT-INTEGRATION-1106",
+  "state": "base joint bundle plus reviewed snapshot/O01/tick-read/initial-view deltas built and served as v2-tick-follow-1106 on4182/4196; normal Continue first home auto-centered without Locate click, gameplay/performance tests pending",
+  "core": {
+    "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106",
+    "manifestSHA256": "fc850a1498894f70e77b3ff4e5b010c2b249d8b7a6f60adeaa1fb23e5db11c29",
+    "diffSHA256": "bb741b346e452a91c57e8cf0ff35038adf5af6ad33fab7a82eae716ecebf10d1",
+    "sourceFiles": 10,
+    "existingReplacements": 7,
+    "newModules": 3,
+    "parameterCopyAndAdjacentCostArithmeticChecked": true,
+    "reviewer": "thr_wy4wnu5fyr",
+    "qualityVerdict": "static_pass_original_reviews_plus_FIX01_targeted_review",
+    "currentManifest": "economy/slots-economy-stage-1106/fix01-manifest.json",
+    "currentManifestSHA256": "7d56fb8395be9d680a6fc49fd50657089b3e44f0d0dae02e03931b8b0e60f4b0",
+    "currentQualityReceipt": "integration/slots-fix01-core-quality-1106.json",
+    "qualityPart2Receipt": "economy/slots-economy-stage-1106/quality-part2-fail.json",
+    "qualityPart1Receipt": "economy/slots-economy-stage-1106/quality-part1.json",
+    "remainingQualityScope": "Fleet/Dispatch/Rider/Game/Route/Runtime"
+  },
+  "ui": {
+    "owner": "thr_tviezvnwds",
+    "stage": "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106",
+    "fundsPredecessorSHA256": "d2da7f2a95d1c36bf49ffb39457e557d26312ef512784eaaa3e8a23dc298fcc3",
+    "nextScope": "funds refresh + load/capacity display + new profile effects/quotes + legacy active-unit branch",
+    "authorHandbackSHA256": "7c9a6115e2758f2394cf6ecd6419942f1e202b61f22f471b9733cf6536f0a6c9",
+    "reviewedBaseSHA256": "240bb6bc07de7add31482e1cd330a886e46e705695a01f1a7cdbab0b45bf4c46",
+    "finalSHA256": "cea071606d173007ca8ce8acde05c74748e3243d2c4091390aedcdfcef550ed9",
+    "parentFixReceipt": "integration/ui-slots-pm-spec-1106.json",
+    "liveToUI240BaseDiff": "integration/ui-slots-pm-final-1106.diff",
+    "qualityVerdict": "static_pass_base_and_currentAdditionalDeltas",
+    "rebindReceipt": "integration/slots-fix01-ui-rebind-1106.json",
+    "qualityReceipt": "integration/ui-slots-quality-1106.json",
+    "authorWriteLease": "released; native Default effective with pendingValue null verified at next legitimate read-only task",
+    "reviewer": "thr_htnxptrv4w",
+    "independentFundsBuildNotPublished": true
+  },
+  "activeFix": {
+    "id": "SLOTS-FIX01",
+    "author": "thr_j9izunn7qx",
+    "scope": "only staged Fleet/Economy/Dispatch/Game/Runtime plus new fix receipts; UI, curves, original manifests and live immutable",
+    "issues": ["SLOTS-P2-RESERVATION-01", "SLOTS-P2-PERF-01"],
+    "expectedManifest": "economy/slots-economy-stage-1106/fix01-manifest.json",
+    "writeLease": "released after real source handback; native original Default effective with pendingValue null verified at next legitimate read-only task",
+    "requiredNextReview": "independent FIX01 delta and neighboring valid paths; narrow UI dependency rebind, no page reimplementation",
+    "performanceConclusion": "source-level extra clone path confirmed; no timing, FPS or incident-root-cause claim"
+  },
+  "requiredReleaseGate": [
+    "both writers hand back",
+    "current candidate specification and independent quality pass",
+    "all live preimage hashes still match",
+    "apply entire reader/writer/UI bundle together",
+    "necessary Creator build and authorized actual-view check"
+  ],
+  "currentPreview": {
+    "url": "http://127.0.0.1:4196/?v2=1&rev=tick-follow-1106",
+    "originalPreviewUrl": "http://127.0.0.1:4182/?v2=1&rev=tick-follow-1106",
+    "newSlotsAndEconomyNotIncluded": false,
+    "buildReceipt": "integration/tick-follow-build-integrity-1106.json",
+    "appearanceAndDeploymentReceipt": "integration/tick-follow-preview-receipt-1106.json"
+  },
+  "currentAdditionalDeltas": {
+    "snapshotQuality": "logic/p0-snapshot-clone-1106/quality.json",
+    "foodPresentationQuality": "layout/food-plate-clear-1106/quality.json",
+    "tickReadQuality": "logic/p0-tick-projection-1106/quality.json",
+    "initialViewQuality": "layout/initial-rider-view-1106/quality.json",
+    "homeBillAppearance": "integration/home-bill-appearance-1106.json",
+    "currentDispatchSHA256": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+    "currentGameSHA256": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+    "currentRewardSHA256": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+    "currentFoodImagesSHA256": "9511d13fbd4e983e50b497574cf948747d83b2db0fcaacecc16345f089f72f3b",
+    "firstHomeCenteredWithoutLocateObserved": true,
+    "continuousDeliveryFollowObserved": false,
+    "performanceMeasured": false,
+    "O01VisibleRowsObservedResolved": true,
+    "allFoodAndLegacyViewsVerified": false
+  },
+  "noPhaseTestsOrTypecheck": true,
+  "noPurchasesUpgradeConfirmationHiringOrOrderAcceptance": true,
+  "noDirectStorageReadWriteOrInjectedState": true,
+  "normalContinueAndMenuAppearanceOnly": true,
+  "permissionsManagedByPM": true
+}

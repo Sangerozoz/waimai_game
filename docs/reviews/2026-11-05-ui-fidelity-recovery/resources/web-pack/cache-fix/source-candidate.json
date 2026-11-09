@@ -1,0 +1,140 @@
+{
+  "status": "candidate-awaiting-independent-review",
+  "selfApproved": false,
+  "parent": "thr_axf6i4e89t",
+  "fixer": "thr_tviezvnwds",
+  "environment": "env_e54zrbdgxt",
+  "sourceSHA256": {
+    "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "a7c71f515644ec90ac6c71f05d7f05c543971acc9fd37c085dbdf27269bb92d4",
+    "delivery-game/assets/scripts/map-sample/CartoonArt.ts": "5b59bb9d4c15fba335754f430641d228a20ea31023cf6385f333fba200d73e52",
+    "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+    "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30",
+    "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322",
+    "delivery-game/assets/resources/ui-v2/portraits.json": "fc35329f1f63cce69c55ea5668af0eebe86ff6962a2216a6e34e03637c2df826",
+    "docs/reviews/2026-11-05-ui-fidelity-recovery/resources/web-pack/quality-review.json": "67d34f63fc97b1c50aecd2e283f0fac51d7fcf5d4e209a125501c568703cfcf5"
+  },
+  "changedAmongBoundInputs": [
+    "delivery-game/assets/scripts/map-sample/UIArtResources.ts"
+  ],
+  "engineRoot": "/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/Resources/resources/3d/engine",
+  "engineSHA256": {
+    "bin/.declarations/cc.d.ts": "4b549dcfd4be065f081fd842749efb8de2c44a941306ec39630ec80240f4036a",
+    "cocos/asset/asset-manager/asset-manager.ts": "417a48c0b42241fda54df55b25a9623809d65cbde9b445f3a85bb08849314c4a",
+    "cocos/asset/asset-manager/bundle.ts": "40beb79b5547e810679747e0da221ac8771211ab58001e8f573418b26b9c1081",
+    "cocos/asset/asset-manager/url-transformer.ts": "ce3a77ca1ea7543b9abb27cba0d12add5d02ffabfe67447fa6db4c544d0ca2d6",
+    "cocos/asset/asset-manager/preprocess.ts": "e61bbcedefb84e142ac09346f0d7b73e4b2d7c6e01289c3059ff70c10aec8d70",
+    "cocos/asset/asset-manager/load.ts": "6d780a266c09208625cc792a152cf51340e1d90fb30769216254dbf0ac2f7d67",
+    "cocos/asset/asset-manager/pack-manager.ts": "cdf5dae3df45ed289459b09ee2b2b9434d32f0f027e0b35b5680df48b0ac84bc",
+    "cocos/asset/asset-manager/downloader.ts": "5740536b57454b5016a71b9f31d44055594ef22b359814a08ec74a16d6884283",
+    "cocos/asset/asset-manager/parser.ts": "fe657c0bb005705ae9b163402a5930c23b32f1519fe5e0acd5edafb1644c3f15",
+    "cocos/asset/asset-manager/utilities.ts": "ae193ae08dc7c644055dacd70ea7ad7f3eeddd0311e6abf8905b3864d106b013",
+    "cocos/asset/asset-manager/depend-util.ts": "9e193394532eb5753676515c36d5d07ac4203066042e73ce3840b0d66fcaacbf",
+    "cocos/asset/asset-manager/release-manager.ts": "eba845e847cc284bb189c88fc3b3beb6aad0d9560e6a66f5ca62396028eec90e",
+    "cocos/asset/assets/asset.ts": "4d701b1188fad3a6df35b61b06c37fbb868506f7cf718d70d6fd2547ddf3257c",
+    "cocos/asset/assets/texture-2d.ts": "835104f8654ec69090e8a85c72174b25d0522ab2fd8e69d17b388c6aa0ede5b2",
+    "cocos/asset/assets/image-asset.ts": "6c6b8bc9b4c9a62a8e180c8d3013808520d71978d67d41d74f52b910f57f4388"
+  },
+  "jsonCompatibility": {
+    "sources": 42,
+    "regions": 143,
+    "uniqueDerivedPaths": 143,
+    "predicateConflicts": []
+  },
+  "execution": {
+    "applicationCode": false,
+    "tests": false,
+    "typecheck": false,
+    "build": false,
+    "deploy": false,
+    "browser": false,
+    "faultInjection": false,
+    "syntheticSave": false
+  },
+  "closed": {
+    "L01": false,
+    "L02": false,
+    "userMissingImages": false,
+    "fidelity98Percent": false
+  },
+  "futureCases": [
+    {
+      "id": "F01",
+      "case": "opt-in/source 缺项",
+      "expectation": "原图 retryWeb=true，进入 fallbackFrames；当前 pack 按 Promise 身份失效；冷却后页面重建可定向重载索引",
+      "execution": "not-run"
+    },
+    {
+      "id": "F02",
+      "case": "opt-in/region 缺项",
+      "expectation": "不写最终 frames；单次调用不递归重试；同一过期索引的其他消费者不能多次推迟冷却或驱逐新索引",
+      "execution": "not-run"
+    },
+    {
+      "id": "F03",
+      "case": "web:false 旁路",
+      "expectation": "不请求 pack，原图 retryWeb=false，正常进入最终 frames",
+      "execution": "not-run"
+    },
+    {
+      "id": "F04",
+      "case": "JSON 顶层成功、内部 size/regions/region 字段非法",
+      "expectation": "完整结构校验在 pack Promise fulfilled 前拒绝，移除匹配 Promise；修好同 UUID 内容后再请求使用 reloadAsset:true",
+      "execution": "not-run"
+    },
+    {
+      "id": "F05",
+      "case": "同一衍生路径在索引内尺寸冲突",
+      "expectation": "整份索引不发布，不将不同尺寸调用错误共享为同一成功；不同索引期望尺寸使用不同应用缓存键",
+      "execution": "not-run"
+    },
+    {
+      "id": "F06",
+      "case": "Texture2D 完整成功但尺寸不符",
+      "expectation": "尺寸校验先于应用 addRef/fulfilled；有界三次后回退并按身份删失败 Promise；下次重建通过 loadAny 定向重载根及 ImageAsset/native 依赖",
+      "execution": "not-run"
+    },
+    {
+      "id": "F07",
+      "case": "旧 pack 消费者在新请求后才报缺项/失败",
+      "expectation": "webPack!==oldPending 时不清新请求，也不更新其冷却时间",
+      "execution": "not-run"
+    },
+    {
+      "id": "F08",
+      "case": "旧纹理请求超时后晚成功/晚失败",
+      "expectation": "settled 忽略晚回调，不新增应用 addRef、不触碰新 Promise；引擎在途缓存合并的边界单独观测",
+      "execution": "not-run"
+    },
+    {
+      "id": "F09",
+      "case": "正常并发/146别名中的同源同预期尺寸调用",
+      "expectation": "应用 Promise 共享，成功纹理只 retain 一次；Cartoon 临时帧每 key 至多一个，不成为重开入口的成功拦截",
+      "execution": "not-run"
+    },
+    {
+      "id": "F10",
+      "case": "隐藏有效父节点及已销毁节点",
+      "expectation": "隐藏但有效仍赋图；销毁后不写节点；不因本补丁改变原 isValid 保护",
+      "execution": "not-run"
+    },
+    {
+      "id": "F11",
+      "case": "超时预算及无轮询",
+      "expectation": "pack 单次 4s；Web纹理3×4s+1s/2s名义15s；冷 pack+纹理名义19s；无自发每帧/定时刷新；原图原manifest仍3×60s+1s/2s",
+      "execution": "not-run"
+    },
+    {
+      "id": "F12",
+      "case": "正常 resource/rect、端点取整、九宫格及 CUSTOM/trim",
+      "expectation": "原映射不改，衍生全纹理 rect、inset 横纵轴各自缩放不改，originalSize/trim 路径保持",
+      "execution": "not-run"
+    }
+  ],
+  "futureCaseCount": 12,
+  "checks": {
+    "sourceTracing": "manual-static-only",
+    "currentPackFieldInspection": "offline-Python-JSON-only",
+    "gitDiffCheck": "tracked scoped diff exit 0/no diagnostics; no-index before/current exit 1/no diagnostics (files differ)",
+    "imageInventoryRepeated": false
+  }
+}

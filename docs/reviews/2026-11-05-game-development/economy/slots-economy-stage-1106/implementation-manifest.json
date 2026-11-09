@@ -1,0 +1,249 @@
+{
+  "task": "SLOTS-ECONOMY-STAGE-1106",
+  "status": "implemented-in-isolated-stage-not-compiled-or-tested",
+  "readOnlyPatchCheck": {
+    "command": "git apply --check docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/source.diff",
+    "exitCode": 0,
+    "liveApplied": false,
+    "scope": "patch context only, not compiler or application validation"
+  },
+  "profileId": "capacity-slots-economy-2026-11-06-v1",
+  "parameterFile": "docs/balance/2026-11-06-capacity-slots-economy/parameters.json",
+  "parameterSHA256": "1bd6db1c573e3b48ee7bef0b0be20bceeae290cfe2d6d05b0cd72f2e5f99fd91",
+  "files": [
+    {
+      "live": "delivery-game/assets/scripts/domain/V2RiderEconomy.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2RiderEconomy.ts",
+      "baselineSHA256": "860562efbdac8bdbc32ac5c79d0d8f77e405937dac7095b041ad9d138f8624e9",
+      "stageSHA256": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+      "liveClosingSHA256": "860562efbdac8bdbc32ac5c79d0d8f77e405937dac7095b041ad9d138f8624e9"
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomySession.ts",
+      "baselineSHA256": "affec422c530e37820354a88690f8df32010580ded276cb3f9ac697e8f142e2d",
+      "stageSHA256": "84588c30074d37aeb0ad05ca3fa605e61ac3ba884932ec359fd3b2dddfeef785",
+      "liveClosingSHA256": "affec422c530e37820354a88690f8df32010580ded276cb3f9ac697e8f142e2d"
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts",
+      "baselineSHA256": "70cc8e526d4bb518716f50006941eab9b49e1647db1f56f9e1309040ef42e3a6",
+      "stageSHA256": "1f6a3ba97d5c86af8a57745b329dbcc8954648429f5838e7de8560656aaf1389",
+      "liveClosingSHA256": "70cc8e526d4bb518716f50006941eab9b49e1647db1f56f9e1309040ef42e3a6"
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2DispatchSession.ts",
+      "baselineSHA256": "40c79d5443c35f2e6b3bba69fac129f07106d8d25ee76a6e27b7fde514d3fe0f",
+      "stageSHA256": "c9c12118d868b15fc85d7778f706ec7f75d858fa600dc928fb26ed89ccfd49f8",
+      "liveClosingSHA256": "40c79d5443c35f2e6b3bba69fac129f07106d8d25ee76a6e27b7fde514d3fe0f"
+    },
+    {
+      "live": "delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RouteSession.ts",
+      "baselineSHA256": "a4af56bfbd972bebe0fe8dd48ea17cc2aab1a1d8b122241bb9b76ebe9e3780ff",
+      "stageSHA256": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+      "liveClosingSHA256": "a4af56bfbd972bebe0fe8dd48ea17cc2aab1a1d8b122241bb9b76ebe9e3780ff"
+    },
+    {
+      "live": "delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2GameSession.ts",
+      "baselineSHA256": "8a96a5b5e2d4b5d5e72980757c58ae3c1aa07a7020e53c6834ad9250bb472ca6",
+      "stageSHA256": "7f9da175febc72ce0589c270ca5a4ad5f79791a452217b10e9eb26424d301027",
+      "liveClosingSHA256": "8a96a5b5e2d4b5d5e72980757c58ae3c1aa07a7020e53c6834ad9250bb472ca6"
+    },
+    {
+      "live": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RuntimeController.ts",
+      "baselineSHA256": "a5c19c46b89ca85e42595657fef35de7430b06b524001beb81a4c822aaeef302",
+      "stageSHA256": "50444cd5dd9f6cc7d219b12dbadfdde51505b410a8b547fcd99c56c5f159b6bf",
+      "liveClosingSHA256": "a5c19c46b89ca85e42595657fef35de7430b06b524001beb81a4c822aaeef302"
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2SlotEconomyConfig.ts",
+      "baselineSHA256": null,
+      "stageSHA256": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+      "liveClosingSHA256": null
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2EconomyProfiles.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomyProfiles.ts",
+      "baselineSHA256": null,
+      "stageSHA256": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+      "liveClosingSHA256": null
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2LoadRules.ts",
+      "stage": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2LoadRules.ts",
+      "baselineSHA256": null,
+      "stageSHA256": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644",
+      "liveClosingSHA256": null
+    }
+  ],
+  "readonlyDependencies": [
+    {
+      "live": "delivery-game/assets/scripts/domain/GameConfig.ts",
+      "sha256": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e"
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2EconomyConfig.ts",
+      "sha256": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976"
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2Ledger.ts",
+      "sha256": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac"
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2SupplyCatalog.ts",
+      "sha256": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb"
+    },
+    {
+      "live": "delivery-game/assets/scripts/domain/V2TripRules.ts",
+      "sha256": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97"
+    },
+    {
+      "live": "delivery-game/assets/scripts/map-sample/CityExtent.ts",
+      "sha256": "6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194"
+    },
+    {
+      "live": "delivery-game/assets/scripts/map-sample/FoodCatalog.ts",
+      "sha256": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20"
+    },
+    {
+      "live": "delivery-game/assets/scripts/map-sample/MapTypes.ts",
+      "sha256": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f"
+    },
+    {
+      "live": "delivery-game/assets/scripts/map-sample/RoadRouter.ts",
+      "sha256": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690"
+    },
+    {
+      "live": "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts",
+      "sha256": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23"
+    },
+    {
+      "live": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts",
+      "sha256": "8efdff34d0f3214a69922b9ef2b8cdd86672f1631a26b8962dc18e6efea07f7f"
+    }
+  ],
+  "staticEvidence": {
+    "kind": "source-text-and-parameter-arithmetic-only",
+    "codeFileCount": 10,
+    "changedExistingFiles": 7,
+    "newCodeFiles": 3,
+    "relativeNamedImportsResolved": 50,
+    "unresolvedOrMissingNamedExports": [],
+    "legacyAndTimingTextPreservation": {
+      "normalizeOrdinaryPricingById": true,
+      "ordinaryEffortIncomeCents": true,
+      "vehicleEffects": true,
+      "vehicleUpgradeQuote": true,
+      "completeLegacyEconomyValidatorExceptNameAndType": true,
+      "completeLegacyPricingValidatorExceptPrivateName": true,
+      "V2RuntimeController.ts:private recordRuntimeError": true,
+      "V2RuntimeController.ts:private mutate<T>": true,
+      "V2RuntimeController.ts:private drive(": true,
+      "V2FleetSession.ts:advanceTo(nowMs:number)": true,
+      "V2GameSession.ts:routeChoices()": true,
+      "V2RouteSession.ts:private static restoreLegacy": true,
+      "V2RouteSession.ts:choices():": true
+    },
+    "parameterCopyMatchesPMSource": true,
+    "all30LevelAdjacentCostsChecked": true,
+    "liveBaselinesUnchanged": true,
+    "newMathRandomCallCount": 0,
+    "diffSHA256": "bb741b346e452a91c57e8cf0ff35038adf5af6ad33fab7a82eae716ecebf10d1",
+    "runtimePMBaselineSHA256": "a5c19c46b89ca85e42595657fef35de7430b06b524001beb81a4c822aaeef302",
+    "anchors": {
+      "V2RiderEconomy.ts": {},
+      "V2EconomySession.ts": {
+        "export function validateV2EconomySnapshot": 181,
+        " acceptSlotBatch(": 278,
+        " registerSlotFleetOrders(": 316,
+        " static restore(": 217
+      },
+      "V2FleetSession.ts": {
+        " private startBatches(": 82,
+        " static restore(": 40
+      },
+      "V2DispatchSession.ts": {
+        " acceptSlotBatch(": 105,
+        " static restore(": 183
+      },
+      "V2RouteSession.ts": {
+        " canonicalSlotOrder(": 78,
+        " slotCandidates(": 108,
+        " static restore(": 238
+      },
+      "V2GameSession.ts": {
+        " static restore(": 143,
+        " get deliveryEffects": 32
+      },
+      "V2RuntimeController.ts": {
+        " get deliveryEffects": 163,
+        "    get deliveryEffects": 163,
+        "    vehicleUpgradeQuote": 168
+      },
+      "V2SlotEconomyConfig.ts": {},
+      "V2EconomyProfiles.ts": {
+        "export function slotVehicleEffects": 31,
+        "export function parseV2ContractTerms": 63
+      },
+      "V2LoadRules.ts": {
+        "export function parseV2Load": 15,
+        "export function slotFleetOrderIds": 60
+      }
+    },
+    "notPerformed": [
+      "TS execution",
+      "tests",
+      "typecheck",
+      "game or synthetic save",
+      "Creator",
+      "browser",
+      "build",
+      "deploy",
+      "UI integration"
+    ]
+  },
+  "autoLSP": {
+    "source": "automatic editor diagnostics only",
+    "activeTypecheckRun": false,
+    "observed": [
+      "isolated stage lacks V2EconomyConfig, V2Ledger, V2TripRules, RewardSession, MapTypes/RoadRouter/CityExtent and other readonly dependencies",
+      "consequent implicit-any and receipt-base-type diagnostics were reported; the real overlay has not been compiled"
+    ],
+    "ownedFindingsFixed": [
+      "capacitySlots optional lookup narrowed with typeof before use",
+      "new trip-order predicate has an explicit id-only structural annotation"
+    ],
+    "typeSafetyStatus": "not verified by a compiler; import-name text inspection is not typecheck"
+  },
+  "firstSuccessfulIncrement": {
+    "stage": "assets/scripts/domain/V2LoadRules.ts",
+    "sha256AtCreation": "dac2717c331a12f37df11dbbff38df98c8bc5c58892e1f92309556de5dbf0123",
+    "bytesAtCreation": 3592,
+    "normalWriteFileVerified": true,
+    "finalSHA256": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644"
+  },
+  "notChanged": [
+    "all live source files",
+    "old V2EconomyConfig",
+    "FoodCatalog/TripRules",
+    "UI/Spacing/Skin",
+    "map source/data/bounds/layout/resources",
+    "PM parameter source",
+    "RuntimeStore/saved games",
+    "public ledgers and handoffs",
+    "global modes/providers/credentials"
+  ],
+  "limits": [
+    "PM first playable calibration, not user-approved individual numbers or balance acceptance",
+    "all seven staged replacements and three new modules require coordinated application after baseline checks",
+    "old UI must not be deployed with new slot orders; B must consume contract.md",
+    "no rendered/game/navigation/restore execution evidence; static source path completion is not runtime PASS"
+  ],
+  "lease": "hand back after artifact delivery; PM restores native Default"
+}

@@ -1,0 +1,109 @@
+{
+  "tool": "image_gen.imagegen",
+  "toolSourceAbsolutePath": "/Users/sanger/.codex/generated_images/01a1ac1c-0294-7f73-ac23-61c538a3275f/exec-3761c3ab-7639-440b-bc31-29f3f7b509ed.png",
+  "toolArguments": {
+    "prompt": "Create exactly ONE native game prop sprite, complete feet safely inside frame, 1536x1536 requested true transparent RGBA. First image is geometric input ONLY (wireframe not art); use exact orthographic projection elevation62.5 azimuth45, u screen -28.486deg n +55.406deg, verticals screen-vertical, no generic 30deg isometric. Second image ONLY daytime Japanese urban anime thick-painted style/color/material reference, not layout or buildings. Original supplemental furniture in this style, NOT extracted source object. Painted summarized material with soft upper-left light and shaded volume; NOT photoreal product photography, shiny metal, heavy outlines or flat icon. Restrained warm medium brown wood and matte dark-gray metal. ONLY object, no ground plane, ground patch, baked large cast shadow, sky, grass, trees, people, vehicles, text/logo/labels or guide marks. Transparent spaces between all bars/legs. No rotate/mirror/shear of old PNG. ONE independent outdoor ROUND wooden table, diameter1.0 height.75 candidate meters, simple four dark-gray metal legs at four corners as guide. Wood boards direction u. No chairs/stools/utensils. Circular tabletop projects as ellipse according to guide, not front-view flat circle.",
+    "transparent_background": true,
+    "referenced_image_paths": [
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-007/references/furniture/P04-geometry.png",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-007/references/furniture/TR32-courtyard-style.png"
+    ]
+  },
+  "references": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-007/references/furniture/P04-geometry.png",
+      "sha256": "cced79e502ed37925c15f6fb75a7b8c8e2ee0aa80c0b6efceaa4386f5b00f47a"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-007/references/furniture/TR32-courtyard-style.png",
+      "sha256": "dbaed2321cb4bbc170ab59b61dda1c580d381eb7155bf6b36e47149d684b8cd4"
+    }
+  ],
+  "sourceSelection": {
+    "imageNumber": 11,
+    "region": "TR-32",
+    "version": "v1",
+    "source": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-04-county-twentyfive-region-plan/review-018/TR-32-v1.png",
+    "sha256": "6fc9d10fa3141aa84cf5c41a8ce28a1ba5ac1ec464b2f3e62467edc725d80995",
+    "styleCropBox": [
+      352,
+      754,
+      529,
+      868
+    ],
+    "identity": "风格参考下原创补充；box只记录色彩笔触参考，无可辨家具身份"
+  },
+  "native": {
+    "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-007/native/P04-001/P04-v1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bytes": 842172,
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "alphaBBox": [
+      41,
+      22,
+      1214,
+      1254
+    ],
+    "sha256": "4975443138a0a2a4e629386e720bb1511ef55c59e9562cbbc8e66d2754a99293"
+  },
+  "toolSourceSHA256": "4975443138a0a2a4e629386e720bb1511ef55c59e9562cbbc8e66d2754a99293",
+  "sourceCopySHA256Match": true,
+  "status": "native-candidate-visible-occlusion-defect-do-not-integrate",
+  "runtime": {
+    "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-007/native/P04-001/P04-runtime-280.png",
+    "size": [
+      236,
+      280
+    ],
+    "mode": "RGBA",
+    "bytes": 87168,
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "alphaBBox": [
+      2,
+      2,
+      234,
+      278
+    ],
+    "sha256": "3039ed00f6eb575bfa3041e1f6171792941cbe9eb113f55151e77ea1f3856677"
+  },
+  "candidateContract": {
+    "id": "P04",
+    "name": "独立户外圆桌",
+    "owner": "furniture",
+    "dimensions": [
+      1.0,
+      1.0,
+      0.75
+    ],
+    "identity": "圆木桌面＋简洁金属支腿，不绑定椅凳、地板或餐具",
+    "contexts": [
+      "商业街室外休憩",
+      "庭院"
+    ],
+    "status": "assigned-not-produced",
+    "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+    "runtimeMaxEdge": 280
+  },
+  "visualInspection": [
+    "明确缺陷：后腿/安装片画在桌面上，遮挡关系错误，不宜接入。",
+    "四足图中存在，但后腿端位于桌面内，不能当可信地脚；圆桌板纹估读约-30°，非精确标定。",
+    "保留真实单次输出，不重试、不数字修补。",
+    "原生/运行均实际打开；主体完整，透明背景无地面，少量原生游离alpha碎边；运行细节软化。"
+  ],
+  "notVerified": [
+    "精密地脚配准",
+    "Tiled/Cocos接入与世界尺寸",
+    "用户验收",
+    "游戏tests/typecheck/回归"
+  ]
+}

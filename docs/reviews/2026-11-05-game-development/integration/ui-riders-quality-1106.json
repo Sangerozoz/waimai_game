@@ -1,0 +1,86 @@
+{
+  "task": "UI-RECOVERY-RIDERS-QUALITY-1106",
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [
+    {
+      "id": "FOLLOWUP-CONFIRM-FUNDS",
+      "scope": "既有且本次明确排除的后续，不阻塞本增量",
+      "location": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:470-474",
+      "trigger": "打开升级确认层时余额不足，停留期间NPC收入使余额达到费用。",
+      "finding": "既有shortfall及确认按钮enabled仍是构造期快照；本次撤回入口现金门禁并未修改这一确认层策略。",
+      "suggestion": "后续独立处理确认层刷新策略。本次L01修复只能表述为三个新增入口门禁已撤回，不能表述为所有资金相关交互均已修复。"
+    },
+    {
+      "id": "FOLLOWUP-NPC-COMMAND-CONTRACT",
+      "scope": "已明确排除的领域集成后续，不阻塞本UI增量",
+      "locations": [
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:64-75",
+        "delivery-game/assets/scripts/domain/V2EconomySession.ts:149-153"
+      ],
+      "trigger": "主角仍有活动批次时，在NPC配置页提交招募、升级或配车命令。",
+      "finding": "现有batchIds及activeQuote全局领域门禁仍会拒绝相关命令；UI仅针对主角缩小busy限制，并没有修复此领域冲突。",
+      "suggestion": "由领域负责人按逐命令规则及旧合同调整生效契约收口；不要重新全禁NPC界面，也不要将本次静态PASS当作这些经济操作已集成可用。"
+    }
+  ],
+  "sourceHashes": {
+    "primary": {
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": {
+        "before": "81f54afb7d835c996a7305bb6075c7a3577c25fe33d5d928196d6a3530f80263",
+        "initialCandidateObserved": "284250cd29eba68d18188af58e805792dc1efe9b1abcf047955e0d3ce724d45c",
+        "resumedReviewStart": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+        "reviewEnd": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+        "strictReverseChainMatched": true
+      },
+      "delivery-game/assets/scripts/map-sample/V2Spacing.ts": {
+        "before": "8bc275d4946c45a8d6f239209229429cd38b75bb84ecfd3205dab71e5535c84a",
+        "reviewStart": "0f363e9bb5858629a592d8e8a3208e70e43c5f87deffe0e1117d9be92fa509de",
+        "reviewEnd": "0f363e9bb5858629a592d8e8a3208e70e43c5f87deffe0e1117d9be92fa509de",
+        "strictReverseMatched": true
+      }
+    },
+    "diffProof": {
+      "strictHunks": {
+        "pmFix": 2,
+        "originalGameUI": 4,
+        "spacing": 1
+      },
+      "regeneratedDiffsExactlyMatch": true,
+      "beforeRidersAndFromShowUpgradeOnwardByteUnchanged": true,
+      "docs/reviews/2026-11-05-game-development/layout/ui-recovery-visible-1106/candidate.diff": "7c282f1066d9a5b70f4687ca26a64a279b77f6d388b2aa52fc705620a3f1a48d",
+      "docs/reviews/2026-11-05-game-development/integration/riders-pm-fix-1106.diff": "8a2ffb3e4954d45df872dd9b83c3e157b21bebfdca509c1012850f937478b389"
+    },
+    "dependencies": {
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "a5c19c46b89ca85e42595657fef35de7430b06b524001beb81a4c822aaeef302",
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "9e7e6914f8f5a7c0d8e5dba4045237fca0385d98af12d52676352221bcfd3f09",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/scripts/map-sample/SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "delivery-game/assets/scripts/map-sample/PresentationLayout.ts": "5409061543adc8de13a01214ce1f7b899cec9649a4e787639b2801530933955d",
+      "delivery-game/assets/scripts/domain/V2RiderEconomy.ts": "860562efbdac8bdbc32ac5c79d0d8f77e405937dac7095b041ad9d138f8624e9",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "affec422c530e37820354a88690f8df32010580ded276cb3f9ac697e8f142e2d",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "40c79d5443c35f2e6b3bba69fac129f07106d8d25ee76a6e27b7fde514d3fe0f",
+      "delivery-game/assets/resources/ui-v2/portraits.json": "fc35329f1f63cce69c55ea5668af0eebe86ff6962a2216a6e34e03637c2df826"
+    },
+    "sdk": {
+      "Cocos-3.8.8/cocos/2d/components/label.ts": "e0e0de9af5fb807b91cf2b87b8c1215aa630da7172d0b9ecd035be9e91de10a5",
+      "Cocos-3.8.8/cocos/2d/assembler/label/ttfUtils.ts": "cd5d9201163a160520f064558d1f9e0fb7477edddf47fb9e0524e9b1bbfed816",
+      "Cocos-3.8.8/cocos/scene-graph/node.ts": "ce9d9662b77114e40f6e47e4d14126dcfb6c765573dc5e7b6a35e0bdb7053593"
+    }
+  },
+  "limits": [
+    "当前9c候选未发现本次范围内的安全或逻辑阻塞。严格在内存还原9c→284→81f，并还原Spacing至8bc；每个hunk均核对唯一匹配、行位置及完整前态SHA，重新生成的两份diff逐字一致。未改写此前L01或授权阻塞历史。",
+    "L01三处新增现金入口门禁确已撤回：骑手升级仅依quote、招募保留hireCount限制、车辆升级保留quote和heroVehicleBusy限制。资金不足后随真实收入增长，不再由这三处旧cash快照永久禁用入口；实际提交仍由领域当前余额校验。未增加每帧重画或全局NPC禁用。",
+    "独立核对主角身份、经验和XP分支；NPC收入加成使用incomeFactor-1，取送省时使用fixedServiceReduction，今日收入仍按日期、npc_delivery类别及同riderId汇总。价格与升级费用仍来自现有quote，未实现新费用、槽位或万单位近似。",
+    "riderIdentity使用真实SDK支持的NONE→updateRenderData(true)→读取UITransform.width→CLAMP定位流程。Label.ts:961-970及ttfUtils.ts:114-159证实可立即更新内容尺寸；Lv左边固定接在测得姓名右边6单位。异步真实姓名再次执行同一布局，严格检查parent/name/marker有效性；回调不改等级、选择或命令目标。当前manifest独立清点为30个NPC姓名，均为2字。",
+    "已追action→tap的PressVisual重挂及getComponentInChildren(Label)真实递归接口；启用和禁用按钮均有对应Label，皮肤层没有另一个抢先匹配的Label。身份、状态和价格层未新增触控绑定；现有拖动取消点击链保留。",
+    "纯源码布局算术：基础卡338×180，信息区x=[-53,157]，肖像框至信息区间隔10；姓名框至正文2.5，肖像框至状态2，状态至按钮2，正文至按钮8，按钮底部留白3。未发现这些声明节点矩形的新重叠。",
+    "长行按同一rows高度绘制；卡高包含正文和按钮增量，同一网格行取两卡最大值并累计rowTops/contentHeight。正文至按钮间隔为8+配对余量，状态至按钮为2+正文增量+配对余量；主角XP至按钮也保留正间隔。",
+    "31卡全部枚举为16行，riders滚动key、销毁前保存偏移及实例身份保护的延后恢复保持。基础内容高3008，视口高1003.0364614465034，静态预算为10张完整卡及下一行63.03646144650338单位；最后卡底仍留8单位。视口与大抢单按钮声明触控框相隔29.52241482367009单位。这是矩形预算，不是首屏密度或触控实测通过。",
+    "配置页heroBusy仅针对主角；heroVehicleBusy只匹配活动主角所用车辆。领域校验明确要求riders[0]为hero，因此该身份索引有实际契约支撑。满级、车辆归属及旧fleet车辆占用限制保留。",
+    "相对81f，riders之前及showUpgrade起至文件末尾字节保持，食品、ETA、补给、原滚动和其他页面未被本增量改写；Spacing变更仅由骑手列表消费。此保存性证明不补发或替代其他独立质量门禁。",
+    "姓名最终字体度量、长价格的实际换行、2单位小间隔的视觉效果、快速切页及晚回调、所有等级/资金/状态组合、滚动与实际点击均未运行。textHeight仍是估宽，不能据此宣称所有字体都不裁切；也未凭未运行字体推定阻塞。",
+    "Runtime a5仅作为当前依赖核对必要接口与SHA，未以其独立PASS代替UI审查；未声称旧红错根因、NPC调整契约或全部经济操作已解决。",
+    "全程只读，未写源码、报告或权限，未执行tests/typecheck、App/TS/Game/UI函数、构建、浏览器、业务或真实/合成档，未派Agent/Codex或涉及地图制作。未评分、未关闭反馈，静态PASS不代表构建、实际画面、98%或用户验收通过。只读范围交回PM。"
+  ]
+}

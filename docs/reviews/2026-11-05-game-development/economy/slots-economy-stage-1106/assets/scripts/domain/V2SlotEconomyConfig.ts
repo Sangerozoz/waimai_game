@@ -1,0 +1,2547 @@
+// Generated from docs/balance/2026-11-06-capacity-slots-economy/parameters.json; do not edit values here.
+export const V2_SLOT_CONFIG_SOURCE_SHA256 = "1bd6db1c573e3b48ee7bef0b0be20bceeae290cfe2d6d05b0cd72f2e5f99fd91";
+export const V2_SLOT_CONFIG = {
+  "profileId": "capacity-slots-economy-2026-11-06-v1",
+  "status": "PM-selected-first-calibration; not integrated or game-tested; not global balance acceptance",
+  "sourceProposal": "../../reviews/2026-11-05-game-development/economy/slots-economy-candidate-1106/a-proposal.md",
+  "legacyConfigId": "frontloaded-2026-11-04-v3-hire-training-tail",
+  "legacyParametersSHA256": "f0dee208cab056b3c984ee0f469dec46d1a6e7bc6195ccd7085c1f1da2f45653",
+  "startCoins": 100,
+  "maps": [
+    {
+      "id": 1,
+      "name": "晴川县",
+      "price": 0,
+      "ordinaryBaseFee": 20,
+      "expectedBatchDensityCap": 2
+    },
+    {
+      "id": 2,
+      "name": "云浦市",
+      "price": 1500,
+      "ordinaryBaseFee": 27,
+      "expectedBatchDensityCap": 3
+    },
+    {
+      "id": 3,
+      "name": "星澜城",
+      "price": 10000,
+      "ordinaryBaseFee": 37,
+      "expectedBatchDensityCap": 5
+    },
+    {
+      "id": 4,
+      "name": "曜川都会",
+      "price": 45000,
+      "ordinaryBaseFee": 51,
+      "expectedBatchDensityCap": 7
+    },
+    {
+      "id": 5,
+      "name": "海境港",
+      "price": 600000,
+      "ordinaryBaseFee": 70,
+      "expectedBatchDensityCap": 10
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "name": "街行",
+      "price": 300,
+      "speedRelativeToStarter": 1.1,
+      "incomeFactor": 1.2,
+      "baseCapacitySlots": 3
+    },
+    {
+      "id": 2,
+      "name": "轻燕",
+      "price": 600,
+      "speedRelativeToStarter": 1.3,
+      "incomeFactor": 1.3,
+      "baseCapacitySlots": 4
+    },
+    {
+      "id": 3,
+      "name": "满载",
+      "price": 1000,
+      "speedRelativeToStarter": 1.2,
+      "incomeFactor": 1.5,
+      "baseCapacitySlots": 6
+    },
+    {
+      "id": 4,
+      "name": "城风",
+      "price": 1800,
+      "speedRelativeToStarter": 1.5,
+      "incomeFactor": 1.55,
+      "baseCapacitySlots": 5
+    },
+    {
+      "id": 5,
+      "name": "远途",
+      "price": 3000,
+      "speedRelativeToStarter": 1.5,
+      "incomeFactor": 1.9,
+      "baseCapacitySlots": 8
+    },
+    {
+      "id": 6,
+      "name": "疾影",
+      "price": 5000,
+      "speedRelativeToStarter": 1.8,
+      "incomeFactor": 1.85,
+      "baseCapacitySlots": 6
+    },
+    {
+      "id": 7,
+      "name": "重航",
+      "price": 8000,
+      "speedRelativeToStarter": 1.75,
+      "incomeFactor": 2.35,
+      "baseCapacitySlots": 10
+    },
+    {
+      "id": 8,
+      "name": "星驰",
+      "price": 12000,
+      "speedRelativeToStarter": 2,
+      "incomeFactor": 2.15,
+      "baseCapacitySlots": 8
+    },
+    {
+      "id": 9,
+      "name": "金穗",
+      "price": 80000,
+      "speedRelativeToStarter": 2.0,
+      "incomeFactor": 2.9,
+      "baseCapacitySlots": 12
+    },
+    {
+      "id": 10,
+      "name": "晨光",
+      "price": 160000,
+      "speedRelativeToStarter": 2.3,
+      "incomeFactor": 3.2,
+      "baseCapacitySlots": 10
+    }
+  ],
+  "riders": [
+    {
+      "price": 120,
+      "id": "npc-1",
+      "baseIncomeFactor": 1
+    },
+    {
+      "price": 130,
+      "id": "npc-2",
+      "baseIncomeFactor": 1.01
+    },
+    {
+      "price": 170,
+      "id": "npc-3",
+      "baseIncomeFactor": 1.02
+    },
+    {
+      "price": 910,
+      "id": "npc-4",
+      "baseIncomeFactor": 1.03
+    },
+    {
+      "price": 1740,
+      "id": "npc-5",
+      "baseIncomeFactor": 1.035
+    },
+    {
+      "price": 2760,
+      "id": "npc-6",
+      "baseIncomeFactor": 1.04
+    },
+    {
+      "price": 3940,
+      "id": "npc-7",
+      "baseIncomeFactor": 1.045
+    },
+    {
+      "price": 5270,
+      "id": "npc-8",
+      "baseIncomeFactor": 1.05
+    },
+    {
+      "price": 6750,
+      "id": "npc-9",
+      "baseIncomeFactor": 1.055
+    },
+    {
+      "price": 8360,
+      "id": "npc-10",
+      "baseIncomeFactor": 1.06
+    },
+    {
+      "price": 10090,
+      "id": "npc-11",
+      "baseIncomeFactor": 1.065
+    },
+    {
+      "price": 11940,
+      "id": "npc-12",
+      "baseIncomeFactor": 1.07
+    },
+    {
+      "price": 13910,
+      "id": "npc-13",
+      "baseIncomeFactor": 1.075
+    },
+    {
+      "price": 15990,
+      "id": "npc-14",
+      "baseIncomeFactor": 1.08
+    },
+    {
+      "price": 18170,
+      "id": "npc-15",
+      "baseIncomeFactor": 1.085
+    },
+    {
+      "price": 20460,
+      "id": "npc-16",
+      "baseIncomeFactor": 1.09
+    },
+    {
+      "price": 22850,
+      "id": "npc-17",
+      "baseIncomeFactor": 1.095
+    },
+    {
+      "price": 25330,
+      "id": "npc-18",
+      "baseIncomeFactor": 1.1
+    },
+    {
+      "price": 27920,
+      "id": "npc-19",
+      "baseIncomeFactor": 1.105
+    },
+    {
+      "price": 30590,
+      "id": "npc-20",
+      "baseIncomeFactor": 1.11
+    },
+    {
+      "price": 33350,
+      "id": "npc-21",
+      "baseIncomeFactor": 1.115
+    },
+    {
+      "price": 36210,
+      "id": "npc-22",
+      "baseIncomeFactor": 1.12
+    },
+    {
+      "price": 39140,
+      "id": "npc-23",
+      "baseIncomeFactor": 1.125
+    },
+    {
+      "price": 42170,
+      "id": "npc-24",
+      "baseIncomeFactor": 1.13
+    },
+    {
+      "price": 880000,
+      "id": "npc-25",
+      "baseIncomeFactor": 1.14
+    },
+    {
+      "price": 1760000,
+      "id": "npc-26",
+      "baseIncomeFactor": 1.16
+    },
+    {
+      "price": 3080000,
+      "id": "npc-27",
+      "baseIncomeFactor": 1.18
+    },
+    {
+      "price": 4840000,
+      "id": "npc-28",
+      "baseIncomeFactor": 1.2
+    },
+    {
+      "price": 7040000,
+      "id": "npc-29",
+      "baseIncomeFactor": 1.22
+    },
+    {
+      "price": 9680000,
+      "id": "npc-30",
+      "baseIncomeFactor": 1.24
+    }
+  ],
+  "starterVehicle": {
+    "price": 0,
+    "upgradeCostBasis": 150,
+    "speedRelativeToStarter": 1,
+    "incomeFactor": 1,
+    "sellable": false,
+    "baseCapacitySlots": 2
+  },
+  "catalogNote": "copied capacityKg fields are legacy provenance only; do not use in slots business rules. Integration must expose separately typed slots effects.",
+  "occupiedSlots": [
+    1,
+    2
+  ],
+  "capacityIncreaseLevels": [
+    3,
+    5,
+    8,
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "rounding": "costs are integer coins; paid-model per-level fee rounds half-up to a multiple of 5 after scaling; wallet remains integer cents",
+  "levels": [
+    {
+      "level": 1,
+      "starterUpgradeCoins": 0,
+      "starterCumulativeUpgradeCoins": 0,
+      "starterCapacitySlots": 2,
+      "riderUpgradeCoins": 0,
+      "riderCumulativeUpgradeCoins": 0,
+      "vehicleSpeedBonus": 0.0,
+      "vehicleIncomeBonus": 0.0,
+      "riderTrainingIncomeBonus": 0.0,
+      "fixedServiceReduction": 0.0,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 3
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 4
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 5
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 0,
+          "cumulativeUpgradeCoins": 0,
+          "capacitySlots": 10
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "starterUpgradeCoins": 20,
+      "starterCumulativeUpgradeCoins": 20,
+      "starterCapacitySlots": 2,
+      "riderUpgradeCoins": 30,
+      "riderCumulativeUpgradeCoins": 30,
+      "vehicleSpeedBonus": 0.03,
+      "vehicleIncomeBonus": 0.04,
+      "riderTrainingIncomeBonus": 0.08,
+      "fixedServiceReduction": 0.03,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 30,
+          "cumulativeUpgradeCoins": 30,
+          "capacitySlots": 3
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 40,
+          "cumulativeUpgradeCoins": 40,
+          "capacitySlots": 4
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 55,
+          "cumulativeUpgradeCoins": 55,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 75,
+          "cumulativeUpgradeCoins": 75,
+          "capacitySlots": 5
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 95,
+          "cumulativeUpgradeCoins": 95,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 120,
+          "cumulativeUpgradeCoins": 120,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 155,
+          "cumulativeUpgradeCoins": 155,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 190,
+          "cumulativeUpgradeCoins": 190,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 490,
+          "cumulativeUpgradeCoins": 490,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 695,
+          "cumulativeUpgradeCoins": 695,
+          "capacitySlots": 10
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "starterUpgradeCoins": 30,
+      "starterCumulativeUpgradeCoins": 50,
+      "starterCapacitySlots": 3,
+      "riderUpgradeCoins": 45,
+      "riderCumulativeUpgradeCoins": 75,
+      "vehicleSpeedBonus": 0.06,
+      "vehicleIncomeBonus": 0.08,
+      "riderTrainingIncomeBonus": 0.16,
+      "fixedServiceReduction": 0.06,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 45,
+          "cumulativeUpgradeCoins": 75,
+          "capacitySlots": 4
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 65,
+          "cumulativeUpgradeCoins": 105,
+          "capacitySlots": 5
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 80,
+          "cumulativeUpgradeCoins": 135,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 110,
+          "cumulativeUpgradeCoins": 185,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 140,
+          "cumulativeUpgradeCoins": 235,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 185,
+          "cumulativeUpgradeCoins": 305,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 230,
+          "cumulativeUpgradeCoins": 385,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 285,
+          "cumulativeUpgradeCoins": 475,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 735,
+          "cumulativeUpgradeCoins": 1225,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 1040,
+          "cumulativeUpgradeCoins": 1735,
+          "capacitySlots": 11
+        }
+      ]
+    },
+    {
+      "level": 4,
+      "starterUpgradeCoins": 45,
+      "starterCumulativeUpgradeCoins": 95,
+      "starterCapacitySlots": 3,
+      "riderUpgradeCoins": 60,
+      "riderCumulativeUpgradeCoins": 135,
+      "vehicleSpeedBonus": 0.09,
+      "vehicleIncomeBonus": 0.12,
+      "riderTrainingIncomeBonus": 0.24,
+      "fixedServiceReduction": 0.09,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 70,
+          "cumulativeUpgradeCoins": 145,
+          "capacitySlots": 4
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 95,
+          "cumulativeUpgradeCoins": 200,
+          "capacitySlots": 5
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 125,
+          "cumulativeUpgradeCoins": 260,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 165,
+          "cumulativeUpgradeCoins": 350,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 215,
+          "cumulativeUpgradeCoins": 450,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 275,
+          "cumulativeUpgradeCoins": 580,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 350,
+          "cumulativeUpgradeCoins": 735,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 425,
+          "cumulativeUpgradeCoins": 900,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 1100,
+          "cumulativeUpgradeCoins": 2325,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 1560,
+          "cumulativeUpgradeCoins": 3295,
+          "capacitySlots": 11
+        }
+      ]
+    },
+    {
+      "level": 5,
+      "starterUpgradeCoins": 60,
+      "starterCumulativeUpgradeCoins": 155,
+      "starterCapacitySlots": 4,
+      "riderUpgradeCoins": 80,
+      "riderCumulativeUpgradeCoins": 215,
+      "vehicleSpeedBonus": 0.12,
+      "vehicleIncomeBonus": 0.16,
+      "riderTrainingIncomeBonus": 0.32,
+      "fixedServiceReduction": 0.12,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 90,
+          "cumulativeUpgradeCoins": 235,
+          "capacitySlots": 5
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 125,
+          "cumulativeUpgradeCoins": 325,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 165,
+          "cumulativeUpgradeCoins": 425,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 220,
+          "cumulativeUpgradeCoins": 570,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 285,
+          "cumulativeUpgradeCoins": 735,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 365,
+          "cumulativeUpgradeCoins": 945,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 465,
+          "cumulativeUpgradeCoins": 1200,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 570,
+          "cumulativeUpgradeCoins": 1470,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 1470,
+          "cumulativeUpgradeCoins": 3795,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 2080,
+          "cumulativeUpgradeCoins": 5375,
+          "capacitySlots": 12
+        }
+      ]
+    },
+    {
+      "level": 6,
+      "starterUpgradeCoins": 80,
+      "starterCumulativeUpgradeCoins": 235,
+      "starterCapacitySlots": 4,
+      "riderUpgradeCoins": 100,
+      "riderCumulativeUpgradeCoins": 315,
+      "vehicleSpeedBonus": 0.15,
+      "vehicleIncomeBonus": 0.2,
+      "riderTrainingIncomeBonus": 0.4,
+      "fixedServiceReduction": 0.15,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 120,
+          "cumulativeUpgradeCoins": 355,
+          "capacitySlots": 5
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 170,
+          "cumulativeUpgradeCoins": 495,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 220,
+          "cumulativeUpgradeCoins": 645,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 295,
+          "cumulativeUpgradeCoins": 865,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 380,
+          "cumulativeUpgradeCoins": 1115,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 490,
+          "cumulativeUpgradeCoins": 1435,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 620,
+          "cumulativeUpgradeCoins": 1820,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 760,
+          "cumulativeUpgradeCoins": 2230,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 1960,
+          "cumulativeUpgradeCoins": 5755,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 2770,
+          "cumulativeUpgradeCoins": 8145,
+          "capacitySlots": 12
+        }
+      ]
+    },
+    {
+      "level": 7,
+      "starterUpgradeCoins": 100,
+      "starterCumulativeUpgradeCoins": 335,
+      "starterCapacitySlots": 4,
+      "riderUpgradeCoins": 125,
+      "riderCumulativeUpgradeCoins": 440,
+      "vehicleSpeedBonus": 0.18,
+      "vehicleIncomeBonus": 0.24,
+      "riderTrainingIncomeBonus": 0.48,
+      "fixedServiceReduction": 0.18,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 150,
+          "cumulativeUpgradeCoins": 505,
+          "capacitySlots": 5
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 210,
+          "cumulativeUpgradeCoins": 705,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 275,
+          "cumulativeUpgradeCoins": 920,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 365,
+          "cumulativeUpgradeCoins": 1230,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 475,
+          "cumulativeUpgradeCoins": 1590,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 610,
+          "cumulativeUpgradeCoins": 2045,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 775,
+          "cumulativeUpgradeCoins": 2595,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 950,
+          "cumulativeUpgradeCoins": 3180,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 2450,
+          "cumulativeUpgradeCoins": 8205,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 3465,
+          "cumulativeUpgradeCoins": 11610,
+          "capacitySlots": 12
+        }
+      ]
+    },
+    {
+      "level": 8,
+      "starterUpgradeCoins": 125,
+      "starterCumulativeUpgradeCoins": 460,
+      "starterCapacitySlots": 5,
+      "riderUpgradeCoins": 155,
+      "riderCumulativeUpgradeCoins": 595,
+      "vehicleSpeedBonus": 0.21,
+      "vehicleIncomeBonus": 0.28,
+      "riderTrainingIncomeBonus": 0.56,
+      "fixedServiceReduction": 0.21,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 190,
+          "cumulativeUpgradeCoins": 695,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 265,
+          "cumulativeUpgradeCoins": 970,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 340,
+          "cumulativeUpgradeCoins": 1260,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 460,
+          "cumulativeUpgradeCoins": 1690,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 595,
+          "cumulativeUpgradeCoins": 2185,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 765,
+          "cumulativeUpgradeCoins": 2810,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 970,
+          "cumulativeUpgradeCoins": 3565,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 1185,
+          "cumulativeUpgradeCoins": 4365,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 3060,
+          "cumulativeUpgradeCoins": 11265,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 4330,
+          "cumulativeUpgradeCoins": 15940,
+          "capacitySlots": 13
+        }
+      ]
+    },
+    {
+      "level": 9,
+      "starterUpgradeCoins": 155,
+      "starterCumulativeUpgradeCoins": 615,
+      "starterCapacitySlots": 5,
+      "riderUpgradeCoins": 190,
+      "riderCumulativeUpgradeCoins": 785,
+      "vehicleSpeedBonus": 0.24,
+      "vehicleIncomeBonus": 0.32,
+      "riderTrainingIncomeBonus": 0.64,
+      "fixedServiceReduction": 0.24,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 235,
+          "cumulativeUpgradeCoins": 930,
+          "capacitySlots": 6
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 330,
+          "cumulativeUpgradeCoins": 1300,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 425,
+          "cumulativeUpgradeCoins": 1685,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 570,
+          "cumulativeUpgradeCoins": 2260,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 735,
+          "cumulativeUpgradeCoins": 2920,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 950,
+          "cumulativeUpgradeCoins": 3760,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1200,
+          "cumulativeUpgradeCoins": 4765,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 1470,
+          "cumulativeUpgradeCoins": 5835,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 3795,
+          "cumulativeUpgradeCoins": 15060,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 5370,
+          "cumulativeUpgradeCoins": 21310,
+          "capacitySlots": 13
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "starterUpgradeCoins": 190,
+      "starterCumulativeUpgradeCoins": 805,
+      "starterCapacitySlots": 6,
+      "riderUpgradeCoins": 230,
+      "riderCumulativeUpgradeCoins": 1015,
+      "vehicleSpeedBonus": 0.27,
+      "vehicleIncomeBonus": 0.36,
+      "riderTrainingIncomeBonus": 0.72,
+      "fixedServiceReduction": 0.27,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 285,
+          "cumulativeUpgradeCoins": 1215,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 405,
+          "cumulativeUpgradeCoins": 1705,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 520,
+          "cumulativeUpgradeCoins": 2205,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 700,
+          "cumulativeUpgradeCoins": 2960,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 900,
+          "cumulativeUpgradeCoins": 3820,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1165,
+          "cumulativeUpgradeCoins": 4925,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1470,
+          "cumulativeUpgradeCoins": 6235,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 1800,
+          "cumulativeUpgradeCoins": 7635,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 4655,
+          "cumulativeUpgradeCoins": 19715,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 6580,
+          "cumulativeUpgradeCoins": 27890,
+          "capacitySlots": 14
+        }
+      ]
+    },
+    {
+      "level": 11,
+      "starterUpgradeCoins": 210,
+      "starterCumulativeUpgradeCoins": 1015,
+      "starterCapacitySlots": 6,
+      "riderUpgradeCoins": 250,
+      "riderCumulativeUpgradeCoins": 1265,
+      "vehicleSpeedBonus": 0.2865,
+      "vehicleIncomeBonus": 0.382,
+      "riderTrainingIncomeBonus": 0.759,
+      "fixedServiceReduction": 0.2765,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 315,
+          "cumulativeUpgradeCoins": 1530,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 445,
+          "cumulativeUpgradeCoins": 2150,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 575,
+          "cumulativeUpgradeCoins": 2780,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 770,
+          "cumulativeUpgradeCoins": 3730,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 995,
+          "cumulativeUpgradeCoins": 4815,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1285,
+          "cumulativeUpgradeCoins": 6210,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1625,
+          "cumulativeUpgradeCoins": 7860,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 1990,
+          "cumulativeUpgradeCoins": 9625,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 5145,
+          "cumulativeUpgradeCoins": 24860,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 7275,
+          "cumulativeUpgradeCoins": 35165,
+          "capacitySlots": 14
+        }
+      ]
+    },
+    {
+      "level": 12,
+      "starterUpgradeCoins": 215,
+      "starterCumulativeUpgradeCoins": 1230,
+      "starterCapacitySlots": 6,
+      "riderUpgradeCoins": 260,
+      "riderCumulativeUpgradeCoins": 1525,
+      "vehicleSpeedBonus": 0.303,
+      "vehicleIncomeBonus": 0.404,
+      "riderTrainingIncomeBonus": 0.798,
+      "fixedServiceReduction": 0.283,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 325,
+          "cumulativeUpgradeCoins": 1855,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 455,
+          "cumulativeUpgradeCoins": 2605,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 590,
+          "cumulativeUpgradeCoins": 3370,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 790,
+          "cumulativeUpgradeCoins": 4520,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1020,
+          "cumulativeUpgradeCoins": 5835,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1315,
+          "cumulativeUpgradeCoins": 7525,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1665,
+          "cumulativeUpgradeCoins": 9525,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2040,
+          "cumulativeUpgradeCoins": 11665,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 5265,
+          "cumulativeUpgradeCoins": 30125,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 7450,
+          "cumulativeUpgradeCoins": 42615,
+          "capacitySlots": 14
+        }
+      ]
+    },
+    {
+      "level": 13,
+      "starterUpgradeCoins": 220,
+      "starterCumulativeUpgradeCoins": 1450,
+      "starterCapacitySlots": 6,
+      "riderUpgradeCoins": 270,
+      "riderCumulativeUpgradeCoins": 1795,
+      "vehicleSpeedBonus": 0.3195,
+      "vehicleIncomeBonus": 0.426,
+      "riderTrainingIncomeBonus": 0.837,
+      "fixedServiceReduction": 0.2895,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 330,
+          "cumulativeUpgradeCoins": 2185,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 465,
+          "cumulativeUpgradeCoins": 3070,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 600,
+          "cumulativeUpgradeCoins": 3970,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 810,
+          "cumulativeUpgradeCoins": 5330,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1045,
+          "cumulativeUpgradeCoins": 6880,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1345,
+          "cumulativeUpgradeCoins": 8870,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1705,
+          "cumulativeUpgradeCoins": 11230,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2085,
+          "cumulativeUpgradeCoins": 13750,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 5390,
+          "cumulativeUpgradeCoins": 35515,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 7620,
+          "cumulativeUpgradeCoins": 50235,
+          "capacitySlots": 14
+        }
+      ]
+    },
+    {
+      "level": 14,
+      "starterUpgradeCoins": 225,
+      "starterCumulativeUpgradeCoins": 1675,
+      "starterCapacitySlots": 6,
+      "riderUpgradeCoins": 280,
+      "riderCumulativeUpgradeCoins": 2075,
+      "vehicleSpeedBonus": 0.336,
+      "vehicleIncomeBonus": 0.448,
+      "riderTrainingIncomeBonus": 0.876,
+      "fixedServiceReduction": 0.296,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 340,
+          "cumulativeUpgradeCoins": 2525,
+          "capacitySlots": 7
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 475,
+          "cumulativeUpgradeCoins": 3545,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 615,
+          "cumulativeUpgradeCoins": 4585,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 825,
+          "cumulativeUpgradeCoins": 6155,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1065,
+          "cumulativeUpgradeCoins": 7945,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1380,
+          "cumulativeUpgradeCoins": 10250,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1745,
+          "cumulativeUpgradeCoins": 12975,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2135,
+          "cumulativeUpgradeCoins": 15885,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 5510,
+          "cumulativeUpgradeCoins": 41025,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 7795,
+          "cumulativeUpgradeCoins": 58030,
+          "capacitySlots": 14
+        }
+      ]
+    },
+    {
+      "level": 15,
+      "starterUpgradeCoins": 230,
+      "starterCumulativeUpgradeCoins": 1905,
+      "starterCapacitySlots": 7,
+      "riderUpgradeCoins": 290,
+      "riderCumulativeUpgradeCoins": 2365,
+      "vehicleSpeedBonus": 0.3525,
+      "vehicleIncomeBonus": 0.47,
+      "riderTrainingIncomeBonus": 0.915,
+      "fixedServiceReduction": 0.3025,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 345,
+          "cumulativeUpgradeCoins": 2870,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 490,
+          "cumulativeUpgradeCoins": 4035,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 630,
+          "cumulativeUpgradeCoins": 5215,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 845,
+          "cumulativeUpgradeCoins": 7000,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1090,
+          "cumulativeUpgradeCoins": 9035,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1410,
+          "cumulativeUpgradeCoins": 11660,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1780,
+          "cumulativeUpgradeCoins": 14755,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2180,
+          "cumulativeUpgradeCoins": 18065,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 5635,
+          "cumulativeUpgradeCoins": 46660,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 7965,
+          "cumulativeUpgradeCoins": 65995,
+          "capacitySlots": 15
+        }
+      ]
+    },
+    {
+      "level": 16,
+      "starterUpgradeCoins": 235,
+      "starterCumulativeUpgradeCoins": 2140,
+      "starterCapacitySlots": 7,
+      "riderUpgradeCoins": 300,
+      "riderCumulativeUpgradeCoins": 2665,
+      "vehicleSpeedBonus": 0.369,
+      "vehicleIncomeBonus": 0.492,
+      "riderTrainingIncomeBonus": 0.954,
+      "fixedServiceReduction": 0.309,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 355,
+          "cumulativeUpgradeCoins": 3225,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 500,
+          "cumulativeUpgradeCoins": 4535,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 645,
+          "cumulativeUpgradeCoins": 5860,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 865,
+          "cumulativeUpgradeCoins": 7865,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1115,
+          "cumulativeUpgradeCoins": 10150,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1440,
+          "cumulativeUpgradeCoins": 13100,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1820,
+          "cumulativeUpgradeCoins": 16575,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2230,
+          "cumulativeUpgradeCoins": 20295,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 5755,
+          "cumulativeUpgradeCoins": 52415,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 8140,
+          "cumulativeUpgradeCoins": 74135,
+          "capacitySlots": 15
+        }
+      ]
+    },
+    {
+      "level": 17,
+      "starterUpgradeCoins": 240,
+      "starterCumulativeUpgradeCoins": 2380,
+      "starterCapacitySlots": 7,
+      "riderUpgradeCoins": 310,
+      "riderCumulativeUpgradeCoins": 2975,
+      "vehicleSpeedBonus": 0.3855,
+      "vehicleIncomeBonus": 0.514,
+      "riderTrainingIncomeBonus": 0.993,
+      "fixedServiceReduction": 0.3155,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 360,
+          "cumulativeUpgradeCoins": 3585,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 510,
+          "cumulativeUpgradeCoins": 5045,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 655,
+          "cumulativeUpgradeCoins": 6515,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 880,
+          "cumulativeUpgradeCoins": 8745,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1140,
+          "cumulativeUpgradeCoins": 11290,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1470,
+          "cumulativeUpgradeCoins": 14570,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1860,
+          "cumulativeUpgradeCoins": 18435,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2275,
+          "cumulativeUpgradeCoins": 22570,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 5880,
+          "cumulativeUpgradeCoins": 58295,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 8315,
+          "cumulativeUpgradeCoins": 82450,
+          "capacitySlots": 15
+        }
+      ]
+    },
+    {
+      "level": 18,
+      "starterUpgradeCoins": 245,
+      "starterCumulativeUpgradeCoins": 2625,
+      "starterCapacitySlots": 7,
+      "riderUpgradeCoins": 320,
+      "riderCumulativeUpgradeCoins": 3295,
+      "vehicleSpeedBonus": 0.402,
+      "vehicleIncomeBonus": 0.536,
+      "riderTrainingIncomeBonus": 1.032,
+      "fixedServiceReduction": 0.322,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 370,
+          "cumulativeUpgradeCoins": 3955,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 520,
+          "cumulativeUpgradeCoins": 5565,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 670,
+          "cumulativeUpgradeCoins": 7185,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 900,
+          "cumulativeUpgradeCoins": 9645,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1160,
+          "cumulativeUpgradeCoins": 12450,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1500,
+          "cumulativeUpgradeCoins": 16070,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1900,
+          "cumulativeUpgradeCoins": 20335,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2325,
+          "cumulativeUpgradeCoins": 24895,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6000,
+          "cumulativeUpgradeCoins": 64295,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 8485,
+          "cumulativeUpgradeCoins": 90935,
+          "capacitySlots": 15
+        }
+      ]
+    },
+    {
+      "level": 19,
+      "starterUpgradeCoins": 250,
+      "starterCumulativeUpgradeCoins": 2875,
+      "starterCapacitySlots": 7,
+      "riderUpgradeCoins": 330,
+      "riderCumulativeUpgradeCoins": 3625,
+      "vehicleSpeedBonus": 0.4185,
+      "vehicleIncomeBonus": 0.558,
+      "riderTrainingIncomeBonus": 1.071,
+      "fixedServiceReduction": 0.3285,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 375,
+          "cumulativeUpgradeCoins": 4330,
+          "capacitySlots": 8
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 530,
+          "cumulativeUpgradeCoins": 6095,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 685,
+          "cumulativeUpgradeCoins": 7870,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 920,
+          "cumulativeUpgradeCoins": 10565,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1185,
+          "cumulativeUpgradeCoins": 13635,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1530,
+          "cumulativeUpgradeCoins": 17600,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1935,
+          "cumulativeUpgradeCoins": 22270,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2370,
+          "cumulativeUpgradeCoins": 27265,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6125,
+          "cumulativeUpgradeCoins": 70420,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 8660,
+          "cumulativeUpgradeCoins": 99595,
+          "capacitySlots": 15
+        }
+      ]
+    },
+    {
+      "level": 20,
+      "starterUpgradeCoins": 255,
+      "starterCumulativeUpgradeCoins": 3130,
+      "starterCapacitySlots": 8,
+      "riderUpgradeCoins": 340,
+      "riderCumulativeUpgradeCoins": 3965,
+      "vehicleSpeedBonus": 0.435,
+      "vehicleIncomeBonus": 0.58,
+      "riderTrainingIncomeBonus": 1.11,
+      "fixedServiceReduction": 0.335,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 385,
+          "cumulativeUpgradeCoins": 4715,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 540,
+          "cumulativeUpgradeCoins": 6635,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 700,
+          "cumulativeUpgradeCoins": 8570,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 935,
+          "cumulativeUpgradeCoins": 11500,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1210,
+          "cumulativeUpgradeCoins": 14845,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1560,
+          "cumulativeUpgradeCoins": 19160,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 1975,
+          "cumulativeUpgradeCoins": 24245,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2420,
+          "cumulativeUpgradeCoins": 29685,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6245,
+          "cumulativeUpgradeCoins": 76665,
+          "capacitySlots": 18
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 8835,
+          "cumulativeUpgradeCoins": 108430,
+          "capacitySlots": 16
+        }
+      ]
+    },
+    {
+      "level": 21,
+      "starterUpgradeCoins": 260,
+      "starterCumulativeUpgradeCoins": 3390,
+      "starterCapacitySlots": 8,
+      "riderUpgradeCoins": 350,
+      "riderCumulativeUpgradeCoins": 4315,
+      "vehicleSpeedBonus": 0.4515,
+      "vehicleIncomeBonus": 0.602,
+      "riderTrainingIncomeBonus": 1.149,
+      "fixedServiceReduction": 0.3415,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 390,
+          "cumulativeUpgradeCoins": 5105,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 550,
+          "cumulativeUpgradeCoins": 7185,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 710,
+          "cumulativeUpgradeCoins": 9280,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 955,
+          "cumulativeUpgradeCoins": 12455,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1235,
+          "cumulativeUpgradeCoins": 16080,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1590,
+          "cumulativeUpgradeCoins": 20750,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2015,
+          "cumulativeUpgradeCoins": 26260,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2465,
+          "cumulativeUpgradeCoins": 32150,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6370,
+          "cumulativeUpgradeCoins": 83035,
+          "capacitySlots": 18
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 9005,
+          "cumulativeUpgradeCoins": 117435,
+          "capacitySlots": 16
+        }
+      ]
+    },
+    {
+      "level": 22,
+      "starterUpgradeCoins": 265,
+      "starterCumulativeUpgradeCoins": 3655,
+      "starterCapacitySlots": 8,
+      "riderUpgradeCoins": 360,
+      "riderCumulativeUpgradeCoins": 4675,
+      "vehicleSpeedBonus": 0.468,
+      "vehicleIncomeBonus": 0.624,
+      "riderTrainingIncomeBonus": 1.188,
+      "fixedServiceReduction": 0.348,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 400,
+          "cumulativeUpgradeCoins": 5505,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 560,
+          "cumulativeUpgradeCoins": 7745,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 725,
+          "cumulativeUpgradeCoins": 10005,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 975,
+          "cumulativeUpgradeCoins": 13430,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1255,
+          "cumulativeUpgradeCoins": 17335,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1625,
+          "cumulativeUpgradeCoins": 22375,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2055,
+          "cumulativeUpgradeCoins": 28315,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2515,
+          "cumulativeUpgradeCoins": 34665,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6490,
+          "cumulativeUpgradeCoins": 89525,
+          "capacitySlots": 18
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 9180,
+          "cumulativeUpgradeCoins": 126615,
+          "capacitySlots": 16
+        }
+      ]
+    },
+    {
+      "level": 23,
+      "starterUpgradeCoins": 270,
+      "starterCumulativeUpgradeCoins": 3925,
+      "starterCapacitySlots": 8,
+      "riderUpgradeCoins": 370,
+      "riderCumulativeUpgradeCoins": 5045,
+      "vehicleSpeedBonus": 0.4845,
+      "vehicleIncomeBonus": 0.646,
+      "riderTrainingIncomeBonus": 1.227,
+      "fixedServiceReduction": 0.3545,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 405,
+          "cumulativeUpgradeCoins": 5910,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 575,
+          "cumulativeUpgradeCoins": 8320,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 740,
+          "cumulativeUpgradeCoins": 10745,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 990,
+          "cumulativeUpgradeCoins": 14420,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1280,
+          "cumulativeUpgradeCoins": 18615,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1655,
+          "cumulativeUpgradeCoins": 24030,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2090,
+          "cumulativeUpgradeCoins": 30405,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2560,
+          "cumulativeUpgradeCoins": 37225,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6615,
+          "cumulativeUpgradeCoins": 96140,
+          "capacitySlots": 18
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 9355,
+          "cumulativeUpgradeCoins": 135970,
+          "capacitySlots": 16
+        }
+      ]
+    },
+    {
+      "level": 24,
+      "starterUpgradeCoins": 275,
+      "starterCumulativeUpgradeCoins": 4200,
+      "starterCapacitySlots": 8,
+      "riderUpgradeCoins": 380,
+      "riderCumulativeUpgradeCoins": 5425,
+      "vehicleSpeedBonus": 0.501,
+      "vehicleIncomeBonus": 0.668,
+      "riderTrainingIncomeBonus": 1.266,
+      "fixedServiceReduction": 0.361,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 415,
+          "cumulativeUpgradeCoins": 6325,
+          "capacitySlots": 9
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 585,
+          "cumulativeUpgradeCoins": 8905,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 755,
+          "cumulativeUpgradeCoins": 11500,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 1010,
+          "cumulativeUpgradeCoins": 15430,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1305,
+          "cumulativeUpgradeCoins": 19920,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1685,
+          "cumulativeUpgradeCoins": 25715,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2130,
+          "cumulativeUpgradeCoins": 32535,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2610,
+          "cumulativeUpgradeCoins": 39835,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6735,
+          "cumulativeUpgradeCoins": 102875,
+          "capacitySlots": 18
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 9525,
+          "cumulativeUpgradeCoins": 145495,
+          "capacitySlots": 16
+        }
+      ]
+    },
+    {
+      "level": 25,
+      "starterUpgradeCoins": 280,
+      "starterCumulativeUpgradeCoins": 4480,
+      "starterCapacitySlots": 9,
+      "riderUpgradeCoins": 390,
+      "riderCumulativeUpgradeCoins": 5815,
+      "vehicleSpeedBonus": 0.5175,
+      "vehicleIncomeBonus": 0.69,
+      "riderTrainingIncomeBonus": 1.305,
+      "fixedServiceReduction": 0.3675,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 420,
+          "cumulativeUpgradeCoins": 6745,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 595,
+          "cumulativeUpgradeCoins": 9500,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 765,
+          "cumulativeUpgradeCoins": 12265,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 1030,
+          "cumulativeUpgradeCoins": 16460,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1330,
+          "cumulativeUpgradeCoins": 21250,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1715,
+          "cumulativeUpgradeCoins": 27430,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2170,
+          "cumulativeUpgradeCoins": 34705,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2655,
+          "cumulativeUpgradeCoins": 42490,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6860,
+          "cumulativeUpgradeCoins": 109735,
+          "capacitySlots": 19
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 9700,
+          "cumulativeUpgradeCoins": 155195,
+          "capacitySlots": 17
+        }
+      ]
+    },
+    {
+      "level": 26,
+      "starterUpgradeCoins": 285,
+      "starterCumulativeUpgradeCoins": 4765,
+      "starterCapacitySlots": 9,
+      "riderUpgradeCoins": 400,
+      "riderCumulativeUpgradeCoins": 6215,
+      "vehicleSpeedBonus": 0.534,
+      "vehicleIncomeBonus": 0.712,
+      "riderTrainingIncomeBonus": 1.344,
+      "fixedServiceReduction": 0.374,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 430,
+          "cumulativeUpgradeCoins": 7175,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 605,
+          "cumulativeUpgradeCoins": 10105,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 780,
+          "cumulativeUpgradeCoins": 13045,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 1045,
+          "cumulativeUpgradeCoins": 17505,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1350,
+          "cumulativeUpgradeCoins": 22600,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1745,
+          "cumulativeUpgradeCoins": 29175,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2210,
+          "cumulativeUpgradeCoins": 36915,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2705,
+          "cumulativeUpgradeCoins": 45195,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 6980,
+          "cumulativeUpgradeCoins": 116715,
+          "capacitySlots": 19
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 9875,
+          "cumulativeUpgradeCoins": 165070,
+          "capacitySlots": 17
+        }
+      ]
+    },
+    {
+      "level": 27,
+      "starterUpgradeCoins": 290,
+      "starterCumulativeUpgradeCoins": 5055,
+      "starterCapacitySlots": 9,
+      "riderUpgradeCoins": 410,
+      "riderCumulativeUpgradeCoins": 6625,
+      "vehicleSpeedBonus": 0.5505,
+      "vehicleIncomeBonus": 0.734,
+      "riderTrainingIncomeBonus": 1.383,
+      "fixedServiceReduction": 0.3805,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 435,
+          "cumulativeUpgradeCoins": 7610,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 615,
+          "cumulativeUpgradeCoins": 10720,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 795,
+          "cumulativeUpgradeCoins": 13840,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 1065,
+          "cumulativeUpgradeCoins": 18570,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1375,
+          "cumulativeUpgradeCoins": 23975,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1775,
+          "cumulativeUpgradeCoins": 30950,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2245,
+          "cumulativeUpgradeCoins": 39160,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2750,
+          "cumulativeUpgradeCoins": 47945,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 7105,
+          "cumulativeUpgradeCoins": 123820,
+          "capacitySlots": 19
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 10045,
+          "cumulativeUpgradeCoins": 175115,
+          "capacitySlots": 17
+        }
+      ]
+    },
+    {
+      "level": 28,
+      "starterUpgradeCoins": 295,
+      "starterCumulativeUpgradeCoins": 5350,
+      "starterCapacitySlots": 9,
+      "riderUpgradeCoins": 420,
+      "riderCumulativeUpgradeCoins": 7045,
+      "vehicleSpeedBonus": 0.567,
+      "vehicleIncomeBonus": 0.756,
+      "riderTrainingIncomeBonus": 1.422,
+      "fixedServiceReduction": 0.387,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 445,
+          "cumulativeUpgradeCoins": 8055,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 625,
+          "cumulativeUpgradeCoins": 11345,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 810,
+          "cumulativeUpgradeCoins": 14650,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 1085,
+          "cumulativeUpgradeCoins": 19655,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1400,
+          "cumulativeUpgradeCoins": 25375,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1805,
+          "cumulativeUpgradeCoins": 32755,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2285,
+          "cumulativeUpgradeCoins": 41445,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2800,
+          "cumulativeUpgradeCoins": 50745,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 7225,
+          "cumulativeUpgradeCoins": 131045,
+          "capacitySlots": 19
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 10220,
+          "cumulativeUpgradeCoins": 185335,
+          "capacitySlots": 17
+        }
+      ]
+    },
+    {
+      "level": 29,
+      "starterUpgradeCoins": 300,
+      "starterCumulativeUpgradeCoins": 5650,
+      "starterCapacitySlots": 9,
+      "riderUpgradeCoins": 430,
+      "riderCumulativeUpgradeCoins": 7475,
+      "vehicleSpeedBonus": 0.5835,
+      "vehicleIncomeBonus": 0.778,
+      "riderTrainingIncomeBonus": 1.461,
+      "fixedServiceReduction": 0.3935,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 450,
+          "cumulativeUpgradeCoins": 8505,
+          "capacitySlots": 10
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 635,
+          "cumulativeUpgradeCoins": 11980,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 820,
+          "cumulativeUpgradeCoins": 15470,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 1100,
+          "cumulativeUpgradeCoins": 20755,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1425,
+          "cumulativeUpgradeCoins": 26800,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1835,
+          "cumulativeUpgradeCoins": 34590,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2325,
+          "cumulativeUpgradeCoins": 43770,
+          "capacitySlots": 17
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2845,
+          "cumulativeUpgradeCoins": 53590,
+          "capacitySlots": 15
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 7350,
+          "cumulativeUpgradeCoins": 138395,
+          "capacitySlots": 19
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 10390,
+          "cumulativeUpgradeCoins": 195725,
+          "capacitySlots": 17
+        }
+      ]
+    },
+    {
+      "level": 30,
+      "starterUpgradeCoins": 305,
+      "starterCumulativeUpgradeCoins": 5955,
+      "starterCapacitySlots": 10,
+      "riderUpgradeCoins": 440,
+      "riderCumulativeUpgradeCoins": 7915,
+      "vehicleSpeedBonus": 0.6,
+      "vehicleIncomeBonus": 0.8,
+      "riderTrainingIncomeBonus": 1.5,
+      "fixedServiceReduction": 0.4,
+      "vehicles": [
+        {
+          "modelId": 1,
+          "upgradeCoins": 460,
+          "cumulativeUpgradeCoins": 8965,
+          "capacitySlots": 11
+        },
+        {
+          "modelId": 2,
+          "upgradeCoins": 645,
+          "cumulativeUpgradeCoins": 12625,
+          "capacitySlots": 12
+        },
+        {
+          "modelId": 3,
+          "upgradeCoins": 835,
+          "cumulativeUpgradeCoins": 16305,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 4,
+          "upgradeCoins": 1120,
+          "cumulativeUpgradeCoins": 21875,
+          "capacitySlots": 13
+        },
+        {
+          "modelId": 5,
+          "upgradeCoins": 1445,
+          "cumulativeUpgradeCoins": 28245,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 6,
+          "upgradeCoins": 1870,
+          "cumulativeUpgradeCoins": 36460,
+          "capacitySlots": 14
+        },
+        {
+          "modelId": 7,
+          "upgradeCoins": 2365,
+          "cumulativeUpgradeCoins": 46135,
+          "capacitySlots": 18
+        },
+        {
+          "modelId": 8,
+          "upgradeCoins": 2895,
+          "cumulativeUpgradeCoins": 56485,
+          "capacitySlots": 16
+        },
+        {
+          "modelId": 9,
+          "upgradeCoins": 7470,
+          "cumulativeUpgradeCoins": 145865,
+          "capacitySlots": 20
+        },
+        {
+          "modelId": 10,
+          "upgradeCoins": 10565,
+          "cumulativeUpgradeCoins": 206290,
+          "capacitySlots": 18
+        }
+      ]
+    }
+  ],
+  "supplyContract": {
+    "heroVisibleDefault": 8,
+    "requestedPoolCount": "min(50,max(8,2*capacitySlots))",
+    "stableFinitePool": true,
+    "noRerollOnScrollOrUpgrade": true,
+    "existingScanBoundRetained": true,
+    "noHardOrderCountCap": true,
+    "npcMapDensityCapNotNewRuleHardCap": true
+  },
+  "compatibility": [
+    "Legacy config/rules remain immutable and validate old envelopes before wrapping.",
+    "Old kg contracts, quotes, dueMs and earned value remain unchanged. New accepted work uses explicit slots/profile terms.",
+    "Owned levels and cash remain; future upgrades charge adjacent new fees only; no retroactive debit, refund or reset.",
+    "NPC adjustments affect only unsigned future batches; hero active-batch restrictions preserved."
+  ],
+  "exclusions": [
+    "No map geometry/data/production",
+    "No new paging UI, packing forecast, weather or traffic features",
+    "No claim that 20-minute/three-NPC experience or late-game total balance has passed"
+  ]
+} as const;

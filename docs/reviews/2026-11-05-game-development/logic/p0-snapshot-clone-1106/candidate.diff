@@ -1,0 +1,7 @@
+--- a/delivery-game/assets/scripts/domain/V2DispatchSession.ts
++++ b/delivery-game/assets/scripts/domain/V2DispatchSession.ts
+@@ -66,3 +66,3 @@
+  riderUpgradePrice(id:string){return this.economy.riderUpgradePrice(id);}
+- snapshot():V2DispatchSnapshot {return clone({format:'county-v2-dispatch',version:this.version,clockNeedsRebase:this.firstTickAfterRestore,economy:JSON.parse(this.economy.serialize()),fleet:JSON.parse(this.fleet.serialize()),rewards:JSON.parse(this.rewards.serialize()),orders:this.orders,batchIds:this.batchIds,frame:this.frame,control:this.control});}
++ snapshot():V2DispatchSnapshot {return {format:'county-v2-dispatch',version:this.version,clockNeedsRebase:this.firstTickAfterRestore,economy:JSON.parse(this.economy.serialize()),fleet:JSON.parse(this.fleet.serialize()),rewards:JSON.parse(this.rewards.serialize()),...clone({orders:this.orders,batchIds:this.batchIds,frame:this.frame}),control:this.control};}
+  serialize():string{return JSON.stringify(this.snapshot());}

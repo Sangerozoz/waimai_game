@@ -1,0 +1,84 @@
+{
+  "author": "thr_4xmqy6fzdm",
+  "reviewer": "thr_29f6fcihz6",
+  "scope": "read-only Spec and code-quality review; no model/provider/permission changes; no execution of game/tests/model/build and no writes",
+  "plan": "docs/superpowers/plans/2026-11-07-owned-restore.md",
+  "requirements": [
+    "each restore owns a freshly parsed JSON graph; adopt only that graph after original complete validation",
+    "all original validation bodies, nested economy equality, version checks, clocks and transactional boundaries remain unchanged",
+    "returned snapshots/state and independent restore calls must not alias authority",
+    "no route/map/price/Runtime/Store changes"
+  ],
+  "sourceBefore": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "sha256": "75e745549c67d3715ca7852538fb7da3cb46e0fc7161d87988eb940f9ee65fc3"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "sha256": "2851ebfbe1eb89135161d896150a6d06f42f04ef1ba4d8aa563edca68a0949f8"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "sha256": "77c2faba87e27b86c69bfe5841f015fa6dcc75dcc024e78bfe3a6bf1d5efedd0"
+    }
+  ],
+  "frozenFiles": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "sha256": "0de156bc4bff7e0f866e6d735608bdeee9004c5681ad4de7855e25b634ad2e8b"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "sha256": "15bfeec20263bc71449ea74f6374a954c0297ebb5259adeb5750d9ea43ae5ba3"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "sha256": "df5f1f2b75366b2e8fa96b736df262eb421b37f2f1c62396ec89c8ac5a838f71"
+    },
+    {
+      "path": "delivery-game/tests/product-regression-1106/owned-restore.test.cjs",
+      "sha256": "0a254d5a12eaaa4a1145e3929a0a138b9d465e2c84fcb08bc04374a4fbb617ac"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/benchmark.cjs",
+      "sha256": "33848543be0d7a21bb8cbb42f617445fdc6d3f570a254932c1af98e683e65f57"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/benchmark-result.json",
+      "sha256": "9aee8b77339b307cf483d6fe06cec4c09c76c4369649568d175b45e08c7f1ec0"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/red.log",
+      "sha256": "86acedf6f6f025a9296bd8e3344df04c7206e12de8fbb13514276767d7161c47"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/green.log",
+      "sha256": "a97b7d77a45d55bfa0d7f99e7443888844a78357ffbbeb0bb3dd5951e6d0adf6"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/default-regression.log",
+      "sha256": "9d8776052f6e30077aed4568d0d563c3c44b424f15e0ec3dc2023af33ad39d73"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/review.diff",
+      "sha256": "6e5d17e8b2956de588158b3cd3edf6f2ba34e81a9f56b163f9816359df28b4bb"
+    }
+  ],
+  "rawEvidence": {
+    "red": "6fail/5pass due repeated whole-aggregate encodings",
+    "green": "11/11",
+    "default": "167/167",
+    "typecheck": "exit0",
+    "modelPairedComparisons": 40
+  },
+  "limits": [
+    "before packed browser is instrumented headless long-model input, not true-device FPS",
+    "final build and actual candidate browser remain PM gates",
+    "source mapKey transport exception is isolated input only; original direct packed restore remains blocked"
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "date": "2026-11-05",
+  "phase": "source-written-static-review-only",
+  "verification": "未运行tests/typecheck/build/游戏/存档；不代表通过",
+  "rulesPrecedence": [
+    "用户本次派工",
+    "implementation-baseline最新覆盖",
+    "V1未覆盖规则",
+    "11-03需求登记"
+  ],
+  "rows": [
+    {
+      "id": "batch",
+      "source": "V1 §3",
+      "symbol": "V2DispatchSession.acceptBatch / V2RouteSession.plan",
+      "finding": "源码已有容量组批、无固定3单上限；活批拒绝追加",
+      "status": "existing",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+          "line": 69
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+          "line": 68
+        }
+      ]
+    },
+    {
+      "id": "route",
+      "source": "V1 §3–4 / 蓝框",
+      "symbol": "V2RouteSession.prepare / makeLegs / advance",
+      "finding": "有向原路、主动取餐/自动送达；运行范围由PlaceCatalog推算，未引用用户蓝框",
+      "status": "external_blocker",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+          "line": 24
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/PlaceCatalog.ts",
+          "line": 99
+        }
+      ]
+    },
+    {
+      "id": "settlement",
+      "source": "V1 §7",
+      "symbol": "V2DispatchSession.completeDelivery / V2GameSession.completeDelivery",
+      "finding": "到达凭证、逐单收据及主角事件幂等；未运行",
+      "status": "existing",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+          "line": 84
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+          "line": 42
+        }
+      ]
+    },
+    {
+      "id": "cancel",
+      "source": "V1 §7",
+      "symbol": "V2DispatchSession.cancelAllRemaining / V2TripRules.cancel",
+      "finding": "取消全部未完，已送保留；不重复发奖",
+      "status": "existing",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+          "line": 94
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+          "line": 41
+        }
+      ]
+    },
+    {
+      "id": "stamina",
+      "source": "V1 §6",
+      "symbol": "V2TripRules.travel / service / advanceSupply",
+      "finding": "耗尽截断、补给动作恢复；旧报告卡住问题已修",
+      "status": "existing",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2TripRules.ts",
+          "line": 100
+        }
+      ]
+    },
+    {
+      "id": "outcome",
+      "source": "V1 §5",
+      "symbol": "V2TripRules.outcome / settleTripIncome",
+      "finding": "初始天气、累积餐损、迟到；红灯/途中变天/餐品分类仍缺",
+      "status": "partial",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2TripRules.ts",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "id": "fleet",
+      "source": "V1 §9 + 最新参数覆盖",
+      "symbol": "V2FleetSession.advanceTo / syncDraft / timing",
+      "finding": "共享额度、主角事件一次补充、冻结合同已有；不恢复旧额度参数",
+      "status": "existing",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2FleetSession.ts",
+          "line": 64
+        }
+      ]
+    },
+    {
+      "id": "auto",
+      "source": "11-03自动10分钟",
+      "symbol": "V2GameSession.tick",
+      "status": "source_written_unverified",
+      "before": "每帧只一批丢剩余许可区间；planned在自动中不启动",
+      "finding": "tick循环跨补给/批次消费剩余许可；已有planned普通批自动选路启动；停止不扣尾段",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+          "line": 46
+        }
+      ]
+    },
+    {
+      "id": "idle",
+      "source": "V1 §8 车辆实例配备",
+      "symbol": "V2GameSession.tick / effects",
+      "status": "source_written_unverified",
+      "before": "空闲卸车后tick仍访问effects并抛错",
+      "finding": "按阶段访问配车效果；无车时自动停止且候选为空，NPC时钟保留",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "id": "anchor",
+      "source": "V1 §7 原位续送",
+      "symbol": "V2RouteSession.choices",
+      "status": "source_written_unverified",
+      "before": "取消后沿剩余边续送已有；路线距离计入已走边长",
+      "finding": "choices扣除origin.edge已走距离，与fastest/实际推进一致",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+          "line": 76
+        }
+      ]
+    },
+    {
+      "id": "clock",
+      "source": "V1 §4 / §12",
+      "symbol": "V2DispatchSession.tick / V2GameSession.restore",
+      "finding": "恢复/暂停/去重源码已有；NPC先推进帧终点、随后主角补额度造成帧划分差异，已报PM需内部事件时点契约协调",
+      "status": "partial",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+          "line": 99
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "source": "V1 §4",
+      "symbol": "V2RouteSession.plan / advance",
+      "finding": "同店合并与取完后去下一站未实现；需公开状态/接口协调",
+      "status": "external_blocker",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+          "line": 68
+        }
+      ]
+    },
+    {
+      "id": "maps",
+      "source": "最新五图命名规则",
+      "symbol": "V2GameSession constructor / V2GameBootstrap",
+      "finding": "只有一个CityData；后4运行地图未完成",
+      "status": "external_blocker",
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "id": "U01-route-restore-cache",
+      "source": "用户U01/PM优先续修",
+      "symbol": "V2RouteSession.expectedLegsJSON / restore / PreparedMap",
+      "status": "source_written_unverified",
+      "finding": "恢复按实际router私有有界LRU复用权威expected JSON；仍完整比较输入legs并保留所有进度/组合校验；未性能实测",
+      "limits": {
+        "entriesPerPreparedMap": 16,
+        "maxKeyAndValueCharsPerEntry": 262144,
+        "geometryContract": "已有immutable CityData；换几何须新对象；不用弱摘要作缓存身份"
+      },
+      "runtimeVerified": false,
+      "absoluteSourcePaths": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+          "line": 82
+        }
+      ]
+    }
+  ],
+  "interfaces": "公开签名、返回结构、快照版本/字段未变；无车候选返回空数组/null。",
+  "contractProposal": "cross-module-contract.md（未实施；含ready、分组、当前唯一进度结构兼容、NPC真实时点）"
+}

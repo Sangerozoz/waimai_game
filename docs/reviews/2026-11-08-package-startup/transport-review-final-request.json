@@ -1,0 +1,47 @@
+{
+  "scope": "final narrow closure HTTP + TRANSPORT-ONLY; TinyPNG remains blocked and outside acceptance",
+  "reviewer": "thr_29f6fcihz6",
+  "files": [
+    {
+      "path": "delivery-game/scripts/serve-web.py",
+      "sha256": "3bec029680ea48a9a565d2463f806cb3ba0ac0293e9cfb4d5bdfbf2b23035866"
+    },
+    {
+      "path": "delivery-game/scripts/serve-web.sh",
+      "sha256": "9aaa94d10a87307dc5ec0e972167c0d66ac5513e84e1502659933fb475e09d3f"
+    },
+    {
+      "path": "delivery-game/scripts/optimize-web-package.py",
+      "sha256": "b61d61009743a32cf1a541f01527b547fe9d4290c3f98acbf51f2d06bca08d51"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/test_web_transport.py",
+      "sha256": "aee495f6f36459b211ec479fd2d7059e7151dfa53edef11a1ba068d27ec05d01"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-followup-red.log",
+      "sha256": "fc4b8ca32a91758162b812dde4eb3422b965b340d384d2b5861f1fd7426e7223"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-followup-green.log",
+      "sha256": "b0ee58925d1ad07de542bd231f41d97200e24cc6cf62c1e429b066bef845b218"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-package-final-gates.log",
+      "sha256": "34fbe607de3291db99ec5c69913f245824b3beb8ddf1c7525508523fd4b79d8f"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/receipt-fix-verification.json",
+      "sha256": "4808c5011a086dc9dcc0edbe6baefde9126ecff6d74b75c63ad75621d70013e6"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/cold-comparison.json",
+      "sha256": "05731a4865882223fba87272c3ac0169c791f452ef92f6b32acff5854ceaf1a0"
+    }
+  ],
+  "sourceChangeSinceReview02": "one line adds gzip of final package receipt",
+  "outputChangeSinceReview02": "only package-receipt.json.gz, all575 previous files retain their SHA",
+  "imageGate": "4pass/2fail; remaining are TinyPNG provenance and PNG50MiB budget, not claimed passing",
+  "coldMeasurement": "entry23.1535->7.6402sec; click-home23.9369->5.5468sec; runtime-ready is not image-complete time",
+  "sourceBaseline": "761 protected authoring/test/settings files remain unchanged"
+}

@@ -1,0 +1,107 @@
+{
+  "task": "U01-U02-REAL-DELIVERY-1106",
+  "build": "v2-tick-follow-1106",
+  "buildRoot": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/build/v2-tick-follow-1106",
+  "creatorExitCode": 36,
+  "finished": [
+    "2026-11-6 21:20:26 - debug: ================================ build Task (v2-tick-follow-1106) Finished in (6 s)ms ================================"
+  ],
+  "inputCount": 506,
+  "postAppearanceInputDrift": [],
+  "servedChecks": [
+    {
+      "port": 4182,
+      "path": "index.html",
+      "sha256": "2f9430868ec4462627c4756f85724dade174bdf03c2c00ccdbbcecae8ed35190",
+      "matches": true
+    },
+    {
+      "port": 4182,
+      "path": "assets/main/index.ab7bd.js",
+      "sha256": "6d47199472e7d6e5a4d8dd954b2ed5fb5c27fb4af1f9514833e53a2bb5cc459d",
+      "matches": true
+    },
+    {
+      "port": 4196,
+      "path": "index.html",
+      "sha256": "2f9430868ec4462627c4756f85724dade174bdf03c2c00ccdbbcecae8ed35190",
+      "matches": true
+    },
+    {
+      "port": 4196,
+      "path": "assets/main/index.ab7bd.js",
+      "sha256": "6d47199472e7d6e5a4d8dd954b2ed5fb5c27fb4af1f9514833e53a2bb5cc459d",
+      "matches": true
+    }
+  ],
+  "terminals": {
+    "4182": "term_kzi2yxtjx6",
+    "4196": "term_2fxb5mdy5e"
+  },
+  "URLs": [
+    "http://127.0.0.1:4182/?v2=1&rev=tick-follow-1106",
+    "http://127.0.0.1:4196/?v2=1&rev=tick-follow-1106"
+  ],
+  "sourceSHA256": {
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+    "delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "cea071606d173007ca8ce8acde05c74748e3243d2c4091390aedcdfcef550ed9"
+  },
+  "qualityReceipts": [
+    "logic/p0-tick-projection-1106/quality.json",
+    "layout/initial-rider-view-1106/quality.json"
+  ],
+  "realFirstHome": {
+    "path": "docs/reviews/2026-11-05-game-development/integration/tick-follow-first-home-ready-1106.jpg",
+    "dimensions": [
+      1586,
+      3128
+    ],
+    "sha256": "d0edb98afeeff3561748a24036b91dde78b2bb4a0442bde5521af11e89f8d832",
+    "preloadCapture": "integration/tick-follow-first-home-1106.jpg",
+    "normalContinueOnly": true,
+    "noLocateButtonClickedAfterReload": true,
+    "phase": "finished",
+    "position": [
+      -1094.4,
+      575.19
+    ],
+    "view": {
+      "autoFit": false,
+      "follow": true,
+      "offset": [
+        4377.6,
+        -2300.76
+      ],
+      "overview": false,
+      "scale": 4
+    },
+    "runtimeLastErrorAtObservation": "",
+    "sameBytesAsPriorManualLocate": false
+  },
+  "observed": [
+    "首次正常继续后无需手点定位，骑手标记进入首页中央，follow为true",
+    "HUD余额714.87、体力66、已送31/团队18、阿航空闲/经营时长已用完与固定付费地图目标保留",
+    "正常已发布UI持续显示，未见当前lastError；不是广告/自动/配送完整测试"
+  ],
+  "priorHomeBillAppearance": "integration/home-bill-appearance-1106.json",
+  "originalViewportRestored": [
+    315,
+    851,
+    2
+  ],
+  "automationClosedUserTabPreserved": true,
+  "noNewGameClearSaveInjectedSaveSpendingUpgradeHiringOrderAcceptance": true,
+  "normalContinueMenusCameraOnly": true,
+  "phaseTestsTypecheckRun": false,
+  "FPSMeasured": false,
+  "continuousDeliveryOrPanZoomTested": false,
+  "U01U02Closed": false,
+  "limits": [
+    "Core tick removes two aggregate-consuming callsites, not full transaction/restore/validation cost",
+    "initial home observed only existing finished phase; idle/no-motion/travelling lifecycle not exercised",
+    "old map art unchanged and not accepted as98%; no map production",
+    "remote share path/full assets/gameplay/balance/user acceptance unverified"
+  ]
+}

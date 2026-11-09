@@ -1,0 +1,273 @@
+TAP version 13
+# Subtest: the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+ok 1 - the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+  ---
+  duration_ms: 260.235042
+  type: 'test'
+  ...
+# Subtest: loan status is detached and read-only; duplicate and stale commands cannot change the loan
+ok 2 - loan status is detached and read-only; duplicate and stale commands cannot change the loan
+  ---
+  duration_ms: 7.333709
+  type: 'test'
+  ...
+# Subtest: normal, detachable and genuinely earned affordable-car states cannot borrow
+ok 3 - normal, detachable and genuinely earned affordable-car states cannot borrow
+  ---
+  duration_ms: 2719.03325
+  type: 'test'
+  ...
+# Subtest: isolated cash-only compatibility input: 29999 cents at the 30000-cent car boundary
+ok 4 - isolated cash-only compatibility input: 29999 cents at the 30000-cent car boundary
+  ---
+  duration_ms: 2.203708
+  type: 'test'
+  ...
+# Subtest: isolated cash-only compatibility input: 30000 cents at the 30000-cent car boundary
+ok 5 - isolated cash-only compatibility input: 30000 cents at the 30000-cent car boundary
+  ---
+  duration_ms: 1.827625
+  type: 'test'
+  ...
+# Subtest: isolated cash-only compatibility input: 30001 cents at the 30000-cent car boundary
+ok 6 - isolated cash-only compatibility input: 30001 cents at the 30000-cent car boundary
+  ---
+  duration_ms: 1.865333
+  type: 'test'
+  ...
+# Subtest: real Game deliveries preserve the same-path ten-order car and fifteen-order NPC budgets
+ok 7 - real Game deliveries preserve the same-path ten-order car and fifteen-order NPC budgets
+  ---
+  duration_ms: 3645.183625
+  type: 'test'
+  ...
+# Subtest: an isolated original signed-batch compatibility input with remaining quota cannot borrow
+ok 8 - an isolated original signed-batch compatibility input with remaining quota cannot borrow
+  ---
+  duration_ms: 3.971333
+  type: 'test'
+  ...
+# Subtest: Game refuses loan commands during real rest actions and all active route phases
+ok 9 - Game refuses loan commands during real rest actions and all active route phases
+  ---
+  duration_ms: 250.027125
+  type: 'test'
+  ...
+# Subtest: first real delivery is insufficient; release waits for quota and never confiscates the current batch
+ok 10 - first real delivery is insufficient; release waits for quota and never confiscates the current batch
+  ---
+  duration_ms: 1292.157916
+  type: 'test'
+  ...
+# Subtest: cancelled emergency quotes remain valid after return alongside completed histories
+ok 11 - cancelled emergency quotes remain valid after return alongside completed histories
+  ---
+  duration_ms: 513.382042
+  type: 'test'
+  ...
+# Subtest: borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+ok 12 - borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+  ---
+  duration_ms: 2.011125
+  type: 'test'
+  ...
+# Subtest: forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+ok 13 - forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+  ---
+  duration_ms: 227.369416
+  type: 'test'
+  ...
+# Subtest: an emergency source marker cannot be smuggled into permanent vehicle inventory
+ok 14 - an emergency source marker cannot be smuggled into permanent vehicle inventory
+  ---
+  duration_ms: 1.938584
+  type: 'test'
+  ...
+# Subtest: kg-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+ok 15 - kg-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+  ---
+  duration_ms: 793.885958
+  type: 'test'
+  ...
+# Subtest: slots-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+ok 16 - slots-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+  ---
+  duration_ms: 802.675208
+  type: 'test'
+  ...
+# Subtest: kg paid NPC history cannot carry an emergency vehicle source
+ok 17 - kg paid NPC history cannot carry an emergency vehicle source
+  ---
+  duration_ms: 236.053083
+  type: 'test'
+  ...
+# Subtest: isolated two-NPC compatibility input recovers one real car without cancelling other unpaid work
+ok 18 - isolated two-NPC compatibility input recovers one real car without cancelling other unpaid work
+  ---
+  duration_ms: 979.471583
+  type: 'test'
+  ...
+# Subtest: isolated zero-stamina compatibility input borrows without stamina and uses actual free rest
+ok 19 - isolated zero-stamina compatibility input borrows without stamina and uses actual free rest
+  ---
+  duration_ms: 466.379709
+  type: 'test'
+  ...
+# Subtest: the original frozen readers reject all new containers, including returned loan history
+ok 20 - the original frozen readers reject all new containers, including returned loan history
+  ---
+  duration_ms: 1118.263625
+  type: 'test'
+  ...
+# [V2 runtime failure] {
+#   stage: 'transaction.action',
+#   errorType: 'Error',
+#   frames: [
+#     '    at V2DispatchSession.borrowEmergencyVehicle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2DispatchSession.js:152:19)',
+#     '    at /private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2DispatchSession.js:137:23',
+#     '    at V2DispatchSession.transact (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2DispatchSession.js:95:24)',
+#     '    at V2DispatchSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2DispatchSession.js:110:21)',
+#     '    at V2GameSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/map-sample/V2GameSession.js:33:30)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:62',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:164:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at Object.setItem (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:27:102)',
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/map-sample/V2RuntimeStore.js:138:26)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:119:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:119:10)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at Object.setItem (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:27:102)',
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/map-sample/V2RuntimeStore.js:138:26)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:128:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:128:10)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/map-sample/V2RuntimeStore.js:137:23)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:143:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:143:10)',
+#     '    at async Test.run (node:internal/test_runner/test:1054:7)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.action',
+#   errorType: 'Error',
+#   frames: [
+#     '    at check (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2EconomySession.js:29:11)',
+#     '    at V2EconomySession.finishHeroEmergencyLoan (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2EconomySession.js:404:9)',
+#     '    at V2DispatchSession.returnEmergencyVehicle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2DispatchSession.js:160:22)',
+#     '    at /private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2DispatchSession.js:140:23',
+#     '    at V2DispatchSession.transact (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2DispatchSession.js:95:24)',
+#     '    at V2DispatchSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/domain/V2DispatchSession.js:110:21)',
+#     '    at V2GameSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-rLFzZb/map-sample/V2GameSession.js:33:30)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:62'
+#   ]
+# }
+# Subtest: runtime borrow is durably committed once and survives actual open clock rebasing
+ok 21 - runtime borrow is durably committed once and survives actual open clock rebasing
+  ---
+  duration_ms: 24.785167
+  type: 'test'
+  ...
+# Subtest: runtime open rebases an emergency trip without moving it or changing signed terms
+ok 22 - runtime open rebases an emergency trip without moving it or changing signed terms
+  ---
+  duration_ms: 252.879125
+  type: 'test'
+  ...
+# Subtest: actual runtime open preserves hero work at every route boundary while NPCs use only existing quota
+ok 23 - actual runtime open preserves hero work at every route boundary while NPCs use only existing quota
+  ---
+  duration_ms: 320.510125
+  type: 'test'
+  ...
+# Subtest: failed borrowing save preserves published state and slot and stops further writes
+ok 24 - failed borrowing save preserves published state and slot and stops further writes
+  ---
+  duration_ms: 4.616292
+  type: 'test'
+  ...
+# Subtest: failed return save cannot publish an unequipped loan or a half-swapped real car
+ok 25 - failed return save cannot publish an unequipped loan or a half-swapped real car
+  ---
+  duration_ms: 866.863209
+  type: 'test'
+  ...
+# Subtest: a second writer cannot acquire the slot or duplicate the emergency car
+ok 26 - a second writer cannot acquire the slot or duplicate the emergency car
+  ---
+  duration_ms: 3.496375
+  type: 'test'
+  ...
+# Subtest: slot byte conflict rejects borrowing without publishing the candidate
+ok 27 - slot byte conflict rejects borrowing without publishing the candidate
+  ---
+  duration_ms: 3.599042
+  type: 'test'
+  ...
+# Subtest: epoch loss rejects returning and preserves the active loan
+ok 28 - epoch loss rejects returning and preserves the active loan
+  ---
+  duration_ms: 1.340458
+  type: 'test'
+  ...
+# Subtest: losing the writer lease blocks both borrowing and returning before publication
+ok 29 - losing the writer lease blocks both borrowing and returning before publication
+  ---
+  duration_ms: 3.44225
+  type: 'test'
+  ...
+# Subtest: returned loan history survives runtime reopen and repeat return cannot alter real assets
+ok 30 - returned loan history survives runtime reopen and repeat return cannot alter real assets
+  ---
+  duration_ms: 249.801292
+  type: 'test'
+  ...
+# Subtest: future or corrupt game snapshots remain untouched and cannot turn into new loan progress
+ok 31 - future or corrupt game snapshots remain untouched and cannot turn into new loan progress
+  ---
+  duration_ms: 0.573083
+  type: 'test'
+  ...
+# Subtest: existing recorded auto rights drive a real emergency trip across runtime open, release, return and owned-car continuation
+ok 32 - existing recorded auto rights drive a real emergency trip across runtime open, release, return and owned-car continuation
+  ---
+  duration_ms: 1454.014084
+  type: 'test'
+  ...
+# {"fixture":"original signedZeroQuota plus isolated canonical completed reward event, no live SDK call","rewardTicket":{"id":"ad-1","benefit":"auto","orderId":null,"expiresAt":97},"events":[{"name":"auto-signed-and-moving-before-open","now":1800000000.25,"phase":"travelling","control":"auto","loan":"borrowed","batchIds":["v2-road-40"],"orders":2,"heroCompleted":1,"npcCompleted":0,"quotaMs":0,"autoRemainingSeconds":599.75},{"name":"actual-open-preserved-in-flight-auto","now":1800000030.25,"phase":"travelling","control":"auto","loan":"borrowed","batchIds":["v2-road-40"],"orders":2,"heroCompleted":1,"npcCompleted":0,"quotaMs":0,"autoRemainingSeconds":599.75},{"name":"first-auto-delivery-refilled-only-sixty-seconds","now":1800000036.5,"phase":"travelling","control":"auto","loan":"borrowed","batchIds":["v2-road-270","v2-road-588"],"orders":4,"heroCompleted":2,"npcCompleted":0,"quotaMs":59995,"autoRemainingSeconds":593.5},{"name":"old-batch-partially-paid-still-reserved","now":1800000096.5,"phase":"travelling","control":"auto","loan":"borrowed","batchIds":["v2-road-270","v2-road-588"],"orders":4,"heroCompleted":2,"npcCompleted":1,"quotaMs":0,"autoRemainingSeconds":593.5},{"name":"real-car-released-during-current-auto-batch","now":1800000118.125,"phase":"travelling","control":"auto","loan":"returnable","batchIds":["v2-road-270","v2-road-588"],"orders":4,"heroCompleted":3,"npcCompleted":2,"quotaMs":45000,"autoRemainingSeconds":586.5},{"name":"auto-remained-blocked-before-explicit-return","now":1800000152.875,"phase":"finished","control":"auto","loan":"returnable","batchIds":[],"orders":4,"heroCompleted":4,"npcCompleted":2,"quotaMs":105000,"autoRemainingSeconds":581.908625625284},{"name":"explicit-runtime-return","now":1800000152.875,"phase":"finished","control":"auto","loan":"returned","batchIds":[],"orders":4,"heroCompleted":4,"npcCompleted":2,"quotaMs":105000,"autoRemainingSeconds":581.908625625284},{"name":"owned-car-auto-batch-started","now":1800000153.125,"phase":"travelling","control":"auto","loan":"returned","batchIds":["v2-road-43","v2-road-81"],"orders":6,"heroCompleted":4,"npcCompleted":2,"quotaMs":105000,"autoRemainingSeconds":581.658625625284},{"name":"owned-car-auto-delivery-completed","now":1800000158.625,"phase":"travelling","control":"auto","loan":"returned","batchIds":["v2-road-43","v2-road-81"],"orders":6,"heroCompleted":5,"npcCompleted":2,"quotaMs":165000,"autoRemainingSeconds":576.158625625284}]}
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 13568.544334

@@ -1,0 +1,39 @@
+{
+  "status": "standard-preset-control-request-started",
+  "model": "gpt-image-2",
+  "provider": "openai-api",
+  "requestedSize": "3840x2160",
+  "qualityRequested": "high",
+  "n": 1,
+  "maxRetries": 0,
+  "wallclockLimitSeconds": 480,
+  "totalCapabilityExperimentBudget": 2,
+  "controlOrdinal": 2,
+  "noFurtherImagesRequestsAuthorized": true,
+  "inputs": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/scope-recovery-v1/capacity-proof/structure-guide.png",
+      "sha256": "40afb08818e4a7a36475d72cae8c866be9fe5f18d3c7156987fec10ce2aeab2a",
+      "role": "8-block design geometry input, not art"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-04-county-twentyfive-region-plan/review-009/TR-33-v1.png",
+      "sha256": "fe3358f7732812285879cd9b23db7a890b5f6d36eae2df56bbc4e4469b044aec",
+      "role": "original accepted25 style, not layout"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/scope-recovery-v1/capacity-proof/approved-density-local.png",
+      "sha256": "e48872c1a997575d533ff621ceb09fffd88a2f19c79064199cf6d0cb31cda9ad",
+      "role": "approved A2 local density/detail only"
+    }
+  ],
+  "inputImagesByteIdenticalToFirstProof": true,
+  "promptSHA256": "495bee63f78b577ab2d8c79da8be0bde53089cddf2ec6bf6760911db76488c76",
+  "codeSHA256": "cca909b4f6828cb355962b3a250fd07165eda400c50104cb3d2e8035d84b44cd",
+  "changedTreatment": "size field and matching prompt dimension only; no model,quality,reference or provider changes",
+  "hypothesis": "test whether the compatible service handles the documented standard3840x2160 differently from custom3824x2144; not an assertion either size works",
+  "documentationEvidence": "OpenAI images.edit API reference search excerpt explicitly lists maximum3840x2160; complete pages were not fetched successfully",
+  "sourceFirstResultSHA256": "0821f5c1222c6d7201a158c11776af3f2023eb0c3a162edbbeb0b6d700cda09a",
+  "endpointHost": "zee.zeehub.cn",
+  "startedUnix": 1793967155.071433
+}

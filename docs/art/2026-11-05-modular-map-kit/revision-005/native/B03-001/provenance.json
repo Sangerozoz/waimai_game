@@ -1,0 +1,91 @@
+{
+  "tool": "image_gen.imagegen",
+  "toolArguments": {
+    "prompt": "Create exactly ONE new native game-sprite PNG for B03. Do not output a sheet or multiple variants.\nIMAGE ROLES, in order: (1) B03-geometry.png = hard geometry/camera and footprint/roof constraints ONLY, NOT final art. (2) B03-appearance.png = identity/material source ONLY, ignore its old camera and all context. (3) user original 2026-11-03-user-building-variety.png = painting/material/diversity style ONLY, never copy its roads/layout/camera. (4, optional) accepted B01-road-aligned-native-v1.png = qualitative lighting/finish consistency ONLY, never copy its shop/cuboid design.\nOrthographic source-road projection, elevation 62.5 deg / azimuth 45 deg; use exact drawn guide, NOT generic 30-degree isometric. Frontage edges screen -28.486362689 deg, depth edges +55.405984491 deg. All wall verticals exactly screen-vertical. Ground corners A,B,C,D are ordered rear-left, rear-right, front-right, front-left; road-facing long side is D-C. Preserve guide chirality, corner relationships and roof massing. No mirror, rotation, shear, warp or editing old sprite pixels.\nCANDIDATE ARCHITECTURE (PM dimensions, not surveyed source): A narrow vertically articulated glass mid-rise, footprint 7x6. Main shaft z=16.7 and compact roof service cap to total z=18. Strong slim vertical stone piers and continuous glazed bays, a modest recessed entry, no broad B01 horizontal shop bands; keep the tall silhouette.\nSOURCE IDENTITY: Selected TR-33 slim mid-rise: tall blue-green vertical glazed bays between pale stone piers, a narrow upright silhouette and small rooftop service cap; not an apartment/storefront clone.\nFINISH: neutral-daylight thick-painted Japanese/anime contemporary urban sprite, restrained clear edges and believable stone, glass and roofing. Match accepted B01 qualitatively: soft daylight from the upper-left, light roof/parapet highlights, restrained neutral facade shading, small rooftop shadows falling broadly away toward the lower-right. This is visual guidance, not a measured light vector; no yellow wash or glowing windows.\nWhole single building fully inside frame with clear safe margin. Request 1536x1536, true transparent RGBA PNG outside building; actual returned dimensions and alpha must be checked, not assumed. No opaque backdrop, checkerboard pixels, floor plane, ground patch or baked broad ground shadow. No text, labels, guide marks, roads, sidewalks, trees, people, vehicles, neighboring buildings, logos, UI, sculpture or rooftop trees. Do not paste/enlarge the crop as final art; do not copy the flat proxy shading. Exactly one native output.\n",
+    "transparent_background": true,
+    "referenced_image_paths": [
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B03-geometry.png",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B03-appearance.png",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png"
+    ]
+  },
+  "toolSourceAbsolutePath": "/Users/sanger/.codex/generated_images/01a1ac1c-0294-7f73-ac23-61c538a3275f/exec-6f55caae-147c-40f0-9a98-a27a168241f4.png",
+  "references": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B03-geometry.png",
+      "sha256": "612396912dd48ab8515833cd941b4f8bc5f929648ad9c1677e8c835f85b9e7d7"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B03-appearance.png",
+      "sha256": "d3d9436e247a644251fbff9e7eb2c1e06b8db3292ebe424efa1c7ad2912ea04c"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+      "sha256": "de5d9bb9bc89fe28af93b29536368e90478beb044e545c649d6b10ee51a7fdb8"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png",
+      "sha256": "817678000e21a6d3c46bf9e95b7e9ab56d71791081616179a61a81cfe446576a"
+    }
+  ],
+  "native": {
+    "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/native/B03-001/B03-v1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "alphaBBox": [
+      0,
+      41,
+      1240,
+      1213
+    ],
+    "bytes": 1051920,
+    "sha256": "de203e6c32ab3ccf281f5012a48d5a60ac7c86d52b9ab19090ad0f41b137b870"
+  },
+  "runtime": {
+    "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/native/B03-001/B03-runtime-280.png",
+    "size": [
+      166,
+      280
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "alphaBBox": [
+      1,
+      1,
+      165,
+      279
+    ],
+    "bytes": 77690,
+    "sha256": "f4c6630617317157671b2b8535b215b9d770742678075e0b6884c8fbae52ef6e"
+  },
+  "toolSourceSHA256": "de203e6c32ab3ccf281f5012a48d5a60ac7c86d52b9ab19090ad0f41b137b870",
+  "sourceCopySHA256Match": true,
+  "status": "native-candidate-runtime-exported-not-user-accepted-not-integrated",
+  "visualInspection": {
+    "wholeSubject": true,
+    "transparentMargin": true,
+    "observations": [
+      "Tall vertical glazed bays and stone piers; broad blank left wall.",
+      "Tiny pale edge flecks visible at native resolution; no pixel editing performed.",
+      "Frontage approximately -27 degrees and depth approximately +55 degrees by visual corner estimates, not precise calibration.",
+      "Screen-vertical walls visually retained; no guide letters, roads, people or rooftop trees."
+    ],
+    "notVerified": [
+      "Exact camera/footprint calibration",
+      "Cocos integration and occlusion",
+      "User visual acceptance",
+      "Game tests/typecheck/regression"
+    ]
+  }
+}

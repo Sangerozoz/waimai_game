@@ -1,0 +1,54 @@
+{
+  "state": "received self-report; cause remains unknown; no source/image modification approved",
+  "proposal": {
+    "task": "DISC-G04-ROOT-1106：Default模式下只读收口。G04根因仍为unknown，不为凑任务提出源码或图片修改。",
+    "provedCause": {
+      "status": "unknown",
+      "confirmedEvidence": [
+        "已查看combined-home.jpg及按钮局部、认可00-home-v2.png局部、1254原dispatch-disc与292衍生。旧运行JPEG的细环有颗粒、断续观感；原图与衍生的主要亮环未呈同样的设计虚线，外围另有软alpha和零碎边缘，不能混作主环损坏。",
+        "原图底部中心列x=627，alpha>=230且min(R,G,B)>=200的亮核连续7像素；RGB阈值230时为3像素。292衍生中心列x=146相应亮核为1像素。这只是单列亮核弦宽，不是完整环宽或全圆连续性量测。",
+        "146设计画布按470/720名义比例约95.306截图像素；292纹理单纹素约0.326截图像素，原图上述7像素亮核约0.532截图像素。这证明细亮特征存在亚像素缩小条件，不证明它就是断续的确定原因。",
+        "manifest的dispatch-disc无inset，原rect=[0,0,1254,1254]；pack映射为292全纹理。V2ImageSkin:49-59使用CUSTOM/SIMPLE并按146×146目标缩放，不走九宫格；当前两条分支没有把小纹理套原图大rect。",
+        "V2ApprovedSkin.mainAction:67-72中，图片成功后关闭原圆形Graphics，不经过skinSurface或GlassEdge。源码不支持将成功态当成两套圆环一直叠绘。",
+        "两份meta均为linear min/mag、mipfilter=none、clamp-to-edge；截图确为470×837 JPEG且含量化表。这些是配置和文件事实，不是GPU采样或压缩因果的运行证明。"
+      ],
+      "conclusion": "可以确认细亮核在该输出尺度下很薄，但现有证据不足以把原图alpha、纹理缩小采样、实际加载分支或JPEG压缩中的某一个确认为G04根因。"
+    },
+    "unknowns": [
+      "该截图实际使用1254原图还是292衍生，没有圆盘专属运行回执。loadArtRegion可优先衍生，也可回退原图，不能由pack存在推断当帧路径。",
+      "实际SpriteFrame rect、纹理、采样状态、DPR、最终输出缩放及当帧fallback Graphics状态没有记录；现有运行图层回执不含圆盘。",
+      "没有同帧无损PNG与JPEG对照，无法分离JPEG量化和渲染采样；单列亮核测量也不能证明主白环全周断裂或源alpha是故障。",
+      "尚未证明必须重绘native图片，不能直接换采样配置、补画白环、改变alpha或颜色、重生资源。"
+    ],
+    "minimalChange": {
+      "status": "withheld-insufficient-causal-evidence",
+      "change": null,
+      "reason": "目前只有亚像素细特征与有损截图的条件证据，贸然加粗、描圈、改mipmap或重绘，都可能改变设计而非修复已证根因。",
+      "minimumNextEvidence": "由PM另行授权的非消费外观核对，取得同一首页同一帧无损PNG，以及圆盘实际加载分支、SpriteFrame rect、纹理、采样状态和fallback启用状态。本轮未执行，也不需要制造活动档。"
+    },
+    "proposedWriteSet": [],
+    "sourceHashes": {
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "9e7e6914f8f5a7c0d8e5dba4045237fca0385d98af12d52676352221bcfd3f09",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+      "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322",
+      "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30",
+      "delivery-game/assets/resources/ui-v2/dispatch-disc-v1.png": "f56696e92ee3fe8eac15ff9707ead0f7b19c3911fe4247cd84b95eddc34aa727",
+      "docs/art/2026-11-04-ui-fidelity-assets/dispatch-disc-v1.png": "f56696e92ee3fe8eac15ff9707ead0f7b19c3911fe4247cd84b95eddc34aa727",
+      "delivery-game/assets/resources/ui-v2/web/chrome-a4404eda6e04.png": "b5e894c0ce1d8dbccf212e32515bb56f4f36b9b87dd209e5eeca3c2110c2179a",
+      "delivery-game/assets/resources/ui-v2/dispatch-disc-v1.png.meta": "c5953345a2be29a1b5b4f8fb9d2e852305c16c6ef782581937791e5fa7ae9f42",
+      "delivery-game/assets/resources/ui-v2/web/chrome-a4404eda6e04.png.meta": "211409cff3ff71bd973c8805aa407060fe03c5a4984f0e9b06c016a20274adb2",
+      "docs/art/2026-11-02-approved-ui-reference/00-home-v2.png": "38eca74a46057a7c464c55017761bb19d3468aa93f4339be2eccc558e7a7110f",
+      "docs/reviews/2026-11-05-game-development/integration/visual-product-scene-1106/combined-home.jpg": "bf1c60c74e07107341c8c5271bfeab6c3d876f3ff4a644da0440927144a1a2f6",
+      "docs/reviews/2026-11-05-game-development/integration/visual-product-scene-1106/check.json": "e44ffb42106b0814d074664ae597d92939b99a99ddb15ff1d1540933ebe3c483",
+      "docs/reviews/2026-11-05-game-development/layout/hud-and-skin-review.json": "e9e1c76b66375208d95d265f5be8898dfd5f31acbf24b86b075c615fb7b90ffc"
+    },
+    "limits": [
+      "本轮仅读取既有文件和图像、读取PNG像素、计算哈希与几何比例；未写源码、报告、图片或权限，未运行浏览器、游戏、TS、tests、typecheck、构建、业务或存档，未派Agent、未切换provider。",
+      "首页截图经check.json校验SHA一致，属于既有v2-product-u22-scene-1106隔离证据，不是v2-product-eta-1106的新首页、活动档或效果验证。",
+      "只追圆盘必要路径，没有重审全资源库、重开G02或读取开发A的Game/Trip源；不加工地图或车辆场景，不改×位置、146热区、颜色或动态图文。",
+      "没有素材生产或伪造产物；尚未认定唯一解是native重绘，因此不把未经建立的生图能力限制冒充本次根因。",
+      "只读输入收口SHA无漂移。未关闭G04或98%，没有独立PASS。"
+    ]
+  }
+}

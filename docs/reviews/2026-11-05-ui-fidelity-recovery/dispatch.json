@@ -1,0 +1,118 @@
+{
+  "owner": "thr_axf6i4e89t",
+  "plan": "docs/superpowers/plans/2026-11-05-ui-fidelity-recovery.md",
+  "state": "product-only-parallel-round2; not-delivered-not-verified",
+  "roles": [
+    {
+      "role": "resource-engineering",
+      "thread": "thr_cqkytibciw",
+      "provider": "codex",
+      "modelRequested": "gpt-6.1-sol",
+      "reasoningRequested": "high",
+      "statusReadback": "idle",
+      "parentNotifications": "auto",
+      "environment": "env_e54zrbdgxt",
+      "originalStatusReadback": "active",
+      "scopeStatus": "historical first pass handed back; no current write lease"
+    },
+    {
+      "role": "ui-implementation",
+      "thread": "thr_uevwv32vnh",
+      "provider": "codex",
+      "modelRequested": "gpt-6.1-sol",
+      "reasoningRequested": "high",
+      "statusReadback": "idle",
+      "parentNotifications": "auto",
+      "environment": "env_e54zrbdgxt",
+      "originalStatusReadback": "active",
+      "scopeStatus": "historical first pass handed back; no current write lease"
+    },
+    {
+      "role": "visual-spec-review",
+      "thread": "thr_m4huheeu3r",
+      "provider": "codex",
+      "modelRequested": "gpt-6.1-sol",
+      "reasoningRequested": "high",
+      "statusReadback": "idle",
+      "parentNotifications": "auto",
+      "environment": "env_e54zrbdgxt",
+      "originalStatusReadback": "active",
+      "scopeStatus": "historical first pass handed back; no current write lease"
+    }
+  ],
+  "mapDependency": {
+    "owner": "thr_2qc9rtsa9r",
+    "requestReadbackConfirmed": true,
+    "historicalOnly": true,
+    "currentProductAssignment": "none; no map work in product lane"
+  },
+  "gates": {
+    "G0-images-on-user-path": "not-passed",
+    "G1-eight-reference-states": "not-passed",
+    "G2-visual-fidelity": "not-passed",
+    "G3-reproducible-evidence": "not-passed",
+    "G4-user-delivery": "blocked"
+  },
+  "currentProductLanes": [
+    {
+      "role": "product-core-spec-review",
+      "thread": "thr_xian3wmj7j",
+      "writes": "logic/core-loop/review-round2 reports only; source read-only",
+      "environment": "env_e54zrbdgxt",
+      "parent": "thr_axf6i4e89t",
+      "parentNotifications": "auto",
+      "provider": "acp-hermes-agent",
+      "modelRequested": "openai-api:gpt-6.1-sol",
+      "stateReadback": "active",
+      "scopeCorrectionSentAndReadBack": true
+    },
+    {
+      "role": "product-npc-ledger-runtime",
+      "thread": "thr_sxu96cizgd",
+      "writes": "V2FleetSession.ts / V2DispatchSession.ts / V2RuntimeController.ts and features/npc-ledger-time reports",
+      "environment": "env_e54zrbdgxt",
+      "parent": "thr_axf6i4e89t",
+      "parentNotifications": "auto",
+      "provider": "acp-hermes-agent",
+      "modelRequested": "openai-api:gpt-6.1-sol",
+      "stateReadback": "active",
+      "scopeCorrectionSentAndReadBack": true
+    },
+    {
+      "role": "product-vehicle-ui-no-map",
+      "thread": "thr_rddariqvsa",
+      "writes": "V2GameUI.ts / V2ApprovedSkin.ts and independent non-map product vehicle assets; no map-derived background",
+      "environment": "env_e54zrbdgxt",
+      "parent": "thr_axf6i4e89t",
+      "parentNotifications": "auto",
+      "provider": "acp-hermes-agent",
+      "modelRequested": "openai-api:gpt-6.1-sol",
+      "stateReadback": "active",
+      "scopeCorrectionSentAndReadBack": true
+    },
+    {
+      "role": "product-four-category-web-art-no-map",
+      "thread": "thr_rhp4ifmpzk",
+      "writes": "UIArtResources / V2ImageSkin / CartoonArt / VehicleSideArt / FoodImages; non-map four-category web derivatives only",
+      "environment": "env_e54zrbdgxt",
+      "parent": "thr_axf6i4e89t",
+      "parentNotifications": "auto",
+      "provider": "acp-hermes-agent",
+      "modelRequested": "openai-api:gpt-6.1-sol",
+      "stateReadback": "active",
+      "scopeCorrectionSentAndReadBack": true
+    }
+  ],
+  "strictProductMapSplit": {
+    "userRule": "产品方案和地图制作是独立的两条线，没有任何交叉",
+    "assignedMapProductionWork": "none",
+    "excluded": "map art generation/cropping/composition/optimization, assembly/registration, buildings/roads, map geometry/boundaries; no task or coordination sent to map thread",
+    "mapAssetPolicy": "existing references untouched; any new map-derived candidate excluded, not merged",
+    "fourWebCategories": [
+      "navigation-ui-icons",
+      "rider-portraits",
+      "vehicles",
+      "food"
+    ]
+  }
+}

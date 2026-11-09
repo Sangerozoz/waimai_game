@@ -1,0 +1,144 @@
+diff --git a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomySession.ts b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomySession.ts
+--- a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomySession.ts
++++ b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomySession.ts
+@@ -4,12 +4,14 @@
+ import { V2_CONFIG as C, V2_CONFIG_ID } from './V2EconomyConfig';
+ import { getExperienceLevel, getPlayerIncomeMultiplier } from './GameConfig';
+ import { V2_SLOT_PROFILE_ID,V2_SLOT_PRICE_POLICY,V2_SLOT_EFFECT_POLICY,V2_SLOT_START_CENTS,slotVehicleEffects,slotVehicleUpgradeQuote,slotRiderEffects,slotRiderUpgradeQuote,slotVehiclePurchaseQuote,slotRiderHireQuote,slotMapBaseIncomeCents,slotMapPurchaseQuote,slotNextHirePriceCents,parseV2ContractTerms,sameV2ContractTerms } from './V2EconomyProfiles';
+-import type { V2ContractTerms,V2SlotContractTerms } from './V2EconomyProfiles';
++import type { V2ContractTerms,V2SlotContractTerms,V2SlotVehicleEffects,V2SlotRiderEffects } from './V2EconomyProfiles';
+ import { slotLoadForOrderId,fitsV2Capacity } from './V2LoadRules';
++import type { V2Capacity } from './V2LoadRules';
+ 
+ 
+ export interface V2Vehicle { id:string; modelId:number|'starter'|'legacy'; level:number; legacyTier?:number; legacySpeedKph?:number; legacyCapacityKg?:number; legacyIncomeFactor?:number }
+ export interface V2Rider { id:string; level:number; vehicleId:string|null }
++export interface V2DeliveryEffects { profileId:string;speedRelativeToStarter:number;incomeFactor:number;capacity:V2Capacity }
+ export interface V2OrdinaryPricing { version:'ordinary-effort-v1'|'distance-effort-slots-v1'; deliveryMetres:number }
+ export type V2OrdinaryPricingById=Readonly<Record<string,Readonly<{deliveryMetres:number}>>>;
+ export const V2_ORDINARY_PRICING=Object.freeze({version:'ordinary-effort-v1' as const,protectedBasisPoints:10000,baseBasisPoints:9000,deliveryMetresCap:2000,basisPointsPerDeliveryMetre:1,extraKgBasisPoints:500,extraKgCap:2});
+@@ -219,6 +221,25 @@
+  replaceFrom(serialized:string):void {const restored=V2EconomySession.restore(serialized);this.snapshot=restored.snapshot;}
+  get state():Readonly<V2EconomyState>{return clone(this.snapshot.state);}
+  get usesSlots():boolean{return this.snapshot.version===2;}
++ /** Read validated private authority, never a full snapshot; all returned objects are detached. */
++ get hasEquippedVehicle():boolean {return this.snapshot.state.riders[0].vehicleId!==null;}
++ get nextBatchEffects():V2SlotVehicleEffects|null {
++  const s=this.snapshot.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);return v?slotVehicleEffects(v):null;
++ }
++ deliveryEffectProjection(quoteId:string|null):V2DeliveryEffects|null {
++  const s=this.snapshot.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);if(!v)return null;
++  const quote=quoteId===null?null:s.activeQuotes.find(q=>q.id===quoteId);check(quoteId===null||quote,'当前配送效果合同不一致');
++  const terms=quote?.terms;
++  if(terms?.version==='slots-v1')return {profileId:terms.profileId,speedRelativeToStarter:terms.speedRelativeToStarter,incomeFactor:terms.incomeFactor,capacity:{version:'slots-v1',capacitySlots:terms.capacity.capacitySlots}};
++  if(quote){const legacy=vehicleEffects(v);return {profileId:V2_CONFIG_ID,speedRelativeToStarter:legacy.speedRelativeToStarter,incomeFactor:legacy.incomeFactor,capacity:{version:'kg-v1',capacityKg:legacy.capacityKg}};}
++  const current=slotVehicleEffects(v);return {profileId:V2_SLOT_PROFILE_ID,speedRelativeToStarter:current.speedRelativeToStarter,incomeFactor:current.incomeFactor,capacity:current.capacity};
++ }
++ vehicleEffectProjection(vehicleId:string):V2SlotVehicleEffects|null {
++  const v=this.snapshot.state.vehicles.find(v=>v.id===vehicleId);return v?slotVehicleEffects(v):null;
++ }
++ riderEffectProjection(riderId:string):V2SlotRiderEffects|null {
++  const r=this.snapshot.state.riders.find(r=>r.id===riderId&&r.id!=='hero');return r?slotRiderEffects(r.id,r.level):null;
++ }
+  /** Promotion follows full legacy validation; no cash, levels, prices or ledger entries are manufactured. */
+  enableSlots():void {
+   if(this.usesSlots)return;validateV2EconomySnapshot(this.snapshot);const next=clone(this.snapshot);
+diff --git a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts
+--- a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts
++++ b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts
+@@ -52,6 +52,8 @@
+   check(s.heroCompletionsSeen===e.heroCompletedOrders-(e.heroCompletionEvents.length-s.heroEventCursor));
+   const ids=new Set<number>(),riders=new Set<string>(),vehicles=new Set<string>(),unpaid=new Set<string>();
+   for(const b of s.batches){check(b&&integer(b.id,1,s.nextBatchId-1)&&!ids.has(b.id)&&!riders.has(b.riderId)&&!vehicles.has(b.vehicleId)&&integer(b.elapsedMs)&&Array.isArray(b.orders)&&b.orders.length>0&&integer(b.paidCount,0,b.orders.length-1));ids.add(b.id);riders.add(b.riderId);vehicles.add(b.vehicleId);
++   // The signed vehicle stays reserved; its owner may choose another idle vehicle or null for future work.
++   check(e.riders.every(r=>r.id===b.riderId||r.vehicleId!==b.vehicleId)&&e.activeQuotes.every(q=>q.vehicleId!==b.vehicleId),'在途车辆被其他人物或主角合同占用');
+    const first=b.orders[0];check(first&&b.riderId===first.riderId&&b.vehicleId===first.vehicleId&&b.mapId===first.mapId);const t=timing(first,b.orders.length);let weight=0;
+    const firstTerms=this.version===2?contractTerms(first):null,slots=firstTerms?.version==='slots-v1';
+    if(firstTerms?.version==='slots-v1')check(JSON.stringify(b.orders.map(o=>o.id))===JSON.stringify(slotFleetOrderIds(b.id,firstTerms.capacity.capacitySlots)));
+diff --git a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2DispatchSession.ts b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2DispatchSession.ts
+--- a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2DispatchSession.ts
++++ b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2DispatchSession.ts
+@@ -55,6 +55,11 @@
+  setLedgerDayKeyResolver(resolver:((atMs:number)=>string)|null):void {this.fleet.setLedgerDayKeyResolver(resolver);this.ledgerDayKeyResolver=resolver;}
+  get economyState(){return this.economy.state;}
+  get fleetState(){return this.fleet.state;}
++ get hasEquippedVehicle():boolean {return this.economy.hasEquippedVehicle;}
++ get deliveryEffects(){const id=this.orders.find(o=>o.status==='pending'&&this.batchIds.includes(o.id))?.id??null;return this.economy.deliveryEffectProjection(id);}
++ get nextBatchEffects(){return this.economy.nextBatchEffects;}
++ vehicleEffectProjection(vehicleId:string){return this.economy.vehicleEffectProjection(vehicleId);}
++ riderEffectProjection(riderId:string){return this.economy.riderEffectProjection(riderId);}
+  get usesSlots():boolean{return this.version===2;}
+  enableSlots():void {if(this.usesSlots)return;this.validate();this.fleet.enableSlots();this.orders=this.orders.map(o=>({...o,quote:wrapLegacyQuote(o.quote)}));this.version=2;this.validate();}
+  vehicleUpgradePrice(id:string){return this.economy.vehicleUpgradePrice(id);}
+diff --git a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2GameSession.ts b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2GameSession.ts
+--- a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2GameSession.ts
++++ b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2GameSession.ts
+@@ -1,7 +1,6 @@
+ import { V2DispatchSession } from '../domain/V2DispatchSession';
+-import { quantizeOrdinaryDeliveryMetres, vehicleEffects,contractTerms } from '../domain/V2EconomySession';
+-import { V2_SLOT_PROFILE_ID,slotVehicleEffects } from '../domain/V2EconomyProfiles';
+-import { V2_CONFIG_ID } from '../domain/V2EconomyConfig';
++import { quantizeOrdinaryDeliveryMetres,contractTerms } from '../domain/V2EconomySession';
++import { V2_SLOT_PROFILE_ID } from '../domain/V2EconomyProfiles';
+ import { parseV2Load,slotCandidateRequestCount,fitsV2Capacity } from '../domain/V2LoadRules';
+ import type { V2Capacity } from '../domain/V2LoadRules';
+ import { V2TripRules, V2SupplyKind, V2AutoSupplyInput, V2FoodRiskContract, parseV2FoodRisk } from '../domain/V2TripRules';
+@@ -27,17 +26,13 @@
+  get tripState(){return this.trip.state;}
+  get routeSnapshot(){return {...this.route.snapshot(),position:this.route.position};}
+  get routeMotion(){return this.route.motion;}
+- private get equippedVehicle(){const s=this.dispatch.economyState;return s.vehicles.find(v=>v.id===s.riders[0].vehicleId);}
+- get nextBatchEffects(){const v=this.equippedVehicle;if(!v)throw new Error('主角未配车');return slotVehicleEffects(v);}
++ get nextBatchEffects(){const effects=this.dispatch.nextBatchEffects;if(!effects)throw new Error('主角未配车');return effects;}
+  get deliveryEffects():{profileId:string;speedRelativeToStarter:number;incomeFactor:number;capacity:V2Capacity} {
+-  const v=this.equippedVehicle;if(!v)throw new Error('主角未配车');const d=this.dispatch.snapshot(),q=d.orders.find(o=>o.status==='pending'&&d.batchIds.includes(o.id))?.quote;
+-  if(q){const terms=contractTerms(q);if(terms.version==='slots-v1')return {profileId:terms.profileId,speedRelativeToStarter:terms.speedRelativeToStarter,incomeFactor:terms.incomeFactor,capacity:terms.capacity};
+-   const legacy=vehicleEffects(v);return {profileId:V2_CONFIG_ID,speedRelativeToStarter:legacy.speedRelativeToStarter,incomeFactor:legacy.incomeFactor,capacity:{version:'kg-v1',capacityKg:legacy.capacityKg}};}
+-  const current=this.nextBatchEffects;return {profileId:V2_SLOT_PROFILE_ID,speedRelativeToStarter:current.speedRelativeToStarter,incomeFactor:current.incomeFactor,capacity:current.capacity};
++  const effects=this.dispatch.deliveryEffects;if(!effects)throw new Error('主角未配车');return effects;
+  }
+  private get effects(){return this.deliveryEffects;}
+- normalCandidates(count=8):V2FoodOffer[]{if(!this.equippedVehicle)return [];if(!Number.isSafeInteger(count)||count<1||count>50)throw new Error('候选读取数量无效');const capacity=this.nextBatchEffects.capacitySlots;return this.route.slotCandidates(capacity,this.dispatch.snapshot().orders.map(o=>o.id),slotCandidateRequestCount(capacity),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity).map(order=>({...order,food:foodForV2Order(order.id)}));}
+- specialCandidate(id:string):V2FoodOffer|null {if(!this.equippedVehicle)return null;const order=this.route.slotSpecialCandidate(id,this.nextBatchEffects.capacitySlots,this.dispatch.snapshot().orders.map(o=>o.id),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);return order?{...order,food:foodForV2Order(order.id)}:null;}
++ normalCandidates(count=8):V2FoodOffer[]{if(!this.dispatch.hasEquippedVehicle)return [];if(!Number.isSafeInteger(count)||count<1||count>50)throw new Error('候选读取数量无效');const capacity=this.nextBatchEffects.capacitySlots;return this.route.slotCandidates(capacity,this.dispatch.snapshot().orders.map(o=>o.id),slotCandidateRequestCount(capacity),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity).map(order=>({...order,food:foodForV2Order(order.id)}));}
++ specialCandidate(id:string):V2FoodOffer|null {if(!this.dispatch.hasEquippedVehicle)return null;const order=this.route.slotSpecialCandidate(id,this.nextBatchEffects.capacitySlots,this.dispatch.snapshot().orders.map(o=>o.id),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);return order?{...order,food:foodForV2Order(order.id)}:null;}
+  acceptBatch(orders:V2RouteOrder[]){
+   if(this.trip.state.action)throw new Error('补给动作进行中');
+   const routeOrders=orders.map(o=>this.route.canonicalSlotOrder(o));
+@@ -109,7 +104,7 @@
+    if(seconds<=0)break;
+    // Settle only work available at this action instant, never borrow frame-end NPC income.
+    const actionAt=wallStart+used;this.dispatch.advanceFleetTo(actionAt);
+-   if(automatic&&!this.equippedVehicle)break;
++   if(automatic&&!this.dispatch.hasEquippedVehicle)break;
+    if(automatic&&this.trip.state.blocked&&!(this.route.progress.phase==='service'&&this.route.progress.serviceCharged)){
+     const choice=this.trip.chooseAutoSupply(this.highestSupplyMap,this.dispatch.economyState.cashCents);
+     if(!choice)break;
+diff --git a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RuntimeController.ts b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RuntimeController.ts
+--- a/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RuntimeController.ts
++++ b/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RuntimeController.ts
+@@ -6,7 +6,7 @@
+ import { V2GameSession } from './V2GameSession';
+ import { RewardedAdSDK } from '../rewards-v2/RewardSession';
+ import { V2RuntimeStore, V2WriterPort, SingleSlotStorage } from './V2RuntimeStore';
+-import { slotVehicleEffects,slotRiderEffects } from '../domain/V2EconomyProfiles';
++
+ 
+ const { ccclass, property } = _decorator;
+ type EconomyCommand = Parameters<V2DispatchSession['command']>[0];
+@@ -160,11 +160,11 @@
+     get routeSnapshot() { return this.live?.routeSnapshot || null; }
+     get routeMotion() { return this.live?.routeMotion || null; }
+     /** Signed active-delivery units/effects; a legacy active batch remains kilograms. */
+-    get deliveryEffects() { return this.live?.dispatch.economyState.riders[0].vehicleId?this.live.deliveryEffects:null; }
++    get deliveryEffects() { return this.live?.dispatch.deliveryEffects || null; }
+     /** Current owned-asset effects for the next unsigned slot batch. */
+-    get nextBatchEffects() { return this.live?.dispatch.economyState.riders[0].vehicleId?this.live.nextBatchEffects:null; }
+-    vehicleEffects(vehicleId:string) { const v=this.live?.dispatch.economyState.vehicles.find(v=>v.id===vehicleId);return v?slotVehicleEffects(v):null; }
+-    riderEffects(riderId:string) { const r=this.live?.dispatch.economyState.riders.find(r=>r.id===riderId&&r.id!=='hero');return r?slotRiderEffects(r.id,r.level):null; }
++    get nextBatchEffects() { return this.live?.dispatch.nextBatchEffects || null; }
++    vehicleEffects(vehicleId:string) { return this.live?.dispatch.vehicleEffectProjection(vehicleId) || null; }
++    riderEffects(riderId:string) { return this.live?.dispatch.riderEffectProjection(riderId) || null; }
+     vehicleUpgradeQuote(vehicleId:string) { return this.live?.dispatch.vehicleUpgradePrice(vehicleId)||null; }
+     riderUpgradeQuote(riderId:string) { return this.live?.dispatch.riderUpgradePrice(riderId)||null; }
+     normalCandidates(count = 8) { if (!this.live) return []; return this.live.normalCandidates(count); }

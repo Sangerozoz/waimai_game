@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-06T07:32:05.880281+00:00",
+  "status": "two-native-candidates-and-cross-region-navigation-demonstrated-Tiled-render-unverified",
+  "scope": "Only compact-pair-v1 and new compact-layout-v1 planning artifacts; no remaining regions produced.",
+  "execution": {
+    "providerId": "acp-hermes-agent",
+    "agentModel": "openai-api:gpt-6.1-sol",
+    "reasoningEffortRequested": "high",
+    "liveReasoningEffortReadback": null,
+    "editModeReadback": "accept_edits",
+    "globalProviderOrAccountChanges": false,
+    "leaseReturnedToParentAtHandoff": true
+  },
+  "nativeImages": [
+    {
+      "region": "A",
+      "path": "native/A/native.png",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "bytes": 3951130,
+      "sha256": "9ee0467ccf07936b677c946100619e59c6d68cda324d6e99aadf1cb95d7420a2",
+      "elapsedSeconds": 79.4807140827179,
+      "imageProvider": "openai-api",
+      "model": "gpt-image-2",
+      "operation": "images.edit",
+      "inputCount": 2,
+      "inputReferences": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/references/A-structure.png",
+          "role": "geometry-and-fully-painted-ground-guide",
+          "sha256Matches": true
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-04-county-twentyfive-region-plan/review-009/TR-33-v1.png",
+          "role": "original-approved-25-image-art-style-only-not-white-margins-or-source-road-geometry",
+          "sha256Matches": true
+        }
+      ],
+      "qualityRequested": "high",
+      "qualityReturned": null,
+      "nativeBytesPreserved": true
+    },
+    {
+      "region": "B",
+      "path": "native/B/native.png",
+      "actualSize": [
+        1536,
+        1024
+      ],
+      "bytes": 4035618,
+      "sha256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+      "elapsedSeconds": 57.64651298522949,
+      "imageProvider": "openai-api",
+      "model": "gpt-image-2",
+      "operation": "images.edit",
+      "inputCount": 3,
+      "inputReferences": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/references/B-structure-matched-to-A.png",
+          "role": "structure-guide-with-exact-actual-A-64px-shared-strip",
+          "sha256Matches": true
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-04-county-twentyfive-region-plan/review-009/TR-33-v1.png",
+          "role": "original-approved-25-image-art-style-only-not-white-margins-or-source-road-geometry",
+          "sha256Matches": true
+        },
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/references/A-east-edge.png",
+          "role": "only-64px-A-edge-corresponding-exactly-to-B-left-64px-no-full-neighbor-input",
+          "sha256Matches": true
+        }
+      ],
+      "qualityRequested": "high",
+      "qualityReturned": null,
+      "nativeBytesPreserved": true
+    }
+  ],
+  "totalNativeBytes": 7986748,
+  "geometry": {
+    "imageOffsets": {
+      "A": [
+        0,
+        0
+      ],
+      "B": [
+        1472,
+        0
+      ]
+    },
+    "overlapPixels": 64,
+    "renderCoreSeamGlobalX": 1504,
+    "sharedRoadNode": [
+      1504,
+      558
+    ],
+    "pairRasterSize": [
+      3008,
+      1024
+    ],
+    "imageLayerReferences": [
+      {
+        "image": "A-core.png",
+        "globalOffset": [
+          0,
+          0
+        ],
+        "exists": true
+      },
+      {
+        "image": "B-core.png",
+        "globalOffset": [
+          1504,
+          0
+        ],
+        "exists": true
+      }
+    ],
+    "nativeImagesRescaledOrWarped": false,
+    "contractDeviation": {
+      "ARequestedPortalY": 600,
+      "AObservedApproxPortalY": 556,
+      "BRequestedPortalY": 556,
+      "BObservedApproxPortalY": 558,
+      "strictOriginalPixelContractPassed": false,
+      "actualVisibleRoadJoinObserved": true,
+      "pixelPerfectArtSeamAccepted": false,
+      "remaining": "Minor curb/texture differences and vegetation density transition remain; no visible carriageway break in 1:1 crop."
+    }
+  },
+  "vectorExport": {
+    "tiled": "tiled/compact-pair.tmj",
+    "tiledSHA256": "62b916c820b3af8e9ca02ea607db7470460d53548da978b22b29a64393bdf10d",
+    "graph": "navigation/graph.json",
+    "graphSHA256": "fd5f81578aa7d4050532b3b2571a2708eb036c2cc71dcdd4b14780240d2ba224",
+    "nodes": 11,
+    "edges": 12,
+    "components": 1,
+    "offsetAppliedOnce": true,
+    "traceMethod": "assistant drawn from actual native image pixels, not automatic image recognition",
+    "newBusinessBindings": 0,
+    "roadExportCommandExercised": "python3 export_roads.py",
+    "roadExportInputWritten": false
+  },
+  "actualNavigation": {
+    "page": "navigation/offline.html",
+    "browserBackend": "BB local isolated headless; real-profile helper was blocked by Chrome credential-database locks, no Chrome quit or profile/global change attempted",
+    "http": "Existing4186 root does not cover this write set; no new service started or root changed",
+    "rawEvidence": "preview/browser-walkthrough.json",
+    "rawEvidenceSHA256": "f0d057a7d0bcf679c2995af06ca2f2a9dea09038d9ad4404c2231d86aab004e6",
+    "screenshot": "preview/navigation-arrival.jpg",
+    "screenshotSHA256": "c7a9faf192fa6c8a2579855380d29afdfad8a5cdef400c9444bf3e8c18ee484c",
+    "sampleCount": 28,
+    "startPosition": [
+      689.101507407647,
+      939.9347868279743
+    ],
+    "endPosition": [
+      2271.9999999999995,
+      304
+    ],
+    "routeEdgeIds": [
+      5,
+      2,
+      3,
+      6,
+      10
+    ],
+    "traveledPixels": 2072.5267721853816,
+    "crossedGlobalX": 1504,
+    "maxSampleGapFromExportedVectorsPixels": 5.684341886080802e-14,
+    "arrived": true,
+    "gameIntegration": false
+  },
+  "nativeTiled": {
+    "openedDocumentAXReadback": "file:///Users/sanger/Documents/ChatGPT/taptap%202/docs/art/2026-11-06-city-image-map/compact-pair-v1/tiled/compact-pair.tmj",
+    "documentSelectedVerified": true,
+    "renderedPairVerified": false,
+    "reason": "App-scoped background captures still showed the old single-block content despite current AXDocument/title. These captures are excluded from pair display evidence. No foreground takeover or saving other documents.",
+    "cacheCapturesNotEvidence": [
+      "preview/tiled-pair.png",
+      "preview/tiled-pair-fit.png"
+    ]
+  },
+  "visualEvidence": {
+    "overview": "preview/pair-overview.jpg",
+    "overviewIsHalfSizeDerivative": true,
+    "nativePixelComposite": "preview/pair-composite.png",
+    "oneToOneCrops": [
+      "preview/market-1x.png",
+      "preview/seam-1x.png"
+    ],
+    "coreAndEdgeGroundFilledObserved": true,
+    "whiteIsolatedDisplayMarginsObserved": false,
+    "userAccepted": false
+  },
+  "protectedInputs": {
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/current-scope.json": "5ad704f0aa06492777c4a05aa324b79f136bb4c5afd89fbc6fe4d7d326b3f91b",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/layout-draft-v1.json": "56830f9d23e6531609adb979fd1748532af98507283457b6cdcf58dc0ea0bfff",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-road-tracing-pilot/native-city-block.png": "ca28b238db09692e1c6af064d920f18ccaaacd6dce94625a16ce7de5a755b0db",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-road-tracing-pilot/画路试验.tmj": "ce5f61760c36b979c2b01659927527aa9d20006e76b5ad55ad6c8ac30a07be77",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-road-tracing-pilot/画路试验_助手描线.tmj": "2edde5181e7b00ebc20bb38d5b8dc8d7118b1a753fd0be2dcfe34ea3678ae908",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/delivery-kit/v1/user-layout.tmj": "22dcce411b45dd8ae2f12e3839af66e367dea362e198abca40fdf5c23c4a2335",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/delivery-kit/reference25/reference-layout.tmj": "f78e5ef9d7fe9af5ef0411b414a4a2e8ff11d893132800bfef90faacb26ead6a",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/viewer/assets/scene-layout.json": "237252cf5858346686c707335f1a323c0d14261631ec6262b6d403bbfd94b5cc",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/integration/neighborhood.tmj": "26eb9baad3f38a13570c5c23d4cadd5a5f4f4ef29f1c5a174436d3c566fd99e8",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/resources/map-sample/city.json": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20"
+  },
+  "changedReadonlyInputs": [],
+  "checks": [
+    {
+      "name": "native_size_and_SHA_A",
+      "passed": true
+    },
+    {
+      "name": "single_request_and_input_SHA_A",
+      "passed": true
+    },
+    {
+      "name": "native_size_and_SHA_B",
+      "passed": true
+    },
+    {
+      "name": "single_request_and_input_SHA_B",
+      "passed": true
+    },
+    {
+      "name": "core_crops_are_exact_native_pixels",
+      "passed": true
+    },
+    {
+      "name": "one_connected_graph",
+      "passed": true
+    },
+    {
+      "name": "runtime_graph_is_exact_current_TMJ",
+      "passed": true
+    },
+    {
+      "name": "runtime_actual_ready_and_arrived",
+      "passed": true
+    },
+    {
+      "name": "continuous_samples_cross_region",
+      "passed": true
+    },
+    {
+      "name": "sampled_positions_on_exported_vectors",
+      "passed": true
+    },
+    {
+      "name": "endpoint_arrival",
+      "passed": true
+    },
+    {
+      "name": "tiled_image_references",
+      "passed": true
+    },
+    {
+      "name": "all_protected_inputs_unchanged",
+      "passed": true
+    },
+    {
+      "name": "offline_graph_payload_current",
+      "passed": true
+    },
+    {
+      "name": "native_request_count_two",
+      "passed": true
+    }
+  ],
+  "failedChecks": [],
+  "limits": {
+    "wholeCityComplete": false,
+    "physicalAreaQuarterMeasured": false,
+    "metresCalibrated": false,
+    "finalImageGridFrozen": false,
+    "gameTests": false,
+    "typecheckRegressionFPS": false,
+    "ordersOrSaveStateAccess": false,
+    "committedOrPushed": false,
+    "furtherGenerationAuthorizedOrStarted": false
+  },
+  "remaining": [
+    "User art/clarity review; warm window tones, greenery density and local seam vegetation/curb texture are not yet accepted.",
+    "Native Tiled two-region repaint not verified; do not substitute AX title or cached screenshot.",
+    "No HTTP share for new folder; working preview is the local self-contained HTML.",
+    "Only this adjacent pair is produced; final compact-city image count, physical scale and rest of city not closed."
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "task": "U21-vehicle-showcase",
+  "status": "product_layout_implemented_independent_environment_asset_blocked",
+  "notUserAccepted": true,
+  "notRuntimeVerified": true,
+  "scopeCorrection": {
+    "productAndMapAreIndependent": true,
+    "mapInputsInNewRuntimeCode": [],
+    "mapDerivedOutputs": [],
+    "existingMapsPagePreserved": true,
+    "newRuntimeImageResources": []
+  },
+  "inputs": {
+    "approvedUI": {
+      "path": "docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+      "nativeSize": [940, 1672],
+      "mode": "RGB",
+      "sha256": "2daca12074f1c7f1b12a65601b2e743e4dc4069d1dcbedfda734ef29e9ea877f",
+      "role": "visual_reference_only_not_runtime_background"
+    },
+    "vehicleMasters": {
+      "records": "source-vehicles.json",
+      "count": 10,
+      "uniqueModelIds": 10,
+      "nativeSizeEach": [1536, 1024],
+      "modeEach": "RGBA",
+      "runtimeAPI": "VehicleSideArt.vehicleSideArt",
+      "runtimeMappingUnchanged": true,
+      "originalFilesModified": false
+    },
+    "independentProductBackgroundInspectedNotIntegrated": {
+      "path": "docs/art/vehicle-shop-production/garage-clean-background.png",
+      "nativeSize": [1374, 1145],
+      "mode": "RGB",
+      "sha256": "5859bc695354277505d15c1af22b647d6aabd09d2152aa94a6a2a42504d00021",
+      "status": "not_integrated",
+      "reason": "Existing independent product garage has strong warm/yellow sunlight, dark workshop fixtures and a tall composition. It does not supply the current bright neutral wide U21 showcase environment. No recoloring/cropping was done."
+    }
+  },
+  "layout": {
+    "canvas": [720, 1280],
+    "detailsCard": {"width": 684, "height": 444, "topY": 566.5511057979677, "bottomY": 122.5511057979677},
+    "productViewport": {"x": 0, "y": 80, "width": 660, "height": 268},
+    "vehicleFit": {"method": "contain_full_native_canvas", "width": 378, "height": 252, "scaleFromNative": 0.24609375, "sourceCrop": null},
+    "environment": null,
+    "neutralSurface": "procedural product UI chrome only, not a street/garage/ground scene",
+    "nameOwnershipLevelAndAllParameters": "below preview; runtime values unchanged",
+    "purchaseButtonCountInDetails": 1,
+    "gallery": {"columns": 3, "scrollKey": "vehicles", "tileHeight": 194, "rowStep": 205, "titleMasterY": 715, "viewportTopMasterY": 748, "viewportBottomMasterY": 1490, "selectionLogicUnchanged": true},
+    "economyAndSaveChanges": false
+  },
+  "outputs": [
+    {
+      "path": "model-03-product-layout-static.png",
+      "size": [684, 444],
+      "mode": "RGB",
+      "sha256": "e973388900142e031f526514432ff6e7f4a6a1c5c35c7cdedb9463edbb068e0a",
+      "kind": "offline_product_UI_layout_not_game_screenshot",
+      "userInventoryRepresented": false,
+      "vehicleModelId": 3,
+      "sceneBackground": null
+    },
+    {
+      "path": "model-03-product-preview-static.png",
+      "size": [660, 268],
+      "mode": "RGB",
+      "sha256": "e4b8857d54c853025fe60f7d04bdc58fd7da0fd3775e2d462138a8a16e5bff27",
+      "kind": "offline_product_preview_not_game_screenshot",
+      "vehicleModelId": 3,
+      "sceneBackground": null
+    },
+    {
+      "path": "source-vehicles-contact-sheet.png",
+      "size": [1250, 520],
+      "mode": "RGB",
+      "sha256": "ce510afe140e30eeb5feb28caf62261c8de8ea7e50e5d79cbc0d67ccd94a60e5",
+      "kind": "downsampled_10_originals_contact_sheet_not_10_generated_scenes"
+    }
+  ],
+  "reproduction": {
+    "script": "render-static-preview.py",
+    "scriptSha256": "f438472ccbb08ddcf39a5da2b6b3ecdc91efd375a2d714d4d1afc11438a0d896",
+    "command": "python3 docs/art/2026-11-05-vehicle-showcase/render-static-preview.py",
+    "note": "Pillow-only image composition. Vector UI supersampling is not new native image detail. PNG uses a static parameter example and a non-numeric ownership placeholder; it neither imports the game nor opens/creates saves. It does not reproduce Cocos-loaded icons, image skins or runtime font metrics."
+  },
+  "sourceChanges": [
+    {"path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts", "beforeSha256": "6ee10985eafe1cf86af61cad1605cd617edafd0e27a40bc274994f09ba2e3684", "afterSha256": "a33f933e5dc1e41827ac5cfbfaee1563d494d0acceae5fdaebec9321d10a1e96", "scope": "one import and vehicles() presentation only"},
+    {"path": "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts", "sha256": "aeee30bde4e3f121f39b395bd84feff5708b5dfb63cf4941cb91df6d9e00f14c", "scope": "new neutral product UI helper using existing VehicleSideArt"},
+    {"path": "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts.meta", "sha256": "5b18e74841d1937ef6894b6cadf03557c70b9ba6ca5fc993d35a6881602633d8", "scope": "new TypeScript import metadata"}
+  ],
+  "unchangedSkin": {
+    "path": "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts",
+    "sha256BeforeAndAfter": "e3be2228f8ac59746fa412146b289b2c0a267fa18184fcf5859460f59f972e8e"
+  },
+  "verification": {
+    "actualSourceImagesViewed": true,
+    "actualFinalModel03PNGsViewed": true,
+    "nativeSizesAndSHA256Measured": true,
+    "sourceStaticTraceOnly": true,
+    "testsRun": false,
+    "manualTypecheckRun": false,
+    "creatorBuildRun": false,
+    "deploymentPerformed": false,
+    "gameOpened": false,
+    "realOrSyntheticSaveExecuted": false
+  },
+  "remaining": [
+    "U21 is not complete: a suitable independent product environment is missing. Do not use map-preview or any map-production asset.",
+    "An actual scene must later be visually checked for 45-degree vehicle scale, wheel/ground contact and shadows. Model 10's native hover-vehicle identity must remain unchanged.",
+    "The 10-model selected preview, inventory count, purchase target, image errors and restored gallery offset are connected in source but not runtime-verified. PM owns any authorized build/preview.",
+    "No 98% result, functional pass, user acceptance or feedback closure is asserted."
+  ]
+}

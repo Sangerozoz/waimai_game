@@ -1,0 +1,609 @@
+--- a/delivery-game/assets/scripts/map-sample/V2GameUI.ts
++++ b/delivery-game/assets/scripts/map-sample/V2GameUI.ts
+@@ -4,14 +4,18 @@
+ import { CityMap } from './CityMap';
+ import { col, item, label as baseLabel, tap } from './SampleUI';
+ import { experienceProgress, scrollContent, textHeight } from './PresentationLayout';
+-import { V2_CONFIG as CONFIG } from '../domain/V2EconomyConfig';
+-import { V2EconomySnapshot, V2Vehicle, vehicleEffects, vehicleUpgradeQuote } from '../domain/V2EconomySession';
+-import { riderHireQuote, riderEffects, riderUpgradeQuote } from '../domain/V2RiderEconomy';
++import { V2_SLOT_CONFIG as CONFIG } from '../domain/V2SlotEconomyConfig';
++import { V2EconomySnapshot, V2Vehicle, V2DeliveryQuote, contractTerms } from '../domain/V2EconomySession';
++import { slotVehicleEffects, slotVehicleUpgradeQuote, slotRiderEffects, slotRiderUpgradeQuote, slotRiderHireQuote, slotVehiclePurchaseQuote, slotMapPurchaseQuote, slotNextHirePriceCents } from '../domain/V2EconomyProfiles';
++import { V2Load, V2Capacity, parseV2Load, parseV2Capacity, sameV2Load, totalV2Load, fitsV2Capacity } from '../domain/V2LoadRules';
+ import { V2FleetSnapshot } from '../domain/V2FleetSession';
+ import { summarizeLedger } from '../domain/V2Ledger';
+ import { queryProgressTargets } from '../domain/V2ProgressTargets';
+ const { ccclass } = _decorator;
+ type Page='首页'|'骑手'|'车辆'|'订单大厅'|'地图'|'账单';
++type FundsState=Readonly<V2EconomySnapshot['state']>;
++type UISnapshot=NonNullable<V2RuntimeController['snapshot']>;
++type UpgradePresentation=Readonly<{detail:string;costCents:number}>;
+ const INK=UI.ink;
+ import { V2_SPACE as S, V2_CONTENT as CW, V2_LAYOUT as L, columnWidth } from './V2Spacing';
+ import { master as M, portraitDisplayName } from './V2ImageSkin';
+@@ -41,6 +45,35 @@
+ }
+ function label(...args:Parameters<typeof baseLabel>):Label {const result=baseLabel(...args);const lines=args[1].split('\n').length;result.fontFamily='PingFang SC, Microsoft YaHei, sans-serif';result.lineHeight=(args[4]??20)*S.lineHeight;if(lines>1)result.node.getComponent(UITransform)!.setContentSize(args[6]??600,(args[4]??20)*1.45*lines+6);return result;}
+ function coins(cents:number):string {return Number((cents/100).toFixed(2)).toString();}
++function loadText(load:V2Load):string {return load.version==='slots-v1'?`${load.occupiedSlots}格`:`${load.weightKg}kg`;}
++function foodTitleLayout(food:OrderFoodPresentation,load:V2Load,size:number,width:number){
++ const value=`${food.name} ${loadText(load)}`,extra=Math.max(0,textHeight(value,size,width)-textHeight('字',size,width));
++ return {value,extra,height:size*1.6+extra};
++}
++function capacityText(raw:V2Capacity):string {const capacity=parseV2Capacity(raw);return capacity.version==='slots-v1'?`${capacity.capacitySlots}格`:`${capacity.capacityKg}kg`;}
++function loadSummary(loads:readonly V2Load[],raw:V2Capacity):string {
++ const capacity=parseV2Capacity(raw),total=totalV2Load(loads,capacity);
++ return capacity.version==='slots-v1'?`${total}/${capacity.capacitySlots}格`:`${total}/${capacity.capacityKg}kg`;
++}
++/** Container terms choose units; a missing new load never becomes one slot or legacy. */
++function signedOrderLoad(order:{load?:unknown;weightKg?:number;quote:V2DeliveryQuote}):V2Load {
++ const terms=contractTerms(order.quote);
++ if(terms.version==='slots-v1'){
++  const load=parseV2Load(order.load);
++  if('weightKg' in order||!sameV2Load(load,terms.load))throw new Error('本批占用与合同不一致');
++  return load;
++ }
++ if('load' in order)throw new Error('旧批不能混用格子占用');
++ return parseV2Load({version:'kg-v1',weightKg:order.weightKg});
++}
++/** Preserve the existing goal metadata, but never display its legacy price/shortfall. */
++function homeProgressTargets(state:FundsState){
++ const mapPrices=CONFIG.maps.filter(map=>map.id!==CONFIG.maps[0].id&&!state.ownedMapIds.includes(map.id)).map(map=>slotMapPurchaseQuote(map.id).costCents).filter(cost=>cost>0);
++ const prices:Record<string,number|null>={'first-car':slotVehiclePurchaseQuote(CONFIG.vehicles[0].id).costCents,'first-npc':slotNextHirePriceCents(state.riders),'first-paid-map':mapPrices.length?Math.min(...mapPrices):null};
++ return queryProgressTargets(state).filter(target=>Object.prototype.hasOwnProperty.call(prices,target.id)).map(target=>{
++  const priceCents=prices[target.id];return {...target,priceCents,shortfallCents:target.completed||priceCents===null?0:Math.max(0,priceCents-state.cashCents),canGo:!target.completed&&(priceCents===null||state.cashCents>=priceCents)};
++ });
++}
+ @ccclass('V2GameUI')
+ export class V2GameUI extends Component {
+  public onRestartFailure:(()=>void)|null=null;
+@@ -75,6 +108,8 @@
+  private riderStatuses=new Map<string,Label>();
+  private vehicleReturnRider:string|null=null;
+  private supplyOpen=false;
++ private fundsViews=new Map<Node,(state:FundsState)=>void>();
++ private upgradeModal:Node|null=null;
+  configure(runtime:V2RuntimeController,data:CityData,canvas:Node):void {
+   this.runtime=runtime;this.root=item(canvas,'V2GameUI',0,0,720,1280);
+   this.map=new CityMap(this.root,data,1280,()=>sys.openURL('https://www.openstreetmap.org/copyright'),0,128,{left:0,right:0},1280);
+@@ -95,7 +130,9 @@
+   this.page=page;this.supplyOpen=false;this.configureRider=null;this.render();
+  }
+  private render():void {
++  this.closeUpgrade();this.fundsViews.clear();
+   this.runtime.setPaused(this.supplyOpen||this.page!=='首页');
++  const snapshot=this.runtime.snapshot!,state=(snapshot.economy as V2EconomySnapshot).state;
+   for(const [key,scroll] of this.scrollViews)if(isValid(scroll,true))this.scrollOffsets.set(key,scroll.getScrollOffset().y);
+   this.scrollViews.clear();this.npcActivity.clear();
+   this.riderStatuses.clear();
+@@ -129,12 +166,12 @@
+    tap(st,()=>this.act(()=>{this.supplyOpen=true;}));
+   }
+   if(full){const rating=panel(this.body,'RatingHUD',M.x(860),M.y(85),M.w(118),M.h(60),'#F4FCFF',UI.blue);glyph(rating,'heart',-29,0,30);this.ratingHUD=label(rating,'',15,0,23,INK,60,true,'center');}
+-  this.refreshHUD();
++  this.refreshHUD(state);
+   this.errorText=label(this.body,this.message,0,full?455:549,16,'#BF3E12',660,false,'center');
+-  if(this.supplyOpen)this.supplies();
++  if(this.supplyOpen)this.supplies(snapshot);
+   else {
+-   if(this.page==='首页')this.home();if(this.page==='骑手')this.riders();if(this.page==='车辆')this.vehicles();
+-   if(this.page==='地图')this.maps();if(this.page==='账单')this.bills();if(this.page==='订单大厅')this.orders();
++   if(this.page==='首页')this.home(snapshot);if(this.page==='骑手')this.riders(state);if(this.page==='车辆')this.vehicles(state);
++   if(this.page==='地图')this.maps(state);if(this.page==='账单')this.bills(state);if(this.page==='订单大厅')this.orders(snapshot);
+   }
+   panel(this.body,'NavigationBase',0,M.y(1591),720,M.h(164),'#17365B','#17365B');
+   const pages:Page[]=['骑手','车辆','订单大厅','地图','账单'];
+@@ -148,29 +185,45 @@
+   mainAction(this.body,this.page==='订单大厅'?'×':'抢单',0,M.y(1565),()=>this.act(()=>this.navigate(this.page==='订单大厅'?'首页':'订单大厅')));
+  }
+ 
+- private refreshHUD():void {
+-  const s=this.state,t=this.runtime.tripState;
++ private refreshHUD(s:FundsState=this.state):void {
++  const t=this.runtime.tripState;
+   this.hud.string=coins(s.cashCents);
+   if(this.staminaHUD)this.staminaHUD.string=`${Math.floor(t?.stamina??100)}/100`;
+   if(this.ratingHUD)this.ratingHUD.string=String(t?.rating??100);
+   if(this.heroHUD){const xp=experienceProgress(s.heroExperience);this.heroHUD.string=CONFIG.maps[s.selectedMapId-1].name+' ›';if(this.heroLevel)this.heroLevel.string=`Lv.${xp.level}`;if(this.xpBar){this.xpBar.setScale(Math.max(.01,xp.progress),1,1);this.xpBar.setPosition(24+46*xp.progress,-20);}}
+  }
+ 
+- private home():void {
+-  const snap=this.runtime.snapshot!,allTargets=queryProgressTargets(this.state);
++ /** Refresh only money-dependent labels/actions at the existing HUD cadence. */
++ private bindFunds(view:Node,refresh:(state:FundsState)=>void,initial:FundsState=this.state):void {
++  this.fundsViews.set(view,refresh);refresh(initial);
++ }
++ private refreshFunds(state:FundsState):void {
++  for(const [view,refresh] of this.fundsViews){
++   if(!isValid(view,true)){this.fundsViews.delete(view);continue;}
++   if(view.activeInHierarchy)refresh(state);
++  }
++ }
++ private closeUpgrade():void {
++  const modal=this.upgradeModal;this.upgradeModal=null;
++  if(modal){this.fundsViews.delete(modal);if(isValid(modal,true)){modal.active=false;modal.destroy();}}
++ }
++
++ private home(snap:UISnapshot):void {
++  const state=(snap.economy as V2EconomySnapshot).state,allTargets=homeProgressTargets(state);
+   const targets=['first-car','first-npc','first-paid-map'].map(id=>allTargets.find(t=>t.id===id)).filter((t):t is NonNullable<typeof t>=>!!t&&!t.completed);
+   if(targets.length){
+    const target=targets[0],c=panel(this.body,'ProgressTarget',-62,-400,558,83,'#EFFAFFA6');
+-   label(c,target.label,-103,19,21,INK,310,true,'left');label(c,`${target.progress}/${target.target} · 还差 ${(target.shortfallCents/100).toFixed(2)}金币`,-103,-16,16,UI.muted,310,false,'left');
++   label(c,target.label,-103,19,21,INK,310,true,'left');const progress=label(c,`${target.progress}/${target.target} · 还差 ${(target.shortfallCents/100).toFixed(2)}金币`,-103,-16,16,UI.muted,310,false,'left');
++   this.bindFunds(c,state=>{const current=homeProgressTargets(state).find(row=>row.id===target.id);if(current)progress.string=`${current.progress}/${current.target} · 还差 ${(current.shortfallCents/100).toFixed(2)}金币`;},state);
+    action(c,'›',220,0,72,58,()=>this.act(()=>this.navigate(({vehicles:'车辆',riders:'骑手',maps:'地图'} as const)[target.destination])),true,false);
+   }
+-  this.homeNPCs();
++  this.homeNPCs(state);
+   // Home keeps HUD/targets/counters; delivery status and receipts live in their detail pages.
+   // Do not create floating trip or settlement labels over the map.
+   // Keep the two map controls in separate rows above the bottom navigation.
+   const locate=panel(this.body,'LocateRider',290,-388,64,64,'#F2FBFF',UI.blue);glyph(locate,'target',0,0,56);tap(locate,()=>this.map.locate(true));
+   const supply=panel(this.body,'SupplyShortcut',290,425,76,76,'#EFFAFFEE',UI.blue);glyph(supply,'expense',0,0,54);tap(supply,()=>this.act(()=>{this.supplyOpen=true;}));
+-  label(this.body,`已送 ${this.state.heroCompletedOrders} 单 · 团队 ${this.state.npcCompletedOrders} 单`,-68,-473,17,INK,440,false,'left');
++  label(this.body,`已送 ${state.heroCompletedOrders} 单 · 团队 ${state.npcCompletedOrders} 单`,-68,-473,17,INK,440,false,'left');
+   if(snap.batchIds.length){
+    const group=this.pickupGroup();
+    action(this.body,group?`${group.name} · ${group.count}份 ›`:'余单 / 路线',-190,-325,260,48,()=>this.act(()=>this.navigate('订单大厅')),true,false);
+@@ -187,8 +240,8 @@
+   const offset=Math.max(0,Math.min(saved,Math.max(0,height-(top-bottom))));
+   content.setPosition(0,(top-bottom)/2+offset);this.scheduleOnce(restore,0);return content;
+  }
+- private homeNPCs():void {
+-  const npcs=this.state.riders.filter(r=>r.id!=='hero');if(!npcs.length)return;
++ private homeNPCs(state:FundsState):void {
++  const npcs=state.riders.filter(r=>r.id!=='hero');if(!npcs.length)return;
+   const height=Math.min(3,npcs.length)*76;
+   const content=scrollContent(this.body,258,505,505-height,npcs.length*76);
+   content.parent!.setPosition(-207,505-height/2);
+@@ -203,11 +256,11 @@
+    this.npcActivity.set(r.id,{status,timer});tap(card,()=>this.act(()=>{this.page='骑手';this.configureRider=r.id;}));
+   });this.refreshNPCActivity();
+  }
+- private refreshNPCActivity():void {
++ private refreshNPCActivity(snap:UISnapshot=this.runtime.snapshot!):void {
+   if(!this.npcActivity.size)return;
+-  const fleet=(this.runtime.snapshot!.fleet as V2FleetSnapshot).fleet;
++  const fleet=(snap.fleet as V2FleetSnapshot).fleet,state=(snap.economy as V2EconomySnapshot).state;
+   for(const [id,view] of this.npcActivity){
+-   const rider=this.state.riders.find(r=>r.id===id),batch=fleet.batches.find(b=>b.riderId===id),next=batch?.orders[batch.paidCount];
++   const rider=state.riders.find(r=>r.id===id),batch=fleet.batches.find(b=>b.riderId===id),next=batch?.orders[batch.paidCount];
+    const working=fleet.quotaMs>0&&!!batch&&!!next;
+    view.status.string=working?'配送中':'空闲';view.status.color=col(working?UI.blue:'#009749');
+    if(working&&batch&&next){const seconds=Math.max(0,Math.ceil((next.dueMs-batch.elapsedMs)/1000));view.timer.string=`下一单 ${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;}
+@@ -227,9 +280,9 @@
+   action(sheet,'查看账单',140,-112,250,52,()=>{modal.destroy();this.act(()=>this.navigate('账单'));},true,false);
+  }
+ 
+- private supplies():void {
++ private supplies(snap:UISnapshot):void {
+   const t=this.runtime.tripState;if(!t)return;
+-  const options=this.runtime.supplyOptions(),active=this.runtime.snapshot!.batchIds.length>0;
++  const options=this.runtime.supplyOptions(),active=snap.batchIds.length>0,state=(snap.economy as V2EconomySnapshot).state;
+   const route=this.runtime.routeSnapshot,serviceInProgress=route?.phase==='service'&&route.serviceCharged===true;
+   const beforeDeparture=active&&route?.phase==='planned';
+   action(this.body,'‹ 返回原页',-226,516,224,42,()=>this.act(()=>{this.supplyOpen=false;}),true,false);
+@@ -254,7 +307,19 @@
+    label(card,`${option.durationSeconds}秒 · ${!active?'无配送期限推进':beforeDeparture?'未出发，不耗配送期限':`期限推进 ${option.gameSeconds}秒`}`,0,-4,18,UI.muted,410,false,'left');
+    label(card,`库存 ${option.quantity}`,258,61,20,INK,130,true,'right');
+    label(card,`${option.unlocked?'已开放':'未开放'} · 最高已购地图达到${CONFIG.maps[option.unlockMapId-1].name}`,-10,-35,17,option.unlocked?UI.muted:'#BF3E12',CW-28,false,'center');
+-   action(card,`购买并使用 ${(option.costCents/100).toFixed(2)}金币`,-157,-68,330,44,()=>this.act(()=>supply(option.id)),available&&option.unlocked&&this.state.cashCents>=option.costCents);
++   const purchase=item(card,'SupplyPurchase',-157,-68,330,44);
++   const canPurchase=(state:FundsState)=>available&&option.unlocked&&state.cashCents>=option.costCents;
++   let purchaseEnabled:boolean|undefined,purchaseButton:Node|null=null;
++   const refreshPurchase=(state:FundsState)=>{
++    const enabled=canPurchase(state);if(enabled===purchaseEnabled)return;purchaseEnabled=enabled;
++    if(purchaseButton){purchaseButton.active=false;purchaseButton.destroy();}
++    const button=action(purchase,`购买并使用 ${(option.costCents/100).toFixed(2)}金币`,0,0,330,44,()=>{
++     if(purchaseButton!==button||!isValid(button,true)||!button.activeInHierarchy)return;
++     const current=this.state;if(!canPurchase(current)){refreshPurchase(current);return;}
++     this.act(()=>supply(option.id));
++    },enabled);purchaseButton=button;
++   };
++   this.bindFunds(purchase,refreshPurchase,state);
+    action(card,option.quantity>0?'使用库存':'暂无库存',181,-68,298,44,()=>this.act(()=>supply(option.id,'inventory')),available&&option.unlocked&&option.quantity>0,false);
+   });
+   const after=options.length*206+154;
+@@ -315,26 +380,26 @@
+   if(route?.phase==='ready')return `取餐已完成 · 等待${route.stops[route.cursor]?.kind==='dropoff'?'去配送':'去下一站'}`;
+   return ({idle:'当前没有配送',planned:'待选择路线出发',travelling:'沿原道路配送中',pickup:'已到店 · 等待取餐',finished:'本批配送已完成'} as const)[route?.phase||'idle'];
+  }
+- private riders():void {
+-  const s=this.state;
+-  if(this.configureRider){this.vehicleConfiguration(this.configureRider);return;}
++ private riders(s:FundsState=this.state):void {
++  if(this.configureRider){this.vehicleConfiguration(this.configureRider,s);return;}
+   const gap=L.riderRowGap,cardW=columnWidth(2,gap),innerW=cardW-2*S.card,buttonW=(innerW-S.gap)/2;
+   const portraitX=-cardW/2+S.card+46,infoLeft=-cardW/2+S.card+92+S.imageText,infoW=cardW/2-S.card-infoLeft,infoX=infoLeft+infoW/2;
+   const percent=(value:number)=>Number((value*100).toFixed(1));
++  const todayDayKey=this.runtime.ledgerQuery.todayDayKey;
+   // Keep exact money and readable fonts; long real values grow only their grid row.
+   const wrappedExtra=(value:string,size:number,width:number)=>Math.max(0,textHeight(value,size,width)-textHeight('字',size,width));
+   const cards=Array.from({length:31},(_,i)=>{
+    const id=i===0?'hero':`npc-${i}`,r=s.riders.find(r=>r.id===id);
+-   const hire=i>0&&!r?riderHireQuote(id):null,upgrade=i>0&&r?riderUpgradeQuote(id,r.level):null;
++   const hire=i>0&&!r?slotRiderHireQuote(id):null,upgrade=i>0&&r&&r.level<CONFIG.levels.length?slotRiderUpgradeQuote(id,r.level):null;
+    const rows:{value:string;color:string;height:number}[]=[];
+    if(i===0){
+     const xp=experienceProgress(s.heroExperience);rows.push({value:`经验 ${xp.current}/${xp.required}`,color:INK,height:0});
+    }else {
+-    const e=riderEffects(id,r?.level??1),income=`收入加成 +${percent(e.incomeFactor-1)}%`,saving=`取送省时 ${percent(e.fixedServiceReduction)}%`;
++    const e=slotRiderEffects(id,r?.level??1),income=`收入加成 +${percent(e.incomeFactor-1)}%`,saving=`取送省时 ${percent(e.fixedServiceReduction)}%`;
+     if(r){
+-     const today=s.ledger.entries.filter(entry=>entry.category==='npc_delivery'&&entry.dayKey===this.runtime.ledgerQuery.todayDayKey&&entry.detail.riderId===id).reduce((n,entry)=>n+entry.amountCents,0);
++     const today=s.ledger.entries.filter(entry=>entry.category==='npc_delivery'&&entry.dayKey===todayDayKey&&entry.detail.riderId===id).reduce((n,entry)=>n+entry.amountCents,0);
+      rows.push({value:`今日收入 ${coins(today)}`,color:'#FF7800',height:0},{value:income,color:INK,height:0},{value:saving,color:INK,height:0});
+-    }else rows.push({value:income,color:INK,height:0},{value:saving,color:INK,height:0},{value:`价格 ${coins(hire!.priceCents)}金币`,color:'#FF7800',height:0});
++    }else rows.push({value:income,color:INK,height:0},{value:saving,color:INK,height:0},{value:`价格 ${coins(hire!.costCents)}金币`,color:'#FF7800',height:0});
+    }
+    rows.forEach(row=>{row.height=26+wrappedExtra(row.value,20,infoW);});
+    const upgradeText=upgrade?`升级骑手 ${coins(upgrade.costCents)}`:'已满级';
+@@ -364,7 +429,10 @@
+    const buttonY=-cardH/2+3+buttonHeight/2;
+    if(r){
+     this.riderAction(card,'配置车辆',i===0?infoX:-(buttonW+S.gap)/2,buttonY,i===0?infoW:buttonW,buttonHeight,()=>this.act(()=>{this.configureRider=id;}),true,false);
+-    if(i>0)this.riderAction(card,upgradeText,(buttonW+S.gap)/2,buttonY,buttonW,buttonHeight,()=>{if(upgrade)this.showUpgrade('升级骑手',`等级 ${r.level} → ${upgrade.nextLevel}\n培养收入 +${percent(upgrade.current.trainingIncomeFactor-1)}% → +${percent(upgrade.next.trainingIncomeFactor-1)}%\n取送省时 ${percent(upgrade.current.fixedServiceReduction)}% → ${percent(upgrade.next.fixedServiceReduction)}%`,upgrade.costCents,()=>this.runtime.command({type:'upgradeRider',riderId:id}));},!!upgrade);
++    if(i>0)this.riderAction(card,upgradeText,(buttonW+S.gap)/2,buttonY,buttonW,buttonHeight,()=>{if(upgrade)this.showUpgrade('升级骑手',state=>{
++     const rider=state.riders.find(row=>row.id===id),quote=rider&&rider.level<CONFIG.levels.length?slotRiderUpgradeQuote(id,rider.level):null;
++     return rider&&quote?{detail:`等级 ${rider.level} → ${quote.nextLevel}\n培养收入 +${percent(quote.current.incomeFactor/quote.current.baseIncomeFactor-1)}% → +${percent(quote.next.incomeFactor/quote.next.baseIncomeFactor-1)}%\n取送省时 ${percent(quote.current.fixedServiceReduction)}% → ${percent(quote.next.fixedServiceReduction)}%`,costCents:quote.costCents}:null;
++    },()=>this.runtime.command({type:'upgradeRider',riderId:id}));},!!upgrade);
+    }else if(hire)this.riderAction(card,'招募',infoX,buttonY,infoW,buttonHeight,()=>this.act(()=>this.runtime.command({type:'hireRider',riderId:id})),s.hireCount<30);
+   });
+   this.refreshRiderStatuses();
+@@ -398,9 +466,9 @@
+   layout(name.string);
+   if(id!=='hero')void portraitDisplayName(id).then(value=>{if(value)layout(value);});
+  }
+- private refreshRiderStatuses():void {
++ private refreshRiderStatuses(snap:UISnapshot=this.runtime.snapshot!):void {
+   if(!this.riderStatuses.size)return;
+-  const s=this.state,fleet=(this.runtime.snapshot!.fleet as V2FleetSnapshot).fleet;
++  const s=(snap.economy as V2EconomySnapshot).state,fleet=(snap.fleet as V2FleetSnapshot).fleet;
+   for(const [id,status] of this.riderStatuses){
+    const rider=s.riders.find(r=>r.id===id);
+    status.string=!rider?.vehicleId?'待配车':fleet.quotaMs>0&&fleet.batches.some(b=>b.riderId===id)?'配送中':'待命';
+@@ -415,8 +483,8 @@
+   const name=label(parent,id==='hero'?'主角':`骑手 ${id.slice(4)}`,x,y,size,INK,width,true,'left');
+   if(id!=='hero')portraitDisplayName(id).then(value=>{if(value&&isValid(name,true))name.string=value;});
+  }
+- private vehicleConfiguration(id:string):void {
+-  const s=this.state,rider=s.riders.find(r=>r.id===id);
++ private vehicleConfiguration(id:string,s:FundsState):void {
++  const rider=s.riders.find(r=>r.id===id);
+   if(!rider){this.configureRider=null;this.riders();return;}
+   const current=s.vehicles.find(v=>v.id===rider.vehicleId),heroBusy=id==='hero'&&!!s.activeQuote;
+   const header=panel(this.body,'Rider-Configuration',0,418,CW,186);
+@@ -434,14 +502,14 @@
+    const equipped=vehicle.id===rider.vehicleId,owner=s.riders.find(r=>r.id!==id&&r.vehicleId===vehicle.id);
+    // A vehicle detached from its rider can still be working an immutable fleet batch.
+    const oldBatch=s.fleetQuotes.find(q=>q.vehicleId===vehicle.id&&q.riderId!==id);
+-   const effects=vehicleEffects(vehicle),quote=vehicleUpgradeQuote(vehicle),heroVehicleBusy=!!s.activeQuote&&s.riders[0].vehicleId===vehicle.id;
++   const effects=slotVehicleEffects(vehicle),quote=vehicle.level<CONFIG.levels.length?slotVehicleUpgradeQuote(vehicle):null,heroVehicleBusy=!!s.activeQuote&&s.riders[0].vehicleId===vehicle.id;
+    const card=panel(list,'Vehicle-Instance-'+i,0,-cardH/2-i*step,CW,cardH,'#EFFAFF',equipped?'#FF8A00':UI.line);
+    const pictureW=230,pictureX=-CW/2+S.card+pictureW/2,textLeft=-CW/2+S.card+pictureW+S.imageText,textW=CW/2-S.card-textLeft;
+    const fallback=label(card,'车型图片载入中',pictureX,19,18,UI.muted,pictureW,false,'center');
+    vehicleSideArt(card,typeof vehicle.modelId==='number'?vehicle.modelId:1,pictureX,25,pictureW,146,fallback.node);
+    label(card,this.vehicleName(vehicle),textLeft+(textW-92)/2,78,27,INK,textW-92,true,'left');
+    levelBadge(card,`Lv.${vehicle.level}`,CW/2-S.card-39,78,78,28);
+-   [['speed',`速度 ×${effects.speedRelativeToStarter.toFixed(2)}`],['capacity',`容量 ${effects.capacityKg.toFixed(1)} kg`],['coin-stack',`收入加成 +${Math.round((effects.incomeFactor-1)*100)}%`]].forEach(([icon,text],row)=>{
++   [['speed',`速度 ×${effects.speedRelativeToStarter.toFixed(2)}`],['capacity',`容量 ${capacityText(effects.capacity)}`],['coin-stack',`收入加成 +${Math.round((effects.incomeFactor-1)*100)}%`]].forEach(([icon,text],row)=>{
+     glyph(card,icon,textLeft+13,36-row*32,25);label(card,text,textLeft+35+(textW-35)/2,36-row*32,21,INK,textW-35,true,'left');
+    });
+    const status=equipped?'当前配备':owner?'其他骑手已配备':oldBatch?'仍在执行旧批次':'空闲 · 可以配备';
+@@ -453,39 +521,70 @@
+    const buttonW=(textW-S.gap)/2,buttonY=-cardH/2+S.buttonEdge+22;
+    action(card,equipped?'已配备':owner?'已占用':oldBatch?'旧批次中':'配备车辆',textLeft+buttonW/2,buttonY,buttonW,44,()=>this.act(()=>this.runtime.command({type:'assignVehicle',riderId:id,vehicleId:vehicle.id})),!equipped&&!owner&&!oldBatch&&!heroBusy,false);
+    action(card,quote?'升级车辆':'已满级',textLeft+buttonW+S.gap+buttonW/2,buttonY,buttonW,44,()=>{
+-    if(quote)this.showUpgrade('升级车辆',`等级 ${vehicle.level} → ${quote.nextLevel}\n速度 ×${quote.current.speedRelativeToStarter.toFixed(2)} → ×${quote.next.speedRelativeToStarter.toFixed(2)}\n容量 ${quote.current.capacityKg.toFixed(1)} → ${quote.next.capacityKg.toFixed(1)} kg\n收入加成 +${Math.round((quote.current.incomeFactor-1)*100)}% → +${Math.round((quote.next.incomeFactor-1)*100)}%`,quote.costCents,()=>this.runtime.command({type:'upgradeVehicle',vehicleId:vehicle.id}));
++    if(quote)this.showUpgrade('升级车辆',state=>{
++     const current=state.vehicles.find(row=>row.id===vehicle.id);
++     if(!current||state.activeQuote&&state.riders[0].vehicleId===vehicle.id)return null;
++     const upgrade=current.level<CONFIG.levels.length?slotVehicleUpgradeQuote(current):null;
++     return upgrade?{detail:`等级 ${current.level} → ${upgrade.nextLevel}\n速度 ×${upgrade.current.speedRelativeToStarter.toFixed(2)} → ×${upgrade.next.speedRelativeToStarter.toFixed(2)}\n容量 ${capacityText(upgrade.current.capacity)} → ${capacityText(upgrade.next.capacity)}\n收入加成 +${Math.round((upgrade.current.incomeFactor-1)*100)}% → +${Math.round((upgrade.next.incomeFactor-1)*100)}%`,costCents:upgrade.costCents}:null;
++    },()=>this.runtime.command({type:'upgradeVehicle',vehicleId:vehicle.id}));
+    },!!quote&&!heroVehicleBusy);
+   });
+  }
+ 
+- private showUpgrade(title:string,detail:string,costCents:number,commit:()=>unknown):void {
++ private showUpgrade(title:string,readQuote:(state:FundsState)=>UpgradePresentation|null,commit:()=>unknown):void {
++  this.closeUpgrade();
+   const modal=panel(this.root,'UpgradeShade',0,0,720,1280,'#17365BAA','#17365BAA');modal.addComponent(BlockInputEvents);
++  this.upgradeModal=modal;let submitting=false;
++  const close=()=>{if(this.upgradeModal===modal)this.closeUpgrade();};
+   const sheet=panel(modal,'Vehicle-UpgradeSheet',0,0,636,494,'#EFFAFF',UI.blue);
+   glyph(sheet,'wrench',-264,190,38);label(sheet,title,-12,190,31,INK,432,true,'left');
+-  action(sheet,'×',270,190,54,44,()=>modal.destroy(),true,false);
++  action(sheet,'×',270,190,54,44,close,true,false);
+   panel(sheet,'UpgradeDivider',0,146,580,1,UI.line,UI.line);
+-  label(sheet,detail,0,61,22,INK,568,false,'center');
++  const detail=label(sheet,'',0,61,22,INK,568,false,'center');
+   glyph(sheet,'coin',-245,-64,33);
+-  label(sheet,`本次费用 ${(costCents/100).toFixed(2)} 金币`,43,-64,25,INK,482,true,'left');
+-  const shortfall=Math.max(0,costCents-this.state.cashCents);
+-  label(sheet,`当前余额 ${(this.state.cashCents/100).toFixed(2)} 金币`,0,-108,20,UI.muted,568,false,'center');
+-  label(sheet,shortfall?`余额不足，还差 ${(shortfall/100).toFixed(2)} 金币`:'确认后扣除本次费用并提升等级',0,-142,19,shortfall?'#BF3E12':UI.muted,568,false,'center');
+-  action(sheet,'返回',-147,-199,268,54,()=>modal.destroy(),true,false);
+-  action(sheet,'确认升级',147,-199,268,54,()=>{modal.destroy();this.act(commit);},shortfall===0);
+- }
+-
+- private vehicles():void {
+-  const v=CONFIG.vehicles[this.model-1],s=this.state,detailsH=444,c=this.card(this.body,'VehicleDetails',0,M.y(96)-detailsH/2,CW,detailsH);
++  const cost=label(sheet,'',43,-64,25,INK,482,true,'left');
++  const balance=label(sheet,'',0,-108,20,UI.muted,568,false,'center');
++  const notice=label(sheet,'',0,-142,19,UI.muted,568,false,'center');
++  action(sheet,'返回',-147,-199,268,54,close,true,false);
++  const quoteKey=(quote:UpgradePresentation|null)=>quote?JSON.stringify([quote.costCents,quote.detail]):'unavailable';
++  let displayedKey:string|null=null,displayedCash:number|null=null,buttonKey='',confirm:Node|null=null;
++  const refresh=(state:FundsState)=>{
++   if(this.upgradeModal!==modal||!isValid(modal,true))return;
++   const quote=readQuote(state),key=quoteKey(quote);
++   if(key===displayedKey&&state.cashCents===displayedCash)return;
++   displayedKey=key;displayedCash=state.cashCents;
++   detail.string=quote?.detail??'当前升级不可用，请返回重新选择';
++   const lines=detail.string.split('\n').length;detail.node.getComponent(UITransform)!.setContentSize(568,lines>1?22*1.45*lines+6:22*1.6);
++   cost.string=quote?`本次费用 ${(quote.costCents/100).toFixed(2)} 金币`:'当前没有可用升级报价';
++   balance.string=`当前余额 ${(state.cashCents/100).toFixed(2)} 金币`;
++   const shortfall=quote?Math.max(0,quote.costCents-state.cashCents):0,enabled=!!quote&&shortfall===0;
++   notice.string=!quote?'请返回后重新选择升级':shortfall?`余额不足，还差 ${(shortfall/100).toFixed(2)} 金币`:'确认后扣除本次费用并提升等级';
++   notice.color=col(!quote||shortfall?'#BF3E12':UI.muted);
++   const nextButtonKey=JSON.stringify([key,enabled]);if(nextButtonKey===buttonKey)return;buttonKey=nextButtonKey;
++   if(confirm){confirm.active=false;confirm.destroy();}
++   const button=action(sheet,'确认升级',147,-199,268,54,()=>{
++    if(submitting||this.upgradeModal!==modal||confirm!==button||!isValid(button,true)||!button.activeInHierarchy)return;
++    const current=this.state,fresh=readQuote(current);
++    if(quoteKey(fresh)!==key){refresh(current);if(fresh)notice.string='升级报价已更新，请核对后再次确认';return;}
++    if(!fresh||current.cashCents<fresh.costCents){refresh(current);return;}
++    submitting=true;close();this.act(commit);
++   },enabled);confirm=button;
++  };
++  this.bindFunds(modal,refresh);
++ }
++
++ private vehicles(s:FundsState):void {
++  const v=CONFIG.vehicles[this.model-1],effects=slotVehicleEffects({modelId:v.id,level:1}),price=slotVehiclePurchaseQuote(v.id),detailsH=444,c=this.card(this.body,'VehicleDetails',0,M.y(96)-detailsH/2,CW,detailsH);
+   // Independent product scenery; selection, native vehicle pixels and the real purchase remain separate.
+   // The neutral surface is only a loading/failure fallback, never a completed scene claim.
+   vehicleProductPreview(c,v.id,0,80,CW-2*S.card,268);
+   label(c,v.name,-280,-81,32,INK,100,true,'left');
+   label(c,`已拥有 ${s.vehicles.filter(x=>x.modelId===v.id).length} 辆`,-65,-81,21,INK,290,true,'left');
+   levelBadge(c,'新购 Lv.1',212,-81,126,30);
+-  glyph(c,'speed',-313,-128,28);label(c,`速度  ×${v.speedRelativeToStarter}`,-202,-128,22,INK,178,true,'left');
+-  glyph(c,'capacity',-92,-128,28);label(c,`容量  ${v.capacityKg} kg`,8,-128,22,INK,158,true,'left');
+-  glyph(c,'coin-stack',-313,-174,28);label(c,`收入加成 +${Math.round((v.incomeFactor-1)*100)}%`,-139,-174,22,INK,326,true,'left');
+-  action(c,`购买 ${v.price}金币`,212,-158,212,62,()=>this.act(()=>this.runtime.command({type:'buyVehicle',modelId:v.id})));
++  glyph(c,'speed',-313,-128,28);label(c,`速度  ×${effects.speedRelativeToStarter}`,-202,-128,22,INK,178,true,'left');
++  glyph(c,'capacity',-92,-128,28);label(c,`容量  ${capacityText(effects.capacity)}`,8,-128,22,INK,158,true,'left');
++  glyph(c,'coin-stack',-313,-174,28);label(c,`收入加成 +${Math.round((effects.incomeFactor-1)*100)}%`,-139,-174,22,INK,326,true,'left');
++  action(c,`购买 ${coins(price.costCents)}金币`,212,-158,212,62,()=>this.act(()=>this.runtime.command({type:'buyVehicle',modelId:v.id})));
+   label(this.body,'选择车型',-210,M.y(715),35,INK,260,true,'left');
+   if(this.vehicleReturnRider){const id=this.vehicleReturnRider;action(this.body,'返回骑手配车',220,M.y(715),230,44,()=>this.act(()=>{this.navigate('骑手');this.configureRider=id;}),true,false);}
+ 
+@@ -499,8 +598,8 @@
+   });
+  }
+ 
+- private maps():void {
+-  const s=this.state,c=this.scrolling('maps',M.y(102),M.y(1492),5*L.mapRowStep);
++ private maps(s:FundsState):void {
++  const c=this.scrolling('maps',M.y(102),M.y(1492),5*L.mapRowStep);
+   CONFIG.maps.forEach((m,i)=>{
+    const owned=s.ownedMapIds.includes(m.id),card=panel(c,'Map-'+m.id,0,-L.mapHeight/2-i*L.mapRowStep,CW,L.mapHeight,'#C7E9FA',UI.blue);
+    mapPreview(card,m.id,0,0,CW-2*L.mapInset,L.mapHeight-2*L.mapInset);
+@@ -513,14 +612,14 @@
+    else {
+     const buy=action(card,'',CW/2-S.card-88,-53,176,78,()=>this.act(()=>this.runtime.command({type:'buyMap',mapId:m.id})));
+     label(buy,'购买',0,19,22,'#FFFFFF',160,true,'center');
+-    const amount=String(m.price),amountW=amount.length*16,totalW=28+S.gap+amountW;
++    const amount=coins(slotMapPurchaseQuote(m.id).costCents),amountW=amount.length*16,totalW=28+S.gap+amountW;
+     glyph(buy,'coin',-totalW/2+14,-15,28);label(buy,amount,(28+S.gap)/2,-15,28,'#FFFFFF',amountW+6,true,'center');
+    }
+   });
+  }
+ 
+- private bills():void {
+-  const s=this.state,query=this.runtime.ledgerQuery,summary=summarizeLedger(s.ledger,query),c=this.scrolling('bills',M.y(135),M.y(1467),1068),money=coins;
++ private bills(s:FundsState):void {
++  const query=this.runtime.ledgerQuery,summary=summarizeLedger(s.ledger,query),c=this.scrolling('bills',M.y(135),M.y(1467),1068),money=coins;
+   const deliveryCategories=['hero_ordinary','hero_special','npc_delivery','legacy_delivery'];
+   const deliveryEntries=s.ledger.entries.filter(e=>deliveryCategories.includes(e.category));
+   const todayEntries=deliveryEntries.filter(e=>e.dayKey===query.todayDayKey),deliveryIncome=todayEntries.reduce((n,e)=>n+e.amountCents,0),supplyExpense=Math.abs(summary.today.byCategory.supply_purchase);
+@@ -578,9 +677,13 @@
+   const text=label(badge,food.badge,0,0,20,UI.muted,64,true,'center');
+   text.enableWrapText=false;text.overflow=Label.Overflow.CLAMP;
+  }
+-
+- private orders():void {
+-  const snap=this.runtime.snapshot!;
++ private drawFoodTitle(parent:Node,title:{value:string;height:number},x:number,y:number,size:number,width:number):void {
++  const text=label(parent,title.value,x,y,size,INK,width,true,'left');
++  text.enableWrapText=true;text.lineHeight=Math.ceil(size*1.42);text.overflow=Label.Overflow.CLAMP;
++  text.node.getComponent(UITransform)!.setContentSize(width,title.height);
++ }
++
++ private orders(snap:UISnapshot):void {
+   if(snap.batchIds.length){
+    const route=this.runtime.routeSnapshot,t=this.runtime.tripState,group=this.pickupGroup(route);
+    const batch=snap.orders.filter(o=>snap.batchIds.includes(o.id));
+@@ -590,6 +693,14 @@
+     if(!recorded)throw new Error('本批食品记录缺失');
+     return [order.id,orderFoodPresentation(recorded,t.version)] as const;
+    }));
++   const batchLoads=new Map(batch.map(order=>[order.id,signedOrderLoad(order)] as const));
++   const effects=this.runtime.deliveryEffects;if(!effects)throw new Error('本批车辆条款缺失');
++   const capacity=parseV2Capacity(effects.capacity),signedLoad=loadSummary([...batchLoads.values()],capacity);
++   let batchHeight=0;
++   const batchRows=batch.map(o=>{
++    const food=batchFoods.get(o.id)!,title=foodTitleLayout(food,batchLoads.get(o.id)!,26,340),top=batchHeight;
++    batchHeight+=204+title.extra;return {o,food,title,top};
++   });
+    const pending=batch.filter(o=>o.status==='pending'),completed=batch.filter(o=>o.status==='completed');
+    const choices=route?.phase==='planned'?this.runtime.routeChoices():[];
+    const routeNames={fast:'快捷',main:'均衡',smooth:'平稳'} as const;
+@@ -602,7 +713,10 @@
+     text.enableWrapText=true;text.lineHeight=Math.ceil(line.size*1.42);text.overflow=Label.Overflow.CLAMP;
+     text.node.getComponent(UITransform)!.setContentSize(routeLineWidth,line.height);
+    };
+-   const legacyNotice=t.version===2?routeLine('旧批规则 · 沿用原普通风险；菜名和图片仅为旧展示推测'):null;
++   const legacyLines:string[]=[];
++   if(capacity.version==='kg-v1')legacyLines.push('旧批容量规则 · 沿用原kg重量与容量');
++   if(t.version===2)legacyLines.push('旧批食品规则 · 沿用原普通风险；菜名和图片仅为旧展示推测');
++   const legacyNotice=legacyLines.length?routeLine(legacyLines.join('\n')):null;
+    const legacyNoticeHeight=legacyNotice?legacyNotice.height+S.gap:0;
+    const routeNotes=['连续行驶与取送服务的条件估算','不含手动等待及后续补给/事件/停顿'].map(value=>routeLine(value,19));
+    const routeCards=choices.map(choice=>{
+@@ -610,7 +724,8 @@
+     choice.orders.forEach(eta=>{
+      const index=batch.findIndex(order=>order.id===eta.id),place=route?.orders.find(order=>order.id===eta.id);
+      const food=batchFoods.get(eta.id);if(!food)throw new Error('路线订单食品记录缺失');
+-     const identity=index>=0?`第${index+1}单 · ${food.name}`:`订单 ${eta.id}`;
++     const load=batchLoads.get(eta.id);if(!load)throw new Error('路线订单占用记录缺失');
++     const identity=index>=0?`第${index+1}单 · ${food.name} ${loadText(load)}`:`订单 ${eta.id}`;
+      const safe=t?.orders.find(order=>order.id===eta.id)?.safe===true;
+      const warning=eta.lateGameSeconds>0?`迟到预警 ${duration(eta.lateGameSeconds)}（游戏时间）`:safe?'保护单 · 不计迟到':'按当前条件预计未迟到';
+      lines.push(routeLine(`${identity} → ${place?.dropoffName||'送达地点未记录'}`,21,INK,true));
+@@ -621,14 +736,17 @@
+    });
+    const routeIntroHeight=40+routeNotes.reduce((height,line)=>height+line.height+routeLineGap,0)+S.gap;
+    const routeHeight=route?.phase==='planned'?(routeCards.length?routeIntroHeight+routeCards.reduce((height,card)=>height+card.height+S.gap,0):64):group?130:94;
+-   const c=this.scrolling('orders:trip',508,-340,164+legacyNoticeHeight+routeHeight+batch.length*204+108);
+-   const summary=panel(c,'Order-BatchSummary',0,-61,CW,118,'#F2FBFF');
+-   label(summary,'本批配送',-214,33,27,INK,240,true,'left');
+-   label(summary,`待完成 ${pending.length} · 已完成 ${completed.length}`,125,33,23,INK,384,true,'right');
+-   this.routeText=label(summary,this.tripStage(),0,-4,22,INK,CW-26,true,'center');
+-   label(summary,`${({clear:'晴天',rain:'小雨',severe:'恶劣天气'} as const)[t?.weather||'clear']} · 体力 ${Math.floor(t?.stamina??100)}/100 · 查看时暂停主角`,0,-38,18,UI.muted,CW-26,false,'center');
+-   if(legacyNotice)drawRouteLine(c,legacyNotice,-132);
+-   const routeTop=138+legacyNoticeHeight;
++   const effectLine=routeLine(`本批签约 ${signedLoad} · 速度 ×${effects.speedRelativeToStarter.toFixed(2)} · 车辆收益 +${Math.round((effects.incomeFactor-1)*100)}%`,18);
++   const summaryGrowth=effectLine.height+12;
++   const c=this.scrolling('orders:trip',508,-340,164+summaryGrowth+legacyNoticeHeight+routeHeight+batchHeight+108);
++   const summary=panel(c,'Order-BatchSummary',0,-61-summaryGrowth/2,CW,118+summaryGrowth,'#F2FBFF');
++   label(summary,'本批配送',-214,33+summaryGrowth/2,27,INK,240,true,'left');
++   label(summary,`待完成 ${pending.length} · 已完成 ${completed.length}`,125,33+summaryGrowth/2,23,INK,384,true,'right');
++   this.routeText=label(summary,this.tripStage(),0,-4+summaryGrowth/2,22,INK,CW-26,true,'center');
++   label(summary,`${({clear:'晴天',rain:'小雨',severe:'恶劣天气'} as const)[t?.weather||'clear']} · 体力 ${Math.floor(t?.stamina??100)}/100 · 查看时暂停主角`,0,-38+summaryGrowth/2,18,UI.muted,CW-26,false,'center');
++   drawRouteLine(summary,effectLine,-65+summaryGrowth/2);
++   if(legacyNotice)drawRouteLine(c,legacyNotice,-132-summaryGrowth);
++   const routeTop=138+summaryGrowth+legacyNoticeHeight;
+    label(c,route?.phase==='planned'?'选择本批路线':'当前配送路线',-173,-routeTop-15,24,INK,330,true,'left');
+    if(choices.length){
+     let noteTop=-routeTop-40;
+@@ -647,28 +765,28 @@
+    }
+    const orderTop=routeTop+routeHeight;
+    label(c,'本批订单',-226,-orderTop-16,24,INK,220,true,'left');
+-   batch.forEach((o,i)=>{
+-    const place=route?.orders.find(order=>order.id===o.id),trip=t?.orders.find(order=>order.id===o.id),food=batchFoods.get(o.id)!;
+-    const card=panel(c,'Order-Trip-'+o.id,0,-orderTop-133-i*204,CW,190,'#F2FBFF');
+-    foodImage(card,food.name,-265,20,112);
+-    this.foodBadge(card,food,-265,-13);
++   batchRows.forEach(({o,food,title,top})=>{
++    const place=route?.orders.find(order=>order.id===o.id),trip=t?.orders.find(order=>order.id===o.id),shift=title.extra/2;
++    const card=panel(c,'Order-Trip-'+o.id,0,-orderTop-133-top-shift,CW,190+title.extra,'#F2FBFF');
++    foodImage(card,food.name,-265,20-shift,112);
++    this.foodBadge(card,food,-265,-13-shift);
+     // Trip3 reads its frozen food; Trip2 retains display-only names and its old risk rules.
+-    label(card,`${food.name} ${o.weightKg}KG`,-30,66,26,INK,340,true,'left');
++    this.drawFoodTitle(card,title,-30,66,26,340);
+     const grouped=!!group?.ids.includes(o.id),serving=route?.phase==='service'&&route.stops[route.cursor]?.orderId===o.id;
+     const status=o.status==='completed'?'已完成':grouped&&route?.phase==='ready'?'已取餐待发':grouped&&route?.phase==='service'?'取餐服务中':serving?'顾客交付中':grouped&&route?.phase==='pickup'?'到店待取':trip?.picked?'配送中':'待取餐';
+-    label(card,status,258,65,22,o.status==='completed'?'#009749':UI.blue,130,true,'right');
++    label(card,status,258,65+shift,22,o.status==='completed'?'#009749':UI.blue,130,true,'right');
+     const remaining=trip&&t?trip.deadlineGameSeconds-t.gameSeconds:null;
+     const deadline=o.status==='completed'?'已送达':remaining===null?'期限未记录':remaining<0?`已超时 ${Math.ceil(-remaining/60)}分钟`:`距期限 ${Math.ceil(remaining/60)}分钟`;
+-    glyph(card,'clock',-145,27,23);label(card,deadline,67,31,19,remaining!==null&&remaining<0&&o.status!=='completed'?'#BF3E12':UI.muted,382,false,'left');
+-    const pickup=panel(card,'Pickup',64,-18,520,31,'#CEEBFC','#CEEBFC');
++    glyph(card,'clock',-145,27-shift,23);label(card,deadline,67,31-shift,19,remaining!==null&&remaining<0&&o.status!=='completed'?'#BF3E12':UI.muted,382,false,'left');
++    const pickup=panel(card,'Pickup',64,-18-shift,520,31,'#CEEBFC','#CEEBFC');
+     const pickBadge=panel(pickup,'PickupBadge',-242,0,34,31,UI.blue,UI.blue);label(pickBadge,'取',0,0,19,'#FFFFFF',32,true,'center');
+     label(pickup,place?.pickupName||'取餐地点未记录',5,0,20,INK,422,true,'left');
+-    const dropoff=panel(card,'Dropoff',64,-54,520,31,'#CEEBFC','#CEEBFC');
++    const dropoff=panel(card,'Dropoff',64,-54-shift,520,31,'#CEEBFC','#CEEBFC');
+     const dropBadge=panel(dropoff,'DropoffBadge',-242,0,34,31,'#009749','#009749');label(dropBadge,'送',0,0,19,'#FFFFFF',32,true,'center');
+     label(dropoff,place?.dropoffName||'送达地点未记录',5,0,20,INK,422,true,'left');
+-    label(card,o.receipt?`已入账 ¥${coins(o.receipt.incomeCents)}`:`报价 ¥${coins(o.quote.incomeCents)}`,0,-82,16,o.receipt?'#009749':UI.muted,CW-26,false,'center');
++    label(card,o.receipt?`已入账 ¥${coins(o.receipt.incomeCents)}`:`报价 ¥${coins(o.quote.incomeCents)}`,0,-82-shift,16,o.receipt?'#009749':UI.muted,CW-26,false,'center');
+    });
+-   label(c,'取消全部未完成单：已完成收入与经验保留；未完成无奖，补给不退。',0,-orderTop-50-batch.length*204,16,UI.muted,CW-24,false,'center');
++   label(c,'取消全部未完成单：已完成收入与经验保留；未完成无奖，补给不退。',0,-orderTop-50-batchHeight,16,UI.muted,CW-24,false,'center');
+    const controls=panel(this.body,'Order-TripControls',0,-425,CW,154,'#DCF4FF',UI.blue);
+    action(controls,'回到配送地图',-169,44,326,46,()=>this.act(()=>this.navigate('首页')),true,false);
+    this.tripButton(controls,169,44,326,46);
+@@ -677,35 +795,43 @@
+    label(controls,route?.phase==='planned'?'选定路线后出发；返回地图不会自动选择路线':route?.phase==='ready'?'取餐已完成；返回地图仍在原地，需主动继续':route?.phase==='pickup'?'主动取餐后服务2秒；取完需主动继续':route?.phase==='service'?'取送服务中不可重复操作；回到地图继续计时':'沿当前路线配送，查看本页时暂停主角',0,-57,17,UI.muted,CW-24,false,'center');return;
+   }
+   const extra=this.special?98:0;
+-  const c=this.scrolling('orders:lobby',M.y(169),M.y(1276),this.offers.length*178+40+extra);
++  let offerHeight=0;
++  const offerRows=this.offers.map(o=>{
++   const food=orderFoodPresentation(o,3),load=parseV2Load(o.load);
++   if(load.version!=='slots-v1')throw new Error('新候选占用版本无效');
++   const title=foodTitleLayout(food,load,28,314),top=offerHeight;offerHeight+=178+title.extra;
++   return {o,food,title,top};
++  });
++  const c=this.scrolling('orders:lobby',M.y(169),M.y(1276),offerHeight+40+extra);
+   if(this.special){
+    const card=this.card(c,'SpecialOffer',0,-42,CW,82);
+    label(card,`高价专送 · ¥${this.special.coins}`,-113,0,25,'#FF7800',400,true,'left');
+    // No ad SDK is available: this is a status, never a claimable offer button.
+    label(card,'广告未接入',232,0,19,UI.muted,184,true,'right');
+   }
+-  this.offers.forEach((o,i)=>{
+-   const chosen=this.selected.has(o.id),card=panel(c,'Order-'+o.id,0,-82-i*178-extra,CW,164,'#F2FBFF',chosen?'#FF9600':UI.line),food=orderFoodPresentation(o,3);
+-   this.foodThumbnail(card,food.name,-224,0);
+-   this.foodBadge(card,food,-224,-45);
++  offerRows.forEach(({o,food,title,top})=>{
++   const chosen=this.selected.has(o.id),shift=title.extra/2,card=panel(c,'Order-'+o.id,0,-82-top-shift-extra,CW,164+title.extra,'#F2FBFF',chosen?'#FF9600':UI.line);
++   this.foodThumbnail(card,food.name,-224,-shift);
++   this.foodBadge(card,food,-224,-45-shift);
+    let quote:ReturnType<V2RuntimeController['quoteCandidates']>|null=null;try{quote=this.runtime.quoteCandidates([o]);}catch{/* This individual candidate may fail the current route or capacity rules. */}
+-   label(card,`${food.name} ${o.weightKg}KG`,5,52,28,INK,314,true,'left');
+-   label(card,quote?`¥${coins(quote.totalIncomeCents)}`:'—',251,52,42,'#FF7800',142,true,'right');
+-   glyph(card,'clock',-146,14,22);label(card,quote?`${Math.ceil(quote.deadlines[0].gameSeconds/60)}分钟内送达`:'当前条件无法接单',31,18,20,quote?UI.ink:UI.muted,310,true,'left');
+-   const pickup=panel(card,'Pickup',86,-17,488,32,'#CEEBFC','#CEEBFC');const pickBadge=panel(pickup,'PickupBadge',-222,0,36,32,UI.blue,UI.blue);label(pickBadge,'取',0,0,20,'#FFFFFF',32,true,'center');label(pickup,o.pickupName,-4,0,21,INK,370,true,'left');
+-   const dropoff=panel(card,'Dropoff',86,-53,488,32,'#CEEBFC','#CEEBFC');const dropBadge=panel(dropoff,'DropoffBadge',-222,0,36,32,'#009749','#009749');label(dropBadge,'送',0,0,20,'#FFFFFF',32,true,'center');label(dropoff,o.dropoffName,-4,0,21,INK,370,true,'left');
+-   checkbox(card,chosen,-312,0);
++   this.drawFoodTitle(card,title,5,52,28,314);
++   label(card,quote?`¥${coins(quote.totalIncomeCents)}`:'—',251,52+shift,42,'#FF7800',142,true,'right');
++   glyph(card,'clock',-146,14-shift,22);label(card,quote?`${Math.ceil(quote.deadlines[0].gameSeconds/60)}分钟内送达`:'当前条件无法接单',31,18-shift,20,quote?UI.ink:UI.muted,310,true,'left');
++   const pickup=panel(card,'Pickup',86,-17-shift,488,32,'#CEEBFC','#CEEBFC');const pickBadge=panel(pickup,'PickupBadge',-222,0,36,32,UI.blue,UI.blue);label(pickBadge,'取',0,0,20,'#FFFFFF',32,true,'center');label(pickup,o.pickupName,-4,0,21,INK,370,true,'left');
++   const dropoff=panel(card,'Dropoff',86,-53-shift,488,32,'#CEEBFC','#CEEBFC');const dropBadge=panel(dropoff,'DropoffBadge',-222,0,36,32,'#009749','#009749');label(dropBadge,'送',0,0,20,'#FFFFFF',32,true,'center');label(dropoff,o.dropoffName,-4,0,21,INK,370,true,'left');
++   checkbox(card,chosen,-312,-shift);
+    tap(card,()=>this.act(()=>{if(this.selected.has(o.id))this.selected.delete(o.id);else this.selected.add(o.id);}));
+   });
+-  const chosen=this.offers.filter(o=>this.selected.has(o.id)),hero=this.state.vehicles.find(v=>v.id===this.state.riders[0].vehicleId);
+-  const weight=chosen.reduce((n,o)=>n+o.weightKg,0),capacity=hero?vehicleEffects(hero).capacityKg:0;
++  const chosen=this.offers.filter(o=>this.selected.has(o.id)),capacity=this.runtime.nextBatchEffects?.capacity;
++  const loads=chosen.map(o=>parseV2Load(o.load)),fits=!!capacity&&fitsV2Capacity(loads,capacity);
+   let batchQuote:ReturnType<V2RuntimeController['quoteCandidates']>|null=null,quoteError='';
+   if(chosen.length)try{batchQuote=this.runtime.quoteCandidates(chosen);}catch(error){quoteError=String(error).replace(/^Error: /,'');}
+   const summary=panel(this.body,'FixedOrderSummary',0,M.y(1372),CW,105,'#DCF4FF',UI.blue);
+-  glyph(summary,'capacity',-304,9,43);label(summary,'载重',-241,16,25,INK,74,true,'left');label(summary,`${weight}/${capacity.toFixed(1)}kg`,-132,16,30,weight>capacity?'#BF3E12':INK,146,true,'left');label(summary,`已选 ${chosen.length} 单`,-170,-24,20,UI.muted,220,true,'left');
++  glyph(summary,'capacity',-304,9,43);label(summary,'容量',-241,16,25,INK,74,true,'left');label(summary,capacity?loadSummary(loads,capacity):'未配车',-132,16,30,fits?INK:'#BF3E12',146,true,'left');label(summary,`已选 ${chosen.length} 单`,-170,-24,20,UI.muted,220,true,'left');
+   panel(summary,'SummaryDivider',-49,0,1,82,'#79CEFF','#79CEFF');
+   label(summary,'预计收入',40,29,20,INK,152,true,'center');label(summary,batchQuote?`¥${coins(batchQuote.totalIncomeCents)}`:'—',40,-13,43,'#FF7800',152,true,'center');
+-  action(summary,'选择路线 ›',223,1,216,77,()=>this.act(()=>{this.runtime.acceptBatch(chosen);this.selected.clear();}),chosen.length>0&&weight<=capacity&&!!batchQuote);
++  // Keep each original candidate, including load/sourceOfferId/food/endpoints, for domain validation.
++  action(summary,'选择路线 ›',223,1,216,77,()=>this.act(()=>{this.runtime.acceptBatch(chosen);this.selected.clear();}),chosen.length>0&&fits&&!!batchQuote);
+   if(quoteError)label(summary,quoteError,0,-49,14,'#BF3E12',CW-20,false,'center');
+  }
+ 
+@@ -730,7 +856,8 @@
+   // HUD/ledger/status reads stay throttled; they do not gate map motion.
+   this.elapsed+=dt;if(this.elapsed<.5)return;this.elapsed=0;
+   const snap=this.runtime.snapshot;if(!snap)return;
+-  this.refreshHUD();this.refreshRiderStatuses();this.refreshNPCActivity();
++  this.refreshHUD((snap.economy as V2EconomySnapshot).state);this.refreshRiderStatuses(snap);this.refreshNPCActivity(snap);
++  this.refreshFunds((snap.economy as V2EconomySnapshot).state);
+   if(this.runtime.lastError&&this.errorText)this.errorText.string=this.runtime.lastError;
+   const trip=this.runtime.tripState;
+   // Cursor/membership and supply boundaries may change without changing phase or batch IDs.
+@@ -746,5 +873,5 @@
+   if(this.tripActionText)this.tripActionText.string=this.tripControl().text;
+  }
+ 
+- onDestroy():void {this.map?.cancelLocate();this.root?.destroy();}
++ onDestroy():void {this.closeUpgrade();this.fundsViews.clear();this.map?.cancelLocate();this.root?.destroy();}
+ }

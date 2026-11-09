@@ -1,0 +1,72 @@
+{
+  "oldParent": "thr_axf6i4e89t",
+  "before": [
+    {
+      "id": "thr_j9izunn7qx",
+      "title": "开发A·游戏逻辑与运行系统",
+      "providerId": "acp-hermes-agent",
+      "status": "active",
+      "environmentId": "env_e54zrbdgxt"
+    },
+    {
+      "id": "thr_tviezvnwds",
+      "title": "开发B·UI与产品资源",
+      "providerId": "acp-hermes-agent",
+      "status": "error",
+      "environmentId": "env_e54zrbdgxt"
+    },
+    {
+      "id": "thr_wy4wnu5fyr",
+      "title": "复审A·游戏核心与功能",
+      "providerId": "acp-hermes-agent",
+      "status": "idle",
+      "environmentId": "env_e54zrbdgxt"
+    },
+    {
+      "id": "thr_htnxptrv4w",
+      "title": "复审B·UI与资源",
+      "providerId": "acp-hermes-agent",
+      "status": "idle",
+      "environmentId": "env_e54zrbdgxt"
+    }
+  ],
+  "queues": {
+    "thr_j9izunn7qx": [
+      {
+        "id": "qmsg_5fwa9dj3ab",
+        "origin": null,
+        "originPluginId": null,
+        "initiator": "agent",
+        "senderThreadId": "thr_axf6i4e89t",
+        "threadId": "thr_j9izunn7qx",
+        "content": [
+          {
+            "type": "text",
+            "text": "PM已在pm/candidate-curves.json给3条仅用于敏感性对照、未批准的保护退出报价曲线：A基准10000斜率1，B基准9800斜率1，C基准10000斜率0.5（D封顶2000，分母10000，保护分支不动）。当前15完成/旧车输入都无保护降价；354m分别21.33/20.92/20.96；C最大22.66保持当前长端上限，A/B长端24.72/24.31会提速。不是实测分布、不是生产参数。请先完成现规则基线，再只挑必要候选跑同路径/操作输入前后对照，别把敏感性平均冒充供给均价或直接上线。若阶段编译不能安全切候选，先报告确切边界，不篡改已冻结合同或主源。",
+            "mentions": []
+          }
+        ],
+        "model": "openai-api:gpt-6.1-sol",
+        "reasoningLevel": "high",
+        "permissionMode": "accept-edits",
+        "serviceTier": "default",
+        "groupWithNext": false,
+        "sendAt": null,
+        "state": "waiting",
+        "waitingOn": {
+          "kind": "thread-busy"
+        },
+        "failureReason": null,
+        "payload": {
+          "kind": "inline"
+        },
+        "editable": true,
+        "createdAt": 1793980340944,
+        "updatedAt": 1793980340944
+      }
+    ],
+    "thr_tviezvnwds": [],
+    "thr_wy4wnu5fyr": [],
+    "thr_htnxptrv4w": []
+  }
+}

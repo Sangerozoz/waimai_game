@@ -1,0 +1,96 @@
+TAP version 13
+# Subtest: eligible recovery offers borrowing separately from the one permanent car
+ok 1 - eligible recovery offers borrowing separately from the one permanent car
+  ---
+  duration_ms: 173.361125
+  type: 'test'
+  ...
+# Subtest: borrowing confirmation can cancel and submits the displayed sequence only once
+ok 2 - borrowing confirmation can cancel and submits the displayed sequence only once
+  ---
+  duration_ms: 79.46275
+  type: 'test'
+  ...
+# Subtest: returnable car may still belong to an NPC and one confirmation returns it atomically
+ok 3 - returnable car may still belong to an NPC and one confirmation returns it atomically
+  ---
+  duration_ms: 69.689083
+  type: 'test'
+  ...
+# Subtest: an existing hero batch keeps the emergency car and disables return
+ok 4 - an existing hero batch keeps the emergency car and disables return
+  ---
+  duration_ms: 66.828958
+  type: 'test'
+  ...
+# Subtest: a stale borrowing dialog cannot submit after the eligibility changes
+ok 5 - a stale borrowing dialog cannot submit after the eligibility changes
+  ---
+  duration_ms: 67.258167
+  type: 'test'
+  ...
+# Subtest: ordinary unavailable saves keep the ordinary car configuration without a loan action
+ok 6 - ordinary unavailable saves keep the ordinary car configuration without a loan action
+  ---
+  duration_ms: 65.663875
+  type: 'test'
+  ...
+# Subtest: the home recovery entry actually opens hero configuration
+ok 7 - the home recovery entry actually opens hero configuration
+  ---
+  duration_ms: 64.402583
+  type: 'test'
+  ...
+# Subtest: the lobby recovery entry opens configuration through the real navigation action
+ok 8 - the lobby recovery entry opens configuration through the real navigation action
+  ---
+  duration_ms: 75.957
+  type: 'test'
+  ...
+# Subtest: eligibility refresh waits for the existing half-second cadence
+ok 9 - eligibility refresh waits for the existing half-second cadence
+  ---
+  duration_ms: 65.765875
+  type: 'test'
+  ...
+# Subtest: NPC old-contract release refreshes the real return action at the HUD cadence
+ok 10 - NPC old-contract release refreshes the real return action at the HUD cadence
+  ---
+  duration_ms: 61.952209
+  type: 'test'
+  ...
+# Subtest: a reason-only eligibility change refreshes the lobby explanation
+not ok 11 - a reason-only eligibility change refreshes the lobby explanation
+  ---
+  duration_ms: 63.173458
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/emergency-loan-ui.test.cjs:117:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(f.visibleText(next))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/emergency-loan-ui.test.cjs:119:64)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 10
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 945.503

@@ -1,0 +1,96 @@
+{
+  "task": "ROUTE-ETA-UI-1106",
+  "status": "implemented-candidate-awaiting-independent-review",
+  "fixer": "thr_tviezvnwds",
+  "parent": "thr_axf6i4e89t",
+  "sourcePath": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+  "beforeSHA256": "705a2f051a53c6b39243086212673ca3f0e20ab8a0ca6a05be68ed370cc99b46",
+  "afterSHA256": "af94fd449ef23f44f8fc2894440fa1b2dc35842689713cf0929a3add64d9a5a4",
+  "diffFile": "candidate.diff",
+  "dependencySHA256": {
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "a4af56bfbd972bebe0fe8dd48ea17cc2aab1a1d8b122241bb9b76ebe9e3780ff",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "4aedd3ee5fd37a2c68064c5dc17c57505cc8bec18b65f97b922833d25a01a7fd",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+    "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "9e7e6914f8f5a7c0d8e5dba4045237fca0385d98af12d52676352221bcfd3f09",
+    "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+    "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+    "delivery-game/assets/scripts/map-sample/PresentationLayout.ts": "5409061543adc8de13a01214ce1f7b899cec9649a4e787639b2801530933955d",
+    "delivery-game/assets/scripts/map-sample/V2Spacing.ts": "8bc275d4946c45a8d6f239209229429cd38b75bb84ecfd3205dab71e5535c84a"
+  },
+  "fieldMapping": {
+    "choice.aliases": "保留合并后的快捷/均衡/平稳别名，不制造三条重复方案。",
+    "choice.metres": "仅文案Math.round为米。",
+    "choice.seconds": "预计现实用时；先ceil到整秒，再拆分/秒。",
+    "choice.weather": "当前条件天气文字。",
+    "choice.stamina": "预计耗体力，toFixed(1)只用于文字，不回写。",
+    "choice.orders[].id": "按id查batch确定第几单/原展示餐名，再按id查route.orders的dropoffName；关联异常时显示真实id，不冒充第一单。",
+    "choice.orders[].etaGameSeconds": "直接展示从当前规划状态起的预计剩余游戏时长，标注游戏时间及后完成，不当绝对时刻。",
+    "choice.orders[].lateGameSeconds": "直接使用A的字段；原值>0时红色迟到预警，仅持续时间文案取整，不与deadline或gameSeconds另算。",
+    "tripState.orders[].safe": "仅按同id权威safe===true显示保护单不计迟到，不按累计订单推断；不做时间保证。",
+    "choice.orders[].etaRealSeconds/deadlineGameSeconds及choice.gameSeconds": "保留DTO，不修改；本界面不另算迟到、不重建期限。"
+  },
+  "dynamicLayout": {
+    "iteration": "每个真实choice和choice.orders全遍历，无slice/固定3单/首几单限制；每方案3条元数据+每单2条展示行，文本可换行。",
+    "lineHeight": "沿用PresentationLayout.textHeight，width=660；绘制使用同一height，19/20/21/23字号，wrap+CLAMP，不靠SHRINK缩小。",
+    "cardHeightFormula": "2*S.card + sum(line.height+6) + 50；S.card=12，底部唯一按钮高50，最后文字与按钮间隔6。",
+    "cardOffsetFormula": "depth由routeTop+routeIntroHeight起，每卡累加height+S.gap；S.gap=12。",
+    "routeHeightFormula": "planned可行：routeIntroHeight+sum(card.height+S.gap)；planned无可行仍64；非planned仍group?130:94。",
+    "scrollHeightFormula": "164+routeHeight+batch.length*204+108；原orders:trip key和508/-340视口不变。",
+    "fixedControls": "原centerY=-425,height154，顶边-348，与视口底边-340相隔8；末尾说明中心以下仍有84的声明内容高度余量。",
+    "limitations": "上述是源码几何/枚举静态说明，不是实际字体排版或长名称无损截图证据；字体度量和极长文本需PM外观核对。"
+  },
+  "staticChecks": {
+    "beforeSHA256": "705a2f051a53c6b39243086212673ca3f0e20ab8a0ca6a05be68ed370cc99b46",
+    "afterSHA256": "af94fd449ef23f44f8fc2894440fa1b2dc35842689713cf0929a3add64d9a5a4",
+    "outsideOrdersPrefixUnchangedExceptTextHeightImport": true,
+    "afterRouteChoiceSectionUnchanged": true,
+    "emptyAndNonplannedBranchUnchanged": true,
+    "unchangedAuthoritativeDependencies": true,
+    "addedTrailingWhitespace": false,
+    "staticPixelGeometry": {
+      "contentWidth": 684,
+      "routeTextWidth": 660,
+      "scrollViewportHeight": 848,
+      "fixedControlTop": -348.0,
+      "viewportToControlGap": 8.0,
+      "contentBottomPaddingBeyondFooterCenter": 84
+    }
+  },
+  "preserved": [
+    "原唯一选择出发按钮和beginTrip(r.preference)、navigate(首页)、!t?.action禁用条件不变；只移动按钮到动态卡片底部。",
+    "原空choices及非planned说明分支逐字不变；从const orderTop起到文件末尾逐字不变，故在途详情/大厅/更新跟随等未改。",
+    "orders()之前除导入已有textHeight外全部字节不变，骑手/车辆背景/HUD/账单等保持。",
+    "不修改Route/Game/Runtime、皮肤/资源/manifest/PNG、经济/期限/暂停/存档；没有业务写入、确认弹窗或自动出发。"
+  ],
+  "visibleConditions": [
+    "连续行驶与取送服务的条件估算",
+    "不含手动等待及后续补给/事件/停顿"
+  ],
+  "execution": {
+    "tests": false,
+    "typecheck": false,
+    "typescriptExecution": false,
+    "creatorOrBuild": false,
+    "browserOrGame": false,
+    "businessOrSave": false,
+    "commitOrPush": false,
+    "newAgentOrImageProduction": false
+  },
+  "automaticToolFeedback": "patch工具报告项目tsconfig存在，per-file tsc skipped；未启动额外检查，不能称编译通过。",
+  "deferredCases": [
+    "真实planned active-batch中1条合并方案/多个方案及超过3单时的所有行滚动和长餐名/送达名换行。",
+    "有迟到、无迟到、权威safe保护单与不同天气/车型的真实估算显示。",
+    "临近分钟边界的显示、按钮禁用和选择原方案后真实出发/返回首页。",
+    "滚动位置保留、底栏遮挡及非planned在途/大厅原行为。"
+  ],
+  "acceptance": {
+    "selfApproved": false,
+    "independentReview": "PM另派",
+    "runtimeVerified": false,
+    "built": false,
+    "deployed": false,
+    "feedbackClosed": false,
+    "fidelity98Percent": false
+  },
+  "lease": "交回后停止写入并释放GameUI写lease，PM恢复本批临时模式，不跨批继承。"
+}

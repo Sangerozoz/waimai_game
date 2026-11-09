@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-11-07T12:01:44.405919+08:00",
+  "spec": "docs/superpowers/specs/2026-11-07-emergency-hero-loan-design.md",
+  "scope": "five backend production TS + domain and runtime new tests; UI already independently PASS under own freeze",
+  "sourceSHA256": {
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": "75e745549c67d3715ca7852538fb7da3cb46e0fc7161d87988eb940f9ee65fc3",
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts": "25bb29bbe67739022e1330865bf9c5a06557808c1e65fcc1f7bd4af07facc43e",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "77c2faba87e27b86c69bfe5841f015fa6dcc75dcc024e78bfe3a6bf1d5efedd0",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "6e8b1a0bcf17cb19d07d97a6257fc0e660744e1a7d8258210a00843935108019",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "bee518024daa35c2b18dd42d41a491beaf995290f36e90edf28b161c60b9aeb3",
+    "delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs": "2dcc5c5505fb5a5fa87121c87794d195a7a945aee53f5c90a674884e00fba1e7",
+    "delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs": "c43b1e608cf464be7838563c44a0aac6fb52e359ef92500fe2afdf08f01aeb36"
+  },
+  "authorFreeze": "domain/final-source-sha.json",
+  "authorVerification": "domain/behavior-006.json",
+  "authorCounts": {
+    "tests": "35",
+    "pass": "35",
+    "fail": "0"
+  },
+  "pmRuntimeEvidence": "ui/runtime-integration-07-receipt.json",
+  "pmRuntimeCounts": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0
+  },
+  "diff": "backend-review.diff",
+  "diffSHA256": "5c94f34e48f3a5ceef1b298a038d05d6a6d5899e899af695fb14ce540c51bc70",
+  "fixtures": "docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json",
+  "fixtureSHA256": "4c5eb4bc6c2daf432324a280636e0f381a8faea077cac069a0410f46a62cdffb",
+  "reviewChecks": [
+    "qualification and sequence atomicity",
+    "explicit emergency contract source, paid/cancelled history restore after return",
+    "3/3/3/7 version compatibility, kg slots and mixed/future rejection",
+    "current batch preserved, all new batch paths including automation blocked on recoverability",
+    "real-car reclaim even if NPC-equipped, no permanent gifts",
+    "runtime same single slot commit then publish, save failure and writer/epoch/bytes gates",
+    "actual open rebase: hero frozen, NPC offline only existing quota, no replay payouts",
+    "test fixture provenance distinct from naturally reached original terminal"
+  ],
+  "readOnly": true
+}

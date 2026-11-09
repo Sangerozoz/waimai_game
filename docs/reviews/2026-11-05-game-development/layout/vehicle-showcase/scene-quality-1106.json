@@ -1,0 +1,141 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [
+    {
+      "id": "S01",
+      "priority": "P2",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts:38-44",
+        "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts:48-53"
+      ],
+      "suggestion": "当前场景状态文字仅跟踪背景，阴影失败只保留console诊断；背景和车型成功、阴影失败时，会显示真实背景与真实车，但没有支持阴影。应将其记录为可见性降级，不能把背景ready解释为两张产品图全部就绪。若后续要求阴影缺失也在屏幕提示，再明确增加独立状态，不宜无差别隐藏已经成功的背景或车型。",
+      "blocking": false
+    },
+    {
+      "id": "S02",
+      "priority": "P2",
+      "locations": [
+        "delivery-game/assets/resources/ui-v2/showcase/vehicle-product-background-v1.png.meta:18-22",
+        "delivery-game/assets/resources/ui-v2/showcase/vehicle-ground-shadow.png.meta:18-22"
+      ],
+      "suggestion": "两张非平铺产品纹理当前声明repeat采样。后续画面核对时留意边缘插值，必要时仅对这两张纹理评估clamp-to-edge；目前UV为完整单图且有viewport裁剪，不能仅凭repeat配置判定已出现接缝，也不涉及本轮G02/G04修复。",
+      "blocking": false
+    }
+  ],
+  "summary": "U21本批候选接线的独立静态质量审查通过。未发现资源晚回调改变选车或购买目标、共享纹理被节点错误释放、帧缓存竞争或新增未处理的代码阻塞。GameUI逆替换两行注释后精确匹配6ad0前态，H02及其余功能字节保持。此结论只覆盖当前源码与资源接线，不是实际显示、10车型/hover接地、U21视觉验收或98%通过；G02/G04根因unknown保持。本轮仅使用当前Hermes工具只读审查，未调用Codex provider/CLI/子Agent，未改权限或写任何文件；只读范围交回PM。",
+  "sourceHashes": {
+    "primary": {
+      "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts": {
+        "reviewStart": "66a833b9433734b4b2799449c2b4a2655febbebed29d54fd1f32998bf4f40a87",
+        "reviewEnd": "66a833b9433734b4b2799449c2b4a2655febbebed29d54fd1f32998bf4f40a87"
+      },
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": {
+        "reviewStart": "705a2f051a53c6b39243086212673ca3f0e20ab8a0ca6a05be68ed370cc99b46",
+        "reviewEnd": "705a2f051a53c6b39243086212673ca3f0e20ab8a0ca6a05be68ed370cc99b46",
+        "inverseCommentReplacementSHA": "6ad0cf81f8a93b1bf5fec786195124f0cf354a1f811934a314c0d0b9576b7b80",
+        "exactPredecessorMatch": true
+      }
+    },
+    "preservedDependencies": {
+      "delivery-game/assets/scripts/map-sample/VehicleSideArt.ts": "2fc57889b85537575651d056eec653261932869ff8227fc05a9e738eb5a2e0d9",
+      "delivery-game/assets/scripts/map-sample/CartoonArt.ts": "5b59bb9d4c15fba335754f430641d228a20ea31023cf6385f333fba200d73e52",
+      "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+      "delivery-game/assets/scripts/map-sample/SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322",
+      "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30"
+    },
+    "assets": {
+      "docs/art/2026-11-06-vehicle-product-background/vehicle-product-background-v1.png": "b2bc2427f5ee43338188342d9ea9f9b3ae7b9d7a027147ecd82f7392357d87cf",
+      "delivery-game/assets/resources/ui-v2/showcase/vehicle-product-background-v1.png": "0a8e112718fd3083fa3dd835489db8736fabce65e3c6e0865a51416d67304888",
+      "delivery-game/assets/resources/ui-v2/showcase/vehicle-ground-shadow.png": "80fb725733b4d7e6b9788152fa2938beb5c350972e97769e2650c795c44990fe"
+    },
+    "provenance": {
+      "nativeArchiveSize": [
+        1962,
+        801
+      ],
+      "runtimeBackgroundSize": [
+        1024,
+        418
+      ],
+      "runtimeShadowSize": [
+        512,
+        96
+      ],
+      "nativeArchiveByteIdenticalToRecordedOriginalOutput": true,
+      "note": "实际核对了generation-record.json记录的先前.codex/generated_images原生输出与归档字节一致；保留其历史Codex来源，不伪称本次由Hermes生成。"
+    },
+    "primaryDrift": []
+  },
+  "deferredCases": [
+    {
+      "id": "D01",
+      "case": "背景、阴影与车型不同先后到达",
+      "execution": "未运行，仅静态追踪",
+      "evidence": [
+        "productImage通过Promise完成后才emit ready，调用方监听器在当前同步流程内已注册；包括缓存命中在内，未见成功事件抢在监听注册前发出的路径。",
+        "阴影先到：SpriteFrame可赋给隐藏有效节点，shadow保持隐藏，等待车型ready后定位和显示。",
+        "车型先到：先写阴影节点的真实车型尺寸相关几何；阴影晚到时采用stretch，不重新覆盖这些尺寸。",
+        "Cocos 3.8.8 sprite.ts:629-643证明CUSTOM模式赋spriteFrame不会自动重设节点尺寸，因此阴影晚到不会恢复成初始化的w*.4/h*.12。",
+        "背景成功才隐藏中性底及场景加载字；背景尚未成功时，车型可以独立显示在明确的中性回退上。"
+      ]
+    },
+    {
+      "id": "D02",
+      "case": "失败状态与重开恢复",
+      "execution": "未运行，未故障注入",
+      "evidence": [
+        "背景失败：VehicleShowcase.ts:39-43保留中性底并显示场景图暂不可用。",
+        "车型失败：48-53保留车型失败文字并隐藏阴影，不显示替代假车；背景是否成功不改变该错误提示。",
+        "阴影失败：productImage记录真实错误，不阻止其他已成功图层，界面降级边界见S01。",
+        "新产品纹理使用web:false原图路径；既有loader的有限重试、失败Promise清除及下一次重开重试策略保持。当前节点没有新增无限轮询。"
+      ]
+    },
+    {
+      "id": "D03",
+      "case": "销毁、隐藏节点与所有权",
+      "execution": "未运行",
+      "evidence": [
+        "VehicleShowcase.ts:9-17：两张新产品图的SpriteFrame按节点各自持有，节点销毁时destroy；销毁后的结果被isValid(n,true)挡住，不再创建帧。",
+        "仅隐藏而仍有效的阴影节点允许成功赋图；没有activeInHierarchy=false就丢弃结果的分支。",
+        "新产品帧不进入全局帧缓存，底层纹理由既有共享loader持有；未调用纹理destroy、releaseAsset或全局清缓存。",
+        "车型继续使用CartoonArt既有共享帧，helper没有把它误当作私有帧销毁。关闭旧预览不会销毁新预览自己的产品帧或共享车型纹理。"
+      ]
+    },
+    {
+      "id": "D04",
+      "case": "Mask、图层排序和真实CC API",
+      "execution": "未运行实际渲染",
+      "evidence": [
+        "显式创建的层次为中性底、背景、阴影、状态/占位文字、车型；背景和阴影分别setSiblingIndex(1/2)，车型在其上方。",
+        "viewport保留GRAPHICS_RECT裁剪；背景cover产生的超出部分在该viewport内裁剪。",
+        "只读核对本机Cocos 3.8.8 Node.setSiblingIndex及Node.angle真实实现，未发现API形状误用。",
+        "SpriteFrame的rect/originalSize使用加载区域实际尺寸，CUSTOM模式明确；没有把原裁切框套到缩小背景上。"
+      ]
+    },
+    {
+      "id": "D05",
+      "case": "切换车型、购买目标与旧回调",
+      "execution": "未操作选车或购买",
+      "evidence": [
+        "V2GameUI.ts:413-434仍从同一个v取得预览modelId、名称、属性、拥有数、价格和buyVehicle的modelId。",
+        "GameUI本次只有两行说明注释变化；选中、滚动恢复、H02和购买命令没有被本次资源接线改写。",
+        "每个viewport捕获自己的modelId；资源回调只写该预览节点的显示状态与阴影几何，不写this.model、v或业务命令。",
+        "重新选择后的旧资源结果不会被转交到新预览节点。"
+      ]
+    },
+    {
+      "id": "D06",
+      "case": "U21实际画面与全车型支持阴影",
+      "execution": "未验收",
+      "evidence": [
+        "本轮实看已有原生背景、运行候选PNG、透明羽化阴影和model3离线合成；没有生成新图。",
+        "阴影相对尺寸、位置、角度属于候选视觉参数。实际Mask裁剪、轮地关系、其他车型及hover表现仍需PM后续实图核对。",
+        "目录及图片meta存在、尺寸和SHA匹配，不等于Creator已导入、资源已进入构建或用户远程可见。",
+        "未执行tests/typecheck、游戏函数、浏览器、存档、Creator构建或图片生产，未修改任何源、资产、报告、权限或模型配置；没有地图输入或地图派工。"
+      ]
+    }
+  ]
+}

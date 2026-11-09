@@ -1,0 +1,6 @@
+const p=await browser.getPage("main");
+await p.goto("http://127.0.0.1:4208/?v2=1",{waitUntil:"networkidle0"});
+await p.waitForFunction(async()=>{const cc=await System.import("cc");return !!cc.director.getScene()?.getComponentsInChildren(cc.Label).find(label=>label.node.activeInHierarchy&&label.string==="继续游戏");},{timeout:15000});
+const state=await p.evaluate(async()=>{const cc=await System.import("cc"),scene=cc.director.getScene(),canvas=document.querySelector("canvas"),rect=canvas.getBoundingClientRect();return {title:document.title,url:location.href,viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},canvas:{width:canvas.width,height:canvas.height,cssWidth:rect.width,cssHeight:rect.height},labels:scene.getComponentsInChildren(cc.Label).filter(label=>label.node.activeInHierarchy).map(label=>({text:label.string,world:label.node.getWorldPosition(),parent:label.node.parent.name})),cameras:scene.getComponentsInChildren(cc.Camera).map(c=>({name:c.node.name,ortho:c.projection,priority:c.priority})),slot:JSON.parse(localStorage.getItem("delivery-county-single-slot-v1"))?.version};});
+await p.shot({type:"jpeg",maxEdge:960,quality:75});
+({state,errors:p.__loanErrors,priorAttempt:"01 omitted existing ?v2=1 opt-in; loaded legacy entry in this fresh isolated origin. Corrected URL, no production change and no replacement of the seeded V2 slot."});

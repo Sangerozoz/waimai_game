@@ -1,0 +1,31 @@
+{
+  "task": "FOOD-RISK-A-SPEC-1106",
+  "gate": "PM read all three sources and complete diff, frozen contract mapping, strict inverse and declared risk table checks",
+  "passed": true,
+  "sourceChecks": {
+    "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": {
+      "afterSHA": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+      "strictInverseBeforeSHA": "7923a40ad6b3dd5a9038d221f65d94693a6fb06e59cae6eac9df8739a85410b4",
+      "hunks": 2
+    },
+    "delivery-game/assets/scripts/domain/V2TripRules.ts": {
+      "afterSHA": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97",
+      "strictInverseBeforeSHA": "213cefc4da3a6166c5ba9b5bd36d3a795b94f676d92fcf5448324df79a768e01",
+      "hunks": 5
+    },
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": {
+      "afterSHA": "8a96a5b5e2d4b5d5e72980757c58ae3c1aa07a7020e53c6834ad9250bb472ca6",
+      "strictInverseBeforeSHA": "0fe0d7fe23a1457e4c5286539ea32a7f5a796c94fe45312f5f143ddda65abce3",
+      "hunks": 5
+    }
+  },
+  "approvedRiskTableMatch": {
+    "fragile": true,
+    "normal": true,
+    "durable": true
+  },
+  "numericCells": 9,
+  "scope": "new Game5/Trip3 only, legacy Game4/Trip2 unchanged risk semantics; strict metadata and canonical identity; unchanged UI/price/weight/slot",
+  "independentQuality": "pending",
+  "runtimeVerified": false
+}

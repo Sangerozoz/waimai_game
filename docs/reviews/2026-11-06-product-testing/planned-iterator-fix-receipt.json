@@ -1,0 +1,48 @@
+{
+  "task": "planned-batch-iterator-build-fix",
+  "source": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:700",
+  "sourceSHA256": "dd0054b6f15f1bca07c886217a8197796138a951223fb8bde935a23717bbe3c2",
+  "fix": "loadSummary(Array.from(batchLoads.values()),capacity); no validation or pricing rule changed",
+  "redRealUI": [
+    "b/14-route-planned.json",
+    "b/15-blocker-readonly-shape.json",
+    "b/report.md"
+  ],
+  "compiledArgumentRegression": {
+    "batch-load-red.log": {
+      "tests": 4,
+      "pass": 1,
+      "fail": 3,
+      "skipped": 0
+    },
+    "batch-load-green.log": {
+      "tests": 4,
+      "pass": 4,
+      "fail": 0,
+      "skipped": 0
+    }
+  },
+  "buildRoot": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/build/v2-loadmap-fix-1106",
+  "buildLog": "build-loadmap-fix-complete.log",
+  "buildExitCode": 36,
+  "finished": "2026-11-06 22:59:18",
+  "served": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "sha256": "0b6a467549a2717bb49a0644ecb96c9db44b2e2e6d2ca0590ffccfcc8f165927",
+      "diskMatch": true
+    },
+    {
+      "path": "assets/main/index.ab2ce.js",
+      "status": 200,
+      "sha256": "fbd0ca86721c9f67e50a94be4c6b3c5db3cf1f26f8f27ded8db9415ab2166a4d",
+      "diskMatch": true
+    }
+  ],
+  "testOrigin": "http://127.0.0.1:4198",
+  "realPreview4182or4196Changed": false,
+  "sameTestCheckpointReplay": "pending Developer B; no injected restore",
+  "typecheckPostFixExit": 0,
+  "A95RawLogVerified": true
+}

@@ -1,0 +1,32 @@
+{
+  "status": "directional-sensitivity-correction-not-production-proof",
+  "supersedesInterpretation": "scope-plan.capacityAudit.scenarios.effectiveGroundMegapixelsLowerBound is a compressed-cross-section conditional estimate, not a direction-free universal lower bound; original frozen file unchanged",
+  "equation": "PPU=roadPixels/(designRoadWidth*screenCrossSectionForeshortening); effectiveGroundPixels=designArea*PPU^2*sin(elevation)",
+  "assumptions": [
+    "54px is a sample reference",
+    "design road widths5/8/11m are hypotheses",
+    "62.5deg from intended view, not measured native camera",
+    "same uniform ground scale within a scenario; ignores packing/overlap and varying LOD"
+  ],
+  "scenarios": [
+    {
+      "assumedAsphaltWidthMetres": 5,
+      "uncompressedCrossSectionGroundMP": 285.6941029255999,
+      "compressedCrossSectionGroundMP": 363.1143633392142,
+      "notMeasuredExistingCoverage": true
+    },
+    {
+      "assumedAsphaltWidthMetres": 8,
+      "uncompressedCrossSectionGroundMP": 111.59925895531246,
+      "compressedCrossSectionGroundMP": 141.84154817938062,
+      "notMeasuredExistingCoverage": true
+    },
+    {
+      "assumedAsphaltWidthMetres": 11,
+      "uncompressedCrossSectionGroundMP": 59.02770721603304,
+      "compressedCrossSectionGroundMP": 75.02362878909386,
+      "notMeasuredExistingCoverage": true
+    }
+  ],
+  "recommendedScaleDecisionNext": "Use an explicit existing8m road-class design trial plus actual near-view evidence, rather than assigning arbitrary metres to three old images; do not claim the mapping already proven."
+}

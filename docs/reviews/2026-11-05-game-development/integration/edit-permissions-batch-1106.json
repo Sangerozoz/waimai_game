@@ -1,0 +1,20 @@
+{
+  "scope": "Current NEXT-A-NPC-FRAME-1106 and NEXT-B-UI-RESIDUAL-1106 tasks only",
+  "authorization": "User explicitly permits temporary Accept Edits for developer A/B only",
+  "finding": "BB permission-mode flag did not change ACP advertised legacy Mode; both remained default and edit tools were denied",
+  "appliedThrough": "bb thread options --set _bb/legacy-mode=accept_edits, followed by a new turn",
+  "readback": {
+    "thr_j9izunn7qx": {"value": "accept_edits", "pendingValue": null},
+    "thr_tviezvnwds": {"value": "accept_edits", "pendingValue": null}
+  },
+  "otherThreadsChanged": false,
+  "globalOrMachinePolicyChanged": false,
+  "shellEditBypassUsed": false,
+  "editorSuccessStillRequiresActualToolEvidence": false,
+  "actualEditEvidence": ["logic/npc-frame-time/implementation.md and verified three source hashes", "layout/ui-residual-cleanup.md and verified two source hashes"],
+  "postHandbackReadback": {
+    "thr_j9izunn7qx": {"value": "default", "pendingValue": null},
+    "thr_tviezvnwds": {"value": "default", "pendingValue": null}
+  },
+  "next": "Temporary batch permission ended; independent static quality review and candidate build remain separate gates"
+}

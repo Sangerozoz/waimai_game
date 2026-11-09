@@ -1,0 +1,67 @@
+{
+  "status": "standard-size-control-actual-response-not-art-or-production-accepted",
+  "model": "gpt-image-2",
+  "provider": "openai-api",
+  "requestedSize": "3840x2160",
+  "qualityRequested": "high",
+  "n": 1,
+  "maxRetries": 0,
+  "wallclockLimitSeconds": 480,
+  "totalCapabilityExperimentBudget": 2,
+  "controlOrdinal": 2,
+  "noFurtherImagesRequestsAuthorized": true,
+  "inputs": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/scope-recovery-v1/capacity-proof/structure-guide.png",
+      "sha256": "40afb08818e4a7a36475d72cae8c866be9fe5f18d3c7156987fec10ce2aeab2a",
+      "role": "8-block design geometry input, not art"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-04-county-twentyfive-region-plan/review-009/TR-33-v1.png",
+      "sha256": "fe3358f7732812285879cd9b23db7a890b5f6d36eae2df56bbc4e4469b044aec",
+      "role": "original accepted25 style, not layout"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/scope-recovery-v1/capacity-proof/approved-density-local.png",
+      "sha256": "e48872c1a997575d533ff621ceb09fffd88a2f19c79064199cf6d0cb31cda9ad",
+      "role": "approved A2 local density/detail only"
+    }
+  ],
+  "inputImagesByteIdenticalToFirstProof": true,
+  "promptSHA256": "495bee63f78b577ab2d8c79da8be0bde53089cddf2ec6bf6760911db76488c76",
+  "codeSHA256": "cca909b4f6828cb355962b3a250fd07165eda400c50104cb3d2e8035d84b44cd",
+  "changedTreatment": "size field and matching prompt dimension only; no model,quality,reference or provider changes",
+  "hypothesis": "test whether the compatible service handles the documented standard3840x2160 differently from custom3824x2144; not an assertion either size works",
+  "documentationEvidence": "OpenAI images.edit API reference search excerpt explicitly lists maximum3840x2160; complete pages were not fetched successfully",
+  "sourceFirstResultSHA256": "0821f5c1222c6d7201a158c11776af3f2023eb0c3a162edbbeb0b6d700cda09a",
+  "endpointHost": "zee.zeehub.cn",
+  "startedUnix": 1793967155.071433,
+  "actualSize": [
+    1672,
+    941
+  ],
+  "bytes": 3832952,
+  "sha256": "112cc4aad350be35d96902c2d2ecf394d17cef2a38465b6d6431734186a77054",
+  "requestedDimensionHeld": false,
+  "mode": "RGB",
+  "actualPrompt": "CAPACITY PROOF, not a final city. Produce ONE new integrated Japanese contemporary-city game-map illustration. Native requested3840x2160. The first attached image is a ground-plane street-block design guide, not artwork. It deliberately contains EIGHT complete adjacent urban street blocks in a4-column by2-row group, plus narrow surrounding continuations. Maintain all8 complete blocks and their continuous primary/secondary/local road and junction organisation. Do not silently reduce it to2-4 blocks or a small isolated neighborhood. Input block IDs and colour cells are planning annotations only: remove all labels/debug colours from final art.\n\nImage2 is ORIGINAL approved TR-33, style/material/daylight reference only, not its roads/layout. Image3 is only a small crop of approved A2 dense commercial massing/readable detail, not a full neighbor or a composition to copy. No upscaling/cropping old art as output. No white diorama border, sky, debug lines or UI. Design roads, buildings and grounds together in the accepted fixed high-oblique orthographic-like view with consistent ground and verticals. Do not zoom out and make every house tiny to claim8 blocks. Use the genuinely larger requested raster to show the larger planned region while maintaining detailed readable individual facades and human/vehicle/street proportions.\n\nThe8 core street blocks should be recognisably distinct, fully organised dense urban groups: connected2-3storey street shops,4-6storey mixed residential/office backs, a few taller but modest commercial masses, one compact civic/library or exhibition building, small service courts and purposeful community green. Most street frontages continuous, front/back building layers, narrow useful courtyards/accesses, not scattered villas in large lawns and not eight cloned apartment compounds. Do not repeat another giant market hall as the sole landmark. Keep each block's roads clear and connected, entrances reachable and complete, no road under architecture, no overpass/tunnel. Ground corridors and8 block structure follow image1.\n\nNeutral daytime palette, accepted Japanese youthful contemporary-city anime painterly/thick-painted look, varied plaster/brick/wood/glass/roofs, natural soft shadows, deeper natural foliage. Keep accepted warm window treatment as daylight, not universal glowing night lights. No overall recolour, photoreal product-render look, heavy icon outlines or rooftop trees. Small props belong to uses: benches, shopfront signs without legible text, tables/chairs, bins, flowerboxes, service vans parked out of lanes. No catalogue spread, all-vegetable fields or giant empty grass. Preserve meaningful open courts/parks but not a garden-like suburban substitute for city. All edges are coherent painted ground/roads, complete buildings not chopped at edges. Return exactly one entirely new illustration. This is a real output-resolution AND region-capacity proof, not evidence from a requested parameter alone.",
+  "qualityReturned": null,
+  "usage": {
+    "input_tokens": 4477,
+    "input_tokens_details": {
+      "image_tokens": 3861,
+      "text_tokens": 616
+    },
+    "output_tokens": 4632,
+    "total_tokens": 9109,
+    "output_tokens_details": {
+      "image_tokens": 4632,
+      "text_tokens": 0
+    }
+  },
+  "noLocalUpscalingOrWarp": true,
+  "vendorInternalNativeResolutionProven": false,
+  "elapsedSeconds": 98.10250091552734,
+  "inputImagesStillUnchanged": true,
+  "wholeCityProductionPassed": false
+}

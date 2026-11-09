@@ -1,0 +1,1440 @@
+{
+  "owner": "thr_4xmqy6fzdm",
+  "policy": "同一问题只登记一次；源码/构建/部署/真实验证/用户验收分开。所有条目尚未关闭。",
+  "priorityOrder": [
+    "U01",
+    "U02",
+    "U39",
+    "E09",
+    "U40",
+    "U03",
+    "U04",
+    "U05",
+    "U06",
+    "U07",
+    "E02",
+    "E03",
+    "E04",
+    "U09",
+    "U12",
+    "U13",
+    "U14",
+    "U15",
+    "U16",
+    "U17",
+    "U18",
+    "U19",
+    "U20",
+    "U21",
+    "U08",
+    "U22",
+    "U23",
+    "U24",
+    "U25",
+    "U26",
+    "U27",
+    "U28",
+    "U29",
+    "U30",
+    "U31",
+    "U32",
+    "U33",
+    "U34",
+    "U35",
+    "U36",
+    "U37",
+    "U38"
+  ],
+  "userIssues": [
+    {
+      "id": "U01",
+      "priority": "P0",
+      "title": "配送严重卡顿、接单/取餐后跳站，恢复连续可见的沿路移动",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B25～31有真实单状态链、画面和100ms投影；B32仅本单active窗rAF。不能再称未走配送，也不能关闭整体卡顿/跳站问题。",
+      "acceptance": "按正式V1§4实际沿路移动、到点停下取餐、取完主动继续；不卡帧补跑成瞬移，不改速度/时间换算掩盖问题",
+      "evidence": "performance/light-read-applied.json；performance/light-read-quality.json",
+      "closed": false,
+      "stage": "single-order-motion-observed-overall-performance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.json",
+        "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json",
+        "docs/reviews/2026-11-06-product-testing/b/32-active-delivery-performance.json"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_f2cxhbkw45 + thr_tdwjukd785",
+          "stage": "built-candidate-motion-unverified",
+          "status": "P0轻量读已合入并生成产品候选包；未做配送/性能实测，不以空闲切页关闭卡顿问题",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U02",
+      "priority": "P0",
+      "title": "配送移动时地图自动跟随骑手",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "115个记录投影follow均true且偏移居中；B33手拖后false、B34定位恢复true。未覆盖真机、多批/全部视角。",
+      "acceptance": "出发后按既定体验跟随骑手，用户拖动可浏览、定位可恢复；切换路线/阶段不能无声丢跟随",
+      "evidence": "performance/light-read-applied.json；performance/light-read-quality.json",
+      "closed": false,
+      "stage": "single-order-follow-and-pan-locate-observed-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json",
+        "docs/reviews/2026-11-06-product-testing/b/33-user-pan-not-forced-follow.json",
+        "docs/reviews/2026-11-06-product-testing/b/34-ui-locate-restores-follow.json"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh + PM",
+          "stage": "built-candidate-motion-unverified",
+          "status": "跟随/逐帧motion已纳入产品候选；未操作配送及跟随路径，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U03",
+      "priority": "P0",
+      "title": "底部菜单图标缺失",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "底栏图标在新修复包B21～40多张实际画面可见；正式分享入口由PM核对。",
+      "acceptance": "用户实际分享入口的对应图片真实可见，加载/失败不静默空白；本地文件和HTTP200不能代替远程显示",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "isolated-assets-visible-public-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "资源工程thr_cqkytibciw / PM",
+          "stage": "private-visible-public-unverified",
+          "status": "隔离4187首页底栏图标实际可见；4182仍旧包，用户分享路径未证实，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U04",
+      "priority": "P0",
+      "title": "骑手页人物图片缺失",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B04/B05旧冻结包首末屏肖像实际可见；保留旧包来源，不当成本次新渲染全部骑手页。",
+      "acceptance": "用户实际分享入口的对应图片真实可见，加载/失败不静默空白；本地文件和HTTP200不能代替远程显示",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "isolated-rider-images-visible-public-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "资源工程thr_cqkytibciw / PM",
+          "stage": "private-visible-public-unverified",
+          "status": "隔离骑手页肖像已出现，末位书宁及按钮实际可达；分享路径未证实，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U05",
+      "priority": "P0",
+      "title": "车辆页车辆图片缺失",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B06/B09旧冻结包车辆主图与宫格实际可见；未做全部车型交互矩阵。",
+      "acceptance": "用户实际分享入口的对应图片真实可见，加载/失败不静默空白；本地文件和HTTP200不能代替远程显示",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "isolated-vehicle-images-visible-public-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/06-vehicles-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/09-vehicles-select-no-jump.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "资源工程thr_cqkytibciw / PM",
+          "stage": "private-visible-public-unverified",
+          "status": "隔离车辆页主图及宫格车图可见；分享路径未证实，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U06",
+      "priority": "P0",
+      "title": "地图页场景插图缺失",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B10仅观察既有产品卡片插图；不属于地图制作/整城验收，不派地图工作。",
+      "acceptance": "用户实际分享入口的对应图片真实可见，加载/失败不静默空白；本地文件和HTTP200不能代替远程显示",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "existing-map-card-images-visible-no-map-production",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/10-maps-top.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "资源工程thr_cqkytibciw / PM",
+          "stage": "existing-ui-private-visible-public-unverified",
+          "status": "只读既有产品卡页首屏原插图可见；未制作或加工地图，分享路径未证实，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U07",
+      "priority": "P0",
+      "title": "抢单页菜品图片缺失",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B12旧冻结包菜图可见；B22新修复包酸辣粉图片/脆弱徽标/2格可见。",
+      "acceptance": "用户实际分享入口的对应图片真实可见，加载/失败不静默空白；本地文件和HTTP200不能代替远程显示",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "isolated-food-images-visible-public-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "资源工程thr_cqkytibciw / PM",
+          "stage": "private-visible-public-unverified",
+          "status": "隔离订单大厅首屏菜图实际可见；分享路径未证实，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U08",
+      "priority": "P1",
+      "title": "六页/主要画面与认可效果图一致性目标98%，现版明显不达标",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "本次未执行六页对原始8张认可图的完整视觉验收；98%目标仍未通过。",
+      "acceptance": "按8原图及后续明确变更逐页对照；主体图片/首页背景不排除，不贴整页截图假装游戏，不主观报百分比",
+      "evidence": "ui-fidelity-recovery/visual/spec-audit.md",
+      "closed": false,
+      "stage": "full-visual-fidelity-not-accepted",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "UI thr_uevwv32vnh / PM",
+          "stage": "blocked-or-partial",
+          "status": "独立视觉审查FAIL，未达标",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U09",
+      "priority": "P0",
+      "title": "开发范围包含游戏逻辑、经济数值与功能，不限UI",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "既有95/95纯V2日志及本次收口的真实单链均保留；不把95个TAP计数当95条完整玩家路径。",
+      "acceptance": "主循环、报价扣费账本、运行入口分别逐条审查；不以有类/有按钮当完整实现",
+      "evidence": "dispatch.json及logic/economy/features报告",
+      "closed": false,
+      "stage": "domain-suite-and-one-real-player-path-evidence-not-full-product-acceptance",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json"
+      ],
+      "latestScope": "用户再次明确数值系统需要重做/优化；整数容量、前段升级价值、购车/招募/升级选择与长期收支统筹核算，当前旧数值不作为已达体验验收。",
+      "numericRevision": "../../product/2026-11-06-capacity-slots-upgrade-revision.md",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM + 开发A thr_j9izunn7qx + 开发B thr_tviezvnwds",
+          "stage": "integrated-built-business-unverified",
+          "status": "ready/同店合并、NPC帧内时点/时钟快路、版本化普通订单差价已源码集成并入联合作品；完整业务/数值闭环仍未集中测试，不以旧权限拒绝状态覆盖后续实际实现",
+          "latestEvidence": "integration/product-u22-scene-build-integrity.json；logic/npc-frame-time/quality-review.json；economy/ordinary-effort-stage/application.json"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U10",
+      "priority": "P1",
+      "title": "去掉首页配送状态/天气余单悬浮文字",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "已有B25～31行驶/取餐/ready/完成画面，可供浮字核对；删除项已实施，不重回旧静态稿；本次不宣称完整布局验收。",
+      "acceptance": "首页不再创建该浮字；顶部HUD与订单详情保留",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "delivery-ready-finished-screens-recorded-not-user-accepted",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/28-ready-before-continue.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "private-idle-appearance-seen",
+          "status": "隔离空闲首页未见已删配送/天气浮字；配送中未操作，分享入口未更新",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U11",
+      "priority": "P1",
+      "title": "去掉首页本批收入/补给/净赚/库存悬浮汇总",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "已有B25～31行驶/取餐/ready/完成画面，可供浮字核对；删除项已实施，不重回旧静态稿；本次不宣称完整布局验收。",
+      "acceptance": "首页不再显示该浮字；不删真实结算和账本",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "delivery-ready-finished-screens-recorded-not-user-accepted",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/28-ready-before-continue.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "private-idle-appearance-seen",
+          "status": "隔离空闲首页未见已删本批浮动汇总；配送中未操作，分享入口未更新",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U12",
+      "priority": "P1",
+      "title": "删除头像下骑手数量条，改已招募NPC活动卡",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "首页NPC活动卡替代数量条已有实现交接；测试只有主角，未验证已招募NPC卡及其持续入账，不重做现有源码。",
+      "acceptance": "排除hero；真实头像姓名/空闲或配送状态；倒计时来自实际批次，不造NPC/ETA",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "implemented-per-handoff-recruited-npc-runtime-not-covered",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "source-in-candidate-not-deployed-not-verified",
+          "status": "源码已写并纳入v2-candidate构建；未更新4182试玩入口，未完成运行/用户路径核验",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.json"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U13",
+      "priority": "P1",
+      "title": "补给改图标按钮并移至右侧上方",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "新包右上图标实际可见，B37打开真实补给页、B38购买水；图标入口不再列待实现。",
+      "acceptance": "旧右下文字按钮移除，新图标可辨且入口有效，不遮HUD",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "upper-right-supply-entry-and-menu-observed",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "source-in-candidate-not-deployed-not-verified",
+          "status": "源码已写并纳入v2-candidate构建；未更新4182试玩入口，未完成运行/用户路径核验",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/37-real-supply-menu.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/38-ui-buy-use-water.json"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U14",
+      "priority": "P1",
+      "title": "首页任务提示半透明",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "半透明首辆新车提示已显示；未购买首车/首NPC/首张付费地图，不能补报整条引导通过。",
+      "acceptance": "提示不遮挡主要地图和车辆，文字仍清晰",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "first-guidance-step-observed-full-sequence-not-covered",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "source-in-candidate-not-deployed-not-verified",
+          "status": "源码已写并纳入v2-candidate构建；未更新4182试玩入口，未完成运行/用户路径核验",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/39-water-complete.jpg"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U15",
+      "priority": "P1",
+      "title": "不可换任务，固定引导首车→首NPC→首张付费地图，可忽略",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "半透明首辆新车提示已显示；未购买首车/首NPC/首张付费地图，不能补报整条引导通过。",
+      "acceptance": "无换按钮；只显示首个未完成项，完成自动前进；免费初始图不计完成；不新增资格/奖励",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "first-guidance-step-observed-full-sequence-not-covered",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_jcv5truiae + thr_uevwv32vnh",
+          "stage": "source-in-candidate-not-deployed-not-verified",
+          "status": "源码已写并纳入v2-candidate构建；未更新4182试玩入口，未完成运行/用户路径核验",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/39-water-complete.jpg"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U16",
+      "priority": "P1",
+      "title": "骑手页按钮点击后保持列表位置",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B05→B07骑手返回偏移2004.7110692767483相同；未做招募/升级后的保位验证。",
+      "acceptance": "重绘/进入配车后返回仍保留真实offset并clamp，不以旧数据显示掩盖跳顶",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "navigation-scroll-retained-recruit-upgrade-not-covered",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.json",
+        "docs/reviews/2026-11-06-product-testing/b/07-riders-return-offset.json"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "private-scroll-seen-actions-unverified",
+          "status": "隔离列表可滚至末位书宁；招募/升级等操作后保位未执行，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U17",
+      "priority": "P1",
+      "title": "车辆页按钮/车型选择后保持宫格滚动位置",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B08→B09选择晨光后偏移252.30122761506283相同；未购买/升级，不外推所有按钮。",
+      "acceptance": "选择末排车型后仍停原位置且预览正确更新，key不含车型id",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "vehicle-selection-scroll-retained-purchase-not-covered",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "source-in-candidate-not-deployed-not-verified",
+          "status": "源码已写并纳入v2-candidate构建；未更新4182试玩入口，未完成运行/用户路径核验",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/08-vehicles-scrolled.json",
+        "docs/reviews/2026-11-06-product-testing/b/09-vehicles-select-no-jump.json"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U18",
+      "priority": "P1",
+      "title": "去掉账单底部重新开始按钮",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B11/B40所查账单无重开入口，B20继续唯一进度及B35/36非零续档成立；不宣称所有入口/坏档/未来版本浏览器矩阵。",
+      "acceptance": "按钮及确认入口消失，不搬到别页，不删当前进度",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "visible-no-restart-and-natural-save-continuity-observed",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "source-in-candidate-not-deployed-not-verified",
+          "status": "源码已写并纳入v2-candidate构建；未更新4182试玩入口，未完成运行/用户路径核验",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/20-fixed-package-normal-reload.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json",
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U19",
+      "priority": "P1",
+      "title": "不允许玩家重新开始/清档重开",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B11/B40所查账单无重开入口，B20继续唯一进度及B35/36非零续档成立；不宣称所有入口/坏档/未来版本浏览器矩阵。",
+      "acceptance": "启动页无reset入口，startOver/restart拒绝且不触store；空slot首次正常开局和坏档防覆盖保留",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "visible-no-restart-and-natural-save-continuity-observed",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_f2cxhbkw45",
+          "stage": "source-in-candidate-not-deployed-not-verified",
+          "status": "源码已写并纳入v2-candidate构建；未更新4182试玩入口，未完成运行/用户路径核验",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/20-fixed-package-normal-reload.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json",
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U20",
+      "priority": "P1",
+      "title": "抢单圆盘关闭×视觉居中",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "实际B12/B22圆盘关闭×画面已留；不以本次证据整理代替用户视觉验收。",
+      "acceptance": "真实截图里×可见中心与圆盘对齐；圆盘和热区不动；+12仅源码候选不是运行通过",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "close-glyph-implemented-visual-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "thr_uevwv32vnh",
+          "stage": "private-screenshot-awaiting-visual-acceptance",
+          "status": "已留实际订单大厅圆盘×截图；待独立视觉对照及用户路径核验，不主观认定达标",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U21",
+      "priority": "P1",
+      "title": "车辆顶部预览改为场景+选中车辆的沉浸式画面",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B06满载和B09晨光的独立产品场景/车型联动已有画面；不重生图，不裁地图；未覆盖10车型/hover/购买矩阵。",
+      "acceptance": "预览包含协调场景/地面/接地光影和选中车型，切换同步；车型身份/原图保留，参数和购买仍动态",
+      "evidence": "用户最新明确要求，覆盖原仅透明车图展示",
+      "closed": false,
+      "stage": "native-vehicle-scene-and-two-models-visible-matrix-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/06-vehicles-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/09-vehicles-select-no-jump.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM集成 / 复审B thr_htnxptrv4w",
+          "stage": "integrated-built-private-model3-visible",
+          "status": "单张独立原生产品背景和支持阴影已接入，源码独立静态质量PASS；4194联合作品实际显示满载model3原车、场景与参数。未购买、未做10车型/hover矩阵，分享入口未替换，未验收",
+          "latestEvidence": "layout/vehicle-showcase/scene-quality-1106.json；integration/visual-product-scene-1106/check.json；integration/product-u22-scene-build-integrity.json"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U22",
+      "priority": "P1",
+      "title": "普通订单全为20金币，核查并补齐订单报价差异",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "当前第一单20金币是保护期合同，B40真实结算2000分；不把保护单同价报成新故障。第15单及报价/成长平衡由A/PM现有数值工作继续。 A已完成同源策略模型，保护退出短途倒挂与2/4km同价风险保留；候选C仅隔离对照，生产报价不变。",
+      "acceptance": "明确新手保护与长期报价边界；差异化报价必须显示/接单合同/结算同源，不能仅UI随机改价，不破坏已确认成长目标",
+      "evidence": "历史根因见economy/u22-order-pricing.md；新版规则见docs/balance/2026-11-06-ordinary-effort-v1/rule.json，不把不同订单必然不同价当承诺",
+      "closed": false,
+      "stage": "pricing-implemented-protected-first-order-observed-balance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json",
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发A thr_j9izunn7qx / PM集成",
+          "stage": "integrated-built-pricing-business-unverified",
+          "status": "ordinary-effort-v1差价规则已落三份生产源码；规格及独立质量静态PASS，联合作品已构建。引导期整批保持原价，之后按可信商家至顾客里程和重量报价；旧合同不重价。未做业务/价格/平衡/性能实测，未部署，未关闭",
+          "latestEvidence": "economy/ordinary-effort-stage/spec-review.json；economy/ordinary-effort-stage/quality-review.json；economy/ordinary-effort-stage/application.json；integration/product-u22-scene-build-integrity.json"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U23",
+      "priority": "P1",
+      "title": "骑手页我改主角",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+      "acceptance": "按用户已明确要求和最新UI否决落实到实际骑手页；不改数值/存档，万元近似另列U30，不再阻塞其余结构。真实画面及用户验收仍待。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "rider-layout-implemented-visible-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发B thr_tviezvnwds / PM构建与画面门禁",
+          "stage": "deployed-observed-not-user-accepted",
+          "status": "已独立静态审查、构建并部署4196；实际首末屏已核对本项。不是静态稿/候选源码，未代填用户验收。",
+          "latestEvidence": "integration/visual-riders-recovery-1106/receipt.json；riders-top-stable.png及riders-bottom.png"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U24",
+      "priority": "P1",
+      "title": "等级缩小并紧邻角色姓名",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+      "acceptance": "按用户已明确要求和最新UI否决落实到实际骑手页；不改数值/存档，万元近似另列U30，不再阻塞其余结构。真实画面及用户验收仍待。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "rider-layout-implemented-visible-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发B thr_tviezvnwds / PM构建与画面门禁",
+          "stage": "deployed-observed-not-user-accepted",
+          "status": "已独立静态审查、构建并部署4196；实际首末屏已核对本项。不是静态稿/候选源码，未代填用户验收。",
+          "latestEvidence": "integration/visual-riders-recovery-1106/receipt.json；riders-top-stable.png及riders-bottom.png"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U25",
+      "priority": "P1",
+      "title": "未招募标记移到肖像下",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+      "acceptance": "按用户已明确要求和最新UI否决落实到实际骑手页；不改数值/存档，万元近似另列U30，不再阻塞其余结构。真实画面及用户验收仍待。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "rider-layout-implemented-visible-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发B thr_tviezvnwds / PM构建与画面门禁",
+          "stage": "deployed-observed-not-user-accepted",
+          "status": "已独立静态审查、构建并部署4196；实际首末屏已核对本项。不是静态稿/候选源码，未代填用户验收。",
+          "latestEvidence": "integration/visual-riders-recovery-1106/receipt.json；riders-top-stable.png及riders-bottom.png"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U26",
+      "priority": "P1",
+      "title": "收益文案去基础二字",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+      "acceptance": "按用户已明确要求和最新UI否决落实到实际骑手页；不改数值/存档，万元近似另列U30，不再阻塞其余结构。真实画面及用户验收仍待。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "rider-layout-implemented-visible-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发B thr_tviezvnwds / PM构建与画面门禁",
+          "stage": "deployed-observed-not-user-accepted",
+          "status": "已独立静态审查、构建并部署4196；实际首末屏已核对本项。不是静态稿/候选源码，未代填用户验收。",
+          "latestEvidence": "integration/visual-riders-recovery-1106/receipt.json；riders-top-stable.png及riders-bottom.png"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U27",
+      "priority": "P1",
+      "title": "作业耗时100%改为易懂的取送省时表达",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+      "acceptance": "按用户已明确要求和最新UI否决落实到实际骑手页；不改数值/存档，万元近似另列U30，不再阻塞其余结构。真实画面及用户验收仍待。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "rider-layout-implemented-visible-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发B thr_tviezvnwds / PM构建与画面门禁",
+          "stage": "deployed-observed-not-user-accepted",
+          "status": "已独立静态审查、构建并部署4196；实际首末屏已核对本项。不是静态稿/候选源码，未代填用户验收。",
+          "latestEvidence": "integration/visual-riders-recovery-1106/receipt.json；riders-top-stable.png及riders-bottom.png"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U28",
+      "priority": "P1",
+      "title": "未招募NPC也展示统一收益和省时信息",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+      "acceptance": "按用户已明确要求和最新UI否决落实到实际骑手页；不改数值/存档，万元近似另列U30，不再阻塞其余结构。真实画面及用户验收仍待。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "rider-layout-implemented-visible-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发B thr_tviezvnwds / PM构建与画面门禁",
+          "stage": "deployed-observed-not-user-accepted",
+          "status": "已独立静态审查、构建并部署4196；实际首末屏已核对本项。不是静态稿/候选源码，未代填用户验收。",
+          "latestEvidence": "integration/visual-riders-recovery-1106/receipt.json；riders-top-stable.png及riders-bottom.png"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U29",
+      "priority": "P1",
+      "title": "招募按钮只写招募，价格独立置于信息卡",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+      "acceptance": "按用户已明确要求和最新UI否决落实到实际骑手页；不改数值/存档，万元近似另列U30，不再阻塞其余结构。真实画面及用户验收仍待。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "rider-layout-implemented-visible-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发B thr_tviezvnwds / PM构建与画面门禁",
+          "stage": "deployed-observed-not-user-accepted",
+          "status": "已独立静态审查、构建并部署4196；实际首末屏已核对本项。不是静态稿/候选源码，未代填用户验收。",
+          "latestEvidence": "integration/visual-riders-recovery-1106/receipt.json；riders-top-stable.png及riders-bottom.png"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U30",
+      "priority": "P1",
+      "title": "一万以上万单位/易读金额，内部精确数值不改",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "39,140→4万、42,170→4.5万、3,080,000→308万未形成统一普通四舍五入规则；仅金额展示held，不改精确扣款，不阻塞已实施骑手排版。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "held-user-rounding-rule",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM确认稿 / UI thr_uevwv32vnh",
+          "stage": "static-proposal-awaiting-user-confirmation",
+          "status": "已按指定4万/4.5万/308万做示例；统一取整规则待确认，近似带约",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U31",
+      "priority": "P1",
+      "title": "删除骑手/车辆/地图/账单顶部页面标题",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B04/B06/B10/B11四管理页顶部大标题已删；订单大厅标题不是本条四页删除目标。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "features/core-loop/implementation.md:68-79；V2GameUI.render实际源码",
+      "closed": false,
+      "stage": "four-management-page-titles-removed-visible-user-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/06-vehicles-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/10-maps-top.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/11-bills-no-restart.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "sa-1-4004ea92",
+          "stage": "private-visible-public-unverified",
+          "status": "四个管理页顶部标题已在隔离候选删除；不再等骑手稿，分享入口未更新",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U32",
+      "priority": "P1",
+      "title": "删除订单取送地址末端定位针图标",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B12/B22地址末端未见旧定位针；取/送前缀徽标保留。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "address-end-pins-removed-observed",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM thr_axf6i4e89t（原UI会话502后已停为idle且队列空）",
+          "stage": "private-first-screen-visible",
+          "status": "订单大厅首屏地址末端pin已不出现；在途分支未操作，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U33",
+      "priority": "P1",
+      "title": "订单重量紧跟餐品名称",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B22酸辣粉2格紧跟餐名，B40新签合同/订单均slots-v1占2格。旧ledger仍写当前KG为历史陈旧状态；不修改旧kg已签合同。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "current-slots-next-to-food-observed-historical-kg-contracts-preserved",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json",
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json"
+      ],
+      "newOverride": "KG算法已被新U40整数容量格机制覆盖；当前源仍旧KG，须新旧合同兼容及所有消费者一起更新，不能只改字。",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM thr_axf6i4e89t（原UI会话502后已停为idle且队列空）",
+          "stage": "private-first-screen-visible",
+          "status": "订单大厅首屏KG紧随餐名；实际合同与重量未改，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U34",
+      "priority": "P1",
+      "title": "订单金额移除金币图片，改数字前货币符号",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B12报价和B22订单报价使用¥文本；本条不删除页面全局HUD的其他图标，不改变金币单位计算。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "order-currency-text-observed",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM thr_axf6i4e89t（原UI会话502后已停为idle且队列空）",
+          "stage": "private-first-screen-visible",
+          "status": "订单大厅金额前为¥文字标记而非币图；仍游戏金币，真实计算未改，未关闭",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U35",
+      "priority": "P1",
+      "title": "订单时间图标与描述垂直居中",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B12/B22有实际图标和时间行；没有测量/用户验收，不主观关闭对齐问题。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "clock-row-screenshot-available-visual-acceptance-open",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM thr_axf6i4e89t（原UI会话502后已停为idle且队列空）",
+          "stage": "private-screenshot-awaiting-visual-acceptance",
+          "status": "时间行实际截图已留，待独立视觉对照；未主观报居中通过",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U36",
+      "priority": "P1",
+      "title": "明确顶部高价专送候选是否占位/实际可接状态",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B12真实高价专送133及广告未接入提示可见；未执行广告/自动权益，不伪造成功。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "../2026-11-05-ui-fidelity-recovery/rider-proposal-01/README.md",
+      "closed": false,
+      "stage": "real-ad-sdk-unconnected",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.json",
+        "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM确认稿 / UI thr_uevwv32vnh",
+          "stage": "external-sdk-blocked-private-copy-seen",
+          "status": "隔离大厅已见专送候选及广告SDK未接入提示；未执行广告/接单，能力仍阻塞",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U37",
+      "priority": "P1",
+      "title": "地图未购买文案改未解锁",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B10卡片显示未解锁；仅文案，不新增购买资格锁，不涉及地图制作。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "existing-card-unlocked-wording-observed",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/10-maps-top.json",
+        "docs/reviews/2026-11-06-product-testing/b/10-maps-top.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM thr_axf6i4e89t（原UI会话502后已停为idle且队列空）",
+          "stage": "existing-ui-private-visible-public-unverified",
+          "status": "既有卡页首屏锁定状态已显示未解锁；不改资格或地图制作，分享入口未更新",
+          "latestEvidence": "integration/product-candidate-build-integrity.json；integration/visual-private/"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U38",
+      "priority": "P1",
+      "title": "账单每笔金额前金币图标全部去掉",
+      "owner": "PM / thr_29f6fcihz6",
+      "status": "B40已在新包非零收入20和累计收入20实际画面验证去币图；不再保留纯源码未画面核对的旧状态。",
+      "acceptance": "按用户最新明确要求展示，确认稿不是游戏截图；不得改内部数值/存档。新骑手排版和金额规则用户确认后才进运行版。",
+      "evidence": "integration/build-candidate-02.log:1328 Finished；实际源码和各owner实施报告；不是行为通过",
+      "closed": false,
+      "stage": "nonzero-income-bill-without-coin-image-observed",
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json",
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg"
+      ],
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "PM thr_axf6i4e89t（原UI会话502后已停为idle且队列空）",
+          "stage": "source-implemented-runtime-unverified",
+          "status": "旧ACP拒绝是历史：当前bills今日/累计配送收入已传null不创建income币图，金额仍同源。新源与旧预览严格分开，仍待当前画面核对。",
+          "latestEvidence": "V2GameUI.ts:522后bills；当前284250cd源码保留该段，食品/骑手增量精确逆差分可追；旧权限阻塞已解除。"
+        }
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U39",
+      "priority": "P0",
+      "title": "重做/优化经济数值与车辆、骑手升级价值，前段过于便宜且回报失衡",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "首轮41条模型的可达性与账表一致性获B独立只读PASS；11.04/21.58分仍仅为操作假设，10/15单预算保持。长期有界实跑150.08分钟配齐12NPC/3图/5车型，触CPU限，两个资产终点未到，二八比不报告；30级训练排除、同一city供给。唯一车防新增与受限应急借车已集成、独立审查及定向验证并部署；源码夹具跨打包直接恢复另留边界，C未批准，未平衡验收。",
+      "acceptance": "逐级/累计费用与真实属性/收入/省时/容量提升有同源对照，比较所需单数、回本及购车/招募/升级取舍；不能只乘价格或守旧尾价。保留资产等级和已签收入，不清档/重价。",
+      "evidence": "economy/user-economy-defect-arithmetic-1106.json；../../product/2026-11-06-capacity-slots-upgrade-revision.md",
+      "closed": false,
+      "stage": "bounded-long-term-partial-admitted-restricted-loan-deployed-balance-open",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发A thr_j9izunn7qx / PM数值决策",
+          "stage": "stage-handed-back-part1-pass-joint-review-pending",
+          "status": "A十文件后端候选和B新报价/效果UI均已交回；核心PART1四文件独立静态PASS，剩余六文件PART2和完整UI复审进行中。参数算术不是数值平衡或体验验收，尚未应用新费用到预览。",
+          "latestEvidence": null
+        },
+        {
+          "recordedAt": "2026-11-07T10:02:23.314093+08:00",
+          "status": "新slots费用已进入当前试玩；A已交16条20/60分钟基线与16条候选路径，PM重新核41条记录资金/额度和36项输入。真实供给模型推荐小队常规11.04分、慢21.58分配齐3NPC，仅为操作假设。唯一旧车先给NPC有软锁，独立只读复核进行中；候选C未批准、二八长期时间未验证，未平衡验收。",
+          "stage": "legal-20-60-minute-model-returned-independent-review-pending"
+        },
+        {
+          "recordedAt": "2026-11-07T10:08:13.160437+08:00",
+          "status": "首轮41条模型的可达性与账表一致性已获B独立只读PASS；11.04/21.58分仍仅为操作假设，10/15单预算保持。唯一车零余额/零额度终态另由PM公开Game动作复现；防新增候选TDD实施中。C未批准、长期二八仍未验证，未平衡验收。",
+          "stage": "first-round-independent-arithmetic-pass-long-term-running"
+        },
+        {
+          "recordedAt": "2026-11-07T04:28:12.799671+00:00",
+          "status": "首轮41条模型的可达性与账表一致性获B独立只读PASS；11.04/21.58分仍仅为操作假设，10/15单预算保持。长期有界实跑150.08分钟配齐12NPC/3图/5车型，触CPU限，两个资产终点未到，二八比不报告；30级训练排除、同一city供给。唯一车防新增隔离TDD继续，既有软锁救援未实现，C未批准，未平衡验收。",
+          "stage": "bounded-long-term-partial-admitted-prevention-stage-active"
+        }
+      ],
+      "latestEvidence": [
+        "docs/balance/2026-11-06-balance-round-01/pm/independent-review-admission-1107.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json",
+        "docs/superpowers/specs/2026-11-07-hero-car-reserve-design.md",
+        "docs/balance/2026-11-06-balance-round-01/pm/long-term-admission-1107.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/report.md"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    },
+    {
+      "id": "U40",
+      "priority": "P0",
+      "title": "KG承载改背包式整数容量：初始2，餐品占1或2",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "真实2/2格接单、合同、配送/清批、非零续档已覆盖；实际产物4/4含历史kg/混单位拒绝是既有回归，不冒称本次全浏览器NPC/多单兼容矩阵。",
+      "acceptance": "新单/容量校验/报价输入/路线/NPC/保存/展示整链一致采用1或2占用及整数容量；成长带来实际可用空间，候选池不形成隐藏固定单数上限；旧单保留旧合同和语义，不仅改kg文字、不篡改旧weightKg。",
+      "evidence": "economy/user-economy-defect-arithmetic-1106.json；../../product/2026-11-06-capacity-slots-upgrade-revision.md",
+      "closed": false,
+      "stage": "two-slot-real-contract-delivery-and-reload-observed-full-matrix-open",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "basis": "Before admission of original B20-B41 evidence on 2026-11-07",
+          "owner": "开发A规则/兼容契约 + 开发B UI / PM集成",
+          "stage": "stage-handed-back-part1-pass-joint-review-pending",
+          "status": "规则/兼容/有界供给/新NPC多单后端与配套UI均交回隔离候选；PART1通过，PART2和完整UI独立门禁进行中。PM已撤掉候选误加的首页浮字，格数及冻结效果保留详情；未整束应用、构建或运行验证。",
+          "latestEvidence": null
+        }
+      ],
+      "latestEvidence": [
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json",
+        "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json",
+        "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json",
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json"
+      ],
+      "evidenceAdmission": "docs/reviews/2026-11-06-product-testing/pm-preview-admission-1107.json"
+    }
+  ],
+  "engineeringFindings": [
+    {
+      "id": "E01",
+      "priority": "P0",
+      "title": "自动跨批余时间、planned切自动、空闲卸车tick、取消剩余距离",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "当前源码已进入已测修复包；原95项用例含自动尾段/取消/保存边界，保留旧失败；未把单一浏览器路径扩为全部状态验收。",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "status": "owner已报四项源码修正，待读回/集成/验证",
+          "owner": "thr_tdwjukd785"
+        }
+      ],
+      "evidence": "docs/reviews/2026-11-06-product-testing/a/v2-suite-final-complete.log",
+      "closed": false
+    },
+    {
+      "id": "E02",
+      "priority": "P0",
+      "title": "同店合并取餐、取完主动去下一站",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "原95项含同商家多单合并一次服务；B25～31已实际走取餐→ready→主动继续→送达。同店多单浏览器路径尚未覆盖，整体未关闭。",
+      "evidence": "docs/reviews/2026-11-06-product-testing/a/v2-suite-final-complete.log",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "status": "Game4/Route2核心源码已交回；规格发现A-SPEC-01已由PM源码修复、正在定向复审；未构建/未运行，不关闭",
+          "owner": "sa-0-99265bfb + sa-1-4004ea92 / PM集成"
+        }
+      ],
+      "closed": false
+    },
+    {
+      "id": "E03",
+      "priority": "P0",
+      "title": "长帧/细帧NPC补额度事件时点一致性",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "原95项已含NPC 0额度长帧/细帧一致、同毫秒先结旧单再补额及回退去重；不再记源码未实现，实际完整NPC矩阵仍未验收。",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "status": "已发现时点契约缺口，未修复结案",
+          "owner": "thr_tdwjukd785 + thr_f2cxhbkw45"
+        }
+      ],
+      "evidence": "docs/reviews/2026-11-06-product-testing/a/v2-suite-final-complete.log",
+      "closed": false
+    },
+    {
+      "id": "E04",
+      "priority": "P0",
+      "title": "运行配送范围与用户蓝框对应",
+      "owner": "PM/逻辑",
+      "status": "PlaceCatalog密度推算dispatchBounds线索待读回，不改源city/三框"
+    },
+    {
+      "id": "E05",
+      "priority": "P1",
+      "title": "NPC实际workAt账本日键归属",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "原95项已含逐笔workAt本地日键与旧unknown-date保留，当前包已包含；原始历史日期不迁移。完整浏览器跨日流程未覆盖。",
+      "evidence": "docs/reviews/2026-11-06-product-testing/a/v2-suite-final-complete.log",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "status": "NPC逐笔workAt归日源码已交回、PM规格静态核对通过，独立质量审查thr_ef9asz76ur待回；不迁移旧null账，未运行不关闭",
+          "owner": "逻辑/运行owner"
+        }
+      ],
+      "closed": false
+    },
+    {
+      "id": "E06",
+      "priority": "P1",
+      "title": "广告/自动剩余权益、停止恢复的UI接线",
+      "owner": "功能/UI，PM协调",
+      "status": "领域API已有但UI缺接线；真实广告SDK仍是外部阻塞，不模拟成功"
+    },
+    {
+      "id": "E07",
+      "priority": "P1",
+      "title": "真实SDK、完整运行地图、未确认任务奖励",
+      "owner": "不由本产品线负责或派工",
+      "status": "按最新产品/地图严格独立要求从本线派工与验收范围移出；不修改、不推进、不声明地图完成",
+      "scope": "out-of-scope-product; retained-historical-note-only"
+    },
+    {
+      "id": "E08",
+      "priority": "P1",
+      "title": "经济参数同源、整数分报价扣费及累计公式",
+      "owner": "PM / thr_gf8gehviua",
+      "status": "原95项与PM同源参数/报价探针、A36项输入指纹保留；金额守恒和公式检查有证据，长期数值平衡仍未验收。",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T09:22:54.860714+08:00",
+          "status": "owner已交独立算术/629标量一致，待PM读回；非游戏实测",
+          "owner": "thr_jcv5truiae"
+        }
+      ],
+      "evidence": "docs/reviews/2026-11-06-product-testing/a/v2-suite-final-complete.log",
+      "closed": false
+    },
+    {
+      "id": "E09",
+      "priority": "P0",
+      "title": "唯一旧车先借NPC，额度耗尽后旧合同占车导致主角无法恢复亲送",
+      "owner": "PM thr_4xmqy6fzdm / 借车领域作者A thr_gf8gehviua / 独立审查B thr_29f6fcihz6",
+      "status": "防新增保留；受限应急借车已实现、独立规格/质量复审PASS。默认145/145、UI11/11、typecheck0；Creator36/Finished、721输入无漂移，4182/4196新包入口与14JS逐端HTTP一致。原自然终态在领域恢复成功；隔离packed-transport副本已真实借车、两次亲送补额、原NPC两合同结清、归还/重载及实车继续配送，最终100金币、永久1车。源码夹具因JSON字段顺序产生的跨打包mapKey直读仍BLOCKED，失败及原字节保留，未改生产路由或用户档。",
+      "evidence": [
+        "docs/balance/2026-11-06-balance-round-01/a/report.md",
+        "docs/balance/2026-11-06-balance-round-01/a/baseline-results.json"
+      ],
+      "closed": false,
+      "stage": "restricted-loan-implemented-reviewed-tested-deployed-user-acceptance-open",
+      "stateHistory": [
+        {
+          "recordedAt": "2026-11-07T10:02:23.314093+08:00",
+          "status": "A已用合法新档/实际生产公开命令在当前供给复现，1单后120招募归零，未付合同保留starter，归还与替代车均失败；PM离线对账通过，独立根因/兼容方案复核进行中，未修复。",
+          "stage": "domain-model-reproduced-independent-review-pending"
+        },
+        {
+          "recordedAt": "2026-11-07T02:30:25.400104+00:00",
+          "status": "B独立复核与PM公开Game动作均确认首单后唯一车终态可达。已冻结保留主角可恢复车的配车/新签批防线，B仅在隔离stage做TDD，生产未改；既有零额度且旧合同占车的软锁档救援仍未实现。",
+          "stage": "public-game-reproduced-prevention-stage-in-progress"
+        },
+        {
+          "recordedAt": "2026-11-07T04:28:12.799671+00:00",
+          "status": "保留主角可恢复车辆的配车/新签批防线已集成，独立审查无发现，完整默认回归113/113、typecheck exit0；Creator36/Finished、721输入无漂移，4182/4196入口及14脚本逐端HTTP身份通过。既有已签、零额度且旧合同占车的软锁档仍未救援。",
+          "stage": "prevention-integrated-tested-deployed-existing-save-rescue-open",
+          "recoveryProposal": {
+            "path": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/recovery-options.md",
+            "status": "user-selected-A-design-implementation-in-progress",
+            "recommended": "restricted-emergency-loan-preserving-old-contracts",
+            "alternative": "player-confirmed-cancellation-of-unfinished-NPC-contracts",
+            "productionImplemented": false,
+            "selected": "restricted-emergency-loan-preserving-old-contracts",
+            "userQuote": "受限应急借车（推荐）",
+            "selectionReceipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/user-selection.json"
+          },
+          "latestEvidence": [
+            "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/integration-receipt.json",
+            "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/default-regression-receipt.json",
+            "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/typecheck-receipt.json",
+            "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/build-receipt.json",
+            "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/preview-deployment-receipt.json"
+          ]
+        }
+      ],
+      "latestEvidence": [
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/integration-receipt.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/backend-review-result.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/default-regression-followup-receipt.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/ui-regression-receipt.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/typecheck-receipt.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/browser/receipt.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/build-receipt.json",
+        "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/preview-deployment-receipt.json"
+      ],
+      "preventionVerified": true,
+      "existingLockedSaveRescueImplemented": true,
+      "recoveryProposal": {
+        "path": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/recovery-options.md",
+        "status": "selected-A-implemented-verified-and-deployed",
+        "recommended": "restricted-emergency-loan-preserving-old-contracts",
+        "alternative": "player-confirmed-cancellation-of-unfinished-NPC-contracts",
+        "productionImplemented": true,
+        "selected": "restricted-emergency-loan-preserving-old-contracts",
+        "userQuote": "受限应急借车（推荐）",
+        "selectionReceipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/user-selection.json",
+        "implementationReport": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/report.md",
+        "isolatedBrowserReceipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/browser/receipt.json"
+      },
+      "existingLockedSaveRescueVerifiedScope": "Original source fixture through real Game/Route and Runtime tests; actual Creator UI uses explicitly adapted mapKey-only packed fixture.",
+      "transportCompatibilityOpen": {
+        "status": "BLOCKED_SOURCE_FIXTURE_DIRECT_CREATOR_RESTORE",
+        "evidence": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/browser/transport-adaptation-receipt.json",
+        "onlyAdaptedPath": "route.mapKey",
+        "packedResourcesIdenticalToPreviousBuild": true,
+        "resourceFileCount": 524,
+        "resourceComparison": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/packed-resource-compatibility.json"
+      }
+    }
+  ],
+  "mapBoundary": "地图会话只负责既有地图，不接UI/产品/游戏开发协调",
+  "testBoundary": "用户11-06“继续并测试一下”已授权本批产品定向隔离测试；真实用户浏览器/进度不触碰，地图制作独立。95/95/typecheck/原B证据按原日期保存；本次为离线复核与静态服务恢复。",
+  "intakePolicy": "用户持续反馈无需自行整理；PM持续去重编号、对照最新设计、指派唯一owner、分清源码/构建/运行/验收，逐项清零。不得因中断丢项或把子会话完成当问题结案。",
+  "integration": {
+    "servedRoot": "delivery-game/build/v2-emergency-hero-loan-1107",
+    "servedPorts": [
+      4182,
+      4196
+    ],
+    "serverTerminals": [
+      "term_zajkhimv86",
+      "term_ufzp82qihr"
+    ],
+    "mainPath": "assets/main/index.52def.js",
+    "mainSHA256": "8bf222e1e062e94369d8ccda8e08c6379230298881b7fea71140d21d8780c824",
+    "receipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/preview-deployment-receipt.json",
+    "newBuildThisContinuation": true,
+    "staticHTTPIdentityVerified": true,
+    "newBrowserExecutionThisContinuation": true,
+    "isolatedFixture": "packed-transport-terminal (only route.mapKey transport adaptation)",
+    "numericStageInPreview": true,
+    "userAcceptanceStillOpen": true,
+    "visual98Accepted": false,
+    "realUserBrowserOrSaveAccess": false
+  },
+  "activeBatch": {
+    "state": "hero-car-prevention-verified-deployed-write-scopes-returned",
+    "A": "thr_gf8gehviua: bounded long-term and independent candidate review handed back; idle",
+    "B": "thr_29f6fcihz6: isolated candidate handed back; idle; writing stopped",
+    "permissionPolicy": "No full access or global changes. Prior task write scopes closed; this review forbids writes. Native Codex options returned null, so no unsupported legacy Default restoration is claimed."
+  },
+  "historicalIntegrationBeforeUiRecovery1106": {
+    "candidate": "delivery-game/build/v2-candidate",
+    "buildLog": "integration/build-candidate-02.log",
+    "finished": "2026-11-05 20:51:02",
+    "processExit": 36,
+    "knownDiagnostics": [
+      "SIGTERM build-script",
+      "trackTimeEnd"
+    ],
+    "deployedPreview": "delivery-game/build/v2-preview on 4182",
+    "previewStillOld": true,
+    "previewLastModifiedHttp": "Thu, 05 Nov 2026 11:38:01 GMT",
+    "review": "independent code review running sa-0-f4cac4ed",
+    "noStageTestsRun": true
+  },
+  "summary": {
+    "userIssueCount": 40,
+    "closedCount": 0,
+    "engineeringFindingCount": 9,
+    "riderRequirementsObservedCount": 7,
+    "currentPackage": "v2-emergency-hero-loan-1107",
+    "singleRealDeliverySupplementAdmitted": true,
+    "balanceModelReturned": true,
+    "fullProductAccepted": false,
+    "fidelity98Accepted": false,
+    "restrictedEmergencyLoanImplemented": true,
+    "sourceFixtureDirectPackedRestoreOpen": true
+  },
+  "followups": [
+    {
+      "id": "FOLLOWUP-CONFIRM-FUNDS",
+      "owner": "PM / developer B",
+      "status": "源码和已测包集成已保留；单次配送/补给金额有画面，完整购买/招募/升级跨阈值UI矩阵仍待覆盖。"
+    },
+    {
+      "id": "FOLLOWUP-NPC-COMMAND-CONTRACT",
+      "owner": "PM / developer A",
+      "status": "slots/旧合同整束已集成；新增唯一旧车软锁按E09追踪，不伪称已修复。"
+    }
+  ],
+  "historicalStateBeforeCodexAdmission1107": {
+    "owner": "thr_axf6i4e89t",
+    "testBoundary": "用户未说阶段完成，不运行tests/typecheck/回归，不操作用户档；必要构建与既有授权的外观核对单独记录",
+    "integration": {
+      "lastBuilt": "delivery-game/build/v2-rider-recovery-1106",
+      "lastBuildLog": "integration/build-rider-recovery-1106.log",
+      "servedPreview": "http://127.0.0.1:4196/?v2=1&rev=rider-recovery-1106",
+      "servedRoot": "delivery-game/build/v2-rider-recovery-1106",
+      "userVerdict": "rejected; UI/feedback/economy experience insufficient",
+      "newSourceCandidate": "rider-visible + runtime-old-error + food-risk",
+      "newCandidateBuilt": true,
+      "previewStillOldRelativeToSource": false,
+      "reviewTasks": [
+        "UI-RECOVERY-RUNTIME-QUALITY-1106",
+        "UI-RECOVERY-RIDERS-QUALITY-1106"
+      ],
+      "noStageTestsRun": true,
+      "serverTerminalId": "term_eec37rur9w",
+      "visualEvidence": "integration/visual-riders-recovery-1106/receipt.json",
+      "currentScopeVerdict": "rider-layout observed; full product/user acceptance still open",
+      "numericStageNotInPreview": true
+    },
+    "activeBatch": {
+      "state": "A-slots-economy-stage-and-B-ui-funds-stage",
+      "A": "thr_j9izunn7qx：仅economy/slots-economy-stage-1106代码，live不改",
+      "B": "thr_tviezvnwds：仅layout/ui-funds-stage-1106确认层/现金状态刷新，live不改",
+      "permissionPolicy": "用户明确授权PM自行管理任务内必要权限，作者临时编辑、审查只读，交回收回",
+      "A_mode": "accept_edits已实际读回且真实编辑成功",
+      "B_mode": "本段accept_edits已选择/续派；实际生效与首个编辑需后续收口",
+      "userAcceptanceStillOpen": true
+    },
+    "summary": {
+      "userIssueCount": 40,
+      "closedCount": 0,
+      "engineeringFindingCount": 8,
+      "riderRequirementsObservedCount": 7
+    },
+    "followups": [
+      {
+        "id": "FOLLOWUP-CONFIRM-FUNDS",
+        "owner": "开发B stage",
+        "status": "已续派独立资金失效刷新，不以撤入口门禁冒充全资金问题已修"
+      },
+      {
+        "id": "FOLLOWUP-NPC-COMMAND-CONTRACT",
+        "owner": "开发A slots/economy stage",
+        "status": "按新旧合同及逐对象规则实施，live旧全局guard仍未改"
+      }
+    ]
+  },
+  "updatedAt": "2026-11-07T04:28:12.799671+00:00",
+  "historicalIntegrationBeforeEmergencyLoan1107": {
+    "servedRoot": "delivery-game/build/v2-hero-car-reserve-1107",
+    "servedPorts": [
+      4182,
+      4196
+    ],
+    "serverTerminals": [
+      "term_8fv5wzd3ij",
+      "term_ep7ifqi8g6"
+    ],
+    "mainSHA256": "509265155beb09dbf0fd54e323057450d474628b15fae81753fec896ae57dc4b",
+    "receipt": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/preview-deployment-receipt.json",
+    "newBuildThisContinuation": true,
+    "staticHTTPIdentityVerified": true,
+    "newBrowserExecutionThisContinuation": false,
+    "numericStageInPreview": true,
+    "userAcceptanceStillOpen": true,
+    "visual98Accepted": false
+  }
+}

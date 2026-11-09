@@ -1,0 +1,26 @@
+{
+  "state": "PM minimal fixes applied, independent re-review required",
+  "fixes": [
+    "RUNTIME-RECOVERY-QUALITY-01: protect String(error); fixed fallback; preserve original thrown error, no logging state",
+    "L01: withdraw only the three newly introduced construction-time cash gates; retain quote/full-level/hero busy guards and authoritative current-funds debit validation; no per-frame redraw or global NPC prohibition"
+  ],
+  "sourceHashes": [
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "before": "86eb7eac42b0cdc63effa5fb03e4d59b2ae8a992e4499b3a31dd8e10fb8de333",
+      "after": "a5c19c46b89ca85e42595657fef35de7430b06b524001beb81a4c822aaeef302",
+      "exactPredecessorReconstructed": true,
+      "diff": "docs/reviews/2026-11-05-game-development/integration/runtime-pm-fix-1106.diff"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "before": "284250cd29eba68d18188af58e805792dc1efe9b1abcf047955e0d3ce724d45c",
+      "after": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+      "exactPredecessorReconstructed": true,
+      "diff": "docs/reviews/2026-11-05-game-development/integration/riders-pm-fix-1106.diff"
+    }
+  ],
+  "uiReviewReadOnlyAuthorizationBlocked": true,
+  "stageTestsRun": false,
+  "built": false
+}

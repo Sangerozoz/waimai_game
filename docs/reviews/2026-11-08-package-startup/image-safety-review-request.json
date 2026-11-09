@@ -1,0 +1,55 @@
+{
+  "reviewer": "thr_29f6fcihz6",
+  "scope": "image safety follow-up static+recorded tests; actual whole254 outputs still in progress",
+  "priorFindings": [
+    "incomplete inventory could claim full coverage",
+    "header-only validation could accept corrupt compressed pixels"
+  ],
+  "fixes": [
+    "native image pathname set and one-to-one UUID mapping must match complete build set, boolean computed from actual equality",
+    "Pillow.verify then reopen/load complete output and source before publication; caught error deletes owned stage"
+  ],
+  "testReceipt": "RED1pass/2fail -> GREEN3/3; isolated two-native build using real already-downloaded TinyPNG images; corrupt IDAT variant explicitly synthetic, never published",
+  "files": [
+    {
+      "path": "delivery-game/scripts/serve-web.py",
+      "sha256": "415742855bedf571ebee8c0b0fc6ed441679f141c8e7cc873181c246e6b6ea5e"
+    },
+    {
+      "path": "delivery-game/scripts/serve-web.sh",
+      "sha256": "d7a9a1978a32eb6ce1f0a63ebd67fc4ef5b7cea17cf510ce785f5cac662fb2af"
+    },
+    {
+      "path": "delivery-game/scripts/optimize-web-package.py",
+      "sha256": "6737d31cccdfe68120cee1cc874d73a540cd57d604e98bedba485119c6d041ff"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/test_image_packaging.py",
+      "sha256": "a2ac958610a8b0d04e537b9213754fbe8eee3e4dfe9cd96f38dc19e804fe0922"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/check-package.py",
+      "sha256": "8ee92b92503c19de7b17de008e50cbb199383c2f2c4821a94141eea165853ecf"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/image-safety-red.log",
+      "sha256": "0886e68414d049930ce6bcbf3611e351d737a52340913f8653409394561ade64"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/image-safety-green.log",
+      "sha256": "5cf5e6040a97b098ff37b3a39382793d6596e152ae058d1873267ca20a7067f5"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/image-safety-red-receipt.json",
+      "sha256": "d6ec1615acdecee2179c1cd6db95b40a98fc481ead73a1b61a289fe8cf846f01"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/image-safety-green-receipt.json",
+      "sha256": "0fb37a3b1d0e49558d5de5fd04177d5bad50e0c92fcbfcff4b233c27de489159"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/fallback-green.log",
+      "sha256": "916154e729b06186f4c53c55b8c8b1d8718e8eae9665b333901e9065701013ed"
+    }
+  ]
+}

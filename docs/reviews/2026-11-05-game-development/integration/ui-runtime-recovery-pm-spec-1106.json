@@ -1,0 +1,40 @@
+{
+  "task": "UI-RUNTIME-RECOVERY-1106-PM-SPEC",
+  "gate": "PM source specification and exact diff identity only",
+  "passed": true,
+  "files": [
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "beforeSHA256": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+      "afterSHA256": "86eb7eac42b0cdc63effa5fb03e4d59b2ae8a992e4499b3a31dd8e10fb8de333",
+      "hunks": 4,
+      "strictReverseMatched": true
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "beforeSHA256": "81f54afb7d835c996a7305bb6075c7a3577c25fe33d5d928196d6a3530f80263",
+      "afterSHA256": "284250cd29eba68d18188af58e805792dc1efe9b1abcf047955e0d3ce724d45c",
+      "hunks": 4,
+      "strictReverseMatched": true
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2Spacing.ts",
+      "beforeSHA256": "8bc275d4946c45a8d6f239209229429cd38b75bb84ecfd3205dab71e5535c84a",
+      "afterSHA256": "0f363e9bb5858629a592d8e8a3208e70e43c5f87deffe0e1117d9be92fa509de",
+      "hunks": 1,
+      "strictReverseMatched": true
+    }
+  ],
+  "scope": [
+    "Successful full transaction publish clears stale error; failure guards and commit-before-publish preserved; bounded private diagnostic only",
+    "Rider visible identity/inline level/status/income/saving/hire-price/button requirements implemented with current true quote; 31 cards remain",
+    "Food/ETA/supply and route UI outside this delta preserved by exact diff identity"
+  ],
+  "excluded": [
+    "New slots capacity/economy curve not implemented",
+    "NPC pending adjustment domain contract unresolved; no global UI-disable workaround",
+    "Real screenshot/visual fit/user acceptance not established",
+    "No tests/typecheck/game/real-save actions"
+  ],
+  "reviewRequired": true
+}

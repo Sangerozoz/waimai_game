@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: kg-v1: an empty completion history sync avoids wallet serialization
+ok 1 - kg-v1: an empty completion history sync avoids wallet serialization
+  ---
+  duration_ms: 0.441625
+  type: 'test'
+  ...
+# Subtest: kg-v1: consumed receipts do not trigger another wallet transaction or refill
+ok 2 - kg-v1: consumed receipts do not trigger another wallet transaction or refill
+  ---
+  duration_ms: 1.487291
+  type: 'test'
+  ...
+# Subtest: kg-v1: restored unsynchronized events replenish once and later events remain visible
+ok 3 - kg-v1: restored unsynchronized events replenish once and later events remain visible
+  ---
+  duration_ms: 0.445833
+  type: 'test'
+  ...
+# Subtest: kg-v1: restore still rejects a cursor beyond history or an inconsistent completion count
+ok 4 - kg-v1: restore still rejects a cursor beyond history or an inconsistent completion count
+  ---
+  duration_ms: 0.21025
+  type: 'test'
+  ...
+# Subtest: slots-v1: an empty completion history sync avoids wallet serialization
+ok 5 - slots-v1: an empty completion history sync avoids wallet serialization
+  ---
+  duration_ms: 0.048084
+  type: 'test'
+  ...
+# Subtest: slots-v1: consumed receipts do not trigger another wallet transaction or refill
+ok 6 - slots-v1: consumed receipts do not trigger another wallet transaction or refill
+  ---
+  duration_ms: 0.877083
+  type: 'test'
+  ...
+# Subtest: slots-v1: restored unsynchronized events replenish once and later events remain visible
+ok 7 - slots-v1: restored unsynchronized events replenish once and later events remain visible
+  ---
+  duration_ms: 0.419167
+  type: 'test'
+  ...
+# Subtest: slots-v1: restore still rejects a cursor beyond history or an inconsistent completion count
+ok 8 - slots-v1: restore still rejects a cursor beyond history or an inconsistent completion count
+  ---
+  duration_ms: 0.243083
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 36.099083

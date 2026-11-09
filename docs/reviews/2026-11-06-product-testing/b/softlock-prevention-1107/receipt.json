@@ -1,0 +1,576 @@
+{
+  "schema": "hero-car-reserve-isolated-candidate/v1",
+  "createdAt": "2026-11-07T02:19:28.700206+00:00",
+  "status": "PASS_ISOLATED_CANDIDATE_PENDING_PM_REVIEW",
+  "authority": {
+    "authorThread": "thr_29f6fcihz6",
+    "parentThread": "thr_4xmqy6fzdm",
+    "environment": "env_e54zrbdgxt",
+    "checkout": "/Users/sanger/Documents/ChatGPT/taptap 2",
+    "providerReadback": "codex",
+    "assignedModel": "ccs-sanger/gpt-6.1-sol",
+    "assignedReasoning": "max",
+    "nativeOptionsReadback": null,
+    "nativeOptionsLimit": "bb thread options returned options:null; exact model/effort from frozen PM dispatch, not claimed as exposed native values",
+    "executionPermissions": "Current tool context: workspace-write, approval_policy never; no permission mutation; successful apply_patch only inside assigned directory",
+    "writeLease": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107",
+    "scope": "Temporary isolated author lease only; stage candidates, tests, fixture, runner, logs and report; production and A36 read-only"
+  },
+  "spec": {
+    "path": "docs/superpowers/specs/2026-11-07-hero-car-reserve-design.md",
+    "sha256": "b4593e122de8b7c13574103fa21676d0ff864be5b73c2b87248d2396f7b05b64",
+    "plan": "docs/superpowers/plans/2026-11-07-hero-car-reserve.md"
+  },
+  "sources": [
+    {
+      "candidate": "docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/domain/V2EconomySession.ts",
+      "candidateSHA256": "c16544237e819b6ca03830e07c9723cf78f71d20b7292273f8c016bec8cc539d",
+      "productionTarget": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "productionBeforeSHA256": "90b331aea0ecfb05cef239b09b08affc97402336273611eedafd96497fa694a8",
+      "candidateCompiledSHA256": "c16544237e819b6ca03830e07c9723cf78f71d20b7292273f8c016bec8cc539d"
+    },
+    {
+      "candidate": "docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/domain/V2FleetSession.ts",
+      "candidateSHA256": "bd22eb20d158dc60880a89cd4911aba0aba2aab16f7c3c44bbc13ab4bf0cda34",
+      "productionTarget": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "productionBeforeSHA256": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+      "candidateCompiledSHA256": "bd22eb20d158dc60880a89cd4911aba0aba2aab16f7c3c44bbc13ab4bf0cda34"
+    }
+  ],
+  "newTest": {
+    "candidate": "docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs",
+    "finalSHA256": "23819a18703548df6970b7e4db6e84227f1f208220bacd7896cdf830711dbf13",
+    "cases": 18,
+    "originalBoundaryRedAndGreenSHA256": "e5aca2fd7ea702bb8ca92e30cde313339910ecf4f5fd6a7c3e6cf229b06c667e",
+    "postGreenAdaptation": "Only the default ROOT expression changed from ../.. to ../../.. at PM request; both TS candidates and all assertions stayed unchanged.",
+    "caseNames": [
+      "one earned delivery cannot surrender the last recoverable hero car",
+      "real Game/Dispatch commands reject surrender atomically and the hero can continue delivery",
+      "kg-v1: proposed assignments reserve a real owned car, not future purchasing power",
+      "kg-v1: both public contract registration profiles reject dangerous historic state atomically",
+      "kg-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery",
+      "kg-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money",
+      "kg-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch",
+      "kg-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC",
+      "kg-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing",
+      "slots-v1: proposed assignments reserve a real owned car, not future purchasing power",
+      "slots-v1: both public contract registration profiles reject dangerous historic state atomically",
+      "slots-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery",
+      "slots-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money",
+      "slots-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch",
+      "slots-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC",
+      "slots-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing",
+      "PM real Game historic pre-sign fixture restores unchanged and can return the car after skipped signing",
+      "PM real Game signed zero-quota fixture remains readable with identical contracts and no implicit rescue"
+    ]
+  },
+  "runner": {
+    "path": "docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/run-stage.cjs",
+    "sha256": "10e67db9c954d30252e6596c28bd0089b847937c865e3cad21daf5fec16340c9",
+    "strictDomainCompile": {
+      "compilerVersion": "5.8.2",
+      "compilerModule": "/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/Resources/app.asar.unpacked/node_modules/typescript",
+      "target": "ES2020",
+      "module": "CommonJS",
+      "strict": true,
+      "noEmitOnError": true,
+      "skipLibCheck": true,
+      "sourceCount": 37,
+      "compiledSourceHashes": {
+        "domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+        "domain/V2SupplyCatalog.ts": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb",
+        "domain/GameConfig.ts": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e",
+        "domain/V2TripRules.ts": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97",
+        "domain/V2EconomyConfig.ts": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976",
+        "domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+        "domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644",
+        "domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+        "domain/V2RiderEconomy.ts": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+        "domain/V2EconomySession.ts": "c16544237e819b6ca03830e07c9723cf78f71d20b7292273f8c016bec8cc539d",
+        "domain/V2FleetSession.ts": "bd22eb20d158dc60880a89cd4911aba0aba2aab16f7c3c44bbc13ab4bf0cda34",
+        "rewards-v2/RewardSession.ts": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+        "domain/V2DispatchSession.ts": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+        "map-sample/CityExtent.ts": "6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194",
+        "map-sample/DispatchAreas.ts": "c872dfada500e934ff2ce7577a39dd642d072caa4151279563472e9b47327641",
+        "map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690",
+        "map-sample/RiderAnchor.ts": "08205207aa146b0d2d2bf5784e20ef8a559f574180a8f00c3756e5087fd16d65",
+        "map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+        "map-sample/V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+        "map-sample/CountyConfig.ts": "f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f",
+        "map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+        "map-sample/V2GameSession.ts": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+        "map-sample/VehicleOwnership.ts": "f63dc3da46b561ad50e3891e60e1dc26fe0c48039e07ed779d8989e484169ed1",
+        "map-sample/DeliveryClock.ts": "163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef",
+        "map-sample/TripClock.ts": "13d8b7f5721a410b8fb11c21bc5c5ebd4475d7507d94f35698617f53d7fde4bc",
+        "map-sample/CountyRules.ts": "6bf9548f2e733c82ef799da0e50a6be17d2abd5d04cca4a0ac73c23f5a63ec13",
+        "map-sample/ManualHandoff.ts": "2f6c02332fb52fe8e3c75cfaf260149ce93a6d5cf1d4532f9c72145ee3d31a95",
+        "map-sample/OrderPresentation.ts": "541d11ec650364dfab41132a0dea9242ba6f5dca48113062b43274764ca38d86",
+        "map-sample/DeliveryLedger.ts": "a02941528a1f7abac34a7b012a5dcdac7f4ac98e15afe60e20bdfd4373e63c73",
+        "map-sample/OrderBook.ts": "27d0813ff4b942ce843627e270e1a4470670e3833c33601703c0e25b0b0e229b",
+        "map-sample/CountySnapshot.ts": "325284afe5645a420c62188abb8dcb2840c140b229a0fdb88c61bda6af56d0df",
+        "map-sample/UrbanCatalog.ts": "5040a6f800273f76345fdc99bba37b307e9df7ef0b058c4666bcdb12e58cc6c1",
+        "map-sample/PlaceCatalog.ts": "35e937c1092bbef796260e93abd909f136ea09bcee78fa231f805c4061f01399",
+        "map-sample/CountySaveStore.ts": "b251ac9317aea9fd3d9c98ebce4d4e07924a6d9ce11685fd77581d43dc555916",
+        "map-sample/WebWriterLease.ts": "6ccbf64160b64eb6aced3d3d1763df0995319056b652718a5f6bcd710ad3f8aa",
+        "map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23",
+        "domain/V2ProgressTargets.ts": "8927202367ff61e7160b17312ed4877a84da1ffe7036a487ac0839cde480fd9e"
+      }
+    },
+    "productBuild": false
+  },
+  "runs": [
+    {
+      "mode": "red",
+      "startedAt": "2026-11-07T02:05:36.330Z",
+      "finishedAt": "2026-11-07T02:05:37.145Z",
+      "command": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/run-stage.cjs",
+        "red"
+      ],
+      "runnerSHA256": "a7f655715b2f5b6c41f3d7edac300aef481405dc52decdbfac218a8bf49a0fc8",
+      "compilerVersion": "5.8.2",
+      "compilerExit": 0,
+      "testCommand": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "--test",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs"
+      ],
+      "testExit": 1,
+      "exitCode": 1,
+      "counts": {
+        "tests": 1,
+        "pass": 0,
+        "fail": 1,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "scratch": "/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/b-hero-car-reserve-1107-1kIOdE",
+      "scratchRemoved": true,
+      "protectedCount": 292,
+      "protectedDrift": [],
+      "a36Drift": [],
+      "tag": "red",
+      "rawReceipt": "red-receipt.json",
+      "rawReceiptSHA256": "be66927ae0ec92d14b312a9578551e18bedb5206f0a310012c9714def4e2c724",
+      "rawLog": "red.log",
+      "rawLogSHA256": "95faf04e8c662bd0001a65c92b46602fc238e9f8e105f64c4a0b33d24f8af759"
+    },
+    {
+      "mode": "capture-history",
+      "startedAt": "2026-11-07T02:06:03.769Z",
+      "finishedAt": "2026-11-07T02:06:04.543Z",
+      "command": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/run-stage.cjs",
+        "capture-history"
+      ],
+      "runnerSHA256": "a7f655715b2f5b6c41f3d7edac300aef481405dc52decdbfac218a8bf49a0fc8",
+      "compilerVersion": "5.8.2",
+      "compilerExit": 0,
+      "testCommand": null,
+      "testExit": null,
+      "exitCode": 0,
+      "counts": null,
+      "scratch": "/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/b-hero-car-reserve-1107-cU9EpK",
+      "scratchRemoved": true,
+      "protectedCount": 292,
+      "protectedDrift": [],
+      "a36Drift": [],
+      "tag": "capture-history",
+      "rawReceipt": "capture-history-receipt.json",
+      "rawReceiptSHA256": "a1bf4420d8c3eb117ea6404f2a0aaa4896aebf168aee8c9cf49c309810f74b93"
+    },
+    {
+      "mode": "red",
+      "startedAt": "2026-11-07T02:08:19.796Z",
+      "finishedAt": "2026-11-07T02:08:21.314Z",
+      "command": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/run-stage.cjs",
+        "red",
+        "red-boundaries"
+      ],
+      "runnerSHA256": "10e67db9c954d30252e6596c28bd0089b847937c865e3cad21daf5fec16340c9",
+      "compilerVersion": "5.8.2",
+      "compilerExit": 0,
+      "testCommand": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "--test",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs"
+      ],
+      "testExit": 1,
+      "exitCode": 1,
+      "counts": {
+        "tests": 18,
+        "pass": 1,
+        "fail": 17,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "scratch": "/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/b-hero-car-reserve-1107-H2XlRX",
+      "scratchRemoved": true,
+      "protectedCount": 292,
+      "protectedDrift": [],
+      "a36Drift": [],
+      "tag": "red-boundaries",
+      "rawReceipt": "red-boundaries-receipt.json",
+      "rawReceiptSHA256": "d2da007491f528480a57e4d35cb9a0dd28a57e54e636be286b1a68e6a54dd60c",
+      "rawLog": "red-boundaries.log",
+      "rawLogSHA256": "d3d22a0db9030430914dd8a767d05f1acfecd385af44eb763e2b3722e73ee193"
+    },
+    {
+      "mode": "green",
+      "startedAt": "2026-11-07T02:11:24.299Z",
+      "finishedAt": "2026-11-07T02:11:27.286Z",
+      "command": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/run-stage.cjs",
+        "green"
+      ],
+      "runnerSHA256": "10e67db9c954d30252e6596c28bd0089b847937c865e3cad21daf5fec16340c9",
+      "compilerVersion": "5.8.2",
+      "compilerExit": 0,
+      "testCommand": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "--test",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-economy.test.cjs",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-fleet.test.cjs",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-dispatch.test.cjs",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/current-contract.test.cjs"
+      ],
+      "testExit": 0,
+      "exitCode": 0,
+      "counts": {
+        "tests": 71,
+        "pass": 71,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "scratch": "/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/b-hero-car-reserve-1107-aLmtFw",
+      "scratchRemoved": true,
+      "protectedCount": 292,
+      "protectedDrift": [],
+      "a36Drift": [],
+      "tag": "green",
+      "rawReceipt": "green-receipt.json",
+      "rawReceiptSHA256": "5e1a19a72bf29b81feb592ed79e9624fa9627873e1b4a8cc35505511890de1f3",
+      "rawLog": "green.log",
+      "rawLogSHA256": "166a2912b63b0e49527e65d44848baa1983571bd3cf25f528bcc9c1b97e1e784"
+    },
+    {
+      "mode": "green",
+      "startedAt": "2026-11-07T02:16:03.559Z",
+      "finishedAt": "2026-11-07T02:16:06.479Z",
+      "command": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/run-stage.cjs",
+        "green",
+        "green-root-fix"
+      ],
+      "runnerSHA256": "10e67db9c954d30252e6596c28bd0089b847937c865e3cad21daf5fec16340c9",
+      "compilerVersion": "5.8.2",
+      "compilerExit": 0,
+      "testCommand": [
+        "/Users/sanger/.hermes/node/bin/node",
+        "--test",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-economy.test.cjs",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-fleet.test.cjs",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/v2-dispatch.test.cjs",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/current-contract.test.cjs"
+      ],
+      "testExit": 0,
+      "exitCode": 0,
+      "counts": {
+        "tests": 71,
+        "pass": 71,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      },
+      "scratch": "/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/b-hero-car-reserve-1107-hF3CqF",
+      "scratchRemoved": true,
+      "protectedCount": 292,
+      "protectedDrift": [],
+      "a36Drift": [],
+      "tag": "green-root-fix",
+      "rawReceipt": "green-root-fix-receipt.json",
+      "rawReceiptSHA256": "38c520ffb9c4c1325c363c27915dbd5483adae5addef59e8f688efcbb361f236",
+      "rawLog": "green-root-fix.log",
+      "rawLogSHA256": "064bd3d3d7605c0763091d2355425f801e551c2691c0176fb4fe5ec721b86690"
+    }
+  ],
+  "finalGreen": {
+    "rawReceipt": "green-root-fix-receipt.json",
+    "rawLog": "green-root-fix.log",
+    "exitCode": 0,
+    "compilerExit": 0,
+    "testExit": 0,
+    "counts": {
+      "tests": 71,
+      "pass": 71,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0
+    },
+    "newTests": 18,
+    "existingTests": 53,
+    "existingSuites": [
+      {
+        "path": "delivery-game/tests/v2-economy.test.cjs",
+        "tests": 7,
+        "sha256": "a860d6fe28811bc4d60aef190129fe895d5c560a2fa44fee407b4c405dcd0a95"
+      },
+      {
+        "path": "delivery-game/tests/v2-fleet.test.cjs",
+        "tests": 10,
+        "sha256": "4d2ca344996783906e252783401e9629dff3e5a90cd766c9c7bd652f493e0b50"
+      },
+      {
+        "path": "delivery-game/tests/v2-dispatch.test.cjs",
+        "tests": 10,
+        "sha256": "d6f4dbe92e5c35c9b58a71d24a97e7496ac4536d01d9eb188b0bafb9bff6e28b"
+      },
+      {
+        "path": "delivery-game/tests/product-regression-1106/current-contract.test.cjs",
+        "tests": 26,
+        "sha256": "c0d1a4f2d9dd10f9f804ca82c27bba8bf591822f5663fe87a0ae781d98bc6ffb"
+      }
+    ]
+  },
+  "realPassCases": [
+    "First earned slots delivery -> 120 coins -> hire NPC for 120 -> last-car assignment rejected atomically; hero reequips and completes another real-city Game/Dispatch delivery.",
+    "kg/slots proposed nonempty assignments account for every current NPC and every unpaid old contract; purchasing power alone does not count.",
+    "kg/slots direct new-contract registration rejects risky historic state atomically.",
+    "Historic risky unsiged assignments remain readable, repeat nonempty assignment is guarded, NPC detach and hero return remain usable.",
+    "Fleet skips only unsafe new signing; no exception, free money, idle quota spending or stopped clock high-water mark.",
+    "Historic kg/slots batches continue with old quota and terms; settle 2000/4000 cents and leave 90000/45000 ms, then do not sign another unsafe batch.",
+    "Unequipped old-contract vehicles remain reserved and cannot be reassigned to hero.",
+    "A real idle spare permits NPC configuration even while hero is unequipped; 10/15 earned-order budgets remain exact.",
+    "PM beforeNPCSigning real Game save restores byte-for-byte, preserves 60000ms and zero cash after skipped signing, and can return the vehicle.",
+    "PM signedZeroQuota real Game save restores byte-for-byte; a one-hour tick preserves zero quota/cash and old contracts; no implicit rescue."
+  ],
+  "normalSaveContinuity": {
+    "newGlobalRestoreInvariant": false,
+    "snapshotVersionChanged": false,
+    "pmUnsignedAndSignedRawRoundTrip": "PASS",
+    "oldContractVehicleReservation": "PASS",
+    "historicRemainingQuotaAdvances": "PASS",
+    "zeroQuotaRefilled": false,
+    "oldContractsCancelled": false,
+    "vehicleGifted": false,
+    "zeroQuotaSoftlockRescued": false
+  },
+  "fixtures": {
+    "pm": {
+      "path": "docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json",
+      "sha256": "4c5eb4bc6c2daf432324a280636e0f381a8faea077cac069a0410f46a62cdffb",
+      "fields": [
+        "fixtures.beforeNPCSigning",
+        "fixtures.signedZeroQuota"
+      ],
+      "readOnly": true,
+      "reproductionScriptRerun": false
+    },
+    "historic": {
+      "path": "docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/historical-fixtures.json",
+      "sha256": "d9f151e35936a8cf1d99f17c6a1adad9eab782af1a7d64b1f6614b3af354e675",
+      "captureReceipt": "capture-history-receipt.json",
+      "method": "Original baseline compiler output; public Economy/Fleet commands only, no snapshot edits, injected wallet or quota, browser or real storage.",
+      "remainingQuotaHistory": {
+        "heroDeliveryCashCents": [
+          12000,
+          14000,
+          16000
+        ],
+        "quotaAfterHeroDeliveriesMs": [
+          60000,
+          120000,
+          180000
+        ],
+        "afterHireCashCents": 4000,
+        "afterAdvance1000QuotaMs": 179000
+      },
+      "oldVehicleReservationFixture": "30 public hero completions finance vehicle and two riders; original code signs a batch before the last free current car is assigned to another NPC."
+    }
+  },
+  "protection": {
+    "protectedCount": 292,
+    "scope": [
+      "all production scripts",
+      "A36 source inputs",
+      "A original manifest + 34 listed artifacts",
+      "old B evidence excluding this author write set",
+      "four existing test suites and helper",
+      "PM reproduction fixture",
+      "frozen spec and plan"
+    ],
+    "firstRedToFinalGreenBeforeEqual": true,
+    "protectedDrift": [],
+    "a36Count": 36,
+    "a36Before": {
+      "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+      "delivery-game/assets/scripts/domain/V2SupplyCatalog.ts": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb",
+      "delivery-game/assets/scripts/domain/GameConfig.ts": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97",
+      "delivery-game/assets/scripts/domain/V2EconomyConfig.ts": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976",
+      "delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+      "delivery-game/assets/scripts/domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644",
+      "delivery-game/assets/scripts/domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+      "delivery-game/assets/scripts/domain/V2RiderEconomy.ts": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "90b331aea0ecfb05cef239b09b08affc97402336273611eedafd96497fa694a8",
+      "delivery-game/assets/scripts/domain/V2FleetSession.ts": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+      "delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+      "delivery-game/assets/scripts/map-sample/CityExtent.ts": "6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194",
+      "delivery-game/assets/scripts/map-sample/DispatchAreas.ts": "c872dfada500e934ff2ce7577a39dd642d072caa4151279563472e9b47327641",
+      "delivery-game/assets/scripts/map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690",
+      "delivery-game/assets/scripts/map-sample/RiderAnchor.ts": "08205207aa146b0d2d2bf5784e20ef8a559f574180a8f00c3756e5087fd16d65",
+      "delivery-game/assets/scripts/map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+      "delivery-game/assets/scripts/map-sample/CountyConfig.ts": "f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f",
+      "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+      "delivery-game/assets/scripts/map-sample/VehicleOwnership.ts": "f63dc3da46b561ad50e3891e60e1dc26fe0c48039e07ed779d8989e484169ed1",
+      "delivery-game/assets/scripts/map-sample/DeliveryClock.ts": "163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef",
+      "delivery-game/assets/scripts/map-sample/TripClock.ts": "13d8b7f5721a410b8fb11c21bc5c5ebd4475d7507d94f35698617f53d7fde4bc",
+      "delivery-game/assets/scripts/map-sample/CountyRules.ts": "6bf9548f2e733c82ef799da0e50a6be17d2abd5d04cca4a0ac73c23f5a63ec13",
+      "delivery-game/assets/scripts/map-sample/ManualHandoff.ts": "2f6c02332fb52fe8e3c75cfaf260149ce93a6d5cf1d4532f9c72145ee3d31a95",
+      "delivery-game/assets/scripts/map-sample/OrderPresentation.ts": "541d11ec650364dfab41132a0dea9242ba6f5dca48113062b43274764ca38d86",
+      "delivery-game/assets/scripts/map-sample/DeliveryLedger.ts": "a02941528a1f7abac34a7b012a5dcdac7f4ac98e15afe60e20bdfd4373e63c73",
+      "delivery-game/assets/scripts/map-sample/OrderBook.ts": "27d0813ff4b942ce843627e270e1a4470670e3833c33601703c0e25b0b0e229b",
+      "delivery-game/assets/scripts/map-sample/CountySnapshot.ts": "325284afe5645a420c62188abb8dcb2840c140b229a0fdb88c61bda6af56d0df",
+      "delivery-game/assets/scripts/map-sample/UrbanCatalog.ts": "5040a6f800273f76345fdc99bba37b307e9df7ef0b058c4666bcdb12e58cc6c1",
+      "delivery-game/assets/scripts/map-sample/PlaceCatalog.ts": "35e937c1092bbef796260e93abd909f136ea09bcee78fa231f805c4061f01399",
+      "delivery-game/assets/scripts/domain/V2ProgressTargets.ts": "8927202367ff61e7160b17312ed4877a84da1ffe7036a487ac0839cde480fd9e",
+      "delivery-game/assets/resources/map-sample/city.json": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+      "docs/balance/2026-11-06-capacity-slots-economy/parameters.json": "1bd6db1c573e3b48ee7bef0b0be20bceeae290cfe2d6d05b0cd72f2e5f99fd91"
+    },
+    "a36After": {
+      "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+      "delivery-game/assets/scripts/domain/V2SupplyCatalog.ts": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb",
+      "delivery-game/assets/scripts/domain/GameConfig.ts": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97",
+      "delivery-game/assets/scripts/domain/V2EconomyConfig.ts": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976",
+      "delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+      "delivery-game/assets/scripts/domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644",
+      "delivery-game/assets/scripts/domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+      "delivery-game/assets/scripts/domain/V2RiderEconomy.ts": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "90b331aea0ecfb05cef239b09b08affc97402336273611eedafd96497fa694a8",
+      "delivery-game/assets/scripts/domain/V2FleetSession.ts": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+      "delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+      "delivery-game/assets/scripts/map-sample/CityExtent.ts": "6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194",
+      "delivery-game/assets/scripts/map-sample/DispatchAreas.ts": "c872dfada500e934ff2ce7577a39dd642d072caa4151279563472e9b47327641",
+      "delivery-game/assets/scripts/map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690",
+      "delivery-game/assets/scripts/map-sample/RiderAnchor.ts": "08205207aa146b0d2d2bf5784e20ef8a559f574180a8f00c3756e5087fd16d65",
+      "delivery-game/assets/scripts/map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+      "delivery-game/assets/scripts/map-sample/CountyConfig.ts": "f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f",
+      "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+      "delivery-game/assets/scripts/map-sample/VehicleOwnership.ts": "f63dc3da46b561ad50e3891e60e1dc26fe0c48039e07ed779d8989e484169ed1",
+      "delivery-game/assets/scripts/map-sample/DeliveryClock.ts": "163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef",
+      "delivery-game/assets/scripts/map-sample/TripClock.ts": "13d8b7f5721a410b8fb11c21bc5c5ebd4475d7507d94f35698617f53d7fde4bc",
+      "delivery-game/assets/scripts/map-sample/CountyRules.ts": "6bf9548f2e733c82ef799da0e50a6be17d2abd5d04cca4a0ac73c23f5a63ec13",
+      "delivery-game/assets/scripts/map-sample/ManualHandoff.ts": "2f6c02332fb52fe8e3c75cfaf260149ce93a6d5cf1d4532f9c72145ee3d31a95",
+      "delivery-game/assets/scripts/map-sample/OrderPresentation.ts": "541d11ec650364dfab41132a0dea9242ba6f5dca48113062b43274764ca38d86",
+      "delivery-game/assets/scripts/map-sample/DeliveryLedger.ts": "a02941528a1f7abac34a7b012a5dcdac7f4ac98e15afe60e20bdfd4373e63c73",
+      "delivery-game/assets/scripts/map-sample/OrderBook.ts": "27d0813ff4b942ce843627e270e1a4470670e3833c33601703c0e25b0b0e229b",
+      "delivery-game/assets/scripts/map-sample/CountySnapshot.ts": "325284afe5645a420c62188abb8dcb2840c140b229a0fdb88c61bda6af56d0df",
+      "delivery-game/assets/scripts/map-sample/UrbanCatalog.ts": "5040a6f800273f76345fdc99bba37b307e9df7ef0b058c4666bcdb12e58cc6c1",
+      "delivery-game/assets/scripts/map-sample/PlaceCatalog.ts": "35e937c1092bbef796260e93abd909f136ea09bcee78fa231f805c4061f01399",
+      "delivery-game/assets/scripts/domain/V2ProgressTargets.ts": "8927202367ff61e7160b17312ed4877a84da1ffe7036a487ac0839cde480fd9e",
+      "delivery-game/assets/resources/map-sample/city.json": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+      "docs/balance/2026-11-06-capacity-slots-economy/parameters.json": "1bd6db1c573e3b48ee7bef0b0be20bceeae290cfe2d6d05b0cd72f2e5f99fd91"
+    },
+    "a36Drift": [],
+    "scratchCount": 5,
+    "allScratchRemoved": true,
+    "unrelatedDirtyOrUntrackedCleaned": false,
+    "aNewLongTermOutputsIncluded": false
+  },
+  "integration": {
+    "owner": "thr_4xmqy6fzdm",
+    "productionIntegratedByAuthor": false,
+    "testTarget": "delivery-game/tests/product-regression-1106/hero-car-reserve.test.cjs",
+    "defaultROOTExpression": "path.resolve(__dirname,'../../..')",
+    "defaultROOTAtTargetResolvesToCheckout": true,
+    "stageRunUsesExplicitROOT": true,
+    "standardDefaultRunV2ExecutedByAuthor": false,
+    "requiredRunnerChange": {
+      "path": "delivery-game/tests/run-v2.cjs",
+      "beforeSHA256": "7457b384b29dec1b8660205b356ffa3f06b4799cdc3ebafa318a7d02d101f23b",
+      "addCompileEntry": "map-sample/PlaceCatalog.ts",
+      "reason": "New real-city tests call prepareCity; the existing run-v2 compile roots do not include PlaceCatalog. The isolated stage runner already includes it.",
+      "owner": "PM",
+      "authorEdited": false,
+      "protectionInstruction": "Record explicit approved before/after SHA for this runner in the original 224-file protection audit; do not label future approved integration drift as zero drift."
+    },
+    "remainingGates": [
+      "PM refreshes review fingerprint for final test SHA",
+      "Wait until A has completed use of unchanged production inputs",
+      "PM serially integrates two TS candidates, final test, and runner compile-root prerequisite",
+      "Full run-v2 and existing project typecheck",
+      "Separate product build/publication/readback gates"
+    ]
+  },
+  "limits": [
+    "Already-signed zero-quota terminal softlocks are readable but NOT rescued.",
+    "Only isolated strict domain compilation and 71 relevant tests; full default run-v2 and project typecheck remain PM integration checks.",
+    "No product build, deployment, browser, true-user progress, ads SDK success or hardware FPS validation.",
+    "No rerun of old B deliveries; no change to prices, candidate C, map, production source, A36 inputs or old raw records.",
+    "No full product, long-term 80/20, five-map experience or 98% visual acceptance claim.",
+    "Native options readback was null; model/effort are PM-assigned values rather than independently exposed native fields."
+  ],
+  "remainingUserIssues": [
+    "Signed zero-quota old-save rescue requires a separate design.",
+    "Full product and 98% visual acceptance remain open."
+  ],
+  "publishGateRecommendation": "PASS for isolated prevention candidate only; PM must complete independent review, approved serial integration, default-runner prerequisites and release gates before publication.",
+  "readOnlyAudit": {
+    "command": "node docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/verify-receipt.cjs",
+    "role": "No writes, compilation or game execution; checks live protected hashes, exact final artifacts, retained TAP counts, final ROOT-only adaptation and scratch absence."
+  },
+  "goldenEvidenceFiles": [
+    "red.log",
+    "red-receipt.json",
+    "red-boundaries.log",
+    "red-boundaries-receipt.json",
+    "historical-fixtures.json",
+    "capture-history-receipt.json",
+    "green.log",
+    "green-receipt.json",
+    "green-root-fix.log",
+    "green-root-fix-receipt.json"
+  ],
+  "writeLeaseHandoff": {
+    "directory": "docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107",
+    "status": "RETURNED_TO_PM_ON_FINAL_RESPONSE",
+    "authorWillContinueEditing": false
+  },
+  "artifactFiles": {
+    "authorization.json": "f2ec63716b87d9ca948f1fe9eb2d391459f1bb4a3b47ec958224520b98e69857",
+    "baseline-source-hashes.json": "5c20aaa635f8494b0878f6982cf06031d8c98a3777b4a63b11a7babadf46d640",
+    "capture-history-receipt.json": "a1bf4420d8c3eb117ea6404f2a0aaa4896aebf168aee8c9cf49c309810f74b93",
+    "green-receipt.json": "5e1a19a72bf29b81feb592ed79e9624fa9627873e1b4a8cc35505511890de1f3",
+    "green-root-fix-receipt.json": "38c520ffb9c4c1325c363c27915dbd5483adae5addef59e8f688efcbb361f236",
+    "green-root-fix.log": "064bd3d3d7605c0763091d2355425f801e551c2691c0176fb4fe5ec721b86690",
+    "green.log": "166a2912b63b0e49527e65d44848baa1983571bd3cf25f528bcc9c1b97e1e784",
+    "historical-fixtures.json": "d9f151e35936a8cf1d99f17c6a1adad9eab782af1a7d64b1f6614b3af354e675",
+    "red-boundaries-receipt.json": "d2da007491f528480a57e4d35cb9a0dd28a57e54e636be286b1a68e6a54dd60c",
+    "red-boundaries.log": "d3d22a0db9030430914dd8a767d05f1acfecd385af44eb763e2b3722e73ee193",
+    "red-receipt.json": "be66927ae0ec92d14b312a9578551e18bedb5206f0a310012c9714def4e2c724",
+    "red.log": "95faf04e8c662bd0001a65c92b46602fc238e9f8e105f64c4a0b33d24f8af759",
+    "report.md": "c6e31455255bf75ce3be4db7ee677add3333603641484858176ed3df31085b54",
+    "run-stage.cjs": "10e67db9c954d30252e6596c28bd0089b847937c865e3cad21daf5fec16340c9",
+    "runner-red-baseline.cjs": "a7f655715b2f5b6c41f3d7edac300aef481405dc52decdbfac218a8bf49a0fc8",
+    "stage/domain/V2EconomySession.ts": "c16544237e819b6ca03830e07c9723cf78f71d20b7292273f8c016bec8cc539d",
+    "stage/domain/V2FleetSession.ts": "bd22eb20d158dc60880a89cd4911aba0aba2aab16f7c3c44bbc13ab4bf0cda34",
+    "stage/tests/hero-car-reserve.test.cjs": "23819a18703548df6970b7e4db6e84227f1f208220bacd7896cdf830711dbf13",
+    "verify-receipt.cjs": "323073e041979d4cc2af5ae79ce70c89691a4df122cdb78b6f79e449ebb5dd0a"
+  }
+}

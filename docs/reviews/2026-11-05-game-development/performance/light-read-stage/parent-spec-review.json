@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "kind": "parent-static-spec-check-not-runtime",
+  "baseSHA256Match": {
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": true
+  },
+  "candidateSHA256Match": {
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": true
+  },
+  "exactPatchReconstruction": {
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": true,
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": true
+  },
+  "hunkCount": 8,
+  "gameOnlyScalarReadReplacementAndGetter": true,
+  "requirements": [
+    "progress returns detached scalars with no snapshot/position",
+    "motion copies current authoritative point",
+    "no snapshot/version/restore weakening",
+    "UI frame motion uses routeMotion before HUD gate; full legs only on view-key change",
+    "tripId key/follow/drag semantics retained"
+  ],
+  "noTSOrGameExecuted": true,
+  "performanceMeasured": false,
+  "qualityReview": "reuse thr_wy4wnu5fyr; pending",
+  "sourceApplied": false
+}

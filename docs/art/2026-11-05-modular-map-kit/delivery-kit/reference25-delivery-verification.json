@@ -1,0 +1,1037 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-11-06T01:25:36.286668+00:00",
+  "status": "delivery-integrity-verified-not-game-tested-or-user-accepted",
+  "scope": "Existing reference25 addon and first unpacked preview-check export only; no regeneration, re-export, layout rewrite, new rendering, game tests or source changes.",
+  "verificationAuthor": {
+    "threadId": "thr_gje67q2cgt",
+    "providerId": "acp-hermes-agent",
+    "providerEvidence": "bb thread show --json readback in this turn",
+    "model": "openai-api:gpt-6.1-sol",
+    "modelEvidence": "current Hermes runtime Model gpt-6.1-sol / Provider openai-api",
+    "historicalAssetProvenance": "Preserved existing Codex/native production records; this integrity record does not relabel asset authorship."
+  },
+  "deliverables": {
+    "editableMap": "docs/art/2026-11-05-modular-map-kit/delivery-kit/reference25/reference-layout.tmj",
+    "reviewPage": "docs/art/2026-11-05-modular-map-kit/delivery-kit/reference25/index.html",
+    "existingCocosScreenshot": "docs/art/2026-11-05-modular-map-kit/delivery-kit/reference25/cocos-reference25.jpg",
+    "existingCocosScreenshotSHA256": "00c3001563b9fe0c100e31682bfff1dfd7c0e76ab62b3b14afd287638e35071e",
+    "existingRuntimeEvidence": "docs/art/2026-11-05-modular-map-kit/delivery-kit/reference25/actual-runtime.json",
+    "existingRuntimeEvidenceSHA256": "fd724935f1ce7997ba28bd1959923afd32b1bf5774d2f82b70948c02f8347fc7",
+    "addonZIP": "docs/art/2026-11-05-modular-map-kit/delivery-kit/map-reference25-addon.zip"
+  },
+  "archives": [
+    {
+      "path": "docs/art/2026-11-05-modular-map-kit/delivery-kit/map-assets-prototype-v1.zip",
+      "bytes": 10213363,
+      "sha256": "5630062301297e76203fd3800833341603ad56d512c6d611518cffd99fe820da",
+      "fileEntries": 206,
+      "crcOK": true,
+      "badCRCMember": null,
+      "duplicateMembers": [],
+      "extractedFilesMatchArchive": true,
+      "missingExtractedMembers": [],
+      "differentExtractedMembers": [],
+      "pngFileEntries": 94,
+      "uniquePNGContentSHA256Count": 34,
+      "engineMemberCount": 28
+    },
+    {
+      "path": "docs/art/2026-11-05-modular-map-kit/delivery-kit/map-reference25-addon.zip",
+      "bytes": 1147562,
+      "sha256": "b502160ea71c8928c51b7c5b17d889b4182d28dd778b7fd77ee0eb092fefc221",
+      "fileEntries": 19,
+      "crcOK": true,
+      "badCRCMember": null,
+      "duplicateMembers": [],
+      "extractedFilesMatchArchive": true,
+      "missingExtractedMembers": [],
+      "differentExtractedMembers": [],
+      "pngFileEntries": 2,
+      "uniquePNGContentSHA256Count": 2,
+      "engineMemberCount": 0
+    }
+  ],
+  "dependency": {
+    "requiresAdjacentV1": true,
+    "directoryLayout": [
+      "v1/",
+      "reference25/"
+    ],
+    "firstExportCopiesExistingEngineShellFrom": "../v1/preview",
+    "existingExportCommand": "python3 export_reference_preview.py --map reference-layout.tmj --output preview-check",
+    "exportCommandRerunThisTurn": false,
+    "existingExportExitCode": 0,
+    "exitCodeEvidence": "Parent handoff records the first export exit 0; this turn verifies those existing outputs without rerunning.",
+    "unpackedRoot": "/Users/sanger/.hermes/cache/scratch/map-reference25-unpack-g077_u44",
+    "existingOutputEntry": "/Users/sanger/.hermes/cache/scratch/map-reference25-unpack-g077_u44/reference25/preview-check/index.html",
+    "existingExportReport": "/Users/sanger/.hermes/cache/scratch/map-reference25-unpack-g077_u44/reference25/preview-check/user-export-report.json",
+    "existingExportReportSHA256": "4c97c937394f9ab366fcff3a1b5ecd0fe7eab89bdc0c3c7940512712f25fd110",
+    "selfContainedWithoutV1": false,
+    "needsOriginalCityProjectToExport": false,
+    "overwriteUserLayoutAllowed": false
+  },
+  "catalog": {
+    "totalUniquePNG": 36,
+    "categoryCounts": {
+      "地材": 2,
+      "小物": 11,
+      "建筑": 13,
+      "植物": 4,
+      "灯具": 2,
+      "车辆与骑手": 4
+    },
+    "includesExistingCandidates": true,
+    "sourceNativeFilesIncluded": false,
+    "allRuntimePNGMaximumSide": 280,
+    "assets": [
+      {
+        "id": "B01",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/rt-B01-road-aligned-native-v1.png",
+        "width": 224,
+        "height": 280,
+        "bytes": 97914,
+        "sha256": "c31dae925bf7dd0f1ff33db9c8ccad6166cba39236619b8d926990d2a41c468f",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "T01",
+        "category": "植物",
+        "packageFile": "../v1/assets/植物/rt-T01-v1.png",
+        "width": 203,
+        "height": 280,
+        "bytes": 89410,
+        "sha256": "827faa993f9432c1926c10c85f8b53e9e83d6cf813213d9dbb4e53aaed01f983",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "HC-R-NE",
+        "category": "车辆与骑手",
+        "packageFile": "../v1/assets/车辆与骑手/rt-HC-R-NE-v1.png",
+        "width": 279,
+        "height": 280,
+        "bytes": 108120,
+        "sha256": "d8080287d228f09fafc23669f4ba7ac67ea6cfc3bd4bc631eb1f13ea46d15d21",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "HC-R-SW",
+        "category": "车辆与骑手",
+        "packageFile": "../v1/assets/车辆与骑手/rt-HC-R-SW-v1.png",
+        "width": 275,
+        "height": 280,
+        "bytes": 111668,
+        "sha256": "efcc3638e184e6a7b31c99a84c40c93233651c9da8eabbfd711c3d13e8f7bd47",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "S01-paving",
+        "category": "地材",
+        "packageFile": "../v1/assets/地材/rt-S01-paving.png",
+        "width": 280,
+        "height": 280,
+        "bytes": 87378,
+        "sha256": "24fb562aed3669e0dd1ce64cbeec33bfa2f7f104d63f8ab8aa21f132db3ed57c",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "S02-asphalt",
+        "category": "地材",
+        "packageFile": "../v1/assets/地材/rt-S02-asphalt.png",
+        "width": 280,
+        "height": 280,
+        "bytes": 104502,
+        "sha256": "d555ba7255d638349ba88919a2393ceddf6c82f685680c2ee2b85fbb889e7f46",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B02",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B02-runtime-280.png",
+        "width": 234,
+        "height": 280,
+        "bytes": 108418,
+        "sha256": "7eca7f045716024f625c913e85f61ceda81f3997910ae488dc76d04536dffba9",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B03",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B03-runtime-280.png",
+        "width": 166,
+        "height": 280,
+        "bytes": 77690,
+        "sha256": "f4c6630617317157671b2b8535b215b9d770742678075e0b6884c8fbae52ef6e",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B04",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B04-runtime-280.png",
+        "width": 280,
+        "height": 263,
+        "bytes": 99335,
+        "sha256": "245ae915e10a2612947786cc5b4e14eb8da13b4cdf8735b2a3f6fa97de95d40e",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B05",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B05-runtime-280.png",
+        "width": 245,
+        "height": 280,
+        "bytes": 98302,
+        "sha256": "6ce65908cc72029e4b83d10936d0527978adf642a10fbcee4d0f3ac7e015c08d",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "T02",
+        "category": "植物",
+        "packageFile": "../v1/assets/植物/T02-free-runtime-280.png",
+        "width": 139,
+        "height": 280,
+        "bytes": 53828,
+        "sha256": "3ab77c4885b44ba2f8574448f0851662ea0dbbcfa37132d02a52cd253a0ecf0c",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "T03",
+        "category": "植物",
+        "packageFile": "../v1/assets/植物/T03-pine-runtime-280.png",
+        "width": 203,
+        "height": 280,
+        "bytes": 79536,
+        "sha256": "957cd1eaf8005fab180ce88b1ccd5f1946d88be3ef211f186afd9047ebbe76ef",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "L-near",
+        "category": "灯具",
+        "packageFile": "../v1/assets/灯具/L-near-280.png",
+        "width": 131,
+        "height": 280,
+        "bytes": 22471,
+        "sha256": "527a8915744daf958dd0e18938640955fc1e34cbe942ebdbac15c2c42c37034a",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "L-far",
+        "category": "灯具",
+        "packageFile": "../v1/assets/灯具/L-far-280.png",
+        "width": 102,
+        "height": 280,
+        "bytes": 13888,
+        "sha256": "d2a78e1811430c590e5a2960646bcd12ebee7070c6e9de3b8aacef19ef6520d6",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B06",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B06-runtime-280.png",
+        "width": 280,
+        "height": 271,
+        "bytes": 105898,
+        "sha256": "c38b77de6e9012d820dead19aec5ea3ec6db38a0e4a88d4c23a1d15c4b888acd",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B07",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B07-runtime-280.png",
+        "width": 274,
+        "height": 280,
+        "bytes": 91452,
+        "sha256": "8cc0c0dc95a930ebe77923b5d3fc821bd5b7f4fce6c409da07fffeb08679d814",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B08",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B08-runtime-280.png",
+        "width": 280,
+        "height": 197,
+        "bytes": 92845,
+        "sha256": "b8eb785226980b1bbbd931ff28f83ebbf8df9fa39a4683c66efa4db370223005",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B09",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B09-runtime-280.png",
+        "width": 280,
+        "height": 195,
+        "bytes": 91594,
+        "sha256": "fc06f1c5b450cd4633841e10822e97bbe60c85d1a76dc1ba983196f07e68acdd",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B10",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B10-runtime-280.png",
+        "width": 280,
+        "height": 254,
+        "bytes": 112639,
+        "sha256": "1e4810b390725f37e4c1c6c488238857bd6397bfa7b04475ae686205085e11c3",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B11",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B11-runtime-280.png",
+        "width": 280,
+        "height": 257,
+        "bytes": 120813,
+        "sha256": "7a9dc75620aedef07f0486761f3c71dc8a5d9215e58c30bcbdc598a3a7c82178",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "V01-v2",
+        "category": "车辆与骑手",
+        "packageFile": "../v1/assets/车辆与骑手/V01-v2-runtime-280.png",
+        "width": 280,
+        "height": 215,
+        "bytes": 74130,
+        "sha256": "09a7416d6d09043014bbe29041bea65320ee31a0a8aaddd1a7e37d979eec90d4",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "V02-v2",
+        "category": "车辆与骑手",
+        "packageFile": "../v1/assets/车辆与骑手/V02-v2-runtime-280.png",
+        "width": 280,
+        "height": 244,
+        "bytes": 75239,
+        "sha256": "41cbbe6a763dcbfcec4f5aa96e6fe205ab9cecdb889415871ba2f1ab5f7fc699",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P01",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P01-runtime-280.png",
+        "width": 181,
+        "height": 280,
+        "bytes": 58454,
+        "sha256": "c0c106fd7b843cdf979723565cf4e8f699680f34a1725ca431c9e07d88b02aff",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P10",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P10-runtime-280.png",
+        "width": 251,
+        "height": 280,
+        "bytes": 75841,
+        "sha256": "bb31cb626bc18ee30c47fe64047064a35565551575ee4c3f4e27dd1de30b2e97",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P03",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P03-runtime-280.png",
+        "width": 280,
+        "height": 266,
+        "bytes": 81794,
+        "sha256": "d956a25763ea5419ed3f791837961fdc5aee63d787539ce9623e6e5a2b00cafe",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P05",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P05-runtime-280.png",
+        "width": 208,
+        "height": 280,
+        "bytes": 71428,
+        "sha256": "e29500915dc263bb8a0401ced79c037599e556ee57b9a4d331ab5353dc6eeda1",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P02",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P02-runtime-280.png",
+        "width": 187,
+        "height": 280,
+        "bytes": 67185,
+        "sha256": "53f9178727d9137e2177e61723e6f7484586397c060012470bbe5dfe24be1bea",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P04-v2",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P04-v2-runtime-280.png",
+        "width": 226,
+        "height": 280,
+        "bytes": 78446,
+        "sha256": "91988c734e0f172e458139db735cbbc4bc5b9be5703fc5851d564ffad52a3a14",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P06",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P06-runtime-280.png",
+        "width": 280,
+        "height": 226,
+        "bytes": 46207,
+        "sha256": "c2e5ad5e1b885624faab5ca47aae3a5273b9238cfa8a09a8810f8b9cbdfca817",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P07",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P07-runtime-280.png",
+        "width": 164,
+        "height": 280,
+        "bytes": 35247,
+        "sha256": "1b59a8373a27b8b3187cb44a13dc23fe8ada55417f4eb4e151c9580744f2d769",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P08",
+        "category": "小物",
+        "packageFile": "../v1/assets/小物/P08-runtime-280.png",
+        "width": 280,
+        "height": 230,
+        "bytes": 88282,
+        "sha256": "eb11a2ec29bc97d5df9db566cb2f4d5b5e92fb39ea0519a75e59d7596ae4c0e0",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B12",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B12-runtime-280.png",
+        "width": 280,
+        "height": 279,
+        "bytes": 109193,
+        "sha256": "146758206a06ebb2106710ed510a86c480a70958c7309c1ecb7bd0311dcbdaed",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "B13",
+        "category": "建筑",
+        "packageFile": "../v1/assets/建筑/B13-runtime-280-clean.png",
+        "width": 262,
+        "height": 280,
+        "bytes": 104469,
+        "sha256": "f97a525034c83998be5782fc21572e60ca937b05629a646db63e459d9892bb7c",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "T05",
+        "category": "植物",
+        "packageFile": "../v1/assets/植物/T05-runtime-280.png",
+        "width": 280,
+        "height": 201,
+        "bytes": 84495,
+        "sha256": "6e46a63f838247fc5aa9b2c316be18255e0af537a689e3f0052cbaf3b26fbdda",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P11",
+        "category": "小物",
+        "packageFile": "assets/补充/P11-runtime-280.png",
+        "width": 280,
+        "height": 213,
+        "bytes": 77736,
+        "sha256": "0bb4b6c84c01f6371bffa7daf2c7843e75e1bb85cd8f6ce11b62b9f1129101be",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      },
+      {
+        "id": "P12",
+        "category": "小物",
+        "packageFile": "assets/补充/P12-runtime-280.png",
+        "width": 280,
+        "height": 270,
+        "bytes": 56397,
+        "sha256": "e802d8769f540d1117da8ca0208eb9269e2f052642e38157d039dbae585207eb",
+        "catalogSHA256Matches": true,
+        "workspaceAssetMatches": true
+      }
+    ]
+  },
+  "existingExport": {
+    "instances": 172,
+    "grounds": 500,
+    "uniquePNG": 32,
+    "PNGBytes": 2560013,
+    "allRuntimePNGMaximumSide": 280,
+    "inputMapWritten": false,
+    "noNewBusinessOrNavigationBindings": true,
+    "warnings": [
+      "mixed-tree-pocket-garden-trio-02: candidate asset; body/camera not confirmed, user placement permitted",
+      "mixed-tree-rear-natural-grove-02: candidate asset; body/camera not confirmed, user placement permitted",
+      "Placement/collision is user-controlled; no automatic repositioning or precision-layout acceptance."
+    ],
+    "images": [
+      {
+        "width": 234,
+        "height": 280,
+        "bytes": 108418,
+        "sha256": "7eca7f045716024f625c913e85f61ceda81f3997910ae488dc76d04536dffba9",
+        "file": "B02-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 166,
+        "height": 280,
+        "bytes": 77690,
+        "sha256": "f4c6630617317157671b2b8535b215b9d770742678075e0b6884c8fbae52ef6e",
+        "file": "B03-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 263,
+        "bytes": 99335,
+        "sha256": "245ae915e10a2612947786cc5b4e14eb8da13b4cdf8735b2a3f6fa97de95d40e",
+        "file": "B04-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 245,
+        "height": 280,
+        "bytes": 98302,
+        "sha256": "6ce65908cc72029e4b83d10936d0527978adf642a10fbcee4d0f3ac7e015c08d",
+        "file": "B05-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 271,
+        "bytes": 105898,
+        "sha256": "c38b77de6e9012d820dead19aec5ea3ec6db38a0e4a88d4c23a1d15c4b888acd",
+        "file": "B06-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 274,
+        "height": 280,
+        "bytes": 91452,
+        "sha256": "8cc0c0dc95a930ebe77923b5d3fc821bd5b7f4fce6c409da07fffeb08679d814",
+        "file": "B07-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 197,
+        "bytes": 92845,
+        "sha256": "b8eb785226980b1bbbd931ff28f83ebbf8df9fa39a4683c66efa4db370223005",
+        "file": "B08-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 279,
+        "bytes": 109193,
+        "sha256": "146758206a06ebb2106710ed510a86c480a70958c7309c1ecb7bd0311dcbdaed",
+        "file": "B12-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 262,
+        "height": 280,
+        "bytes": 104469,
+        "sha256": "f97a525034c83998be5782fc21572e60ca937b05629a646db63e459d9892bb7c",
+        "file": "B13-runtime-280-clean.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 102,
+        "height": 280,
+        "bytes": 13888,
+        "sha256": "d2a78e1811430c590e5a2960646bcd12ebee7070c6e9de3b8aacef19ef6520d6",
+        "file": "L-far-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 131,
+        "height": 280,
+        "bytes": 22471,
+        "sha256": "527a8915744daf958dd0e18938640955fc1e34cbe942ebdbac15c2c42c37034a",
+        "file": "L-near-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 181,
+        "height": 280,
+        "bytes": 58454,
+        "sha256": "c0c106fd7b843cdf979723565cf4e8f699680f34a1725ca431c9e07d88b02aff",
+        "file": "P01-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 266,
+        "bytes": 81794,
+        "sha256": "d956a25763ea5419ed3f791837961fdc5aee63d787539ce9623e6e5a2b00cafe",
+        "file": "P03-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 226,
+        "height": 280,
+        "bytes": 78446,
+        "sha256": "91988c734e0f172e458139db735cbbc4bc5b9be5703fc5851d564ffad52a3a14",
+        "file": "P04-v2-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 208,
+        "height": 280,
+        "bytes": 71428,
+        "sha256": "e29500915dc263bb8a0401ced79c037599e556ee57b9a4d331ab5353dc6eeda1",
+        "file": "P05-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 226,
+        "bytes": 46207,
+        "sha256": "c2e5ad5e1b885624faab5ca47aae3a5273b9238cfa8a09a8810f8b9cbdfca817",
+        "file": "P06-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 164,
+        "height": 280,
+        "bytes": 35247,
+        "sha256": "1b59a8373a27b8b3187cb44a13dc23fe8ada55417f4eb4e151c9580744f2d769",
+        "file": "P07-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 230,
+        "bytes": 88282,
+        "sha256": "eb11a2ec29bc97d5df9db566cb2f4d5b5e92fb39ea0519a75e59d7596ae4c0e0",
+        "file": "P08-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 251,
+        "height": 280,
+        "bytes": 75841,
+        "sha256": "bb31cb626bc18ee30c47fe64047064a35565551575ee4c3f4e27dd1de30b2e97",
+        "file": "P10-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 213,
+        "bytes": 77736,
+        "sha256": "0bb4b6c84c01f6371bffa7daf2c7843e75e1bb85cd8f6ce11b62b9f1129101be",
+        "file": "P11-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 270,
+        "bytes": 56397,
+        "sha256": "e802d8769f540d1117da8ca0208eb9269e2f052642e38157d039dbae585207eb",
+        "file": "P12-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 139,
+        "height": 280,
+        "bytes": 53828,
+        "sha256": "3ab77c4885b44ba2f8574448f0851662ea0dbbcfa37132d02a52cd253a0ecf0c",
+        "file": "T02-free-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 203,
+        "height": 280,
+        "bytes": 79536,
+        "sha256": "957cd1eaf8005fab180ce88b1ccd5f1946d88be3ef211f186afd9047ebbe76ef",
+        "file": "T03-pine-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 201,
+        "bytes": 84495,
+        "sha256": "6e46a63f838247fc5aa9b2c316be18255e0af537a689e3f0052cbaf3b26fbdda",
+        "file": "T05-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 215,
+        "bytes": 74130,
+        "sha256": "09a7416d6d09043014bbe29041bea65320ee31a0a8aaddd1a7e37d979eec90d4",
+        "file": "V01-v2-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 244,
+        "bytes": 75239,
+        "sha256": "41cbbe6a763dcbfcec4f5aa96e6fe205ab9cecdb889415871ba2f1ab5f7fc699",
+        "file": "V02-v2-runtime-280.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 224,
+        "height": 280,
+        "bytes": 97914,
+        "sha256": "c31dae925bf7dd0f1ff33db9c8ccad6166cba39236619b8d926990d2a41c468f",
+        "file": "rt-B01-road-aligned-native-v1.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 279,
+        "height": 280,
+        "bytes": 108120,
+        "sha256": "d8080287d228f09fafc23669f4ba7ac67ea6cfc3bd4bc631eb1f13ea46d15d21",
+        "file": "rt-HC-R-NE-v1.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 275,
+        "height": 280,
+        "bytes": 111668,
+        "sha256": "efcc3638e184e6a7b31c99a84c40c93233651c9da8eabbfd711c3d13e8f7bd47",
+        "file": "rt-HC-R-SW-v1.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 280,
+        "bytes": 87378,
+        "sha256": "24fb562aed3669e0dd1ce64cbeec33bfa2f7f104d63f8ab8aa21f132db3ed57c",
+        "file": "rt-S01-paving.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 280,
+        "height": 280,
+        "bytes": 104502,
+        "sha256": "d555ba7255d638349ba88919a2393ceddf6c82f685680c2ee2b85fbb889e7f46",
+        "file": "rt-S02-asphalt.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      },
+      {
+        "width": 203,
+        "height": 280,
+        "bytes": 89410,
+        "sha256": "827faa993f9432c1926c10c85f8b53e9e83d6cf813213d9dbb4e53aaed01f983",
+        "file": "rt-T01-v1.png",
+        "manifestHashesMatch": true,
+        "manifestDimensionsMatch": true
+      }
+    ]
+  },
+  "references": {
+    "checkedTiledDocuments": [
+      "reference25/reference-layout.tmj",
+      "reference25/templates/P11.tx",
+      "reference25/templates/P12.tx",
+      "reference25/templates/asset-library.tsj"
+    ],
+    "referenceCount": 74,
+    "missing": [],
+    "runtimeManifestFilesAllResolve": true
+  },
+  "existingRuntime": {
+    "readbackReusedNotRerun": true,
+    "url": "http://127.0.0.1:4186/delivery-kit/reference25/preview-reference/?view=user&embed=1",
+    "visualNodes": 172,
+    "textures": {
+      "uniqueAssetImages": 32,
+      "nativeFramesCreated": 30,
+      "canvasFramesCreated": 2
+    },
+    "sharedNativeImageFiles": 30,
+    "oneFrameIndexPerNativeImage": true,
+    "selectedNodesReadBack": 10,
+    "selectedNodeScaleXY": [
+      1,
+      1
+    ],
+    "allExportInstanceNodeScale": 1,
+    "screenshotViewedThisTurn": true
+  },
+  "protection": {
+    "fixedSourceSHA256": [
+      {
+        "path": "delivery-game/assets/resources/map-sample/city.json",
+        "expectedSHA256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+        "actualSHA256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+        "matches": true
+      },
+      {
+        "path": "docs/art/2026-11-05-modular-map-kit/revision-006/viewer/assets/scene-layout.json",
+        "expectedSHA256": "237252cf5858346686c707335f1a323c0d14261631ec6262b6d403bbfd94b5cc",
+        "actualSHA256": "237252cf5858346686c707335f1a323c0d14261631ec6262b6d403bbfd94b5cc",
+        "matches": true
+      },
+      {
+        "path": "docs/art/2026-11-05-modular-map-kit/revision-006/integration/neighborhood.tmj",
+        "expectedSHA256": "26eb9baad3f38a13570c5c23d4cadd5a5f4f4ef29f1c5a174436d3c566fd99e8",
+        "actualSHA256": "26eb9baad3f38a13570c5c23d4cadd5a5f4f4ef29f1c5a174436d3c566fd99e8",
+        "matches": true
+      },
+      {
+        "path": "docs/art/2026-11-05-modular-map-kit/delivery-kit/map-assets-prototype-v1.zip",
+        "expectedSHA256": "5630062301297e76203fd3800833341603ad56d512c6d611518cffd99fe820da",
+        "actualSHA256": "5630062301297e76203fd3800833341603ad56d512c6d611518cffd99fe820da",
+        "matches": true
+      }
+    ],
+    "roads": {
+      "count": 95,
+      "canonicalArraySHA256": "f6c6a14d709b735bdbfb02f57b050d64f2b4d87c2c40055d0abdf21a3598c5c1",
+      "exportEqualsDeliveredBaseAndOriginalScene": true,
+      "cityVerification": "Original city.json checked by exact absolute path and fixed SHA256; road array equality is against the unchanged canonical scene and delivered base, not image registration."
+    },
+    "userLayout": {
+      "path": "docs/art/2026-11-05-modular-map-kit/delivery-kit/v1/user-layout.tmj",
+      "sha256AtStart": "22dcce411b45dd8ae2f12e3839af66e367dea362e198abca40fdf5c23c4a2335",
+      "sha256AtEnd": "22dcce411b45dd8ae2f12e3839af66e367dea362e198abca40fdf5c23c4a2335",
+      "previousRecordedSHA256": "22dcce411b45dd8ae2f12e3839af66e367dea362e198abca40fdf5c23c4a2335",
+      "differsFromPreviousRecord": false,
+      "writtenThisTurn": false,
+      "restoredOrReset": false,
+      "policy": "Any difference from historical SHA is protected as possible user editing; never auto-restore."
+    },
+    "referenceMapWrittenThisTurn": false,
+    "sourceMapsWrittenThisTurn": false
+  },
+  "checks": [
+    {
+      "check": "valid_expected_sha256:city.json",
+      "passed": true
+    },
+    {
+      "check": "protected_source_sha256:delivery-game/assets/resources/map-sample/city.json",
+      "passed": true
+    },
+    {
+      "check": "valid_expected_sha256:scene-layout.json",
+      "passed": true
+    },
+    {
+      "check": "protected_source_sha256:docs/art/2026-11-05-modular-map-kit/revision-006/viewer/assets/scene-layout.json",
+      "passed": true
+    },
+    {
+      "check": "valid_expected_sha256:neighborhood.tmj",
+      "passed": true
+    },
+    {
+      "check": "protected_source_sha256:docs/art/2026-11-05-modular-map-kit/revision-006/integration/neighborhood.tmj",
+      "passed": true
+    },
+    {
+      "check": "valid_expected_sha256:map-assets-prototype-v1.zip",
+      "passed": true
+    },
+    {
+      "check": "protected_source_sha256:docs/art/2026-11-05-modular-map-kit/delivery-kit/map-assets-prototype-v1.zip",
+      "passed": true
+    },
+    {
+      "check": "zip_crc_and_unique_members:map-assets-prototype-v1.zip",
+      "passed": true
+    },
+    {
+      "check": "existing_unpacked_files_match_zip:map-assets-prototype-v1.zip",
+      "passed": true
+    },
+    {
+      "check": "zip_crc_and_unique_members:map-reference25-addon.zip",
+      "passed": true
+    },
+    {
+      "check": "existing_unpacked_files_match_zip:map-reference25-addon.zip",
+      "passed": true
+    },
+    {
+      "check": "addon_does_not_repeat_engine",
+      "passed": true
+    },
+    {
+      "check": "addon_contains_only_two_new_pngs",
+      "passed": true
+    },
+    {
+      "check": "catalog_total_is_36_unique_assets",
+      "passed": true
+    },
+    {
+      "check": "catalog_small_props_is_11",
+      "passed": true
+    },
+    {
+      "check": "catalog_all_pngs_at_most_280_and_sha_matches",
+      "passed": true
+    },
+    {
+      "check": "workspace_catalog_matches_delivered_catalog",
+      "passed": true
+    },
+    {
+      "check": "export_32_unique_referenced_pngs",
+      "passed": true
+    },
+    {
+      "check": "export_pngs_at_most_280_and_match_manifest",
+      "passed": true
+    },
+    {
+      "check": "export_png_bytes_match_report",
+      "passed": true
+    },
+    {
+      "check": "export_asset_directory_has_exact_referenced_png_set",
+      "passed": true
+    },
+    {
+      "check": "export_visual_count_172_matches_existing_runtime",
+      "passed": true
+    },
+    {
+      "check": "export_ground_count_matches_report",
+      "passed": true
+    },
+    {
+      "check": "export_input_was_not_written_per_existing_report",
+      "passed": true
+    },
+    {
+      "check": "export_instance_metadata_scale_1_and_no_new_binding",
+      "passed": true
+    },
+    {
+      "check": "original_road_arrays_unchanged",
+      "passed": true
+    },
+    {
+      "check": "original_rider_metadata_unchanged",
+      "passed": true
+    },
+    {
+      "check": "export_readonly_bindings_reported",
+      "passed": true
+    },
+    {
+      "check": "tiled_layout_and_templates_references_resolve",
+      "passed": true
+    },
+    {
+      "check": "reference_layout_matches_archive_copy",
+      "passed": true
+    },
+    {
+      "check": "export_preview_entry_and_copied_engine_exist",
+      "passed": true
+    },
+    {
+      "check": "existing_runtime_frames_shared_per_image",
+      "passed": true
+    },
+    {
+      "check": "existing_runtime_selected_scales_are_one",
+      "passed": true
+    },
+    {
+      "check": "existing_runtime_frame_images_resolve_in_export",
+      "passed": true
+    },
+    {
+      "check": "existing_runtime_evidence_matches_archive",
+      "passed": true
+    },
+    {
+      "check": "user_layout_unchanged_during_this_verification",
+      "passed": true
+    }
+  ],
+  "failedChecks": [],
+  "verificationLimits": {
+    "tiledGUIDragPerformedThisTurn": false,
+    "newExportRunThisTurn": false,
+    "newScreenshotOrRenderMatrix": false,
+    "gameTests": false,
+    "typecheckRegressionFPS": false,
+    "saveStateAccess": false,
+    "newServiceOrPortExposure": false,
+    "userAccepted": false,
+    "wholeCountyComplete": false,
+    "precisionRegistered": false
+  },
+  "remaining": [
+    "白色铺地、绿地边和楼间空隙仍为参考粗摆，用户后续可移动、等比缩放、新放和删除装饰实例。",
+    "高楼脚下地面与接地未完善，P11/P12锚点和玻璃/软边/隐藏脚点仍属粗估。",
+    "只借25图总图及TR-33楼群和体量关系，非全县完成、精密配准、游戏测试或用户验收。"
+  ],
+  "writesThisTurn": [
+    "docs/art/2026-11-05-modular-map-kit/delivery-kit/reference25-delivery-verification.json"
+  ]
+}

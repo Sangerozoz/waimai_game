@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Cocos Creator | high-camera-city</title>
+
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true"/>
+
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit"/>
+  <meta name="force-rendering" content="webkit"/>
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes"/>
+  <meta name="x5-fullscreen" content="true"/>
+  <meta name="360-fullscreen" content="true"/>
+
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
+  <meta name="x5-page-mode" content="app">
+
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+
+  <link rel="stylesheet" type="text/css" href="style.02f4a.css"/>
+
+<style id="r2-embed-style">html.preview-embed #map-preview-toolbar{display:none}</style><script>if(new URLSearchParams(location.search).has("embed"))document.documentElement.classList.add("preview-embed")</script></head>
+<body>
+  <div id="GameDiv" cc_exact_fit_screen="true">
+      <div id="Cocos3dGameContainer">
+        <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="99"></canvas>
+      </div>
+    </div>
+  
+
+<!-- Polyfills bundle. -->
+
+<script src="src/polyfills.bundle.5adbf.js" charset="utf-8"> </script>
+
+
+<!-- SystemJS support. -->
+<script src="src/system.bundle.543e6.js" charset="utf-8"> </script>
+
+<!-- Import map -->
+<script src="src/import-map.63cac.json" type="systemjs-importmap" charset="utf-8"> </script>
+
+<script>
+    System.import('./index.2d976.js').catch(function(err) { console.error(err); })
+</script>
+
+<div id="map-preview-toolbar" style="position:fixed;top:12px;left:12px;background:#ffffffe8;padding:10px;font:14px system-ui;border-radius:8px">006邻区街段 · 候选同场检查 <a href="?view=overall">总体</a> · <a href="?view=N1">N1住宅</a> · <a href="?view=near">N2＋005近景</a> · <a href="?view=S1">S1南段</a> · <a href="?view=005">005原样板</a> · <a href="?view=details">公共细节</a> · <a href="?view=rest">休憩近景</a> · <a href="?view=suburb">郊区整体</a> · <a href="?view=garden">住宅菜园</a> · <a href="?view=market">市场后勤</a> · <a href="?view=ucourt">U院比较</a> · <a href="?view=ucourt-door">U院门阶</a> · <a href="?view=north">北侧连续街段</a> · <a href="?view=north-market">北侧市场</a> · <a href="?view=north-offices">双办公近景</a> · <a href="?view=north-link">北段与旧区关系</a> · <a href="?view=r2-courts">第二批住宅组</a> · <a href="?view=r2-homes">双住宅近景</a> · <a href="?view=r2-shop609">609门前</a> · <a href="?view=r2-north-shop">第二批北铺</a> · <a href="?view=r2-south-home">第二批南宅</a> · <a href="scale-compare.html">1.0/0.9实景对照</a> · <a href="?view=r3-overview">第三批关系</a> · <a href="?view=r3-central">第三批混合街巷</a> · <a href="?view=r3-northeast">第三批东北住区</a> · <a href="?view=r3-office">第三批办公街段</a> · <a href="?view=life-street">完整街巷候选</a> · <a href="?view=life-detail">商服休憩细节</a> · <a href="?view=r4-relations">第四批局部关系</a> · <a href="?view=r4-tall-u">高楼与U院</a> · <a href="?view=r4-market">市场门前</a> · <a href="?view=r4-residential">住宅院落</a> · <a href="?view=native-low">低住宅比较</a> · <a href="?view=native-shop">低街铺比较</a> · <a href="?view=native-shrub">灌木层次</a> · <a href="?view=r5-market">第五批市场邻区</a> · <a href="?view=r5-housing">第五批住宅邻区</a> · <a href="?view=market-life">市场候场与休息</a> · <a href="?view=compound-market">源125复合院落</a></div></body>
+</html>

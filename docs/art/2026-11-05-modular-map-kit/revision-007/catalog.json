@@ -1,0 +1,192 @@
+{
+  "goal": "丰富可编辑城市场景，10件基础小物（围栏两朝向为同一款式），与006街段接入并行",
+  "props": [
+    {
+      "id": "P01",
+      "name": "小型独立灯箱",
+      "owner": "public",
+      "dimensions": [
+        0.65,
+        0.4,
+        1.45
+      ],
+      "identity": "简洁金属座＋矩形磨砂面，白天不发光、无文字/logo，不能变成路灯",
+      "contexts": [
+        "商业街店外",
+        "便民服务点"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P02",
+      "name": "小型储油罐/油箱",
+      "owner": "industry",
+      "dimensions": [
+        1.2,
+        1.2,
+        1.6
+      ],
+      "identity": "单个立式矮圆罐、有限支架/阀件，日常工坊道具，不是巨大化工设施",
+      "contexts": [
+        "工坊服务院",
+        "后勤场地"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P03",
+      "name": "靠背长椅",
+      "owner": "furniture",
+      "dimensions": [
+        2.0,
+        0.65,
+        0.9
+      ],
+      "identity": "木条坐面与靠背、深灰金属腿，长边沿u",
+      "contexts": [
+        "街边休憩",
+        "住宅小院",
+        "公共设施外"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P04",
+      "name": "独立户外圆桌",
+      "owner": "furniture",
+      "dimensions": [
+        1.0,
+        1.0,
+        0.75
+      ],
+      "identity": "圆木桌面＋简洁金属支腿，不绑定椅凳、地板或餐具",
+      "contexts": [
+        "商业街室外休憩",
+        "庭院"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P05",
+      "name": "独立圆凳",
+      "owner": "furniture",
+      "dimensions": [
+        0.42,
+        0.42,
+        0.45
+      ],
+      "identity": "无靠背圆凳，与P04材质相配，便于不旋转PNG而重复摆放",
+      "contexts": [
+        "桌边",
+        "住宅小院"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P06",
+      "name": "木围栏u向直段",
+      "owner": "industry",
+      "dimensions": [
+        2.5,
+        0.16,
+        1.0
+      ],
+      "family": "wood-fence",
+      "orientation": "u",
+      "identity": "一段简洁木栅栏、两端连接柱，沿u长轴",
+      "contexts": [
+        "住宅庭院",
+        "园艺边界"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P07",
+      "name": "木围栏n向直段",
+      "owner": "industry",
+      "dimensions": [
+        0.16,
+        2.5,
+        1.0
+      ],
+      "family": "wood-fence",
+      "orientation": "n",
+      "identity": "与P06相同栏杆身份/材质/间距，但必须另行原生n向，不能旋转/镜像P06",
+      "contexts": [
+        "住宅庭院",
+        "园艺边界"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P08",
+      "name": "叶菜菜畦模块",
+      "owner": "garden",
+      "dimensions": [
+        2.6,
+        1.6,
+        0.55
+      ],
+      "identity": "有限矩形菜畦，2至3排叶菜、内部土壤和低边框，外围透明；不是整片农场",
+      "contexts": [
+        "蓝框内郊区院落",
+        "社区园艺"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P09",
+      "name": "小型拱棚",
+      "owner": "garden",
+      "dimensions": [
+        4.0,
+        2.4,
+        2.1
+      ],
+      "identity": "轻质拱形骨架/半透明覆膜、少量内部种植，长轴沿u，非工业厂房",
+      "contexts": [
+        "蓝框内郊区园艺场地"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    },
+    {
+      "id": "P10",
+      "name": "双桶垃圾收集点",
+      "owner": "public",
+      "dimensions": [
+        1.1,
+        0.65,
+        1.0
+      ],
+      "identity": "固定双桶小组合、低饱和异色盖，无可读文字或logo，不把它计作两种款式",
+      "contexts": [
+        "商业街",
+        "公共设施外",
+        "住宅服务点"
+      ],
+      "status": "assigned-not-produced",
+      "dimensionMeaning": "PM-game-scale-candidate-not-source-measured",
+      "runtimeMaxEdge": 280
+    }
+  ],
+  "styleIndex": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/references/approved-25-index.json",
+  "noWholeCountyAcceptance": true
+}

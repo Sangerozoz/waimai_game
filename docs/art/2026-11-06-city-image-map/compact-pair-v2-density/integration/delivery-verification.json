@@ -1,0 +1,555 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-06T09:59:22.514843+00:00",
+  "status": "approved-art-A2-B1-new-map-CLI-render-and-fresh-cross-region-navigation-demonstrated",
+  "scope": "Integration directory only. No Images request or other region generated. No game/business/save operations.",
+  "artAcceptance": {
+    "sourceReview": "../user-review-002.json",
+    "A2DensityAndDirectionAcceptedByUser": true,
+    "priorStyleColorsClarityProportionsBaseline": true,
+    "BIndependentCoreDensityAccepted": false,
+    "wholeCityAccepted": false
+  },
+  "sourceNatives": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v2-density/native/A-v2-api.png",
+      "sha256": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe",
+      "bytes": 3571585
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/native/B/native.png",
+      "sha256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+      "bytes": 4035618
+    }
+  ],
+  "nativeArchiveCopiesByteForByte": true,
+  "geometry": {
+    "worldOffsets": {
+      "A2": [
+        0,
+        0
+      ],
+      "B1": [
+        1472,
+        0
+      ]
+    },
+    "coreBoundaryX": 1504,
+    "BLocalCropLeft": 32,
+    "overlapPixels": 64,
+    "nativeWarpMirrorRecolor": false,
+    "wholeBuildingCoreChoiceObserved": "1504 retained after 1:1 inspection: east curved shop/tower/foreground buildings lie wholly to its left; B left32 crop contains no building.",
+    "visibleRoadJoinObservedAtOneToOne": true,
+    "groundTextureSeamNotClaimedPixelPerfect": true,
+    "roadsCorrectedOnlyInNewCopy": "road-adjustments.json"
+  },
+  "tiled": {
+    "path": "tiled/compact-pair-a2-b1.tmj",
+    "sha256": "eac6049a2f8e643e1771dda9f9dce2f25f7d8b035c7a42c7e2b548459b61d0a9",
+    "officialCliRender": "preview/tiled-cli-render-final.png",
+    "officialCliRenderSHA256": "126590acd3a3a51bc5d489a7b92bacfcd4a63e0550d92a1fad936f52dc55120b",
+    "actualRasterSize": [
+      3008,
+      1024
+    ],
+    "pixelIdenticalToLosslessCoreComposition": true,
+    "actualCommand": "QT_QPA_PLATFORM=cocoa /Applications/Tiled.app/Contents/MacOS/tmxrasterizer --hide-object-layers --no-smoothing --scale 1 '/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v2-density/integration/tiled/compact-pair-a2-b1.tmj' '/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v2-density/integration/preview/tiled-cli-render-final.png'",
+    "renderExitCode": 0,
+    "nativeGUIWindowVerified": false,
+    "nativeGUIRepaintAttemptsThisRound": 0,
+    "initialTransparentOutputAndFix": "tiled-metadata-fix.json",
+    "rootCause": "Installed Tiled reader interprets omitted layer/group opacity as0; explicit opacity1 corrected only the new map.",
+    "offscreenPluginUnavailable": "Installed build exposes cocoa only; official CLI rasterization used cocoa without GUI window takeover."
+  },
+  "graph": {
+    "path": "navigation/graph.json",
+    "sha256": "06bd8204195c5c5da7e2fa9aab1db33414323e79a962791792f22c3d0d6bb35b",
+    "sourceTiledSHA256": "eac6049a2f8e643e1771dda9f9dce2f25f7d8b035c7a42c7e2b548459b61d0a9",
+    "nodeCount": 11,
+    "edgeCount": 12,
+    "components": 1,
+    "duplicateEdges": [],
+    "unmergedCrossings": [],
+    "offsetAppliedOnce": true,
+    "newBusinessBindings": 0
+  },
+  "runtimeImageReferences": {
+    "uniquePNG": 2,
+    "PNGBytes": 6721659,
+    "images": [
+      {
+        "elementId": "cityA",
+        "path": "../tiled/A2-core.png",
+        "bytes": 3211391,
+        "sha256": "e217b15ab409b2e32fd00c413bb1de82d928eb0990c8e748d38aceff79d9e46f",
+        "nativeSourceSHA256": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe",
+        "size": [
+          1504,
+          1024
+        ],
+        "globalOffset": [
+          0,
+          0
+        ]
+      },
+      {
+        "elementId": "cityB",
+        "path": "../tiled/B1-core.png",
+        "bytes": 3510268,
+        "sha256": "f8c4fa767d8209f2e5f0964aa1e220d7a6951f8f2427a772106cf6ecb6a23a63",
+        "nativeSourceSHA256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+        "size": [
+          1504,
+          1024
+        ],
+        "globalOffset": [
+          1504,
+          0
+        ]
+      }
+    ],
+    "nativeArchiveBytes": 7607203,
+    "wholeRegionImagesNotSubjectToSprite280Limit": true
+  },
+  "freshNavigation": {
+    "page": "navigation/offline.html",
+    "pageSHA256": "aea0e8421564e4604806d384b4bf5aa5fc518f22291a7e311caa63ac13d29b1e",
+    "browserBackend": "BB local isolated headless",
+    "rawReadback": "preview/browser-walkthrough.json",
+    "rawReadbackSHA256": "31d8fc296042ee3193db3be0c4b1af39f7a2a4e3720c236612f63076c7ce50d8",
+    "screenshot": "preview/navigation-arrival-A2-B1.jpg",
+    "screenshotSHA256": "44297c4b38cac8adb50624191ea175a0fd8cd96d32c6c1b3fef62a9c12ab78e0",
+    "sampleCount": 27,
+    "start": [
+      687.9881858713322,
+      939.7971961563843
+    ],
+    "end": [
+      2272,
+      304
+    ],
+    "arrived": "已沿路线到达 B。可重新选点或再次播放。",
+    "traveledPixels": 2074.489153727147,
+    "routeEdgeIds": [
+      5,
+      2,
+      3,
+      6,
+      10
+    ],
+    "maxGapFromExportedPolylinePixels": 5.684341886080802e-14,
+    "actualLoadedImageProof": [
+      {
+        "elementId": "cityA",
+        "sha256": "e217b15ab409b2e32fd00c413bb1de82d928eb0990c8e748d38aceff79d9e46f",
+        "nativeSourceSHA256": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe",
+        "decodedSize": [
+          1504,
+          1024
+        ],
+        "displayed": true
+      },
+      {
+        "elementId": "cityB",
+        "sha256": "f8c4fa767d8209f2e5f0964aa1e220d7a6951f8f2427a772106cf6ecb6a23a63",
+        "nativeSourceSHA256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+        "decodedSize": [
+          1504,
+          1024
+        ],
+        "displayed": true
+      }
+    ],
+    "sampledNativePixelsDiagnosticNotSemanticClassifier": [
+      {
+        "position": [
+          687.9881858713322,
+          939.7971961563843
+        ],
+        "nativeRGB": [
+          136,
+          128,
+          131
+        ]
+      },
+      {
+        "position": [
+          695.2614138139111,
+          859.7758962950971
+        ],
+        "nativeRGB": [
+          101,
+          100,
+          106
+        ]
+      },
+      {
+        "position": [
+          701.93138991078,
+          777.5128577670466
+        ],
+        "nativeRGB": [
+          98,
+          97,
+          102
+        ]
+      },
+      {
+        "position": [
+          708.5579038829417,
+          695.2794183456141
+        ],
+        "nativeRGB": [
+          99,
+          97,
+          104
+        ]
+      },
+      {
+        "position": [
+          713.6436840464485,
+          612.9652700491632
+        ],
+        "nativeRGB": [
+          221,
+          206,
+          206
+        ]
+      },
+      {
+        "position": [
+          740.4855856200448,
+          556
+        ],
+        "nativeRGB": [
+          109,
+          105,
+          109
+        ]
+      },
+      {
+        "position": [
+          828.4965856200463,
+          556
+        ],
+        "nativeRGB": [
+          149,
+          142,
+          142
+        ]
+      },
+      {
+        "position": [
+          910.9965856200463,
+          556
+        ],
+        "nativeRGB": [
+          97,
+          97,
+          102
+        ]
+      },
+      {
+        "position": [
+          993.4965856200463,
+          556
+        ],
+        "nativeRGB": [
+          125,
+          117,
+          118
+        ]
+      },
+      {
+        "position": [
+          1075.9635856200468,
+          556
+        ],
+        "nativeRGB": [
+          102,
+          100,
+          106
+        ]
+      },
+      {
+        "position": [
+          1158.4635856200468,
+          556
+        ],
+        "nativeRGB": [
+          100,
+          99,
+          103
+        ]
+      },
+      {
+        "position": [
+          1240.9635856200468,
+          556
+        ],
+        "nativeRGB": [
+          204,
+          193,
+          193
+        ]
+      },
+      {
+        "position": [
+          1323.4624580780282,
+          556.2300240988042
+        ],
+        "nativeRGB": [
+          93,
+          94,
+          100
+        ]
+      },
+      {
+        "position": [
+          1405.9584935425976,
+          557.0388087602215
+        ],
+        "nativeRGB": [
+          157,
+          151,
+          154
+        ]
+      },
+      {
+        "position": [
+          1488.4545290071667,
+          557.8475934216389
+        ],
+        "nativeRGB": [
+          98,
+          99,
+          104
+        ]
+      },
+      {
+        "position": [
+          1570.9537819340476,
+          558
+        ],
+        "nativeRGB": [
+          109,
+          109,
+          113
+        ]
+      },
+      {
+        "position": [
+          1653.4207819340454,
+          558
+        ],
+        "nativeRGB": [
+          101,
+          100,
+          105
+        ]
+      },
+      {
+        "position": [
+          1735.9537819340474,
+          558
+        ],
+        "nativeRGB": [
+          103,
+          103,
+          109
+        ]
+      },
+      {
+        "position": [
+          1818.4537819340471,
+          558
+        ],
+        "nativeRGB": [
+          101,
+          99,
+          105
+        ]
+      },
+      {
+        "position": [
+          1861.5641831161302,
+          489.7223298484419
+        ],
+        "nativeRGB": [
+          109,
+          109,
+          111
+        ]
+      },
+      {
+        "position": [
+          1911.3878477685155,
+          417.17208131953
+        ],
+        "nativeRGB": [
+          105,
+          103,
+          108
+        ]
+      },
+      {
+        "position": [
+          1956.3937642693952,
+          348.0334600592692
+        ],
+        "nativeRGB": [
+          106,
+          105,
+          111
+        ]
+      },
+      {
+        "position": [
+          2021.3603876087757,
+          305.7199676992687
+        ],
+        "nativeRGB": [
+          104,
+          104,
+          107
+        ]
+      },
+      {
+        "position": [
+          2103.8218462767873,
+          304
+        ],
+        "nativeRGB": [
+          151,
+          142,
+          140
+        ]
+      },
+      {
+        "position": [
+          2186.3218462767873,
+          304
+        ],
+        "nativeRGB": [
+          104,
+          101,
+          105
+        ]
+      },
+      {
+        "position": [
+          2268.7888462767883,
+          304
+        ],
+        "nativeRGB": [
+          103,
+          103,
+          106
+        ]
+      },
+      {
+        "position": [
+          2272,
+          304
+        ],
+        "nativeRGB": [
+          105,
+          104,
+          107
+        ]
+      }
+    ],
+    "beforeMetadataFixRunPreservedButNotUsedAsFinal": "preview/browser-walkthrough-before-metadata-fix.json",
+    "usesOldScreenshotOrArrivalResult": false
+  },
+  "serving": {
+    "existing4186RootDoesNotCoverThisDirectory": true,
+    "newServiceOrPortStarted": false,
+    "workingFallback": "self-contained local navigation/offline.html"
+  },
+  "nextC": {
+    "contract": "next-C/identity-and-edge-contract.json",
+    "referenceBand": "next-C/actual-north-edge-64.png",
+    "ImagesRequests": 0,
+    "metresEstablished": false,
+    "finalGridFrozen": false
+  },
+  "protection": {
+    "snapshot": "protected-inputs.json",
+    "count": 77,
+    "changedInputs": [],
+    "oldInputsRestoredOrWritten": false
+  },
+  "checks": [
+    {
+      "check": "all_old_inputs_unchanged",
+      "passed": true
+    },
+    {
+      "check": "approved_A2_and_B1_source_SHA",
+      "passed": true
+    },
+    {
+      "check": "native_byte_copies_exact",
+      "passed": true
+    },
+    {
+      "check": "actual_native_sizes",
+      "passed": true
+    },
+    {
+      "check": "lossless_pixel_core_crops",
+      "passed": true
+    },
+    {
+      "check": "no_double_offset_in_composite",
+      "passed": true
+    },
+    {
+      "check": "official_Tiled_render_exact_native_pixels",
+      "passed": true
+    },
+    {
+      "check": "runtime_bound_to_final_TMJSON",
+      "passed": true
+    },
+    {
+      "check": "graph_connectivity_explicit",
+      "passed": true
+    },
+    {
+      "check": "runtime_really_loaded_two_correct_image_files",
+      "passed": true
+    },
+    {
+      "check": "actual_arrival",
+      "passed": true
+    },
+    {
+      "check": "fresh_continuous_cross_region_samples",
+      "passed": true
+    },
+    {
+      "check": "all_samples_follow_exported_geometry",
+      "passed": true
+    },
+    {
+      "check": "next_C_only_contract_and_reference_exists",
+      "passed": true
+    },
+    {
+      "check": "C_exit_width_interval_count",
+      "passed": true
+    }
+  ],
+  "failedChecks": [],
+  "notClaimed": [
+    "native Tiled GUI window rendering",
+    "formal game integration or stage tests",
+    "orders/save operations",
+    "whole city completion",
+    "C artwork generated",
+    "precise world-metre calibration"
+  ],
+  "lease": "Returned at handoff; parent restores default. No continuation without a new bounded lease."
+}

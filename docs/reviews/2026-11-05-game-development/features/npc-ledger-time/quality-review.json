@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [
+    {
+      "id": "S01",
+      "blocking": false,
+      "category": "deferred_fixture_preparation",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:90",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:105",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:135"
+      ],
+      "description": "用户已说明既有 Runtime 测试替身缺少新增 setter；阶段集中验证前需补齐对应接口。本次未读取或运行测试夹具，不能将该准备项表述为已观测运行失败，亦不阻塞本次静态源码审查。"
+    }
+  ],
+  "summary": "静态代码质量审查 PASS：未发现本次 NPC 逐笔归日实现新增的安全问题、回调生命周期遗漏、错误归日或失败原子性缺陷；仅覆盖下列源码快照，不代表运行验证、E05 全闭或用户验收。",
+  "reviewMode": "independent-read-only-static-source-review",
+  "reviewerThread": "thr_ef9asz76ur",
+  "parentThread": "thr_axf6i4e89t",
+  "environment": "env_e54zrbdgxt",
+  "sourceSHA": {
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts": "1e1ccd5242762260213f8744c3cddf4328bbe35b100a0fba779e4c9cd7facb3a",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "adbc39af0f133714df647a0e8df78789171efbec94468d227557001ddf422a6a",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "bb6dc40f960f5867b96bf9eeaad218d8d6a9d2aa648b53ce34aa0afcff892d81"
+  },
+  "dependencySourceSHA": {
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": "a5a5288bcfbeff4cf93a9a6ce6b86ebfd7690579a5efeb12d8ce7e310b2104ae",
+    "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "2ff12cb7cb96d334d54c76ee68bd2db711e7ea21264585ef9b02c0480c78ecac",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23"
+  },
+  "staticEvidence": [
+    {
+      "topic": "回调初始化及持久化边界",
+      "locations": ["delivery-game/assets/scripts/domain/V2FleetSession.ts:24", "delivery-game/assets/scripts/domain/V2FleetSession.ts:30", "delivery-game/assets/scripts/domain/V2FleetSession.ts:32", "delivery-game/assets/scripts/domain/V2FleetSession.ts:38", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:36", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:47", "delivery-game/assets/scripts/map-sample/V2GameSession.ts:14"],
+      "conclusion": "Fleet 新建和 Object.create 恢复均有明确 null；Dispatch.restore 经构造器初始化。各正式 serialize/snapshot 使用显式字段，resolver 不进入保存格式，也不参与恢复数据校验。独立 restore 后需要重新注入，符合非持久配置约定。"
+    },
+    {
+      "topic": "多层草稿、共享钱包与替换实例",
+      "locations": ["delivery-game/assets/scripts/domain/V2FleetSession.ts:35", "delivery-game/assets/scripts/domain/V2FleetSession.ts:56", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:44", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:49", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:53", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:142", "delivery-game/assets/scripts/domain/V2EconomySession.ts:98"],
+      "conclusion": "Dispatch.transact 恢复后向草稿重新注入；Fleet.atomic 再恢复后同样复制配置。Fleet.atomic 以 replaceFrom 更新共享 Economy 实例而非替换其引用；Dispatch 提交时一并替换对应的 economy/fleet。当前事务没有修改 resolver 的分支，父 Dispatch 保留的配置与提交 Fleet 一致。"
+    },
+    {
+      "topic": "this 与闭包引用",
+      "locations": ["delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:90", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:105", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:135", "delivery-game/assets/scripts/map-sample/V2GameSession.ts:98", "delivery-game/assets/scripts/map-sample/V2GameSession.ts:114"],
+      "conclusion": "Runtime 注入箭头函数，this 绑定于控制器，不随 Fleet/Dispatch 草稿调用而改变；回调不捕获旧 Fleet 或 Economy。Game.restore 的到达端口通过 result.route 动态读取恢复实例，未因本次 resolver 注入引入旧 route 引用。"
+    },
+    {
+      "topic": "逐笔事件时点及跨午夜归日",
+      "locations": ["delivery-game/assets/scripts/domain/V2FleetSession.ts:84", "delivery-game/assets/scripts/domain/V2FleetSession.ts:86", "delivery-game/assets/scripts/domain/V2FleetSession.ts:87", "delivery-game/assets/scripts/domain/V2FleetSession.ts:89", "delivery-game/assets/scripts/domain/V2FleetSession.ts:90", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:42", "delivery-game/assets/scripts/domain/V2Ledger.ts:36", "delivery-game/assets/scripts/domain/V2Ledger.ts:45"],
+      "conclusion": "上下文 nowMs 与解析入参均取同一个 workAt；推进以 nextDue 截断，完成订单在其到期步使用该上下文。同一时点多单可共享日键，跨本地午夜的不同到期步分别解析。Runtime 沿用本地年月日规则，不以帧末或固定 UTC 日替换；无 resolver 时仍写 null；旧 null entries 未被遍历改写。"
+    },
+    {
+      "topic": "异常回调、失败原子性及上下文恢复",
+      "locations": ["delivery-game/assets/scripts/domain/V2FleetSession.ts:30", "delivery-game/assets/scripts/domain/V2FleetSession.ts:57", "delivery-game/assets/scripts/domain/V2FleetSession.ts:58", "delivery-game/assets/scripts/domain/V2FleetSession.ts:93", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:44", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:52", "delivery-game/assets/scripts/domain/V2EconomySession.ts:101", "delivery-game/assets/scripts/domain/V2Ledger.ts:17", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:114"],
+      "conclusion": "非法 setter 入参先由 Fleet 拒绝，再更新 Dispatch 配置。回调抛错或返回不能通过既有 LedgerContext 校验的值时，异常发生在草稿提交前；Fleet、Dispatch、Runtime 各层不发布该失败草稿。成功推进后恢复原上下文；异常路径丢弃草稿而非要求 finally 写回 live。该保证不包含宿主回调自身对外部对象的副作用。"
+    },
+    {
+      "topic": "首次恢复、各推进入口与只读报价",
+      "locations": ["delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:85", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:90", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:92", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:104", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:105", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:110", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:134", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:135", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:93", "delivery-game/assets/scripts/domain/V2DispatchSession.ts:118"],
+      "conclusion": "open 的存档恢复是纯恢复，首次 tick 前已经注入，因此首次离线 NPC 结算具备日键策略。mutate 每个候选都在同步时钟和 action 前注入；drive 亦经 mutate。报价 draft 在 acceptBatch 前注入，不修改或保存 live。Dispatch 内可推进 Fleet 的 tick/completeDelivery 均进入已重注入的 transact 草稿，未发现本次新增漏注入路径。"
+    },
+    {
+      "topic": "保存、原门禁与本批边界",
+      "locations": ["delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:94", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:96", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:113", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:114", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:117", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:151", "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:196", "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts:24", "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts:65", "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts:87"],
+      "conclusion": "新增注入位于候选侧，仍先校验/成功 commit 再 publish；Store 唯一写者、epoch、expected 与坏档保留路径未被绕开。当前源码保留 30Hz 驱动门禁、continueTrip 的旧阶段同步和前台命令门禁。Game 帧内主角事件精确时点不属于本次已解决项。"
+    }
+  ],
+  "limitations": [
+    "仅静态读取三份完整候选源码及所列四份依赖定义；未以作者报告或 PM PASS 代替独立源码追踪。",
+    "未运行 tests、typecheck、回归、构建、故障注入、游戏页面操作或任何合成/真实快照执行；未读取或写入真实 slot。跨午夜、离线及失败链结论来自静态控制流，不是运行观测。",
+    "三份候选当前均未被 Git 跟踪，针对这些路径的 git diff 和 git ls-files --stage 无条目；没有可用的版本化前态，因此未宣称完成逐行前后差异证明。审查绑定 sourceSHA；不能由本结论替代后续集成核对。",
+    "Game 主角完成补额度的帧内事件时点按任务声明属于既有未实现项；本报告不将其判为本次新回归，也不声称本次已修复。",
+    "passed 仅表示本批静态代码质量通过，不代表测试、构建、部署、实际账单体验、UI 98% 或用户验收；不自行清理反馈，不宣称 E05 全闭。"
+  ]
+}

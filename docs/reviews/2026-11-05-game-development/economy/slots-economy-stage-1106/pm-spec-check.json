@@ -1,0 +1,51 @@
+{
+  "task": "SLOTS-STAGE-PM-SPEC-1106",
+  "gate": "bounded source specification and immutable candidate identity; independent quality required",
+  "passed": true,
+  "primarySourceHashes": {
+    "delivery-game/assets/scripts/domain/V2RiderEconomy.ts": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": "84588c30074d37aeb0ad05ca3fa605e61ac3ba884932ec359fd3b2dddfeef785",
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts": "1f6a3ba97d5c86af8a57745b329dbcc8954648429f5838e7de8560656aaf1389",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "c9c12118d868b15fc85d7778f706ec7f75d858fa600dc928fb26ed89ccfd49f8",
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "7f9da175febc72ce0589c270ca5a4ad5f79791a452217b10e9eb26424d301027",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "50444cd5dd9f6cc7d219b12dbadfdde51505b410a8b547fcd99c56c5f159b6bf",
+    "delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+    "delivery-game/assets/scripts/domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+    "delivery-game/assets/scripts/domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644"
+  },
+  "manifestSHA256": "fc850a1498894f70e77b3ff4e5b010c2b249d8b7a6f60adeaa1fb23e5db11c29",
+  "diffSHA256": "bb741b346e452a91c57e8cf0ff35038adf5af6ad33fab7a82eae716ecebf10d1",
+  "verifiedSourceRequirements": [
+    {
+      "requirement": "明确kg/slots的Load/Capacity及canonical占用、有界请求",
+      "source": "V2LoadRules.ts:1-67"
+    },
+    {
+      "requirement": "当前30级/300车型级行与PM参数JSON逐值一致，费用相邻差分为正及整数格",
+      "source": "V2SlotEconomyConfig.ts文本JSON解码对照；V2EconomyProfiles.ts:31-59"
+    },
+    {
+      "requirement": "实际quote字段及Runtime新只读接口存在，旧同名helper不热换",
+      "source": "V2EconomyProfiles.ts:10-90；V2RuntimeController.ts:161-178"
+    },
+    {
+      "requirement": "新quote完整条款/新计价、旧quote标记与原验证投影、不靠单位改字",
+      "source": "V2EconomySession.ts:133-200,223-289"
+    },
+    {
+      "requirement": "NPC按对象允许命令、旧签约冻结与新多单组单",
+      "source": "V2DispatchSession.ts:72-114；V2EconomySession.ts:248-263；V2FleetSession.ts:82-112"
+    },
+    {
+      "requirement": "Game6/新Route3与旧Trip2/3版本分支、旧组合验证后推广、新批Trip3",
+      "source": "V2GameSession.ts:24-59,143-177；V2RouteSession.ts:69-127"
+    }
+  ],
+  "limits": [
+    "仅静态源/参数算术，不执行App函数或任何真实/合成档。",
+    "不是新旧恢复行为、数值平衡、性能、编译或游戏测试通过。",
+    "UI整链尚待B接入；本门禁不允许单独发布新writer。",
+    "独立质量需完整核验新分支、类型和邻接旧合法路径，不以作者文本保留断言代替审查。"
+  ]
+}

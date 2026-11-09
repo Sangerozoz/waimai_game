@@ -1,0 +1,1813 @@
+{
+  "kind": "current-production-domain-balance-first-round",
+  "startedAt": "2026-11-06T23:32:38.215Z",
+  "command": "\"/Users/sanger/.hermes/node/bin/node\" \"/Users/sanger/Documents/ChatGPT/taptap 2/docs/balance/2026-11-06-balance-round-01/a/run-model.cjs\" \"--representative-only\" \"--loan-10-only\"",
+  "modelSHA256": "9d2f23996e2f5f2a880d08e1db6366efe47a2ad7b17e302ed616384b578ff901",
+  "compilerExit": 0,
+  "profileId": "capacity-slots-economy-2026-11-06-v1",
+  "sourceHashes": {
+    "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+    "delivery-game/assets/scripts/domain/V2SupplyCatalog.ts": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb",
+    "delivery-game/assets/scripts/domain/GameConfig.ts": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e",
+    "delivery-game/assets/scripts/domain/V2TripRules.ts": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97",
+    "delivery-game/assets/scripts/domain/V2EconomyConfig.ts": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976",
+    "delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+    "delivery-game/assets/scripts/domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644",
+    "delivery-game/assets/scripts/domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+    "delivery-game/assets/scripts/domain/V2RiderEconomy.ts": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": "90b331aea0ecfb05cef239b09b08affc97402336273611eedafd96497fa694a8",
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+    "delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+    "delivery-game/assets/scripts/map-sample/CityExtent.ts": "6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194",
+    "delivery-game/assets/scripts/map-sample/DispatchAreas.ts": "c872dfada500e934ff2ce7577a39dd642d072caa4151279563472e9b47327641",
+    "delivery-game/assets/scripts/map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690",
+    "delivery-game/assets/scripts/map-sample/RiderAnchor.ts": "08205207aa146b0d2d2bf5784e20ef8a559f574180a8f00c3756e5087fd16d65",
+    "delivery-game/assets/scripts/map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+    "delivery-game/assets/scripts/map-sample/CountyConfig.ts": "f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f",
+    "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+    "delivery-game/assets/scripts/map-sample/VehicleOwnership.ts": "f63dc3da46b561ad50e3891e60e1dc26fe0c48039e07ed779d8989e484169ed1",
+    "delivery-game/assets/scripts/map-sample/DeliveryClock.ts": "163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef",
+    "delivery-game/assets/scripts/map-sample/TripClock.ts": "13d8b7f5721a410b8fb11c21bc5c5ebd4475d7507d94f35698617f53d7fde4bc",
+    "delivery-game/assets/scripts/map-sample/CountyRules.ts": "6bf9548f2e733c82ef799da0e50a6be17d2abd5d04cca4a0ac73c23f5a63ec13",
+    "delivery-game/assets/scripts/map-sample/ManualHandoff.ts": "2f6c02332fb52fe8e3c75cfaf260149ce93a6d5cf1d4532f9c72145ee3d31a95",
+    "delivery-game/assets/scripts/map-sample/OrderPresentation.ts": "541d11ec650364dfab41132a0dea9242ba6f5dca48113062b43274764ca38d86",
+    "delivery-game/assets/scripts/map-sample/DeliveryLedger.ts": "a02941528a1f7abac34a7b012a5dcdac7f4ac98e15afe60e20bdfd4373e63c73",
+    "delivery-game/assets/scripts/map-sample/OrderBook.ts": "27d0813ff4b942ce843627e270e1a4470670e3833c33601703c0e25b0b0e229b",
+    "delivery-game/assets/scripts/map-sample/CountySnapshot.ts": "325284afe5645a420c62188abb8dcb2840c140b229a0fdb88c61bda6af56d0df",
+    "delivery-game/assets/scripts/map-sample/UrbanCatalog.ts": "5040a6f800273f76345fdc99bba37b307e9df7ef0b058c4666bcdb12e58cc6c1",
+    "delivery-game/assets/scripts/map-sample/PlaceCatalog.ts": "35e937c1092bbef796260e93abd909f136ea09bcee78fa231f805c4061f01399",
+    "delivery-game/assets/scripts/domain/V2ProgressTargets.ts": "8927202367ff61e7160b17312ed4877a84da1ffe7036a487ac0839cde480fd9e",
+    "delivery-game/assets/resources/map-sample/city.json": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+    "docs/balance/2026-11-06-capacity-slots-economy/parameters.json": "1bd6db1c573e3b48ee7bef0b0be20bceeae290cfe2d6d05b0cd72f2e5f99fd91"
+  },
+  "operationProfiles": {
+    "regular": {
+      "lobby": 4,
+      "select": 0.6,
+      "route": 2,
+      "pickup": 1,
+      "continue": 1,
+      "receipt": 2,
+      "investment": 3,
+      "supply": 2
+    },
+    "slow": {
+      "lobby": 12,
+      "select": 2,
+      "route": 6,
+      "pickup": 4,
+      "continue": 4,
+      "receipt": 6,
+      "investment": 9,
+      "supply": 6
+    }
+  },
+  "limitations": [
+    "Deterministic isolated domain simulation, not actual player timing, browser, GPU, or population statistics.",
+    "No ads or SDK outcomes. No balance/asset injection, fake gifts, rich fixture, map unlocking, or save writing.",
+    "Manual waits occur only at stopped/menu states. Game tick remains production behavior; slower input never changes road speed.",
+    "First-fit selection from the finite canonical candidate pool; pop the last offer only on a real safe-route/stamina rejection.",
+    "No map purchases in this 20/60 minute strategy experiment. The 80/20 long progression target is unverified.",
+    "NPC timing is the actual Fleet design clock, not map-routed NPC movement. Hero uses actual Route travel, food risks, weather, stamina and settlements."
+  ],
+  "scenarios": [
+    {
+      "id": "representative-100m",
+      "assumption": "8 POIs on a bidirectional 700m corridor, 100m spacing, road speed 1 metre/game-second; sensitivity fixture only.",
+      "nodes": 8,
+      "roads": 1,
+      "pois": 8,
+      "operatingPOIs": 8,
+      "dispatchBounds": null
+    }
+  ],
+  "runs": [],
+  "candidateRuns": [],
+  "loanSensitivity": [
+    {
+      "id": "production/representative-100m/npc-first-only-car/regular/loan-after-10",
+      "scenario": "representative-100m",
+      "policy": "npc-first-only-car",
+      "operationProfile": "regular",
+      "curve": "production",
+      "horizonMinutes": 20,
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 759.95,
+          "heroOrders": 40,
+          "npcOrders": 9,
+          "heroOrdersPerMinute": 2,
+          "allOrdersPerMinute": 2.45,
+          "heroQuotedGrossCoins": 902.95,
+          "heroReceivedCoins": 902.95,
+          "npcReceivedCoins": 180,
+          "totalReceivedCoins": 1082.95,
+          "operatingNetCoins": 1079.95,
+          "operatingNetCoinsPerMinute": 53.9975,
+          "cashChangeCoins": 659.95,
+          "heroMeanReceivedCoins": 22.57375,
+          "npcMeanReceivedCoins": 20,
+          "npcIncomeShare": 0.16621265986425965,
+          "spentCoins": {
+            "vehicle_purchase": 300,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 3
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 74.34969724000007,
+          "quotaMs": 900000,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 2400000,
+          "quotaClippedMs": 825000,
+          "quotaConsumedMs": 675000,
+          "quotaUtilizationOfAdded": 0.28125,
+          "quotaNoWorkSeconds": 508.52700000000004,
+          "quotaStalledSeconds": 16.473,
+          "quotaPeakMs": 900000,
+          "firstQuotaEmpty": {
+            "seconds": 770.5010279999999,
+            "cashCents": 34000,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1.75,
+          "acceptedOrders": 42,
+          "batchCount": 24,
+          "roadMetres": 7500,
+          "travelSeconds": 170.7988939999969,
+          "manualSeconds": 304.1999999999999,
+          "supplySeconds": 3,
+          "firstCar": {
+            "seconds": 770.5010279999999,
+            "heroOrders": 10,
+            "cashCents": 4000
+          },
+          "firstNPC": {
+            "seconds": 170.50002799999993,
+            "heroOrders": 10,
+            "cashCents": 18000
+          },
+          "threeEquipped": null,
+          "phase": "travelling",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "final": {
+        "atMinutes": 20,
+        "cashCoins": 759.95,
+        "heroOrders": 40,
+        "npcOrders": 9,
+        "heroOrdersPerMinute": 2,
+        "allOrdersPerMinute": 2.45,
+        "heroQuotedGrossCoins": 902.95,
+        "heroReceivedCoins": 902.95,
+        "npcReceivedCoins": 180,
+        "totalReceivedCoins": 1082.95,
+        "operatingNetCoins": 1079.95,
+        "operatingNetCoinsPerMinute": 53.9975,
+        "cashChangeCoins": 659.95,
+        "heroMeanReceivedCoins": 22.57375,
+        "npcMeanReceivedCoins": 20,
+        "npcIncomeShare": 0.16621265986425965,
+        "spentCoins": {
+          "vehicle_purchase": 300,
+          "rider_hire": 120,
+          "vehicle_upgrade": 0,
+          "rider_upgrade": 0,
+          "map_purchase": 0,
+          "supply_purchase": 3
+        },
+        "fleetCount": 1,
+        "equippedNPCs": 0,
+        "vehicles": [
+          {
+            "id": "starter-1",
+            "modelId": "starter",
+            "level": 1,
+            "effects": {
+              "profileId": "capacity-slots-economy-2026-11-06-v1",
+              "capacity": {
+                "version": "slots-v1",
+                "capacitySlots": 2
+              },
+              "capacitySlots": 2,
+              "speedRelativeToStarter": 1,
+              "incomeFactor": 1
+            }
+          },
+          {
+            "id": "v2-vehicle-1",
+            "modelId": 1,
+            "level": 1,
+            "effects": {
+              "profileId": "capacity-slots-economy-2026-11-06-v1",
+              "capacity": {
+                "version": "slots-v1",
+                "capacitySlots": 3
+              },
+              "capacitySlots": 3,
+              "speedRelativeToStarter": 1.1,
+              "incomeFactor": 1.2
+            }
+          }
+        ],
+        "riders": [
+          {
+            "id": "hero",
+            "level": 1,
+            "vehicleId": "v2-vehicle-1"
+          },
+          {
+            "id": "npc-1",
+            "level": 1,
+            "vehicleId": null
+          }
+        ],
+        "stamina": 74.34969724000007,
+        "quotaMs": 900000,
+        "quotaCapacityMs": 900000,
+        "quotaAddedMs": 2400000,
+        "quotaClippedMs": 825000,
+        "quotaConsumedMs": 675000,
+        "quotaUtilizationOfAdded": 0.28125,
+        "quotaNoWorkSeconds": 508.52700000000004,
+        "quotaStalledSeconds": 16.473,
+        "quotaPeakMs": 900000,
+        "firstQuotaEmpty": {
+          "seconds": 770.5010279999999,
+          "cashCents": 34000,
+          "batches": 1
+        },
+        "heroCapacityFillRatio": 1,
+        "meanOrdersPerBatch": 1.75,
+        "acceptedOrders": 42,
+        "batchCount": 24,
+        "roadMetres": 7500,
+        "travelSeconds": 170.7988939999969,
+        "manualSeconds": 304.1999999999999,
+        "supplySeconds": 3,
+        "firstCar": {
+          "seconds": 770.5010279999999,
+          "heroOrders": 10,
+          "cashCents": 4000
+        },
+        "firstNPC": {
+          "seconds": 170.50002799999993,
+          "heroOrders": 10,
+          "cashCents": 18000
+        },
+        "threeEquipped": null,
+        "phase": "travelling",
+        "softLock": false,
+        "stop": null
+      },
+      "batches": [
+        {
+          "batch": 1,
+          "acceptedAt": 5.2,
+          "orders": [
+            {
+              "id": "v2-road-1",
+              "slots": 1,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-3",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 2,
+          "plannedFilledSlots": 2,
+          "actualFilledSlots": 2,
+          "routeMetres": 400,
+          "etaSeconds": 16,
+          "weather": "clear",
+          "staminaEstimate": 4.8,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 27.2
+        },
+        {
+          "batch": 2,
+          "acceptedAt": 33.800005000000006,
+          "orders": [
+            {
+              "id": "v2-road-11",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 2,
+          "plannedFilledSlots": 2,
+          "actualFilledSlots": 2,
+          "routeMetres": 200,
+          "etaSeconds": 8,
+          "weather": "clear",
+          "staminaEstimate": 2.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 45.8
+        },
+        {
+          "batch": 3,
+          "acceptedAt": 52.400008,
+          "orders": [
+            {
+              "id": "v2-road-20",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 2,
+          "plannedFilledSlots": 2,
+          "actualFilledSlots": 2,
+          "routeMetres": 100,
+          "etaSeconds": 5.5,
+          "weather": "clear",
+          "staminaEstimate": 2.2,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 61.9
+        },
+        {
+          "batch": 4,
+          "acceptedAt": 69.100011,
+          "orders": [
+            {
+              "id": "v2-road-29",
+              "slots": 1,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-30",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 2,
+          "plannedFilledSlots": 2,
+          "actualFilledSlots": 2,
+          "routeMetres": 200,
+          "etaSeconds": 11,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 86.1
+        },
+        {
+          "batch": 5,
+          "acceptedAt": 92.70001599999998,
+          "orders": [
+            {
+              "id": "v2-road-39",
+              "slots": 2,
+              "deliveryMetres": 700
+            }
+          ],
+          "capacitySlots": 2,
+          "plannedFilledSlots": 2,
+          "actualFilledSlots": 2,
+          "routeMetres": 700,
+          "etaSeconds": 20.5,
+          "weather": "clear",
+          "staminaEstimate": 3.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 117.2
+        },
+        {
+          "batch": 6,
+          "acceptedAt": 123.80001899999996,
+          "orders": [
+            {
+              "id": "v2-road-48",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 2,
+          "plannedFilledSlots": 2,
+          "actualFilledSlots": 2,
+          "routeMetres": 100,
+          "etaSeconds": 5.5,
+          "weather": "clear",
+          "staminaEstimate": 2.2,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 133.3
+        },
+        {
+          "batch": 7,
+          "acceptedAt": 139.90002199999995,
+          "orders": [
+            {
+              "id": "v2-road-57",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 2,
+          "plannedFilledSlots": 2,
+          "actualFilledSlots": 2,
+          "routeMetres": 100,
+          "etaSeconds": 5.5,
+          "weather": "clear",
+          "staminaEstimate": 2.2,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 149.4
+        },
+        {
+          "batch": 8,
+          "acceptedAt": 156.00002499999994,
+          "orders": [
+            {
+              "id": "v2-road-66",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 2,
+          "plannedFilledSlots": 2,
+          "actualFilledSlots": 2,
+          "routeMetres": 100,
+          "etaSeconds": 5.5,
+          "weather": "clear",
+          "staminaEstimate": 2.2,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 165.5
+        },
+        {
+          "batch": 9,
+          "acceptedAt": 777.701028,
+          "orders": [
+            {
+              "id": "v2-road-75",
+              "slots": 2,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-76",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 794.246
+        },
+        {
+          "batch": 10,
+          "acceptedAt": 801.4464875454545,
+          "orders": [
+            {
+              "id": "v2-road-85",
+              "slots": 1,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-86",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 817.991
+        },
+        {
+          "batch": 11,
+          "acceptedAt": 825.191947090909,
+          "orders": [
+            {
+              "id": "v2-road-95",
+              "slots": 2,
+              "deliveryMetres": 700
+            },
+            {
+              "id": "v2-road-96",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 800,
+          "etaSeconds": 24.18181818181818,
+          "weather": "clear",
+          "staminaEstimate": 5.6,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 855.373
+        },
+        {
+          "batch": 12,
+          "acceptedAt": 862.5737702727272,
+          "orders": [
+            {
+              "id": "v2-road-105",
+              "slots": 2,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-106",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 879.119
+        },
+        {
+          "batch": 13,
+          "acceptedAt": 886.3192298181817,
+          "orders": [
+            {
+              "id": "v2-road-115",
+              "slots": 1,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-116",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 902.864
+        },
+        {
+          "batch": 14,
+          "acceptedAt": 910.0646893636363,
+          "orders": [
+            {
+              "id": "v2-road-125",
+              "slots": 2,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-126",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 926.61
+        },
+        {
+          "batch": 15,
+          "acceptedAt": 933.8101489090908,
+          "orders": [
+            {
+              "id": "v2-road-135",
+              "slots": 1,
+              "deliveryMetres": 700
+            },
+            {
+              "id": "v2-road-136",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 800,
+          "etaSeconds": 24.18181818181818,
+          "weather": "clear",
+          "staminaEstimate": 5.6,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 963.991
+        },
+        {
+          "batch": 16,
+          "acceptedAt": 971.191972090909,
+          "orders": [
+            {
+              "id": "v2-road-145",
+              "slots": 2,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-146",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 987.737
+        },
+        {
+          "batch": 17,
+          "acceptedAt": 994.9374316363635,
+          "orders": [
+            {
+              "id": "v2-road-155",
+              "slots": 1,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-156",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 1011.482
+        },
+        {
+          "batch": 18,
+          "acceptedAt": 1018.682891181818,
+          "orders": [
+            {
+              "id": "v2-road-165",
+              "slots": 2,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-166",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 1035.228
+        },
+        {
+          "batch": 19,
+          "acceptedAt": 1047.428350727273,
+          "orders": [
+            {
+              "id": "v2-road-175",
+              "slots": 1,
+              "deliveryMetres": 700
+            },
+            {
+              "id": "v2-road-176",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 800,
+          "etaSeconds": 24.18181818181818,
+          "weather": "clear",
+          "staminaEstimate": 5.6,
+          "rejections": [],
+          "supplyCostCents": 300,
+          "completed": true,
+          "endedAt": 1077.61
+        },
+        {
+          "batch": 20,
+          "acceptedAt": 1084.8101739090916,
+          "orders": [
+            {
+              "id": "v2-road-185",
+              "slots": 2,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-186",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 1101.355
+        },
+        {
+          "batch": 21,
+          "acceptedAt": 1108.5556334545468,
+          "orders": [
+            {
+              "id": "v2-road-195",
+              "slots": 1,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-196",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 1125.101
+        },
+        {
+          "batch": 22,
+          "acceptedAt": 1132.3010930000019,
+          "orders": [
+            {
+              "id": "v2-road-205",
+              "slots": 1,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-206",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 1148.846
+        },
+        {
+          "batch": 23,
+          "acceptedAt": 1156.046552545457,
+          "orders": [
+            {
+              "id": "v2-road-215",
+              "slots": 2,
+              "deliveryMetres": 700
+            },
+            {
+              "id": "v2-road-216",
+              "slots": 1,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 800,
+          "etaSeconds": 24.18181818181818,
+          "weather": "clear",
+          "staminaEstimate": 5.6,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": true,
+          "endedAt": 1186.228
+        },
+        {
+          "batch": 24,
+          "acceptedAt": 1193.4283757272756,
+          "orders": [
+            {
+              "id": "v2-road-225",
+              "slots": 1,
+              "deliveryMetres": 100
+            },
+            {
+              "id": "v2-road-226",
+              "slots": 2,
+              "deliveryMetres": 100
+            }
+          ],
+          "capacitySlots": 3,
+          "plannedFilledSlots": 3,
+          "actualFilledSlots": 3,
+          "routeMetres": 200,
+          "etaSeconds": 10.545454545454545,
+          "weather": "clear",
+          "staminaEstimate": 4.4,
+          "rejections": [],
+          "supplyCostCents": 0,
+          "completed": false,
+          "endedAt": 1200
+        }
+      ],
+      "receipts": [
+        {
+          "orderId": "v2-road-1",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 1,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 17200,
+          "vehicleId": "starter-1",
+          "atSeconds": 17.2,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 5.2,
+          "acceptanceToCompletionSeconds": 12,
+          "batch": 1
+        },
+        {
+          "orderId": "v2-road-3",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 1,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 27200,
+          "vehicleId": "starter-1",
+          "atSeconds": 27.2,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 5.2,
+          "acceptanceToCompletionSeconds": 22,
+          "batch": 1
+        },
+        {
+          "orderId": "v2-road-11",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 2,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 45800,
+          "vehicleId": "starter-1",
+          "atSeconds": 45.8,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 33.800005000000006,
+          "acceptanceToCompletionSeconds": 11.999994999999991,
+          "batch": 2
+        },
+        {
+          "orderId": "v2-road-20",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 2,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 61900,
+          "vehicleId": "starter-1",
+          "atSeconds": 61.9,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 52.400008,
+          "acceptanceToCompletionSeconds": 9.499991999999999,
+          "batch": 3
+        },
+        {
+          "orderId": "v2-road-29",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 1,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 78600,
+          "vehicleId": "starter-1",
+          "atSeconds": 78.6,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 69.100011,
+          "acceptanceToCompletionSeconds": 9.499989,
+          "batch": 4
+        },
+        {
+          "orderId": "v2-road-30",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 1,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 86100,
+          "vehicleId": "starter-1",
+          "atSeconds": 86.1,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 69.100011,
+          "acceptanceToCompletionSeconds": 16.999989,
+          "batch": 4
+        },
+        {
+          "orderId": "v2-road-39",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 2,
+          "capacitySlots": 2,
+          "deliveryMetres": 700,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 117200,
+          "vehicleId": "starter-1",
+          "atSeconds": 117.2,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 92.70001599999998,
+          "acceptanceToCompletionSeconds": 24.499984000000026,
+          "batch": 5
+        },
+        {
+          "orderId": "v2-road-48",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 2,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 133300,
+          "vehicleId": "starter-1",
+          "atSeconds": 133.3,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 123.80001899999996,
+          "acceptanceToCompletionSeconds": 9.499981000000048,
+          "batch": 6
+        },
+        {
+          "orderId": "v2-road-57",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 2,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 149400,
+          "vehicleId": "starter-1",
+          "atSeconds": 149.4,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 139.90002199999995,
+          "acceptanceToCompletionSeconds": 9.499978000000056,
+          "batch": 7
+        },
+        {
+          "orderId": "v2-road-66",
+          "actor": "hero",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "occupiedSlots": 2,
+          "capacitySlots": 2,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 165500,
+          "vehicleId": "starter-1",
+          "atSeconds": 165.5,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2000,
+          "acceptedAtSeconds": 156.00002499999994,
+          "acceptanceToCompletionSeconds": 9.499975000000063,
+          "batch": 8
+        },
+        {
+          "orderId": "fleet-1-0",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 275500,
+          "atSeconds": 275.5
+        },
+        {
+          "orderId": "fleet-1-2",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 305500,
+          "atSeconds": 305.5
+        },
+        {
+          "orderId": "fleet-2-0",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 395500,
+          "atSeconds": 395.5
+        },
+        {
+          "orderId": "fleet-3-0",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 500500,
+          "atSeconds": 500.5
+        },
+        {
+          "orderId": "fleet-3-2",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 530500,
+          "atSeconds": 530.5
+        },
+        {
+          "orderId": "fleet-4-0",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 620500,
+          "atSeconds": 620.5
+        },
+        {
+          "orderId": "fleet-5-0",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 725500,
+          "atSeconds": 725.5
+        },
+        {
+          "orderId": "fleet-5-2",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 755500,
+          "atSeconds": 755.5
+        },
+        {
+          "orderId": "v2-road-75",
+          "actor": "hero",
+          "incomeCents": 2400,
+          "quotedCents": 2400,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 786973,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 786.973,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2400,
+          "acceptedAtSeconds": 777.701028,
+          "acceptanceToCompletionSeconds": 9.271972000000005,
+          "batch": 9
+        },
+        {
+          "orderId": "v2-road-76",
+          "actor": "hero",
+          "incomeCents": 2400,
+          "quotedCents": 2400,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 794246,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 794.246,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2400,
+          "acceptedAtSeconds": 777.701028,
+          "acceptanceToCompletionSeconds": 16.54497200000003,
+          "batch": 9
+        },
+        {
+          "orderId": "v2-road-85",
+          "actor": "hero",
+          "incomeCents": 2400,
+          "quotedCents": 2400,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 810719,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 810.719,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2400,
+          "acceptedAtSeconds": 801.4464875454545,
+          "acceptanceToCompletionSeconds": 9.272512454545563,
+          "batch": 10
+        },
+        {
+          "orderId": "v2-road-86",
+          "actor": "hero",
+          "incomeCents": 2400,
+          "quotedCents": 2400,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 817991,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 817.991,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2400,
+          "acceptedAtSeconds": 801.4464875454545,
+          "acceptanceToCompletionSeconds": 16.544512454545497,
+          "batch": 10
+        },
+        {
+          "orderId": "v2-road-95",
+          "actor": "hero",
+          "incomeCents": 2400,
+          "quotedCents": 2400,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 700,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 848101,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 848.101,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2400,
+          "acceptedAtSeconds": 825.191947090909,
+          "acceptanceToCompletionSeconds": 22.909052909090974,
+          "batch": 11
+        },
+        {
+          "orderId": "v2-road-96",
+          "actor": "hero",
+          "incomeCents": 2400,
+          "quotedCents": 2400,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 855373,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 855.373,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2400,
+          "acceptedAtSeconds": 825.191947090909,
+          "acceptanceToCompletionSeconds": 30.181052909091022,
+          "batch": 11
+        },
+        {
+          "orderId": "fleet-6-0",
+          "actor": "npc-1",
+          "incomeCents": 2000,
+          "quotedCents": 2000,
+          "vehicleId": "starter-1",
+          "ledgerAtMs": 861973,
+          "atSeconds": 861.973
+        },
+        {
+          "orderId": "v2-road-105",
+          "actor": "hero",
+          "incomeCents": 2250,
+          "quotedCents": 2250,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 871846,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 871.846,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2250,
+          "acceptedAtSeconds": 862.5737702727272,
+          "acceptanceToCompletionSeconds": 9.272229727272816,
+          "batch": 12
+        },
+        {
+          "orderId": "v2-road-106",
+          "actor": "hero",
+          "incomeCents": 2250,
+          "quotedCents": 2250,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 879119,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 879.119,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2250,
+          "acceptedAtSeconds": 862.5737702727272,
+          "acceptanceToCompletionSeconds": 16.54522972727284,
+          "batch": 12
+        },
+        {
+          "orderId": "v2-road-115",
+          "actor": "hero",
+          "incomeCents": 2250,
+          "quotedCents": 2250,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 895591,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 895.591,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2250,
+          "acceptedAtSeconds": 886.3192298181817,
+          "acceptanceToCompletionSeconds": 9.271770181818283,
+          "batch": 13
+        },
+        {
+          "orderId": "v2-road-116",
+          "actor": "hero",
+          "incomeCents": 2250,
+          "quotedCents": 2250,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 902864,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 902.864,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2250,
+          "acceptedAtSeconds": 886.3192298181817,
+          "acceptanceToCompletionSeconds": 16.544770181818308,
+          "batch": 13
+        },
+        {
+          "orderId": "v2-road-125",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 919337,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 919.337,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 910.0646893636363,
+          "acceptanceToCompletionSeconds": 9.272310636363727,
+          "batch": 14
+        },
+        {
+          "orderId": "v2-road-126",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 926610,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 926.61,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 910.0646893636363,
+          "acceptanceToCompletionSeconds": 16.54531063636375,
+          "batch": 14
+        },
+        {
+          "orderId": "v2-road-135",
+          "actor": "hero",
+          "incomeCents": 2468,
+          "quotedCents": 2468,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 700,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 956719,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 956.719,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2468,
+          "acceptedAtSeconds": 933.8101489090908,
+          "acceptanceToCompletionSeconds": 22.908851090909252,
+          "batch": 15
+        },
+        {
+          "orderId": "v2-road-136",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 963991,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 963.991,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 933.8101489090908,
+          "acceptanceToCompletionSeconds": 30.180851090909186,
+          "batch": 15
+        },
+        {
+          "orderId": "v2-road-145",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 980464,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 980.464,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 971.191972090909,
+          "acceptanceToCompletionSeconds": 9.272027909091094,
+          "batch": 16
+        },
+        {
+          "orderId": "v2-road-146",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 987737,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 987.737,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 971.191972090909,
+          "acceptanceToCompletionSeconds": 16.545027909091004,
+          "batch": 16
+        },
+        {
+          "orderId": "v2-road-155",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1004210,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1004.21,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 994.9374316363635,
+          "acceptanceToCompletionSeconds": 9.272568363636537,
+          "batch": 17
+        },
+        {
+          "orderId": "v2-road-156",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1011482,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1011.482,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 994.9374316363635,
+          "acceptanceToCompletionSeconds": 16.544568363636472,
+          "batch": 17
+        },
+        {
+          "orderId": "v2-road-165",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1027955,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1027.955,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 1018.682891181818,
+          "acceptanceToCompletionSeconds": 9.272108818181891,
+          "batch": 18
+        },
+        {
+          "orderId": "v2-road-166",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1035228,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1035.228,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 1018.682891181818,
+          "acceptanceToCompletionSeconds": 16.54510881818203,
+          "batch": 18
+        },
+        {
+          "orderId": "v2-road-175",
+          "actor": "hero",
+          "incomeCents": 2468,
+          "quotedCents": 2468,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 700,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1070337,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1070.337,
+          "allocatedSupplyCents": 150,
+          "operatingNetCents": 2318,
+          "acceptedAtSeconds": 1047.428350727273,
+          "acceptanceToCompletionSeconds": 22.90864927272696,
+          "batch": 19
+        },
+        {
+          "orderId": "v2-road-176",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1077610,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1077.61,
+          "allocatedSupplyCents": 150,
+          "operatingNetCents": 2165,
+          "acceptedAtSeconds": 1047.428350727273,
+          "acceptanceToCompletionSeconds": 30.181649272726872,
+          "batch": 19
+        },
+        {
+          "orderId": "v2-road-185",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1094082,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1094.082,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 1084.8101739090916,
+          "acceptanceToCompletionSeconds": 9.271826090908462,
+          "batch": 20
+        },
+        {
+          "orderId": "v2-road-186",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1101355,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1101.355,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 1084.8101739090916,
+          "acceptanceToCompletionSeconds": 16.544826090908373,
+          "batch": 20
+        },
+        {
+          "orderId": "v2-road-195",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1117828,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1117.828,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 1108.5556334545468,
+          "acceptanceToCompletionSeconds": 9.272366545453224,
+          "batch": 21
+        },
+        {
+          "orderId": "v2-road-196",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1125101,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1125.101,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 1108.5556334545468,
+          "acceptanceToCompletionSeconds": 16.545366545453362,
+          "batch": 21
+        },
+        {
+          "orderId": "v2-road-205",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1141573,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1141.573,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 1132.3010930000019,
+          "acceptanceToCompletionSeconds": 9.271906999998237,
+          "batch": 22
+        },
+        {
+          "orderId": "v2-road-206",
+          "actor": "hero",
+          "incomeCents": 2315,
+          "quotedCents": 2315,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1148846,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1148.846,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2315,
+          "acceptedAtSeconds": 1132.3010930000019,
+          "acceptanceToCompletionSeconds": 16.544906999998148,
+          "batch": 22
+        },
+        {
+          "orderId": "v2-road-215",
+          "actor": "hero",
+          "incomeCents": 2538,
+          "quotedCents": 2538,
+          "occupiedSlots": 2,
+          "capacitySlots": 3,
+          "deliveryMetres": 700,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1178955,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1178.955,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2538,
+          "acceptedAtSeconds": 1156.046552545457,
+          "acceptanceToCompletionSeconds": 22.908447454542966,
+          "batch": 23
+        },
+        {
+          "orderId": "v2-road-216",
+          "actor": "hero",
+          "incomeCents": 2381,
+          "quotedCents": 2381,
+          "occupiedSlots": 1,
+          "capacitySlots": 3,
+          "deliveryMetres": 100,
+          "damage": "none",
+          "lateGameSeconds": 0,
+          "ledgerAtMs": 1186228,
+          "vehicleId": "v2-vehicle-1",
+          "atSeconds": 1186.228,
+          "allocatedSupplyCents": 0,
+          "operatingNetCents": 2381,
+          "acceptedAtSeconds": 1156.046552545457,
+          "acceptanceToCompletionSeconds": 30.181447454543104,
+          "batch": 23
+        }
+      ],
+      "recoveries": [
+        {
+          "kind": "earned-replacement",
+          "seconds": 770.5010279999999
+        }
+      ],
+      "first15Budget": {
+        "car": {
+          "seconds": 770.5010279999999,
+          "heroOrders": 10,
+          "cashCents": 4000
+        },
+        "npc": {
+          "seconds": 170.50002799999993,
+          "heroOrders": 10,
+          "cashCents": 18000
+        },
+        "first15IncomeCoins": 320,
+        "first15QuotesCoins": 320
+      },
+      "supplyAllocation": {
+        "method": "equal integer-cent shares across signed batch orders; supplies since previous batch end charged to following batch",
+        "allocatedCents": 300,
+        "unallocatedCents": 0
+      },
+      "eventCount": 132,
+      "restoreValidated": true
+    }
+  ],
+  "distanceSensitivity": [],
+  "finishedAt": "2026-11-06T23:32:39.642Z",
+  "sourceDrift": [],
+  "scratchRemoved": true
+}

@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: empty continue creates no primary bytes until explicit successful commit
+ok 1 - empty continue creates no primary bytes until explicit successful commit
+  ---
+  duration_ms: 0.502167
+  type: 'test'
+  ...
+# Subtest: valid existing nonzero primary is restored exactly without fresh replacement
+ok 2 - valid existing nonzero primary is restored exactly without fresh replacement
+  ---
+  duration_ms: 0.271208
+  type: 'test'
+  ...
+# Subtest: explicit new refuses an existing primary rather than overwriting it
+ok 3 - explicit new refuses an existing primary rather than overwriting it
+  ---
+  duration_ms: 0.198875
+  type: 'test'
+  ...
+# Subtest: restore without a primary refuses without inventing a progress snapshot
+ok 4 - restore without a primary refuses without inventing a progress snapshot
+  ---
+  duration_ms: 0.055708
+  type: 'test'
+  ...
+# Subtest: malformed or future primary retains exact bytes and never falls back to fresh
+ok 5 - malformed or future primary retains exact bytes and never falls back to fresh
+  ---
+  duration_ms: 0.087458
+  type: 'test'
+  ...
+# Subtest: lost writer stops publication and never changes the primary
+ok 6 - lost writer stops publication and never changes the primary
+  ---
+  duration_ms: 0.091
+  type: 'test'
+  ...
+# Subtest: changed epoch invalidates an older instance without touching replacement progress
+ok 7 - changed epoch invalidates an older instance without touching replacement progress
+  ---
+  duration_ms: 0.053458
+  type: 'test'
+  ...
+# Subtest: primary byte conflict rejects stale commit even when epoch is unchanged
+ok 8 - primary byte conflict rejects stale commit even when epoch is unchanged
+  ---
+  duration_ms: 0.080084
+  type: 'test'
+  ...
+# Subtest: failed primary write freezes further commits and keeps previous bytes
+ok 9 - failed primary write freezes further commits and keeps previous bytes
+  ---
+  duration_ms: 0.206917
+  type: 'test'
+  ...
+# Subtest: close during pending acquisition releases a late grant without initializing storage
+ok 10 - close during pending acquisition releases a late grant without initializing storage
+  ---
+  duration_ms: 0.235375
+  type: 'test'
+  ...
+# Subtest: prepare deletes only the explicit legacy keys and preserves current/unrelated storage
+ok 11 - prepare deletes only the explicit legacy keys and preserves current/unrelated storage
+  ---
+  duration_ms: 0.10775
+  type: 'test'
+  ...
+# Subtest: legacy cleanup failure releases its lease and does not create a replacement primary
+ok 12 - legacy cleanup failure releases its lease and does not create a replacement primary
+  ---
+  duration_ms: 0.052458
+  type: 'test'
+  ...
+# Subtest: denied acquisition cannot read or write a primary through open
+ok 13 - denied acquisition cannot read or write a primary through open
+  ---
+  duration_ms: 0.042875
+  type: 'test'
+  ...
+# Subtest: transient read failure is propagated without replacement progress or a fresh call
+ok 14 - transient read failure is propagated without replacement progress or a fresh call
+  ---
+  duration_ms: 0.4175
+  type: 'test'
+  ...
+# Subtest: closed storage refuses later preparation and commit
+ok 15 - closed storage refuses later preparation and commit
+  ---
+  duration_ms: 0.091083
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 133.49125

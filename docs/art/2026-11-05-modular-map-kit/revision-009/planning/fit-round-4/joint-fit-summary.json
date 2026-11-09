@@ -1,0 +1,680 @@
+{
+  "stages": {
+    "priorRound3Initial": {
+      "newSourcesScreened": 200,
+      "oldOptionRechecks": 8,
+      "remainingUntestedAtThatTime": 379,
+      "scope": "historical stage only"
+    },
+    "priorRound3Final": {
+      "newSourcesProcessed": 579,
+      "oldOptionRechecks": 8,
+      "acceptedFitOptionsUniqueSources": 187,
+      "boundedFailureSources": 363,
+      "compositeContextOnlySources": 37,
+      "remainingNeverProcessed": 0
+    },
+    "currentRound4": {
+      "previousUnassignedOptionSources": 167,
+      "specialTypeSourcesActuallyRetried": 100,
+      "specialTypeAssetScaleAttemptTotals": {
+        "B03@0.9": 378,
+        "B03@1": 320,
+        "B03@1.1": 317,
+        "B04@0.9": 415,
+        "B04@1": 350,
+        "B04@1.1": 350,
+        "B07@0.9": 265,
+        "B07@1": 209,
+        "B07@1.1": 170,
+        "B08@0.9": 439,
+        "B08@1": 390,
+        "B08@1.1": 390
+      },
+      "specialTypeApproachAttemptTotals": {
+        "B03:direct": 1246,
+        "B03:side-L": 1208,
+        "B04:direct": 988,
+        "B04:side-L": 958,
+        "B07:direct": 401,
+        "B07:side-L": 382,
+        "B08:direct": 921,
+        "B08:side-L": 899
+      },
+      "specialTypeRejectionsByRuleAttemptTotals": {
+        "B03:own-door-body": 603,
+        "B03:approach-external-geometry": 1813,
+        "B04:own-door-body": 480,
+        "B04:approach-external-geometry": 1436,
+        "B07:U-occupied-vs-court": 217,
+        "B07:approach-external-geometry": 547,
+        "B08:own-door-body": 485,
+        "B08:approach-external-geometry": 1313,
+        "B03:otherSourceMetres": 479,
+        "B04:otherSourceMetres": 623,
+        "B07:carrier-programme-too-small": 47,
+        "B08:otherSourceMetres": 726,
+        "B07:otherSourceMetres": 378,
+        "B07:visible94AndPriorBatchesMetres": 18,
+        "B08:visible94AndPriorBatchesMetres": 6,
+        "B03:roadEdgeMetres": 101,
+        "B04:roadEdgeMetres": 202,
+        "B07:roadEdgeMetres": 157,
+        "B07:waterSafetyMetres": 11,
+        "B08:roadEdgeMetres": 272,
+        "B08:waterSafetyMetres": 9,
+        "B04:waterSafetyMetres": 5,
+        "B04:visible94AndPriorBatchesMetres": 3,
+        "B03:waterSafetyMetres": 1
+      },
+      "specialTypePassOptionCounts": {
+        "B03": 38,
+        "B04": 30,
+        "B08": 22,
+        "B07": 19
+      },
+      "assignedSourceCount": 40,
+      "sceneCount": 40,
+      "moduleCount": 40,
+      "groundCount": 197,
+      "batchVisualTypes": {
+        "B04": 2,
+        "B07": 3,
+        "B03": 2,
+        "B08": 2,
+        "B01": 9,
+        "B06": 9,
+        "B05": 8,
+        "B02": 5
+      },
+      "staticAssignedNotRendered": true,
+      "sourceUnique": true,
+      "specialSourcesByPriorEvidence": {
+        "inOldFixedScaleScreening": 95,
+        "inRound3ContextOnly37": 5,
+        "theseSetsMayOverlap": true
+      }
+    }
+  },
+  "frozenPreviousSourceAssignments": 29,
+  "newAssignments": 40,
+  "blueTotal": 1008,
+  "rawSourceTotal": 3524,
+  "cumulativeStaticAssigned": 69,
+  "stillNotAssigned": 939,
+  "frozenCurrentBatchSHA256": "51c783395231d246898f715141f74c31cc153ac795f7d7de1b602c69a0fe16d5",
+  "prior69VsCurrent94": "current protection is frozen visible94 only; priorround3 visible69 remains historical evidence; no in-flight viewer read",
+  "actualCurrentRender": {
+    "baselineVisible": 94,
+    "baselineGround": 260,
+    "thisBatchVisible": 0,
+    "userAcceptedThisBatch": false
+  },
+  "specialTypeSourceEvidenceFile": "special-type-progress.json",
+  "jointEvidenceFile": "joint-clearance-evidence.json",
+  "programmeGate": "B03 denseUrban mixed only; B04/B08 mixed/park; B07 residential/mixed; unknown source>1200sqm programme deferred",
+  "sourceMappings": [
+    {
+      "sourceIndices": [
+        694
+      ],
+      "sceneId": "009r4-src-0694",
+      "moduleIds": [
+        "009r4-src-0694"
+      ],
+      "programme": "neighbourhood public forecourt",
+      "nativeOccupiedArea": 63.77560446418647,
+      "sourceAreaSum": 124.71749999998428,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        114
+      ],
+      "sceneId": "009r4-src-0114",
+      "moduleIds": [
+        "009r4-src-0114"
+      ],
+      "programme": "U-shaped residential court",
+      "nativeOccupiedArea": 124.38089182062322,
+      "sourceAreaSum": 200.41890000000421,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        131
+      ],
+      "sceneId": "009r4-src-0131",
+      "moduleIds": [
+        "009r4-src-0131"
+      ],
+      "programme": "vertical mixed office frontage",
+      "nativeOccupiedArea": 30.798669163603336,
+      "sourceAreaSum": 120.33545000001322,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        587
+      ],
+      "sceneId": "009r4-src-0587",
+      "moduleIds": [
+        "009r4-src-0587"
+      ],
+      "programme": "covered market forecourt",
+      "nativeOccupiedArea": 74.4571196695033,
+      "sourceAreaSum": 143.81850000002305,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        212
+      ],
+      "sceneId": "009r4-src-0212",
+      "moduleIds": [
+        "009r4-src-0212"
+      ],
+      "programme": "U-shaped residential court",
+      "nativeOccupiedArea": 124.38089182064869,
+      "sourceAreaSum": 914.767050000024,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        73
+      ],
+      "sceneId": "009r4-src-0073",
+      "moduleIds": [
+        "009r4-src-0073"
+      ],
+      "programme": "neighbourhood public forecourt",
+      "nativeOccupiedArea": 63.77560446417192,
+      "sourceAreaSum": 345.38375000000815,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        186
+      ],
+      "sceneId": "009r4-src-0186",
+      "moduleIds": [
+        "009r4-src-0186"
+      ],
+      "programme": "covered market forecourt",
+      "nativeOccupiedArea": 74.4571196695033,
+      "sourceAreaSum": 389.3510000000533,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1515
+      ],
+      "sceneId": "009r4-src-1515",
+      "moduleIds": [
+        "009r4-src-1515"
+      ],
+      "programme": "vertical mixed office frontage",
+      "nativeOccupiedArea": 30.798669163603336,
+      "sourceAreaSum": 727.8609999999462,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        176
+      ],
+      "sceneId": "009r4-src-0176",
+      "moduleIds": [
+        "009r4-src-0176"
+      ],
+      "programme": "U-shaped residential court",
+      "nativeOccupiedArea": 124.38089182059048,
+      "sourceAreaSum": 185.75769999995828,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1411
+      ],
+      "sceneId": "009r4-src-1411",
+      "moduleIds": [
+        "009r4-src-1411"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.438180976023432,
+      "sourceAreaSum": 108.12760000000708,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1739
+      ],
+      "sceneId": "009r4-src-1739",
+      "moduleIds": [
+        "009r4-src-1739"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.39417404663982,
+      "sourceAreaSum": 164.89145000005374,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1737
+      ],
+      "sceneId": "009r4-src-1737",
+      "moduleIds": [
+        "009r4-src-1737"
+      ],
+      "programme": "compact residential garden",
+      "nativeOccupiedArea": 19.6419523426448,
+      "sourceAreaSum": 33.29920000000857,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        391
+      ],
+      "sceneId": "009r4-src-0391",
+      "moduleIds": [
+        "009r4-src-0391"
+      ],
+      "programme": "office/service forecourt",
+      "nativeOccupiedArea": 47.917341527987446,
+      "sourceAreaSum": 197.21184999998513,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        464
+      ],
+      "sceneId": "009r4-src-0464",
+      "moduleIds": [
+        "009r4-src-0464"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.43818097608164,
+      "sourceAreaSum": 149.5621000000392,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1735
+      ],
+      "sceneId": "009r4-src-1735",
+      "moduleIds": [
+        "009r4-src-1735"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.394174046698026,
+      "sourceAreaSum": 103.88629999995464,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        571
+      ],
+      "sceneId": "009r4-src-0571",
+      "moduleIds": [
+        "009r4-src-0571"
+      ],
+      "programme": "compact residential garden",
+      "nativeOccupiedArea": 19.641952342542936,
+      "sourceAreaSum": 110.62670000000799,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1497
+      ],
+      "sceneId": "009r4-src-1497",
+      "moduleIds": [
+        "009r4-src-1497"
+      ],
+      "programme": "office/service forecourt",
+      "nativeOccupiedArea": 47.917341527936514,
+      "sourceAreaSum": 73.59094999998342,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1412
+      ],
+      "sceneId": "009r4-src-1412",
+      "moduleIds": [
+        "009r4-src-1412"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.438180976198055,
+      "sourceAreaSum": 144.3059999999241,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1736
+      ],
+      "sceneId": "009r4-src-1736",
+      "moduleIds": [
+        "009r4-src-1736"
+      ],
+      "programme": "compact residential garden",
+      "nativeOccupiedArea": 19.641952342586592,
+      "sourceAreaSum": 47.51990000001388,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1513
+      ],
+      "sceneId": "009r4-src-1513",
+      "moduleIds": [
+        "009r4-src-1513"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.39417404663982,
+      "sourceAreaSum": 87.96549999999115,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        2377
+      ],
+      "sceneId": "009r4-src-2377",
+      "moduleIds": [
+        "009r4-src-2377"
+      ],
+      "programme": "office/service forecourt",
+      "nativeOccupiedArea": 47.91734152798017,
+      "sourceAreaSum": 161.70769999998447,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        2238
+      ],
+      "sceneId": "009r4-src-2238",
+      "moduleIds": [
+        "009r4-src-2238"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.43818097608164,
+      "sourceAreaSum": 103.40939999994589,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        519
+      ],
+      "sceneId": "009r4-src-0519",
+      "moduleIds": [
+        "009r4-src-0519"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.394174046698026,
+      "sourceAreaSum": 115.8734500000719,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        596
+      ],
+      "sceneId": "009r4-src-0596",
+      "moduleIds": [
+        "009r4-src-0596"
+      ],
+      "programme": "compact residential garden",
+      "nativeOccupiedArea": 19.641952342542936,
+      "sourceAreaSum": 82.88770000000659,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1511
+      ],
+      "sceneId": "009r4-src-1511",
+      "moduleIds": [
+        "009r4-src-1511"
+      ],
+      "programme": "office/service forecourt",
+      "nativeOccupiedArea": 47.917341527936514,
+      "sourceAreaSum": 183.35759999998845,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        518
+      ],
+      "sceneId": "009r4-src-0518",
+      "moduleIds": [
+        "009r4-src-0518"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.438180976139847,
+      "sourceAreaSum": 69.68614999996498,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        417
+      ],
+      "sceneId": "009r4-src-0417",
+      "moduleIds": [
+        "009r4-src-0417"
+      ],
+      "programme": "compact residential garden",
+      "nativeOccupiedArea": 19.641952342528384,
+      "sourceAreaSum": 55.71160000003874,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        2239
+      ],
+      "sceneId": "009r4-src-2239",
+      "moduleIds": [
+        "009r4-src-2239"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.39417404658161,
+      "sourceAreaSum": 55.37850000002072,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1355
+      ],
+      "sceneId": "009r4-src-1355",
+      "moduleIds": [
+        "009r4-src-1355"
+      ],
+      "programme": "office/service forecourt",
+      "nativeOccupiedArea": 47.91734152805293,
+      "sourceAreaSum": 284.52329999994254,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1399
+      ],
+      "sceneId": "009r4-src-1399",
+      "moduleIds": [
+        "009r4-src-1399"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.43818097608164,
+      "sourceAreaSum": 296.48649999999907,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        458
+      ],
+      "sceneId": "009r4-src-0458",
+      "moduleIds": [
+        "009r4-src-0458"
+      ],
+      "programme": "compact residential garden",
+      "nativeOccupiedArea": 29.341681894438807,
+      "sourceAreaSum": 115.34289999998873,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        113
+      ],
+      "sceneId": "009r4-src-0113",
+      "moduleIds": [
+        "009r4-src-0113"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.394174046698026,
+      "sourceAreaSum": 61.57050000000163,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        389
+      ],
+      "sceneId": "009r4-src-0389",
+      "moduleIds": [
+        "009r4-src-0389"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.43818097609619,
+      "sourceAreaSum": 202.49629999998433,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        443
+      ],
+      "sceneId": "009r4-src-0443",
+      "moduleIds": [
+        "009r4-src-0443"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.394174046698026,
+      "sourceAreaSum": 189.1338500000129,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        572
+      ],
+      "sceneId": "009r4-src-0572",
+      "moduleIds": [
+        "009r4-src-0572"
+      ],
+      "programme": "compact residential garden",
+      "nativeOccupiedArea": 19.641952342557488,
+      "sourceAreaSum": 238.51575000000594,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        445
+      ],
+      "sceneId": "009r4-src-0445",
+      "moduleIds": [
+        "009r4-src-0445"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.43818097608164,
+      "sourceAreaSum": 86.436299999943,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1729
+      ],
+      "sceneId": "009r4-src-1729",
+      "moduleIds": [
+        "009r4-src-1729"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.39417404658161,
+      "sourceAreaSum": 204.64180000009947,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        574
+      ],
+      "sceneId": "009r4-src-0574",
+      "moduleIds": [
+        "009r4-src-0574"
+      ],
+      "programme": "compact residential garden",
+      "nativeOccupiedArea": 19.641952342528384,
+      "sourceAreaSum": 79.99149999997462,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        103
+      ],
+      "sceneId": "009r4-src-0103",
+      "moduleIds": [
+        "009r4-src-0103"
+      ],
+      "programme": "street shop forecourt",
+      "nativeOccupiedArea": 24.43818097608164,
+      "sourceAreaSum": 122.39460000011604,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    },
+    {
+      "sourceIndices": [
+        1730
+      ],
+      "sceneId": "009r4-src-1730",
+      "moduleIds": [
+        "009r4-src-1730"
+      ],
+      "programme": "residential wing and courtyard",
+      "nativeOccupiedArea": 48.39417404658161,
+      "sourceAreaSum": 238.391100000008,
+      "mappingType": "design-scene-reorganisation-not-equal-shape-measurement",
+      "residualUse": "individual court/garden and retained unassigned native source context; no source rendered count inflation"
+    }
+  ],
+  "otherNewNativeTop2": [],
+  "usageContractsDoNotMeanAssetsReady": true
+}

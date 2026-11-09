@@ -1,0 +1,67 @@
+{
+  "status": "actual-image-returned-not-detail-or-capacity-accepted",
+  "startedUnix": 1793965403.427097,
+  "operation": "images.edit",
+  "model": "gpt-image-2",
+  "requestedSize": "3824x2144",
+  "qualityRequested": "high",
+  "n": 1,
+  "maxRetries": 0,
+  "totalWallclockLimitSeconds": 480,
+  "provider": "openai-api",
+  "endpointHost": "zee.zeehub.cn",
+  "sizeRationale": "bounded experimental high-resolution request based on OpenAI size-constraint search excerpts; compatible endpoint support still unproven",
+  "inputs": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/scope-recovery-v1/capacity-proof/structure-guide.png",
+      "sha256": "40afb08818e4a7a36475d72cae8c866be9fe5f18d3c7156987fec10ce2aeab2a",
+      "role": "8-block design geometry input, not art"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-04-county-twentyfive-region-plan/review-009/TR-33-v1.png",
+      "sha256": "fe3358f7732812285879cd9b23db7a890b5f6d36eae2df56bbc4e4469b044aec",
+      "role": "original accepted25 style, not layout"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/planning/scope-recovery-v1/capacity-proof/approved-density-local.png",
+      "sha256": "e48872c1a997575d533ff621ceb09fffd88a2f19c79064199cf6d0cb31cda9ad",
+      "role": "approved A2 local density/detail only"
+    }
+  ],
+  "promptSHA256": "20cfbe0146813aaaf8f3983eed402146d3573cefd0c95d59f1d15b9a1462d5e1",
+  "codeSHA256": "095337bc5dd9a4310da36c102137be5f13d66e4ccc672d9788838d78b255918d",
+  "expectedInputBlocks": 8,
+  "scope": "single proof only, not D or mass map production",
+  "actualSize": [
+    1674,
+    940
+  ],
+  "mode": "RGB",
+  "bytes": 3650807,
+  "sha256": "0ab233b8bf8f8465a19e0470b4be4dadfd7937b8a27426a732cd749cc6482b87",
+  "requestedDimensionHeld": false,
+  "qualityReturned": null,
+  "nativeBytesPreserved": true,
+  "noLocalUpscalingOrWarping": true,
+  "vendorInternalNoUpscaleClaim": false,
+  "actualPrompt": "CAPACITY PROOF, not a final city. Produce ONE new integrated Japanese contemporary-city game-map illustration. Native requested3824x2144. The first attached image is a ground-plane street-block design guide, not artwork. It deliberately contains EIGHT complete adjacent urban street blocks in a4-column by2-row group, plus narrow surrounding continuations. Maintain all8 complete blocks and their continuous primary/secondary/local road and junction organisation. Do not silently reduce it to2-4 blocks or a small isolated neighborhood. Input block IDs and colour cells are planning annotations only: remove all labels/debug colours from final art.\n\nImage2 is ORIGINAL approved TR-33, style/material/daylight reference only, not its roads/layout. Image3 is only a small crop of approved A2 dense commercial massing/readable detail, not a full neighbor or a composition to copy. No upscaling/cropping old art as output. No white diorama border, sky, debug lines or UI. Design roads, buildings and grounds together in the accepted fixed high-oblique orthographic-like view with consistent ground and verticals. Do not zoom out and make every house tiny to claim8 blocks. Use the genuinely larger requested raster to show the larger planned region while maintaining detailed readable individual facades and human/vehicle/street proportions.\n\nThe8 core street blocks should be recognisably distinct, fully organised dense urban groups: connected2-3storey street shops,4-6storey mixed residential/office backs, a few taller but modest commercial masses, one compact civic/library or exhibition building, small service courts and purposeful community green. Most street frontages continuous, front/back building layers, narrow useful courtyards/accesses, not scattered villas in large lawns and not eight cloned apartment compounds. Do not repeat another giant market hall as the sole landmark. Keep each block's roads clear and connected, entrances reachable and complete, no road under architecture, no overpass/tunnel. Ground corridors and8 block structure follow image1.\n\nNeutral daytime palette, accepted Japanese youthful contemporary-city anime painterly/thick-painted look, varied plaster/brick/wood/glass/roofs, natural soft shadows, deeper natural foliage. Keep accepted warm window treatment as daylight, not universal glowing night lights. No overall recolour, photoreal product-render look, heavy icon outlines or rooftop trees. Small props belong to uses: benches, shopfront signs without legible text, tables/chairs, bins, flowerboxes, service vans parked out of lanes. No catalogue spread, all-vegetable fields or giant empty grass. Preserve meaningful open courts/parks but not a garden-like suburban substitute for city. All edges are coherent painted ground/roads, complete buildings not chopped at edges. Return exactly one entirely new illustration. This is a real output-resolution AND region-capacity proof, not evidence from a requested parameter alone.",
+  "revisedPrompt": null,
+  "usage": {
+    "input_tokens": 4477,
+    "input_tokens_details": {
+      "image_tokens": 3861,
+      "text_tokens": 616
+    },
+    "output_tokens": 1158,
+    "total_tokens": 5635,
+    "output_tokens_details": {
+      "image_tokens": 1158,
+      "text_tokens": 0
+    }
+  },
+  "elapsedSeconds": 51.40277123451233,
+  "inputSourcesUnchanged": true,
+  "eightBlocksActuallyPresent": null,
+  "localDetailAtAcceptedScalePassed": null,
+  "wholeCityOrImageCountFeasibilityPassed": false
+}

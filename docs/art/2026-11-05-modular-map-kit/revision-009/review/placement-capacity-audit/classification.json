@@ -1,0 +1,1302 @@
+{
+  "sources": 45,
+  "intentUnknownSources": 7,
+  "testedSources": 38,
+  "sourcesWithFeasibleTypes": 6,
+  "sourcesWithoutFeasibleTypesAfterTesting": 32,
+  "finalSourcesFromThese45": 6,
+  "firstRecordedRejectionSourceCounts": {
+    "door-body": 10,
+    "intent-unknown": 7,
+    "otherSourceMetres": 15,
+    "approach-external": 8,
+    "waterSafetyMetres": 2,
+    "roadEdgeMetres": 2,
+    "court-vs-U-body": 1
+  },
+  "anyRecordedRejectionSourceCountsNonexclusive": {
+    "door-body": 15,
+    "programme-context": 35,
+    "approach-external": 25,
+    "otherSourceMetres": 33,
+    "waterSafetyMetres": 6,
+    "visible143GroundBodyMetres": 2,
+    "roadEdgeMetres": 16,
+    "court-vs-U-body": 2
+  },
+  "ruleCounterEventsNonexclusive": {
+    "door-body": 191,
+    "approach-external": 1633,
+    "programme-context": 137,
+    "otherSourceMetres": 1240,
+    "waterSafetyMetres": 294,
+    "visible143GroundBodyMetres": 50,
+    "roadEdgeMetres": 370,
+    "court-vs-U-body": 14
+  },
+  "assetAnchorScaleAttempts": 1787,
+  "approachAttempts": 1868,
+  "rows": [
+    {
+      "sourceIndex": 1359,
+      "sourceId": "city.buildings[1359]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "programme-context"
+      ],
+      "feasibleTypes": [
+        "B05",
+        "B06",
+        "B01",
+        "B02"
+      ],
+      "finalAdmitted": true,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 3,
+        "B05:approach-external": 11,
+        "B06:door-body": 3,
+        "B06:approach-external": 11,
+        "B01:door-body": 1,
+        "B01:approach-external": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:door-body": 3,
+        "B02:approach-external": 11
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 586,
+      "sourceId": "city.buildings[586]",
+      "firstRecordedRejection": "intent-unknown",
+      "allRecordedRejectionCategories": [],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "intent-unknown",
+      "rawRuleCounts": {},
+      "landUseIntent": null
+    },
+    {
+      "sourceIndex": 1766,
+      "sourceId": "city.buildings[1766]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B06:otherSourceMetres": 15,
+        "B01:otherSourceMetres": 5,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 125,
+      "sourceId": "city.buildings[125]",
+      "firstRecordedRejection": "intent-unknown",
+      "allRecordedRejectionCategories": [],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "intent-unknown",
+      "rawRuleCounts": {},
+      "landUseIntent": null
+    },
+    {
+      "sourceIndex": 1765,
+      "sourceId": "city.buildings[1765]",
+      "firstRecordedRejection": "approach-external",
+      "allRecordedRejectionCategories": [
+        "approach-external",
+        "otherSourceMetres",
+        "waterSafetyMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:approach-external": 60,
+        "B05:otherSourceMetres": 3,
+        "B05:waterSafetyMetres": 2,
+        "B06:approach-external": 48,
+        "B06:waterSafetyMetres": 4,
+        "B06:otherSourceMetres": 4,
+        "B01:approach-external": 24,
+        "B01:otherSourceMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:approach-external": 48,
+        "B02:waterSafetyMetres": 3,
+        "B02:otherSourceMetres": 4
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1740,
+      "sourceId": "city.buildings[1740]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "approach-external",
+        "visible143GroundBodyMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 13,
+        "B05:approach-external": 12,
+        "B05:visible143GroundBodyMetres": 5,
+        "B06:otherSourceMetres": 15,
+        "B06:visible143GroundBodyMetres": 12,
+        "B01:otherSourceMetres": 5,
+        "B01:visible143GroundBodyMetres": 2,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:visible143GroundBodyMetres": 12
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1764,
+      "sourceId": "city.buildings[1764]",
+      "firstRecordedRejection": "approach-external",
+      "allRecordedRejectionCategories": [
+        "approach-external",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:approach-external": 48,
+        "B05:otherSourceMetres": 7,
+        "B06:approach-external": 24,
+        "B06:otherSourceMetres": 11,
+        "B01:approach-external": 18,
+        "B01:otherSourceMetres": 2,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:approach-external": 36,
+        "B02:otherSourceMetres": 9
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1767,
+      "sourceId": "city.buildings[1767]",
+      "firstRecordedRejection": "approach-external",
+      "allRecordedRejectionCategories": [
+        "approach-external",
+        "door-body",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:approach-external": 77,
+        "B05:door-body": 1,
+        "B05:otherSourceMetres": 2,
+        "B06:approach-external": 72,
+        "B06:otherSourceMetres": 3,
+        "B01:approach-external": 22,
+        "B01:otherSourceMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:approach-external": 70,
+        "B02:otherSourceMetres": 3,
+        "B02:door-body": 2
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1738,
+      "sourceId": "city.buildings[1738]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "visible143GroundBodyMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [
+        "B05",
+        "B01"
+      ],
+      "finalAdmitted": true,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B06:otherSourceMetres": 12,
+        "B06:visible143GroundBodyMetres": 10,
+        "B06:roadEdgeMetres": 8,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 12,
+        "B02:roadEdgeMetres": 8,
+        "B02:visible143GroundBodyMetres": 9
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 590,
+      "sourceId": "city.buildings[590]",
+      "firstRecordedRejection": "intent-unknown",
+      "allRecordedRejectionCategories": [],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "intent-unknown",
+      "rawRuleCounts": {},
+      "landUseIntent": null
+    },
+    {
+      "sourceIndex": 1763,
+      "sourceId": "city.buildings[1763]",
+      "firstRecordedRejection": "waterSafetyMetres",
+      "allRecordedRejectionCategories": [
+        "waterSafetyMetres",
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:waterSafetyMetres": 15,
+        "B05:otherSourceMetres": 4,
+        "B05:roadEdgeMetres": 3,
+        "B06:otherSourceMetres": 10,
+        "B06:waterSafetyMetres": 15,
+        "B06:roadEdgeMetres": 10,
+        "B01:waterSafetyMetres": 4,
+        "B01:otherSourceMetres": 1,
+        "B01:roadEdgeMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 10,
+        "B02:waterSafetyMetres": 15,
+        "B02:roadEdgeMetres": 7
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 588,
+      "sourceId": "city.buildings[588]",
+      "firstRecordedRejection": "intent-unknown",
+      "allRecordedRejectionCategories": [],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "intent-unknown",
+      "rawRuleCounts": {},
+      "landUseIntent": null
+    },
+    {
+      "sourceIndex": 1741,
+      "sourceId": "city.buildings[1741]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 10,
+        "B05:approach-external": 50,
+        "B05:otherSourceMetres": 5,
+        "B05:roadEdgeMetres": 1,
+        "B06:otherSourceMetres": 15,
+        "B06:roadEdgeMetres": 4,
+        "B01:door-body": 2,
+        "B01:approach-external": 10,
+        "B01:otherSourceMetres": 3,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 14,
+        "B02:roadEdgeMetres": 4,
+        "B02:door-body": 1,
+        "B02:approach-external": 5
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1762,
+      "sourceId": "city.buildings[1762]",
+      "firstRecordedRejection": "approach-external",
+      "allRecordedRejectionCategories": [
+        "approach-external",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:approach-external": 90,
+        "B06:approach-external": 78,
+        "B06:otherSourceMetres": 2,
+        "B01:approach-external": 30,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:approach-external": 84,
+        "B02:otherSourceMetres": 1
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1742,
+      "sourceId": "city.buildings[1742]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "door-body",
+        "approach-external",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 13,
+        "B05:roadEdgeMetres": 3,
+        "B05:door-body": 2,
+        "B05:approach-external": 10,
+        "B06:otherSourceMetres": 15,
+        "B06:roadEdgeMetres": 5,
+        "B01:otherSourceMetres": 4,
+        "B01:door-body": 1,
+        "B01:approach-external": 5,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:roadEdgeMetres": 5
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 583,
+      "sourceId": "city.buildings[583]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "door-body",
+        "approach-external",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B06:otherSourceMetres": 15,
+        "B01:otherSourceMetres": 4,
+        "B01:door-body": 1,
+        "B01:approach-external": 5,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1752,
+      "sourceId": "city.buildings[1752]",
+      "firstRecordedRejection": "approach-external",
+      "allRecordedRejectionCategories": [
+        "approach-external",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:approach-external": 24,
+        "B05:otherSourceMetres": 3,
+        "B06:otherSourceMetres": 12,
+        "B06:approach-external": 10,
+        "B01:otherSourceMetres": 3,
+        "B01:approach-external": 4,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:otherSourceMetres": 15,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 12,
+        "B02:approach-external": 12
+      },
+      "landUseIntent": "residential"
+    },
+    {
+      "sourceIndex": 585,
+      "sourceId": "city.buildings[585]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B05:roadEdgeMetres": 3,
+        "B06:otherSourceMetres": 15,
+        "B06:roadEdgeMetres": 8,
+        "B01:otherSourceMetres": 5,
+        "B01:roadEdgeMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:roadEdgeMetres": 8
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1743,
+      "sourceId": "city.buildings[1743]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 4,
+        "B05:approach-external": 20,
+        "B05:otherSourceMetres": 11,
+        "B05:roadEdgeMetres": 3,
+        "B06:otherSourceMetres": 15,
+        "B06:roadEdgeMetres": 7,
+        "B01:otherSourceMetres": 4,
+        "B01:roadEdgeMetres": 1,
+        "B01:door-body": 1,
+        "B01:approach-external": 5,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:roadEdgeMetres": 7
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 430,
+      "sourceId": "city.buildings[430]",
+      "firstRecordedRejection": "intent-unknown",
+      "allRecordedRejectionCategories": [],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "intent-unknown",
+      "rawRuleCounts": {},
+      "landUseIntent": null
+    },
+    {
+      "sourceIndex": 589,
+      "sourceId": "city.buildings[589]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 27,
+        "B05:approach-external": 63,
+        "B06:door-body": 21,
+        "B06:approach-external": 51,
+        "B06:otherSourceMetres": 3,
+        "B01:door-body": 10,
+        "B01:approach-external": 20,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:door-body": 21,
+        "B02:approach-external": 51,
+        "B02:otherSourceMetres": 3
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 582,
+      "sourceId": "city.buildings[582]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 8,
+        "B05:approach-external": 40,
+        "B05:otherSourceMetres": 7,
+        "B06:otherSourceMetres": 15,
+        "B01:door-body": 3,
+        "B01:approach-external": 15,
+        "B01:otherSourceMetres": 2,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 14,
+        "B02:door-body": 1,
+        "B02:approach-external": 5
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 584,
+      "sourceId": "city.buildings[584]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B05:roadEdgeMetres": 9,
+        "B06:otherSourceMetres": 15,
+        "B06:roadEdgeMetres": 13,
+        "B01:otherSourceMetres": 5,
+        "B01:roadEdgeMetres": 3,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:roadEdgeMetres": 13
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1754,
+      "sourceId": "city.buildings[1754]",
+      "firstRecordedRejection": "approach-external",
+      "allRecordedRejectionCategories": [
+        "approach-external",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:approach-external": 36,
+        "B06:otherSourceMetres": 3,
+        "B01:approach-external": 20,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:otherSourceMetres": 13,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 3
+      },
+      "landUseIntent": "residential"
+    },
+    {
+      "sourceIndex": 1744,
+      "sourceId": "city.buildings[1744]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B05:roadEdgeMetres": 3,
+        "B06:otherSourceMetres": 15,
+        "B06:roadEdgeMetres": 5,
+        "B01:otherSourceMetres": 5,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:roadEdgeMetres": 5
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1751,
+      "sourceId": "city.buildings[1751]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "approach-external",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 13,
+        "B05:approach-external": 4,
+        "B06:otherSourceMetres": 15,
+        "B01:otherSourceMetres": 4,
+        "B01:approach-external": 2,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:otherSourceMetres": 15,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15
+      },
+      "landUseIntent": "residential"
+    },
+    {
+      "sourceIndex": 1747,
+      "sourceId": "city.buildings[1747]",
+      "firstRecordedRejection": "approach-external",
+      "allRecordedRejectionCategories": [
+        "approach-external",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:approach-external": 16,
+        "B05:otherSourceMetres": 7,
+        "B06:otherSourceMetres": 13,
+        "B06:approach-external": 4,
+        "B01:approach-external": 6,
+        "B01:otherSourceMetres": 2,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 12,
+        "B02:approach-external": 6
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 581,
+      "sourceId": "city.buildings[581]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B05:roadEdgeMetres": 3,
+        "B06:otherSourceMetres": 15,
+        "B06:roadEdgeMetres": 11,
+        "B01:otherSourceMetres": 5,
+        "B01:roadEdgeMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:roadEdgeMetres": 10
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1757,
+      "sourceId": "city.buildings[1757]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B06:otherSourceMetres": 15,
+        "B01:otherSourceMetres": 5,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 580,
+      "sourceId": "city.buildings[580]",
+      "firstRecordedRejection": "intent-unknown",
+      "allRecordedRejectionCategories": [],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "intent-unknown",
+      "rawRuleCounts": {},
+      "landUseIntent": null
+    },
+    {
+      "sourceIndex": 1745,
+      "sourceId": "city.buildings[1745]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B05:roadEdgeMetres": 3,
+        "B06:otherSourceMetres": 15,
+        "B06:roadEdgeMetres": 6,
+        "B01:otherSourceMetres": 5,
+        "B01:roadEdgeMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:roadEdgeMetres": 6
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 429,
+      "sourceId": "city.buildings[429]",
+      "firstRecordedRejection": "intent-unknown",
+      "allRecordedRejectionCategories": [],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "intent-unknown",
+      "rawRuleCounts": {},
+      "landUseIntent": null
+    },
+    {
+      "sourceIndex": 1423,
+      "sourceId": "city.buildings[1423]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "court-vs-U-body",
+        "roadEdgeMetres"
+      ],
+      "feasibleTypes": [
+        "B05",
+        "B06",
+        "B01",
+        "B03",
+        "B04",
+        "B07",
+        "B08",
+        "B02"
+      ],
+      "finalAdmitted": true,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 1,
+        "B05:approach-external": 1,
+        "B06:door-body": 1,
+        "B06:approach-external": 1,
+        "B01:door-body": 1,
+        "B01:approach-external": 1,
+        "B03:door-body": 1,
+        "B03:approach-external": 1,
+        "B04:door-body": 1,
+        "B04:approach-external": 1,
+        "B07:court-vs-U-body": 9,
+        "B07:approach-external": 17,
+        "B07:roadEdgeMetres": 1,
+        "B08:door-body": 1,
+        "B08:approach-external": 1,
+        "B02:door-body": 1,
+        "B02:approach-external": 1
+      },
+      "landUseIntent": "mixed"
+    },
+    {
+      "sourceIndex": 1748,
+      "sourceId": "city.buildings[1748]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "approach-external",
+        "door-body",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 12,
+        "B05:approach-external": 15,
+        "B05:door-body": 3,
+        "B06:otherSourceMetres": 15,
+        "B01:otherSourceMetres": 4,
+        "B01:approach-external": 5,
+        "B01:door-body": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1750,
+      "sourceId": "city.buildings[1750]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "approach-external",
+        "door-body",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 12,
+        "B05:approach-external": 15,
+        "B05:door-body": 3,
+        "B06:otherSourceMetres": 15,
+        "B01:otherSourceMetres": 4,
+        "B01:door-body": 1,
+        "B01:approach-external": 5,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1746,
+      "sourceId": "city.buildings[1746]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "roadEdgeMetres",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 3,
+        "B05:approach-external": 9,
+        "B05:roadEdgeMetres": 3,
+        "B05:otherSourceMetres": 9,
+        "B06:otherSourceMetres": 13,
+        "B06:roadEdgeMetres": 7,
+        "B01:door-body": 2,
+        "B01:approach-external": 6,
+        "B01:roadEdgeMetres": 1,
+        "B01:otherSourceMetres": 2,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 12,
+        "B02:roadEdgeMetres": 7
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1760,
+      "sourceId": "city.buildings[1760]",
+      "firstRecordedRejection": "roadEdgeMetres",
+      "allRecordedRejectionCategories": [
+        "roadEdgeMetres",
+        "waterSafetyMetres",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:roadEdgeMetres": 15,
+        "B05:waterSafetyMetres": 15,
+        "B05:otherSourceMetres": 3,
+        "B06:roadEdgeMetres": 15,
+        "B06:waterSafetyMetres": 15,
+        "B06:otherSourceMetres": 3,
+        "B01:roadEdgeMetres": 5,
+        "B01:waterSafetyMetres": 5,
+        "B01:otherSourceMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:roadEdgeMetres": 15,
+        "B02:waterSafetyMetres": 15,
+        "B02:otherSourceMetres": 3
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1753,
+      "sourceId": "city.buildings[1753]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 12,
+        "B05:approach-external": 36,
+        "B05:otherSourceMetres": 3,
+        "B06:door-body": 8,
+        "B06:approach-external": 24,
+        "B06:otherSourceMetres": 7,
+        "B01:door-body": 4,
+        "B01:approach-external": 12,
+        "B01:otherSourceMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:door-body": 8,
+        "B02:approach-external": 24,
+        "B02:otherSourceMetres": 7
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1755,
+      "sourceId": "city.buildings[1755]",
+      "firstRecordedRejection": "otherSourceMetres",
+      "allRecordedRejectionCategories": [
+        "otherSourceMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:otherSourceMetres": 15,
+        "B06:otherSourceMetres": 15,
+        "B01:otherSourceMetres": 5,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1758,
+      "sourceId": "city.buildings[1758]",
+      "firstRecordedRejection": "approach-external",
+      "allRecordedRejectionCategories": [
+        "approach-external",
+        "otherSourceMetres",
+        "waterSafetyMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:approach-external": 18,
+        "B05:otherSourceMetres": 12,
+        "B05:waterSafetyMetres": 3,
+        "B06:otherSourceMetres": 15,
+        "B06:waterSafetyMetres": 12,
+        "B01:approach-external": 12,
+        "B01:otherSourceMetres": 3,
+        "B01:waterSafetyMetres": 1,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:otherSourceMetres": 15,
+        "B02:waterSafetyMetres": 10
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 260,
+      "sourceId": "city.buildings[260]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "programme-context",
+        "roadEdgeMetres"
+      ],
+      "feasibleTypes": [
+        "B05",
+        "B06",
+        "B01",
+        "B02"
+      ],
+      "finalAdmitted": true,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 2,
+        "B05:approach-external": 8,
+        "B06:door-body": 1,
+        "B06:approach-external": 3,
+        "B01:door-body": 2,
+        "B01:approach-external": 8,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:door-body": 4,
+        "B02:approach-external": 18,
+        "B02:roadEdgeMetres": 1
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 262,
+      "sourceId": "city.buildings[262]",
+      "firstRecordedRejection": "door-body",
+      "allRecordedRejectionCategories": [
+        "door-body",
+        "approach-external",
+        "programme-context"
+      ],
+      "feasibleTypes": [
+        "B05",
+        "B06",
+        "B01",
+        "B02"
+      ],
+      "finalAdmitted": true,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:door-body": 1,
+        "B05:approach-external": 3,
+        "B06:door-body": 1,
+        "B06:approach-external": 3,
+        "B01:door-body": 1,
+        "B01:approach-external": 3,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:door-body": 1,
+        "B02:approach-external": 3
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1761,
+      "sourceId": "city.buildings[1761]",
+      "firstRecordedRejection": "waterSafetyMetres",
+      "allRecordedRejectionCategories": [
+        "waterSafetyMetres",
+        "otherSourceMetres",
+        "roadEdgeMetres",
+        "programme-context"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:waterSafetyMetres": 15,
+        "B05:otherSourceMetres": 7,
+        "B06:otherSourceMetres": 15,
+        "B06:waterSafetyMetres": 15,
+        "B06:roadEdgeMetres": 1,
+        "B01:waterSafetyMetres": 5,
+        "B01:otherSourceMetres": 2,
+        "B03:programme-context": 1,
+        "B04:programme-context": 1,
+        "B07:programme-context": 1,
+        "B08:programme-context": 1,
+        "B02:waterSafetyMetres": 15,
+        "B02:otherSourceMetres": 13
+      },
+      "landUseIntent": "garden"
+    },
+    {
+      "sourceIndex": 1363,
+      "sourceId": "city.buildings[1363]",
+      "firstRecordedRejection": "court-vs-U-body",
+      "allRecordedRejectionCategories": [
+        "court-vs-U-body",
+        "approach-external"
+      ],
+      "feasibleTypes": [
+        "B05",
+        "B06",
+        "B01",
+        "B03",
+        "B04",
+        "B07",
+        "B08",
+        "B02"
+      ],
+      "finalAdmitted": true,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B07:court-vs-U-body": 5,
+        "B07:approach-external": 5
+      },
+      "landUseIntent": "mixed"
+    },
+    {
+      "sourceIndex": 1759,
+      "sourceId": "city.buildings[1759]",
+      "firstRecordedRejection": "roadEdgeMetres",
+      "allRecordedRejectionCategories": [
+        "roadEdgeMetres",
+        "waterSafetyMetres",
+        "otherSourceMetres"
+      ],
+      "feasibleTypes": [],
+      "finalAdmitted": false,
+      "stage": "tested",
+      "rawRuleCounts": {
+        "B05:roadEdgeMetres": 15,
+        "B05:waterSafetyMetres": 15,
+        "B05:otherSourceMetres": 3,
+        "B06:otherSourceMetres": 12,
+        "B06:roadEdgeMetres": 15,
+        "B06:waterSafetyMetres": 15,
+        "B01:roadEdgeMetres": 5,
+        "B01:waterSafetyMetres": 5,
+        "B01:otherSourceMetres": 1,
+        "B03:roadEdgeMetres": 15,
+        "B03:waterSafetyMetres": 15,
+        "B03:otherSourceMetres": 3,
+        "B04:otherSourceMetres": 12,
+        "B04:roadEdgeMetres": 15,
+        "B04:waterSafetyMetres": 15,
+        "B07:otherSourceMetres": 15,
+        "B07:roadEdgeMetres": 15,
+        "B07:waterSafetyMetres": 15,
+        "B08:otherSourceMetres": 15,
+        "B08:roadEdgeMetres": 15,
+        "B08:waterSafetyMetres": 15,
+        "B02:roadEdgeMetres": 15,
+        "B02:waterSafetyMetres": 15,
+        "B02:otherSourceMetres": 9
+      },
+      "landUseIntent": "mixed"
+    }
+  ],
+  "countMeaning": "first is first inserted counter key, including failures before later success; not terminal cause. All is recorded observed categories, not exhaustive counterfactual causes; approach-external hides subcauses.",
+  "existingPoolUniqueSources": [
+    260,
+    261,
+    262,
+    264,
+    1359,
+    1363,
+    1364,
+    1377,
+    1423,
+    1738
+  ],
+  "trialFeasibleSourceIndices": [
+    260,
+    262,
+    1359,
+    1363,
+    1423,
+    1738
+  ],
+  "newFeasibleSourcesBeyondOldPool": [],
+  "trialSourcesOutsideOldPool": 39,
+  "unsuccessfulSourcesFirstRecordedCounts": {
+    "intent-unknown": 7,
+    "otherSourceMetres": 14,
+    "approach-external": 8,
+    "waterSafetyMetres": 2,
+    "door-body": 6,
+    "roadEdgeMetres": 2
+  },
+  "unsuccessfulSourcesAnyCategoryCountsNonexclusive": {
+    "programme-context": 31,
+    "otherSourceMetres": 32,
+    "waterSafetyMetres": 6,
+    "approach-external": 20,
+    "visible143GroundBodyMetres": 1,
+    "door-body": 11,
+    "roadEdgeMetres": 13
+  }
+}

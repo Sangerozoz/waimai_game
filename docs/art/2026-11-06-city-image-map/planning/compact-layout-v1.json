@@ -1,0 +1,53 @@
+{
+  "status": "compact-four-region-candidate-not-final-grid",
+  "areaIntentVersusOld25": 0.25,
+  "physicalAreaMeasured": false,
+  "metreCalibration": null,
+  "preferredImageBudget": [
+    4,
+    6
+  ],
+  "planningCeiling": 6,
+  "currentRequestedBatch": [
+    "A",
+    "B"
+  ],
+  "nominalFourImageRasterWith64Overlap": [
+    3008,
+    1984
+  ],
+  "regions": [
+    {
+      "id": "A",
+      "function": "market, local shops, mixed homes, one office"
+    },
+    {
+      "id": "B",
+      "function": "varied housing, small school/library, neighborhood green"
+    },
+    {
+      "id": "C",
+      "function": "small workshop/service, residential courtyard, transition to gardens"
+    },
+    {
+      "id": "D",
+      "function": "sparse low homes, vegetables/orchard, natural edge"
+    }
+  ],
+  "optionalSplitOnlyIfClarityNeeds": "Up to six without expanding coverage; no automatic further generation.",
+  "contentReduction": "Merge repeated C01-C09 functions; fewer street blocks and repeated facilities, not all old content shrunk.",
+  "localReadingTarget": {
+    "nativeDisplayScale": 1,
+    "optionalDiagnosticZoom": 2,
+    "mainRoadRequestedWidthPixels": 56,
+    "buildingFootprintsApproxPixels": [
+      100,
+      270
+    ]
+  },
+  "styleAuthority": [
+    "approved25 assembly relationships",
+    "original TR-33 accepted artwork"
+  ],
+  "userAcceptedArt": false
+}

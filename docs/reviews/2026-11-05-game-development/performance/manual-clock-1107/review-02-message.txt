@@ -1,0 +1,5 @@
+继续既有只读Spec/质量复审，收口manual-clock options getter这一项Important。PM已先在原冻结三源跑真实RED 20pass/5fail，然后仅改Dispatch资格判断为自有普通数据属性true；options getter/继承均回原transact。新增读取次数、deferAuto抛错/经济命令重入、deferFleet异常原子性、继承参数五项。窄测25/25，默认192/192无跳过，typecheck0；最终同Game输入40次全字节相等，直接Dispatch矩阵41种95步含getter次数/异常/重入。完整原失败和首轮freeze保留review-01/。
+
+冻结请求：docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/review-02-request.json
+请求SHA256：2bb5bd5f163d612dfb8cc74bc9e22223f0b23f2290f28ae19bbdddd6e63c5680
+完整差分final-review.diff、相对上轮review-followup.diff均同目录。请独立核对差分、冻结指纹/773输入、原始日志与数学口径，给出Spec及质量Critical/Important/Minor结论；无须编译/执行测试、模型、游戏或构建。不要写文件、改权限或模型。当前候选仍未部署，PM并行准备最终独立包。

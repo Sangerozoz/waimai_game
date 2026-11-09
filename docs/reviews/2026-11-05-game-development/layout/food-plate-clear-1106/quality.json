@@ -1,0 +1,38 @@
+{
+  "task": "O01-PLATE-QUALITY-1106",
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [],
+  "sourceHashes": {
+    "candidateRoot": "docs/reviews/2026-11-05-game-development/layout/food-plate-clear-1106/",
+    "files": {
+      "assets/scripts/map-sample/FoodImages.ts": {
+        "baseline": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586",
+        "candidate": "9511d13fbd4e983e50b497574cf948747d83b2db0fcaacecc16345f089f72f3b",
+        "patchSHA256": "aa90e426aaeef35fa3f41e8872c97795a282e00c90a9de7f320223afe262246b"
+      },
+      "assets/scripts/map-sample/V2GameUI.ts": {
+        "baseline": "240bb6bc07de7add31482e1cd330a886e46e705695a01f1a7cdbab0b45bf4c46",
+        "candidate": "93b7e6680bb3626191f09b4e7ff53d4e4b4a391841245dbb422621b367fd962f",
+        "patchSHA256": "3e107edde3c6ad140c6250482b3a3e98baa23a9058a6821f5135d09c45f86c16"
+      }
+    },
+    "initialAndClosingHashesEqual": true,
+    "strictForwardAndReverseMatch": true,
+    "regeneratedFullDiffMatches": true,
+    "dependencies": {
+      "SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "CartoonArt.ts": "5b59bb9d4c15fba335754f430641d228a20ea31023cf6385f333fba200d73e52",
+      "FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20"
+    },
+    "drift": []
+  },
+  "limits": [
+    "仅定向静态PASS。独立按行号严格正向重建、反向还原两份实际源码，并重新生成完整diff与handoff逐字匹配；候选尚未应用live。",
+    "FoodImages.ts:6-7仅background严格为false时调用真实uiItem；省略参数、空选项或background:true仍走原box黄底。SampleUI.ts:5、7-14、45-46确认uiItem保留名称、父节点、坐标、UI_2D及尺寸，且不创建paintBox的Surface、阴影、填充或描边。",
+    "V2GameUI.ts:672、771只有大厅缩略图及本批/在途显式opt-in；补给和既有其他消费者不传选项，默认行为保持。原Mask、图槽、动态shift、徽标层级及触摸绑定未改；未发现消费者依赖被移除的FoodImage绘制Surface。",
+    "FoodImages.ts:8-10和CartoonArt.ts:141-151的身份映射、图片尺寸、加载、fallback、有效性及销毁保护保持；完整diff未包含价格、时间、风险、loader或其他业务变更。",
+    "未重审图库、pack、核心Dispatch或50张食品；未执行TS/App/DTO、tests/typecheck、构建、浏览器、业务或存档，未写文件或权限。后续仍须新包实屏核对橙汁主体、方底消失、裁切及徽标；本代码门不关闭O01视觉反馈，也不代表98%或用户验收。只读范围交回PM。"
+  ]
+}

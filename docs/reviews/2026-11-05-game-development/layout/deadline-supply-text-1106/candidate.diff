@@ -1,0 +1,28 @@
+--- delivery-game/assets/scripts/map-sample/V2GameUI.ts (before)
++++ delivery-game/assets/scripts/map-sample/V2GameUI.ts (after)
+@@ -217,6 +217,7 @@
+   const t=this.runtime.tripState;if(!t)return;
+   const options=this.runtime.supplyOptions(),active=this.runtime.snapshot!.batchIds.length>0;
+   const route=this.runtime.routeSnapshot,serviceInProgress=route?.phase==='service'&&route.serviceCharged===true;
++  const beforeDeparture=active&&route?.phase==='planned';
+   action(this.body,'‹ 返回原页',-226,516,224,42,()=>this.act(()=>{this.supplyOpen=false;}),true,false);
+   action(this.body,'回到首页',226,516,224,42,()=>this.act(()=>this.navigate('首页')),true,false);
+   const c=this.scrolling('supplies',482,-490,options.length*206+886);
+@@ -236,7 +237,7 @@
+    if(food)foodImage(card,food,-265,22,102);else glyph(card,'energy',-265,22,68);
+    label(card,option.name,-30,64,27,INK,350,true,'left');
+    label(card,`实恢 +${Number(option.actualRestore.toFixed(1))} 点`,-45,28,22,'#009749',320,true,'left');
+-   label(card,`${option.durationSeconds}秒 · 期限推进 ${option.gameSeconds}秒`,0,-4,18,UI.muted,410,false,'left');
++   label(card,`${option.durationSeconds}秒 · ${!active?'无配送期限推进':beforeDeparture?'未出发，不耗配送期限':`期限推进 ${option.gameSeconds}秒`}`,0,-4,18,UI.muted,410,false,'left');
+    label(card,`库存 ${option.quantity}`,258,61,20,INK,130,true,'right');
+    label(card,`${option.unlocked?'已开放':'未开放'} · 最高已购地图达到${CONFIG.maps[option.unlockMapId-1].name}`,-10,-35,17,option.unlocked?UI.muted:'#BF3E12',CW-28,false,'center');
+    action(card,`购买并使用 ${(option.costCents/100).toFixed(2)}金币`,-157,-68,330,44,()=>this.act(()=>supply(option.id)),available&&option.unlocked&&this.state.cashCents>=option.costCents);
+@@ -245,7 +246,7 @@
+   const after=options.length*206+154;
+   const rest=panel(c,'Order-FreeRest',0,-after-68,CW,124,'#F2FBFF');
+   glyph(rest,'clock',-291,25,36);label(rest,'免费休息',-159,27,25,INK,190,true,'left');
+-  label(rest,active?'10秒 · 期限推进10分钟':'20秒 · 无配送期限推进',111,27,18,UI.muted,358,false,'right');
++  label(rest,active?beforeDeparture?'10秒 · 未出发，不耗配送期限':'10秒 · 期限推进10分钟':'20秒 · 无配送期限推进',111,27,18,UI.muted,358,false,'right');
+   label(rest,`实际恢复 ${Number(Math.min(active?20:100,100-t.stamina).toFixed(1))} 点`,-194,-28,20,'#009749',250,true,'left');
+   action(rest,'免费休息',197,-28,236,46,()=>this.act(()=>supply('rest')),available,false);
+   const policy=t.autoSupplyPolicy;

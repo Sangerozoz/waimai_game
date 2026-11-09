@@ -1,0 +1,42 @@
+{
+  "task": "SLOTS-FIX01-UI-REBIND-1106",
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [],
+  "sourceHashes": {
+    "primaryPath": "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/assets/scripts/map-sample/V2GameUI.ts",
+    "primaryStart": "240bb6bc07de7add31482e1cd330a886e46e705695a01f1a7cdbab0b45bf4c46",
+    "primaryEnd": "240bb6bc07de7add31482e1cd330a886e46e705695a01f1a7cdbab0b45bf4c46",
+    "dependencyRoot": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/",
+    "fix01-manifest.json": "7d56fb8395be9d680a6fc49fd50657089b3e44f0d0dae02e03931b8b0e60f4b0",
+    "fix01.diff": "f02b34931a95099b800c5e6b04b87ae897926343e017b792d371684828b85b23",
+    "contract-fix01.md": "a143c38873857bc77b95398dea68fa300bbb6bc5127208716adf12aa491fe04e",
+    "changedDependencies": {
+      "domain/V2EconomySession.ts": "6465c5580a3a0568ed28e0a6227c2c3b1db2f945625baebdacd299a69d615d37",
+      "domain/V2FleetSession.ts": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+      "domain/V2DispatchSession.ts": "f6548bea8154dad55177420912c9b0422c8e9cc88ca66bee7dbabefbedc7fafa",
+      "map-sample/V2GameSession.ts": "803f4bbac1fe657fa6fb71969bdaa47b4d6ba9c0b68487af501ba7b8d0268583",
+      "map-sample/V2RuntimeController.ts": "a560f14593b475769ccead1314cfd6dec31344f067484be96e5d8f657da7be01"
+    },
+    "unchangedHelpers": {
+      "domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+      "domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644"
+    },
+    "bindingVerification": {
+      "manifestSourcesMatched": 10,
+      "changedSourcesStrictForwardReverseMatched": 5,
+      "otherSourcesMatchOriginalStageHashes": true,
+      "uiUnchanged": true
+    }
+  },
+  "limits": [
+    "窄重绑静态PASS：未发现FIX01使UI240既有消费接口不兼容，无需因本次依赖差异撤销原UI结论或修改UI；本轮不是重新签发整页质量门禁。",
+    "已独立读取实际源码及五源delta，在内存严格逆应用每个hunk，匹配manifest原stage SHA，再正向重建实际新源码；未将旧fc850 manifest用于匹配新依赖。",
+    "UI:697-698仍读取deliveryEffects.capacity；Dispatch:59保留原pending订单选择顺序，Economy:229-235按该id读取活动合同。新slots批使用冻结条款，旧kg批保留原vehicleEffects解释，无pending时才使用当前资产的新slot效果；未混用下批容量替代活批容量。",
+    "UI:825-834仍读取nextBatchEffects?.capacity。Runtime:163-167保留未就绪/无车/未拥有时null；UI显示未配车且不能接单。Game:29-31原无车异常文本保持；非法容量仍由parseV2Capacity拒绝，没有默认一格或静默切换旧单位。",
+    "Economy:233-234为冻结slots/kg容量显式新建对象；当前及拥有车辆效果通过未变的Profiles:31-36新建外层与capacity，NPC效果为新建标量对象。未发现向UI返回权威capacity、车辆、骑手或参数行的可变别名；拥有对象getter的字段与原调用契约兼容。",
+    "Profiles和LoadRules哈希未变；严格比较确认Economy原价格/命令尾段及Runtime升级报价、quoteCandidates和后续代码未变。UI资金确认机制本身字节未改，本轮不重新验证其完整行为，也不将投影查询优化称为实测性能通过。",
+    "核心占车修正的业务正确性由独立核心复审负责，本门仅核其UI接缝。未写文件或权限，未执行TS/App/DTO、测试、typecheck、构建、浏览器、业务或任何存档，未派Agent/Codex；未重审SDK、布局或截图。静态PASS不代表运行、画面、性能、用户验收或联合发版许可，不关闭反馈。"
+  ]
+}

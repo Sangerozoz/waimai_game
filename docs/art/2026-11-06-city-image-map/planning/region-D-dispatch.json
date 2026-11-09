@@ -1,0 +1,52 @@
+{
+  "threadId": "thr_gje67q2cgt",
+  "providerReadback": "acp-hermes-agent",
+  "modelExplicit": "openai-api:gpt-6.1-sol",
+  "effortRequested": "high",
+  "statusReadback": "active",
+  "instructionReadback": true,
+  "requestSHA256": "3945bea01ee0f6fa84ded23299c7383dc600e8b4729ff22c237465efd6d56539",
+  "dispatch": {
+    "threadId": "thr_gje67q2cgt",
+    "ok": true,
+    "delivery": "sent",
+    "mode": "auto"
+  },
+  "writeLease": [
+    "regions/D-001",
+    "compact-four-v1"
+  ],
+  "newNativeRequestsAllowed": 1,
+  "temporaryModeContinuedOnlyForNewLease": {
+    "id": "_bb/legacy-mode",
+    "label": "Mode",
+    "description": null,
+    "category": "mode",
+    "type": "select",
+    "value": "accept_edits",
+    "pendingValue": null,
+    "values": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Ask before edits.",
+        "group": null
+      },
+      {
+        "id": "accept_edits",
+        "label": "Accept Edits",
+        "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+        "group": null
+      },
+      {
+        "id": "dont_ask",
+        "label": "Don't Ask",
+        "description": "Auto-allow file edits for this session except sensitive paths.",
+        "group": null
+      }
+    ]
+  },
+  "originalModeToRestoreAtHandback": "default",
+  "DNativeProducedClaimed": false,
+  "inputBaseVerifiedByParent": "compact-three-v1;3 real art regions, official raster exact, C crop exact,19nodes21edges1component,fresh runtime hashes exact"
+}

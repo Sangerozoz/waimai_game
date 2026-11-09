@@ -1,0 +1,42 @@
+TAP version 13
+# Subtest: selectedMapId validators compile and reject malformed or unowned IDs without weakening legal kg/slots snapshots
+not ok 1 - selectedMapId validators compile and reject malformed or unowned IDs without weakening legal kg/slots snapshots
+  ---
+  duration_ms: 411.055666
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/selected-map-validator.test.cjs:11:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    assets/scripts/domain/V2EconomySession.ts:106:178 - error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+    
+    106  check(Array.isArray(s.ownedMapIds)&&s.ownedMapIds.includes(1)&&s.ownedMapIds.every(id=>int(id,1,5))&&new Set(s.ownedMapIds).size===s.ownedMapIds.length&&s.ownedMapIds.includes(s.selectedMapId));
+                                                                                                                                                                                         ~~~~~~~~~~~~~~~
+    assets/scripts/domain/V2EconomySession.ts:106:178 - error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'number'.
+    
+    106  check(Array.isArray(s.ownedMapIds)&&s.ownedMapIds.includes(1)&&s.ownedMapIds.every(id=>int(id,1,5))&&new Set(s.ownedMapIds).size===s.ownedMapIds.length&&s.ownedMapIds.includes(s.selectedMapId));
+                                                                                                                                                                                         ~~~~~~~~~~~~~~~
+    
+    
+    2 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 2
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/selected-map-validator.test.cjs:21:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 520.73125

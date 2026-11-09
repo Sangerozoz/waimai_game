@@ -1,0 +1,619 @@
+{
+  "task": "PRODUCT-TEST-B-1106",
+  "status": "RED-BLOCKED-WAITING-PM-PACKAGE",
+  "final": false,
+  "context": {
+    "sessionId": "b49c55d0-74b5-4dd7-9829-bfdc4cc1d74c",
+    "hostId": "host_tr578kqahd",
+    "backend": "local headless",
+    "origin": "http://127.0.0.1:4198",
+    "initialViewport": [
+      390,
+      844
+    ],
+    "DPR": 2,
+    "browserOwnedByThread": true,
+    "existingProfileUsed": false,
+    "realUserSaveAccess": false,
+    "stateInjection": false,
+    "appCommandsInvokedFromProbe": false,
+    "browserKeptOpen": true
+  },
+  "frozenBuild": {
+    "root": "delivery-game/build/v2-tick-follow-1106",
+    "indexSHA256": "2f9430868ec4462627c4756f85724dade174bdf03c2c00ccdbbcecae8ed35190",
+    "mainScript": "assets/main/index.ab7bd.js",
+    "mainSHA256": "6d47199472e7d6e5a4d8dd954b2ed5fb5c27fb4af1f9514833e53a2bb5cc459d",
+    "allExecutedScriptsMatch": true,
+    "observedJavaScriptCount": 12,
+    "observedImportMapCount": 1,
+    "scriptInputCount": 13
+  },
+  "cases": [
+    {
+      "id": "B01",
+      "status": "PASS",
+      "scope": "入口及13个实际执行脚本/导入资源的HTTP字节与冻结包相符",
+      "evidence": [
+        "package-identity.json",
+        "executed-script-identity.json"
+      ]
+    },
+    {
+      "id": "B02",
+      "status": "PASS",
+      "scope": "全新测试进度首次idle首页无需点定位，骑手可见且follow=true，初始现金100/已送0",
+      "evidence": [
+        "02-home-early.jpg",
+        "03-home-ready.json",
+        "03-home-ready.jpg"
+      ]
+    },
+    {
+      "id": "B03",
+      "status": "PASS",
+      "scope": "390视口骑手首末屏头像/姓名等级/状态/价格可见，返回保留原列表偏移",
+      "evidence": [
+        "04-riders-top.jpg",
+        "05-riders-bottom.jpg",
+        "07-riders-return-offset.json"
+      ]
+    },
+    {
+      "id": "B04",
+      "status": "PASS",
+      "scope": "车辆原生场景/车型3与10联动；在底部选择车型不跳顶，未购买",
+      "evidence": [
+        "06-vehicles-top.jpg",
+        "08-vehicles-scrolled.json",
+        "09-vehicles-select-no-jump.jpg"
+      ]
+    },
+    {
+      "id": "B05",
+      "status": "PASS",
+      "scope": "所查骑手/车辆/地图/账单页面无旧顶部大页名；正常底栏当前×和图标、地图卡及账单图片可见",
+      "evidence": [
+        "04-riders-top.jpg",
+        "06-vehicles-top.jpg",
+        "10-maps-top.jpg",
+        "11-bills-no-restart.jpg"
+      ]
+    },
+    {
+      "id": "B06",
+      "status": "PASS",
+      "scope": "账单所查收入槽无金币图，里程/在线/任务奖励标未记录，入口及所查菜单未见重开按钮",
+      "evidence": [
+        "01-entry-390-dpr2.jpg",
+        "11-bills-no-restart.json",
+        "11-bills-no-restart.jpg"
+      ]
+    },
+    {
+      "id": "B07",
+      "status": "PASS",
+      "scope": "真实大厅餐图/品类/1或2格/差异文案可见；选一单2格满足2格容量，真实报价20；广告只显示未接入",
+      "evidence": [
+        "12-orders-lobby.jpg",
+        "13-one-order-selected.jpg",
+        "13-one-order-selected.json"
+      ]
+    },
+    {
+      "id": "B08",
+      "status": "FAIL",
+      "scope": "已接单planned路线选择渲染/出发入口",
+      "trigger": "真实UI点击选择路线后loadSummary输入迭代器，抛配送容量单位或条款无效；路线、出发、底栏未渲染",
+      "evidence": [
+        "14-route-planned.json",
+        "14-route-planned.jpg",
+        "15-blocker-readonly-shape.json"
+      ]
+    },
+    {
+      "id": "B09",
+      "status": "PASS",
+      "scope": "仅测试origin自己新接受的planned单自然reload/继续恢复：金额、已送计数、位置、同一batch/Trip数据相同；没有完成单收入或行驶恢复覆盖",
+      "evidence": [
+        "17-normal-reload-entry.jpg",
+        "18-normal-continue-own-progress.json",
+        "18-normal-continue-own-progress.jpg"
+      ]
+    },
+    {
+      "id": "B10",
+      "status": "FAIL",
+      "scope": "续档后再进同一planned单详情，旧包仍RED",
+      "evidence": [
+        "19-restored-planned-red.json",
+        "19-restored-planned-red.jpg"
+      ]
+    },
+    {
+      "id": "B11",
+      "status": "NOT_COVERED",
+      "scope": "真实沿路连续行驶/相机跟随→到店停→取餐服务→ready停留→主动继续→自动交付",
+      "reason": "B08真实阻塞，不使用Runtime命令绕过；等待父PM精确修复包。"
+    },
+    {
+      "id": "B12",
+      "status": "NOT_COVERED",
+      "scope": "active配送性能、非零已完成单/收入进度恢复、315×851暂停流程可用性",
+      "reason": "当前按PM指令保留planned单并暂停；已有rAF仅入口/菜单/错误页混合观察。"
+    }
+  ],
+  "caseStatusCounts": {
+    "PASS": 8,
+    "FAIL": 2,
+    "NOT_COVERED": 2
+  },
+  "blockingFinding": {
+    "message": "配送容量单位或条款无效",
+    "stage": "planned UI rendering after successful actual acceptance",
+    "compiledEvidence": "assets/main/index.ab7bd.js:109 contains p=be([].concat(u.values()),f)",
+    "sourceEntry": "V2GameUI signed-load summary call formerly loadSummary([...batchLoads.values()],capacity)",
+    "actualValidLoad": {
+      "version": "slots-v1",
+      "occupiedSlots": 2
+    },
+    "actualCapacity": {
+      "version": "slots-v1",
+      "capacitySlots": 2
+    },
+    "rawFirstError": [
+      {
+        "at": 503637,
+        "kind": "window.error",
+        "message": "Uncaught Error: 配送容量单位或条款无效",
+        "stack": "Error: 配送容量单位或条款无效\n    at o (http://127.0.0.1:4198/assets/main/index.ab7bd.js:115:254)\n    at c (http://127.0.0.1:4198/assets/main/index.ab7bd.js:115:712)\n    at u (http://127.0.0.1:4198/assets/main/index.ab7bd.js:115:1517)\n    at be (http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:3315)\n    at a.orders (http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:39688)\n    at a.render (http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:8917)\n    at a.act (http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:5453)\n    at http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:48352\n    at http://127.0.0.1:4198/assets/main/index.ab7bd.js:83:5947\n    at e.emit (http://127.0.0.1:4198/cocos-js/_virtual_cc-C6aOtQS_.js:1:142820)"
+      }
+    ],
+    "rawRestoreError": [
+      {
+        "at": 296543.09999996424,
+        "kind": "window.error",
+        "message": "Uncaught Error: 配送容量单位或条款无效",
+        "stack": "Error: 配送容量单位或条款无效\n    at o (http://127.0.0.1:4198/assets/main/index.ab7bd.js:115:254)\n    at c (http://127.0.0.1:4198/assets/main/index.ab7bd.js:115:712)\n    at u (http://127.0.0.1:4198/assets/main/index.ab7bd.js:115:1517)\n    at be (http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:3315)\n    at a.orders (http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:39688)\n    at a.render (http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:8917)\n    at a.act (http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:5453)\n    at http://127.0.0.1:4198/assets/main/index.ab7bd.js:109:9530\n    at http://127.0.0.1:4198/assets/main/index.ab7bd.js:83:5947\n    at e.emit (http://127.0.0.1:4198/cocos-js/_virtual_cc-C6aOtQS_.js:1:142820)"
+      }
+    ],
+    "fullStackArtifacts": [
+      "14-route-planned.json",
+      "15-blocker-readonly-shape.json",
+      "19-restored-planned-red.json"
+    ],
+    "owner": "parent PM accepted root and owns source/build repair; B must not patch source/package"
+  },
+  "preservedProgress": {
+    "batchIds": [
+      "v2-road-268"
+    ],
+    "route": {
+      "tripId": 1,
+      "phase": "planned",
+      "cursor": 0,
+      "serviceCharged": false,
+      "serviceSeconds": 0,
+      "position": [
+        -2348.12,
+        -552.93
+      ]
+    },
+    "cashCents": 10000,
+    "heroCompletedOrders": 0,
+    "restoreChecks": {
+      "cashCents": true,
+      "heroCompletedOrders": true,
+      "npcCompletedOrders": true,
+      "batchIds": true,
+      "route": true,
+      "trip": true
+    },
+    "pausedFrame": {
+      "sequence": 19695,
+      "nowSeconds": 1793976200.837,
+      "foreground": true,
+      "paused": true,
+      "fingerprint": "[1793976200.837,true,true]"
+    },
+    "instruction": "Preserve same context/order; no new order, clear, synthetic save or Runtime bypass; next retest only after PM gives exact root/hash."
+  },
+  "scrollChecks": {
+    "ridersBefore": [
+      {
+        "key": "riders",
+        "offset": {
+          "x": 0,
+          "y": 2004.7110692767483
+        },
+        "max": {
+          "x": 0,
+          "y": 2004.9635385534966
+        }
+      }
+    ],
+    "ridersAfter": [
+      {
+        "key": "riders",
+        "offset": {
+          "x": 0,
+          "y": 2004.7110692767483
+        },
+        "max": {
+          "x": 0,
+          "y": 2004.9635385534966
+        }
+      }
+    ],
+    "ridersSame": true,
+    "vehiclesBeforeSelection": [
+      {
+        "key": "vehicles",
+        "offset": {
+          "x": 0,
+          "y": 252.30122761506283
+        },
+        "max": {
+          "x": 0,
+          "y": 252.30125523012555
+        }
+      }
+    ],
+    "vehiclesAfterSelection": [
+      {
+        "key": "vehicles",
+        "offset": {
+          "x": 0,
+          "y": 252.30122761506283
+        },
+        "max": {
+          "x": 0,
+          "y": 252.30125523012555
+        }
+      }
+    ],
+    "vehiclesSame": true
+  },
+  "performance": {
+    "timeOrigin": 1793975165156.9,
+    "now": 737614.6000000238,
+    "frameIntervalSampleCount": 44138,
+    "meanMs": 16.710931623535906,
+    "p50Ms": 16.699999999953434,
+    "p95Ms": 16.70000000006985,
+    "p99Ms": 16.800000000046566,
+    "maxMs": 483.29999999998836,
+    "over50Ms": 10,
+    "longTaskSupported": true,
+    "consoleCounts": {
+      "warn": 0,
+      "error": 1
+    },
+    "dropped": {
+      "console": 0,
+      "errors": 0,
+      "frames": 0,
+      "longTasks": 0
+    },
+    "scope": "mixed entry/menu/planned render error; observer adds overhead; not active delivery or physical-device FPS",
+    "tailFramesRetained": 300,
+    "longTaskCount": 7,
+    "rawEvidence": "16-pre-reload-performance-errors.json",
+    "notPhysicalDeviceFPS": true,
+    "activeDeliveryMeasured": false
+  },
+  "artifacts": {
+    "actionTrace": "actions-trace.json",
+    "performanceRaw": "16-pre-reload-performance-errors.json",
+    "performanceSummary": "performance-summary.json",
+    "stepCount": 19,
+    "screenshotCount": 17,
+    "screenshots": [
+      {
+        "path": "01-entry-390-dpr2.jpg",
+        "sha256": "d7d29a781e86024bdf8fce03c35e1572c37315ed392bdb0ae6973e4aadf7e16b",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "02-home-early.jpg",
+        "sha256": "9a78414e173fa23f87f9b5cda2235c0798a564d8de31c8187eb23d5ee933f7eb",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "03-home-ready.jpg",
+        "sha256": "9a78414e173fa23f87f9b5cda2235c0798a564d8de31c8187eb23d5ee933f7eb",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "04-riders-top.jpg",
+        "sha256": "36f3c2eac87ec944bf454a61b9dc6e35bf379c359ca532c07ce2d48d81619ce9",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "05-riders-bottom.jpg",
+        "sha256": "fac3d34ffb260f4716614ad28584e6eb49d5f467c76fdada2cc56a118a7cf250",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "06-vehicles-top.jpg",
+        "sha256": "e80ec6182de2602cb041c18930ccd988a643db051a44a14818bb0167347afc0c",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "07-riders-return-offset.jpg",
+        "sha256": "5ecdae5ea2147c4f1102eb86af7b3d6e0e22a1a65df7cde1f080c626279c0776",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "08-vehicles-scrolled.jpg",
+        "sha256": "4043aa097e47e4c94465e37fef3b22297186554d0f069722d2e865e3d6048fdb",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "09-vehicles-select-no-jump.jpg",
+        "sha256": "56eb9b5040020140a05d9e75727524d0dd3128df2d9bb4883f8184c09a58385b",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "10-maps-top.jpg",
+        "sha256": "cd1f4bdf33f1f582679ee683c74c92b6e5355c64f4f55da791d3e76ebe471318",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "11-bills-no-restart.jpg",
+        "sha256": "173e29e7592717ec6730ae76c5d35481a7e7fe9cdbaceaf618bfe3e81e0269f7",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "12-orders-lobby.jpg",
+        "sha256": "aedb35631894120f3f5a1b9d323692009988dbb3b221a0bafce8a4b38a00cab7",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "13-one-order-selected.jpg",
+        "sha256": "a6e6c0b90e3a220880b2ebbce3df8ebfab45a009067bf142a8a3443581bc7b99",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "14-route-planned.jpg",
+        "sha256": "d8f5353a4eb9834a8b4987cb3134e704d65e55c845604f9f5f3e784a0049fb0a",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "17-normal-reload-entry.jpg",
+        "sha256": "f5f0769795d3fbf615f5e2e06462e53e646b352b54f5509c1bfea0dd3098ec15",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "18-normal-continue-own-progress.jpg",
+        "sha256": "a429da33e337852a0c515e53d967e76cbe75a9ad5f2e23868540a09bd0017e23",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      },
+      {
+        "path": "19-restored-planned-red.jpg",
+        "sha256": "828c83feb0ddfc3a445e3ecd5ace19df3aa499002cce88ac9c2a88c4d0383470",
+        "viewport": [
+          390,
+          844
+        ],
+        "dpr": 2,
+        "rasterSize": [
+          390,
+          844
+        ],
+        "canvasBackingSize": [
+          780,
+          1688
+        ]
+      }
+    ]
+  },
+  "uncovered": [
+    "多单同店/满队30NPC",
+    "真实广告SDK或自动权益",
+    "已拥有NPC持续到账资金刷新",
+    "真实手机/远程私人分享路径",
+    "完整U01/U02与98%",
+    "实际取餐/ready/分组已实现但本批尚未可触达验证"
+  ],
+  "limits": [
+    "独立headless仿真触控，不是真机；rAF间隔不称手机FPS，混合页面数据不推为active配送或全性能PASS。",
+    "favicon.ico实际404单列，不伪称所有网络请求无失败。",
+    "scratch观察脚本文件write_file被ACP拒绝；没有用终端写该文件或改权限。实际只读观察通过浏览器内联注册，console捕获转发原函数，不吞异常。",
+    "全部截图立即复制到本b目录；文件SHA已收集。未改任何产品/地图源、资源、包或服务，未commit/push、派Agent或触用户profile/真实slot。",
+    "窗口.error与console.error为原始捕获，不把同一根因的多层日志当多个独立业务缺陷；没有删异常以求全绿。"
+  ],
+  "nextGate": "等待父PM的新测试包/root/hash，用同一4198 origin和本已planned进度复验；浏览器当前未关闭，不再执行UI动作。"
+}

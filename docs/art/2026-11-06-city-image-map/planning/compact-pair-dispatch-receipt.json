@@ -1,0 +1,136 @@
+{
+  "threadId": "thr_gje67q2cgt",
+  "providerReadback": "acp-hermes-agent",
+  "modelExplicitlyRequested": "openai-api:gpt-6.1-sol",
+  "reasoningRequested": "high",
+  "modeBefore": {
+    "id": "_bb/legacy-mode",
+    "label": "Mode",
+    "description": null,
+    "category": "mode",
+    "type": "select",
+    "value": "default",
+    "pendingValue": null,
+    "values": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Ask before edits.",
+        "group": null
+      },
+      {
+        "id": "accept_edits",
+        "label": "Accept Edits",
+        "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+        "group": null
+      },
+      {
+        "id": "dont_ask",
+        "label": "Don't Ask",
+        "description": "Auto-allow file edits for this session except sensitive paths.",
+        "group": null
+      }
+    ]
+  },
+  "modeReadback": {
+    "options": [
+      {
+        "id": "_bb/legacy-mode",
+        "label": "Mode",
+        "description": null,
+        "category": "mode",
+        "type": "select",
+        "value": "default",
+        "pendingValue": "accept_edits",
+        "values": [
+          {
+            "id": "default",
+            "label": "Default",
+            "description": "Ask before edits.",
+            "group": null
+          },
+          {
+            "id": "accept_edits",
+            "label": "Accept Edits",
+            "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+            "group": null
+          },
+          {
+            "id": "dont_ask",
+            "label": "Don't Ask",
+            "description": "Auto-allow file edits for this session except sensitive paths.",
+            "group": null
+          }
+        ]
+      }
+    ]
+  },
+  "dispatch": {
+    "threadId": "thr_gje67q2cgt",
+    "ok": true,
+    "delivery": "sent",
+    "mode": "auto"
+  },
+  "statusReadback": "active",
+  "scope": "compact-pair-v1 plus new compact-layout-v1 planning files; all old assets/user layouts/legacy scene read-only",
+  "stage": "dispatched-not-generated-or-accepted",
+  "mustRestoreOriginalModeAtHandback": "default",
+  "legacyCodexRetried": false,
+  "scopeSource": "planning/current-scope.json",
+  "modeAfterSessionApplied": {
+    "options": [
+      {
+        "id": "_bb/legacy-mode",
+        "label": "Mode",
+        "description": null,
+        "category": "mode",
+        "type": "select",
+        "value": "accept_edits",
+        "pendingValue": null,
+        "values": [
+          {
+            "id": "default",
+            "label": "Default",
+            "description": "Ask before edits.",
+            "group": null
+          },
+          {
+            "id": "accept_edits",
+            "label": "Accept Edits",
+            "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+            "group": null
+          },
+          {
+            "id": "dont_ask",
+            "label": "Don't Ask",
+            "description": "Auto-allow file edits for this session except sensitive paths.",
+            "group": null
+          }
+        ]
+      }
+    ]
+  },
+  "acceptedExecutionModel": "openai-api:gpt-6.1-sol",
+  "boundaryNoteRecorded": true,
+  "firstProductionArtifactVerified": false,
+  "boundaryNoteEvidence": "exact current turn text read back using bb thread log --format minimal --limit 1",
+  "firstAuthorizedProductionEditsObserved": [
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/prepare_pair.py",
+      "bytesAtReadback": 7035
+    },
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/generate_region.py",
+      "bytesAtReadback": 6293
+    },
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/prompt-A.txt",
+      "bytesAtReadback": 3619
+    },
+    {
+      "file": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/prompt-B.txt",
+      "bytesAtReadback": 3689
+    }
+  ],
+  "evidenceLimit": "workspace edit delivery only; scripts/native images not yet independently accepted or exercised by parent"
+}

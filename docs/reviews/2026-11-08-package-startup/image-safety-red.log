@@ -1,0 +1,26 @@
+test_complete_valid_image_set_updates_versions_and_preserves_input (__main__.Images.test_complete_valid_image_set_updates_versions_and_preserves_input) ... ok
+test_missing_inventory_image_is_rejected_without_publishing (__main__.Images.test_missing_inventory_image_is_rejected_without_publishing) ... FAIL
+test_valid_header_but_corrupt_pixel_stream_is_rejected_atomically (__main__.Images.test_valid_header_but_corrupt_pixel_stream_is_rejected_atomically) ... FAIL
+
+======================================================================
+FAIL: test_missing_inventory_image_is_rejected_without_publishing (__main__.Images.test_missing_inventory_image_is_rejected_without_publishing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-08-package-startup/test_image_packaging.py", line 19, in test_missing_inventory_image_is_rejected_without_publishing
+    i,r=self.inputs(self.rows[:1],self.jobs[:1]);self.assertRaises(ValueError,pack.optimize,self.source,self.out,i,r);self.assertFalse(self.out.exists());self.unchanged()
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised by optimize
+
+======================================================================
+FAIL: test_valid_header_but_corrupt_pixel_stream_is_rejected_atomically (__main__.Images.test_valid_header_but_corrupt_pixel_stream_is_rejected_atomically)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-08-package-startup/test_image_packaging.py", line 27, in test_valid_header_but_corrupt_pixel_stream_is_rejected_atomically
+    i,r=self.inputs(self.rows,[job,self.jobs[1]]);self.assertRaises(Exception,pack.optimize,self.source,self.out,i,r);self.assertFalse(self.out.exists());self.assertFalse(self.out.with_name('output.part').exists());self.unchanged()
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Exception not raised by optimize
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.045s
+
+FAILED (failures=2)

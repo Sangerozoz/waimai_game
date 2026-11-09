@@ -1,0 +1,377 @@
+{
+  "status": "PASS_NARROW_HERO_SYNC_OPTIMIZATION_DELIVERY",
+  "verifiedAt": "2026-11-07T07:49:10.742982+00:00",
+  "productionChangedFiles": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "sha256": "2851ebfbe1eb89135161d896150a6d06f42f04ef1ba4d8aa563edca68a0949f8"
+    }
+  ],
+  "newTestFile": {
+    "path": "delivery-game/tests/product-regression-1106/hero-sync-noop.test.cjs",
+    "sha256": "d4816d477b206bd7f6353f53ebbac824d574e60348467bb2912bfbfe2fa925a4",
+    "tests": 11
+  },
+  "capturedInputCount": 772,
+  "approvedInputChanges": [
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+    "delivery-game/tests/product-regression-1106/hero-sync-noop.test.cjs"
+  ],
+  "otherCapturedInputsUnchanged": 770,
+  "defaultRegression": {
+    "tests": 156,
+    "pass": 156,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "typecheckExitCode": 0,
+  "independentReview": {
+    "spec": "PASS",
+    "quality": "PASS",
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "pairedModelComparisons": 40,
+  "retainedTimedPairs": 32,
+  "warmupComparisons": 8,
+  "modelReductionPercent": {
+    "new-empty": 15.372101489520595,
+    "existing-150min-pickup": 12.331282934875388,
+    "existing-150min-travelling": 13.029461596307968,
+    "signed-zero-quota-terminal": 13.55333164306758
+  },
+  "creatorExitCode": 36,
+  "buildInputDrift": [],
+  "buildOutputFiles": 550,
+  "buildJavaScriptFiles": 14,
+  "packedResourcesByteEqual": 524,
+  "httpIdentityChecks": 30,
+  "servedBuild": "delivery-game/build/v2-hero-sync-validated-1107",
+  "terminals": {
+    "4182": "term_x7yhrey8tc",
+    "4196": "term_twhjpcyi28"
+  },
+  "realUserBrowserOrSaveAccess": false,
+  "browserGameExecutedThisTask": false,
+  "remoteAuthenticatedContentVerified": false,
+  "unchangedAcceptanceLimits": [
+    "U01 overall open; complete long-history candidate transactions still exceed 33ms",
+    "no browser or physical-device FPS claim",
+    "original natural source fixture direct packed restore BLOCKED",
+    "98 percent not accepted; formal user items closed remains zero",
+    "ad SDK, long-term 80/20 and candidate C remain open"
+  ],
+  "originalCandidateAndFailuresPreserved": true,
+  "evidenceArtifacts": [
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark-followup-receipt.json",
+      "sha256": "cdcdb57fbb7be5bdc8bd12b528731e2b6e860e4bd1d94f8ade511757609d16d1"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark-followup-result.json",
+      "sha256": "8629d226e3fcc557c4a2dc6a9dd96f272d3b63ea29d551e11df1d3ce51544aff"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark-followup-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark-receipt.json",
+      "sha256": "8ef4547004afbda204958b12b5948aca9b5ac699baf5f045a2f84bc26d5f61a9"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark-result.json",
+      "sha256": "21d289bbe64c79a4e69de3a4684020fb56eed2fdf4a77664a72409a46f90ffc8"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark.cjs",
+      "sha256": "38c923fd8352809b2c47401c020150075782516ab3a1b2988b7e80adcdfaf2a5"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/build-config.json",
+      "sha256": "ba94670cb344fa8ef94391eeba17e442741e34fa90bee75a092bfe26b30751a0"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/build-inputs.json",
+      "sha256": "200f15a2a7b9a38d8d4e5012ff2955b82379c0576a74ec58301bccc898afc9b3"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/build-output-manifest.json",
+      "sha256": "61da4d19004a45b9c561901bb4e0c5537dd14d1a5d35db0d69a7906f29b3c457"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/build-receipt.json",
+      "sha256": "fc91f4391c813d9b56a777bd8196a8527093e82d56246f559072ddada393d7b7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/connect-receipt.json",
+      "sha256": "087fbb41bc0a9cbaa66a70fa50f8395469a4eb702e9b46fd489bede46a4537e2"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/creator-build.log",
+      "sha256": "d27092f3875a347a030c92c9efa36db47726f68ae48e6a913a62a16c184975d8"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/default-regression-receipt.json",
+      "sha256": "af18fe434aefe59d40e7bb8133926906a49c18d90a00d6bb6e9b7399075c35b3"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/default-regression.log",
+      "sha256": "fdd51f1c25dd038d6c5763a204df788f5f9a1af6bd7b9ef7cc555cd4694bd245"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/deployment-attempt-01-failure.json",
+      "sha256": "83b6268e2807014287ab7946d6f22e9d83ef21fb194e6a25264d065c608e9c1d"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/deployment-backup-switch.json",
+      "sha256": "34095e61f92382bdcf54b57f815df92788850fd3913827c12a45cd178065c334"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/deployment-primary-recovery.json",
+      "sha256": "5e32f3c87fd957a3bde60ccc5644620080848a7004585aee7a69254c79320cc1"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/green-receipt.json",
+      "sha256": "ee91534c52630ba22fc0f772ae957442c68e2dd60ea20c4c5db13db15607a8a7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/green.log",
+      "sha256": "b6f81d4aa7bbe072fd5346309a8f3c000aee30ba860bc14760ee3ee0e3f0b6c5"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/handoff-updates.json",
+      "sha256": "d86cc92b8180112f4d28c2f84857bd3017b0166c8ad73eccb606d261d3d4c43d"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/independent-review-result.json",
+      "sha256": "3b0a87d16099f89afbaa6f575d170e14fd255801dbadb2fc1fe8122e059d07c7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/input-before.json",
+      "sha256": "008456632a41885b18602a340c94e9aa55011b5bcd0d548709b3e136f1180d55"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/packed-resource-compatibility.json",
+      "sha256": "e0604a09250bc3ed29b178ccb7880b688e15a9cecf173150f61ca5540c352a49"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/pre-build-integrity.json",
+      "sha256": "15d162b875999168a7bf89b68a41eab5ca53151fdf196118721abbfc16ae7d4a"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/preview-deployment-receipt.json",
+      "sha256": "595062fce442b17c442e7db0b16c99ebffc1c75a213850430bc49a308b6270c2"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/red-receipt.json",
+      "sha256": "125b1a67f552ea65729bbb331ece4620f65e9bc437c2698bc1160db7de2b14b7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/red.log",
+      "sha256": "e39c2b7788a626303f90cc237c53decc24ad54462bbcd68e34c2f96795e9701f"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/report.md",
+      "sha256": "c38e8b66bb52a3afdd1f898cc77473f2af39f11ba28a7b0a62998ecf34c36b09"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/benchmark-receipt.json",
+      "sha256": "8ef4547004afbda204958b12b5948aca9b5ac699baf5f045a2f84bc26d5f61a9"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/build-config.json",
+      "sha256": "ba94670cb344fa8ef94391eeba17e442741e34fa90bee75a092bfe26b30751a0"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/build-inputs.json",
+      "sha256": "200f15a2a7b9a38d8d4e5012ff2955b82379c0576a74ec58301bccc898afc9b3"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/build-output-manifest.json",
+      "sha256": "61da4d19004a45b9c561901bb4e0c5537dd14d1a5d35db0d69a7906f29b3c457"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/build-receipt.json",
+      "sha256": "fc91f4391c813d9b56a777bd8196a8527093e82d56246f559072ddada393d7b7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/creator-build.log",
+      "sha256": "d27092f3875a347a030c92c9efa36db47726f68ae48e6a913a62a16c184975d8"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/default-regression-receipt.json",
+      "sha256": "af18fe434aefe59d40e7bb8133926906a49c18d90a00d6bb6e9b7399075c35b3"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/default-regression.log",
+      "sha256": "fdd51f1c25dd038d6c5763a204df788f5f9a1af6bd7b9ef7cc555cd4694bd245"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/frozen/delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "sha256": "e5734a01ffa76c83a10e47ac18695ecacbf3992d83b059c1785a000e11e0a297"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/frozen/delivery-game/tests/product-regression-1106/hero-sync-noop.test.cjs",
+      "sha256": "bee9c6b7dcdc666745b773e14e6a7e3b5f1b03e9e89a15703fc000bd0fd6b974"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/frozen/docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark-result.json",
+      "sha256": "21d289bbe64c79a4e69de3a4684020fb56eed2fdf4a77664a72409a46f90ffc8"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/frozen/docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark.cjs",
+      "sha256": "69b0cba2f02b3ad8d396b24e9bdb02e0258350eb70c68131b3b025748585616f"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/frozen/docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/green.log",
+      "sha256": "b6f81d4aa7bbe072fd5346309a8f3c000aee30ba860bc14760ee3ee0e3f0b6c5"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/frozen/docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/red.log",
+      "sha256": "e39c2b7788a626303f90cc237c53decc24ad54462bbcd68e34c2f96795e9701f"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/frozen/docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review.diff",
+      "sha256": "57501da07273e7a03fe2024c9268b3efab099adf597cb6fcb4e0b112f39f5ac2"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/frozen-archive.json",
+      "sha256": "4873910c3cab64c89abfc376b750fd5e023ecf00830f9d1dc2867ee03c82bd81"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/green-receipt.json",
+      "sha256": "ee91534c52630ba22fc0f772ae957442c68e2dd60ea20c4c5db13db15607a8a7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/red-receipt.json",
+      "sha256": "125b1a67f552ea65729bbb331ece4620f65e9bc437c2698bc1160db7de2b14b7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/report.md",
+      "sha256": "66b3f47d680a0c7248e5eb2423414095c99a3dd070b901c7624ed50f16da1797"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/review-request.json",
+      "sha256": "e2f22eadf4bf1964e10c3e115beb88d00044cc6cfade8f9548ca8f6b2a276f27"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/review-result.json",
+      "sha256": "6dafbf4876a042c6f655d7e4d0ea8531ac341e6f200d51b6bc20aa3823b8f7e2"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/typecheck-receipt.json",
+      "sha256": "fcb39882b145618ce9dfd4b14fd33be95402356c48c889b80ac31fe0f087fa60"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-01/typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-final.diff",
+      "sha256": "ea7521f255c7faa11037fb92d71bd08776b6abaf8a3eb3adb37a7f7b46e60b24"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-delta.diff",
+      "sha256": "9610356e4ee5e54456c344830d70ad5ff43da6759f7e4ddf1daaf72bdd8a83ef"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-green-receipt.json",
+      "sha256": "151b0b6d19bd714c5fe47c733cb75308a9a7169fc903358951c9507ee472b123"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-green-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-green.log",
+      "sha256": "500cf8580295643fe621eee9fdc1063a20ec82bbfd5f870facab9771eb112331"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-prompt.txt",
+      "sha256": "0e99d9a15b802e1d78c96d652fb9323bb9f051dcb7069b23ff7bf410eab0f369"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-red-receipt.json",
+      "sha256": "eb95bcb719778613dfedf963a3931139b1bd576a24382c2e073fd80800e1e98f"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-red.log",
+      "sha256": "43b06d8c529a59138e664194918034853bec7b6837ec9362f69b64bc11506905"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-request.json",
+      "sha256": "70cd30e29b3d58bf477ded6c478705e133a3376b255a58267e71be34c7d9f883"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-prompt.txt",
+      "sha256": "94da48ce83326c41adb51df19d4411bf0ffc34a34622c31a79ca3ba38127e792"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-request.json",
+      "sha256": "e2f22eadf4bf1964e10c3e115beb88d00044cc6cfade8f9548ca8f6b2a276f27"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review.diff",
+      "sha256": "57501da07273e7a03fe2024c9268b3efab099adf597cb6fcb4e0b112f39f5ac2"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/source-before/V2FleetSession.ts",
+      "sha256": "25bb29bbe67739022e1330865bf9c5a06557808c1e65fcc1f7bd4af07facc43e"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/typecheck-receipt.json",
+      "sha256": "fcb39882b145618ce9dfd4b14fd33be95402356c48c889b80ac31fe0f087fa60"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-build-config.json",
+      "sha256": "64e126d7613f6ecb629aefe7f080c1e8ac618abaf2dcea9fa49e21ccb5ca4d01"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-build-inputs.json",
+      "sha256": "cabcca33dcf0e90e4bb81ebbe1a12496abd87115e6d00e5259bf7013e8ebb2eb"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-build-output-manifest.json",
+      "sha256": "8170eea6a9567f4d2872c362424660cfa28f3420153883b87e5a741af240885e"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-build-receipt.json",
+      "sha256": "9b157a8ee63671e7bcb4c5ef2569ad8f3ad1abdf9165e2deaab48da5202e2256"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-creator-build.log",
+      "sha256": "ac07e7d462dc01747bbeb758f311edf9e5a8524d8f99a831723db352e27e82e0"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-default-regression-receipt.json",
+      "sha256": "95817352905661eda7b6abbee97a4c6df60786f6b2659c222c50cb2ada4388e4"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-default-regression.log",
+      "sha256": "76e271e3e9f43beb6a150864e84c4fc446cd94749657e53cb53091fd9a33b31f"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-input-integrity.json",
+      "sha256": "83dab6d9a043bd8457a73e134084b464be622a2ff4fddc3c0ac7f9131c365a58"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-typecheck-receipt.json",
+      "sha256": "395d522cf20790f7b49d7aaa6717ea336e579d43a9fe2bd3dad14357b1aa2fbd"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/validated-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

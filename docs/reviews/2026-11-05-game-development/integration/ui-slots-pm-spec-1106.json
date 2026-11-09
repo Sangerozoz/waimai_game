@@ -1,0 +1,29 @@
+{
+  "task": "SLOTS-UI-PM-SPEC-FIX-1106",
+  "author": "parent PM; independently review this fix as well as author B full UI increment",
+  "beforeSHA256": "7c9a6115e2758f2394cf6ecd6419942f1e202b61f22f471b9733cf6536f0a6c9",
+  "candidateSHA256": "240bb6bc07de7add31482e1cd330a886e46e705695a01f1a7cdbab0b45bf4c46",
+  "liveSHA256": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+  "candidatePath": "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/assets/scripts/map-sample/V2GameUI.ts",
+  "fixDiff": "ui-slots-pm-fix-1106.diff",
+  "fixDiffSHA256": "544c2780611c10bef3d462537b3206ba697f957caadc452567def451c36a796a",
+  "completeLiveToCandidateDiff": "ui-slots-pm-final-1106.diff",
+  "completeDiffSHA256": "af64d59841c24ad25294b04ea4c5825bb8236321d500a39458a70008d2c21954",
+  "cause": "PM earlier brief over-broadened home capacity display; author added unrequested map-floating batch/capacity/speed/income block contrary to accepted home layering",
+  "minimalCorrection": "remove only seven newly added home floating-label lines; keep new units/effects in order details, selection summary, vehicle/configuration/upgrade views",
+  "requirementSource": "docs/reviews/2026-11-05-ui-fidelity-recovery/home-interaction-requirements.md:5",
+  "exactReconstruction": {
+    "originalFullDiffHunks": 27,
+    "originalLiveTo7c": true,
+    "fix7cToFinal": true,
+    "newFullLiveToFinal": true
+  },
+  "specificationPass": true,
+  "independentQuality": "pending",
+  "excluded": [
+    "no live write",
+    "no core/parameter/resource/map edits",
+    "no tests/typecheck/application execution/build/browser/save actions"
+  ],
+  "previousBArtifactsKept": true
+}

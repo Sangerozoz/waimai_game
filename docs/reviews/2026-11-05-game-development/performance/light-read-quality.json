@@ -1,0 +1,163 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [
+    {
+      "id": "LIGHT-READ-REMAINING-COST",
+      "classification": "non-blocking-retained-cost-not-new-regression",
+      "locations": [
+        "docs/reviews/2026-11-05-game-development/performance/light-read-stage/delivery-game/assets/scripts/map-sample/V2GameSession.ts:14,17",
+        "docs/reviews/2026-11-05-game-development/performance/light-read-stage/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:101-117,190-199",
+        "docs/reviews/2026-11-05-game-development/performance/light-read-stage/delivery-game/assets/scripts/map-sample/V2GameUI.ts:604,615-630"
+      ],
+      "summary": "本候选去掉指定标量读取和UI每帧无条件完整路线读取，但没有消除Runtime候选事务、序列化/恢复或HUD的完整克隆成本。",
+      "staticTrigger": "每次Runtime实际drive仍通过mutate恢复候选、执行动作、序列化、完整恢复复验及必要提交；UI路线键变化与0.5秒HUD门禁后仍取完整快照，tripStage/tripControl等保留旧接口。纯文本可证明调用策略改变，不能据此证明FPS或耗时提升。",
+      "minimalRecommendation": "保留这些完整验证和真实成员读取。待用户阶段授权后再测量真实成本并决定是否继续优化；不关闭U01，不宣称卡顿、性能或完整快照成本已解决。"
+    },
+    {
+      "id": "KNOWN-NPC-EVENT-TIMING",
+      "classification": "explicitly-excluded-existing-independent-gap",
+      "locations": [
+        "docs/reviews/2026-11-05-game-development/performance/light-read-stage/delivery-game/assets/scripts/map-sample/V2GameSession.ts:44-49,86"
+      ],
+      "summary": "NPC按真实帧内主角事件补额度的既有缺口未做，不计作本候选新增回归，也不随本次静态PASS关闭。",
+      "staticTrigger": "Game仍先Dispatch.tick推进帧尾，再从arrival调用使用默认时刻的completeDelivery；本候选只替换Route标量读取，没有新增事件offset或eventAt。粗帧/拆帧的额度时点问题仍在。",
+      "minimalRecommendation": "由父PM按原独立契约另行处理并单独复审；NPC日期归类或本轮轻量读审查不能替代该事件时点改造。"
+    }
+  ],
+  "summary": "P0轻量读取暂存四文件候选独立静态质量PASS，未发现本范围安全或逻辑阻塞。progress只返回全新标量对象且不克隆/算position；motion重新分配外层对象与坐标对；Game/Runtime委托及UI逐帧、路线键、跟随和HUD成员读取链保持。独立重算4原/4候选/补丁SHA并在内存精确重建8个hunk，全部匹配。候选尚未应用；没有TS、游戏、存档、测试、构建或性能执行，不代表FPS/耗时改善，不关闭U01或用户反馈。",
+  "sourceSHA": {
+    "algorithm": "SHA-256",
+    "workspace": "/Users/sanger/Documents/ChatGPT/taptap 2",
+    "environment": "env_e54zrbdgxt",
+    "reviewerThread": "thr_wy4wnu5fyr",
+    "parentThread": "thr_axf6i4e89t",
+    "candidateRoot": "docs/reviews/2026-11-05-game-development/performance/light-read-stage",
+    "pathPolicy": "originalSHA256的键是仓库原目标；candidateSHA256同一键表示candidateRoot下保持相对路径的暂存文件。审查将这四份视为共同替换候选，未按孤立暂存目录解析依赖或运行LSP/TS。",
+    "originalSHA256": {
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "73d4daea391b506dd38f0fcd25fb04d9ae387e5aa07a148b42bf2699c7839a5e",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "0101ac3eac40b82432d14c2bbb47dde4cdf8913fdb31ddb65fac362697c9af37",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "bb6dc40f960f5867b96bf9eeaad218d8d6a9d2aa648b53ce34aa0afcff892d81",
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "a33f933e5dc1e41827ac5cfbfaee1563d494d0acceae5fdaebec9321d10a1e96"
+    },
+    "candidateSHA256": {
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "77cac10354e5f457f5553cc0c9b0b091345f583b54c18373aeff8a510a81f184",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "3d27e36b83e07f7235aa1aa6f51378a4abc3421bfa3003175464eedd34a6baf3",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "cbcc769df60e8d5bfeeeb7d4c33ccb78faa12cbf8e271f9195950d8b6a97f210"
+    },
+    "patch": {
+      "path": "docs/reviews/2026-11-05-game-development/performance/light-read-stage/apply.v4a.patch",
+      "sha256": "a4a70f3184d8c8f3b420826f8258963901e88a6a2a806f8e013e6b4e1dfb0af9",
+      "hunkCount": 8,
+      "exactUniqueContextReconstructionInMemory": true,
+      "perFileHunks": {
+        "V2RouteSession.ts": 2,
+        "V2GameSession.ts": 3,
+        "V2RuntimeController.ts": 1,
+        "V2GameUI.ts": 2
+      },
+      "appliedToRepository": false,
+      "gameReverseScalarReplacementAndGetterMatchesOriginal": true
+    },
+    "manifest": {
+      "path": "docs/reviews/2026-11-05-game-development/performance/light-read-stage/source-sha256.json",
+      "sha256": "03513be1400664dd33b7a3894da9c8cb612367baa665fecbfafcaf949f9efdcc",
+      "allOriginalAndCandidateHashesMatched": true
+    },
+    "parentSpecificationReview": {
+      "path": "docs/reviews/2026-11-05-game-development/performance/light-read-stage/parent-spec-review.json",
+      "sha256": "f3d57d56d917c85e994a069aab66a6fd209d7155017f295b4d9cf6278b92fcd8",
+      "use": "前置父PM规格静态核对；本次自行读控制流、哈希和补丁重建，没有仅沿用父PM或作者PASS。"
+    },
+    "contextDependencies": {
+      "delivery-game/assets/scripts/map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+      "delivery-game/assets/scripts/map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690",
+      "delivery-game/assets/scripts/map-sample/CityMap.ts": "8a122e7bd8be0057d297cf8a1cdcd73abd7f8aa1c0edf3eb2ca9dff919a40e3c",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "6ede7a45eed46a1875e187d1f728e045f44db82de6f7d83a685131d9e6093c16",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23"
+    },
+    "initialAndClosingHashesMatch": true,
+    "contextDependencyDriftAtClose": [],
+    "applicationPrecondition": "父PM应用前必须重算四份原SHA、候选及补丁SHA；任一不符即停止并重基/复审，不模糊套用，不用整份暂存覆盖变更原文件。本PASS只绑定记录的完整四文件候选及当时原基线。"
+  },
+  "limitations": [
+    {
+      "category": "static-evidence-path-policy",
+      "detail": "以下candidateEvidence中的Route/Game/Runtime/UI均指candidateRoot/delivery-game/assets/scripts/map-sample/对应完整文件；repoEvidence为原仓库依赖。没有将暂存缺少相对依赖副本造成的LSP诊断当工程错误。"
+    },
+    {
+      "category": "independent-static-evidence",
+      "checks": [
+        {
+          "id": "Q01",
+          "topic": "progress分离标量读取",
+          "candidateEvidence": ["V2RouteSession.ts:15-16,55-61"],
+          "reasoning": "progress每次以对象字面量仅复制tripId/phase/cursor/serviceCharged/serviceSeconds，不调用snapshot、copy、JSON、position或routePosition，不返回state或嵌套容器。Readonly是类型约束而非运行时freeze；即使消费者改返回标量，也无内部对象别名。"
+        },
+        {
+          "id": "Q02",
+          "topic": "motion新对象及坐标隔离",
+          "candidateEvidence": ["V2RouteSession.ts:57-61"],
+          "repoEvidence": ["delivery-game/assets/scripts/map-sample/MapTypes.ts:1", "delivery-game/assets/scripts/map-sample/RoadRouter.ts:59-69", "delivery-game/assets/scripts/map-sample/CityMap.ts:285"],
+          "reasoning": "motion只调用一次既有position，再以新数组[position[0],position[1]]放入新外层对象；包含坐标数值而非原点数组。尤其零segment时旧routePosition返回route.points[0]的别名，该新接口也会复制，因此CityMap持有或消费者改该坐标不会回写Route腿。没有改变旧position/routeSnapshot接口既有别名语义。"
+        },
+        {
+          "id": "Q03",
+          "topic": "Game标量替换保持业务门禁",
+          "candidateEvidence": ["V2GameSession.ts:18,23-39,48-89"],
+          "reasoning": "新routeMotion只委托Route.motion。candidate tripId及phase/charged读取换为progress，但读取字段直接来自同一state。accept/begin/continue之后均重新读phase，不跨这些动作缓存旧对象；自动blocked短路顺序、动作门禁、余秒扣减及arrival回调保持。将getter删除并将progress标量读取逆变换回snapshot，整个Game文本精确等于原基线。"
+        },
+        {
+          "id": "Q04",
+          "topic": "Runtime只读委托与事务不变",
+          "candidateEvidence": ["V2RuntimeController.ts:85-117,129-130,148-164,190-208"],
+          "repoEvidence": ["delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts:87-96"],
+          "reasoning": "新getter只读最后成功发布的live并透传routeMotion，不读取时钟、tick、存储或打开slot；未ready时与原快照getter一样可返回null。原mutate恢复→同步→动作→完整复验→必要commit→publish、30Hz调度及生命周期门禁逐字未改，不新增读接口绕过写入门禁。"
+        },
+        {
+          "id": "Q05",
+          "topic": "UI逐帧移动与HUD成本分离",
+          "candidateEvidence": ["V2GameUI.ts:596-630,135-140,190-199,267-297,332-338"],
+          "reasoning": "每次有效update先读motion和setRider，再检查0.5秒HUD门禁；未无条件取完整Route。完整legs仅在路线视图键变化时读取；pickupGroup仍在HUD门禁后得到完整snapshot，不能误用缺stops/orders的motion。tripStage/tripControl及详情页继续旧接口。两次读取之间没有显式推进业务、await或异步回调；已读的view/HUD方法仅同步读状态及更新显示，未引入跨帧缓存组合。"
+        },
+        {
+          "id": "Q06",
+          "topic": "tripId换批及路线更新",
+          "candidateEvidence": ["V2GameUI.ts:53-56,599-611", "V2RouteSession.ts:96-100,123-128,155-166"],
+          "reasoning": "view key仍为tripId:phase:cursor。begin生成legs并planned→travelling，cursor/phase随服务变化，新plan增加tripId，因此即使下一批在同phase/cursor仍会读新legs；取消清legs并改idle同样触发键变化。未将key简化为phase/cursor或缓存旧批快照。运行时同一渲染帧跨多批仍未执行。"
+        },
+        {
+          "id": "Q07",
+          "topic": "跟随与拖动语义",
+          "candidateEvidence": ["V2GameUI.ts:601-611"],
+          "repoEvidence": ["delivery-game/assets/scripts/map-sample/CityMap.ts:281-297,338-348"],
+          "reasoning": "保持setRider→captureView→setRoutes→restoreView，再按原新trip/初次出发条件locate(false)。setRoutes虽清follow，但随后仍恢复原视图；拖动取消follow没有新增无条件locate或每帧强制跟随。ready/服务切换保留原判定，没有用轻量化改变用户跟随选择。"
+        },
+        {
+          "id": "Q08",
+          "topic": "完整恢复、旧兼容和质量修复保留",
+          "candidateEvidence": ["V2RouteSession.ts:9-20,55,60,69-81,103-118,175-233", "V2GameSession.ts:14,17,92-119"],
+          "reasoning": "Route原snapshot/serialize、position、merchantKey经营资格+权威全集唯一、legacy完整门禁、expectedLegs可信来源及输入全量比较均未改。Game serialize和restore完整文本未改，包括A-QUALITY-01的有效charged旧推断与action互斥拒绝。未更改持久字段、版本、订单服务/体力/收入/经验/报价或旧Game1/2接受边界。"
+        }
+      ]
+    },
+    {
+      "category": "scope",
+      "detail": "只审P0轻量读取四文件暂存替换候选，不重新审全部产品/UI/资源。CityMap/RoadRouter仅追现有只读消费接口；不涉及任何地图制作、加工、几何、数据或边界工作，也未派地图任务。旧core-loop质量报告不覆盖、不改写。"
+    },
+    {
+      "category": "execution-and-performance",
+      "detail": "未运行tests/typecheck、TS执行、游戏函数、真实/合成存档、故障注入、游戏页面、Creator、构建或部署。只在Python中处理源码文本、JSON、SHA及内存补丁匹配；没有导入或执行应用。没有测FPS、耗时、GC或内存，不把源码计数当性能证据，不关闭U01或98%验收。"
+    },
+    {
+      "category": "deferred-cases",
+      "detail": "返回对象/坐标可变隔离（尤其零长度腿）、ready/服务/取消边中位置、新trip同phase/cursor换路线、拖动/跟随、HUD未满0.5秒人物刷新、同店成员与自动余秒、Game1-4合法恢复及A-QUALITY-01冲突拒绝、完整legs篡改拒绝、事务失败不发布和唯一slot等运行案例均未执行，等阶段授权。"
+    },
+    {
+      "category": "handoff",
+      "detail": "仅写performance/light-read-quality.json和light-read-quality.md；没有改原源、候选、补丁、清单、核心审查报告或其他文档，没有子Agent、commit或push。候选尚未应用，只读范围已交还父PM。本结论不代表应用、集成、构建、功能、性能或用户验收通过。"
+    }
+  ]
+}

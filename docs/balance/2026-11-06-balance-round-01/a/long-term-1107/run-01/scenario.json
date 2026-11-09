@@ -1,0 +1,264 @@
+{
+  "operationProfile": {
+    "lobby": 4,
+    "select": 0.6,
+    "route": 2,
+    "pickup": 1,
+    "continue": 1,
+    "receipt": 2,
+    "investment": 3,
+    "supply": 2
+  },
+  "limits": {
+    "cpuStopSeconds": 270,
+    "cpuHardSeconds": 300,
+    "wallHardSeconds": 360,
+    "heroOrders": 20000,
+    "events": 200000,
+    "eventHeadroom": 4096,
+    "iterations": 100000,
+    "simulatedSeconds": 604800
+  },
+  "tasks": [
+    {
+      "kind": "hero-model",
+      "id": 1
+    },
+    {
+      "kind": "npc",
+      "id": 1
+    },
+    {
+      "kind": "npc",
+      "id": 2
+    },
+    {
+      "kind": "npc",
+      "id": 3
+    },
+    {
+      "kind": "map",
+      "id": 2
+    },
+    {
+      "kind": "hero-model",
+      "id": 2
+    },
+    {
+      "kind": "hero-model",
+      "id": 3
+    },
+    {
+      "kind": "npc",
+      "id": 4
+    },
+    {
+      "kind": "npc",
+      "id": 5
+    },
+    {
+      "kind": "npc",
+      "id": 6
+    },
+    {
+      "kind": "map",
+      "id": 3
+    },
+    {
+      "kind": "hero-model",
+      "id": 4
+    },
+    {
+      "kind": "hero-model",
+      "id": 5
+    },
+    {
+      "kind": "npc",
+      "id": 7
+    },
+    {
+      "kind": "npc",
+      "id": 8
+    },
+    {
+      "kind": "npc",
+      "id": 9
+    },
+    {
+      "kind": "npc",
+      "id": 10
+    },
+    {
+      "kind": "npc",
+      "id": 11
+    },
+    {
+      "kind": "npc",
+      "id": 12
+    },
+    {
+      "kind": "map",
+      "id": 4
+    },
+    {
+      "kind": "hero-model",
+      "id": 6
+    },
+    {
+      "kind": "hero-model",
+      "id": 7
+    },
+    {
+      "kind": "hero-model",
+      "id": 8
+    },
+    {
+      "kind": "npc",
+      "id": 13
+    },
+    {
+      "kind": "npc",
+      "id": 14
+    },
+    {
+      "kind": "npc",
+      "id": 15
+    },
+    {
+      "kind": "npc",
+      "id": 16
+    },
+    {
+      "kind": "npc",
+      "id": 17
+    },
+    {
+      "kind": "npc",
+      "id": 18
+    },
+    {
+      "kind": "npc",
+      "id": 19
+    },
+    {
+      "kind": "npc",
+      "id": 20
+    },
+    {
+      "kind": "npc",
+      "id": 21
+    },
+    {
+      "kind": "npc",
+      "id": 22
+    },
+    {
+      "kind": "npc",
+      "id": 23
+    },
+    {
+      "kind": "npc",
+      "id": 24
+    },
+    {
+      "kind": "map",
+      "id": 5
+    },
+    {
+      "kind": "hero-model",
+      "id": 9
+    },
+    {
+      "kind": "hero-model",
+      "id": 10
+    },
+    {
+      "kind": "npc",
+      "id": 25
+    },
+    {
+      "kind": "npc",
+      "id": 26
+    },
+    {
+      "kind": "npc",
+      "id": 27
+    },
+    {
+      "kind": "npc",
+      "id": 28
+    },
+    {
+      "kind": "npc",
+      "id": 29
+    },
+    {
+      "kind": "npc",
+      "id": 30
+    }
+  ],
+  "inputCitySHA256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+  "supply": {
+    "method": "exact read-only prepareCity(city.json), reused for every selected mapId",
+    "nodes": 42102,
+    "roads": 9970,
+    "pois": 617,
+    "operatingPOIs": 320,
+    "dispatchBounds": {
+      "minX": -4080,
+      "maxX": -1020,
+      "minY": -960,
+      "maxY": 660
+    }
+  },
+  "endpoints": {
+    "asset80": {
+      "NPCs": 24,
+      "maps": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "models": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "catalogNumerator": 36,
+      "catalogDenominator": 45,
+      "equippedActors": 25
+    },
+    "assetFull": {
+      "NPCs": 30,
+      "maps": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "models": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catalogNumerator": 45,
+      "catalogDenominator": 45,
+      "equippedActors": 31
+    },
+    "excludes": "All purchased rider training and vehicle upgrades, including level 30; not all gameplay content."
+  }
+}

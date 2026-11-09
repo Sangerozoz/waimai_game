@@ -1,0 +1,792 @@
+{
+  "status": "proposal-not-approved-not-runtime",
+  "startCoins": 100,
+  "intro": {
+    "ordinaryOrders1To10NetCoins": 20,
+    "firstCarPrice": 300,
+    "ordinaryOrders11To15NetCoinsWithFirstCar": 24,
+    "firstRiderPrice": 120,
+    "safeOrders": 15,
+    "noPaidSuppliesRequired": true,
+    "counter": "all hero delivered orders, including ordinary and special",
+    "xpEarnedNormallyIncomeMultiplierStartsAfterDeliveredOrder": 15
+  },
+  "maps": [
+    {
+      "id": 1,
+      "name": "晴川县",
+      "price": 0,
+      "ordinaryBaseFee": 20,
+      "expectedBatchDensityCap": 2
+    },
+    {
+      "id": 2,
+      "name": "云浦市",
+      "price": 6000,
+      "ordinaryBaseFee": 27,
+      "expectedBatchDensityCap": 3
+    },
+    {
+      "id": 3,
+      "name": "星澜城",
+      "price": 35000,
+      "ordinaryBaseFee": 37,
+      "expectedBatchDensityCap": 5
+    },
+    {
+      "id": 4,
+      "name": "曜川都会",
+      "price": 150000,
+      "ordinaryBaseFee": 51,
+      "expectedBatchDensityCap": 7
+    },
+    {
+      "id": 5,
+      "name": "海境港",
+      "price": 600000,
+      "ordinaryBaseFee": 70,
+      "expectedBatchDensityCap": 10
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "name": "街行",
+      "price": 300,
+      "speedRelativeToStarter": 1.1,
+      "capacityKg": 3,
+      "incomeFactor": 1.2
+    },
+    {
+      "id": 2,
+      "name": "轻燕",
+      "price": 900,
+      "speedRelativeToStarter": 1.3,
+      "capacityKg": 4,
+      "incomeFactor": 1.3
+    },
+    {
+      "id": 3,
+      "name": "满载",
+      "price": 2000,
+      "speedRelativeToStarter": 1.15,
+      "capacityKg": 7,
+      "incomeFactor": 1.4
+    },
+    {
+      "id": 4,
+      "name": "城风",
+      "price": 4000,
+      "speedRelativeToStarter": 1.5,
+      "capacityKg": 6,
+      "incomeFactor": 1.55
+    },
+    {
+      "id": 5,
+      "name": "远途",
+      "price": 7500,
+      "speedRelativeToStarter": 1.4,
+      "capacityKg": 10,
+      "incomeFactor": 1.7
+    },
+    {
+      "id": 6,
+      "name": "疾影",
+      "price": 13000,
+      "speedRelativeToStarter": 1.8,
+      "capacityKg": 8,
+      "incomeFactor": 1.85
+    },
+    {
+      "id": 7,
+      "name": "重航",
+      "price": 22000,
+      "speedRelativeToStarter": 1.6,
+      "capacityKg": 15,
+      "incomeFactor": 2
+    },
+    {
+      "id": 8,
+      "name": "星驰",
+      "price": 36000,
+      "speedRelativeToStarter": 2,
+      "capacityKg": 12,
+      "incomeFactor": 2.15
+    },
+    {
+      "id": 9,
+      "name": "金穗",
+      "price": 56000,
+      "speedRelativeToStarter": 1.85,
+      "capacityKg": 20,
+      "incomeFactor": 2.35
+    },
+    {
+      "id": 10,
+      "name": "晨光",
+      "price": 85000,
+      "speedRelativeToStarter": 2.2,
+      "capacityKg": 18,
+      "incomeFactor": 2.5
+    }
+  ],
+  "riders": [
+    {
+      "hireOrdinal": 1,
+      "price": 120
+    },
+    {
+      "hireOrdinal": 2,
+      "price": 400
+    },
+    {
+      "hireOrdinal": 3,
+      "price": 2600
+    },
+    {
+      "hireOrdinal": 4,
+      "price": 7770
+    },
+    {
+      "hireOrdinal": 5,
+      "price": 16890
+    },
+    {
+      "hireOrdinal": 6,
+      "price": 30850
+    },
+    {
+      "hireOrdinal": 7,
+      "price": 50470
+    },
+    {
+      "hireOrdinal": 8,
+      "price": 76530
+    },
+    {
+      "hireOrdinal": 9,
+      "price": 109750
+    },
+    {
+      "hireOrdinal": 10,
+      "price": 150840
+    },
+    {
+      "hireOrdinal": 11,
+      "price": 200470
+    },
+    {
+      "hireOrdinal": 12,
+      "price": 259310
+    },
+    {
+      "hireOrdinal": 13,
+      "price": 327980
+    },
+    {
+      "hireOrdinal": 14,
+      "price": 407110
+    },
+    {
+      "hireOrdinal": 15,
+      "price": 497290
+    },
+    {
+      "hireOrdinal": 16,
+      "price": 599110
+    },
+    {
+      "hireOrdinal": 17,
+      "price": 713160
+    },
+    {
+      "hireOrdinal": 18,
+      "price": 839990
+    },
+    {
+      "hireOrdinal": 19,
+      "price": 980160
+    },
+    {
+      "hireOrdinal": 20,
+      "price": 1134210
+    },
+    {
+      "hireOrdinal": 21,
+      "price": 1302690
+    },
+    {
+      "hireOrdinal": 22,
+      "price": 1486110
+    },
+    {
+      "hireOrdinal": 23,
+      "price": 1685010
+    },
+    {
+      "hireOrdinal": 24,
+      "price": 1899880
+    },
+    {
+      "hireOrdinal": 25,
+      "price": 2131230
+    },
+    {
+      "hireOrdinal": 26,
+      "price": 2379570
+    },
+    {
+      "hireOrdinal": 27,
+      "price": 2645380
+    },
+    {
+      "hireOrdinal": 28,
+      "price": 2929150
+    },
+    {
+      "hireOrdinal": 29,
+      "price": 3231370
+    },
+    {
+      "hireOrdinal": 30,
+      "price": 3552500
+    }
+  ],
+  "upgradeLevels": [
+    {
+      "level": 1,
+      "riderCumulativeCost": 0,
+      "vehicleCumulativeCosts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "level": 2,
+      "riderCumulativeCost": 11,
+      "vehicleCumulativeCosts": [
+        3,
+        10,
+        23,
+        46,
+        87,
+        151,
+        255,
+        417,
+        649,
+        985
+      ]
+    },
+    {
+      "level": 3,
+      "riderCumulativeCost": 39,
+      "vehicleCumulativeCosts": [
+        11,
+        33,
+        73,
+        146,
+        273,
+        473,
+        800,
+        1310,
+        2037,
+        3092
+      ]
+    },
+    {
+      "level": 4,
+      "riderCumulativeCost": 81,
+      "vehicleCumulativeCosts": [
+        21,
+        64,
+        142,
+        284,
+        533,
+        923,
+        1563,
+        2557,
+        3977,
+        6037
+      ]
+    },
+    {
+      "level": 5,
+      "riderCumulativeCost": 136,
+      "vehicleCumulativeCosts": [
+        34,
+        103,
+        228,
+        457,
+        856,
+        1484,
+        2512,
+        4110,
+        6394,
+        9705
+      ]
+    },
+    {
+      "level": 6,
+      "riderCumulativeCost": 203,
+      "vehicleCumulativeCosts": [
+        49,
+        148,
+        330,
+        660,
+        1237,
+        2145,
+        3630,
+        5940,
+        9240,
+        14024
+      ]
+    },
+    {
+      "level": 7,
+      "riderCumulativeCost": 282,
+      "vehicleCumulativeCosts": [
+        67,
+        201,
+        446,
+        892,
+        1672,
+        2898,
+        4904,
+        8024,
+        12483,
+        18947
+      ]
+    },
+    {
+      "level": 8,
+      "riderCumulativeCost": 372,
+      "vehicleCumulativeCosts": [
+        86,
+        259,
+        575,
+        1150,
+        2156,
+        3737,
+        6324,
+        10349,
+        16098,
+        24434
+      ]
+    },
+    {
+      "level": 9,
+      "riderCumulativeCost": 473,
+      "vehicleCumulativeCosts": [
+        107,
+        322,
+        717,
+        1433,
+        2687,
+        4658,
+        7883,
+        12899,
+        20066,
+        30457
+      ]
+    },
+    {
+      "level": 10,
+      "riderCumulativeCost": 584,
+      "vehicleCumulativeCosts": [
+        131,
+        392,
+        870,
+        1741,
+        3264,
+        5657,
+        9574,
+        15666,
+        24370,
+        36990
+      ]
+    },
+    {
+      "level": 11,
+      "riderCumulativeCost": 706,
+      "vehicleCumulativeCosts": [
+        155,
+        466,
+        1036,
+        2071,
+        3884,
+        6731,
+        11392,
+        18641,
+        28997,
+        44013
+      ]
+    },
+    {
+      "level": 12,
+      "riderCumulativeCost": 838,
+      "vehicleCumulativeCosts": [
+        182,
+        545,
+        1212,
+        2424,
+        4545,
+        7878,
+        13332,
+        21815,
+        33935,
+        51509
+      ]
+    },
+    {
+      "level": 13,
+      "riderCumulativeCost": 981,
+      "vehicleCumulativeCosts": [
+        210,
+        630,
+        1399,
+        2798,
+        5247,
+        9094,
+        15390,
+        25184,
+        39174,
+        59461
+      ]
+    },
+    {
+      "level": 14,
+      "riderCumulativeCost": 1132,
+      "vehicleCumulativeCosts": [
+        239,
+        718,
+        1597,
+        3193,
+        5987,
+        10378,
+        17563,
+        28739,
+        44705,
+        67856
+      ]
+    },
+    {
+      "level": 15,
+      "riderCumulativeCost": 1294,
+      "vehicleCumulativeCosts": [
+        271,
+        812,
+        1804,
+        3609,
+        6766,
+        11728,
+        19847,
+        32477,
+        50520,
+        76682
+      ]
+    },
+    {
+      "level": 16,
+      "riderCumulativeCost": 1465,
+      "vehicleCumulativeCosts": [
+        303,
+        910,
+        2022,
+        4044,
+        7582,
+        13142,
+        22240,
+        36393,
+        56611,
+        85928
+      ]
+    },
+    {
+      "level": 17,
+      "riderCumulativeCost": 1646,
+      "vehicleCumulativeCosts": [
+        337,
+        1012,
+        2249,
+        4498,
+        8434,
+        14619,
+        24739,
+        40482,
+        62972,
+        95583
+      ]
+    },
+    {
+      "level": 18,
+      "riderCumulativeCost": 1835,
+      "vehicleCumulativeCosts": [
+        373,
+        1119,
+        2486,
+        4971,
+        9321,
+        16157,
+        27342,
+        44741,
+        69597,
+        105639
+      ]
+    },
+    {
+      "level": 19,
+      "riderCumulativeCost": 2034,
+      "vehicleCumulativeCosts": [
+        410,
+        1229,
+        2731,
+        5463,
+        10243,
+        17754,
+        30046,
+        49166,
+        76481,
+        116087
+      ]
+    },
+    {
+      "level": 20,
+      "riderCumulativeCost": 2242,
+      "vehicleCumulativeCosts": [
+        448,
+        1344,
+        2986,
+        5973,
+        11199,
+        19411,
+        32850,
+        53754,
+        83617,
+        126919
+      ]
+    },
+    {
+      "level": 21,
+      "riderCumulativeCost": 2459,
+      "vehicleCumulativeCosts": [
+        488,
+        1463,
+        3250,
+        6500,
+        12188,
+        21126,
+        35751,
+        58501,
+        91002,
+        138128
+      ]
+    },
+    {
+      "level": 22,
+      "riderCumulativeCost": 2685,
+      "vehicleCumulativeCosts": [
+        528,
+        1585,
+        3523,
+        7045,
+        13210,
+        22897,
+        38748,
+        63406,
+        98631,
+        149708
+      ]
+    },
+    {
+      "level": 23,
+      "riderCumulativeCost": 2919,
+      "vehicleCumulativeCosts": [
+        571,
+        1712,
+        3804,
+        7607,
+        14263,
+        24723,
+        41839,
+        68464,
+        106500,
+        161652
+      ]
+    },
+    {
+      "level": 24,
+      "riderCumulativeCost": 3163,
+      "vehicleCumulativeCosts": [
+        614,
+        1842,
+        4093,
+        8186,
+        15349,
+        26605,
+        45023,
+        73675,
+        114605,
+        173954
+      ]
+    },
+    {
+      "level": 25,
+      "riderCumulativeCost": 3414,
+      "vehicleCumulativeCosts": [
+        659,
+        1976,
+        4391,
+        8782,
+        16465,
+        28540,
+        48299,
+        79034,
+        122942,
+        186609
+      ]
+    },
+    {
+      "level": 26,
+      "riderCumulativeCost": 3675,
+      "vehicleCumulativeCosts": [
+        705,
+        2114,
+        4697,
+        9393,
+        17613,
+        30529,
+        51664,
+        84541,
+        131508,
+        199611
+      ]
+    },
+    {
+      "level": 27,
+      "riderCumulativeCost": 3943,
+      "vehicleCumulativeCosts": [
+        752,
+        2255,
+        5011,
+        10021,
+        18790,
+        32570,
+        55118,
+        90193,
+        140300,
+        212956
+      ]
+    },
+    {
+      "level": 28,
+      "riderCumulativeCost": 4221,
+      "vehicleCumulativeCosts": [
+        800,
+        2400,
+        5333,
+        10665,
+        19998,
+        34662,
+        58659,
+        95988,
+        149315,
+        226639
+      ]
+    },
+    {
+      "level": 29,
+      "riderCumulativeCost": 4506,
+      "vehicleCumulativeCosts": [
+        849,
+        2548,
+        5662,
+        11325,
+        21234,
+        36806,
+        62287,
+        101924,
+        158549,
+        240655
+      ]
+    },
+    {
+      "level": 30,
+      "riderCumulativeCost": 4800,
+      "vehicleCumulativeCosts": [
+        900,
+        2700,
+        6000,
+        12000,
+        22500,
+        39000,
+        66000,
+        108000,
+        168000,
+        255000
+      ]
+    }
+  ],
+  "maxVehicleUpgradeEffects": {
+    "speed": 0.2,
+    "capacity": 0.25,
+    "income": 0.2
+  },
+  "maxRiderUpgradeEffects": {
+    "income": 0.2,
+    "fixedServiceReduction": 0.15
+  },
+  "starterVehicle": {
+    "price": 0,
+    "upgradeCostBasis": 150,
+    "speedRelativeToStarter": 1,
+    "capacityKg": 2,
+    "incomeFactor": 1,
+    "sellable": false
+  },
+  "formulas": {
+    "hire": "first=120; n>=2: 10*roundHalfUp(40*(n-1)^2.7); n is successful hire ordinal, not identity",
+    "vehicleCumulativeUpgrade": "roundHalfUp(3*price*((L-1)/29)^1.65)",
+    "riderCumulativeTraining": "roundHalfUp(4800*((L-1)/29)^1.8)",
+    "effectProgress": "((L-1)/29)^0.65",
+    "npcExpectedBatch": "min(actualCapacity/2,mapExpectedDensity)",
+    "npcBatchSeconds": "60/actualRelativeSpeed*(1+0.25*(k-1))+30*k*(1-serviceReduction)"
+  },
+  "ads": {
+    "specialAppearancePerActualLobbyEntry": 0.8,
+    "specialBaseFeeMin": 100,
+    "specialBaseFeeMax": 150,
+    "specialExclusiveBatch": true,
+    "autoActiveSeconds": 600,
+    "autoReceivesSeparateQuotaGift": false
+  },
+  "quotaMilestones": [
+    {
+      "teamCompletedOrders": 0,
+      "capMinutes": 15,
+      "minutesPerHeroOrder": 1
+    },
+    {
+      "teamCompletedOrders": 60,
+      "capMinutes": 20,
+      "minutesPerHeroOrder": 2
+    },
+    {
+      "teamCompletedOrders": 240,
+      "capMinutes": 25,
+      "minutesPerHeroOrder": 2
+    },
+    {
+      "teamCompletedOrders": 700,
+      "capMinutes": 30,
+      "minutesPerHeroOrder": 3
+    }
+  ]
+}

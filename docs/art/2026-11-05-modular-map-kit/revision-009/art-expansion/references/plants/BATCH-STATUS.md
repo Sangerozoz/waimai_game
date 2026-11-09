@@ -1,0 +1,1 @@
+Current: T05-001 generated once, independent candidate pending scene/camera review. T04-002 generated once with opaque solid guide, remains HOLD (camera uncertain/fringe). T04-001 remains untouched HOLD. No third attempt. Reports and provenance under respective native directories.

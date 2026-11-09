@@ -1,0 +1,474 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.12.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "width": 48,
+  "height": 32,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "infinite": false,
+  "backgroundcolor": "#deded7",
+  "nextobjectid": 9,
+  "nextlayerid": 4,
+  "tilesets": [],
+  "properties": [
+    {
+      "name": "purpose",
+      "type": "string",
+      "value": "用户手工标注道路中心线的独立小样，不改原游戏路网"
+    },
+    {
+      "name": "imagePixelWidth",
+      "type": "int",
+      "value": 1536
+    },
+    {
+      "name": "imagePixelHeight",
+      "type": "int",
+      "value": 1024
+    },
+    {
+      "name": "imageSHA256",
+      "type": "string",
+      "value": "ca28b238db09692e1c6af064d920f18ccaaacd6dce94625a16ce7de5a755b0db"
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "type": "imagelayer",
+      "name": "街区底图（锁定）",
+      "image": "native-city-block.png",
+      "x": 0,
+      "y": 0,
+      "opacity": 1,
+      "visible": true,
+      "locked": true
+    },
+    {
+      "id": 2,
+      "type": "objectgroup",
+      "name": "路线（在这里画道路中心线）",
+      "draworder": "index",
+      "x": 0,
+      "y": 0,
+      "opacity": 1,
+      "visible": true,
+      "locked": false,
+      "color": "#ff28b8",
+      "objects": []
+    },
+    {
+      "id": 3,
+      "type": "objectgroup",
+      "name": "助手描线（可编辑）",
+      "draworder": "index",
+      "x": 0,
+      "y": 0,
+      "opacity": 1,
+      "visible": true,
+      "locked": false,
+      "color": "#ff28b8",
+      "objects": [
+        {
+          "id": 1,
+          "name": "主路西",
+          "type": "road",
+          "x": 0,
+          "y": 521,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 100,
+              "y": 17
+            },
+            {
+              "x": 200,
+              "y": 27
+            },
+            {
+              "x": 260,
+              "y": 27
+            },
+            {
+              "x": 320,
+              "y": 32
+            }
+          ],
+          "properties": [
+            {
+              "name": "traceMethod",
+              "type": "string",
+              "value": "assistant-visual-trace"
+            },
+            {
+              "name": "connectivity",
+              "type": "string",
+              "value": "main-network"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "主路中",
+          "type": "road",
+          "x": 320,
+          "y": 553,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 80,
+              "y": 18
+            },
+            {
+              "x": 280,
+              "y": 38
+            },
+            {
+              "x": 480,
+              "y": 48
+            },
+            {
+              "x": 670,
+              "y": 48
+            }
+          ],
+          "properties": [
+            {
+              "name": "traceMethod",
+              "type": "string",
+              "value": "assistant-visual-trace"
+            },
+            {
+              "name": "connectivity",
+              "type": "string",
+              "value": "main-network"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "主路东",
+          "type": "road",
+          "x": 990,
+          "y": 601,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 210,
+              "y": -6
+            },
+            {
+              "x": 410,
+              "y": -18
+            },
+            {
+              "x": 545,
+              "y": -25
+            }
+          ],
+          "properties": [
+            {
+              "name": "traceMethod",
+              "type": "string",
+              "value": "assistant-visual-trace"
+            },
+            {
+              "name": "connectivity",
+              "type": "string",
+              "value": "main-network"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "主路北",
+          "type": "road",
+          "x": 1223,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -41,
+              "y": 100
+            },
+            {
+              "x": -80,
+              "y": 200
+            },
+            {
+              "x": -140,
+              "y": 343
+            }
+          ],
+          "properties": [
+            {
+              "name": "traceMethod",
+              "type": "string",
+              "value": "assistant-visual-trace"
+            },
+            {
+              "name": "connectivity",
+              "type": "string",
+              "value": "main-network"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "中段",
+          "type": "road",
+          "x": 1083,
+          "y": 343,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -31,
+              "y": 57
+            },
+            {
+              "x": -61,
+              "y": 157
+            },
+            {
+              "x": -93,
+              "y": 258
+            }
+          ],
+          "properties": [
+            {
+              "name": "traceMethod",
+              "type": "string",
+              "value": "assistant-visual-trace"
+            },
+            {
+              "name": "connectivity",
+              "type": "string",
+              "value": "main-network"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "主路南",
+          "type": "road",
+          "x": 990,
+          "y": 601,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": -34,
+              "y": 99
+            },
+            {
+              "x": -68,
+              "y": 199
+            },
+            {
+              "x": -101,
+              "y": 299
+            },
+            {
+              "x": -141,
+              "y": 422
+            }
+          ],
+          "properties": [
+            {
+              "name": "traceMethod",
+              "type": "string",
+              "value": "assistant-visual-trace"
+            },
+            {
+              "name": "connectivity",
+              "type": "string",
+              "value": "main-network"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "上方环路",
+          "type": "road",
+          "x": 320,
+          "y": 553,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": -38
+            },
+            {
+              "x": 8,
+              "y": -71
+            },
+            {
+              "x": 25,
+              "y": -105
+            },
+            {
+              "x": 48,
+              "y": -144
+            },
+            {
+              "x": 77,
+              "y": -185
+            },
+            {
+              "x": 111,
+              "y": -215
+            },
+            {
+              "x": 153,
+              "y": -237
+            },
+            {
+              "x": 210,
+              "y": -246
+            },
+            {
+              "x": 280,
+              "y": -250
+            },
+            {
+              "x": 430,
+              "y": -249
+            },
+            {
+              "x": 580,
+              "y": -246
+            },
+            {
+              "x": 680,
+              "y": -236
+            },
+            {
+              "x": 723,
+              "y": -219
+            },
+            {
+              "x": 763,
+              "y": -210
+            }
+          ],
+          "properties": [
+            {
+              "name": "traceMethod",
+              "type": "string",
+              "value": "assistant-visual-trace"
+            },
+            {
+              "name": "connectivity",
+              "type": "string",
+              "value": "main-network"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "左下独立车道",
+          "type": "road",
+          "x": 91,
+          "y": 784,
+          "width": 0,
+          "height": 0,
+          "rotation": 0,
+          "visible": true,
+          "polyline": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 29,
+              "y": -2
+            },
+            {
+              "x": 59,
+              "y": -2
+            },
+            {
+              "x": 99,
+              "y": -4
+            },
+            {
+              "x": 179,
+              "y": 11
+            },
+            {
+              "x": 259,
+              "y": 24
+            },
+            {
+              "x": 339,
+              "y": 36
+            }
+          ],
+          "properties": [
+            {
+              "name": "traceMethod",
+              "type": "string",
+              "value": "assistant-visual-trace"
+            },
+            {
+              "name": "connectivity",
+              "type": "string",
+              "value": "independent-lane"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

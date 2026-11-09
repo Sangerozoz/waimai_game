@@ -1,0 +1,99 @@
+{
+  "author": "thr_4xmqy6fzdm",
+  "reviewer": "thr_29f6fcihz6",
+  "mode": "read-only Spec/quality review; no tests/model/game/build/writes/permission/model changes",
+  "sourceBefore": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "sha256": "0de156bc4bff7e0f866e6d735608bdeee9004c5681ad4de7855e25b634ad2e8b"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "sha256": "15bfeec20263bc71449ea74f6374a954c0297ebb5259adeb5750d9ea43ae5ba3"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "sha256": "df5f1f2b75366b2e8fa96b736df262eb421b37f2f1c62396ec89c8ac5a838f71"
+    }
+  ],
+  "frozenFiles": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "sha256": "e2fa23fb26ccb04037b6e2096413205a6d3fca2878fb6d9f51b52b6661911b33"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "sha256": "941c8f37a6447541a8437485d105f8dd17c6a39ac2bab4baeb83e4ecd8e2b004"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "sha256": "5c7296a9d5a2bc588a90ee20f30ded4e720523962b3c63ae37a2b09a01231963"
+    },
+    {
+      "path": "delivery-game/tests/product-regression-1106/manual-clock.test.cjs",
+      "sha256": "c3a936d9b555f27087aba2d0f41e395e50d498ecd3a3dadc0e684e93e67b2fd4"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/review.diff",
+      "sha256": "04355d858228b3307f46103de07e1f27b3ebd2c54027973ba0b9edc2e4ffbe0b"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/benchmark.cjs",
+      "sha256": "14ec821a4bfdce8f704e479e2faf6c1c3a9ce4d1b1fe75622ae3f3c139643e5d"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/scenario-matrix.cjs",
+      "sha256": "f6f7972f126cc5c7c19875643e4c2f5090255950965b0418d40419ceaea1510a"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/benchmark-result.json",
+      "sha256": "4f2b1d85bd7462eb3c00aff8312ae9cbadec2b4ccd240e16a63d29b90198346d"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/red.log",
+      "sha256": "0992f5917adada6b02d0967cfaabef0e74a8bfb3071e14e47914ca66526520af"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/port-boundary-red.log",
+      "sha256": "6abaac19f800e758b6792072ad56ba8ee6939edd3adf87d923112fc2700e569b"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/green.log",
+      "sha256": "35e180368b03e3590afa2ef65e3623840df24ba3035c25d63f5eccc46fe5ed98"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/default-regression.log",
+      "sha256": "a9036d88ee79785400b1d9306595eebe49e5b61bfae4233f9736ddd84600673f"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-11-07-manual-clock-design.md",
+      "sha256": "c65715cf6b0fadc6eddff6703e35e42959532ae689722ebda454b588b014a884"
+    }
+  ],
+  "design": "docs/superpowers/specs/2026-11-07-manual-clock-design.md",
+  "requirements": [
+    "no new player mechanism or persistent schema; only ordinary own-data-function ports, manual mode, both defer flags, no pending ad and exact consumed-event cursor eligible",
+    "complete wallet, fleet/wallet equality, reward, dispatch, version, rebase and port checks before update; complete sync and dispatch checks after; rollback frame/rebase on error",
+    "unseen events, all automation and pending ads use original generic body",
+    "arrival accessor/inherited ports stay on old transaction; no external getter introduced into in-place update",
+    "Runtime full restore/validation/save-before-publication and Game clocks unchanged"
+  ],
+  "rawReceipts": {
+    "initialRED": "14pass/5fail, redundant draft assertion",
+    "portBoundaryRED": "19pass/1fail on accessor fallback assertion",
+    "finalGREEN": "20/20",
+    "default": "187/187",
+    "typecheck": "exit0"
+  },
+  "baselineInputCount": 773,
+  "approvedChanges": [
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts"
+  ],
+  "evidenceScope": "frozen before/candidate Game benchmark40 whole-byte pairs plus direct Dispatch matrix; actual packed candidate remains PM gate"
+}

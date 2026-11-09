@@ -1,4 +1,5 @@
 import { Fragility } from '../domain/GameConfig';
+import type { V2FoodRiskContract } from '../domain/V2TripRules';
 import { COUNTY_FOOD_MIX } from './CountyConfig';
 
 export interface FoodItem { id:string; name:string; imageIndex:number; fragility:Fragility; unitWeightKg:number }
@@ -79,4 +80,19 @@ export function foodForOffer(text:string):FoodItem {
   const name=text.split('·')[0].trim();
   const legacy:Record<string,number>={'家常饭盒':0,'家常饭':0,'小炒套餐':2};
   return FOOD_CATALOG.find(food=>food.name===name)||FOOD_CATALOG[legacy[name]??0];
+}
+
+/** food-risk-v1 pins the current catalog order and the former V2 UI hash. */
+export function foodForV2Order(orderId:string):V2FoodRiskContract {
+  if(typeof orderId!=='string'||!orderId.length||FOOD_CATALOG.length!==50)throw new Error('配送食品身份无效');
+  let hash=2166136261;for(let i=0;i<orderId.length;i++)hash=Math.imul(hash^orderId.charCodeAt(i),16777619)>>>0;
+  const food=FOOD_CATALOG[hash%FOOD_CATALOG.length];
+  return {version:'food-risk-v1',foodId:food.id,fragility:food.fragility};
+}
+
+export function foodPresentationById(foodId:string):Readonly<Pick<FoodItem,'id'|'name'|'imageIndex'|'fragility'>> {
+  if(typeof foodId!=='string'||!foodId.length)throw new Error('配送食品身份无效');
+  const matches=FOOD_CATALOG.filter(food=>food.id===foodId);
+  if(matches.length!==1)throw new Error('配送食品目录不一致');
+  const food=matches[0];return {id:food.id,name:food.name,imageIndex:food.imageIndex,fragility:food.fragility};
 }

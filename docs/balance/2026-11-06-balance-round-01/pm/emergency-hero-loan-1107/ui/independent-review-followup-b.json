@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-11-07T11:54:20.855354+08:00",
+  "sourceThread": "thr_29f6fcihz6",
+  "mode": "read-only static review, no test rerun",
+  "scope": "UI only",
+  "spec": "PASS",
+  "codeQuality": "PASS",
+  "critical": 0,
+  "important": 0,
+  "minor": 0,
+  "closedFindings": [
+    "reason added to emergencyControlKey",
+    "actual render and navigation/update exercised, ordinary equipped car unload checked"
+  ],
+  "confirmedAuthorEvidence": {
+    "red": {
+      "pass": 10,
+      "fail": 1,
+      "exitCode": 1,
+      "businessFailure": "reason-only explanation did not refresh"
+    },
+    "green": {
+      "pass": 11,
+      "fail": 0,
+      "exitCode": 0
+    }
+  },
+  "sha256": {
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "5e845960371dedcea1a7ccf09d75f7c1285de10c49af0952daf02257c51a8b0b",
+    "delivery-game/tests/emergency-loan-ui.test.cjs": "5814a1377fe193ac34ac23d9be17f99ad1f8e6eae58ecdfac536956c2106d1b8",
+    "review-followup.diff": "e164cfb27c6ed7dfa6d51dd3f93e49853591515d9d47f59b067d852ccf2699e5"
+  },
+  "notAcceptedByThisReview": [
+    "backend five sources",
+    "save atomicity",
+    "actual Cocos visuals"
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [
+    {
+      "id": "NPC-FRAME-PERF-01",
+      "priority": "P1-performance-risk-non-blocking",
+      "title": "新增无条件完整Dispatch组合克隆热路径",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:56-57",
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:62-65",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:54-62,96",
+        "delivery-game/assets/scripts/domain/V2EconomySession.ts:99",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:82-84"
+      ],
+      "triggerChain": [
+        "每次正常结束的Game.tick都会经finish调用advanceFleetTo(frameEnd)，包括暂停、后台、恢复首帧、重复帧和零可推进秒数的路径。",
+        "活动循环还在判断无车、ready等退出条件之前调用advanceFleetTo(actionAt)；即使该时刻没有超过Fleet高水位，也会进入Dispatch.transact。",
+        "advanceFleetTo无前置轻量早退，先完整序列化、恢复Dispatch组合，再由Fleet.advanceTo内部判断是否无须推进。事务结束还会执行syncHeroCompletions及校验。",
+        "withLedgerTime读取previous时使用economy.state，也会克隆完整经济状态，但该部分发生于交付或补给事件，不是所有帧无条件发生。"
+      ],
+      "impact": "新增的是完整Dispatch组合中的钱包、车队、奖励、订单等克隆/恢复成本，不是重新引入Route.progress的完整路线克隆。源码足以确认新增热路径，但未profile，不能断言实际耗时、FPS变化或已发生卡顿回归。",
+      "minimalRecommendation": "后续在保留候选原子性、事件先后和完整校验的前提下，考虑合并同帧内部推进，或提供具有可靠高水位及待同步事件判断的轻量无操作门禁；不要简单删除Fleet尾段刷新或恢复验证。优化后另行独立复审，运行测量仍等阶段授权。"
+    }
+  ],
+  "summary": "NEXT-A-NPC-FRAME-1106第二阶段独立静态质量审查PASS。已独立读取当前三目标及真实前态的全部增量，追踪Runtime候选提交、Fleet、Trip、经济及账目作用域；未发现可确认的本范围安全或逻辑阻塞。事件offset按实际已消耗现实秒计算，旧额度先推进至交付时刻、主角结算后同步新增额度、正常退出再推进NPC帧尾；补给使用动作时刻可用余额。嵌套补给事务替换economy后，finally恢复的是当前owner的context，resolver在Dispatch和Fleet草稿恢复后均重新绑定。A-QUALITY-01、ready、grouping、P0轻量读取、完整恢复、旧兼容及序列化版本保留。存在新增完整Dispatch克隆成本，已单列性能建议，不作实测性能结论。三目标及所读依赖交还前无SHA漂移。未运行测试、typecheck、TS或业务代码、游戏、存档、浏览器、故障注入或构建；未编辑任何文件、权限或报告，未派子Agent、未涉及地图制作。只读范围已交还父PM；不代表运行通过或用户反馈关闭。",
+  "sourceHashes": {
+    "algorithm": "SHA-256",
+    "primary": {
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "90d6e5f4bb9e5322037c483d57dda65fb1c1f1473d4c406c34ef86b144610b16",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "7d4480870bcb128f729a0b6f2a130a590b6b4e45fea7dbc6e08d770e399a72c4",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "2bb4abc56bd9987729d742844e5916b58c00698ff1eeeca26078d35427fbc00d"
+    },
+    "verifiedPredecessors": {
+      "docs/reviews/2026-11-05-game-development/performance/light-read-stage/delivery-game/assets/scripts/map-sample/V2GameSession.ts": "3d27e36b83e07f7235aa1aa6f51378a4abc3421bfa3003175464eedd34a6baf3",
+      "docs/reviews/2026-11-05-game-development/performance/light-read-stage/delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "77cac10354e5f457f5553cc0c9b0b091345f583b54c18373aeff8a510a81f184",
+      "docs/reviews/2026-11-05-game-development/logic/npc-frame-time/dispatch-before.ts.txt": "adbc39af0f133714df647a0e8df78789171efbec94468d227557001ddf422a6a"
+    },
+    "contextDependencies": {
+      "delivery-game/assets/scripts/domain/V2FleetSession.ts": "1e1ccd5242762260213f8744c3cddf4328bbe35b100a0fba779e4c9cd7facb3a",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "a5a5288bcfbeff4cf93a9a6ce6b86ebfd7690579a5efeb12d8ce7e310b2104ae",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "6ede7a45eed46a1875e187d1f728e045f44db82de6f7d83a685131d9e6093c16",
+      "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23",
+      "delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "8efdff34d0f3214a69922b9ef2b8cdd86672f1631a26b8962dc18e6efea07f7f"
+    },
+    "matchesRequestedPrimaryHashes": true,
+    "initialAndClosingHashesMatch": true,
+    "drift": [],
+    "preservationEvidence": "纯文本对比确认三目标restore后缀均与各自真实前态完全相同，Route的restoreLegacy后缀也完全相同；已检查完整增量，没有变更持久版本或报价、额度公式。未使用作者implementation.md作为通过依据。"
+  },
+  "deferredCases": [
+    {
+      "id": "D01",
+      "case": "0→60帧中第10秒交付，与0→10→60分帧对照",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:50-56,90-95",
+        "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:129-156",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:97-104",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:60-66,82-94"
+      ],
+      "staticReasoning": "在题设单次交付且无其他中途命令的情形，deferFleet避免预先推进至60；arrival将实际elapsed加到wallStart和此前已用offset。交付事务先将旧额度推进至10，再入账主角并同步事件额度，finish才推进至60。分帧在10处的额外尾段调用为高水位无操作，因此该事件时点链静态一致；不是执行过的粗细帧对照结果。"
+    },
+    {
+      "id": "D02",
+      "case": "旧NPC due与主角交付处于同一毫秒",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:102-103,59",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:85-91",
+        "delivery-game/assets/scripts/domain/V2EconomySession.ts:154"
+      ],
+      "staticReasoning": "旧额度允许发生的NPC due在fleet.advanceTo内先结算，随后才调用经济主角交付并形成heroCompletionEvent，最后同步新增额度；未把主角新额度用于同一事件之前的区间。"
+    },
+    {
+      "id": "D03",
+      "case": "补给不得借用帧尾未来NPC收入，嵌套事务后恢复账目context",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:37-40,62-70",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:44-48,56-61,94-103",
+        "delivery-game/assets/scripts/domain/V2EconomySession.ts:99-103,142-149"
+      ],
+      "staticReasoning": "自动补给先推进至actionAt，再读取余额并选择补给，帧尾刷新在之后。withLedgerTime的finally通过this.economy恢复previous，而非捕获已经被chargeSupply嵌套事务替换的旧economy实例；该作用域内账目使用floor事件毫秒及resolver日期。异常候选不会被Runtime发布。"
+    },
+    {
+      "id": "D04",
+      "case": "暂停、后台、恢复首帧、广告、无车、ready、零体力及补给动作耗尽全部正常退出",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:49-95",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:85-97,185-204"
+      ],
+      "staticReasoning": "零可用秒数经早退finish；循环内动作耗尽、无车、无补给选择、无候选、无路线选择、非推进phase及零进展均经最终finish。NPC统一推进frameEnd，主角仍受原active/action/phase门禁限制；没有以NPC尾段时间补跑主角。"
+    },
+    {
+      "id": "D05",
+      "case": "重复帧、倒退时刻、绝对毫秒floor及跨日resolver",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:51-57",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:45-51,96,113-128",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:38,57,83-89",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:90-91,104-109"
+      ],
+      "staticReasoning": "重复帧沿原sequence/fingerprint门禁不推进主角；倒退时Game帧尾取高水位且Fleet对不超过lastAdvancedAt的毫秒不推进。事件、Fleet和账目均从绝对秒floor至毫秒，没有逐帧累计取整。Runtime恢复后绑定resolver，Dispatch事务及Fleet原子草稿再次绑定。浮点边界、跨日与分帧精度尚未运行验证。"
+    },
+    {
+      "id": "D06",
+      "case": "自动600秒耗尽、跨批、重复回执及异常候选丢弃",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:45-47,55-95",
+        "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:131-133,149-158",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:97-104,112-125",
+        "delivery-game/assets/scripts/rewards-v2/RewardSession.ts:106-111",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:101-119"
+      ],
+      "staticReasoning": "自动仍只以合法allowance推进并按实际used扣权益；Route零余秒不再代点，NPC尾段与主角自动额度分离。已完成回执分支不再发收入或经验。Runtime只在候选动作、完整恢复复验和提交成功后发布；没有执行异常、存储失败或重复回执案例。"
+    },
+    {
+      "id": "D07",
+      "case": "完整恢复、旧版本、A-QUALITY-01、分组、轻量接口及已签价格",
+      "status": "static-preservation-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:14-34,97-125",
+        "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:55-81,176-234",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:83-93,131-154"
+      ],
+      "staticReasoning": "完整增量及相同恢复后缀支持本次没有放宽原恢复、互斥、商家键、legacy或持久版本；价格签约与验证公式未在三目标增量中改写。没有执行Game1–4恢复、坏档、组服务或已签合同重载验证。"
+    }
+  ]
+}

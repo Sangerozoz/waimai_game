@@ -1,0 +1,43 @@
+{
+  "gate": "parent scoped static specification review",
+  "passed": true,
+  "runtimeVerified": false,
+  "sourceHashes": {
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "90d6e5f4bb9e5322037c483d57dda65fb1c1f1473d4c406c34ef86b144610b16",
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "7d4480870bcb128f729a0b6f2a130a590b6b4e45fea7dbc6e08d770e399a72c4",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "2bb4abc56bd9987729d742844e5916b58c00698ff1eeeca26078d35427fbc00d",
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "1b70ff52c504c01fa1a790cf75d1d2ff087b9f510b208271c6fc4cb487533ef3",
+    "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "796a4111bc9c367672863351b4a93eb43031cd5e2fe83d303fe4979622dee4f0"
+  },
+  "A": {
+    "requirement": "NEXT-A-NPC-FRAME-1106",
+    "readEvidence": ["Complete current Game and Dispatch source", "Route arrival/service block", "Fleet.advanceTo actual workAt and context restoration", "Economy ledgerContext validation/serialization/restore", "All three exact deltas with independently matched predecessor hashes"],
+    "scope": ["Optional deferFleet preserves default callers", "Actual consumed-real-seconds arrival offset", "Old NPC quota advances before hero completion then frame tail", "Supply action time/context and nested economy replacement restoration", "No new snapshot version/price/quota/contract policy", "Previous restore/progress/motion and safety changes preserved"],
+    "independentQuality": "PASS in thr_wy4wnu5fyr; full final JSON read back and saved at logic/npc-frame-time/quality-review.json; all three primary hashes still match; NPC-FRAME-PERF-01 retained as unmeasured non-blocking performance risk"
+  },
+  "B": {
+    "requirement": "NEXT-B-UI-RESIDUAL-1106",
+    "readEvidence": ["Current GameUI bills/render/wallet/update blocks", "Complete current ApprovedSkin", "Actual manifest icon-income aliasOf icon-coin-stack", "Candidate and frozen resource hashes"],
+    "scope": ["Remove all scoped bills coin-image aliases without changing amounts", "Known caller fallback aliases instead of unknown Cartoon keys", "No nonexistent nav-base or button-disabled request", "Native skin/glyph loading and visible fallback retained", "Motion/follow/HUD and held rider/rounding proposals not changed"],
+    "independentQuality": "PASS in thr_htnxptrv4w; full final JSON read back and saved at layout/ui-residual-quality.json; both primary hashes still match"
+  },
+  "limits": ["This scoped static gate is not full-product completion", "No tests/typecheck/regression/game or save operations", "No measured performance or remote visibility evidence", "No U38/missing-image/98-percent closure", "Creator candidate build is separate from quality approval and served deployment"],
+  "batchPermissionsAfterHandback": {
+    "thr_j9izunn7qx": {"value":"default","pendingValue":null},
+    "thr_tviezvnwds": {"value":"default","pendingValue":null}
+  },
+  "candidateBuild": {
+    "directory": "delivery-game/build/v2-npc-ui-1106",
+    "log": "integration/build-npc-ui-1106.log",
+    "finishedLogLine": 1395,
+    "finishedAt": "2026-11-06 08:16:47",
+    "processExitCode": 36,
+    "diagnosticsRetained": ["trackTimeEnd", "SIGTERM build-script", "SIGTERM build-engine"],
+    "indexExists": true,
+    "indexBytes": 2187,
+    "allFiveTargetSourceHashesStillMatch": true,
+    "deployed": false,
+    "runtimeOrPhaseTestsRun": false,
+    "independentQualityStillPending": false
+  }
+}

@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: eligible recovery offers borrowing separately from the one permanent car
+ok 1 - eligible recovery offers borrowing separately from the one permanent car
+  ---
+  duration_ms: 173.124875
+  type: 'test'
+  ...
+# Subtest: borrowing confirmation can cancel and submits the displayed sequence only once
+ok 2 - borrowing confirmation can cancel and submits the displayed sequence only once
+  ---
+  duration_ms: 75.621709
+  type: 'test'
+  ...
+# Subtest: returnable car may still belong to an NPC and one confirmation returns it atomically
+ok 3 - returnable car may still belong to an NPC and one confirmation returns it atomically
+  ---
+  duration_ms: 70.088375
+  type: 'test'
+  ...
+# Subtest: an existing hero batch keeps the emergency car and disables return
+ok 4 - an existing hero batch keeps the emergency car and disables return
+  ---
+  duration_ms: 67.022333
+  type: 'test'
+  ...
+# Subtest: a stale borrowing dialog cannot submit after the eligibility changes
+ok 5 - a stale borrowing dialog cannot submit after the eligibility changes
+  ---
+  duration_ms: 66.472583
+  type: 'test'
+  ...
+# Subtest: ordinary unavailable saves keep the ordinary car configuration without a loan action
+ok 6 - ordinary unavailable saves keep the ordinary car configuration without a loan action
+  ---
+  duration_ms: 68.537959
+  type: 'test'
+  ...
+# Subtest: the home recovery entry actually opens hero configuration
+ok 7 - the home recovery entry actually opens hero configuration
+  ---
+  duration_ms: 64.2405
+  type: 'test'
+  ...
+# Subtest: the lobby recovery entry opens configuration through the real navigation action
+ok 8 - the lobby recovery entry opens configuration through the real navigation action
+  ---
+  duration_ms: 63.473
+  type: 'test'
+  ...
+# Subtest: eligibility refresh waits for the existing half-second cadence
+ok 9 - eligibility refresh waits for the existing half-second cadence
+  ---
+  duration_ms: 63.970667
+  type: 'test'
+  ...
+# Subtest: NPC old-contract release refreshes the real return action at the HUD cadence
+ok 10 - NPC old-contract release refreshes the real return action at the HUD cadence
+  ---
+  duration_ms: 60.893542
+  type: 'test'
+  ...
+# Subtest: a reason-only eligibility change refreshes the lobby explanation
+ok 11 - a reason-only eligibility change refreshes the lobby explanation
+  ---
+  duration_ms: 67.123083
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 929.903792

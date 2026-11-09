@@ -1,0 +1,22 @@
+{
+  "reviewer": "thr_29f6fcihz6",
+  "source": "parent notification, 2026-11-07",
+  "spec": "BLOCKED",
+  "quality": "BLOCKED",
+  "critical": 0,
+  "important": 1,
+  "minor": 1,
+  "findings": [
+    {
+      "severity": "Important",
+      "issue": "equal event count can bypass mixed Economy/Fleet schema rejection after public replaceFrom or Economy.enableSlots",
+      "requiredFix": "retain composite validate on the no-op branch, with public API rejection regressions"
+    },
+    {
+      "severity": "Minor",
+      "issue": "eight-sample median selects upper middle instead of averaging two central values",
+      "requiredFix": "use conventional median or label upper median"
+    }
+  ],
+  "execution": "read-only; no tests, model or build run by reviewer"
+}

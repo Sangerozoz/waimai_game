@@ -1,0 +1,50 @@
+{
+  "scope": "仅文档算术审阅；非游戏测试或完整经济模拟",
+  "assumptions": [
+    "普通县城基础单10金币，专送中值125金币，忽略损伤、补给、广告及配送耗时",
+    "NPC沿V1基础周期90秒/单，连续有额度；非已验证V2周期",
+    "30名NPC均基础车，额外地图收益按V2候选基础报酬计算"
+  ],
+  "recruitment": [
+    {
+      "catalogId": 1,
+      "hireCoins": 800,
+      "trainingTo30Coins": 3200,
+      "totalHireAndTrainingCoins": 4000
+    },
+    {
+      "catalogId": 10,
+      "hireCoins": 4100,
+      "trainingTo30Coins": 16400,
+      "totalHireAndTrainingCoins": 20500
+    },
+    {
+      "catalogId": 20,
+      "hireCoins": 25600,
+      "trainingTo30Coins": 102400,
+      "totalHireAndTrainingCoins": 128000
+    },
+    {
+      "catalogId": 30,
+      "hireCoins": 158300,
+      "trainingTo30Coins": 633200,
+      "totalHireAndTrainingCoins": 791500
+    }
+  ],
+  "firstNpcWithAdditionalBasicCar": {
+    "cost": 1100,
+    "startingCash": 100,
+    "gap": 1000,
+    "baseOrdinaryOrdersIgnoringExpenses": 100,
+    "specialOrdersAt125IgnoringExpenses": 8
+  },
+  "fullFleetThirtyMinutes": {
+    "npcCount": 30,
+    "orders": 600,
+    "countyGrossCoins": 6000,
+    "lastMapGrossCoins": 19200,
+    "quotaMinutesNeeded": 30,
+    "heroDeliveriesToFillAt3MinutesPerOrder": 10
+  },
+  "npcCapacityProblem": "沿V1周期公式只有速度与固定服务时间，未包含容量/组单；V2容量型车的NPC收益价值缺失"
+}

@@ -1,0 +1,114 @@
+TAP version 13
+# Subtest: the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+ok 1 - the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+  ---
+  duration_ms: 228.565417
+  type: 'test'
+  ...
+# Subtest: loan status is detached and read-only; duplicate and stale commands cannot change the loan
+ok 2 - loan status is detached and read-only; duplicate and stale commands cannot change the loan
+  ---
+  duration_ms: 6.56025
+  type: 'test'
+  ...
+# Subtest: normal, detachable and genuinely earned affordable-car states cannot borrow
+ok 3 - normal, detachable and genuinely earned affordable-car states cannot borrow
+  ---
+  duration_ms: 2375.67925
+  type: 'test'
+  ...
+# Subtest: Game refuses loan commands during real rest actions and all active route phases
+ok 4 - Game refuses loan commands during real rest actions and all active route phases
+  ---
+  duration_ms: 236.573166
+  type: 'test'
+  ...
+# Subtest: first real delivery is insufficient; release waits for quota and never confiscates the current batch
+ok 5 - first real delivery is insufficient; release waits for quota and never confiscates the current batch
+  ---
+  duration_ms: 1013.183125
+  type: 'test'
+  ...
+# Subtest: cancelled emergency quotes remain valid after return alongside completed histories
+ok 6 - cancelled emergency quotes remain valid after return alongside completed histories
+  ---
+  duration_ms: 494.626042
+  type: 'test'
+  ...
+# Subtest: borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+ok 7 - borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+  ---
+  duration_ms: 2.122875
+  type: 'test'
+  ...
+# Subtest: forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+ok 8 - forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+  ---
+  duration_ms: 217.322125
+  type: 'test'
+  ...
+# Subtest: an emergency source marker cannot be smuggled into permanent vehicle inventory
+ok 9 - an emergency source marker cannot be smuggled into permanent vehicle inventory
+  ---
+  duration_ms: 1.714
+  type: 'test'
+  ...
+# Subtest: kg-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+ok 10 - kg-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+  ---
+  duration_ms: 750.835875
+  type: 'test'
+  ...
+# Subtest: slots-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+ok 11 - slots-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+  ---
+  duration_ms: 776.532792
+  type: 'test'
+  ...
+# Subtest: kg paid NPC history cannot carry an emergency vehicle source
+not ok 12 - kg paid NPC history cannot carry an emergency vehicle source
+  ---
+  duration_ms: 230.234833
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs:227:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs:231:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: isolated two-NPC compatibility input recovers one real car without cancelling other unpaid work
+ok 13 - isolated two-NPC compatibility input recovers one real car without cancelling other unpaid work
+  ---
+  duration_ms: 283.721042
+  type: 'test'
+  ...
+# Subtest: isolated zero-stamina compatibility input borrows without stamina and uses actual free rest
+ok 14 - isolated zero-stamina compatibility input borrows without stamina and uses actual free rest
+  ---
+  duration_ms: 442.249
+  type: 'test'
+  ...
+# Subtest: the original frozen readers reject all new containers, including returned loan history
+ok 15 - the original frozen readers reject all new containers, including returned loan history
+  ---
+  duration_ms: 1019.88425
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 14
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8278.890083

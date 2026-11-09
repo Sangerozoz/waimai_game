@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>一栋建筑与原路｜透视修订近景</title><style>
+:root{font-family:system-ui,-apple-system,sans-serif;color:#233747;background:#edf2f4}body{max-width:1200px;margin:0 auto;padding:18px}h1{font-size:23px;margin:0 0 8px}p{line-height:1.6;margin:8px 0}.tag{display:inline-block;background:#fff0d8;color:#7a4d0d;padding:4px 9px;border-radius:6px;font-size:13px}.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}button,a{font:inherit}button{padding:10px 18px;border:1px solid #9aafbd;border-radius:8px;background:white;color:#294454;cursor:pointer}button[aria-pressed=true]{background:#245f7d;color:white;border-color:#245f7d}a{color:#245f7d}figure{margin:0;border:1px solid #c6d0d6;border-radius:10px;overflow:hidden;background:white}figure img{display:block;width:100%;height:auto}figcaption{padding:11px 14px;line-height:1.5}.small{font-size:13px;color:#526674}.links{display:flex;gap:16px;flex-wrap:wrap;margin:15px 0}details{background:white;padding:12px;border-radius:8px}li{margin:8px 0;line-height:1.55}
+</style></head><body>
+<h1>只看这一栋：房子底边是否顺着原路</h1>
+<span class="tag">原生修订候选 · 未用户验收 · 不是全县地图</span>
+<p>切换两张<strong>真实 Cocos 运行截图</strong>，看建筑长边与道路是否接近同一方向、墙体是否保持竖直。树木与路灯素材保留，不在这轮重画。</p>
+<div class="controls"><button id="after" aria-pressed="true">改后候选</button><button id="before" aria-pressed="false">旧角度对照</button><a id="full" href="engine-after.jpg" target="_blank">打开完整截图</a></div>
+<figure><img id="shot" src="engine-after.jpg" alt="改后候选在原道路旁的真实Cocos近景"><figcaption id="caption">改后：建筑长边已更接近该街段，仍有角度残差与透明杂边，未标记 ready。</figcaption></figure>
+<div class="links"><a href="viewer/" target="_blank">打开改后互动预览</a><a href="viewer/?variant=before" target="_blank">打开旧角度互动对照</a><a href="B01-road-aligned-native-v1.png" target="_blank">原生透明 PNG</a><a href="README.md">记录与限制</a></div>
+<p class="small">两图使用同一原路、镜头和展示锚点；新旧图的绘制体量/地基尺寸并不完全一致，所以本页比较的是方向，不是等体积或完整四向一致性。当前只做单楼验证，未扩其余建筑。</p>
+<details><summary>当前内部核对结果与边界</summary><ul>
+<li>实际源街段投影：长边目标约 −28.49°，短边目标约 +55.41°。不是直接套用世界轴 ±41.6°。</li>
+<li>新图不透明轮廓局部直线拟合约 −25.76° / +53.08°，仍有约 2～3°残差。轮廓含基座和边缘像素，不是精密相机标定，不能据此宣称配准通过。</li>
+<li>新图实际原生尺寸 1254×1254，RGBA；未放大伪造高清、未旋转/拉斜/镜像或修像素。外圈仍有少量白彩边与稀疏杂点。</li>
+<li>原路、源投影、用户 Tiled、旧版本以及已认可树灯原字节保持。此页是独立展示摆位，不向用户手调地图反写。</li>
+<li>旧25图没有接入；没有运行游戏阶段测试、操作存档或宣称首页98%一致。</li>
+</ul></details>
+<script>
+const states={after:{file:'engine-after.jpg',text:'改后：建筑长边已更接近该街段，仍有角度残差与透明杂边，未标记 ready。'},before:{file:'engine-before.jpg',text:'旧角度：同一原路、镜头与锚点下，建筑长边比道路明显更平。'}};
+for(const key of Object.keys(states)){document.getElementById(key).addEventListener('click',()=>{const state=states[key];document.getElementById('shot').src=state.file;document.getElementById('shot').alt=state.text;document.getElementById('caption').textContent=state.text;document.getElementById('full').href=state.file;for(const name of Object.keys(states))document.getElementById(name).setAttribute('aria-pressed',String(name===key));});}
+</script></body></html>

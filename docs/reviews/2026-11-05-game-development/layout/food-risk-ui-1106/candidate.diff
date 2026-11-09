@@ -1,0 +1,130 @@
+--- a/delivery-game/assets/scripts/map-sample/V2GameUI.ts
++++ b/delivery-game/assets/scripts/map-sample/V2GameUI.ts
+@@ -19,12 +19,26 @@
+ import { vehicleSideArt } from './VehicleSideArt';
+ import { vehicleProductPreview } from './VehicleShowcase';
+ import { foodImage } from './FoodImages';
+-import { FOOD_CATALOG } from './FoodCatalog';
++import { FOOD_CATALOG, foodPresentationById } from './FoodCatalog';
++import { parseV2FoodRisk } from '../domain/V2TripRules';
+ const actionButton=action;
+ type RouteState=NonNullable<V2RuntimeController['routeSnapshot']>;
+-// Display mapping only: V2RouteOrder has no authoritative food field yet.
+-// It never supplies weight, fragility, deadlines or prices to the business session.
++// Trip2 display compatibility only; never supplies a food/risk identity to the session.
+ function offerFood(id:string){let hash=2166136261;for(let i=0;i<id.length;i++)hash=Math.imul(hash^id.charCodeAt(i),16777619)>>>0;return FOOD_CATALOG[hash%FOOD_CATALOG.length];}
++type OrderFoodPresentation=Readonly<{name:string;badge:'脆弱'|'普通'|'耐放'|'旧批';ruleText:string}>;
++function orderFoodPresentation(order:{id:string;food?:unknown},tripVersion:number):OrderFoodPresentation {
++ const hasFood=Object.prototype.hasOwnProperty.call(order,'food');
++ if(tripVersion===2){
++  if(hasFood)throw new Error('旧批食品记录无效');
++  return {name:offerFood(order.id).name,badge:'旧批',ruleText:'旧批规则 · 沿用原普通风险'};
++ }
++ if(tripVersion!==3||!hasFood)throw new Error('配送食品记录缺失或版本无效');
++ // Defensive shape/ID checks only: Game owns canonical order binding and risk validation.
++ const contract=parseV2FoodRisk(order.food),food=foodPresentationById(contract.foodId);
++ if(food.fragility!==contract.fragility)throw new Error('配送食品类别不一致');
++ const badge=({fragile:'脆弱',normal:'普通',durable:'耐放'} as const)[food.fragility];
++ return {name:food.name,badge,ruleText:`食品类别：${badge}`};
++}
+ function label(...args:Parameters<typeof baseLabel>):Label {const result=baseLabel(...args);const lines=args[1].split('\n').length;result.fontFamily='PingFang SC, Microsoft YaHei, sans-serif';result.lineHeight=(args[4]??20)*S.lineHeight;if(lines>1)result.node.getComponent(UITransform)!.setContentSize(args[6]??600,(args[4]??20)*1.45*lines+6);return result;}
+ function coins(cents:number):string {return Number((cents/100).toFixed(2)).toString();}
+ @ccclass('V2GameUI')
+@@ -510,11 +524,23 @@
+   foodImage(frame,name,0,0,146);
+  }
+ 
++ private foodBadge(parent:Node,food:OrderFoodPresentation,x:number,y:number):void {
++  const badge=panel(parent,'FoodRule',x,y,72,34,'#F2FBFF',UI.line);
++  const text=label(badge,food.badge,0,0,20,UI.muted,64,true,'center');
++  text.enableWrapText=false;text.overflow=Label.Overflow.CLAMP;
++ }
++
+  private orders():void {
+   const snap=this.runtime.snapshot!;
+   if(snap.batchIds.length){
+    const route=this.runtime.routeSnapshot,t=this.runtime.tripState,group=this.pickupGroup(route);
+    const batch=snap.orders.filter(o=>snap.batchIds.includes(o.id));
++   if(!t)throw new Error('本批行程记录缺失');
++   const batchFoods=new Map(batch.map(order=>{
++    const recorded=t.orders.find(item=>item.id===order.id);
++    if(!recorded)throw new Error('本批食品记录缺失');
++    return [order.id,orderFoodPresentation(recorded,t.version)] as const;
++   }));
+    const pending=batch.filter(o=>o.status==='pending'),completed=batch.filter(o=>o.status==='completed');
+    const choices=route?.phase==='planned'?this.runtime.routeChoices():[];
+    const routeNames={fast:'快捷',main:'均衡',smooth:'平稳'} as const;
+@@ -522,35 +548,40 @@
+    const routeLineWidth=CW-2*S.card,routeLineGap=6;
+    const duration=(value:number):string=>{const seconds=Math.max(0,Math.ceil(value)),minutes=Math.floor(seconds/60);return minutes?`${minutes}分${seconds%60}秒`:`${seconds}秒`;};
+    const routeLine=(value:string,size=20,color=UI.muted,bold=false):RouteLine=>({value,size,color,bold,height:textHeight(value,size,routeLineWidth)});
++   const drawRouteLine=(parent:Node,line:RouteLine,top:number):void=>{
++    const text=label(parent,line.value,0,top-line.height/2,line.size,line.color,routeLineWidth,line.bold,'left');
++    text.enableWrapText=true;text.lineHeight=Math.ceil(line.size*1.42);text.overflow=Label.Overflow.CLAMP;
++    text.node.getComponent(UITransform)!.setContentSize(routeLineWidth,line.height);
++   };
++   const legacyNotice=t.version===2?routeLine('旧批规则 · 沿用原普通风险；菜名和图片仅为旧展示推测'):null;
++   const legacyNoticeHeight=legacyNotice?legacyNotice.height+S.gap:0;
+    const routeNotes=['连续行驶与取送服务的条件估算','不含手动等待及后续补给/事件/停顿'].map(value=>routeLine(value,19));
+    const routeCards=choices.map(choice=>{
+     const lines=[routeLine(choice.aliases.map(p=>routeNames[p]).join(' / '),23,INK,true),routeLine(`${Math.round(choice.metres)}米 · 预计现实用时 ${duration(choice.seconds)}`),routeLine(`${({clear:'晴天',rain:'小雨',severe:'恶劣天气'} as const)[choice.weather]} · 预计耗体力 ${Number(choice.stamina.toFixed(1))}点`)];
+     choice.orders.forEach(eta=>{
+      const index=batch.findIndex(order=>order.id===eta.id),place=route?.orders.find(order=>order.id===eta.id);
+-     const identity=index>=0?`第${index+1}单 · ${offerFood(batch[index].id).name}`:`订单 ${eta.id}`;
++     const food=batchFoods.get(eta.id);if(!food)throw new Error('路线订单食品记录缺失');
++     const identity=index>=0?`第${index+1}单 · ${food.name}`:`订单 ${eta.id}`;
+      const safe=t?.orders.find(order=>order.id===eta.id)?.safe===true;
+      const warning=eta.lateGameSeconds>0?`迟到预警 ${duration(eta.lateGameSeconds)}（游戏时间）`:safe?'保护单 · 不计迟到':'按当前条件预计未迟到';
+      lines.push(routeLine(`${identity} → ${place?.dropoffName||'送达地点未记录'}`,21,INK,true));
++     lines.push(routeLine(food.ruleText));
+      lines.push(routeLine(`预计 ${duration(eta.etaGameSeconds)} 后完成（游戏时间） · ${warning}`,20,eta.lateGameSeconds>0?'#BF3E12':UI.muted));
+     });
+     return {choice,lines,height:2*S.card+lines.reduce((height,line)=>height+line.height+routeLineGap,0)+50};
+    });
+    const routeIntroHeight=40+routeNotes.reduce((height,line)=>height+line.height+routeLineGap,0)+S.gap;
+    const routeHeight=route?.phase==='planned'?(routeCards.length?routeIntroHeight+routeCards.reduce((height,card)=>height+card.height+S.gap,0):64):group?130:94;
+-   const c=this.scrolling('orders:trip',508,-340,164+routeHeight+batch.length*204+108);
++   const c=this.scrolling('orders:trip',508,-340,164+legacyNoticeHeight+routeHeight+batch.length*204+108);
+    const summary=panel(c,'Order-BatchSummary',0,-61,CW,118,'#F2FBFF');
+    label(summary,'本批配送',-214,33,27,INK,240,true,'left');
+    label(summary,`待完成 ${pending.length} · 已完成 ${completed.length}`,125,33,23,INK,384,true,'right');
+    this.routeText=label(summary,this.tripStage(),0,-4,22,INK,CW-26,true,'center');
+    label(summary,`${({clear:'晴天',rain:'小雨',severe:'恶劣天气'} as const)[t?.weather||'clear']} · 体力 ${Math.floor(t?.stamina??100)}/100 · 查看时暂停主角`,0,-38,18,UI.muted,CW-26,false,'center');
+-   const routeTop=138;
++   if(legacyNotice)drawRouteLine(c,legacyNotice,-132);
++   const routeTop=138+legacyNoticeHeight;
+    label(c,route?.phase==='planned'?'选择本批路线':'当前配送路线',-173,-routeTop-15,24,INK,330,true,'left');
+    if(choices.length){
+-    const drawRouteLine=(parent:Node,line:RouteLine,top:number):void=>{
+-     const text=label(parent,line.value,0,top-line.height/2,line.size,line.color,routeLineWidth,line.bold,'left');
+-     text.enableWrapText=true;text.lineHeight=Math.ceil(line.size*1.42);text.overflow=Label.Overflow.CLAMP;
+-     text.node.getComponent(UITransform)!.setContentSize(routeLineWidth,line.height);
+-    };
+     let noteTop=-routeTop-40;
+     routeNotes.forEach(line=>{drawRouteLine(c,line,noteTop);noteTop-=line.height+routeLineGap;});
+     let depth=routeTop+routeIntroHeight;
+@@ -568,10 +599,11 @@
+    const orderTop=routeTop+routeHeight;
+    label(c,'本批订单',-226,-orderTop-16,24,INK,220,true,'left');
+    batch.forEach((o,i)=>{
+-    const place=route?.orders.find(order=>order.id===o.id),trip=t?.orders.find(order=>order.id===o.id),food=offerFood(o.id);
++    const place=route?.orders.find(order=>order.id===o.id),trip=t?.orders.find(order=>order.id===o.id),food=batchFoods.get(o.id)!;
+     const card=panel(c,'Order-Trip-'+o.id,0,-orderTop-133-i*204,CW,190,'#F2FBFF');
+     foodImage(card,food.name,-265,20,112);
+-    // Reuse lobby's display food mapping; route names/status/deadline are authoritative.
++    this.foodBadge(card,food,-265,-13);
++    // Trip3 reads its frozen food; Trip2 retains display-only names and its old risk rules.
+     label(card,`${food.name} ${o.weightKg}KG`,-30,66,26,INK,340,true,'left');
+     const grouped=!!group?.ids.includes(o.id),serving=route?.phase==='service'&&route.stops[route.cursor]?.orderId===o.id;
+     const status=o.status==='completed'?'已完成':grouped&&route?.phase==='ready'?'已取餐待发':grouped&&route?.phase==='service'?'取餐服务中':serving?'顾客交付中':grouped&&route?.phase==='pickup'?'到店待取':trip?.picked?'配送中':'待取餐';
+@@ -604,8 +636,9 @@
+    label(card,'广告未接入',232,0,19,UI.muted,184,true,'right');
+   }
+   this.offers.forEach((o,i)=>{
+-   const chosen=this.selected.has(o.id),card=panel(c,'Order-'+o.id,0,-82-i*178-extra,CW,164,'#F2FBFF',chosen?'#FF9600':UI.line),food=offerFood(o.id);
++   const chosen=this.selected.has(o.id),card=panel(c,'Order-'+o.id,0,-82-i*178-extra,CW,164,'#F2FBFF',chosen?'#FF9600':UI.line),food=orderFoodPresentation(o,3);
+    this.foodThumbnail(card,food.name,-224,0);
++   this.foodBadge(card,food,-224,-45);
+    let quote:ReturnType<V2RuntimeController['quoteCandidates']>|null=null;try{quote=this.runtime.quoteCandidates([o]);}catch{/* This individual candidate may fail the current route or capacity rules. */}
+    label(card,`${food.name} ${o.weightKg}KG`,5,52,28,INK,314,true,'left');
+    label(card,quote?`¥${coins(quote.totalIncomeCents)}`:'—',251,52,42,'#FF7800',142,true,'right');

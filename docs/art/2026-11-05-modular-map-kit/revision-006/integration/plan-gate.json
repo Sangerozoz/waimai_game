@@ -1,0 +1,26 @@
+{
+  "planPath": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/planning/next-neighborhood-plan-access-v2.json",
+  "approvedSHA256": "f14674986d26a205177bd50798230ed3ef37d404ec68ca65996a7049c2e708df",
+  "runtimePlanPath": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/integration/runtime-subset-plan.json",
+  "runtimePlanSHA256": "4ff6861cfdd65ce36ed0308f09b7e1f8c899162c20eb6bccad6836a3db0faf60",
+  "derivation": {
+    "parentInputPath": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/planning/next-neighborhood-plan-access-v2.json",
+    "parentApprovedSHA256": "f14674986d26a205177bd50798230ed3ef37d404ec68ca65996a7049c2e708df",
+    "rules": [
+      "exclude S1-01-B10 and its exclusive walk/parcel",
+      "reuse005 blocks unchanged by persistentId",
+      "translate whole new sprite only to fixed native door and approved walk start; no change to actual door pixels/scale",
+      "exclude only conflicting native ground instances",
+      "deduplicate full source roads by ID"
+    ],
+    "excludedInstances": [
+      "S1-01-B10",
+      "N1-01-B06",
+      "N1-06-B01",
+      "N2-01-B08"
+    ]
+  },
+  "status": "parent-notified-plan-snapshot",
+  "roadsCheckedAgainstFullCity": true,
+  "snapshotSHA256": "4ff6861cfdd65ce36ed0308f09b7e1f8c899162c20eb6bccad6836a3db0faf60"
+}

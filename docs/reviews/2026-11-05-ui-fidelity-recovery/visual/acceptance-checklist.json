@@ -1,0 +1,506 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-11-05",
+  "reviewer_thread": "thr_m4huheeu3r",
+  "parent_thread": "thr_axf6i4e89t",
+  "environment": "env_e54zrbdgxt",
+  "scope": "只读视觉规格前置审计；非代码质量审查/非用户验收/非游戏测试",
+  "overall_status": "fail",
+  "target_requested_by_user": "98%视觉一致",
+  "measured_similarity_percent": null,
+  "completion_count_is_similarity": false,
+  "evidence_inventory": "evidence-inventory.json",
+  "reference_authority": "docs/art/2026-11-02-approved-ui-reference/",
+  "override_authority": "docs/product/implementation-baseline.md 最新覆盖及本轮用户明确授权",
+  "remote_current_screen_verified": false,
+  "missing_assets_user_report": "菜单/头像/车图/地图图/菜图全缺；尚未排除",
+  "local_images_disprove_remote_missing": false,
+  "coordinate_system": {
+    "reference": [
+      940,
+      1673
+    ],
+    "observed_reference_height_variant": 1672,
+    "design": [
+      720,
+      1280
+    ],
+    "archived_runtime": [
+      470,
+      837
+    ],
+    "origin": "左上",
+    "design_x": "x*720/940",
+    "design_y": "y*1280/1673",
+    "cocos_x": "design_x-360",
+    "cocos_y": "640-design_y",
+    "measurement": "人工估读，通常±6原图px，复杂边缘±10；非精确分割",
+    "suggested_review_tolerance": {
+      "major_anchor_reference_px": 8,
+      "secondary_baseline_reference_px": 6,
+      "effective_art_bbox_relative_error_max": 0.05
+    },
+    "tolerance_is_user_98_percent_definition": false
+  },
+  "legitimate_differences": [
+    "hero/npc-1..30最新独立身份，不还原满员示意",
+    "真实金币/经验/等级/报价/速度倍率/容量/账本/订单数据",
+    "最新十车型名，不恢复D/C/B等购买命名等级",
+    "晴川县/云浦市/星澜城/曜川都会/海境港与真实报价",
+    "金币足够自由购买人物/车辆/地图；旧资格锁只作视觉历史",
+    "新增专送按真实状态显示，广告不可用不能伪装可领取"
+  ],
+  "not_exempt": [
+    "首页主体背景/主要画风",
+    "图片实际可见性及清晰度",
+    "车/餐图有效面积",
+    "卡片纹理与边角",
+    "标题资源壳/图标/圆盘/切角",
+    "列表密度与固定汇总"
+  ],
+  "states": [
+    {
+      "id": "S01",
+      "reference": "docs/art/2026-11-02-approved-ui-reference/00-home-v2.png",
+      "label": "S01 首页",
+      "available_runtime_state": "fidelity-pass2/after-home.jpg；后续源码已变，缺更新首页图",
+      "status": "fail",
+      "finding": "fail：主体背景P0；最新源码效果未核验",
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "S02",
+      "reference": "docs/art/2026-11-02-approved-ui-reference/01-riders-v4.png",
+      "label": "S02 骑手主列表/后期密度示意",
+      "available_runtime_state": "rider-map-ui/riders-after.jpg，真实新档主角+未招募",
+      "status": "fail",
+      "finding": "fail：皮肤/文字层次P1；密度结构接近。已招募/配送中/满级/31末端未核验，不伪造满员匹配示意",
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "S03",
+      "reference": "docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png",
+      "label": "S03 车辆主态",
+      "available_runtime_state": "cocos-ui-pass3/vehicles.jpg，默认第1车型、无同款拥有",
+      "status": "fail",
+      "finding": "fail：有效主图占比/选中皮肤P1；对应参考第3车型选中尚未核验",
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "S04",
+      "reference": "docs/art/2026-11-02-approved-ui-reference/03-orders-v4.png",
+      "label": "S04 订单大厅",
+      "available_runtime_state": "cocos-ui-pass3/orders.jpg，专送+0选中、按钮灰",
+      "status": "fail",
+      "finding": "fail：卡皮肤/餐图/刷新规格缺口P1；4选中/有报价路线态未核验。真实2kg容量不能改成11kg",
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "S05",
+      "reference": "docs/art/2026-11-02-approved-ui-reference/04-maps-v1.png",
+      "label": "S05 地图主态",
+      "available_runtime_state": "rider-map-ui/maps-after.jpg，第一当前、四未购",
+      "status": "fail",
+      "finding": "fail：卡标题/状态/按钮质感P1；独立五图主体结构接近，已购非当前未核验",
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "S06",
+      "reference": "docs/art/2026-11-02-approved-ui-reference/05-bills-v1.png",
+      "label": "S06 账单",
+      "available_runtime_state": "cocos-ui-pass3/bills.jpg，零账本",
+      "status": "fail",
+      "finding": "fail：层次与信息区替代P1；有收入七日柱/长金额/奖励分支未核验",
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "S07",
+      "reference": "docs/art/2026-11-02-approved-ui-reference/02-vehicles-locked-v1.png",
+      "label": "S07 旧B锁定预览",
+      "available_runtime_state": "没有第五车型选中+完整详情实际截图",
+      "status": "unverified",
+      "finding": "未核验：旧地图锁资格已被覆盖；仅保禁用视觉参考，不能标实现失败并要求恢复门槛",
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "S08",
+      "reference": "docs/art/2026-11-02-approved-ui-reference/02-vehicles-gallery-scroll-v1.png",
+      "label": "S08 车辆后排滚动",
+      "available_runtime_state": "没有滚到底的指定实际截图",
+      "status": "unverified",
+      "finding": "未核验：主态露一点最后车头不等于后排通过",
+      "remote_current_screen_verified": false
+    }
+  ],
+  "anchors": [
+    {
+      "region": "管理页标题",
+      "reference_pixels": "骑手/车辆约x28,y18；字高约60–66",
+      "design_pixels_or_ratio": "x21,y14；字高46–50",
+      "implementation_note": "当前标题总体接近，不应全局任意放大；地图/账单按各自原图校准"
+    },
+    {
+      "region": "骑手/车辆金币壳",
+      "reference_pixels": "约[688,12,232,60]",
+      "design_pixels_or_ratio": "[527,9,178,46]",
+      "implementation_note": "当前约[690,14,228,58]接近，但缺原图加号/蓝描边光泽"
+    },
+    {
+      "region": "地图金币壳",
+      "reference_pixels": "约[618,18,300,66]",
+      "design_pixels_or_ratio": "[473,14,230,50]",
+      "implementation_note": "当前仍用232原图宽的通用壳，显窄；账单原图约[644,24,274,69]也应独立适配"
+    },
+    {
+      "region": "订单标题/双资源",
+      "reference_pixels": "标题[25,18,300,60]；金币[436,17,237,61]；体力[689,17,232,61]",
+      "design_pixels_or_ratio": "金币x334,y13,w182,h47；体力x528,w178",
+      "implementation_note": "当前壳位置接近，原图图标/加号/外缘质感仍缺"
+    },
+    {
+      "region": "首页HUD",
+      "reference_pixels": "头像[30,48,113,112]；身份壳约[30,49,332,103]；金币[374,57,226,58]",
+      "design_pixels_or_ratio": "头像约[23,37,87,86]；金币[286,44,173,44]",
+      "implementation_note": "当前头像更低并突出身份壳下缘，身份文字换行挤进经验区；应按图分区"
+    },
+    {
+      "region": "骑手首排双卡",
+      "reference_pixels": "左[23,120,441,212]；右[474,120,441,212]；后续排高约220–238",
+      "design_pixels_or_ratio": "双列宽338；间距约8；首排高162",
+      "implementation_note": "当前双列宽/10完整+下一排露出已接近；不能退回大海报或挤31人一屏"
+    },
+    {
+      "region": "骑手肖像",
+      "reference_pixels": "首卡约[35,133,130,183]；其他卡多为130×145–170",
+      "design_pixels_or_ratio": "约100×140（随卡分支适配）",
+      "implementation_note": "当前未招募98×144设计大小接近，不宜再次盲目放大；已招募分支缺图证据"
+    },
+    {
+      "region": "车辆主卡",
+      "reference_pixels": "约[18,97,904,469]；左车实物包围盒约[45,120,510,425]",
+      "design_pixels_or_ratio": "卡[14,74,692,359]；车约391×325",
+      "implementation_note": "当前卡占高接近，实物车约430×350原图像素，留白偏多；节点尺寸不等于实物占比"
+    },
+    {
+      "region": "车辆宫格",
+      "reference_pixels": "首排约y638..891；三列x24/325/625，宽290左右；第二排y903",
+      "design_pixels_or_ratio": "设计首排y488,h194；宽222",
+      "implementation_note": "当前列表起点接近，图实物偏小；选中需橙边+橙角勾，不是蓝标签"
+    },
+    {
+      "region": "地图五卡",
+      "reference_pixels": "约x18..922；y102..363/382..645/663..925/944..1207/1223..1490",
+      "design_pixels_or_ratio": "宽692，高约200；排步约215",
+      "implementation_note": "当前基本落在同一范围；不能把存在五图等于纹理/标题/按钮通过"
+    },
+    {
+      "region": "订单首卡（无专送）",
+      "reference_pixels": "[23,169,894,200]；餐图约[96,184,190,167]",
+      "design_pixels_or_ratio": "卡[18,129,685,153]；餐图约146×128",
+      "implementation_note": "当前普通卡高164设计、排步178，餐图128设计且内部再缩；专送需单列额外区域"
+    },
+    {
+      "region": "订单固定汇总",
+      "reference_pixels": "[22,1304,896,137]；按钮[623,1325,282,100]",
+      "design_pixels_or_ratio": "[17,998,686,105]；按钮216×77",
+      "implementation_note": "当前汇总高124设计偏厚、按钮206×79设计；位置固定结构已有，但选中态未核验"
+    },
+    {
+      "region": "账单四块",
+      "reference_pixels": "约[22,135,896,364]、[22,520,896,366]、[22,910,896,257]、[22,1188,896,278]",
+      "design_pixels_or_ratio": "y103/398/696/909；h279/280/197/213",
+      "implementation_note": "当前第二块更矮、第一块信息减少；不能拿空账本掩盖卡高/层级差异"
+    },
+    {
+      "region": "公共底栏",
+      "reference_pixels": "格顶约y1510（订单1493）；两侧宽约180；中央两格向圆盘切角；底约1655",
+      "design_pixels_or_ratio": "格顶约1155；侧格宽138；底1266",
+      "implementation_note": "当前整体位置和切角已有接近之处；需精修轮廓，不推倒既有结构"
+    },
+    {
+      "region": "圆盘",
+      "reference_pixels": "中心约(470,1560–1565)，外径约148–160（不同原图略有差异）",
+      "design_pixels_or_ratio": "中心(360,1194–1197)，外径113–123",
+      "implementation_note": "当前档案图盘约直径148原图像素，尺寸接近；边缘光泽/环线有差异"
+    }
+  ],
+  "checks": [
+    {
+      "id": "G01",
+      "priority": "P0",
+      "expected_region": "远程所有图片/菜单完整可见",
+      "observed_and_source": "用户报告五类全缺；档案JPEG部分有图。`V2ImageSkin`异步载入与缓存；`mapPreview`失败仅告警、NPC回退文字，车/餐走另一载入器",
+      "acceptance": "先由工程师在用户实际分享入口核对入口版本、清单/纹理请求、实际Sprite与错误；提供首次加载与加载稳定后的六页证据、入口/版本时间。任何主要图片空白/占位/失效为fail，不能用本地源文件列表结案。具体根因本审计未确定",
+      "status": "unverified",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "G02",
+      "priority": "P1",
+      "expected_region": "蓝白纸底、细蓝外框/白高光、玻璃内层与橙/蓝按钮",
+      "observed_and_source": "五页截图普遍有淡到近消失的框、边角灰碎线；`V2ApprovedSkin.panel`用panel-glass/bill-metric后追加GlassEdge，`V2ImageSkin`九切片drawScale/insets",
+      "acceptance": "先修一套通用皮肤样本在真实页面小/中/大卡上的伸缩；原图细蓝轮廓连续，白高光与浅蓝面有层次，角/边无杂线，不能整体加蓝或仅加粗外框。卡主体差异未解决，各页仍fail",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "G03",
+      "priority": "P1",
+      "expected_region": "标题/金币壳/加号成套",
+      "observed_and_source": "骑手/车辆位置近，地图/账单金币窄；所有管理页缺右侧加号，`render`只glyph+金额，统一M.w(232)",
+      "acceptance": "依锚点逐页校准宽度；恢复有业务含义的图标/加号展示与热区，不新增未经授权付费功能；金币六位数及小数格式仍不遮图标或其他HUD。若无加号业务，给父PM明确记录映射，不静默省略视觉",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "G04",
+      "priority": "P1",
+      "expected_region": "四个深蓝具象图标、内侧切角、橙圆、当前唯一×",
+      "observed_and_source": "`navigationTile/glyph/mainAction`已有结构；实图底部车/地图轮廓和原图有差，圆盘外缘呈细密点线，纹理对比偏弱",
+      "acceptance": "保留已有位置；按四图标轮廓/面积/基线修素材，圆盘平滑白金环与橙渐变，关闭只在当前入口（订单在圆盘），选中浅黄。470宽可辨，无伪装成整张截图，内容不被圆盘盖住",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "H01",
+      "priority": "P0",
+      "expected_region": "首页主体为认可的斜俯视完整现代街区、道路/树/建筑/骑手成场景",
+      "observed_and_source": "after-home大面积米色空地、平面路河、零散顶视楼块且边缘裁断；`configure`仍CityMap。与原图街景主体根本不同",
+      "acceptance": "需独立地图负责人交实际运行主场景：保留原路/三框约束、街区完整、统一斜俯视/材质/光照、骑手清晰。不能贴原图作不可玩的背景；未接入前首页与整体持续fail，不可把地图排除出98%分母",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "H02",
+      "priority": "P1",
+      "expected_region": "首页紧凑HUD与清晰小主角/定位",
+      "observed_and_source": "HUD头像突出下缘，标题/经验挤、评价等状态可合法不同；旧截图“重新开始”在地图，最新源码已移走但无新首页图",
+      "acceptance": "按原图独立头像/定位针/地址/等级条，留大地图；新首页图证明重开已移离、定位/补给分离、目标卡不占据主体焦点。合法状态不复制680/78/96；当前源码不能替新图证明",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "R01",
+      "priority": "P1",
+      "expected_region": "骑手卡纹理清楚、头像身份可辨、文字动作主次明确",
+      "observed_and_source": "最新riders-after已有10张完整+下一排；未招募Lv.1已补，但名称/浅蓝收益/小图标与按钮字体明显比参考纤细密集；没有短介绍。portrait/frame与panel皮肤边缘不净",
+      "acceptance": "保持双列密度，不造满员；先恢复卡边/按钮层次，再校姓名/等级/状态/收益/作业耗时行与头像裁切，按钮不粘底；短介绍若仍为确认规格需真实文案，无权威文案交父PM，不编。已招募配车+升级报价两动作须有后续真实分支证据",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "R02",
+      "priority": "P2",
+      "expected_region": "31身份列表末端可访问",
+      "observed_and_source": "首屏只见前12人部分，不能证明31全头像或最后卡可见",
+      "acceptance": "以后只读滚动取得中/底截图；核对hero/npc-id绑定、末卡不被底栏遮住，整列约2–3内容屏（约3屏可接受，不逐页凑满员）",
+      "status": "unverified",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "V01",
+      "priority": "P1",
+      "expected_region": "左车是主卡主视觉，右侧详情和唯一购买",
+      "observed_and_source": "pass3左图比pass2变大，但实物包围盒仍低于原图；`vehicleSideArt(403,348)`只是节点，透明padding/contain决定实物",
+      "acceptance": "校主车实际非透明边界达到上表目标比例；保留轮胎/后箱/镜完整、不可变形；右列标题/拥有/新购/三参数/唯一按钮顺序，图与字不重叠。用最新车型与真实参数",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "V02",
+      "priority": "P1",
+      "expected_region": "三列宫格、橙边+橙角白勾选中、车图占格上部",
+      "observed_and_source": "当前选中是蓝色小勾牌、框近乎不可见；主格实际图面积小于原图；`levelBadge(tile,'✓')`造成蓝勾",
+      "acceptance": "改为原图选中语义；每格只有图/短名/拥有状态，无重复购买。第3/5车型真实选中截图要证明大图/详情同步；不能因首个默认态有图就视全部联动通过",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "V03",
+      "priority": "P1",
+      "expected_region": "禁用视觉语言保留，旧地图资格去除",
+      "observed_and_source": "无对应B/第五车型完整实际图；新经济取消资格",
+      "acceptance": "禁用只因当前真实原因；余额不足提示配灰态要和真实报价一致；不出现“解锁城市后可购买”。无真实状态截图标未核验，不能恢复旧锁门槛来制造对照",
+      "status": "unverified",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "V04",
+      "priority": "P1",
+      "expected_region": "下滚只滚宫格，上方详情保持",
+      "observed_and_source": "最新图只见最后一行露出车头，没完整后排图",
+      "acceptance": "提供真实宫格滚至后排及最后车型选中图，上部详情不动，最后车图/名/拥有完整露出；不造购买档。未核验前第8参考状态不通过",
+      "status": "unverified",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "O01",
+      "priority": "P1",
+      "expected_region": "图餐/标题/时限/重量/大橙金额、蓝取绿送条",
+      "observed_and_source": "pass3餐图为奶黄方底+内缩小图，原图近满框餐品；卡边弱；价格层级已有改善。foodImage128且内部size-10；card164/step178",
+      "acceptance": "先修卡皮肤，再将餐品有效占比接近原图，保完整主体；图名对应但不能伪造权重。单卡有重量图标/易损标识（真实易损才显示）、清楚时限、右侧动作语义；差异未确认的箭头/详情映射交父PM，不加假动作",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "O02",
+      "priority": "P1",
+      "expected_region": "一个连续列表+底部固定三栏汇总",
+      "observed_and_source": "当前无刷新入口可见（源码此分支亦无相应控件）；专送占约一小卡；当前仅0选中灰按钮截图",
+      "acceptance": "普通无专送时按169起点；有专送按真实新增偏移单列记录，不能挤垮可扫描卡。已选卡橙边/勾，汇总真实载重/收入/路线在安全区固定。刷新是否仍有效由PM/工程师对最新业务核对，不凭原图编次数或假按钮；多选/不可报价/正常路线态均未核验",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "M01",
+      "priority": "P1",
+      "expected_region": "五张独立图、白字标题旁状态、右下价格动作",
+      "observed_and_source": "maps-after已改善状态/双行价，五图可见，名称/价格合法；但标题是硬矩形深蓝底、状态矩形、按钮硬直角，原图为白字投影/局部渐暗/圆润胶囊与高光",
+      "acceptance": "保最新名价与五图身份，不替回旧图名；减少矩形遮挡，按标题/状态视觉比例与圆角还原；框线蓝白连续，图片满卡且清晰。五图有效图像占各卡绝大部分（建议≥80%，遮罩不算丢图），最后按钮不被圆盘盖",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "M02",
+      "priority": "P1",
+      "expected_region": "当前、已购非当前、未购分别显示",
+      "observed_and_source": "指定截图只有当前第一图/其余未购；源码有选择地图分支",
+      "acceptance": "未购/当前可做静态比较，已购非当前标未核验；后续真实状态需“已购买+选择地图”，不造已购档、不恢复等级资格",
+      "status": "unverified",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "B01",
+      "priority": "P1",
+      "expected_region": "四块分区、三指标大数、三项经营副指标与图表层级",
+      "observed_and_source": "pass3四块已有，但细边/层次平；字号比原图指标较小，第一块副区用累计单/在册替主角里程/在线。源码说明无持久字段",
+      "acceptance": "大金额与标题/次级数据按原图比例，保持真实0/0.00；无里程/在线不能填24km/38分钟，明确字段缺口交父PM，真实替代需登记内容差异，不能声称四块完全还原",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "B02",
+      "priority": "P1",
+      "expected_region": "累计配送/任务奖励/累计支出与七日橙渐变柱/轴",
+      "observed_and_source": "当前累计配送/支出/净额；少任务奖励卡；空账本只能证明轴和0值。源码max按分计且money转换，不能误报4金币轴为400金币错",
+      "acceptance": "确认最新业务是否取消奖励字段，未有覆盖不能默认删掉原图任务奖励层；有值柱/总和与真实账本一致、数值不撞标题，零值不伪造高度。累计净额不得误标余额；条目与数据口径由PM确认后复审",
+      "status": "fail",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    },
+    {
+      "id": "B03",
+      "priority": "P2",
+      "expected_region": "支出两列图标分类、末端留白",
+      "observed_and_source": "当前支出两列已有，线条/图标小、底栏近；源码后面有重开",
+      "acceptance": "修内分隔与文字/金额对齐，后续末端图证明重开在内容末尾且不误触底栏；不操作重开",
+      "status": "pending_polish",
+      "requires_real_runtime_evidence": true,
+      "remote_current_screen_verified": false
+    }
+  ],
+  "supplemental_states": [
+    {
+      "label": "配置车辆",
+      "evidence": "docs/reviews/2026-11-05-vehicle-configuration-ui/configuration.jpg",
+      "status": "partial_static_only",
+      "unverified": [
+        "多车",
+        "占用",
+        "在途",
+        "配备/卸下行为"
+      ],
+      "note": "不属8张冻结原图，初始旧车复用D图为候选"
+    },
+    {
+      "label": "升级弹层",
+      "evidence": "docs/reviews/2026-11-05-vehicle-configuration-ui/upgrade.jpg",
+      "status": "partial_static_only",
+      "unverified": [
+        "确认扣款",
+        "不足余额",
+        "满级"
+      ],
+      "note": "静态有等级前后/费用/余额，不称原图一致率"
+    },
+    {
+      "label": "补给顶中底",
+      "evidence": [
+        "docs/reviews/2026-11-05-supply-trip-ui/supply-top.jpg",
+        "docs/reviews/2026-11-05-supply-trip-ui/supply-middle.jpg",
+        "docs/reviews/2026-11-05-supply-trip-ui/supply-bottom.jpg"
+      ],
+      "status": "fail",
+      "findings": [
+        "首帧面图文字占位，后帧才加载",
+        "水/饮料复用体力图标，缺专属图",
+        "末项开放说明仍有旧国际都会名"
+      ],
+      "unverified": [
+        "购买",
+        "授权",
+        "免费休息实际行为"
+      ]
+    },
+    {
+      "label": "配送中",
+      "evidence": null,
+      "status": "unverified",
+      "note": "指定目录没有活动批次实际图；不造档/接单补证据"
+    }
+  ],
+  "implementation_order": [
+    "G01远程图片链路",
+    "H01首页地图独立阻塞，不能从整体排除",
+    "G02共享卡/按钮九切片与纹理",
+    "G03标题资源壳",
+    "G04图标底栏圆盘",
+    "V01/V02车辆主图和选中",
+    "O01/O02订单卡和固定汇总",
+    "R01骑手层次",
+    "M01地图卡",
+    "B01/B02账单层次与信息缺口",
+    "主体通过后P2精修"
+  ],
+  "re_review_gate": {
+    "per_page_no_averaging": true,
+    "major_region_mismatch": "fail",
+    "missing_evidence": "unverified",
+    "any_P0_blocks_overall": true,
+    "any_major_page_fail_blocks_overall": true,
+    "no_synthetic_save_or_fake_values": true,
+    "no_reinstate_purchase_qualification": true,
+    "do_not_request_user_repeat_requirements": true,
+    "necessary_evidence": [
+      "实际远程入口/版本/采集时间/画幅",
+      "首次加载与稳定后图片证据",
+      "更新六主态",
+      "第3/5车型选中详情",
+      "车辆后排/最后车型",
+      "骑手中底",
+      "地图与账单末端",
+      "真实未覆盖分支持续标未核验直到获得合规自然证据"
+    ],
+    "user_acceptance_is_separate": true
+  },
+  "prohibited_actions_performed": [],
+  "mutations": "仅本visual目录规格与证据清单；没有源码/原素材/存档/基准/交接修改，没有构建/部署/测试/typecheck/浏览器接管",
+  "score_policy": "不计算已做项/总项百分比。后续量化需声明全图与区域方法、合法动态差异、压缩/字体误差及热图，不能屏蔽首页/图片等主区域报98%。"
+}

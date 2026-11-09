@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: kg-v1: Economy restore does not encode its privately parsed wallet again
+ok 1 - kg-v1: Economy restore does not encode its privately parsed wallet again
+  ---
+  duration_ms: 0.7525
+  type: 'test'
+  ...
+# Subtest: kg-v1: Fleet restore does not encode its privately parsed clock aggregate again
+ok 2 - kg-v1: Fleet restore does not encode its privately parsed clock aggregate again
+  ---
+  duration_ms: 0.333417
+  type: 'test'
+  ...
+# Subtest: kg-v1: Dispatch restore does not encode its privately parsed order history again
+ok 3 - kg-v1: Dispatch restore does not encode its privately parsed order history again
+  ---
+  duration_ms: 2.084583
+  type: 'test'
+  ...
+# Subtest: kg-v1: independent restores and detached projections cannot share mutable authority
+ok 4 - kg-v1: independent restores and detached projections cannot share mutable authority
+  ---
+  duration_ms: 0.946959
+  type: 'test'
+  ...
+# Subtest: kg-v1: full restore still rejects mismatched wallets and forged completed income
+ok 5 - kg-v1: full restore still rejects mismatched wallets and forged completed income
+  ---
+  duration_ms: 0.625292
+  type: 'test'
+  ...
+# Subtest: slots-v1: Economy restore does not encode its privately parsed wallet again
+ok 6 - slots-v1: Economy restore does not encode its privately parsed wallet again
+  ---
+  duration_ms: 0.058708
+  type: 'test'
+  ...
+# Subtest: slots-v1: Fleet restore does not encode its privately parsed clock aggregate again
+ok 7 - slots-v1: Fleet restore does not encode its privately parsed clock aggregate again
+  ---
+  duration_ms: 0.063042
+  type: 'test'
+  ...
+# Subtest: slots-v1: Dispatch restore does not encode its privately parsed order history again
+ok 8 - slots-v1: Dispatch restore does not encode its privately parsed order history again
+  ---
+  duration_ms: 1.468958
+  type: 'test'
+  ...
+# Subtest: slots-v1: independent restores and detached projections cannot share mutable authority
+ok 9 - slots-v1: independent restores and detached projections cannot share mutable authority
+  ---
+  duration_ms: 1.442958
+  type: 'test'
+  ...
+# Subtest: slots-v1: full restore still rejects mismatched wallets and forged completed income
+ok 10 - slots-v1: full restore still rejects mismatched wallets and forged completed income
+  ---
+  duration_ms: 0.849417
+  type: 'test'
+  ...
+# Subtest: replaceFrom adopts separate parsed authority and rejects a forged wallet atomically
+ok 11 - replaceFrom adopts separate parsed authority and rejects a forged wallet atomically
+  ---
+  duration_ms: 0.241958
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 50.9115

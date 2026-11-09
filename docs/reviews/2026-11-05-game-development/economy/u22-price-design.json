@@ -1,0 +1,254 @@
+{
+  "反馈编号": "U22",
+  "状态": "最小差价设计建议，待PM批准；未实施、未关闭",
+  "执行边界": {
+    "已执行": [
+      "只读源码与产品依据",
+      "独立Python Decimal纯算术"
+    ],
+    "未执行": [
+      "修改文件或参数",
+      "读取或修改用户存档",
+      "运行游戏或TS函数",
+      "测试、typecheck、回归、性能测试或Creator构建",
+      "派子Agent",
+      "地图制作"
+    ],
+    "当前资产配置": "frontloaded-2026-11-04-v3-hire-training-tail"
+  },
+  "一_当前保护的准确语义": {
+    "判断依据": "接单时的heroCompletedOrders < 15，整批共用该判断；不是逐单heroOrderOrdinal <= 15。",
+    "跨界批次": [
+      {
+        "接单时已完成": 14,
+        "本批合同ordinal": [
+          15,
+          16,
+          17
+        ],
+        "结果": "三单全部使用经验倍率1，也全部沿用当前安全路线保护；后两单不会因ordinal超过15而提前解除保护。"
+      },
+      {
+        "接单时已完成": 15,
+        "本批合同ordinal": [
+          16,
+          17,
+          18
+        ],
+        "结果": "三单都解除保护，按接单时经验倍率报价并冻结；批内完成更多订单不会重算剩余合同。"
+      }
+    ],
+    "其他口径": "普通和专送真实完成均推进主角完成数；NPC完成数不推进该保护计数。保护不把金额硬钳为20：地图和车辆倍率始终生效。",
+    "保留要求": "新劳动量因子同样按接单时completed判断。受保护批次因子固定1，保留推荐路径旧车每单20、街行每单24及现有短途、天气和体力规则。",
+    "证据": [
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:88",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:135",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:138",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:71",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts:26",
+      "docs/balance/2026-11-04-frontloaded-economy/parameters.json:9"
+    ]
+  },
+  "二_推荐批准的最小数值规则": {
+    "建议规则版本": "ordinary-effort-v1",
+    "适用范围": "仅新签主角普通单；NPC、专送、既有已签合同均保持原样。",
+    "输入定义": {
+      "D": "原商家到原顾客沿现有fast路线的路程，单位米；先验证原值有限且大于0，再取max(1, Math.round(heldMetres))，作为合同计价米数。",
+      "W": "订单实际weightKg，正安全整数；不是车辆容量，也不是重量占当前容量的比例。"
+    },
+    "公式": [
+      "接单时heroCompletedOrders < 15：N = 10000。",
+      "保护后：N = 9000 + min(D, 2000) + 500 × min(W - 1, 2)。",
+      "劳动量因子F = N / 10000。",
+      "合同incomeCents = Math.round(地图ordinaryBaseFee × 100 × 锁定车辆incomeFactor × 锁定xpMultiplier × N / 10000)。"
+    ],
+    "边界": {
+      "因子范围": "约0.90至1.20；有效正距离量化后实际最低0.9001，上限1.20。",
+      "距离贡献": "每100米增加1个百分点，2000米封顶贡献20个百分点。",
+      "重量贡献": "2kg相对1kg增加5个百分点，3kg及以上封顶增加10个百分点。",
+      "参考订单": "1000米、1kg的因子为1，保留现有基础报价作为明确锚点。",
+      "不参与计价": [
+        "当前骑手到商家的距离",
+        "实际绕行长度",
+        "所选批次组合",
+        "同店合并服务次数",
+        "随机菜名或标签",
+        "倒计时剩余量",
+        "当前车辆容量占用率"
+      ]
+    },
+    "选取理由": [
+      "使用已有可信路程与实际负重，差价可以解释和复算，不需要随机分布或新增急单系统。",
+      "距离上限防止长路报价无界增长；重量上限避免大容量车辆同时获得容量和重量倍率的过强叠加。",
+      "短轻单可比原价低约10%，长重单最多高20%，不是所有普通单统一涨价；这组幅度是待批准的设计选择，不是已校准结果。",
+      "车辆容量只决定能否承接及组单，不能直接乘单价。相同订单换成容量更大的车，不改变劳动量因子；车辆原有收入系数仍独立生效。"
+    ],
+    "币分与显示": "距离量化仅用于定义计价输入；报价计算不先把原报价取整再乘因子，最终统一按分Math.round一次。批次总价累加各单合同分数。结算继续对合同分数按现有迟到、餐损规则独立取整。UI显示合同分数除100，保留最多两位小数。",
+    "明确限制": "不同订单可能因输入相同、封顶或最终分精度相同而同价，不保证列表每条金额唯一。超过2000米的额外路程本版不再额外补偿，需观察长期订单选择后再评估。",
+    "依据": [
+      "docs/product/2026-11-02-delivery-game-product-v1.md:51",
+      "docs/product/2026-11-04-product-v2-economy-redesign.md:28",
+      "docs/product/2026-11-04-product-v2-economy-redesign.md:46",
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts:29",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts:8"
+    ]
+  },
+  "三_可信输入与最小接线契约": {
+    "现有可信符号": {
+      "距离": "V2RouteSession.fastest(pickupNode, dropoffNode).heldMetres。其值是router.find(pickup, dropoff, 'fast')返回的b.metres，排除了骑手当前位置到商家的a段。",
+      "禁止误用": "fastest(...).metres含骑手到商家的路程，随骑手位置变化，不用作本版计价距离；gameSeconds也不作为价格输入。",
+      "重量": "通过V2RouteSession.plan和legal校验的V2RouteOrder.weightKg；生产候选目前按适配容量的1、2、3kg生成。",
+      "服务合并": "当前plannedStops已按可信商家身份合并取餐，serviceBudget按实际停靠计算。新规则不改这些符号，也不把合并前重复服务时间计入价格。"
+    },
+    "建议接口": {
+      "生产入口": "V2GameSession.acceptBatch保留原公开参数。内部为每个普通订单计算可信D，在route.plan校验后传入Dispatch；忽略UI对象夹带的计价距离、因子或金额。",
+      "内部可选参数": "V2DispatchSession.acceptBatch与V2EconomySession.acceptBatch新增可选第二参数ordinaryPricingById，类型为Readonly<Record<string, { deliveryMetres: number }>>。提供时必须与本批普通订单ID逐一对应；版本由领域实现确定，不让调用方任选。",
+      "合同新增字段": "V2DeliveryQuote新增可选ordinaryPricing?: { version: 'ordinary-effort-v1'; deliveryMetres: number }。使用现有weightKg、heroCompletedAtAcceptance、incomeFactor、xpMultiplier复算，不再冗余保存可冲突的factor字段。",
+      "新合同要求": "生产GameSession路径对所有新普通合同都附ordinaryPricing，保护期合同也附；因子是否为1由接单时completed决定。专送不附该字段。",
+      "旧API默认": "旧领域调用省略第二参数时沿用原报价和无ordinaryPricing合同，保持acceptOrdinary(id)等既有API可用。此默认仅用于原API兼容，生产手动和自动接单路径必须提供可信输入，不能以缺失距离静默降级。",
+      "无效输入": "提供了新上下文但距离无效、ID缺漏或版本异常时拒绝该次新接单草稿，不创建错误合同；不能捕获后悄悄按旧价接单。此要求不作用于缺少新字段的既有合法存档。"
+    },
+    "预览与正式接单": [
+      "保留Runtime.quoteCandidates通过恢复草稿并调用GameSession.acceptBatch的现有路径，自动获得同一可信输入和纯报价函数。",
+      "正式手动接单与自动跨批接单都走同一个GameSession入口，不分别实现价格。",
+      "同一状态、同一订单的单卡预览、批次预览和正式接单金额一致；组合和同店合并不改变单笔劳动量价格。",
+      "正式接单前若车辆、地图或经验状态已变化，刷新报价并确认，不能继续使用过期UI金额。",
+      "结算只消费锁定incomeCents，不能在送达时用当前位置、实际路程或新经验重报价。"
+    ],
+    "证据": [
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:68",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:77",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:83",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:85",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:94",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts:23",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts:28",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts:75",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:133",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:160",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts:90"
+    ]
+  },
+  "四_唯一当前进度与旧合同兼容": {
+    "版本策略": "保留当前资产经济configId、经济快照version、组合快照及存档key；劳动量规则使用独立不可变版本ordinary-effort-v1。资产参数JSON不因该规则被整体换ID。批准后由PM记录独立规则的权威参数来源，不静默修改已有配置含义。",
+    "恢复分支": [
+      "普通合同没有ordinaryPricing：严格沿用当前旧公式校验及原incomeCents，不推断、不填充距离，不因接单时completed已超过15而要求补新字段。",
+      "普通合同有ordinaryPricing.version='ordinary-effort-v1'：校验D为正安全整数、W为正安全整数，按接单时completed选择保护或差价公式，再与已存incomeCents精确比较。",
+      "保留现有车辆等级、经验冻结字段及其校验，不把旧字段缺失补成新的默认值。",
+      "保留activeQuote与activeQuotes、Dispatch pending quote的完整一致性检查；不只给其中一份旧合同补字段。",
+      "当前活动组合若同时有新pricing字段和对应trip订单，可将D与已保存tripState.orders.heldMetres的相同量化结果比对。旧合同即使trip保存了heldMetres也不升级价格。",
+      "历史completed或cancelled合同没有新字段时保持原样；新版本合同的字段及报价校验应覆盖这些状态，不能只校验activeQuotes。历史路线已不保留时，不用当前路线伪造旧距离。",
+      "未知新规则版本或格式损坏仍保留现有写保护原则，不清档、不自动重开、不吞掉原进度。"
+    ],
+    "实现注意": "当前validateV2EconomySnapshot第72行只接受旧普通公式，必须先增加按合同规则版本的分支，才能创建新合同；否则新报价会在事务校验或restore时被拒绝。",
+    "滚动发布": "新版读端兼容无新字段合同，但旧程序不能识别新差价合同。PM需保证生产写入与恢复校验同步发布，并协调旧标签页写者退出；不能让两版同时写唯一进度，也不能用清档解决版本混跑。",
+    "证据": [
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:40",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:69",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:72",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:76",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts:141",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts:142",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts:146",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts:97",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts:109",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts:37"
+    ]
+  },
+  "五_纯算术价格敏感性": {
+    "计算方法": "本轮实际执行Python Decimal与ROUND_HALF_UP，只计算明确合成代表值，没有读取真实订单分布或运行游戏函数。",
+    "固定条件": "接单时已完成15单，经验150，按当前经验阈值及+50偏移得到xpMultiplier=1.03；车辆均未改装；以下是准时完好毛报价。",
+    "代表值": [
+      {
+        "路程米": 100,
+        "重量kg": 1,
+        "因子": 0.91,
+        "晴川县旧车分": 1875,
+        "晴川县街行分": 2250,
+        "云浦市街行分": 3037
+      },
+      {
+        "路程米": 500,
+        "重量kg": 1,
+        "因子": 0.95,
+        "晴川县旧车分": 1957,
+        "晴川县街行分": 2348,
+        "云浦市街行分": 3170
+      },
+      {
+        "路程米": 1000,
+        "重量kg": 1,
+        "因子": 1,
+        "晴川县旧车分": 2060,
+        "晴川县街行分": 2472,
+        "云浦市街行分": 3337
+      },
+      {
+        "路程米": 1000,
+        "重量kg": 2,
+        "因子": 1.05,
+        "晴川县旧车分": 2163,
+        "晴川县街行分": 2596,
+        "云浦市街行分": 3504
+      },
+      {
+        "路程米": 1500,
+        "重量kg": 2,
+        "因子": 1.1,
+        "晴川县旧车分": 2266,
+        "晴川县街行分": 2719,
+        "云浦市街行分": 3671
+      },
+      {
+        "路程米": 2000,
+        "重量kg": 3,
+        "因子": 1.2,
+        "晴川县旧车分": null,
+        "旧车不可接原因": "3kg超过旧车2kg容量；不能把公式可计算当作合法订单。",
+        "晴川县街行分": 2966,
+        "云浦市街行分": 4005
+      },
+      {
+        "路程米": 5000,
+        "重量kg": 3,
+        "因子": 1.2,
+        "晴川县旧车分": null,
+        "晴川县街行分": 2966,
+        "云浦市街行分": 4005
+      }
+    ],
+    "不重复取整例": "云浦市街行原始金额为3337.2分；因子1.2时按4004.64分取整为4005分，不能先取3337分再乘1.2得到4004分。",
+    "成长影响": [
+      "受保护批次不应用差价，推荐路径100+10×20=300，买街行后5×24=120的预算保持；前提仍是不额外消费、街行已配主角且准时完好。",
+      "保护后单笔毛报价相对当前未取整公式约为90%至120%，这是单笔幅度，不是整体时长变化范围。",
+      "玩家挑单、重量占容、共享路程、同店合并服务和ready等待都会影响每分钟收入；不能凭合成均值或价格上限保证20分钟小队。",
+      "旧19.91及27.41分钟仅为旧独立模型结果，不是当前合并服务、继续操作与新时点实现的实测，也不是本建议的预测时长。"
+    ],
+    "经验依据": [
+      "delivery-game/assets/scripts/domain/GameConfig.ts:121",
+      "delivery-game/assets/scripts/domain/GameConfig.ts:138",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts:88"
+    ]
+  },
+  "六_PM批准建议与尚缺输入": {
+    "推荐批准": "批准ordinary-effort-v1这一版：接单时completed<15整批因子1；保护后采用上述0.90至1.20有界路程重量因子；仅新主角普通单生效；独立规则版本、旧合同原样兼容。不要同时修改资产价、NPC收入、专送或前15保护。",
+    "批准后最小实施顺序": [
+      "经济与逻辑owner先共同固定规则常量、可选上下文及合同字段。",
+      "先实现双分支恢复校验和旧合同兼容，再接入新报价创建。",
+      "GameSession从既有fastest返回值一次取得可信距离，手动、自动及草稿预览共用，避免另建逐帧路由扫描。",
+      "检查UI只消费同一合同分数；集成完整读写链路后由PM按授权安排阶段验证。"
+    ],
+    "不可猜的输入": [
+      "PM是否接受短轻单最多降低约10%、长重单最多提高20%，以及2000米和3kg的封顶取舍；这是产品批准事项，现有正式参数没有该值。",
+      "当前实际候选的商家到顾客路程、重量联合分布，以及可合并取餐比例；不能用上述代表值冒充真实供给。",
+      "当前手动ready等待、取餐和继续操作耗时的目标假设；没有这些输入不能更新20分钟小队预测。",
+      "PM的同步发布与旧标签页写者控制安排；不能以新规则为由报错拒绝当前合法进度或要求重开。"
+    ],
+    "非实施阻塞说明": "可信距离和重量符号已经存在，无需等待地图制作。真实分布和操作耗时是评估成长影响所缺证据，不妨碍PM先批准最小规则，但在证据补齐前不能宣称已平衡、已达到20分钟或U22验收通过。",
+    "当前源码变化已纳入": [
+      "V2RouteSession.serviceBudget已按合并停靠计服务预算。",
+      "V2GameSession.continueTrip及自动ready继续已存在。",
+      "Runtime轻量读取和NPC事件时点接线已变化；没有沿用旧报告对这些部分的未实现判断。"
+    ]
+  }
+}

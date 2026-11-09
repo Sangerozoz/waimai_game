@@ -1,0 +1,3 @@
+继续上一项只读复审；不重读长历史。Important的公开替换/升级触发已按原候选实际跑出RED 8pass/3fail（Missing expected exception）；no-op分支现调用完整this.validate后return，GREEN11/11。原atomic只在有新事件时继续。Minor改常规中位数，重跑40次全字符串一致：长期pickup166.569→146.029ms，travelling167.245→145.454ms（约12.33%/13.03%）。
+冻结请求：docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-followup-request.json
+请独立核before/最终source、三新增case、完整delta与所有8份SHA，裁定两项是否关闭及有无新增问题。原候选/原build/原日志均已归档review-01，未部署。新测试是本任务新增文件，772基线允许它修订；benchmark不加载该测试所以明确排除其首版SHA，全部实际30个加载源仍只有Fleet变化。默认回归/typecheck由PM重跑，你不执行测试/游戏/模型/构建，不写文件或改权限；最后结论仍限Spec/质量，不扩大U01/FPS或跨包恢复。

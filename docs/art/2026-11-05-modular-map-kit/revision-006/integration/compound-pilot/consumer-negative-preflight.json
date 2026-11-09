@@ -1,0 +1,97 @@
+{
+  "consumerEntry": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/integration/compound_import.py",
+  "samePreflightUsedByApply": true,
+  "notGameTests": true,
+  "cases": [
+    {
+      "case": "duplicate-module-persistentId",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Duplicate/old persistentId: 009compound-source0125-court-module-01-B05",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "duplicate-ground-id",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Duplicate/old ground persistentId: 009compound-source0125-court-module-01-B05-entry-walk-0",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "missing-module-sceneId",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Module missing sceneId or unknown scene",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "missing-scene",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Missing scene registry",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "scene-omits-existing-module-orphan",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Orphan module not listed by its scene",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "scene-lists-absent-module",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Scene lists missing module / module omitted",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "cross-scene-source-reuse",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Cross-scene source reuse: 125",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "old-array-bound-source-conflict",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Source already bound in published baseline: 260",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "old-singular-bound-source-conflict",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Source already bound in published baseline: 630",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "reserved-source-conflict",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Source already bound in published baseline: 1731",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "reservation-gate-independent-of-old-binding",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Source reserved by an existing usage contract: 114",
+      "mainSHAUnchanged": true
+    },
+    {
+      "case": "unsupported-schema",
+      "explicitInMemoryNegativeInput": true,
+      "rejected": true,
+      "reason": "Unsupported compound schema",
+      "mainSHAUnchanged": true
+    }
+  ],
+  "mainHashesBeforeAndAfter": {
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/integration/neighborhood.tmj": "5a4ee4e32ca61f88c81d97161469fa558fdfa75d1f8051ffaeef7c03badfee5c",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/viewer/assets/scene-layout.json": "e781547b0767a058e47fad5459e45ab308951c67cf6e3237c9f10a48d824eaa7",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/viewer/assets/asset-manifest.json": "99679e0e2437d8d64579079e3701171d6781295cb02dcd7926929bd86553a457"
+  },
+  "productionInputsEdited": false
+}

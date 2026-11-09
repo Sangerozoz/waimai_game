@@ -1,0 +1,74 @@
+{
+  "status": "native-candidate-not-user-accepted-not-integrated",
+  "tool": "image_gen.imagegen",
+  "toolSourceAbsolutePath": "/Users/sanger/.codex/generated_images/01a1ac1c-02e8-76f0-b1d9-82f4dab00260/exec-d87fbe9d-decc-4404-9823-82fe48a73648.png",
+  "actualPrompt": "Create exactly ONE new native game-sprite PNG for B04. Do not output a sheet or multiple variants.\nIMAGE ROLES, in order: (1) B04-geometry.png = hard geometry/camera and footprint/roof constraints ONLY, NOT final art. (2) B04-appearance.png = identity/material source ONLY, ignore its old camera and all context. (3) user original 2026-11-03-user-building-variety.png = painting/material/diversity style ONLY, never copy its roads/layout/camera. (4, optional) accepted B01-road-aligned-native-v1.png = qualitative lighting/finish consistency ONLY, never copy its shop/cuboid design.\nOrthographic source-road projection, elevation 62.5 deg / azimuth 45 deg; use exact drawn guide, NOT generic 30-degree isometric. Frontage edges screen -28.486362689 deg, depth edges +55.405984491 deg. All wall verticals exactly screen-vertical. Ground corners A,B,C,D are ordered rear-left, rear-right, front-right, front-left; road-facing long side is D-C. Preserve guide chirality, corner relationships and roof massing. No mirror, rotation, shear, warp or editing old sprite pixels.\nCANDIDATE ARCHITECTURE (PM dimensions, not surveyed source): A broad low public exhibition pavilion, full candidate envelope 12x9. Raised central hall to z=6.4, narrow roof-light volume to total z=7, two genuinely low asymmetric side wings z=3.4/3.0, recessed central public entrance and shallow canopy z=3.5. Retain the stepped low roofline and broad entrance, not a seven-unit-high box or shopping block.\nSOURCE IDENTITY: Selected TR-22 low public pavilion: pale stone broad low wings, a raised central hall with a long narrow roof light, warm dark entrance glazing and a prominent vertical entrance surround. Do not include the outdoor sculpture or forecourt.\nFINISH: neutral-daylight thick-painted Japanese/anime contemporary urban sprite, restrained clear edges and believable stone, glass and roofing. Match accepted B01 qualitatively: soft daylight from the upper-left, light roof/parapet highlights, restrained neutral facade shading, small rooftop shadows falling broadly away toward the lower-right. This is visual guidance, not a measured light vector; no yellow wash or glowing windows.\nWhole single building fully inside frame with clear safe margin. Request 1536x1536, true transparent RGBA PNG outside building; actual returned dimensions and alpha must be checked, not assumed. No opaque backdrop, checkerboard pixels, floor plane, ground patch or baked broad ground shadow. No text, labels, guide marks, roads, sidewalks, trees, people, vehicles, neighboring buildings, logos, UI, sculpture or rooftop trees. Do not paste/enlarge the crop as final art; do not copy the flat proxy shading. Exactly one native output.\n",
+  "transparentBackgroundRequested": true,
+  "references": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B04-geometry.png",
+      "sha256": "1bee5a01c96ff5219f5bd101d9844d14d8db485a6ac2ed85500fd64c76a5eb41",
+      "role": "geometry/camera only"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B04-appearance.png",
+      "sha256": "77edc2025296edee1040b7ffa3b6eba37f2e54aea9f634b0ff89837ea83066e0",
+      "role": "identity/material only"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+      "sha256": "de5d9bb9bc89fe28af93b29536368e90478beb044e545c649d6b10ee51a7fdb8",
+      "role": "original user painting style only"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-003/B01-road-aligned-native-v1.png",
+      "sha256": "817678000e21a6d3c46bf9e95b7e9ab56d71791081616179a61a81cfe446576a",
+      "role": "accepted lighting/finish only"
+    }
+  ],
+  "native": {
+    "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/native/B04-001/B04-v1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "bytes": 1338867,
+    "sha256": "1b838b31b5950739d0c38e5a37e3fb1b904031bf9a1ac5b77cdce3fdb970adef"
+  },
+  "runtime": {
+    "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/native/B04-001/B04-runtime-280.png",
+    "size": [
+      280,
+      263
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "bytes": 99335,
+    "sha256": "245ae915e10a2612947786cc5b4e14eb8da13b4cdf8735b2a3f6fa97de95d40e"
+  },
+  "sourceSHA256": "1b838b31b5950739d0c38e5a37e3fb1b904031bf9a1ac5b77cdce3fdb970adef",
+  "sourceCopySHA256": "1b838b31b5950739d0c38e5a37e3fb1b904031bf9a1ac5b77cdce3fdb970adef",
+  "byteIdenticalCopy": true,
+  "nativeCalls": 1,
+  "observations": [
+    "Complete pavilion, raised central hall, narrow rooflight, low asymmetric wings, entrance canopy and vertical entrance surround visible.",
+    "Transparent safe margin; no bound courtyard, tree, road, people or text.",
+    "Some glazing appears warm gold; not independently certified as unlit.",
+    "Runtime stone seams and rooflight mullions soften at 280px.",
+    "Visual estimate of frontage roof/base edges about -30 degrees and depth about +54 degrees; wall verticals visually screen-vertical. This is an estimate, not precise calibration or proof of exact guide alignment."
+  ],
+  "unverified": [
+    "Cocos placement/anchor/occlusion",
+    "exact geometric registration",
+    "user acceptance",
+    "game tests/typecheck/regression (not run)"
+  ]
+}

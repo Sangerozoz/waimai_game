@@ -1,0 +1,245 @@
+{
+  "state": "received-read-only-proposal; final business DTO not yet frozen; no implementation approval",
+  "proposal": {
+    "task": "FOOD-RISK-UI-CONTRACT-1106：Default只读准备。当前UI SHA匹配给定版本；领域最终DTO未冻结，本轮未写源码，不假定新增API已经存在。",
+    "currentFoodConsumers": [
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/FoodCatalog.ts:4-57,59-81；delivery-game/assets/scripts/domain/GameConfig.ts:3",
+        "facts": "目录声明50个唯一id/name，imageIndex为0..49，包含fragility和unitWeightKg。真实枚举为fragile/normal/durable。selectFoodForOffer依赖两次roll及shownFoodIds，不是可以在render中随意重抽的稳定身份查询；foodForOffer按菜名查找，未知名会回落首项。目录声明不证明50张原生图已齐。"
+      },
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:25-27,78",
+        "facts": "offerFood只把订单id hash到当前目录，注释明确是展示映射，不提供合同食品、重量、脆弱度或价格。候选来自runtime.normalCandidates；不能把该hash结果的fragility当成合同风险类别。"
+      },
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/FoodImages.ts:6-10；delivery-game/assets/scripts/map-sample/CartoonArt.ts:12,153；delivery-game/assets/scripts/map-sample/V2GameUI.ts:508-510",
+        "facts": "FoodImages现有入口只收菜名字符串，经foodForOffer取得imageIndex，再走cartoonFoodKey。GameUI缩略图把146正方形入口裁在146×128 Mask中；不能传入未知冻结菜名后任其静默回落鸡腿饭。"
+      },
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:606-616",
+        "consumer": "大厅普通候选",
+        "currentSource": "offerFood(o.id)，图片和菜名来自同一展示对象。",
+        "designGeometry": {
+          "card": [
+            684,
+            164
+          ],
+          "photoCenter": [
+            -224,
+            0
+          ],
+          "photoSize": [
+            146,
+            128
+          ],
+          "nameCenter": [
+            5,
+            52
+          ],
+          "nameWidth": 314,
+          "nameFont": 28,
+          "nameNodeHeight": 44.8,
+          "quoteWidth": 142,
+          "deadlineWidth": 310,
+          "addressBarSize": [
+            488,
+            32
+          ],
+          "addressTextWidth": 370,
+          "photoBelowMargin": 18
+        },
+        "preserve": "报价、名称后紧跟o.weightKg及KG、时钟与取送地址、复选和点击动作保持。"
+      },
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:570-588",
+        "consumer": "已接单本批及在途卡",
+        "currentSource": "仍是offerFood(o.id)，未读食品合同；route和trip仅按同id提供地点、状态和期限。",
+        "designGeometry": {
+          "card": [
+            684,
+            190
+          ],
+          "photoCenter": [
+            -265,
+            20
+          ],
+          "photoSize": [
+            112,
+            112
+          ],
+          "nameCenter": [
+            -30,
+            66
+          ],
+          "nameWidth": 340,
+          "nameFont": 26,
+          "nameNodeHeight": 41.6,
+          "statusWidth": 130,
+          "deadlineWidth": 382,
+          "addressBarSize": [
+            520,
+            31
+          ],
+          "addressTextWidth": 422
+        },
+        "preserve": "名称后紧跟实际重量，状态、报价或已入账金额、取送地址及期限保持。"
+      },
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:521-539,548-562",
+        "consumer": "planned路线逐单ETA",
+        "currentSource": "按eta.id找batch序号和route送达名，但餐名仍调用offerFood。",
+        "designGeometry": {
+          "textWidth": 660,
+          "identityFont": 21,
+          "estimateFont": 20,
+          "lineGap": 6,
+          "height": "textHeight(value,size,660)；卡高和routeHeight已按全部lines累计"
+        },
+        "preserve": "ETA保持剩余游戏时长，总用时保持现实时间；late和safe继续读取权威字段，唯一出发动作不变。"
+      },
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:216-251",
+        "consumer": "补给插图",
+        "currentSource": "noodles/fastFood/milkTea/premiumMeal固定映射鲜汤面、汉堡、奶茶、寿司，其他用energy。这是补给种类，不是配送订单食品合同。",
+        "designGeometry": {
+          "card": [
+            684,
+            190
+          ],
+          "photoCenter": [
+            -265,
+            22
+          ],
+          "photoSize": [
+            102,
+            102
+          ],
+          "nameWidth": 350
+        },
+        "preserve": "不附加配送脆弱度标签，不改变恢复、付费、库存或出发前不耗期限文案。"
+      },
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:600-604",
+        "consumer": "高价专送卡",
+        "facts": "当前只有专送金额和广告未接入文案，没有菜图或菜名消费者；本轮不借此新增专送设计或宣称已有食品接口。"
+      }
+    ],
+    "minimalUiProposal": {
+      "status": "待A契约冻结及PM另批授权，未实施。最少为一个统一只读展示解析点，以及大厅、本批、ETA三个消费者替换点。",
+      "resolver": "在V2GameUI.ts:25-27附近保留现有offerFood作为legacy展示兼容；新候选使用A提供的共享稳定选择，新接单使用同id冻结食品对象。三处复用同一解析结果，避免菜图、菜名、品类与ETA各自重选。",
+      "classLabels": {
+        "fragile": "脆弱",
+        "normal": "普通",
+        "durable": "耐放"
+      },
+      "imageBridge": "按可信food id严格查当前目录，再把该目录的唯一规范name传给现有foodImage；标题可使用冻结name。由领域保证id、imageIndex和目录版本一致。未知id不进入foodForOffer的首项回落。这样最小方案无需修改FoodImages或资源helper；若最终契约不能保证此映射，再由PM冻结额外图像入口，不提前虚构重载。",
+      "lobbyInsertion": {
+        "location": "V2GameUI.ts:607-610",
+        "proposalDesignGeometry": {
+          "center": [
+            -224,
+            -46
+          ],
+          "size": [
+            72,
+            30
+          ],
+          "font": 18,
+          "xRange": [
+            -260,
+            -188
+          ],
+          "yRange": [
+            -61,
+            -31
+          ]
+        },
+        "change": "在现有餐图槽内增加被动品类文字层，不改餐图源文件、裁切或热区。",
+        "reason": "不占菜名314宽、报价142宽或地址370宽；餐图槽下只有18高，不能把30高新行硬塞进该空隙。"
+      },
+      "batchInsertion": {
+        "location": "V2GameUI.ts:571-575",
+        "proposalDesignGeometry": {
+          "center": [
+            -265,
+            -16
+          ],
+          "size": [
+            72,
+            30
+          ],
+          "font": 18,
+          "xRange": [
+            -301,
+            -229
+          ],
+          "yRange": [
+            -31,
+            -1
+          ]
+        },
+        "change": "食品改读新冻结对象，仅新规则单增加被动品类文字层。",
+        "reason": "标记留在112×112餐图槽内，不挤占菜名340宽、状态130宽、期限382宽或地址422宽，不改原190高卡与真实重量位置。"
+      },
+      "etaInsertion": {
+        "location": "V2GameUI.ts:529-534",
+        "proposalDesignGeometry": {
+          "width": 660,
+          "font": 20,
+          "singleLineHeight": 37,
+          "singleLineCardGrowthIncludingGap": 43
+        },
+        "change": "按eta.id复用本批冻结食品，在身份行后独立追加品类行，不把新词挤入餐名或送达名。",
+        "reason": "沿用routeLine、textHeight及累计高度，全部订单增加品类行后同步增长卡高、路线区和滚动内容；不改ETA、late计算或单位。legacy不增加新规则品类行。"
+      },
+      "untouched": "补给和专送占位卡无新增品类插入点；骑手held稿、万元规则、圆盘unknown及其他页面不在范围。"
+    },
+    "requiredReadonlyContract": {
+      "status": "以下是语义需求，不是已实现的DTO、属性名或函数签名；正式导出路径、名称和版本取值由A冻结后再接线。",
+      "candidateSelection": [
+        "共享、纯只读的稳定食品选择入口，绑定真实候选id及适用选择版本；重复render、勾选、滚动和重开不重抽，不由UI用Math.random自行填写roll。",
+        "返回可信目录食品身份及展示字段；接单后冻结的食品必须与该候选展示一致，不能接单时另选一道。"
+      ],
+      "frozenOrderView": [
+        "orderId，与snap.orders及ETA orders[].id一一对应。",
+        "不可变食品对象：可信food id、冻结display name、稳定imageIndex、真实fragility；由领域在读取边界校验与可信目录及版本一致，不把UI或可编辑保存数据中的任意字段直接当权威。",
+        "明确食品身份或选择版本、风险规则版本，或者等价的权威legacy/new判别；区分有效新规则食品、旧规则展示和非法或不支持的数据，不能仅检查某字段是否truthy。",
+        "若食品fragility与实际生效风险类别并非始终相同，提供明确的生效类别或适用状态，避免UI用当前目录覆盖历史合同。"
+      ],
+      "joinAndImageRules": [
+        "ETA可以只保留id，由UI关联同一批冻结食品，不必让每个方案再复制一份食品对象。",
+        "当前50项id和imageIndex保持稳定；food id必须能严格解析到规范目录项。未知身份明确显示不可用或读取异常，不默认第一项、不默认为normal。"
+      ],
+      "ownership": "A负责稳定选择、接单冻结、可信身份与新旧risk验证和存档兼容。B只读已验证结果生成文字和图片映射，不重算风险、概率、价格、重量、期限或结算。FoodItem.unitWeightKg不得覆盖订单o.weightKg。"
+    },
+    "legacyDisplay": {
+      "policy": "旧单保持当前id-hash菜名和图片展示兼容，不把新共享选择器覆盖到旧单，不迁移或伪造冻结食品对象。",
+      "riskLabel": "旧单不新增脆弱、普通、耐放的新规则标记或已切新风险提示。旧图映射到的目录fragility不能当旧合同类别；旧Trip按normal的事实也不授权UI将其标成新规则normal。",
+      "classification": "由A的权威读模型解释缺失版本或字段的legacy含义；显式新版本但字段非法、null或缺项，不得悄悄退回旧显示并冒充有效新单。",
+      "stability": "保留当前50项顺序与旧hash算法的兼容语义；将来如扩展或重排目录，应另冻结旧展示选择版本，不能因取模长度变化使旧单换菜。"
+    },
+    "proposedWriteSet": [
+      {
+        "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+        "scope": "仅未来统一食品展示解析、大厅和本批被动品类标记、ETA品类行；须待A最终契约与PM写租约。本轮没有代码改动。"
+      }
+    ],
+    "sourceHashes": {
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "8fd5df4ee2cc7ca85cecd9488eec7cdd89fc08c374e8580d6bdcbc0b8336cd9c",
+      "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "7923a40ad6b3dd5a9038d221f65d94693a6fb06e59cae6eac9df8739a85410b4",
+      "delivery-game/assets/scripts/map-sample/FoodImages.ts": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586",
+      "delivery-game/assets/scripts/map-sample/CartoonArt.ts": "5b59bb9d4c15fba335754f430641d228a20ea31023cf6385f333fba200d73e52",
+      "delivery-game/assets/scripts/map-sample/V2Spacing.ts": "8bc275d4946c45a8d6f239209229429cd38b75bb84ecfd3205dab71e5535c84a",
+      "delivery-game/assets/scripts/map-sample/PresentationLayout.ts": "5409061543adc8de13a01214ce1f7b899cec9649a4e787639b2801530933955d",
+      "delivery-game/assets/scripts/map-sample/SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "delivery-game/assets/scripts/domain/GameConfig.ts": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e"
+    },
+    "limits": [
+      "本轮仅读取源码和必要定义，做目录声明计数、哈希与设计单位算术；未执行TS函数、tests、typecheck、构建、浏览器、游戏、业务或存档，未写任何文件或权限，未派Agent或Codex。读取输入收口SHA无漂移。",
+      "几何是720设计画布中的源码框，不是实屏字体或无遮挡验收；拟议餐图内文字标记、长名称和换行仍需后续独立复审及授权外观核对。",
+      "50项是目录声明数，不是50张原生图片或已验收资源的数量；未检查或重做图片库存，未读取地图制作资料、地图数据或加工地图。",
+      "A最终食品及风险DTO未冻结，是后续实施门禁；本轮没有新增API、调用未知接口或宣称品类风险已经接入。",
+      "原报价、真实重量紧跟名称、币图清理和路线估算单位保持，不扩成六页重设计，不关闭正式反馈或98%目标。"
+    ]
+  }
+}

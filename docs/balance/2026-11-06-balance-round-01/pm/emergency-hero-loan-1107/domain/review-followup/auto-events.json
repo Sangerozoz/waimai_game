@@ -1,0 +1,147 @@
+{
+  "fixture": "original signedZeroQuota plus isolated canonical completed reward event, no live SDK call",
+  "rewardTicket": {
+    "id": "ad-1",
+    "benefit": "auto",
+    "orderId": null,
+    "expiresAt": 97
+  },
+  "events": [
+    {
+      "name": "auto-signed-and-moving-before-open",
+      "now": 1800000000.25,
+      "phase": "travelling",
+      "control": "auto",
+      "loan": "borrowed",
+      "batchIds": [
+        "v2-road-40"
+      ],
+      "orders": 2,
+      "heroCompleted": 1,
+      "npcCompleted": 0,
+      "quotaMs": 0,
+      "autoRemainingSeconds": 599.75
+    },
+    {
+      "name": "actual-open-preserved-in-flight-auto",
+      "now": 1800000030.25,
+      "phase": "travelling",
+      "control": "auto",
+      "loan": "borrowed",
+      "batchIds": [
+        "v2-road-40"
+      ],
+      "orders": 2,
+      "heroCompleted": 1,
+      "npcCompleted": 0,
+      "quotaMs": 0,
+      "autoRemainingSeconds": 599.75
+    },
+    {
+      "name": "first-auto-delivery-refilled-only-sixty-seconds",
+      "now": 1800000036.5,
+      "phase": "travelling",
+      "control": "auto",
+      "loan": "borrowed",
+      "batchIds": [
+        "v2-road-270",
+        "v2-road-588"
+      ],
+      "orders": 4,
+      "heroCompleted": 2,
+      "npcCompleted": 0,
+      "quotaMs": 59995,
+      "autoRemainingSeconds": 593.5
+    },
+    {
+      "name": "old-batch-partially-paid-still-reserved",
+      "now": 1800000096.5,
+      "phase": "travelling",
+      "control": "auto",
+      "loan": "borrowed",
+      "batchIds": [
+        "v2-road-270",
+        "v2-road-588"
+      ],
+      "orders": 4,
+      "heroCompleted": 2,
+      "npcCompleted": 1,
+      "quotaMs": 0,
+      "autoRemainingSeconds": 593.5
+    },
+    {
+      "name": "real-car-released-during-current-auto-batch",
+      "now": 1800000118.125,
+      "phase": "travelling",
+      "control": "auto",
+      "loan": "returnable",
+      "batchIds": [
+        "v2-road-270",
+        "v2-road-588"
+      ],
+      "orders": 4,
+      "heroCompleted": 3,
+      "npcCompleted": 2,
+      "quotaMs": 45000,
+      "autoRemainingSeconds": 586.5
+    },
+    {
+      "name": "auto-remained-blocked-before-explicit-return",
+      "now": 1800000152.875,
+      "phase": "finished",
+      "control": "auto",
+      "loan": "returnable",
+      "batchIds": [],
+      "orders": 4,
+      "heroCompleted": 4,
+      "npcCompleted": 2,
+      "quotaMs": 105000,
+      "autoRemainingSeconds": 581.908625625284
+    },
+    {
+      "name": "explicit-runtime-return",
+      "now": 1800000152.875,
+      "phase": "finished",
+      "control": "auto",
+      "loan": "returned",
+      "batchIds": [],
+      "orders": 4,
+      "heroCompleted": 4,
+      "npcCompleted": 2,
+      "quotaMs": 105000,
+      "autoRemainingSeconds": 581.908625625284
+    },
+    {
+      "name": "owned-car-auto-batch-started",
+      "now": 1800000153.125,
+      "phase": "travelling",
+      "control": "auto",
+      "loan": "returned",
+      "batchIds": [
+        "v2-road-43",
+        "v2-road-81"
+      ],
+      "orders": 6,
+      "heroCompleted": 4,
+      "npcCompleted": 2,
+      "quotaMs": 105000,
+      "autoRemainingSeconds": 581.658625625284
+    },
+    {
+      "name": "owned-car-auto-delivery-completed",
+      "now": 1800000158.625,
+      "phase": "travelling",
+      "control": "auto",
+      "loan": "returned",
+      "batchIds": [
+        "v2-road-43",
+        "v2-road-81"
+      ],
+      "orders": 6,
+      "heroCompleted": 5,
+      "npcCompleted": 2,
+      "quotaMs": 165000,
+      "autoRemainingSeconds": 576.158625625284
+    }
+  ]
+}

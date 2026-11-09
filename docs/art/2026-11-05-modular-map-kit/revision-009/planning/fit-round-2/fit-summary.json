@@ -1,0 +1,6228 @@
+{
+  "schemaVersion": 1,
+  "baselineDeferred": 1004,
+  "baselinePreviouslyScreenedDeferred": 325,
+  "baselineUntested": 679,
+  "thisRoundUniqueSourcesScreened": 100,
+  "thisRoundAcceptedFitOptionsUniqueSources": 13,
+  "thisRoundAssignedUniqueSources": 5,
+  "thisRoundResults": {
+    "rejected-in-bounded-search": 87,
+    "accepted-fit-option": 13
+  },
+  "allDeferredPipelineStageCounts": {
+    "previousBoundedFixedScaleOnly": 325,
+    "newBoundedRound2Processed": 100,
+    "stillNoScreening": 579
+  },
+  "rejectedByRuleAttemptCounts": {
+    "protected57-or-frozen-seed": 1056,
+    "carrier-centre-not-covered": 5234,
+    "approach-own-body-after-threshold": 755,
+    "approach-road-half-width": 2909,
+    "approach-neighbour-source": 1298,
+    "bounded-approach-templates-exhausted": 549,
+    "neighbour-source-footprint": 1099,
+    "source-road-half-width": 177,
+    "water-buffer": 23
+  },
+  "attemptCountsAreNotSourceCounts": true,
+  "uniqueSourceCountsWithRuleTriggered": {
+    "protected57-or-frozen-seed": 33,
+    "carrier-centre-not-covered": 92,
+    "approach-road-half-width": 37,
+    "bounded-approach-templates-exhausted": 38,
+    "neighbour-source-footprint": 55,
+    "approach-neighbour-source": 29,
+    "approach-own-body-after-threshold": 38,
+    "source-road-half-width": 22,
+    "water-buffer": 1
+  },
+  "terminalSourceOutcomes": {
+    "rejected-in-bounded-search": 87,
+    "accepted-fit-option": 13
+  },
+  "old325RetestPerformed": false,
+  "newScaleSuccessNotEvidenceScale1Failed": true,
+  "sourceRows": [
+    {
+      "sourceIndex": 580,
+      "sourceId": "city.buildings[580]",
+      "centerMap": [
+        -1540.4314285714286,
+        191.6
+      ],
+      "areaSquareMetres": 48.96654999998282,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -44.687703695343366,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P003",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 89.41101083861925,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 126,
+      "sourceId": "city.buildings[126]",
+      "centerMap": [
+        -1573.7220000000002,
+        155.12199999999999
+      ],
+      "areaSquareMetres": 190.87419999997655,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 51.6670451875199,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P002",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 43.17842873472807,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 149,
+      "sourceId": "city.buildings[149]",
+      "centerMap": [
+        -1582.096,
+        114.63
+      ],
+      "areaSquareMetres": 32.88375000000815,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -29.607771487859594,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P035",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 42.77905253742778,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 148,
+      "sourceId": "city.buildings[148]",
+      "centerMap": [
+        -1585.132,
+        121.242
+      ],
+      "areaSquareMetres": 79.1085000000021,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 54.08264962904576,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P033",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 36.339988002199476,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 145,
+      "sourceId": "city.buildings[145]",
+      "centerMap": [
+        -1567.56,
+        89.51599999999999
+      ],
+      "areaSquareMetres": 115.1649999999936,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -28.039442884397232,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P044",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 70.74748020954537,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 151,
+      "sourceId": "city.buildings[151]",
+      "centerMap": [
+        -1593.0059999999999,
+        153.12999999999997
+      ],
+      "areaSquareMetres": 67.88960000000952,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 57.16552590427631,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P017",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 24.506537005460604,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 150,
+      "sourceId": "city.buildings[150]",
+      "centerMap": [
+        -1581.976,
+        105.922
+      ],
+      "areaSquareMetres": 107.10804999999527,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 51.542692618003144,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P035",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 48.9099077897311,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 152,
+      "sourceId": "city.buildings[152]",
+      "centerMap": [
+        -1594.726,
+        158.88600000000002
+      ],
+      "areaSquareMetres": 68.005799999999,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 57.16552590427642,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P014",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 26.236552593662157,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 146,
+      "sourceId": "city.buildings[146]",
+      "centerMap": [
+        -1576.478,
+        92.242
+      ],
+      "areaSquareMetres": 21.596799999999348,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -32.05172351677643,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P044",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 62.938874378241,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 153,
+      "sourceId": "city.buildings[153]",
+      "centerMap": [
+        -1596.4199999999998,
+        164.43
+      ],
+      "areaSquareMetres": 67.87819999996282,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 57.16552590427631,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P012",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 28.978781892964548,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 147,
+      "sourceId": "city.buildings[147]",
+      "centerMap": [
+        -1582.432,
+        91.37
+      ],
+      "areaSquareMetres": 32.15179999997781,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 55.94704953684624,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P044",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 60.22503353257684,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 154,
+      "sourceId": "city.buildings[154]",
+      "centerMap": [
+        -1599.1660000000002,
+        179.02599999999998
+      ],
+      "areaSquareMetres": 137.16224999996484,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 58.82745828951823,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P012",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 40.13444470775691,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 144,
+      "sourceId": "city.buildings[144]",
+      "centerMap": [
+        -1575.467142857143,
+        70.51
+      ],
+      "areaSquareMetres": 139.80344999999215,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -29.744242375006706,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P047",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 81.72692191258714,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 155,
+      "sourceId": "city.buildings[155]",
+      "centerMap": [
+        -1603.0059999999999,
+        196.144
+      ],
+      "areaSquareMetres": 92.47040000002016,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 56.56313838250463,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-2-0639",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 55.335191261980896,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 165,
+      "sourceId": "city.buildings[165]",
+      "centerMap": [
+        -1616.0557142857142,
+        111.81428571428572
+      ],
+      "areaSquareMetres": 121.68549999999232,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 53.67696942804449,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P037",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 30.308140483900292,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 164,
+      "sourceId": "city.buildings[164]",
+      "centerMap": [
+        -1619.554,
+        122.23800000000001
+      ],
+      "areaSquareMetres": 133.89329999998154,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 53.96597111568437,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P037",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 20.402253306926642,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 163,
+      "sourceId": "city.buildings[163]",
+      "centerMap": [
+        -1622.0000000000002,
+        132.862
+      ],
+      "areaSquareMetres": 133.8570000000036,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 51.49686127024131,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P018",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 11.657304319610164,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 166,
+      "sourceId": "city.buildings[166]",
+      "centerMap": [
+        -1615.574,
+        103.88399999999999
+      ],
+      "areaSquareMetres": 90.08974999999919,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 53.06398768179315,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P037",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 38.2221207156275,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 167,
+      "sourceId": "city.buildings[167]",
+      "centerMap": [
+        -1616.086,
+        97.67
+      ],
+      "areaSquareMetres": 61.64355000000796,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 52.690879781238976,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P037",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 44.44609449659215,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 169,
+      "sourceId": "city.buildings[169]",
+      "centerMap": [
+        -1611.9699999999998,
+        88.474
+      ],
+      "areaSquareMetres": 100.06384999999136,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 53.51674584888411,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P037",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 53.70543991068317,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 170,
+      "sourceId": "city.buildings[170]",
+      "centerMap": [
+        -1607.7028571428575,
+        71.00714285714285
+      ],
+      "areaSquareMetres": 100.52575000000797,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 54.26679635304902,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P048",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 71.45522625521292,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 156,
+      "sourceId": "city.buildings[156]",
+      "centerMap": [
+        -1614.396,
+        220.888
+      ],
+      "areaSquareMetres": 45.61439999999129,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 57.675367341553795,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-2-0639",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 78.7895486723969,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 162,
+      "sourceId": "city.buildings[162]",
+      "centerMap": [
+        -1634.9,
+        162.83
+      ],
+      "areaSquareMetres": 43.55615000000398,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -32.02736784546718,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P001",
+      "landUseIntent": "residential",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 28.8120287380115,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 171,
+      "sourceId": "city.buildings[171]",
+      "centerMap": [
+        -1606.944,
+        63.510000000000005
+      ],
+      "areaSquareMetres": 109.5445999999938,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 54.06587112728329,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P048",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 78.99067676631212,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 168,
+      "sourceId": "city.buildings[168]",
+      "centerMap": [
+        -1622.77,
+        84.648
+      ],
+      "areaSquareMetres": 74.21749999999156,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -32.34101960367954,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P031",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 57.98988449721208,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 161,
+      "sourceId": "city.buildings[161]",
+      "centerMap": [
+        -1638.128,
+        175.17000000000002
+      ],
+      "areaSquareMetres": 83.81569999997737,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -29.22324786316007,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P001",
+      "landUseIntent": "residential",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 40.41818333374217,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 172,
+      "sourceId": "city.buildings[172]",
+      "centerMap": [
+        -1604.3557142857142,
+        54.877142857142864
+      ],
+      "areaSquareMetres": 118.79255000000558,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 54.64273340565242,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P054",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 87.85669003367627,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 160,
+      "sourceId": "city.buildings[160]",
+      "centerMap": [
+        -1639.0260000000003,
+        182.598
+      ],
+      "areaSquareMetres": 23.204300000012154,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 54.884406336036676,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P001",
+      "landUseIntent": "residential",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 47.144824742489085,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 159,
+      "sourceId": "city.buildings[159]",
+      "centerMap": [
+        -1641.4557142857143,
+        196.8957142857143
+      ],
+      "areaSquareMetres": 166.17829999999958,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 54.50195301354046,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-2-0676",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 60.89587407691783,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 158,
+      "sourceId": "city.buildings[158]",
+      "centerMap": [
+        -1653.0040000000001,
+        214.808
+      ],
+      "areaSquareMetres": 112.77639999997336,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -28.14494140105836,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-2-0643",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 6,
+        "nodeId": "9657208284",
+        "name": "晴川广场",
+        "anchorMap": [
+          -1614.89,
+          142.1
+        ],
+        "distanceMetres": 82.09220584196774,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 591,
+      "sourceId": "city.buildings[591]",
+      "centerMap": [
+        -1312.468,
+        183.80599999999998
+      ],
+      "areaSquareMetres": 43.520550000001094,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 32.07184025507303,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--14-1-0737",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 69.34258330924798,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 19,
+        "approach-road-half-width": 108,
+        "approach-neighbour-source": 44,
+        "bounded-approach-templates-exhausted": 19,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 13
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 615,
+      "sourceId": "city.buildings[615]",
+      "centerMap": [
+        -1313.3319999999999,
+        210.88400000000001
+      ],
+      "areaSquareMetres": 168.87155000001076,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 38.58496286349467,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--14-2-0680",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 55.06281576526918,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 64,
+        "approach-road-half-width": 221,
+        "bounded-approach-templates-exhausted": 32,
+        "carrier-centre-not-covered": 58,
+        "approach-neighbour-source": 3
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 348,
+      "sourceId": "city.buildings[348]",
+      "centerMap": [
+        -1299.028,
+        183.98
+      ],
+      "areaSquareMetres": 252.26984999999695,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -46.0238857599265,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--14-1-0704",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 60.21631260713324,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 25,
+        "approach-neighbour-source": 135,
+        "approach-road-half-width": 65,
+        "bounded-approach-templates-exhausted": 25,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 7
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 328,
+      "sourceId": "city.buildings[328]",
+      "centerMap": [
+        -1291.76,
+        170.66199999999998
+      ],
+      "areaSquareMetres": 27.350250000003143,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -46.02094800033433,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0755",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 67.79491134296138,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 123,
+      "sourceId": "city.buildings[123]",
+      "centerMap": [
+        -1287.9133333333334,
+        154.74666666666664
+      ],
+      "areaSquareMetres": 109.04980000000796,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 37.79252417570544,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0755",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 81.13571730269119,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "source-road-half-width": 22,
+        "approach-own-body-after-threshold": 9,
+        "approach-road-half-width": 72,
+        "bounded-approach-templates-exhausted": 9,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 613,
+      "sourceId": "city.buildings[613]",
+      "centerMap": [
+        -1287.912,
+        203.77
+      ],
+      "areaSquareMetres": 19.13300000000163,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 41.57337305781158,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0677",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 37.885658553072496,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 20,
+        "approach-neighbour-source": 71,
+        "approach-road-half-width": 36,
+        "bounded-approach-templates-exhausted": 12,
+        "carrier-centre-not-covered": 58,
+        "approach-own-body-after-threshold": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 614,
+      "sourceId": "city.buildings[614]",
+      "centerMap": [
+        -1291.0439999999999,
+        216.99
+      ],
+      "areaSquareMetres": 159.89600000006612,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0677",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 32.245585682384274,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 28,
+        "approach-road-half-width": 137,
+        "approach-neighbour-source": 87,
+        "bounded-approach-templates-exhausted": 28,
+        "carrier-centre-not-covered": 58,
+        "source-road-half-width": 3,
+        "neighbour-source-footprint": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 397,
+      "sourceId": "city.buildings[397]",
+      "centerMap": [
+        -1546.216,
+        -66.562
+      ],
+      "areaSquareMetres": 53.35429999999178,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 43.802967071398314,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P074",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 0,
+        "nodeId": "1623821046",
+        "name": "榕树街食堂",
+        "anchorMap": [
+          -1540.46,
+          -129.99
+        ],
+        "distanceMetres": 63.68863886126002,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 396,
+      "sourceId": "city.buildings[396]",
+      "centerMap": [
+        -1545.8319999999999,
+        -75.878
+      ],
+      "areaSquareMetres": 81.51669999999285,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -38.37154609820578,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P074",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 0,
+        "nodeId": "1623821046",
+        "name": "榕树街食堂",
+        "anchorMap": [
+          -1540.46,
+          -129.99
+        ],
+        "distanceMetres": 54.378000404575374,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 195,
+      "sourceId": "city.buildings[195]",
+      "centerMap": [
+        -1266.6860000000001,
+        149.358
+      ],
+      "areaSquareMetres": 70.88994999999704,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -47.49173280393637,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0756",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 82.51443049551999,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 16,
+        "approach-road-half-width": 80,
+        "approach-neighbour-source": 48,
+        "bounded-approach-templates-exhausted": 16,
+        "source-road-half-width": 15,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 611,
+      "sourceId": "city.buildings[611]",
+      "centerMap": [
+        -1266.662,
+        191.43
+      ],
+      "areaSquareMetres": 19.711999999999534,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 41.57337305781158,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0730",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 40.55668161967887,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 29,
+        "approach-neighbour-source": 27,
+        "bounded-approach-templates-exhausted": 3,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 592,
+      "sourceId": "city.buildings[592]",
+      "centerMap": [
+        -1271.8344444444442,
+        216.63333333333333
+      ],
+      "areaSquareMetres": 72.72300000005635,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 41.57337305781158,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0669",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 17.838233214013222,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 22,
+        "approach-road-half-width": 176,
+        "bounded-approach-templates-exhausted": 22,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 8,
+        "source-road-half-width": 2
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 400,
+      "sourceId": "city.buildings[400]",
+      "centerMap": [
+        -1533.292222222222,
+        -85.73777777777778
+      ],
+      "areaSquareMetres": 196.0926999999865,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 44.40960165517845,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "P079",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 0,
+        "nodeId": "1623821046",
+        "name": "榕树街食堂",
+        "anchorMap": [
+          -1540.46,
+          -129.99
+        ],
+        "distanceMetres": 44.82896619236881,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "protected57-or-frozen-seed": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 608,
+      "sourceId": "city.buildings[608]",
+      "centerMap": [
+        -1262.597142857143,
+        176.53571428571428
+      ],
+      "areaSquareMetres": 71.63780000002589,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781155,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0730",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 55.224712617391404,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 197,
+      "sourceId": "city.buildings[197]",
+      "centerMap": [
+        -1251.822,
+        149.04000000000002
+      ],
+      "areaSquareMetres": 56.824399999997695,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 30.77012483366144,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0750",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 83.3910652528195,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 27,
+        "source-road-half-width": 5,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 593,
+      "sourceId": "city.buildings[593]",
+      "centerMap": [
+        -1252.8257142857144,
+        176.64714285714285
+      ],
+      "areaSquareMetres": 150.44080000001122,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 41.57337305781158,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0730",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 55.93488533964455,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 20,
+        "carrier-centre-not-covered": 34
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 1,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 612,
+      "sourceId": "city.buildings[612]",
+      "centerMap": [
+        -1256.1979999999999,
+        203.69
+      ],
+      "areaSquareMetres": 354.38434999997844,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 38.944482451254146,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0657",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 28.74268644368516,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {},
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 1,
+        "B01@1": 1
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B06",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 610,
+      "sourceId": "city.buildings[610]",
+      "centerMap": [
+        -1252.6542857142856,
+        188.4
+      ],
+      "areaSquareMetres": 107.24820000000182,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 41.57337305781158,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0730",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 44.43736173950193,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 20,
+        "carrier-centre-not-covered": 34
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 1,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 609,
+      "sourceId": "city.buildings[609]",
+      "centerMap": [
+        -1245.52,
+        166.778
+      ],
+      "areaSquareMetres": 57.845999999990454,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0750",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 67.13359757975141,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 20,
+        "source-road-half-width": 9,
+        "carrier-centre-not-covered": 52
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 1,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": true
+    },
+    {
+      "sourceIndex": 199,
+      "sourceId": "city.buildings[199]",
+      "centerMap": [
+        -1235.4379999999999,
+        150.058
+      ],
+      "areaSquareMetres": 63.58885000000009,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -46.613622963142575,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0759",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 86.02957728595446,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "source-road-half-width": 21,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 11
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 603,
+      "sourceId": "city.buildings[603]",
+      "centerMap": [
+        -1226.9614285714288,
+        166.79142857142855
+      ],
+      "areaSquareMetres": 124.63679999999295,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -43.69201896439427,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0742",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 73.99588147667544,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 40,
+        "approach-road-half-width": 140,
+        "bounded-approach-templates-exhausted": 20,
+        "carrier-centre-not-covered": 58,
+        "source-road-half-width": 8,
+        "neighbour-source-footprint": 4
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 605,
+      "sourceId": "city.buildings[605]",
+      "centerMap": [
+        -1226.868,
+        191.212
+      ],
+      "areaSquareMetres": 55.05814999999711,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 39.47151386986306,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0706",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 53.90030100101494,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 604,
+      "sourceId": "city.buildings[604]",
+      "centerMap": [
+        -1224.684,
+        183.0
+      ],
+      "areaSquareMetres": 171.4505000000063,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 39.45692325097073,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0733",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 61.63218328113981,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 28,
+        "approach-own-body-after-threshold": 4,
+        "approach-road-half-width": 8,
+        "approach-neighbour-source": 24,
+        "bounded-approach-templates-exhausted": 4,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 606,
+      "sourceId": "city.buildings[606]",
+      "centerMap": [
+        -1226.044,
+        196.862
+      ],
+      "areaSquareMetres": 49.415099999983795,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 39.56200626792918,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0681",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 50.380306668379866,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 594,
+      "sourceId": "city.buildings[594]",
+      "centerMap": [
+        -1227.3028571428572,
+        212.84428571428572
+      ],
+      "areaSquareMetres": 106.23230000001786,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -43.66045989585607,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0664",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 39.8523549863642,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "source-road-half-width": 5,
+        "neighbour-source-footprint": 27,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 602,
+      "sourceId": "city.buildings[602]",
+      "centerMap": [
+        -1213.7340000000002,
+        192.18
+      ],
+      "areaSquareMetres": 57.088549999985844,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -43.66977870605433,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0706",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 62.71371234427121,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "approach-neighbour-source": 12,
+        "neighbour-source-footprint": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 2,
+        "B01@1": 1
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B06",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": true
+    },
+    {
+      "sourceIndex": 607,
+      "sourceId": "city.buildings[607]",
+      "centerMap": [
+        -1217.134,
+        211.72000000000003
+      ],
+      "areaSquareMetres": 132.3612499999872,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 39.48996080616956,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0664",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 49.48537274791418,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 25,
+        "approach-road-half-width": 103,
+        "approach-neighbour-source": 97,
+        "bounded-approach-templates-exhausted": 25,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 7
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 601,
+      "sourceId": "city.buildings[601]",
+      "centerMap": [
+        -1207.6919999999998,
+        201.954
+      ],
+      "areaSquareMetres": 30.135100000014063,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -43.66835526409391,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0674",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 62.28302320857615,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 597,
+      "sourceId": "city.buildings[597]",
+      "centerMap": [
+        -1202.902,
+        165.758
+      ],
+      "areaSquareMetres": 65.37960000001476,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0742",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 88.8476026013083,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 8,
+        "approach-neighbour-source": 64,
+        "bounded-approach-templates-exhausted": 8,
+        "neighbour-source-footprint": 24,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 599,
+      "sourceId": "city.buildings[599]",
+      "centerMap": [
+        -1200.8560000000002,
+        177.956
+      ],
+      "areaSquareMetres": 110.54309999999532,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 30.8720510519247,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0733",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 81.73171350216504,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {},
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 1,
+        "B01@1": 1
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B06",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": true
+    },
+    {
+      "sourceIndex": 595,
+      "sourceId": "city.buildings[595]",
+      "centerMap": [
+        -1206.7099999999998,
+        216.22285714285712
+      ],
+      "areaSquareMetres": 29.243649999974878,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 39.505970798391445,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0674",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 57.79750607217667,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 598,
+      "sourceId": "city.buildings[598]",
+      "centerMap": [
+        -1200.448,
+        197.57399999999998
+      ],
+      "areaSquareMetres": 16.718250000005355,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 30.82385130034386,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-1-0723",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 70.7407606687969,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "approach-neighbour-source": 4,
+        "approach-road-half-width": 4,
+        "approach-own-body-after-threshold": 1,
+        "bounded-approach-templates-exhausted": 1,
+        "neighbour-source-footprint": 23,
+        "carrier-centre-not-covered": 34
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 3,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 3,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 600,
+      "sourceId": "city.buildings[600]",
+      "centerMap": [
+        -1185.7827272727272,
+        204.12636363636366
+      ],
+      "areaSquareMetres": 144.52550000000338,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -52.79740515431471,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--12-2-0667",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 81.42947898601528,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "source-road-half-width": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 2,
+        "B01@1": 1
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B06",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 639,
+      "sourceId": "city.buildings[639]",
+      "centerMap": [
+        -1568.62,
+        468.06800000000004
+      ],
+      "areaSquareMetres": 112.96100000001024,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 39.78562415101527,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-4-0387",
+      "landUseIntent": "park",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 52.720277540999255,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "water-buffer": 23,
+        "approach-own-body-after-threshold": 9,
+        "approach-road-half-width": 72,
+        "bounded-approach-templates-exhausted": 9,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 438,
+      "sourceId": "city.buildings[438]",
+      "centerMap": [
+        -1210.8139999999999,
+        304.886
+      ],
+      "areaSquareMetres": 221.7679000000353,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 30.048751500105027,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--13-2-0594",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 4,
+        "nodeId": "6438106307",
+        "name": "桥边咖啡",
+        "anchorMap": [
+          -1262.38,
+          231.76
+        ],
+        "distanceMetres": 89.47884795860992,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 3,
+        "approach-road-half-width": 6
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 1,
+        "B01@1": 1
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B06",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 255,
+      "sourceId": "city.buildings[255]",
+      "centerMap": [
+        -1562.932,
+        496.648
+      ],
+      "areaSquareMetres": 81.6875,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 39.988911567838215,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0365",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 31.007884932706897,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 62,
+        "approach-road-half-width": 217,
+        "bounded-approach-templates-exhausted": 31,
+        "carrier-centre-not-covered": 58,
+        "source-road-half-width": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 416,
+      "sourceId": "city.buildings[416]",
+      "centerMap": [
+        -1523.548,
+        523.0619999999999
+      ],
+      "areaSquareMetres": 16.445599999977276,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 41.57337305781158,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0337",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 62.01405766437145,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 2,
+        "approach-road-half-width": 16,
+        "bounded-approach-templates-exhausted": 2,
+        "source-road-half-width": 30,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 418,
+      "sourceId": "city.buildings[418]",
+      "centerMap": [
+        -1475.7400000000002,
+        547.664
+      ],
+      "areaSquareMetres": 56.153499999898486,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0324",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 81.56143779998003,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "source-road-half-width": 19,
+        "carrier-centre-not-covered": 34,
+        "neighbour-source-footprint": 2
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 2,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": true
+    },
+    {
+      "sourceIndex": 525,
+      "sourceId": "city.buildings[525]",
+      "centerMap": [
+        -1457.5520000000001,
+        546.842
+      ],
+      "areaSquareMetres": 16.94039999996312,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.83749146266228,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0319",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 82.96257606897223,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 20,
+        "approach-road-half-width": 151,
+        "bounded-approach-templates-exhausted": 19,
+        "carrier-centre-not-covered": 58,
+        "source-road-half-width": 13
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 223,
+      "sourceId": "city.buildings[223]",
+      "centerMap": [
+        -1143.1499999999999,
+        -42.845
+      ],
+      "areaSquareMetres": 43.38000000000102,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 53.03970806682548,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--12--1-0893",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 7,
+        "nodeId": "1623821215",
+        "name": "河畔小馆",
+        "anchorMap": [
+          -1070.3,
+          -58.01
+        ],
+        "distanceMetres": 74.41169078175813,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {},
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 1,
+        "B01@1": 1
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B06",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": true
+    },
+    {
+      "sourceIndex": 420,
+      "sourceId": "city.buildings[420]",
+      "centerMap": [
+        -1514.457777777778,
+        565.2488888888888
+      ],
+      "areaSquareMetres": 91.59909999999218,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0323",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 78.1057497922996,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 28,
+        "approach-own-body-after-threshold": 8,
+        "approach-road-half-width": 16,
+        "approach-neighbour-source": 12,
+        "bounded-approach-templates-exhausted": 4,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 408,
+      "sourceId": "city.buildings[408]",
+      "centerMap": [
+        -1603.1742857142856,
+        553.2457142857144
+      ],
+      "areaSquareMetres": 121.35499999992317,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -44.5647173939564,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0321",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 39.438347649288396,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 2
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 3,
+        "B01@1": 1
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B06",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 406,
+      "sourceId": "city.buildings[406]",
+      "centerMap": [
+        -1505.4514285714286,
+        567.5400000000001
+      ],
+      "areaSquareMetres": 114.7807000001194,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -41.57337305781155,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0323",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 71.2831944873862,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 26,
+        "approach-road-half-width": 75,
+        "bounded-approach-templates-exhausted": 13,
+        "approach-neighbour-source": 16,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 19
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 528,
+      "sourceId": "city.buildings[528]",
+      "centerMap": [
+        -1438.1160000000002,
+        562.9779999999998
+      ],
+      "areaSquareMetres": 201.92765000002692,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -41.73056923947145,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0305",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 72.98467195240387,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-neighbour-source": 159,
+        "approach-road-half-width": 53,
+        "approach-own-body-after-threshold": 22,
+        "bounded-approach-templates-exhausted": 26,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 6
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 412,
+      "sourceId": "city.buildings[412]",
+      "centerMap": [
+        -1614.8799999999999,
+        551.6020000000001
+      ],
+      "areaSquareMetres": 93.64455000008456,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -45.21287466879821,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0321",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 44.68216830011731,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 9,
+        "approach-road-half-width": 41,
+        "approach-neighbour-source": 31,
+        "bounded-approach-templates-exhausted": 9,
+        "neighbour-source-footprint": 23,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 419,
+      "sourceId": "city.buildings[419]",
+      "centerMap": [
+        -1483.696,
+        568.588
+      ],
+      "areaSquareMetres": 149.79429999995045,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0281",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 62.076716730188025,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "accepted-fit-option",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 2
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 1,
+        "B06@0.9": 3,
+        "B01@1": 1
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [
+        {
+          "assetId": "B05",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B06",
+          "uniformScale": 0.9,
+          "routeTemplate": "direct"
+        },
+        {
+          "assetId": "B01",
+          "uniformScale": 1,
+          "routeTemplate": "direct"
+        }
+      ],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 422,
+      "sourceId": "city.buildings[422]",
+      "centerMap": [
+        -1532.254,
+        567.7
+      ],
+      "areaSquareMetres": 83.19700000004377,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0322",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 72.6937193710709,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 16,
+        "approach-road-half-width": 26,
+        "bounded-approach-templates-exhausted": 6,
+        "neighbour-source-footprint": 26,
+        "approach-neighbour-source": 12,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 423,
+      "sourceId": "city.buildings[423]",
+      "centerMap": [
+        -1540.084,
+        567.042
+      ],
+      "areaSquareMetres": 78.87329999986105,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781155,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0322",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 66.7019677370915,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 18,
+        "approach-road-half-width": 10,
+        "approach-neighbour-source": 62,
+        "bounded-approach-templates-exhausted": 10,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 22
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 405,
+      "sourceId": "city.buildings[405]",
+      "centerMap": [
+        -1494.901111111111,
+        568.9711111111111
+      ],
+      "areaSquareMetres": 134.57030000002123,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -41.57337305781155,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0281",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 65.2364597464249,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 38,
+        "approach-road-half-width": 97,
+        "approach-neighbour-source": 36,
+        "bounded-approach-templates-exhausted": 19,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 13
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 424,
+      "sourceId": "city.buildings[424]",
+      "centerMap": [
+        -1548.922,
+        566.2439999999999
+      ],
+      "areaSquareMetres": 83.57880000013392,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781155,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0322",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 60.410476740379956,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 31,
+        "approach-own-body-after-threshold": 2,
+        "approach-road-half-width": 1,
+        "approach-neighbour-source": 6,
+        "bounded-approach-templates-exhausted": 1,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 421,
+      "sourceId": "city.buildings[421]",
+      "centerMap": [
+        -1522.978,
+        570.3779999999999
+      ],
+      "areaSquareMetres": 84.44640000001527,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0323",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 79.46964079445699,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 10,
+        "approach-road-half-width": 15,
+        "approach-neighbour-source": 20,
+        "bounded-approach-templates-exhausted": 5,
+        "source-road-half-width": 5,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 22
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 526,
+      "sourceId": "city.buildings[526]",
+      "centerMap": [
+        -1452.3480000000002,
+        570.492
+      ],
+      "areaSquareMetres": 53.00334999995539,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.329351853766866,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0305",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 60.88273850608233,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 63,
+        "approach-road-half-width": 225,
+        "bounded-approach-templates-exhausted": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 413,
+      "sourceId": "city.buildings[413]",
+      "centerMap": [
+        -1622.6328571428571,
+        555.1257142857143
+      ],
+      "areaSquareMetres": 69.85925000003772,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -44.53832772541469,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0325",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 52.56551203119825,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 7,
+        "approach-neighbour-source": 18,
+        "approach-road-half-width": 20,
+        "bounded-approach-templates-exhausted": 5,
+        "neighbour-source-footprint": 27,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 407,
+      "sourceId": "city.buildings[407]",
+      "centerMap": [
+        -1560.2085714285715,
+        571.2885714285715
+      ],
+      "areaSquareMetres": 98.66740000003483,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0318",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 58.871683987382276,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 12,
+        "approach-road-half-width": 26,
+        "approach-neighbour-source": 16,
+        "bounded-approach-templates-exhausted": 6,
+        "neighbour-source-footprint": 26,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 529,
+      "sourceId": "city.buildings[529]",
+      "centerMap": [
+        -1422.294,
+        569.192
+      ],
+      "areaSquareMetres": 29.521500000031665,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.742234742671855,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0305",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 76.03968240333458,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 26,
+        "approach-road-half-width": 131,
+        "approach-neighbour-source": 77,
+        "bounded-approach-templates-exhausted": 26,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 6
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 404,
+      "sourceId": "city.buildings[404]",
+      "centerMap": [
+        -1406.7562500000001,
+        566.165
+      ],
+      "areaSquareMetres": 106.6361999999499,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 41.429400644469325,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0304",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 88.62808761370454,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 16,
+        "approach-neighbour-source": 108,
+        "approach-road-half-width": 20,
+        "bounded-approach-templates-exhausted": 16,
+        "neighbour-source-footprint": 16,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 427,
+      "sourceId": "city.buildings[427]",
+      "centerMap": [
+        -1569.8300000000002,
+        571.56
+      ],
+      "areaSquareMetres": 110.13749999995343,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0318",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 55.70844549976235,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 31,
+        "approach-own-body-after-threshold": 2,
+        "approach-road-half-width": 3,
+        "approach-neighbour-source": 4,
+        "bounded-approach-templates-exhausted": 1,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 426,
+      "sourceId": "city.buildings[426]",
+      "centerMap": [
+        -1578.3980000000001,
+        570.758
+      ],
+      "areaSquareMetres": 122.3764000000665,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--16-5-0318",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 53.155890059334034,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 16,
+        "approach-road-half-width": 22,
+        "approach-neighbour-source": 34,
+        "bounded-approach-templates-exhausted": 8,
+        "carrier-centre-not-covered": 58,
+        "neighbour-source-footprint": 21,
+        "source-road-half-width": 3
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 425,
+      "sourceId": "city.buildings[425]",
+      "centerMap": [
+        -1588.982857142857,
+        569.3342857142856
+      ],
+      "areaSquareMetres": 102.62899999984074,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 41.57337305781158,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0311",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 51.402115417439234,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 58,
+        "approach-road-half-width": 193,
+        "bounded-approach-templates-exhausted": 29,
+        "carrier-centre-not-covered": 58,
+        "source-road-half-width": 3,
+        "approach-neighbour-source": 10
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 527,
+      "sourceId": "city.buildings[527]",
+      "centerMap": [
+        -1436.5969230769228,
+        574.6292307692308
+      ],
+      "areaSquareMetres": 19.11745000013616,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 41.38754289840503,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0305",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 63.41732002607764,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 12,
+        "approach-road-half-width": 96,
+        "bounded-approach-templates-exhausted": 12,
+        "neighbour-source-footprint": 19,
+        "carrier-centre-not-covered": 58,
+        "source-road-half-width": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 409,
+      "sourceId": "city.buildings[409]",
+      "centerMap": [
+        -1639.0566666666666,
+        560.8733333333333
+      ],
+      "areaSquareMetres": 119.85485000006156,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": 38.59876693060457,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0325",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 68.67542152926498,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 20,
+        "approach-own-body-after-threshold": 6,
+        "approach-road-half-width": 48,
+        "bounded-approach-templates-exhausted": 6,
+        "carrier-centre-not-covered": 58,
+        "source-road-half-width": 6
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 415,
+      "sourceId": "city.buildings[415]",
+      "centerMap": [
+        -1611.2254545454546,
+        569.3327272727272
+      ],
+      "areaSquareMetres": 230.65999999991618,
+      "areaBand": "medium100..400",
+      "sourceLongestEdgeScreenDeg": -41.57337305781157,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0311",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 57.427469914897436,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "approach-own-body-after-threshold": 30,
+        "approach-road-half-width": 179,
+        "approach-neighbour-source": 61,
+        "bounded-approach-templates-exhausted": 30,
+        "carrier-centre-not-covered": 58,
+        "source-road-half-width": 1,
+        "neighbour-source-footprint": 1
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 414,
+      "sourceId": "city.buildings[414]",
+      "centerMap": [
+        -1631.1440000000002,
+        564.936
+      ],
+      "areaSquareMetres": 15.443700000061654,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -44.61330514726993,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0310",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 65.52506415105627,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 523,
+      "sourceId": "city.buildings[523]",
+      "centerMap": [
+        -1414.778,
+        582.1659999999999
+      ],
+      "areaSquareMetres": 18.702849999943282,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.70313768702378,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0304",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 71.84826066092346,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 522,
+      "sourceId": "city.buildings[522]",
+      "centerMap": [
+        -1410.538,
+        583.736
+      ],
+      "areaSquareMetres": 25.35939999995753,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 41.36080940459297,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--15-5-0304",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 72,
+        "nodeId": "3387477852",
+        "name": "文昌春和里·10栋",
+        "anchorMap": [
+          -1469.29,
+          628.97
+        ],
+        "distanceMetres": 74.14790799476407,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 410,
+      "sourceId": "city.buildings[410]",
+      "centerMap": [
+        -1642.7011111111108,
+        570.4044444444445
+      ],
+      "areaSquareMetres": 78.35524999978952,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 38.65693023021919,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0279",
+      "landUseIntent": "mixed",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 77.63983441284702,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 411,
+      "sourceId": "city.buildings[411]",
+      "centerMap": [
+        -1636.6942857142858,
+        576.0014285714286
+      ],
+      "areaSquareMetres": 40.438200000091456,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": 41.57337305781158,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--17-5-0310",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 2,
+        "nodeId": "1622902055",
+        "name": "青禾社区",
+        "anchorMap": [
+          -1585.36,
+          518.06
+        ],
+        "distanceMetres": 77.41071007744283,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 31,
+        "source-road-half-width": 1,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 122,
+      "sourceId": "city.buildings[122]",
+      "centerMap": [
+        -1120.942,
+        -120.174
+      ],
+      "areaSquareMetres": 58.832900000001246,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -42.346523055027205,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--12--2-0992",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 7,
+        "nodeId": "1623821215",
+        "name": "河畔小馆",
+        "anchorMap": [
+          -1070.3,
+          -58.01
+        ],
+        "distanceMetres": 80.18088961841224,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 29,
+        "source-road-half-width": 3,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 121,
+      "sourceId": "city.buildings[121]",
+      "centerMap": [
+        -1114.684,
+        -119.104
+      ],
+      "areaSquareMetres": 69.05409999997937,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -43.00821218411931,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--12--2-0992",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 7,
+        "nodeId": "1623821215",
+        "name": "河畔小馆",
+        "anchorMap": [
+          -1070.3,
+          -58.01
+        ],
+        "distanceMetres": 75.51434494187181,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    },
+    {
+      "sourceIndex": 117,
+      "sourceId": "city.buildings[117]",
+      "centerMap": [
+        -1109.422,
+        -120.03
+      ],
+      "areaSquareMetres": 48.8015000000305,
+      "areaBand": "small<100",
+      "sourceLongestEdgeScreenDeg": -41.57337305781155,
+      "sourceDirectionMeaning": "measured footprint edge, not proof of a door/frontage",
+      "legacyParcelId": "CP--12--2-0992",
+      "landUseIntent": "garden",
+      "intentIsSourceBuildingTypeProof": false,
+      "nearestOriginalStop": {
+        "poiIndex": 7,
+        "nodeId": "1623821215",
+        "name": "河畔小馆",
+        "anchorMap": [
+          -1070.3,
+          -58.01
+        ],
+        "distanceMetres": 73.32810705316213,
+        "association": "proposed design association only; source schema has no building binding"
+      },
+      "stage": "native-footprint-and-approach",
+      "result": "rejected-in-bounded-search",
+      "rejectedByRule": {
+        "neighbour-source-footprint": 32,
+        "carrier-centre-not-covered": 58
+      },
+      "attemptedAssetScales": {
+        "B05@0.9": 9,
+        "B05@1": 9,
+        "B05@1.1": 9,
+        "B06@0.9": 9,
+        "B06@1": 9,
+        "B06@1.1": 9,
+        "B01@1": 9,
+        "B02@0.9": 9,
+        "B02@1": 9,
+        "B02@1.1": 9
+      },
+      "scaleSearchPolicy": "stop at first successful scale per family; untried scale is not a failed scale",
+      "positiveScaleCandidateValues": [
+        0.9,
+        1,
+        1.1
+      ],
+      "B01BaselineScale": 1,
+      "feasibleAssetScales": [],
+      "assignedToSecondBatch": false
+    }
+  ],
+  "jointAdmissionDecisions": [
+    {
+      "sourceIndex": 598,
+      "rule": "joint-new-body-or-corridor"
+    },
+    {
+      "sourceIndex": 598,
+      "rule": "joint-new-body-or-corridor"
+    }
+  ],
+  "untestedSources": [
+    118,
+    119,
+    120,
+    116,
+    1908,
+    1374,
+    1376,
+    1379,
+    1378,
+    1377,
+    1380,
+    1381,
+    1386,
+    1385,
+    1384,
+    1383,
+    352,
+    192,
+    399,
+    380,
+    1373,
+    1375,
+    1907,
+    1382,
+    1413,
+    1726,
+    585,
+    584,
+    583,
+    581,
+    582,
+    589,
+    260,
+    143,
+    261,
+    264,
+    142,
+    263,
+    157,
+    173,
+    271,
+    338,
+    174,
+    254,
+    217,
+    330,
+    127,
+    346,
+    216,
+    353,
+    334,
+    124,
+    356,
+    358,
+    8,
+    335,
+    331,
+    3,
+    4,
+    5,
+    215,
+    193,
+    253,
+    7,
+    327,
+    196,
+    650,
+    648,
+    642,
+    647,
+    336,
+    649,
+    257,
+    198,
+    646,
+    325,
+    645,
+    259,
+    337,
+    256,
+    249,
+    333,
+    355,
+    246,
+    596,
+    644,
+    643,
+    247,
+    641,
+    250,
+    545,
+    546,
+    544,
+    251,
+    542,
+    543,
+    341,
+    547,
+    551,
+    550,
+    391,
+    541,
+    349,
+    535,
+    389,
+    540,
+    258,
+    663,
+    532,
+    531,
+    548,
+    539,
+    252,
+    326,
+    664,
+    549,
+    351,
+    568,
+    565,
+    567,
+    392,
+    378,
+    344,
+    534,
+    564,
+    417,
+    538,
+    524,
+    10,
+    533,
+    563,
+    566,
+    440,
+    537,
+    553,
+    536,
+    530,
+    461,
+    570,
+    569,
+    552,
+    562,
+    458,
+    561,
+    439,
+    571,
+    554,
+    560,
+    640,
+    403,
+    572,
+    573,
+    457,
+    575,
+    441,
+    518,
+    574,
+    460,
+    513,
+    511,
+    359,
+    447,
+    452,
+    516,
+    555,
+    519,
+    459,
+    576,
+    464,
+    442,
+    455,
+    357,
+    448,
+    446,
+    517,
+    465,
+    456,
+    449,
+    521,
+    503,
+    342,
+    512,
+    347,
+    577,
+    502,
+    504,
+    445,
+    501,
+    191,
+    450,
+    454,
+    520,
+    505,
+    578,
+    453,
+    514,
+    451,
+    506,
+    311,
+    500,
+    444,
+    462,
+    115,
+    507,
+    443,
+    463,
+    662,
+    497,
+    499,
+    508,
+    1514,
+    559,
+    381,
+    510,
+    509,
+    468,
+    515,
+    495,
+    1510,
+    498,
+    556,
+    652,
+    494,
+    1513,
+    557,
+    558,
+    467,
+    493,
+    496,
+    321,
+    469,
+    492,
+    1511,
+    30,
+    466,
+    489,
+    491,
+    490,
+    488,
+    1512,
+    474,
+    471,
+    479,
+    478,
+    487,
+    475,
+    113,
+    477,
+    486,
+    472,
+    480,
+    476,
+    473,
+    308,
+    481,
+    485,
+    112,
+    482,
+    218,
+    483,
+    484,
+    219,
+    100,
+    220,
+    101,
+    102,
+    221,
+    99,
+    222,
+    103,
+    795,
+    111,
+    1365,
+    109,
+    110,
+    3345,
+    1367,
+    1366,
+    1364,
+    105,
+    108,
+    107,
+    104,
+    106,
+    1418,
+    3344,
+    1360,
+    1368,
+    2560,
+    1419,
+    794,
+    1423,
+    1422,
+    1746,
+    707,
+    1745,
+    9,
+    1744,
+    1393,
+    1743,
+    1392,
+    1742,
+    1741,
+    792,
+    1747,
+    1738,
+    1391,
+    1748,
+    1749,
+    1750,
+    1740,
+    1751,
+    658,
+    1752,
+    1739,
+    1767,
+    1355,
+    659,
+    1737,
+    1753,
+    1537,
+    1754,
+    1354,
+    1755,
+    1736,
+    2552,
+    1756,
+    1536,
+    1412,
+    1342,
+    1356,
+    1762,
+    1766,
+    1757,
+    1353,
+    660,
+    1357,
+    1764,
+    3347,
+    1403,
+    1758,
+    1735,
+    1341,
+    1411,
+    1502,
+    1765,
+    1352,
+    1761,
+    1503,
+    1763,
+    1535,
+    1410,
+    3346,
+    1494,
+    1402,
+    1760,
+    1349,
+    1759,
+    1407,
+    1408,
+    1409,
+    1344,
+    1401,
+    1343,
+    1348,
+    1333,
+    1534,
+    1345,
+    1405,
+    1347,
+    1346,
+    227,
+    1533,
+    1495,
+    2232,
+    1396,
+    1532,
+    225,
+    1531,
+    1337,
+    2245,
+    2244,
+    2246,
+    1496,
+    1398,
+    2242,
+    2241,
+    1399,
+    1729,
+    2247,
+    2249,
+    2243,
+    2248,
+    2557,
+    2556,
+    1730,
+    2240,
+    1732,
+    656,
+    2236,
+    2235,
+    2396,
+    1529,
+    1498,
+    1497,
+    1733,
+    2397,
+    1731,
+    1499,
+    2239,
+    2400,
+    2237,
+    2402,
+    2395,
+    2401,
+    2403,
+    2394,
+    2547,
+    2399,
+    2238,
+    655,
+    1734,
+    2391,
+    2577,
+    654,
+    1526,
+    2389,
+    2392,
+    2398,
+    1528,
+    2388,
+    2393,
+    2390,
+    2387,
+    2576,
+    2578,
+    1527,
+    2579,
+    2580,
+    1525,
+    1523,
+    1522,
+    2582,
+    2581,
+    704,
+    2377,
+    2583,
+    703,
+    701,
+    2569,
+    2584,
+    702,
+    697,
+    1520,
+    1501,
+    1492,
+    1489,
+    1491,
+    1493,
+    1519,
+    1546,
+    1518,
+    1517,
+    1547,
+    2640,
+    1544,
+    2380,
+    2378,
+    3489,
+    3490,
+    2381,
+    1543,
+    2645,
+    1336,
+    2641,
+    1335,
+    2335,
+    2644,
+    1720,
+    877,
+    871,
+    262,
+    339,
+    343,
+    354,
+    194,
+    401,
+    402,
+    6,
+    350,
+    11,
+    390,
+    379,
+    2,
+    12,
+    377,
+    213,
+    579,
+    295,
+    292,
+    696,
+    291,
+    1421,
+    470,
+    299,
+    2333,
+    689,
+    1362,
+    0,
+    790,
+    2535,
+    1417,
+    1420,
+    1,
+    1363,
+    793,
+    2559,
+    2558,
+    791,
+    706,
+    1394,
+    2549,
+    2551,
+    2550,
+    1358,
+    1359,
+    1350,
+    661,
+    1351,
+    688,
+    1404,
+    1406,
+    653,
+    1727,
+    695,
+    1395,
+    686,
+    1504,
+    1340,
+    1397,
+    224,
+    1339,
+    1728,
+    2233,
+    226,
+    2231,
+    687,
+    1338,
+    1400,
+    1530,
+    388,
+    2234,
+    2230,
+    387,
+    657,
+    2555,
+    2229,
+    2128,
+    651,
+    3522,
+    384,
+    2564,
+    3363,
+    1524,
+    666,
+    1521,
+    2565,
+    1490,
+    2566,
+    1545,
+    2568,
+    3455,
+    2379,
+    2575,
+    878,
+    1719,
+    3341,
+    3367,
+    876
+  ],
+  "budget": {
+    "uniqueSources": 100,
+    "scales": [
+      0.9,
+      1,
+      1.1
+    ],
+    "B01ScaleOnly": 1,
+    "anchorOffsetsMaxMetres": 6,
+    "roadsPerAttempt": 3,
+    "approachTemplates": [
+      "direct",
+      "front-side-L",
+      "wider-side-L"
+    ]
+  },
+  "semantics": "untested != bounded failure != real resource deficit; source IDs counted once; original325 old search results do not imply new round failure",
+  "T02Correction": "T02 is natural tree without pit; T01 has pit",
+  "largeCarrierContextOnlyReviews": 3,
+  "stillNoGeometricScreeningIncludesContextOnlyReviews": true,
+  "postRoundUniqueSourceTotals": {
+    "blueTotal": 1008,
+    "previousAssigned": 4,
+    "newAssigned": 5,
+    "stillDeferred": 999,
+    "deferredStages": {
+      "oldFixedScaleOnly": 325,
+      "thisRoundProcessedNotAssigned": 95,
+      "stillNoGeometricScreening": 579
+    },
+    "fitOptionSourcesNotAssigned": 8
+  }
+}

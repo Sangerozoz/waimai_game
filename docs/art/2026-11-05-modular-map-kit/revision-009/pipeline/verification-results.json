@@ -1,0 +1,134 @@
+{
+  "status": "passed-static-data-verification-only",
+  "gameTestsRun": false,
+  "renderedNewScene": false,
+  "commands": [
+    {
+      "command": [
+        "python3",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/batch_prepare.py",
+        "cache-window",
+        "--package",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/batch-index.json",
+        "--bounds",
+        "-2395",
+        "-695",
+        "-2340",
+        "-625",
+        "--output",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/cache-core.json"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"data-cache-window-plan-not-rendered\", \"residentTileIds\": [\"t64:-37:-10\", \"t64:-37:-11\", \"t64:-38:-10\", \"t64:-38:-11\", \"t64:-37:-12\", \"t64:-37:-13\"], \"visibleTileIds\": [\"t64:-37:-10\", \"t64:-37:-11\", \"t64:-38:-10\", \"t64:-38:-11\"], \"prefetchTileIds\": [\"t64:-37:-12\", \"t64:-37:-13\"], \"evictTileIds\": [], \"loadTileIds\": [\"t64:-37:-10\", \"t64:-37:-11\", \"t64:-38:-10\", \"t64:-38:-11\", \"t64:-37:-12\", \"t64:-37:-13\"], \"tileCanvasCandidateSize\": [1154, 1024], \"groundPixelsPerProjectedUnit\": 12, \"residentGroundPixels\": 7090176, \"groundGPUBytesRGBA8Estimate\": 28360704, \"retainedCanvasCPUBytesEstimate\": 28360704, \"assetKeysToAcquire\": [\"B05-runtime-280.png#6ce65908cc72029e4b83d10936d0527978adf642a10fbcee4d0f3ac7e015c08d\", \"B06-runtime-280.png#c38b77de6e9012d820dead19aec5ea3ec6db38a0e4a88d4c23a1d15c4b888acd\", \"B07-runtime-280.png#8cc0c0dc95a930ebe77923b5d3fc821bd5b7f4fce6c409da07fffeb08679d814\", \"B08-runtime-280.png#b8eb785226980b1bbbd931ff28f83ebbf8df9fa39a4683c66efa4db370223005\", \"P06-runtime-280.png#c2e5ad5e1b885624faab5ca47aae3a5273b9238cfa8a09a8810f8b9cbdfca817\", \"P07-runtime-280.png#1b59a8373a27b8b3187cb44a13dc23fe8ada55417f4eb4e151c9580744f2d769\", \"P08-runtime-280.png#eb11a2ec29bc97d5df9db566cb2f4d5b5e92fb39ea0519a75e59d7596ae4c0e0\", \"T02-free-runtime-280.png#3ab77c4885b44ba2f8574448f0851662ea0dbbcfa37132d02a52cd253a0ecf0c\", \"V02-v2-runtime-280.png#41cbbe6a763dcbfcec4f5aa96e6fe205ab9cecdb889415871ba2f1ab5f7fc699\", \"rt-S01-paving.png#24fb562aed3669e0dd1ce64cbeec33bfa2f7f104d63f8ab8aa21f132db3ed57c\", \"rt-S02-asphalt.png#d555ba7255d638349ba88919a2393ceddf6c82f685680c2ee2b85fbb889e7f46\"], \"worldScaleChanged\": false, \"applyAllowed\": false, \"rendererChanged\": false, \"originalCameraRiderAndSceneUntouched\": true, \"measuredFPSOrMemory\": false, \"evictionContract\": \"future existing006 renderer must detach nodes then destroy unreferenced ground SpriteFrame/Texture2D; shared PNG frames use reference counts, no per-instance Texture\"}",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/batch_prepare.py",
+        "cache-window",
+        "--package",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/batch-index.json",
+        "--bounds",
+        "-2365",
+        "-795",
+        "-2305",
+        "-745",
+        "--previous",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/cache-core.json",
+        "--output",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/cache-wide.json"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"status\": \"data-cache-window-plan-not-rendered\", \"residentTileIds\": [\"t64:-37:-12\", \"t64:-37:-13\", \"t64:-37:-11\", \"t64:-38:-11\"], \"visibleTileIds\": [\"t64:-37:-12\", \"t64:-37:-13\"], \"prefetchTileIds\": [\"t64:-37:-11\", \"t64:-38:-11\"], \"evictTileIds\": [\"t64:-37:-10\", \"t64:-38:-10\"], \"loadTileIds\": [], \"tileCanvasCandidateSize\": [1154, 1024], \"groundPixelsPerProjectedUnit\": 12, \"residentGroundPixels\": 4726784, \"groundGPUBytesRGBA8Estimate\": 18907136, \"retainedCanvasCPUBytesEstimate\": 18907136, \"assetKeysToAcquire\": [\"B05-runtime-280.png#6ce65908cc72029e4b83d10936d0527978adf642a10fbcee4d0f3ac7e015c08d\", \"B06-runtime-280.png#c38b77de6e9012d820dead19aec5ea3ec6db38a0e4a88d4c23a1d15c4b888acd\", \"B07-runtime-280.png#8cc0c0dc95a930ebe77923b5d3fc821bd5b7f4fce6c409da07fffeb08679d814\", \"B08-runtime-280.png#b8eb785226980b1bbbd931ff28f83ebbf8df9fa39a4683c66efa4db370223005\", \"P06-runtime-280.png#c2e5ad5e1b885624faab5ca47aae3a5273b9238cfa8a09a8810f8b9cbdfca817\", \"P07-runtime-280.png#1b59a8373a27b8b3187cb44a13dc23fe8ada55417f4eb4e151c9580744f2d769\", \"P08-runtime-280.png#eb11a2ec29bc97d5df9db566cb2f4d5b5e92fb39ea0519a75e59d7596ae4c0e0\", \"T02-free-runtime-280.png#3ab77c4885b44ba2f8574448f0851662ea0dbbcfa37132d02a52cd253a0ecf0c\", \"V02-v2-runtime-280.png#41cbbe6a763dcbfcec4f5aa96e6fe205ab9cecdb889415871ba2f1ab5f7fc699\", \"rt-S01-paving.png#24fb562aed3669e0dd1ce64cbeec33bfa2f7f104d63f8ab8aa21f132db3ed57c\", \"rt-S02-asphalt.png#d555ba7255d638349ba88919a2393ceddf6c82f685680c2ee2b85fbb889e7f46\"], \"worldScaleChanged\": false, \"applyAllowed\": false, \"rendererChanged\": false, \"originalCameraRiderAndSceneUntouched\": true, \"measuredFPSOrMemory\": false, \"evictionContract\": \"future existing006 renderer must detach nodes then destroy unreferenced ground SpriteFrame/Texture2D; shared PNG frames use reference counts, no per-instance Texture\"}",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/batch_prepare.py",
+        "audit",
+        "--package",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/demo-008-core"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"package\": \"/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/demo-008-core\", \"audit\": \"passed-static-data-integrity\", \"newRenderedMap\": false, \"baselineObjects\": 57, \"baselineGroundSurfaces\": 115, \"newObjects\": 0}",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/batch_prepare.py",
+        "audit",
+        "--package",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/demo-b07-wide"
+      ],
+      "exitCode": 0,
+      "stdout": "{\"package\": \"/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-009/pipeline/staging/demo-b07-wide\", \"audit\": \"passed-static-data-integrity\", \"newRenderedMap\": false, \"baselineObjects\": 57, \"baselineGroundSurfaces\": 115, \"newObjects\": 0}",
+      "stderr": ""
+    }
+  ],
+  "staticGateChecks": [
+    {
+      "check": "plane-rotation",
+      "refused": true,
+      "reason": "Plane rotation forbidden"
+    },
+    {
+      "check": "mirror",
+      "refused": true,
+      "reason": "Mirror/flip forbidden"
+    },
+    {
+      "check": "nonuniform-scale",
+      "refused": true,
+      "reason": "Nonuniform or conflicting scale component forbidden"
+    },
+    {
+      "check": "hold-asset",
+      "refused": true,
+      "reason": "Asset admission forbids new placement: B10 hold-depth-edge-pose-review"
+    },
+    {
+      "check": "unavailable-asset",
+      "refused": true,
+      "reason": "Missing stable persistentId or unavailable library asset; no white-box fallback"
+    },
+    {
+      "check": "source-road-width-changed",
+      "refused": true,
+      "reason": "Road nodes/order/width/direction differ from source city: 1159836781-0"
+    },
+    {
+      "check": "duplicate-batch",
+      "refused": true,
+      "reason": "REFUSED: Batch already staged; refusing duplicate import or reset: demo-008-core"
+    },
+    {
+      "check": "duplicate-index",
+      "refused": true,
+      "reason": "REFUSED: batchIndex already staged; no implicit replacement: 0"
+    },
+    {
+      "check": "wrong-parent-SHA",
+      "refused": true,
+      "reason": "REFUSED: Fixed parent-approved source SHA does not match"
+    }
+  ],
+  "protectedFiles": 186,
+  "changedProtectedFiles": [],
+  "baselineObjects": 57,
+  "baselineGroundSurfaces": 115,
+  "baselineRoads": 25,
+  "baselineRoadNodes": 178,
+  "uniqueStagedPNG": 11,
+  "uniqueStagedPNGBytes": 879180,
+  "maximumPNGEdge": 280,
+  "cameraAndRiderExact": true,
+  "oldTiledByteExact": true,
+  "existingGroundCanvasPixels": 22224030,
+  "existingGroundRGBA8EstimateBytes": 88896120,
+  "newMainMapObjects": 0,
+  "newMainMapGrounds": 0,
+  "note": "Negative checks mutate in-memory copies of actual approved objects only; no synthetic scene delivered."
+}

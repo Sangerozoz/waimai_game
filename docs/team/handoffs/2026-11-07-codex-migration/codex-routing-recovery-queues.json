@@ -1,0 +1,75 @@
+{
+  "thr_gf8gehviua": [
+    {
+      "id": "qmsg_2x2wnu7pwg",
+      "origin": null,
+      "originPluginId": null,
+      "initiator": "system",
+      "senderThreadId": null,
+      "threadId": "thr_gf8gehviua",
+      "content": [
+        {
+          "type": "text",
+          "text": "Please continue.",
+          "mentions": [],
+          "visibility": "agent-only"
+        }
+      ],
+      "model": "ccs-sanger/gpt-6.1-sol",
+      "reasoningLevel": "max",
+      "permissionMode": "accept-edits",
+      "serviceTier": "default",
+      "groupWithNext": false,
+      "sendAt": 1793984731947,
+      "state": "scheduled",
+      "waitingOn": {
+        "kind": "time"
+      },
+      "failureReason": null,
+      "payload": {
+        "kind": "retry",
+        "retryOfTurnRequestId": "creq_xez9qurj2x",
+        "attempt": 3,
+        "reason": "Provider unavailable"
+      },
+      "editable": false,
+      "createdAt": 1793984563603,
+      "updatedAt": 1793984563603
+    }
+  ],
+  "thr_29f6fcihz6": [],
+  "thr_78t2htdctw": [
+    {
+      "id": "qmsg_un26r4wwsp",
+      "origin": null,
+      "originPluginId": null,
+      "initiator": "agent",
+      "senderThreadId": "thr_axf6i4e89t",
+      "threadId": "thr_78t2htdctw",
+      "content": [
+        {
+          "type": "text",
+          "text": "迁移补充：用户已新建的你被保留为唯一新PM。刚因host10并发满，旧PM临时停新B腾位后，你的MIGRATION-READY已经实际出队、show为active且queue空；新B原任务已在同thread重新auto排队/恢复，不是取消，勿重复派或新建第三B。旧A/B/复审Hermes四线程已读回idle、notifications off、agent旧队列已保存后删除；独立地图Codex线程未动。新A在a模型目录工作，新B只补证据。旧PM本轮收尾后停止派工，释放自己的host槽位，后续所有产品协调归你。请按handoff和roles接任，生成接任回执后继续开发。",
+          "mentions": []
+        }
+      ],
+      "model": "ccs-sanger/gpt-6.1-sol",
+      "reasoningLevel": "max",
+      "permissionMode": "full",
+      "serviceTier": "default",
+      "groupWithNext": false,
+      "sendAt": null,
+      "state": "waiting",
+      "waitingOn": {
+        "kind": "thread-busy"
+      },
+      "failureReason": null,
+      "payload": {
+        "kind": "inline"
+      },
+      "editable": true,
+      "createdAt": 1793984223284,
+      "updatedAt": 1793984223284
+    }
+  ]
+}

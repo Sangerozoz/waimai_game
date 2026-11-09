@@ -1,0 +1,64 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.12.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "width": 48,
+  "height": 32,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "infinite": false,
+  "backgroundcolor": "#deded7",
+  "nextobjectid": 1,
+  "nextlayerid": 3,
+  "tilesets": [],
+  "properties": [
+    {
+      "name": "purpose",
+      "type": "string",
+      "value": "用户手工标注道路中心线的独立小样，不改原游戏路网"
+    },
+    {
+      "name": "imagePixelWidth",
+      "type": "int",
+      "value": 1536
+    },
+    {
+      "name": "imagePixelHeight",
+      "type": "int",
+      "value": 1024
+    },
+    {
+      "name": "imageSHA256",
+      "type": "string",
+      "value": "ca28b238db09692e1c6af064d920f18ccaaacd6dce94625a16ce7de5a755b0db"
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "type": "imagelayer",
+      "name": "街区底图（锁定）",
+      "image": "native-city-block.png",
+      "x": 0,
+      "y": 0,
+      "opacity": 1,
+      "visible": true,
+      "locked": true
+    },
+    {
+      "id": 2,
+      "type": "objectgroup",
+      "name": "路线（在这里画道路中心线）",
+      "draworder": "index",
+      "x": 0,
+      "y": 0,
+      "opacity": 1,
+      "visible": true,
+      "locked": false,
+      "color": "#ff28b8",
+      "objects": []
+    }
+  ]
+}

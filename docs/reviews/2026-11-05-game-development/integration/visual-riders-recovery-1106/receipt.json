@@ -1,0 +1,63 @@
+{
+  "task": "RIDER-RECOVERY-REAL-SCREEN-1106",
+  "url": "http://127.0.0.1:4196/?v2=1&rev=rider-recovery-1106",
+  "buildRoot": "delivery-game/build/v2-rider-recovery-1106",
+  "creatorExitCode": 36,
+  "httpIndexAndMainBundleMatchBuiltFiles": true,
+  "serverTerminalId": "term_eec37rur9w",
+  "supersededServerTerminalId": "term_wnau9en9ct",
+  "serverRestartNote": "restart returned replacement terminal ID; sending to old ID failed without starting service; corrected to returned ID and verified HTTP index/bundle identity",
+  "sourceHashes": {
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+    "delivery-game/assets/scripts/map-sample/V2Spacing.ts": "0f363e9bb5858629a592d8e8a3208e70e43c5f87deffe0e1117d9be92fa509de",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "a5c19c46b89ca85e42595657fef35de7430b06b524001beb81a4c822aaeef302"
+  },
+  "images": [
+    {
+      "path": "visual-riders-recovery-1106/riders-top-stable.png",
+      "width": 1586,
+      "height": 3128,
+      "sha256": "e2bca4ccea14a862ee042ba4366fa05ed29f81534fa0d4814552b52a368c0645"
+    },
+    {
+      "path": "visual-riders-recovery-1106/riders-bottom.png",
+      "width": 1586,
+      "height": 3128,
+      "sha256": "5459498fd8fb697add368602c12746336407a86a4d0df01479e23cb86cf9c142"
+    }
+  ],
+  "observed": [
+    "主角与小Lv紧邻；不是原我/远离姓名的等级牌",
+    "未招募状态在肖像下；已招真实状态保留",
+    "所有NPC节点30条真实取送省时；首末可见加成/省时文本未撞图",
+    "招募按钮仅招募，价格独立，首末实际可见价格不截断",
+    "实际首屏10完整卡+下行露头，末位书宁含肖像/价格/按钮完整可达",
+    "列表真实滚至max再返回顶部；实测内容3008、视口1003.0364614465034，约2.9988939740655987屏",
+    "当前运行lastError为空；不归因为原始Dispatch根因已解决"
+  ],
+  "nodeCounts": {
+    "inlineLevelNodes": 31,
+    "savingsLabels": 30,
+    "plainHireButtons": 29,
+    "separatePriceLabels": 29
+  },
+  "appearanceActions": [
+    "normal navigation to updated existing origin",
+    "click existing-progress Continue, not first-start/new-slot",
+    "click rider tab",
+    "real mouse wheel to end and back to top"
+  ],
+  "noDirectStorageReadOrWrite": true,
+  "noBusinessCommandsPurchasesUpgradesOrdersOrSaveInjection": true,
+  "noStageTestsTypecheckOrRegression": true,
+  "browserAutomationClosedUserTabPreserved": true,
+  "scopeLimits": [
+    "只核对骑手首末两个画面；未称所有中间肖像或全部六页已逐图通过",
+    "新旧截图来自不同自然用户进度，不将金额/等级差异归因本次UI代码",
+    "万单位近似仍未实施；旧kg/升级报价仍在当前包，新slots和数值仅隔离开发",
+    "食品新代码已编入，但分类风险和ETA活动批次行为未实测",
+    "升级确认层资金刷新与NPC命令合同后续仍在；不宣称所有经济操作已修好",
+    "初次等待GameUI超时对应正常继续进度入口；后通过唯一继续按钮正常恢复现有进度，没有另建档",
+    "不是98%整体达标或用户体验验收"
+  ]
+}

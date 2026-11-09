@@ -1,0 +1,5 @@
+继续独立只读审查，作者PM，同checkout、现有Codex Sanger max。不要改模型/权限、写文件、运行测试/模型/游戏/构建。
+冻结请求：docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/review-request.json
+本轮是受限手动时钟路径，代码复杂度高于前三行复制优化，请重点审完整性而非只看测试数量。新路径只在双方defer为true、manual、无pending ad、event cursor完全同步且port自有普通函数属性时使用；先完整validate私有E/F、钱包引用同一性或全字节比较、Reward.restore、Dispatch版本/port/clockRebase及原Dispatch.validate，再按原规则改frame/rebase，后置同步/validate失败则回滚两字段；自动/广告/未补额/自定义getter端口保留原transact完整体。
+请独立重建diff、核所有冻结SHA、验证是否有先前restore gate遗漏、重入/回调/混装/重复帧/clock rollback/异常发布边界。新getter边界是PM自查真实RED19pass1fail→GREEN20；最初RED14pass5fail。默认187/187，typecheck0；首次一次编译参数个数错误保留compile-attempt-01，不当业务RED。最终benchmark40次Game结果全字节一致；直接Dispatch矩阵31种、85步，比较结果、错误类型及完整状态字节，错误文案不在等价声明内。原始样本常规中位数另核。
+请最后给Spec/质量、Critical/Important/Minor、具体触发和行号。不要扩大为U01/FPS或原档跨包恢复通过；实际候选和发布由PM负责，当前原试玩仍是前包。

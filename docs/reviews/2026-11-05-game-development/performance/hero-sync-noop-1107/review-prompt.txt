@@ -1,0 +1,3 @@
+继续一项独立只读复审，作者是PM，不是你。保持Codex/Sanger/max、同env/checkout，不改权限，不写文件，不运行测试/游戏/模型/构建，不接触用户档。
+完整冻结请求：docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/review-request.json
+先读计划、精确before源码及review.diff，对照生产当前仅Fleet.syncHeroCompletions的一处guard和新增8项真实领域测试。独立核所有冻结SHA及diff；审Spec和质量，特别是精确cursor等于事件数才早退、落后事件/旧基线/非法恢复/回调绑定/现有公有economy替换边界是否仍正确。审查benchmark.cjs及原始结果40次逐字一致（771亲送/884 NPC长期原态与经合法pickup/continue导出的travelling、空档、唯一原软锁态），核RED 2pass/6fail业务断言→GREEN8/8原始日志。结果只覆盖候选内存事务不等于FPS或U01关闭。默认回归/typecheck由PM并行执行，你不用重跑；最终回复给Spec、质量、Critical/Important/Minor、具体行/触发/建议与范围，不要求额外新功能。

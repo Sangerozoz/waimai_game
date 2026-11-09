@@ -1,0 +1,149 @@
+{
+  "id": "B12",
+  "coordinateSystem": "native PNG pixels x right/y down; manual readings approximately +/-3 pixels",
+  "nativeSourceSHA256": "d4343de692111d26125c650c9bd3ce874c8d20617774517ebe1a2ae2483fb601",
+  "points": [
+    {
+      "id": "W1",
+      "nativeXY": [
+        450,
+        1143
+      ],
+      "meaning": "可见左前墙脚转角",
+      "runtimeXY": [
+        89.55465587044534,
+        273.6128048780488
+      ]
+    },
+    {
+      "id": "W2",
+      "nativeXY": [
+        749,
+        1001
+      ],
+      "meaning": "同一临街墙脚直边，止于门廊柱基前",
+      "runtimeXY": [
+        174.2914979757085,
+        233.35060975609755
+      ]
+    },
+    {
+      "id": "W3",
+      "nativeXY": [
+        183,
+        813
+      ],
+      "meaning": "可见左侧墙脚后端",
+      "runtimeXY": [
+        13.88663967611336,
+        180.04573170731706
+      ]
+    },
+    {
+      "id": "T1",
+      "nativeXY": [
+        804,
+        954
+      ],
+      "meaning": "实门底门槛左端",
+      "runtimeXY": [
+        189.87854251012146,
+        220.02439024390245
+      ]
+    },
+    {
+      "id": "T2",
+      "nativeXY": [
+        879,
+        917
+      ],
+      "meaning": "实门底门槛右端",
+      "runtimeXY": [
+        211.13360323886639,
+        209.53353658536585
+      ]
+    },
+    {
+      "id": "S1",
+      "nativeXY": [
+        820,
+        1027
+      ],
+      "meaning": "最外层台阶左前突出点",
+      "runtimeXY": [
+        194.41295546558703,
+        240.72256097560975
+      ]
+    },
+    {
+      "id": "S2",
+      "nativeXY": [
+        934,
+        976
+      ],
+      "meaning": "最外层台阶右前突出点",
+      "runtimeXY": [
+        226.72064777327935,
+        226.2621951219512
+      ]
+    },
+    {
+      "id": "R1",
+      "nativeXY": [
+        151,
+        566
+      ],
+      "meaning": "左后屋檐端，非墙脚",
+      "runtimeXY": [
+        4.817813765182186,
+        110.01219512195122
+      ]
+    },
+    {
+      "id": "R2",
+      "nativeXY": [
+        802,
+        194
+      ],
+      "meaning": "后屋面高点，非墙脚",
+      "runtimeXY": [
+        189.31174089068827,
+        4.536585365853658
+      ]
+    }
+  ],
+  "visibleStraightBaseEdges": [
+    {
+      "kind": "frontage",
+      "fromId": "W1",
+      "toId": "W2",
+      "deltaPixels": [
+        299,
+        -142
+      ],
+      "screenAngleDegrees": -25.403809268763986,
+      "targetDegrees": -28.486362688849802,
+      "residualDegrees": 3.082553420085816,
+      "lengthPixels": 331.0060422409235,
+      "note": "实际可见同一墙脚直边两端人工点读；数学计算精确不等于点位精确，端点约±3px"
+    },
+    {
+      "kind": "depth",
+      "fromId": "W3",
+      "toId": "W1",
+      "deltaPixels": [
+        267,
+        330
+      ],
+      "screenAngleDegrees": 51.02399308231962,
+      "targetDegrees": 55.40598449120886,
+      "residualDegrees": -4.381991408889242,
+      "lengthPixels": 424.48674890978634,
+      "note": "实际可见同一墙脚直边两端人工点读；数学计算精确不等于点位精确，端点约±3px"
+    }
+  ],
+  "hiddenCorner": "远后墙脚被建筑实体遮住；不提供假实测点或据此恢复精密四角。",
+  "separation": "W墙脚/T实门槛/S突出阶/R屋顶分开；透明处不是门。",
+  "status": "diagnostic-only-not-calibrated-not-admitted",
+  "mappingUnchanged": true
+}

@@ -1,0 +1,41 @@
+{
+  "rootCauseEvidence": "Official Tiled JSON export read absent group/object-layer opacity as 0; first rasterizer PNG was fully transparent.",
+  "actualReaderObservation": [
+    {
+      "name": "A2 区域（整体偏移仅在此）",
+      "opacityReadByTiled": 0
+    },
+    {
+      "name": "B1 区域（整体偏移仅在此）",
+      "opacityReadByTiled": 0
+    }
+  ],
+  "changes": [
+    {
+      "layer": "A2 区域（整体偏移仅在此）",
+      "missingOpacitySetTo": 1
+    },
+    {
+      "layer": "A 可编辑道路中心线",
+      "missingOpacitySetTo": 1
+    },
+    {
+      "layer": "B1 区域（整体偏移仅在此）",
+      "missingOpacitySetTo": 1
+    },
+    {
+      "layer": "B 可编辑道路中心线",
+      "missingOpacitySetTo": 1
+    },
+    {
+      "layer": "边界、停靠及独立装饰（可编辑，当前空白）",
+      "missingOpacitySetTo": 1
+    }
+  ],
+  "imageDimensionsMadeExplicit": true,
+  "nativePixelsOrRoadGeometryChanged": false,
+  "oldInputsWritten": false,
+  "newTiledSHA256": "eac6049a2f8e643e1771dda9f9dce2f25f7d8b035c7a42c7e2b548459b61d0a9",
+  "geometryIdentical": true,
+  "initialFailedRenderRetained": "preview/tiled-cli-render-transparent-before-fix.png"
+}

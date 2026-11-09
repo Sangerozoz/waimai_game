@@ -1,0 +1,255 @@
+{
+  "kind": "pure-source-text-and-sha256-audit",
+  "typescriptExecuted": false,
+  "gameStateCreated": false,
+  "sourceSHA256": {
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "73d4daea391b506dd38f0fcd25fb04d9ae387e5aa07a148b42bf2699c7839a5e",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "0101ac3eac40b82432d14c2bbb47dde4cdf8913fdb31ddb65fac362697c9af37",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "bb6dc40f960f5867b96bf9eeaad218d8d6a9d2aa648b53ce34aa0afcff892d81",
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "a33f933e5dc1e41827ac5cfbfaee1563d494d0acceae5fdaebec9321d10a1e96"
+  },
+  "candidateSHA256": {
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "77cac10354e5f457f5553cc0c9b0b091345f583b54c18373aeff8a510a81f184",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "3d27e36b83e07f7235aa1aa6f51378a4abc3421bfa3003175464eedd34a6baf3",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "cbcc769df60e8d5bfeeeb7d4c33ccb78faa12cbf8e271f9195950d8b6a97f210"
+  },
+  "preservationChecks": {
+    "route_additions_only": true,
+    "game_serialize_byte_identical": true,
+    "game_restore_and_A_QUALITY_01_byte_identical": true,
+    "route_legacy_and_current_restore_byte_identical": true,
+    "route_merchantKey_byte_identical": true,
+    "route_position_byte_identical": true,
+    "runtime_only_delegating_getter_added": true,
+    "ui_outside_update_byte_identical": true,
+    "ui_route_key_trip_phase_cursor_retained": true,
+    "ui_departing_follow_expression_byte_identical": true,
+    "ui_capture_restore_order_retained": true,
+    "ui_motion_precedes_HUD_gate": true,
+    "game_only_scalar_reads_and_getter_changed": true
+  },
+  "v4aInMemoryReconstruction": [
+    {
+      "file": "delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+      "hunks": 2,
+      "exactContextMatch": true,
+      "reconstructsCandidate": true
+    },
+    {
+      "file": "delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+      "hunks": 3,
+      "exactContextMatch": true,
+      "reconstructsCandidate": true
+    },
+    {
+      "file": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "hunks": 1,
+      "exactContextMatch": true,
+      "reconstructsCandidate": true
+    },
+    {
+      "file": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "hunks": 2,
+      "exactContextMatch": true,
+      "reconstructsCandidate": true
+    }
+  ],
+  "lineChanges": [
+    {
+      "file": "delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+      "addedLines": 6,
+      "removedLines": 0,
+      "beforeSHA256": "73d4daea391b506dd38f0fcd25fb04d9ae387e5aa07a148b42bf2699c7839a5e",
+      "candidateSHA256": "77cac10354e5f457f5553cc0c9b0b091345f583b54c18373aeff8a510a81f184"
+    },
+    {
+      "file": "delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+      "addedLines": 9,
+      "removedLines": 8,
+      "beforeSHA256": "0101ac3eac40b82432d14c2bbb47dde4cdf8913fdb31ddb65fac362697c9af37",
+      "candidateSHA256": "3d27e36b83e07f7235aa1aa6f51378a4abc3421bfa3003175464eedd34a6baf3"
+    },
+    {
+      "file": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "addedLines": 1,
+      "removedLines": 0,
+      "beforeSHA256": "bb6dc40f960f5867b96bf9eeaad218d8d6a9d2aa648b53ce34aa0afcff892d81",
+      "candidateSHA256": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721"
+    },
+    {
+      "file": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "addedLines": 5,
+      "removedLines": 3,
+      "beforeSHA256": "a33f933e5dc1e41827ac5cfbfaee1563d494d0acceae5fdaebec9321d10a1e96",
+      "candidateSHA256": "cbcc769df60e8d5bfeeeb7d4c33ccb78faa12cbf8e271f9195950d8b6a97f210"
+    }
+  ],
+  "staticCallsiteCounts": {
+    "V2RouteSession.ts": {
+      "before": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      },
+      "after": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      }
+    },
+    "V2GameSession.ts": {
+      "before": {
+        "this.route.snapshot()": 10,
+        "candidate.snapshot()": 1,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      },
+      "after": {
+        "this.route.snapshot()": 2,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 8,
+        "candidate.progress": 1,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      }
+    },
+    "V2RuntimeController.ts": {
+      "before": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      },
+      "after": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      }
+    },
+    "V2GameUI.ts": {
+      "before": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 6,
+        "this.runtime.routeMotion": 0
+      },
+      "after": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 7,
+        "this.runtime.routeMotion": 1
+      }
+    },
+    "Game.tick": {
+      "before": {
+        "this.route.snapshot()": 6,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      },
+      "after": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 6,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      }
+    },
+    "UI.update.beforeHUD": {
+      "before": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 1,
+        "this.runtime.routeMotion": 0
+      },
+      "after": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 1,
+        "this.runtime.routeMotion": 1
+      }
+    },
+    "UI.update.afterHUD": {
+      "before": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 0,
+        "this.runtime.routeMotion": 0
+      },
+      "after": {
+        "this.route.snapshot()": 0,
+        "candidate.snapshot()": 0,
+        "this.route.progress": 0,
+        "candidate.progress": 0,
+        "this.runtime.routeSnapshot": 1,
+        "this.runtime.routeMotion": 0
+      }
+    }
+  },
+  "countDefinition": "Lexical source callsites, not runtime calls, allocations, elapsed time, FPS or measured speedup. The UI before-HUD snapshot call is now inside the routeViewKey-change branch; a separate full-membership read remains after the 0.5s HUD gate.",
+  "directCloneReadPolicy": {
+    "gameTickRouteSnapshotCallsites": {
+      "before": 6,
+      "after": 0
+    },
+    "gameFileRouteAndCandidateSnapshotCallsites": {
+      "before": 11,
+      "after": 2
+    },
+    "uiMotionUnconditionalFullSnapshotReadPerEligibleUpdate": {
+      "before": 1,
+      "after": 0
+    },
+    "uiChangedRouteViewFullSnapshotRead": {
+      "before": "reuses unconditional full snapshot",
+      "after": 1
+    },
+    "uiHUDMembershipAdditionalFullSnapshotReadAfterGate": {
+      "before": 0,
+      "after": 1
+    },
+    "uiFileRouteSnapshotReferenceSites": {
+      "before": 6,
+      "after": 7
+    }
+  },
+  "dependencySHA256AtAudit": {
+    "delivery-game/assets/scripts/map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+    "delivery-game/assets/scripts/map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690",
+    "delivery-game/assets/scripts/map-sample/CityMap.ts": "8a122e7bd8be0057d297cf8a1cdcd73abd7f8aa1c0edf3eb2ca9dff919a40e3c"
+  },
+  "limitations": [
+    "No tests, typecheck command, TypeScript game function, fault injection, real or synthetic save, browser, Creator, build or deploy was invoked.",
+    "Editing tools automatically returned LSP diagnostics from detached staging files with unresolved original relative dependencies. These are not a project typecheck result; imports/dependencies were deliberately left unchanged. No diagnostic-driven compiler or fix loop was started.",
+    "The earlier external-stage UI baseline write reported an automatic npx availability probe as skipped/not usable; no successful TypeScript check or game execution was reported.",
+    "Original assets sources were never edited by this thread. The pre-existing external partial stage is retained unchanged.",
+    "Known NPC within-frame replenishment timing, durable full serialization/validation costs, map production and visual acceptance are outside this patch."
+  ]
+}

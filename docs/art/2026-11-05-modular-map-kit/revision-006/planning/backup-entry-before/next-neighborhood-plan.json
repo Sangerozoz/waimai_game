@@ -1,0 +1,4325 @@
+{
+  "schemaVersion": 1,
+  "status": "executed-static-candidate-not-user-accepted-or-runtime-ready",
+  "units": "source city metres; all polygon rings unclosed",
+  "sourceSchema": {
+    "nodes": "array of id/x/y",
+    "roads": "array id/nodes ordered node IDs/width/direction; all preserved verbatim in source-context.json",
+    "buildings": "array of rings of [x,y]",
+    "areas": "array kind/points",
+    "waterways": "array of line point arrays; bank width absent",
+    "pois": "array name/node/kind"
+  },
+  "sources": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/resources/map-sample/city.json",
+      "sha256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-county-zoning/selection.json",
+      "sha256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-003/road-constraint.json",
+      "sha256": "0a355ed3d02e3e1ec30f85e17ed7ee3047c96c7af639c1743b504952062d2d69"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/planning/mixed-street-layout.json",
+      "sha256": "72e1fd8210983467d87bbde3c87d42f21aa7684496d2fb0734aa06c49c6845ce"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/mixed-street.tmj",
+      "sha256": "60759f6f282c98e0de83c71fc49a5be4147e028e3b06edf2876dd640dc1cfdcf"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/asset-calibration.json",
+      "sha256": "9733eb60c0de82d6e91a8874062e5b83f9cf36aae28bf27075650e66dbcb2db1"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/references/approved-25-index.json",
+      "sha256": "778105190f12bab0370dc8338613f02f31420f6fbda25f599970d4a6f0e7503d"
+    }
+  ],
+  "sourceGraphSnapshot": {
+    "file": "source-context.json",
+    "sha256": "a56407bfa1e2fd714f1a8cb33fcf26a96f45741c85f2722acea1764046d731a4",
+    "roadsCount": 9970,
+    "nodesCount": 42102,
+    "unalteredNodeOrderWidthsDirections": true
+  },
+  "zoning": {
+    "registration": {
+      "imagePixelLeft": 166.0,
+      "imagePixelBottom": 2175.0,
+      "worldLeftMetres": -4500,
+      "worldBottomMetres": -1500,
+      "pixelsPerMetreApprox": 0.64225,
+      "role": "registration-landmark-only-never-production-or-dispatch-boundary"
+    },
+    "regions": {
+      "map": {
+        "color": "red",
+        "annotationPixelBounds": {
+          "left": 1009.0,
+          "top": 244.5,
+          "right": 3143.5,
+          "bottom": 2379.0
+        },
+        "worldPolygonMetresApprox": [
+          [
+            -3187.43,
+            1505.84
+          ],
+          [
+            136.05,
+            1505.84
+          ],
+          [
+            136.05,
+            -1817.63
+          ],
+          [
+            -3187.43,
+            -1817.63
+          ],
+          [
+            -3187.43,
+            1505.84
+          ]
+        ],
+        "worldBoundsMetresApprox": {
+          "minX": -3187.43,
+          "maxX": 136.05,
+          "minY": -1817.63,
+          "maxY": 1505.84
+        },
+        "approxSizeKm": [
+          3.32,
+          3.32
+        ],
+        "approxAreaKm2": 11.05
+      },
+      "city": {
+        "color": "blue",
+        "annotationPixelBounds": {
+          "left": 1352.5,
+          "top": 654.5,
+          "right": 2824.0,
+          "bottom": 2035.5
+        },
+        "worldPolygonMetresApprox": [
+          [
+            -2652.59,
+            867.46
+          ],
+          [
+            -361.42,
+            867.46
+          ],
+          [
+            -361.42,
+            -1282.79
+          ],
+          [
+            -2652.59,
+            -1282.79
+          ],
+          [
+            -2652.59,
+            867.46
+          ]
+        ],
+        "worldBoundsMetresApprox": {
+          "minX": -2652.59,
+          "maxX": -361.42,
+          "minY": -1282.79,
+          "maxY": 867.46
+        },
+        "approxSizeKm": [
+          2.29,
+          2.15
+        ],
+        "approxAreaKm2": 4.93
+      },
+      "urban": {
+        "color": "green",
+        "annotationPixelBounds": {
+          "left": 1805.5,
+          "top": 786.5,
+          "right": 2452.0,
+          "bottom": 1806.5
+        },
+        "worldPolygonMetresApprox": [
+          [
+            -1947.26,
+            661.93
+          ],
+          [
+            -940.64,
+            661.93
+          ],
+          [
+            -940.64,
+            -926.24
+          ],
+          [
+            -1947.26,
+            -926.24
+          ],
+          [
+            -1947.26,
+            661.93
+          ]
+        ],
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "approxSizeKm": [
+          1.01,
+          1.59
+        ],
+        "approxAreaKm2": 1.6
+      }
+    },
+    "semantics": {
+      "outerLandscape": {
+        "inside": "map",
+        "outside": "city",
+        "meaning": "红蓝之间绿地/树林/山脉背景，不制作经营街区，不生成配送点，不作为配送通道"
+      },
+      "suburb": {
+        "inside": "city",
+        "outside": "urban",
+        "meaning": "蓝绿之间郊区，属于街区制作与配送经营范围"
+      },
+      "denseUrban": {
+        "inside": "urban",
+        "meaning": "绿色范围繁华城区，属于街区制作与配送经营范围"
+      }
+    },
+    "precision": "user-approved approximate rectangles, not surveyed; brown frame ignored"
+  },
+  "approved005ZoneAudit": {
+    "buildings": [
+      {
+        "id": "B01",
+        "anchorMap": [
+          -1596.5787045725883,
+          58.400981377657935
+        ],
+        "anchorZone": "denseUrban",
+        "allFootprintInsideGreen": true
+      },
+      {
+        "id": "B02",
+        "anchorMap": [
+          -1600.612905910262,
+          68.74386393365322
+        ],
+        "anchorZone": "denseUrban",
+        "allFootprintInsideGreen": true
+      },
+      {
+        "id": "B03",
+        "anchorMap": [
+          -1593.4617372814348,
+          40.12266047813658
+        ],
+        "anchorZone": "denseUrban",
+        "allFootprintInsideGreen": true
+      },
+      {
+        "id": "B04",
+        "anchorMap": [
+          -1605.358503063688,
+          80.97259271703032
+        ],
+        "anchorZone": "denseUrban",
+        "allFootprintInsideGreen": true
+      },
+      {
+        "id": "B05",
+        "anchorMap": [
+          -1594.5971044846908,
+          49.10658730963796
+        ],
+        "anchorZone": "denseUrban",
+        "allFootprintInsideGreen": true
+      }
+    ],
+    "decision": "all five footprints are green denseUrban; suitable as read-only visual/geometry baseline, no relocation needed; new layout excludes these footprints"
+  },
+  "projection": {
+    "id": "orthographic-e62.5-a45-v1",
+    "elevationDeg": 62.5,
+    "azimuthDeg": 45,
+    "canvasYDown": true,
+    "axisX": [
+      0.7071067811865476,
+      0.62721137512625
+    ],
+    "axisY": [
+      -0.7071067811865476,
+      0.62721137512625
+    ],
+    "axisZ": [
+      0,
+      -0.4617486132350339
+    ],
+    "originMap": [
+      -1591.5766733668343,
+      75.0
+    ]
+  },
+  "fixedAssetFrame": {
+    "frontageTangentMap": [
+      0.23417355683909316,
+      -0.9721948082958105
+    ],
+    "eastNormalMap": [
+      0.9721948082958105,
+      0.23417355683909316
+    ],
+    "frontageScreenDeg": -28.486362688849802,
+    "depthScreenDeg": 55.40598449120886,
+    "wallVertical": true,
+    "orientationToleranceCandidateDeg": 3,
+    "noPNGTransform": true
+  },
+  "streets": [
+    {
+      "id": "N1",
+      "type": "residential-courtyard",
+      "roadId": "149397380-0",
+      "nodeIndexRangeInclusive": [
+        7,
+        8
+      ],
+      "nodeIds": [
+        "1623821886",
+        "1623821663"
+      ],
+      "polylineMap": [
+        [
+          -1629.06,
+          218.94
+        ],
+        [
+          -1611.54,
+          155.21
+        ]
+      ],
+      "width": 8,
+      "direction": 0,
+      "lengthMetres": 66.094351498445,
+      "actualTangentMap": [
+        0.26507560181466,
+        -0.9642276314867749
+      ],
+      "projectedFrontageDeg": -26.769902101151576,
+      "differenceFromAssetFrontageDeg": 1.7164605876982222,
+      "orientationCompatibleCandidate": true,
+      "zone": "denseUrban",
+      "side": "west; entry faces east toward source road; no mirrored PNG",
+      "buildingIds": [
+        "N1-01-B06",
+        "N1-02-B07",
+        "N1-03-B05",
+        "N1-04-B06",
+        "N1-05-B11",
+        "N1-06-B01"
+      ]
+    },
+    {
+      "id": "N2",
+      "type": "commercial-civic",
+      "roadId": "149397380-0",
+      "nodeIndexRangeInclusive": [
+        8,
+        9
+      ],
+      "nodeIds": [
+        "1623821663",
+        "9634601487"
+      ],
+      "polylineMap": [
+        [
+          -1611.54,
+          155.21
+        ],
+        [
+          -1597.19,
+          98.2
+        ]
+      ],
+      "width": 8,
+      "direction": 0,
+      "lengthMetres": 58.78828624819742,
+      "actualTangentMap": [
+        0.24409624630688925,
+        -0.9697510105892576
+      ],
+      "projectedFrontageDeg": -27.93554972847428,
+      "differenceFromAssetFrontageDeg": 0.5508129603755236,
+      "orientationCompatibleCandidate": true,
+      "zone": "denseUrban",
+      "side": "west; entry faces east toward source road; no mirrored PNG",
+      "buildingIds": [
+        "N2-01-B08",
+        "N2-02-B09",
+        "N2-03-B02",
+        "N2-04-B04"
+      ],
+      "unplacedAssetGaps": [
+        "B01"
+      ]
+    },
+    {
+      "id": "S1",
+      "type": "residential-service-mix",
+      "roadId": "149397380-0",
+      "nodeIndexRangeInclusive": [
+        14,
+        15
+      ],
+      "nodeIds": [
+        "5342487518",
+        "12185944953"
+      ],
+      "polylineMap": [
+        [
+          -1571.11,
+          -5.19
+        ],
+        [
+          -1559.72,
+          -56.08
+        ]
+      ],
+      "width": 8,
+      "direction": 0,
+      "lengthMetres": 52.149057517849705,
+      "actualTangentMap": [
+        0.21841238446354042,
+        -0.975856562366084
+      ],
+      "projectedFrontageDeg": -29.360847894943365,
+      "differenceFromAssetFrontageDeg": -0.8744852060935671,
+      "orientationCompatibleCandidate": true,
+      "zone": "denseUrban",
+      "side": "west; entry faces east toward source road; no mirrored PNG",
+      "buildingIds": [
+        "S1-01-B10",
+        "S1-02-B11",
+        "S1-03-B07",
+        "S1-04-B05",
+        "S1-05-B03"
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "id": "N1-01-B06",
+      "assetId": "B06",
+      "streetId": "N1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1630.5646044267035,
+        186.70720785551904
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1634.4178830789472,
+          189.893466418185
+        ],
+        [
+          -1632.5444946242344,
+          182.1159079518185
+        ],
+        [
+          -1626.7113257744597,
+          183.5209492928531
+        ],
+        [
+          -1628.5847142291725,
+          191.29850775921958
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1635.0210672615146,
+          190.26247704391335
+        ],
+        [
+          -1632.913505249963,
+          181.51272376925107
+        ],
+        [
+          -1626.1081415918923,
+          183.15193866712474
+        ],
+        [
+          -1628.215703603444,
+          191.90169194178702
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 8,
+        "depth": 6,
+        "height": 7
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 3,
+      "roadReferenceMap": [
+        -1620.8426563437454,
+        189.04894342390998
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        7,
+        8
+      ],
+      "entryMap": [
+        -1627.6480200018161,
+        187.40972852603633
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 2.8688015176957125,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 117.2723724021726,
+        "buildingGapMetres": 98.69724630501835,
+        "sourceBuildingGapMetres": 1.9582070966708336,
+        "nearestSourceBuildingIndex": 159,
+        "businessEntranceMetres": 43.07480450782117
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N1-02-B07",
+      "assetId": "B07",
+      "streetId": "N1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1626.2352871987061,
+        167.18848166894443
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1631.2949342160848,
+          171.1127614830671
+        ],
+        [
+          -1628.9531986476939,
+          161.390813400109
+        ],
+        [
+          -1621.1756401813275,
+          163.26420185482178
+        ],
+        [
+          -1623.5173757497184,
+          172.98614993777986
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1631.8981183986523,
+          171.48177210879547
+        ],
+        [
+          -1629.3222092734225,
+          160.78762921754154
+        ],
+        [
+          -1620.57245599876,
+          162.8951912290934
+        ],
+        [
+          -1623.1483651239898,
+          173.58933412034733
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 10,
+        "depth": 8,
+        "height": 14
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 3,
+      "roadReferenceMap": [
+        -1615.5411443074522,
+        169.76439079417446
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        7,
+        8
+      ],
+      "entryMap": [
+        -1622.346507965523,
+        168.12517589630082
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 2.83689300787354,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 136.23573207427742,
+        "buildingGapMetres": 10.989815877100225,
+        "sourceBuildingGapMetres": 1.061530772384317,
+        "nearestSourceBuildingIndex": 161,
+        "businessEntranceMetres": 22.077878354605524
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N1-03-B05",
+      "assetId": "B05",
+      "streetId": "N1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1644.7495367459558,
+        187.4027753641384
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1647.999631215632,
+          190.220023301076
+        ],
+        [
+          -1646.3604163177586,
+          183.4146596430053
+        ],
+        [
+          -1641.4994422762795,
+          184.5855274272008
+        ],
+        [
+          -1643.138657174153,
+          191.39089108527148
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1648.6028153981995,
+          190.58903392680435
+        ],
+        [
+          -1646.7294269434867,
+          182.81147546043786
+        ],
+        [
+          -1640.896258093712,
+          184.21651680147244
+        ],
+        [
+          -1642.7696465484248,
+          191.99407526783892
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 7,
+        "depth": 5,
+        "height": 7.5,
+        "status": "PM-production-candidate-not-source-measurement-or-native-sprite-footprint"
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 17,
+      "roadReferenceMap": [
+        -1621.9029587510042,
+        192.9058539498571
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        7,
+        8
+      ],
+      "entryMap": [
+        -1642.3190497252162,
+        187.98820925623613
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 16.8776268865771,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 114.50158619244938,
+        "buildingGapMetres": 8.127634039289438,
+        "sourceBuildingGapMetres": 1.0976578891337831,
+        "nearestSourceBuildingIndex": 160,
+        "businessEntranceMetres": 50.130653885841916
+      },
+      "nativeStatus": "read-only-existing-library",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N1-04-B06",
+      "assetId": "B06",
+      "streetId": "N1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1654.7798614252836,
+        199.37983408549914
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1658.6331400775273,
+          202.5660926481651
+        ],
+        [
+          -1656.7597516228145,
+          194.7885341817986
+        ],
+        [
+          -1650.9265827730399,
+          196.19357552283319
+        ],
+        [
+          -1652.7999712277526,
+          203.97113398919967
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1659.2363242600948,
+          202.93510327389345
+        ],
+        [
+          -1657.1287622485431,
+          194.18534999923116
+        ],
+        [
+          -1650.3233985904724,
+          195.82456489710484
+        ],
+        [
+          -1652.430960602024,
+          204.57431817176712
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 8,
+        "depth": 6,
+        "height": 7
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 23,
+      "roadReferenceMap": [
+        -1625.6140171764093,
+        206.40504079067193
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        7,
+        8
+      ],
+      "entryMap": [
+        -1651.8632770003962,
+        200.08235475601643
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 22.858617394796138,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 100.55706664883414,
+        "buildingGapMetres": 6.652095276337558,
+        "sourceBuildingGapMetres": 1.6126257060544205,
+        "nearestSourceBuildingIndex": 159,
+        "businessEntranceMetres": 64.99807851623464
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [
+          159
+        ],
+        "status": "straight approach blocked; courtyard pedestrian access needs separate static surface planning",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N1-05-B11",
+      "assetId": "B11",
+      "streetId": "N1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1645.2371397599559,
+        164.66763935197523
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1648.97333163378,
+          167.36780051049328
+        ],
+        [
+          -1647.3341167359065,
+          160.5624368524226
+        ],
+        [
+          -1641.5009478861318,
+          161.96747819345717
+        ],
+        [
+          -1643.1401627840053,
+          168.77284185152786
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1649.5765158163476,
+          167.73681113622163
+        ],
+        [
+          -1647.7031273616349,
+          159.95925266985515
+        ],
+        [
+          -1640.8977637035641,
+          161.59846756772882
+        ],
+        [
+          -1642.771152158277,
+          169.3760260340953
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 7,
+        "depth": 6,
+        "height": 5
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 23,
+      "roadReferenceMap": [
+        -1616.0712955110816,
+        171.69284605714802
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        7,
+        8
+      ],
+      "entryMap": [
+        -1642.3205553350685,
+        165.3701600224925
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 5.220606908550596,
+        "nearestRoadId": "149397509-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 136.80388244425026,
+        "buildingGapMetres": 12.063817019644658,
+        "sourceBuildingGapMetres": 1.2530263853388093,
+        "nearestSourceBuildingIndex": 192,
+        "businessEntranceMetres": 33.20932455148576
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N1-06-B01",
+      "assetId": "B01",
+      "streetId": "N1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1670.1800372549055,
+        199.7826846480696
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1673.7902672050755,
+          203.02748659994532
+        ],
+        [
+          -1671.9168787503627,
+          195.24992813357883
+        ],
+        [
+          -1666.5698073047356,
+          196.53788269619386
+        ],
+        [
+          -1668.4431957594484,
+          204.31544116256035
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1674.3934513876427,
+          203.39649722567367
+        ],
+        [
+          -1672.285889376091,
+          194.6467439510114
+        ],
+        [
+          -1665.9666231221684,
+          196.1688720704655
+        ],
+        [
+          -1668.07418513372,
+          204.9186253451278
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 8,
+        "depth": 5.5,
+        "height": 8,
+        "status": "PM-production-candidate-not-source-measurement-or-native-sprite-footprint"
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 38,
+      "roadReferenceMap": [
+        -1626.674319583668,
+        210.26195131661902
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        7,
+        8
+      ],
+      "entryMap": [
+        -1667.506501532092,
+        200.4266619293771
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 35.809374065539785,
+        "nearestRoadId": "148843958-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 97.88086830438635,
+        "buildingGapMetres": 9.127634039289307,
+        "sourceBuildingGapMetres": 3.8458704562469648,
+        "nearestSourceBuildingIndex": 192,
+        "businessEntranceMetres": 75.0618781772689
+      },
+      "nativeStatus": "read-only-existing-library",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N2-01-B08",
+      "assetId": "B08",
+      "streetId": "N2",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1636.5520178847253,
+        127.58584851561372
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1641.845838458943,
+          132.4823231380322
+        ],
+        [
+          -1639.0357557768739,
+          120.81598543848249
+        ],
+        [
+          -1631.2581973105075,
+          122.68937389319522
+        ],
+        [
+          -1634.0682799925767,
+          134.35571159274497
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1642.4490226415105,
+          132.85133376376055
+        ],
+        [
+          -1639.4047664026025,
+          120.21280125591504
+        ],
+        [
+          -1630.65501312794,
+          122.32036326746687
+        ],
+        [
+          -1633.699269366848,
+          134.9588957753124
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 12,
+        "depth": 8,
+        "height": 7
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 23,
+      "roadReferenceMap": [
+        -1606.4139788275552,
+        134.8452287776256
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        8,
+        9
+      ],
+      "entryMap": [
+        -1632.663238651542,
+        128.5225427429701
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 2.6189579521266735,
+        "nearestRoadId": "1047748330-0",
+        "nearestRoadSegmentIndex": 2,
+        "waterMetres": 172.24155096451398,
+        "buildingGapMetres": 27.51473763093711,
+        "sourceBuildingGapMetres": 5.632719438091665,
+        "nearestSourceBuildingIndex": 164,
+        "businessEntranceMetres": 20.68285343970718
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [
+          163
+        ],
+        "status": "straight approach blocked; courtyard pedestrian access needs separate static surface planning",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N2-02-B09",
+      "assetId": "B09",
+      "streetId": "N2",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1633.618672752111,
+        111.8356587893465
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1640.001774913044,
+          116.9840572590738
+        ],
+        [
+          -1636.957518674136,
+          104.34552475122827
+        ],
+        [
+          -1627.235570591178,
+          106.6872603196192
+        ],
+        [
+          -1630.279826830086,
+          119.32579282746472
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1640.6049590956115,
+          117.35306788480216
+        ],
+        [
+          -1637.3265292998642,
+          103.74234056866081
+        ],
+        [
+          -1626.6323864086105,
+          106.31824969389083
+        ],
+        [
+          -1629.9108162043578,
+          119.92897701003218
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 13,
+        "depth": 10,
+        "height": 8
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 23,
+      "roadReferenceMap": [
+        -1602.508438886645,
+        119.32921260819748
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        8,
+        9
+      ],
+      "entryMap": [
+        -1628.757698710632,
+        113.00652657354196
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 10.855610400070546,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 187.70411289316152,
+        "buildingGapMetres": 3.4991645446919333,
+        "sourceBuildingGapMetres": 4.899618404911377,
+        "nearestSourceBuildingIndex": 165,
+        "businessEntranceMetres": 27.486565485662055
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [
+          165
+        ],
+        "status": "straight approach blocked; courtyard pedestrian access needs separate static surface planning",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N2-03-B02",
+      "assetId": "B02",
+      "streetId": "N2",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1650.6488426050146,
+        124.19033194144687
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1655.2223922182454,
+          128.2316985339891
+        ],
+        [
+          -1652.8806566498545,
+          118.509750451031
+        ],
+        [
+          -1646.0752929917837,
+          120.14896534890464
+        ],
+        [
+          -1648.4170285601747,
+          129.87091343186276
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1655.8255764008127,
+          128.60070915971744
+        ],
+        [
+          -1653.2496672755829,
+          117.90656626846355
+        ],
+        [
+          -1645.4721088092165,
+          119.77995472317629
+        ],
+        [
+          -1648.0480179344463,
+          130.4740976144302
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 10,
+        "depth": 7,
+        "height": 14,
+        "status": "PM-production-candidate-not-source-measurement-or-native-sprite-footprint"
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 38,
+      "roadReferenceMap": [
+        -1606.4139788275552,
+        134.8452287776256
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        8,
+        9
+      ],
+      "entryMap": [
+        -1647.2461607759792,
+        125.00993939038369
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 2.5364097668010475,
+        "nearestRoadId": "1047748330-0",
+        "nearestRoadSegmentIndex": 2,
+        "waterMetres": 174.481046555465,
+        "buildingGapMetres": 6.8486688538616125,
+        "sourceBuildingGapMetres": 20.65206680464891,
+        "nearestSourceBuildingIndex": 164,
+        "businessEntranceMetres": 35.68770379788754
+      },
+      "nativeStatus": "read-only-existing-library",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [
+          163
+        ],
+        "status": "straight approach blocked; courtyard pedestrian access needs separate static surface planning",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "N2-04-B04",
+      "assetId": "B04",
+      "streetId": "N2",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1648.203689965014,
+        110.37964423635816
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1653.9836079433799,
+          115.15903208035711
+        ],
+        [
+          -1651.1735252613107,
+          103.49269438080738
+        ],
+        [
+          -1642.4237719866483,
+          105.60025639235921
+        ],
+        [
+          -1645.2338546687174,
+          117.26659409190894
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1654.586792125947,
+          115.52804270608546
+        ],
+        [
+          -1651.542535887039,
+          102.88951019823993
+        ],
+        [
+          -1641.820587804081,
+          105.23124576663086
+        ],
+        [
+          -1644.864844042989,
+          117.86977827447639
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 12,
+        "depth": 9,
+        "height": 7,
+        "status": "PM-production-candidate-not-source-measurement-or-native-sprite-footprint"
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 38,
+      "roadReferenceMap": [
+        -1602.9966313792588,
+        121.26871462937599
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        8,
+        9
+      ],
+      "entryMap": [
+        -1643.8288133276828,
+        111.43342524213408
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 8.365284317586434,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 2,
+        "waterMetres": 187.41936164446798,
+        "buildingGapMetres": 2.999268976605417,
+        "sourceBuildingGapMetres": 19.985722785339785,
+        "nearestSourceBuildingIndex": 165,
+        "businessEntranceMetres": 39.21029922293694
+      },
+      "nativeStatus": "read-only-existing-library",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [
+          164
+        ],
+        "status": "straight approach blocked; courtyard pedestrian access needs separate static surface planning",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "S1-01-B10",
+      "assetId": "B10",
+      "streetId": "S1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1578.1404049905943,
+        -26.424270588605168
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1583.9203229689601,
+          -21.64488274460622
+        ],
+        [
+          -1581.110240286891,
+          -33.31122044415595
+        ],
+        [
+          -1572.3604870122285,
+          -31.203658432604115
+        ],
+        [
+          -1575.1705696942977,
+          -19.537320733054386
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1584.5235071515274,
+          -21.275872118877864
+        ],
+        [
+          -1581.4792509126194,
+          -33.9144046267234
+        ],
+        [
+          -1571.7573028296613,
+          -31.572669058332473
+        ],
+        [
+          -1574.8015590685693,
+          -18.934136550486933
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 12,
+        "depth": 9,
+        "height": 7
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 3,
+      "roadReferenceMap": [
+        -1566.9601646951926,
+        -23.731274684955597
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        14,
+        15
+      ],
+      "entryMap": [
+        -1573.765528353263,
+        -25.37048958282925
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 2.9020011239219725,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 14,
+        "waterMetres": 77.97675882157765,
+        "buildingGapMetres": 58.78443176916528,
+        "sourceBuildingGapMetres": 1.0199946756507516,
+        "nearestSourceBuildingIndex": 216,
+        "businessEntranceMetres": 103.80935580133213
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "S1-02-B11",
+      "assetId": "B11",
+      "streetId": "S1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1573.624339395661,
+        -39.7350021264717
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1577.3605312694851,
+          -37.03484096795364
+        ],
+        [
+          -1575.7213163716117,
+          -43.84020462602432
+        ],
+        [
+          -1569.888147521837,
+          -42.435163284989756
+        ],
+        [
+          -1571.5273624197105,
+          -35.62979962691908
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1577.9637154520528,
+          -36.665830342225284
+        ],
+        [
+          -1576.09032699734,
+          -44.44338880859177
+        ],
+        [
+          -1569.2849633392693,
+          -42.80417391071811
+        ],
+        [
+          -1571.158351793982,
+          -35.02661544435163
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 7,
+        "depth": 6,
+        "height": 5
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 3,
+      "roadReferenceMap": [
+        -1563.902391312703,
+        -37.39326655808077
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        14,
+        15
+      ],
+      "entryMap": [
+        -1570.7077549707737,
+        -39.03248145595442
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 2.9424521637499312,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 14,
+        "waterMetres": 67.33137910891742,
+        "buildingGapMetres": 4.498167239017306,
+        "sourceBuildingGapMetres": 17.52633546463804,
+        "nearestSourceBuildingIndex": 216,
+        "businessEntranceMetres": 92.36809675834567
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "S1-03-B07",
+      "assetId": "B07",
+      "streetId": "S1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1583.3462874786192,
+        -42.07673769486263
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1588.4059344959978,
+          -38.152457880739945
+        ],
+        [
+          -1586.0641989276069,
+          -47.87440596369805
+        ],
+        [
+          -1578.2866404612405,
+          -46.00101750898531
+        ],
+        [
+          -1580.6283760296315,
+          -36.279069426027206
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1589.0091186785653,
+          -37.78344725501159
+        ],
+        [
+          -1586.4332095533355,
+          -48.477590146265506
+        ],
+        [
+          -1577.683456278673,
+          -46.37002813471367
+        ],
+        [
+          -1580.2593654039028,
+          -35.67588524345975
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 10,
+        "depth": 8,
+        "height": 14
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 12,
+      "roadReferenceMap": [
+        -1563.902391312703,
+        -37.39326655808077
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        14,
+        15
+      ],
+      "entryMap": [
+        -1579.457508245436,
+        -41.14004346750626
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 11.917003336364294,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 14,
+        "waterMetres": 63.52648151476902,
+        "buildingGapMetres": 2.9999999999999054,
+        "sourceBuildingGapMetres": 14.73771160125653,
+        "nearestSourceBuildingIndex": 215,
+        "businessEntranceMetres": 92.11408094564004
+      },
+      "nativeStatus": "current-wave-dependency-not-assumed-ready",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "S1-04-B05",
+      "assetId": "B05",
+      "streetId": "S1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1570.9541181468778,
+        -49.37648097171299
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1574.204212616554,
+          -46.55923303477539
+        ],
+        [
+          -1572.5649977186806,
+          -53.364596692846064
+        ],
+        [
+          -1567.7040236772016,
+          -52.1937289086506
+        ],
+        [
+          -1569.343238575075,
+          -45.38836525057992
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1574.8073967991215,
+          -46.19022240904703
+        ],
+        [
+          -1572.9340083444088,
+          -53.96778087541352
+        ],
+        [
+          -1567.100839494634,
+          -52.562739534378956
+        ],
+        [
+          -1568.9742279493469,
+          -44.78518106801247
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 7,
+        "depth": 5,
+        "height": 7.5,
+        "status": "PM-production-candidate-not-source-measurement-or-native-sprite-footprint"
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 3,
+      "roadReferenceMap": [
+        -1561.7182674680676,
+        -47.15183218174161
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        14,
+        15
+      ],
+      "entryMap": [
+        -1568.5236311261383,
+        -48.79104707961526
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 2.9424521637499312,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 14,
+        "waterMetres": 57.739631798704394,
+        "buildingGapMetres": 2.9986908850124183,
+        "sourceBuildingGapMetres": 21.763406019709272,
+        "nearestSourceBuildingIndex": 397,
+        "businessEntranceMetres": 82.42873662651057
+      },
+      "nativeStatus": "read-only-existing-library",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    },
+    {
+      "id": "S1-05-B03",
+      "assetId": "B03",
+      "streetId": "S1",
+      "zone": "denseUrban",
+      "zoneBasis": {
+        "selectionSHA256": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+        "region": "urban green",
+        "worldBoundsMetresApprox": {
+          "minX": -1947.26,
+          "maxX": -940.64,
+          "minY": -926.24,
+          "maxY": 661.93
+        },
+        "allParcelVerticesInsideGreen": true
+      },
+      "anchorMap": [
+        -1590.729664863219,
+        -27.399726924361666
+      ],
+      "anchorMeaning": "candidate footprint centre; image contact calibration required",
+      "footprintPolygonMap": [
+        [
+          -1594.4658567370432,
+          -24.69956576584361
+        ],
+        [
+          -1592.8266418391697,
+          -31.504929423914284
+        ],
+        [
+          -1586.993472989395,
+          -30.099888082879723
+        ],
+        [
+          -1588.6326878872685,
+          -23.294524424809048
+        ]
+      ],
+      "parcelPolygonMap": [
+        [
+          -1595.0690409196109,
+          -24.330555140115248
+        ],
+        [
+          -1593.195652464898,
+          -32.10811360648174
+        ],
+        [
+          -1586.3902888068274,
+          -30.468898708608084
+        ],
+        [
+          -1588.2636772615401,
+          -22.691340242241598
+        ]
+      ],
+      "candidateDimensionsMetres": {
+        "frontage": 7,
+        "depth": 6,
+        "height": 18,
+        "status": "PM-production-candidate-not-source-measurement-or-native-sprite-footprint"
+      },
+      "candidateSetbackFromOwnRoadEdgeMetres": 17,
+      "roadReferenceMap": [
+        -1567.3969894641198,
+        -21.779561560223428
+      ],
+      "roadId": "149397380-0",
+      "roadNodeRangeInclusive": [
+        14,
+        15
+      ],
+      "entryMap": [
+        -1587.8130804383318,
+        -26.697206253844385
+      ],
+      "rotationPNG": 0,
+      "mirrorPNG": false,
+      "scalePolicy": "positive uniform only, final scale from native ground contact calibration",
+      "staticClearance": {
+        "roadEdgeMetres": 9.029673114091802,
+        "nearestRoadId": "1423252473-0",
+        "nearestRoadSegmentIndex": 4,
+        "waterMetres": 80.04125097593021,
+        "buildingGapMetres": 4.9676391681379215,
+        "sourceBuildingGapMetres": 1.5018643934261406,
+        "nearestSourceBuildingIndex": 216,
+        "businessEntranceMetres": 110.1970896497252
+      },
+      "nativeStatus": "read-only-existing-library",
+      "entryAccessAudit": {
+        "straightGroundApproachToAssignedRoadSourceBuildingBlockers": [],
+        "status": "straight ground approach clear of source buildings only; not a route/POI",
+        "roadGraphUnchanged": true
+      }
+    }
+  ],
+  "groundSurfaces": [
+    {
+      "id": "N1-01-B06-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1635.0210672615146,
+          190.26247704391335
+        ],
+        [
+          -1632.913505249963,
+          181.51272376925107
+        ],
+        [
+          -1626.1081415918923,
+          183.15193866712474
+        ],
+        [
+          -1628.215703603444,
+          191.90169194178702
+        ]
+      ],
+      "containsBuildingId": "N1-01-B06",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 2.353101865856849,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 116.75676816470435,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 1.458207096670869,
+        "nearestSourceBuildingIndex": 159,
+        "businessEntranceMetres": 42.55711890042737
+      }
+    },
+    {
+      "id": "N1-02-B07-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1631.8981183986523,
+          171.48177210879547
+        ],
+        [
+          -1629.3222092734225,
+          160.78762921754154
+        ],
+        [
+          -1620.57245599876,
+          162.8951912290934
+        ],
+        [
+          -1623.1483651239898,
+          173.58933412034733
+        ]
+      ],
+      "containsBuildingId": "N1-02-B07",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 2.3211933560346756,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 135.72446575347536,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 0.5547582037306164,
+        "nearestSourceBuildingIndex": 161,
+        "businessEntranceMetres": 21.55760386574551
+      }
+    },
+    {
+      "id": "N1-03-B05-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1648.6028153981995,
+          190.58903392680435
+        ],
+        [
+          -1646.7294269434867,
+          182.81147546043786
+        ],
+        [
+          -1640.896258093712,
+          184.21651680147244
+        ],
+        [
+          -1642.7696465484248,
+          191.99407526783892
+        ]
+      ],
+      "containsBuildingId": "N1-03-B05",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 16.361927234738705,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 113.97587794188924,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 0.5976578891337887,
+        "nearestSourceBuildingIndex": 160,
+        "businessEntranceMetres": 49.49875197947387
+      }
+    },
+    {
+      "id": "N1-04-B06-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1659.2363242600948,
+          202.93510327389345
+        ],
+        [
+          -1657.1287622485431,
+          194.18534999923116
+        ],
+        [
+          -1650.3233985904724,
+          195.82456489710484
+        ],
+        [
+          -1652.430960602024,
+          204.57431817176712
+        ]
+      ],
+      "containsBuildingId": "N1-04-B06",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 22.342917742957052,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 100.01574267090331,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 1.0956903778667608,
+        "nearestSourceBuildingIndex": 159,
+        "businessEntranceMetres": 64.35724208707605
+      }
+    },
+    {
+      "id": "N1-05-B11-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1649.5765158163476,
+          167.73681113622163
+        ],
+        [
+          -1647.7031273616349,
+          159.95925266985515
+        ],
+        [
+          -1640.8977637035641,
+          161.59846756772882
+        ],
+        [
+          -1642.771152158277,
+          169.3760260340953
+        ]
+      ],
+      "containsBuildingId": "N1-05-B11",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 4.643476068326607,
+        "nearestRoadId": "149397509-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 136.26480865943972,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 0.6762944460333974,
+        "nearestSourceBuildingIndex": 192,
+        "businessEntranceMetres": 32.50529203606999
+      }
+    },
+    {
+      "id": "N1-06-B01-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1674.3934513876427,
+          203.39649722567367
+        ],
+        [
+          -1672.285889376091,
+          194.6467439510114
+        ],
+        [
+          -1665.9666231221684,
+          196.1688720704655
+        ],
+        [
+          -1668.07418513372,
+          204.9186253451278
+        ]
+      ],
+      "containsBuildingId": "N1-06-B01",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 35.21659536765376,
+        "nearestRoadId": "148843958-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 97.33954432645547,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 3.2551423726271467,
+        "nearestSourceBuildingIndex": 192,
+        "businessEntranceMetres": 74.3791930349905
+      }
+    },
+    {
+      "id": "N2-01-B08-parcel",
+      "type": "private-paving",
+      "material": "S01-paving",
+      "polygonMap": [
+        [
+          -1642.4490226415105,
+          132.85133376376055
+        ],
+        [
+          -1639.4047664026025,
+          120.21280125591504
+        ],
+        [
+          -1630.65501312794,
+          122.32036326746687
+        ],
+        [
+          -1633.699269366848,
+          134.9588957753124
+        ]
+      ],
+      "containsBuildingId": "N2-01-B08",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 2.081890647804083,
+        "nearestRoadId": "1047748330-0",
+        "nearestRoadSegmentIndex": 2,
+        "waterMetres": 171.7121577739822,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 5.121115200555004,
+        "nearestSourceBuildingIndex": 164,
+        "businessEntranceMetres": 20.119244112602633
+      }
+    },
+    {
+      "id": "N2-02-B09-parcel",
+      "type": "private-paving",
+      "material": "S01-paving",
+      "polygonMap": [
+        [
+          -1640.6049590956115,
+          117.35306788480216
+        ],
+        [
+          -1637.3265292998642,
+          103.74234056866081
+        ],
+        [
+          -1626.6323864086105,
+          106.31824969389083
+        ],
+        [
+          -1629.9108162043578,
+          119.92897701003218
+        ]
+      ],
+      "containsBuildingId": "N2-02-B09",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 10.322009959677395,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 187.17744320601022,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 4.385449334040771,
+        "nearestSourceBuildingIndex": 165,
+        "businessEntranceMetres": 26.780201266360514
+      }
+    },
+    {
+      "id": "N2-03-B02-parcel",
+      "type": "private-paving",
+      "material": "S01-paving",
+      "polygonMap": [
+        [
+          -1655.8255764008127,
+          128.60070915971744
+        ],
+        [
+          -1653.2496672755829,
+          117.90656626846355
+        ],
+        [
+          -1645.4721088092165,
+          119.77995472317629
+        ],
+        [
+          -1648.0480179344463,
+          130.4740976144302
+        ]
+      ],
+      "containsBuildingId": "N2-03-B02",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 1.9993424624784677,
+        "nearestRoadId": "1047748330-0",
+        "nearestRoadSegmentIndex": 2,
+        "waterMetres": 173.93972257753416,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 20.140462567112483,
+        "nearestSourceBuildingIndex": 164,
+        "businessEntranceMetres": 35.13709947647719
+      }
+    },
+    {
+      "id": "N2-04-B04-parcel",
+      "type": "private-paving",
+      "material": "S01-paving",
+      "polygonMap": [
+        [
+          -1654.586792125947,
+          115.52804270608546
+        ],
+        [
+          -1651.542535887039,
+          102.88951019823993
+        ],
+        [
+          -1641.820587804081,
+          105.23124576663086
+        ],
+        [
+          -1644.864844042989,
+          117.86977827447639
+        ]
+      ],
+      "containsBuildingId": "N2-04-B04",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 7.805102368905959,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 2,
+        "waterMetres": 186.87803766653707,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 19.471553714469415,
+        "nearestSourceBuildingIndex": 165,
+        "businessEntranceMetres": 38.543416043074664
+      }
+    },
+    {
+      "id": "S1-01-B10-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1584.5235071515274,
+          -21.275872118877864
+        ],
+        [
+          -1581.4792509126194,
+          -33.9144046267234
+        ],
+        [
+          -1571.7573028296613,
+          -31.572669058332473
+        ],
+        [
+          -1574.8015590685693,
+          -18.934136550486933
+        ]
+      ],
+      "containsBuildingId": "S1-01-B10",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 2.393976371706094,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 14,
+        "waterMetres": 77.38186759069528,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 0.5185102164812292,
+        "nearestSourceBuildingIndex": 216,
+        "businessEntranceMetres": 103.27386985144514
+      }
+    },
+    {
+      "id": "S1-02-B11-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1577.9637154520528,
+          -36.665830342225284
+        ],
+        [
+          -1576.09032699734,
+          -44.44338880859177
+        ],
+        [
+          -1569.2849633392693,
+          -42.80417391071811
+        ],
+        [
+          -1571.158351793982,
+          -35.02661544435163
+        ]
+      ],
+      "containsBuildingId": "S1-02-B11",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 2.434427411533587,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 14,
+        "waterMetres": 66.73648787803505,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 17.024851005468413,
+        "nearestSourceBuildingIndex": 216,
+        "businessEntranceMetres": 91.82726600732882
+      }
+    },
+    {
+      "id": "S1-03-B07-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1589.0091186785653,
+          -37.78344725501159
+        ],
+        [
+          -1586.4332095533355,
+          -48.477590146265506
+        ],
+        [
+          -1577.683456278673,
+          -46.37002813471367
+        ],
+        [
+          -1580.2593654039028,
+          -35.67588524345975
+        ]
+      ],
+      "containsBuildingId": "S1-03-B07",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 11.408978584148182,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 14,
+        "waterMetres": 62.93159028388665,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 14.10984297846666,
+        "nearestSourceBuildingIndex": 215,
+        "businessEntranceMetres": 91.5307893120209
+      }
+    },
+    {
+      "id": "S1-04-B05-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1574.8073967991215,
+          -46.19022240904703
+        ],
+        [
+          -1572.9340083444088,
+          -53.96778087541352
+        ],
+        [
+          -1567.100839494634,
+          -52.562739534378956
+        ],
+        [
+          -1568.9742279493469,
+          -44.78518106801247
+        ]
+      ],
+      "containsBuildingId": "S1-04-B05",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 2.434427411533817,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 14,
+        "waterMetres": 57.144740567822026,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 21.056370881404256,
+        "nearestSourceBuildingIndex": 397,
+        "businessEntranceMetres": 81.88232405220299
+      }
+    },
+    {
+      "id": "S1-05-B03-parcel",
+      "type": "residential-garden-base",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1595.0690409196109,
+          -24.330555140115248
+        ],
+        [
+          -1593.195652464898,
+          -32.10811360648174
+        ],
+        [
+          -1586.3902888068274,
+          -30.468898708608084
+        ],
+        [
+          -1588.2636772615401,
+          -22.691340242241598
+        ]
+      ],
+      "containsBuildingId": "S1-05-B03",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 8.463861553707245,
+        "nearestRoadId": "1423252473-0",
+        "nearestRoadSegmentIndex": 4,
+        "waterMetres": 79.44635974504786,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 1.0018643934261635,
+        "nearestSourceBuildingIndex": 216,
+        "businessEntranceMetres": 109.60858101503759
+      }
+    },
+    {
+      "id": "N1-court",
+      "type": "garden-courtyard",
+      "material": "neutral-grass",
+      "polygonMap": [
+        [
+          -1647.618221640324,
+          177.4606736485695
+        ],
+        [
+          -1646.2131802992894,
+          171.62750479879466
+        ],
+        [
+          -1642.324401066106,
+          172.56419902615104
+        ],
+        [
+          -1643.7294424071406,
+          178.39736787592588
+        ]
+      ],
+      "staticClearance": {
+        "roadEdgeMetres": 16.185825773557006,
+        "nearestRoadId": "149397509-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 127.20514199772515,
+        "buildingGapMetres": 2.994907938550119,
+        "sourceBuildingGapMetres": 1.52852805760842,
+        "nearestSourceBuildingIndex": 161,
+        "businessEntranceMetres": 40.9965094143501
+      },
+      "vehicularAccess": "not asserted; no new road or driveway; parked props only",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 16.185825773557006,
+        "nearestRoadId": "149397509-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 127.20514199772515,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 1.52852805760842,
+        "nearestSourceBuildingIndex": 161,
+        "businessEntranceMetres": 40.9965094143501
+      }
+    },
+    {
+      "id": "N2-court",
+      "type": "civic-plaza",
+      "material": "S01-paving",
+      "polygonMap": [
+        [
+          -1648.1634464542813,
+          100.10403163148752
+        ],
+        [
+          -1646.7584051132467,
+          94.27086278171265
+        ],
+        [
+          -1638.9808466468803,
+          96.14425123642539
+        ],
+        [
+          -1640.3858879879149,
+          101.97742008620025
+        ]
+      ],
+      "staticClearance": {
+        "roadEdgeMetres": 2.5466783190643127,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 196.10879243711472,
+        "buildingGapMetres": 3.4993211925622245,
+        "sourceBuildingGapMetres": 14.913067549996047,
+        "nearestSourceBuildingIndex": 168,
+        "businessEntranceMetres": 47.53800293692977
+      },
+      "vehicularAccess": "not asserted; no new road or driveway; parked props only",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 2.5466783190643127,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 196.10879243711472,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 14.913067549996047,
+        "nearestSourceBuildingIndex": 168,
+        "businessEntranceMetres": 47.53800293692977
+      }
+    },
+    {
+      "id": "S1-court",
+      "type": "service-parking-court",
+      "material": "S01-paving",
+      "polygonMap": [
+        [
+          -1626.04721805179,
+          -25.62137100358136
+        ],
+        [
+          -1623.705482483399,
+          -35.34331908653946
+        ],
+        [
+          -1615.9279240170326,
+          -33.46993063182672
+        ],
+        [
+          -1618.2696595854236,
+          -23.747982548868613
+        ]
+      ],
+      "staticClearance": {
+        "roadEdgeMetres": 9.562013639993973,
+        "nearestRoadId": "1423252473-0",
+        "nearestRoadSegmentIndex": 4,
+        "waterMetres": 73.92674355893422,
+        "buildingGapMetres": 22.419097920344907,
+        "sourceBuildingGapMetres": 24.959955441406446,
+        "nearestSourceBuildingIndex": 215,
+        "businessEntranceMetres": 122.52155461908566
+      },
+      "vehicularAccess": "not asserted; no new road or driveway; parked props only",
+      "roadWaterSourceClearance": {
+        "roadEdgeMetres": 9.562013639993973,
+        "nearestRoadId": "1423252473-0",
+        "nearestRoadSegmentIndex": 4,
+        "waterMetres": 73.92674355893422,
+        "buildingGapMetres": 9999,
+        "sourceBuildingGapMetres": 24.959955441406446,
+        "nearestSourceBuildingIndex": 215,
+        "businessEntranceMetres": 122.52155461908566
+      }
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "N1-tree-0",
+      "assetId": "T01",
+      "anchorMap": [
+        -1645.3928237555253,
+        176.76238699229273
+      ],
+      "groundRadiusCandidateMetres": 0.9,
+      "role": "courtyard planting",
+      "staticClearance": {
+        "roadEdgeMetres": 20.215443587374892,
+        "nearestRoadId": "149397509-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 127.59263591411283,
+        "buildingGapMetres": 5.793889526260186,
+        "sourceBuildingGapMetres": 2.6851609063029356,
+        "nearestSourceBuildingIndex": 161,
+        "businessEntranceMetres": 44.95821096673707
+      }
+    },
+    {
+      "id": "N1-tree-1",
+      "assetId": "T02",
+      "anchorMap": [
+        -1644.5497989509047,
+        173.2624856824278
+      ],
+      "groundRadiusCandidateMetres": 0.9,
+      "role": "courtyard planting",
+      "staticClearance": {
+        "roadEdgeMetres": 16.666962203385527,
+        "nearestRoadId": "149397509-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 131.1800999295722,
+        "buildingGapMetres": 3.794907938550098,
+        "sourceBuildingGapMetres": 2.6327769288399523,
+        "nearestSourceBuildingIndex": 161,
+        "businessEntranceMetres": 41.792602120245355
+      }
+    },
+    {
+      "id": "N2-tree-0",
+      "assetId": "T01",
+      "anchorMap": [
+        -1643.993658952891,
+        99.87409208888891
+      ],
+      "groundRadiusCandidateMetres": 0.9,
+      "role": "courtyard planting",
+      "staticClearance": {
+        "roadEdgeMetres": 6.653059478765495,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 201.0060536485722,
+        "buildingGapMetres": 4.299321192562189,
+        "sourceBuildingGapMetres": 19.859469417238984,
+        "nearestSourceBuildingIndex": 167,
+        "businessEntranceMetres": 50.013156773313376
+      }
+    },
+    {
+      "id": "N2-tree-1",
+      "assetId": "T02",
+      "anchorMap": [
+        -1643.1506341482705,
+        96.37419077902399
+      ],
+      "groundRadiusCandidateMetres": 0.9,
+      "role": "courtyard planting",
+      "staticClearance": {
+        "roadEdgeMetres": 3.0617965470779724,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 197.82448417657875,
+        "buildingGapMetres": 7.8993211925622155,
+        "sourceBuildingGapMetres": 17.44957079953526,
+        "nearestSourceBuildingIndex": 168,
+        "businessEntranceMetres": 52.48141250427311
+      }
+    },
+    {
+      "id": "N2-car",
+      "assetId": "V01",
+      "anchorMap": [
+        -1641.627756933989,
+        98.59248854763464
+      ],
+      "candidateFootprintPolygonMap": [
+        [
+          -1642.9944967308174,
+          100.42334144390067
+        ],
+        [
+          -1642.0109677920932,
+          96.34012324905827
+        ],
+        [
+          -1640.2610171371607,
+          96.76163565136862
+        ],
+        [
+          -1641.244546075885,
+          100.84485384621102
+        ]
+      ],
+      "orientationStatus": "requires actual V01/V02 native direction check; parked-only; do not rotate PNG",
+      "role": "parked static decoration",
+      "staticClearance": {
+        "roadEdgeMetres": 3.7995960574385697,
+        "nearestRoadId": "1046196059-0",
+        "nearestRoadSegmentIndex": 1,
+        "waterMetres": 199.2905915295226,
+        "buildingGapMetres": 4.899321192562214,
+        "sourceBuildingGapMetres": 16.329306625900937,
+        "nearestSourceBuildingIndex": 168,
+        "businessEntranceMetres": 48.95456243330571
+      }
+    },
+    {
+      "id": "S1-tree-0",
+      "assetId": "T01",
+      "anchorMap": [
+        -1621.6900917049286,
+        -26.629066392816608
+      ],
+      "groundRadiusCandidateMetres": 0.9,
+      "role": "courtyard planting",
+      "staticClearance": {
+        "roadEdgeMetres": 13.636908211805515,
+        "nearestRoadId": "1423252473-0",
+        "nearestRoadSegmentIndex": 4,
+        "waterMetres": 81.67212574405191,
+        "buildingGapMetres": 26.266875417586167,
+        "sourceBuildingGapMetres": 30.786819814003792,
+        "nearestSourceBuildingIndex": 216,
+        "businessEntranceMetres": 130.26793017944004
+      }
+    },
+    {
+      "id": "S1-tree-1",
+      "assetId": "T02",
+      "anchorMap": [
+        -1620.285050363894,
+        -32.46223524259147
+      ],
+      "groundRadiusCandidateMetres": 0.9,
+      "role": "courtyard planting",
+      "staticClearance": {
+        "roadEdgeMetres": 12.78661386566203,
+        "nearestRoadId": "1423252473-0",
+        "nearestRoadSegmentIndex": 4,
+        "waterMetres": 76.12191350481118,
+        "buildingGapMetres": 26.01909792034501,
+        "sourceBuildingGapMetres": 26.815228818771384,
+        "nearestSourceBuildingIndex": 215,
+        "businessEntranceMetres": 124.82959105464704
+      }
+    },
+    {
+      "id": "S1-car",
+      "assetId": "V02",
+      "anchorMap": [
+        -1619.0431814178196,
+        -29.077303704025855
+      ],
+      "candidateFootprintPolygonMap": [
+        [
+          -1620.409921214648,
+          -27.24645080775984
+        ],
+        [
+          -1619.4263922759237,
+          -31.32966900260224
+        ],
+        [
+          -1617.6764416209912,
+          -30.90815660029187
+        ],
+        [
+          -1618.6599705597155,
+          -26.82493840544947
+        ]
+      ],
+      "orientationStatus": "requires actual V01/V02 native direction check; parked-only; do not rotate PNG",
+      "role": "parked static decoration",
+      "staticClearance": {
+        "roadEdgeMetres": 11.061887376682224,
+        "nearestRoadId": "1423252473-0",
+        "nearestRoadSegmentIndex": 4,
+        "waterMetres": 78.54673913487342,
+        "buildingGapMetres": 24.019097920344937,
+        "sourceBuildingGapMetres": 28.027296451183386,
+        "nearestSourceBuildingIndex": 215,
+        "businessEntranceMetres": 125.6168402249166
+      }
+    },
+    {
+      "id": "N1-lamp-12",
+      "assetId": "L-near",
+      "anchorMap": [
+        -1632.392797993806,
+        205.80030559133678
+      ],
+      "groundRadiusCandidateMetres": 0.25,
+      "staticClearance": {
+        "roadEdgeMetres": 2.438738492909205,
+        "nearestRoadId": "149397380-0",
+        "nearestRoadSegmentIndex": 7,
+        "waterMetres": 102.04416128083989,
+        "buildingGapMetres": 14.740325083245203,
+        "sourceBuildingGapMetres": 1.5465750186743767,
+        "nearestSourceBuildingIndex": 159,
+        "businessEntranceMetres": 65.80378689342872
+      },
+      "role": "west verge; use existing inward lamp candidate"
+    }
+  ],
+  "existingBusinessEntrances": [
+    {
+      "sourcePOIIndex": 0,
+      "originalPOI": {
+        "name": "榕树街食堂",
+        "node": "1623821046",
+        "kind": "restaurant"
+      },
+      "anchorMap": [
+        -1540.46,
+        -129.99
+      ],
+      "preserved": true
+    },
+    {
+      "sourcePOIIndex": 6,
+      "originalPOI": {
+        "name": "晴川广场",
+        "node": "9657208284",
+        "kind": "office"
+      },
+      "anchorMap": [
+        -1614.89,
+        142.1
+      ],
+      "preserved": true
+    }
+  ],
+  "orientationGaps": [
+    {
+      "roadId": "1046196059-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "9634601487",
+            "9634601488"
+          ],
+          "projectedFrontageDeg": -128.77914805847266,
+          "assetDifferenceDegModulo180": 79.70721463037714
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "9634601488",
+            "9621089055"
+          ],
+          "projectedFrontageDeg": -128.7526667997335,
+          "assetDifferenceDegModulo180": 79.73369588911629
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "9621089055",
+            "9657208286"
+          ],
+          "projectedFrontageDeg": 144.45582537365456,
+          "assetDifferenceDegModulo180": -7.057811937495671
+        },
+        {
+          "nodeRangeInclusive": [
+            3,
+            4
+          ],
+          "nodeIds": [
+            "9657208286",
+            "9621089054"
+          ],
+          "projectedFrontageDeg": 144.46620002805295,
+          "assetDifferenceDegModulo180": -7.047437283097224
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "1046196060-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "4842111317",
+            "11055843372"
+          ],
+          "projectedFrontageDeg": -141.98269043471242,
+          "assetDifferenceDegModulo180": 66.50367225413737
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "11055843372",
+            "9621089059"
+          ],
+          "projectedFrontageDeg": -136.81965550614265,
+          "assetDifferenceDegModulo180": 71.66670718270714
+        },
+        {
+          "nodeRangeInclusive": [
+            3,
+            4
+          ],
+          "nodeIds": [
+            "9621089059",
+            "11055843369"
+          ],
+          "projectedFrontageDeg": -135.10422873855308,
+          "assetDifferenceDegModulo180": 73.38213395029672
+        },
+        {
+          "nodeRangeInclusive": [
+            4,
+            5
+          ],
+          "nodeIds": [
+            "11055843369",
+            "9621089061"
+          ],
+          "projectedFrontageDeg": -131.45585505137183,
+          "assetDifferenceDegModulo180": 77.03050763747797
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "1047748330-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "9657208284",
+            "9657208285"
+          ],
+          "projectedFrontageDeg": -130.61520783317346,
+          "assetDifferenceDegModulo180": 77.87115485567634
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "9657208285",
+            "9657208286"
+          ],
+          "projectedFrontageDeg": -119.91117262026849,
+          "assetDifferenceDegModulo180": 88.57519006858132
+        },
+        {
+          "nodeRangeInclusive": [
+            3,
+            4
+          ],
+          "nodeIds": [
+            "9657208286",
+            "9657208287"
+          ],
+          "projectedFrontageDeg": -123.64994163009317,
+          "assetDifferenceDegModulo180": 84.83642105875663
+        },
+        {
+          "nodeRangeInclusive": [
+            4,
+            5
+          ],
+          "nodeIds": [
+            "9657208287",
+            "9657208288"
+          ],
+          "projectedFrontageDeg": -131.2709484977223,
+          "assetDifferenceDegModulo180": 77.21541419112751
+        },
+        {
+          "nodeRangeInclusive": [
+            5,
+            6
+          ],
+          "nodeIds": [
+            "9657208288",
+            "9657208289"
+          ],
+          "projectedFrontageDeg": -133.3602108847083,
+          "assetDifferenceDegModulo180": 75.1261518041415
+        },
+        {
+          "nodeRangeInclusive": [
+            6,
+            7
+          ],
+          "nodeIds": [
+            "9657208289",
+            "9657208290"
+          ],
+          "projectedFrontageDeg": -134.95103938719782,
+          "assetDifferenceDegModulo180": 73.53532330165197
+        },
+        {
+          "nodeRangeInclusive": [
+            7,
+            8
+          ],
+          "nodeIds": [
+            "9657208290",
+            "9657208291"
+          ],
+          "projectedFrontageDeg": -108.40834735127532,
+          "assetDifferenceDegModulo180": -79.92198466242553
+        },
+        {
+          "nodeRangeInclusive": [
+            8,
+            9
+          ],
+          "nodeIds": [
+            "9657208291",
+            "9657208292"
+          ],
+          "projectedFrontageDeg": -84.5079093731976,
+          "assetDifferenceDegModulo180": -56.021546684347804
+        },
+        {
+          "nodeRangeInclusive": [
+            9,
+            10
+          ],
+          "nodeIds": [
+            "9657208292",
+            "9657208293"
+          ],
+          "projectedFrontageDeg": -110.33809037290345,
+          "assetDifferenceDegModulo180": -81.85172768405366
+        },
+        {
+          "nodeRangeInclusive": [
+            10,
+            11
+          ],
+          "nodeIds": [
+            "9657208293",
+            "9634601495"
+          ],
+          "projectedFrontageDeg": -134.3353495196297,
+          "assetDifferenceDegModulo180": 74.1510131692201
+        },
+        {
+          "nodeRangeInclusive": [
+            11,
+            12
+          ],
+          "nodeIds": [
+            "9634601495",
+            "9634601494"
+          ],
+          "projectedFrontageDeg": -136.74572395984475,
+          "assetDifferenceDegModulo180": 71.74063872900504
+        },
+        {
+          "nodeRangeInclusive": [
+            12,
+            13
+          ],
+          "nodeIds": [
+            "9634601494",
+            "9634601493"
+          ],
+          "projectedFrontageDeg": -75.36192990062513,
+          "assetDifferenceDegModulo180": -46.875567211775326
+        },
+        {
+          "nodeRangeInclusive": [
+            13,
+            14
+          ],
+          "nodeIds": [
+            "9634601493",
+            "9634601492"
+          ],
+          "projectedFrontageDeg": -102.7466924667886,
+          "assetDifferenceDegModulo180": -74.26032977793881
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "1148703580-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            4,
+            5
+          ],
+          "nodeIds": [
+            "1623821051",
+            "1623821046"
+          ],
+          "projectedFrontageDeg": -131.8860587873791,
+          "assetDifferenceDegModulo180": 76.60030390147068
+        },
+        {
+          "nodeRangeInclusive": [
+            5,
+            6
+          ],
+          "nodeIds": [
+            "1623821046",
+            "5342137756"
+          ],
+          "projectedFrontageDeg": -138.2112848789328,
+          "assetDifferenceDegModulo180": 70.27507780991701
+        },
+        {
+          "nodeRangeInclusive": [
+            6,
+            7
+          ],
+          "nodeIds": [
+            "5342137756",
+            "1623821045"
+          ],
+          "projectedFrontageDeg": -138.2711493034003,
+          "assetDifferenceDegModulo180": 70.21521338544949
+        },
+        {
+          "nodeRangeInclusive": [
+            7,
+            8
+          ],
+          "nodeIds": [
+            "1623821045",
+            "5342137751"
+          ],
+          "projectedFrontageDeg": -140.21217389937638,
+          "assetDifferenceDegModulo180": 68.27418878947341
+        },
+        {
+          "nodeRangeInclusive": [
+            8,
+            9
+          ],
+          "nodeIds": [
+            "5342137751",
+            "5339969905"
+          ],
+          "projectedFrontageDeg": -140.32614439664565,
+          "assetDifferenceDegModulo180": 68.16021829220415
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "1189828549-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1276631237",
+            "8772156803"
+          ],
+          "projectedFrontageDeg": 41.75859130393549,
+          "assetDifferenceDegModulo180": 70.2449539927853
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "8772156803",
+            "1623821904"
+          ],
+          "projectedFrontageDeg": 43.65368953425679,
+          "assetDifferenceDegModulo180": 72.14005222310658
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "1623821904",
+            "1623821926"
+          ],
+          "projectedFrontageDeg": 42.17754906152389,
+          "assetDifferenceDegModulo180": 70.6639117503737
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "1423252473-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821363",
+            "13081351397"
+          ],
+          "projectedFrontageDeg": -122.5702266133599,
+          "assetDifferenceDegModulo180": 85.9161360754899
+        },
+        {
+          "nodeRangeInclusive": [
+            3,
+            4
+          ],
+          "nodeIds": [
+            "13081351398",
+            "13081365519"
+          ],
+          "projectedFrontageDeg": -122.5382192524959,
+          "assetDifferenceDegModulo180": 85.94814343635389
+        },
+        {
+          "nodeRangeInclusive": [
+            4,
+            5
+          ],
+          "nodeIds": [
+            "13081365519",
+            "13081365518"
+          ],
+          "projectedFrontageDeg": -36.275296921052814,
+          "assetDifferenceDegModulo180": -7.788934232203019
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "1423252474-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "13081365519",
+            "13081365520"
+          ],
+          "projectedFrontageDeg": -179.80577662754834,
+          "assetDifferenceDegModulo180": 28.680586061301454
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "13081365520",
+            "13081365521"
+          ],
+          "projectedFrontageDeg": 145.38511973267256,
+          "assetDifferenceDegModulo180": -6.128517578477613
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "148843958-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "9621089061",
+            "5342488732"
+          ],
+          "projectedFrontageDeg": -138.97584518775707,
+          "assetDifferenceDegModulo180": 69.51051750109272
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "5342488732",
+            "1623821824"
+          ],
+          "projectedFrontageDeg": -136.8525049544427,
+          "assetDifferenceDegModulo180": 71.63385773440709
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "1623821824",
+            "8772156790"
+          ],
+          "projectedFrontageDeg": -138.9361008186363,
+          "assetDifferenceDegModulo180": 69.55026187021349
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149396459-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "3296551285",
+            "5342134882"
+          ],
+          "projectedFrontageDeg": -41.41227665627087,
+          "assetDifferenceDegModulo180": -12.925913967421067
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "1623821128",
+            "1623821105"
+          ],
+          "projectedFrontageDeg": -44.24194852274822,
+          "assetDifferenceDegModulo180": -15.755585833898408
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149396505-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821435",
+            "9634601495"
+          ],
+          "projectedFrontageDeg": 142.5808952449999,
+          "assetDifferenceDegModulo180": -8.932742066150297
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "9634601495",
+            "1623821778"
+          ],
+          "projectedFrontageDeg": 141.64018571680856,
+          "assetDifferenceDegModulo180": -9.873451594341645
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149396705-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821431",
+            "5340002119"
+          ],
+          "projectedFrontageDeg": -127.02056197119465,
+          "assetDifferenceDegModulo180": 81.46580071765516
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "5340002119",
+            "3041704320"
+          ],
+          "projectedFrontageDeg": -124.62122521836741,
+          "assetDifferenceDegModulo180": 83.86513747048238
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "3041704320",
+            "9623200892"
+          ],
+          "projectedFrontageDeg": -139.30431773651995,
+          "assetDifferenceDegModulo180": 69.18204495232985
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149396750-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821721",
+            "11055843367"
+          ],
+          "projectedFrontageDeg": 141.36246137855244,
+          "assetDifferenceDegModulo180": -10.151175932597766
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149396761-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821105",
+            "1623821066"
+          ],
+          "projectedFrontageDeg": -46.83428096221725,
+          "assetDifferenceDegModulo180": -18.34791827336744
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397005-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "1623821375",
+            "5342500864"
+          ],
+          "projectedFrontageDeg": -137.95794745567213,
+          "assetDifferenceDegModulo180": 70.52841523317767
+        },
+        {
+          "nodeRangeInclusive": [
+            4,
+            5
+          ],
+          "nodeIds": [
+            "1623821364",
+            "5342487515"
+          ],
+          "projectedFrontageDeg": -134.3219197871622,
+          "assetDifferenceDegModulo180": 74.16444290168761
+        },
+        {
+          "nodeRangeInclusive": [
+            5,
+            6
+          ],
+          "nodeIds": [
+            "5342487515",
+            "1623821363"
+          ],
+          "projectedFrontageDeg": -134.78564831050505,
+          "assetDifferenceDegModulo180": 73.70071437834474
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397031-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "5340002108",
+            "1623821778"
+          ],
+          "projectedFrontageDeg": 42.22894765010903,
+          "assetDifferenceDegModulo180": 70.71531033895883
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397380-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            5,
+            6
+          ],
+          "nodeIds": [
+            "9621089061",
+            "5342488729"
+          ],
+          "projectedFrontageDeg": -23.625007191239362,
+          "assetDifferenceDegModulo180": 4.861355497610447
+        },
+        {
+          "nodeRangeInclusive": [
+            16,
+            17
+          ],
+          "nodeIds": [
+            "1623821237",
+            "1623821126"
+          ],
+          "projectedFrontageDeg": -39.99778623460166,
+          "assetDifferenceDegModulo180": -11.511423545751853
+        },
+        {
+          "nodeRangeInclusive": [
+            17,
+            18
+          ],
+          "nodeIds": [
+            "1623821126",
+            "1623821122"
+          ],
+          "projectedFrontageDeg": -53.82657132948889,
+          "assetDifferenceDegModulo180": -25.34020864063909
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397397-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821824",
+            "5340002113"
+          ],
+          "projectedFrontageDeg": -42.786621423925695,
+          "assetDifferenceDegModulo180": -14.300258735075886
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "5340002113",
+            "1623821778"
+          ],
+          "projectedFrontageDeg": -38.36035290136514,
+          "assetDifferenceDegModulo180": -9.873990212515338
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397424-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1619059585",
+            "8847865244"
+          ],
+          "projectedFrontageDeg": 139.1809944861404,
+          "assetDifferenceDegModulo180": -12.33264282500977
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "8847865244",
+            "1623821987"
+          ],
+          "projectedFrontageDeg": 138.34140146210493,
+          "assetDifferenceDegModulo180": -13.17223584904525
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397463-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821696",
+            "1623821721"
+          ],
+          "projectedFrontageDeg": -143.1388384977234,
+          "assetDifferenceDegModulo180": 65.34752419112638
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397509-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821778",
+            "9621089054"
+          ],
+          "projectedFrontageDeg": 45.41788609684624,
+          "assetDifferenceDegModulo180": 73.90424878569604
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "9621089054",
+            "5340002117"
+          ],
+          "projectedFrontageDeg": 45.41477759228747,
+          "assetDifferenceDegModulo180": 73.90114028113726
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "5340002117",
+            "1623821663"
+          ],
+          "projectedFrontageDeg": 45.26052137057976,
+          "assetDifferenceDegModulo180": 73.74688405942956
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397519-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821577",
+            "5342488723"
+          ],
+          "projectedFrontageDeg": 49.120039564650526,
+          "assetDifferenceDegModulo180": 77.60640225350033
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "5342488723",
+            "1623821583"
+          ],
+          "projectedFrontageDeg": 48.5027976546572,
+          "assetDifferenceDegModulo180": 76.989160343507
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "1623821583",
+            "1623821610"
+          ],
+          "projectedFrontageDeg": 52.957111895501825,
+          "assetDifferenceDegModulo180": 81.44347458435163
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397540-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821128",
+            "5339969904"
+          ],
+          "projectedFrontageDeg": 34.382490066838024,
+          "assetDifferenceDegModulo180": 62.86885275568784
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "5339969904",
+            "5340005711"
+          ],
+          "projectedFrontageDeg": 38.7791833971424,
+          "assetDifferenceDegModulo180": 67.26554608599218
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "5340005711",
+            "8493394273"
+          ],
+          "projectedFrontageDeg": 45.65841009422756,
+          "assetDifferenceDegModulo180": 74.14477278307737
+        },
+        {
+          "nodeRangeInclusive": [
+            4,
+            5
+          ],
+          "nodeIds": [
+            "1623821122",
+            "5342134879"
+          ],
+          "projectedFrontageDeg": 47.146307679698396,
+          "assetDifferenceDegModulo180": 75.63267036854819
+        },
+        {
+          "nodeRangeInclusive": [
+            5,
+            6
+          ],
+          "nodeIds": [
+            "5342134879",
+            "1623821139"
+          ],
+          "projectedFrontageDeg": 45.01187486120173,
+          "assetDifferenceDegModulo180": 73.49823755005153
+        },
+        {
+          "nodeRangeInclusive": [
+            6,
+            7
+          ],
+          "nodeIds": [
+            "1623821139",
+            "1623821162"
+          ],
+          "projectedFrontageDeg": 56.58203842440735,
+          "assetDifferenceDegModulo180": 85.06840111325715
+        },
+        {
+          "nodeRangeInclusive": [
+            7,
+            8
+          ],
+          "nodeIds": [
+            "1623821162",
+            "1623821185"
+          ],
+          "projectedFrontageDeg": 52.167396734653444,
+          "assetDifferenceDegModulo180": 80.65375942350323
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397579-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            3,
+            4
+          ],
+          "nodeIds": [
+            "7926914754",
+            "5342487511"
+          ],
+          "projectedFrontageDeg": -133.93746467816507,
+          "assetDifferenceDegModulo180": 74.54889801068472
+        },
+        {
+          "nodeRangeInclusive": [
+            4,
+            5
+          ],
+          "nodeIds": [
+            "5342487511",
+            "1623821237"
+          ],
+          "projectedFrontageDeg": -133.712771293185,
+          "assetDifferenceDegModulo180": 74.7735913956648
+        },
+        {
+          "nodeRangeInclusive": [
+            5,
+            6
+          ],
+          "nodeIds": [
+            "1623821237",
+            "5340005706"
+          ],
+          "projectedFrontageDeg": -135.91365762869304,
+          "assetDifferenceDegModulo180": 72.57270506015675
+        },
+        {
+          "nodeRangeInclusive": [
+            6,
+            7
+          ],
+          "nodeIds": [
+            "5340005706",
+            "3296551285"
+          ],
+          "projectedFrontageDeg": -133.93500616653492,
+          "assetDifferenceDegModulo180": 74.55135652231488
+        },
+        {
+          "nodeRangeInclusive": [
+            7,
+            8
+          ],
+          "nodeIds": [
+            "3296551285",
+            "1623821182"
+          ],
+          "projectedFrontageDeg": -136.49985206512906,
+          "assetDifferenceDegModulo180": 71.98651062372073
+        },
+        {
+          "nodeRangeInclusive": [
+            8,
+            9
+          ],
+          "nodeIds": [
+            "1623821182",
+            "7926914760"
+          ],
+          "projectedFrontageDeg": -138.12030182960936,
+          "assetDifferenceDegModulo180": 70.36606085924043
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "149397598-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            5,
+            6
+          ],
+          "nodeIds": [
+            "3296562921",
+            "1623821128"
+          ],
+          "projectedFrontageDeg": 35.75334221997443,
+          "assetDifferenceDegModulo180": 64.23970490882422
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "277481069-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "5340015720",
+            "1623821045"
+          ],
+          "projectedFrontageDeg": -62.94106991521491,
+          "assetDifferenceDegModulo180": -34.45470722636511
+        },
+        {
+          "nodeRangeInclusive": [
+            1,
+            2
+          ],
+          "nodeIds": [
+            "1623821045",
+            "5342137754"
+          ],
+          "projectedFrontageDeg": -59.829531389208086,
+          "assetDifferenceDegModulo180": -31.343168700358284
+        },
+        {
+          "nodeRangeInclusive": [
+            2,
+            3
+          ],
+          "nodeIds": [
+            "5342137754",
+            "1623821016"
+          ],
+          "projectedFrontageDeg": -60.0222658562007,
+          "assetDifferenceDegModulo180": -31.535903167350895
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "277481070-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            0,
+            1
+          ],
+          "nodeIds": [
+            "1623821104",
+            "5340015720"
+          ],
+          "projectedFrontageDeg": -60.62370286639054,
+          "assetDifferenceDegModulo180": -32.137340177540736
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    },
+    {
+      "roadId": "844437067-0",
+      "segments": [
+        {
+          "nodeRangeInclusive": [
+            7,
+            8
+          ],
+          "nodeIds": [
+            "8772156791",
+            "1619059585"
+          ],
+          "projectedFrontageDeg": 40.826083513459615,
+          "assetDifferenceDegModulo180": 69.31244620230942
+        },
+        {
+          "nodeRangeInclusive": [
+            8,
+            9
+          ],
+          "nodeIds": [
+            "1619059585",
+            "5342488733"
+          ],
+          "projectedFrontageDeg": 42.493825443951295,
+          "assetDifferenceDegModulo180": 70.98018813280109
+        },
+        {
+          "nodeRangeInclusive": [
+            9,
+            10
+          ],
+          "nodeIds": [
+            "5342488733",
+            "1276631237"
+          ],
+          "projectedFrontageDeg": 41.3119716055276,
+          "assetDifferenceDegModulo180": 69.79833429437741
+        }
+      ],
+      "action": "new native frontage direction if buildings later face this road; no rotation/mirror/shear; no placement assigned here"
+    }
+  ],
+  "unplacedCourtyardGaps": [],
+  "areaPolicy": "住宅约50%仅全县蓝内总体用地方向；不按本块楼数强凑。三个街段形成两类空间：住宅庭院/服务混合，商业公共设施。",
+  "resourcePolicy": {
+    "runtimeMaxEdge": 280,
+    "sharedTexturePerAssetId": true,
+    "nativeMastersExcludedFromPackage": true,
+    "referencedBuildingIds": [
+      "B01",
+      "B02",
+      "B03",
+      "B04",
+      "B05",
+      "B06",
+      "B07",
+      "B08",
+      "B09",
+      "B10",
+      "B11"
+    ],
+    "dependencies": "B01..B05 read-only runtime-280 library; B06..B11/V01/V02 current-wave candidate pending actual provenance/runtime/contact check; no native generation by planning role",
+    "noPackageBuilt": true
+  },
+  "cameraSuggestions": {
+    "projectionId": "orthographic-e62.5-a45-v1",
+    "elevationDeg": 62.5,
+    "azimuthDeg": 45,
+    "focusMap": [
+      -1618.4648904242595,
+      77.69913386252655
+    ],
+    "overviewWorldWidthCandidate": 293.80539753466405,
+    "closeWorldWidthCandidate": 65,
+    "note": "geometry-only suggestions; no browser/render/game validation; camera cannot rotate PNG",
+    "overviewWorldHeightCandidate": 149.27816709417502,
+    "fitBasis": "all planned footprint corners + candidate roof heights under fixed projection; sprite overhang not calibrated"
+  },
+  "staticCheckPolicy": {
+    "roadWidthApplied": "all local source segments half-width capsule; line/polygon exact double calculations",
+    "waterLinesSafetyRadiusMetres": 3,
+    "waterAreaBankMarginMetres": 3,
+    "buildingGapTargetMetres": 2.5,
+    "sourceBuildingGapTargetMetres": 1,
+    "businessEntranceRadiusMetres": 6,
+    "rejectedCandidatePositions": 2683,
+    "scope": "static geometry only; candidate footprints/contact estimates, not precise native calibration; no runtime occlusion or route claim",
+    "noNewRoadBridgePOI": true
+  },
+  "resourceDependencies": [
+    {
+      "assetId": "B01",
+      "sharedTextureKey": "B01",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/assets/rt-B01-road-aligned-native-v1.png",
+          "sha256": "c31dae925bf7dd0f1ff33db9c8ccad6166cba39236619b8d926990d2a41c468f",
+          "dimensions": [
+            224,
+            280
+          ],
+          "bytes": 97914,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": [
+        0.5011325028312571,
+        0.711121157323689
+      ],
+      "anchorStatus": "manual/inferred candidate from revision005",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B02",
+      "sharedTextureKey": "B02",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/assets/B02-runtime-280.png",
+          "sha256": "7eca7f045716024f625c913e85f61ceda81f3997910ae488dc76d04536dffba9",
+          "dimensions": [
+            234,
+            280
+          ],
+          "bytes": 108418,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": [
+        0.49780701754385964,
+        0.7046703296703297
+      ],
+      "anchorStatus": "manual/inferred candidate from revision005",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B03",
+      "sharedTextureKey": "B03",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/assets/B03-runtime-280.png",
+          "sha256": "f4c6630617317157671b2b8535b215b9d770742678075e0b6884c8fbae52ef6e",
+          "dimensions": [
+            166,
+            280
+          ],
+          "bytes": 77690,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": [
+        0.4878048780487805,
+        0.769404332129964
+      ],
+      "anchorStatus": "manual/inferred candidate from revision005",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B04",
+      "sharedTextureKey": "B04",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/assets/B04-runtime-280.png",
+          "sha256": "245ae915e10a2612947786cc5b4e14eb8da13b4cdf8735b2a3f6fa97de95d40e",
+          "dimensions": [
+            280,
+            263
+          ],
+          "bytes": 99335,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": [
+        0.4953051643192488,
+        0.6415
+      ],
+      "anchorStatus": "manual/inferred candidate from revision005",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B05",
+      "sharedTextureKey": "B05",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/assets/B05-runtime-280.png",
+          "sha256": "6ce65908cc72029e4b83d10936d0527978adf642a10fbcee4d0f3ac7e015c08d",
+          "dimensions": [
+            245,
+            280
+          ],
+          "bytes": 98302,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": [
+        0.5045778229908443,
+        0.7542222222222222
+      ],
+      "anchorStatus": "manual/inferred candidate from revision005",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B06",
+      "sharedTextureKey": "B06",
+      "snapshotRuntimeFiles": [],
+      "imageAnchorUV": null,
+      "anchorStatus": "current-wave native foot/contact measurement pending",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B07",
+      "sharedTextureKey": "B07",
+      "snapshotRuntimeFiles": [],
+      "imageAnchorUV": null,
+      "anchorStatus": "current-wave native foot/contact measurement pending",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B08",
+      "sharedTextureKey": "B08",
+      "snapshotRuntimeFiles": [],
+      "imageAnchorUV": null,
+      "anchorStatus": "current-wave native foot/contact measurement pending",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B09",
+      "sharedTextureKey": "B09",
+      "snapshotRuntimeFiles": [],
+      "imageAnchorUV": null,
+      "anchorStatus": "current-wave native foot/contact measurement pending",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B10",
+      "sharedTextureKey": "B10",
+      "snapshotRuntimeFiles": [],
+      "imageAnchorUV": null,
+      "anchorStatus": "current-wave native foot/contact measurement pending",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "B11",
+      "sharedTextureKey": "B11",
+      "snapshotRuntimeFiles": [],
+      "imageAnchorUV": null,
+      "anchorStatus": "current-wave native foot/contact measurement pending",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "L-near",
+      "sharedTextureKey": "L-near",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/assets/L-near-280.png",
+          "sha256": "527a8915744daf958dd0e18938640955fc1e34cbe942ebdbac15c2c42c37034a",
+          "dimensions": [
+            131,
+            280
+          ],
+          "bytes": 22471,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": [
+        0.20766773162939298,
+        0.9760479041916168
+      ],
+      "anchorStatus": "manual/inferred candidate from revision005",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "T01",
+      "sharedTextureKey": "T01",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/assets/rt-T01-v1.png",
+          "sha256": "827faa993f9432c1926c10c85f8b53e9e83d6cf813213d9dbb4e53aaed01f983",
+          "dimensions": [
+            203,
+            280
+          ],
+          "bytes": 89410,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": [
+        0.47342995169082125,
+        0.847769028871391
+      ],
+      "anchorStatus": "manual/inferred candidate from revision005",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "T02",
+      "sharedTextureKey": "T02",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/assets/T02-free-runtime-280.png",
+          "sha256": "3ab77c4885b44ba2f8574448f0851662ea0dbbcfa37132d02a52cd253a0ecf0c",
+          "dimensions": [
+            139,
+            280
+          ],
+          "bytes": 53828,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": [
+        0.49710982658959535,
+        0.9694947569113441
+      ],
+      "anchorStatus": "manual/inferred candidate from revision005",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "V01",
+      "sharedTextureKey": "V01",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/native/V01-001/V01-runtime-280.png",
+          "sha256": "dddb78bb63ed6ff48d28a2a88db36945b46a98266403e7a77db1740cf58110ea",
+          "dimensions": [
+            280,
+            209
+          ],
+          "bytes": 72740,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": null,
+      "anchorStatus": "current-wave native foot/contact measurement pending",
+      "generationByThisRole": false
+    },
+    {
+      "assetId": "V02",
+      "sharedTextureKey": "V02",
+      "snapshotRuntimeFiles": [
+        {
+          "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/native/V02-001/V02-runtime-280.png",
+          "sha256": "f9cd728d54803314a3c85b54dd73be01d4321d0a1e552ab6f2096eccbe717f82",
+          "dimensions": [
+            280,
+            239
+          ],
+          "bytes": 77983,
+          "within280": true
+        }
+      ],
+      "imageAnchorUV": null,
+      "anchorStatus": "current-wave native foot/contact measurement pending",
+      "generationByThisRole": false
+    }
+  ],
+  "originalRoadConnection": {
+    "roadId": "149397380-0",
+    "nodeRangeInclusive": [
+      7,
+      15
+    ],
+    "nodeIds": [
+      "1623821886",
+      "1623821663",
+      "9634601487",
+      "1623821577",
+      "1623821431",
+      "5342488721",
+      "1623821363",
+      "5342487518",
+      "12185944953"
+    ],
+    "polylineMap": [
+      [
+        -1629.06,
+        218.94
+      ],
+      [
+        -1611.54,
+        155.21
+      ],
+      [
+        -1597.19,
+        98.2
+      ],
+      [
+        -1596.7,
+        96.27
+      ],
+      [
+        -1582.32,
+        36.57
+      ],
+      [
+        -1576.13,
+        15.06
+      ],
+      [
+        -1573.85,
+        6.91
+      ],
+      [
+        -1571.11,
+        -5.19
+      ],
+      [
+        -1559.72,
+        -56.08
+      ]
+    ],
+    "allNodesInsideGreen": true,
+    "direction": 0,
+    "newGraphEdges": 0
+  }
+}

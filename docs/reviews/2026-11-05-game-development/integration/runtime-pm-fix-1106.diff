@@ -1,0 +1,12 @@
+--- a/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
++++ b/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
+@@ -43,7 +43,8 @@
+     private lastDiagnosticKey = '';
+     /** Bounded code-location diagnostics only; never log commands, snapshots or storage. */
+     private recordRuntimeError(error: unknown, stage: string): void {
+-        this.lastError = String(error);
++        try { this.lastError = String(error); }
++        catch { this.lastError = 'V2运行操作失败'; }
+         try {
+             if (error !== null && (typeof error === 'object' || typeof error === 'function')) {
+                 if (this.diagnosedErrors.has(error)) return;

@@ -1,0 +1,75 @@
+{
+  "scope": "Task 1 frozen public interface; implementation pending business RED",
+  "spec": "docs/superpowers/specs/2026-11-07-emergency-hero-loan-design.md",
+  "projection": {
+    "name": "emergencyLoanStatus",
+    "owners": [
+      "V2DispatchSession",
+      "V2RuntimeController"
+    ],
+    "fields": {
+      "phase": [
+        "unavailable",
+        "available",
+        "borrowed",
+        "returnable",
+        "returned"
+      ],
+      "sequence": "number; 0 before the first loan",
+      "loanSequence": "active sequence or null",
+      "returnVehicleIds": "readonly string[]; owned vehicles without unpaid NPC quotes, exposed during an active loan",
+      "canStartBatch": "boolean; false during an active hero batch or if an active loan has a recoverable owned vehicle",
+      "reason": "human-readable string"
+    },
+    "phaseRules": {
+      "available": "no active loan and all borrow eligibility checks pass",
+      "unavailable": "no active loan/history and borrow eligibility fails",
+      "borrowed": "active loan; no owned vehicle is reclaimable",
+      "returnable": "active loan; at least one owned vehicle is reclaimable; an active hero batch still must finish before return",
+      "returned": "inactive loan history with no current borrow eligibility"
+    }
+  },
+  "commands": [
+    {
+      "type": "borrowEmergencyVehicle",
+      "expectedSequence": "number"
+    },
+    {
+      "type": "returnEmergencyVehicle",
+      "loanSequence": "number",
+      "vehicleId": "string"
+    }
+  ],
+  "gameEntry": "V2GameSession.command(command: V2EconomyCommand): string | null; borrow/return check empty dispatch batch, idle/finished Route and no Trip action before forwarding",
+  "runtimeEntry": "V2RuntimeController.command forwards through Game.command inside existing mutate transaction",
+  "representation": {
+    "heroEmergencyLoan": {
+      "policyId": "hero-emergency-base-v1",
+      "sequence": "safe integer",
+      "active": "boolean"
+    },
+    "emergencyQuote": {
+      "vehicleRef": {
+        "kind": "emergency",
+        "loanSequence": "positive safe integer",
+        "policyId": "hero-emergency-base-v1"
+      },
+      "vehicleId": "absent"
+    },
+    "heroRealVehicleIdDuringLoan": null
+  },
+  "versionTransition": {
+    "economy": 3,
+    "fleet": 3,
+    "dispatch": 3,
+    "game": 7,
+    "when": "first successful explicit borrow; no downgrade after return; unchanged representation before borrowing"
+  },
+  "effects": {
+    "capacitySlots": 2,
+    "speedRelativeToStarter": 1,
+    "vehicleIncomeFactor": 1,
+    "heroProgression": "existing hero experience and accepted xpMultiplier"
+  },
+  "capturedAt": "2026-11-07T03:36:05.775063+00:00"
+}

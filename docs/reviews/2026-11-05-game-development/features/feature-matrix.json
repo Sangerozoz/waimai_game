@@ -1,0 +1,216 @@
+{
+  "date": "2026-11-05",
+  "ownerThread": "thr_f2cxhbkw45",
+  "parentThread": "thr_axf6i4e89t",
+  "validation": "源码静态；未运行tests/typecheck/回归/构建/页面/真实存档操作",
+  "latestRule": "不允许玩家重新开始；保留唯一当前进度",
+  "features": [
+    {
+      "id": "entry",
+      "feature": "显式V2入口",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "MapSample.start → Bootstrap → startOrContinue",
+      "source": "delivery-game/assets/scripts/map-sample/MapSample.ts",
+      "notes": "只读MapSample，默认分支未修改"
+    },
+    {
+      "id": "no-player-reset",
+      "feature": "禁止玩家重新开始",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Bootstrap仅continue；Runtime.startOver/restart直接拒绝",
+      "source": "delivery-game/assets/scripts/map-sample/V2GameBootstrap.ts",
+      "notes": "UI owner负责删除UI入口；底层store兼容reset无运行调用"
+    },
+    {
+      "id": "single-slot",
+      "feature": "唯一进度与空slot自然开局",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Store.open(continue) → restore/fresh → commit",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts",
+      "notes": "已有slot禁止startNew覆盖"
+    },
+    {
+      "id": "bad-future-save",
+      "feature": "坏档/未来版本防覆盖",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Store.open restore失败→抛错，无commit",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts",
+      "notes": "不自动备份/恢复/迁移，不引导清空"
+    },
+    {
+      "id": "writer",
+      "feature": "写锁/epoch/字节冲突",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Store.writable/commit → Runtime.ready/lastError",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts",
+      "notes": "失权冻结并留错误"
+    },
+    {
+      "id": "destroy-opening",
+      "feature": "打开/销毁生命周期",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Bootstrap.preparation与Runtime.openingStore → close",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "销毁后acquire closed复查释放锁"
+    },
+    {
+      "id": "pages",
+      "feature": "六页展示及同步错误",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "UI.navigate/render/act → Runtime.snapshot/lastError",
+      "source": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "notes": "UI只读；未做页面验证"
+    },
+    {
+      "id": "riders",
+      "feature": "招募/培养",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "UI.riders → Runtime.command → Dispatch.command",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "报价/余额/升级由经济owner负责"
+    },
+    {
+      "id": "fleet",
+      "feature": "配车/卸车/车辆升级",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "UI配置车辆 → assignVehicle/upgradeVehicle",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "忙碌限制不在适配层绕开"
+    },
+    {
+      "id": "shop",
+      "feature": "买车与自由购买",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "UI.vehicles → buyVehicle → V2经济",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "新版配置ID已核；未执行购买"
+    },
+    {
+      "id": "economy-map",
+      "feature": "五图经济购买选择",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "UI.maps → buyMap/selectMap",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "晴川县/云浦市/星澜城/曜川都会/海境港"
+    },
+    {
+      "id": "real-maps",
+      "feature": "五张真实运行地图",
+      "status": "外部阻塞",
+      "runtimeValidation": "运行未测",
+      "chain": "Bootstrap仅load map-sample/city",
+      "source": "delivery-game/assets/scripts/map-sample/V2GameBootstrap.ts",
+      "notes": "只有一个CityData，四张未交运行数据，独立地图任务由PM统筹"
+    },
+    {
+      "id": "supplies",
+      "feature": "补给/库存/免费休息/自动政策",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Runtime.supply/configureAutoSupply → GameSession/TripRules",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "不加未经配置的奖励库存"
+    },
+    {
+      "id": "orders",
+      "feature": "组批/路线/取送/取消",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "quoteCandidates克隆 → acceptBatch/beginTrip/pickup/cancelDelivery",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "逐单完成由真实路线token结算；取消剩余由逻辑owner维护"
+    },
+    {
+      "id": "ledger",
+      "feature": "账单与整批汇总",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Runtime.ledgerQuery/batchSummary → UI.summarizeLedger",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "汇总只读不二次发钱"
+    },
+    {
+      "id": "lobby",
+      "feature": "真实进入大厅80%候选",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "UI.navigate → enterLobby → RewardSession.enterLobby",
+      "source": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts",
+      "notes": "appearanceRoll<0.8；100+floor(priceRoll*51)"
+    },
+    {
+      "id": "special-ad",
+      "feature": "专送广告接单完整链",
+      "status": "外部阻塞",
+      "runtimeValidation": "运行未测",
+      "chain": "Runtime.requestAd → SDK → resolveAd → authorized → acceptBatch",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "API存在；UI仅不可用状态，缺按钮接线；SDK未配置，不能视为可玩"
+    },
+    {
+      "id": "ad-failure",
+      "feature": "广告失败/取消/去重",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Runtime.requestAd与RewardSession.resolveAd",
+      "source": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts",
+      "notes": "同步SDK失败已改为抛出，取消/重复无授权"
+    },
+    {
+      "id": "auto",
+      "feature": "600秒自动权益及停止恢复入口",
+      "status": "外部阻塞",
+      "runtimeValidation": "运行未测",
+      "chain": "requestAd(auto)/stopAutomation/resumeAutomation → Dispatch → GameSession.tick",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "控制API与持久快照已存在；UI无调用入口且SDK未配置"
+    },
+    {
+      "id": "pause",
+      "feature": "暂停/前后台/回调世代",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "Runtime.setPaused/onHide/onShow/onDestroy → GameSession.tick",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "主角冻结，NPC独立；未做实际事件验证"
+    },
+    {
+      "id": "targets",
+      "feature": "目标领取奖励",
+      "status": "设计未定",
+      "runtimeValidation": "运行未测",
+      "chain": "UI.queryProgressTargets仅推荐",
+      "source": "delivery-game/assets/scripts/domain/V2ProgressTargets.ts",
+      "notes": "无奖励表与领取链，不发赠品"
+    },
+    {
+      "id": "legacy-facade",
+      "feature": "CountyV2Session历史迁移",
+      "status": "运行未测",
+      "runtimeValidation": "运行未测",
+      "chain": "scripts无外部调用者，当前入口使用V2GameSession",
+      "source": "delivery-game/assets/scripts/map-sample/CountyV2Session.ts",
+      "notes": "历史工具不可达，不启用自动迁移"
+    },
+    {
+      "id": "U01-runtime-hot-path",
+      "feature": "连续配送卡顿热路径改进",
+      "status": "源码已接",
+      "runtimeValidation": "运行未测",
+      "chain": "update → 1/30秒合并drive；mutate从已提交字符串恢复 → 校验 → commit → publish",
+      "source": "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts",
+      "notes": "外层serialize从3次降1次，双restore/Store安全保留；未测性能，U01不关闭；路线重算/主动继续/UI显示跨owner待集成"
+    }
+  ]
+}

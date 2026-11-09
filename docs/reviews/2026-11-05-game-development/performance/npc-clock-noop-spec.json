@@ -1,0 +1,42 @@
+{
+  "id": "NPC-FRAME-PERF-01",
+  "author": "parent PM integration",
+  "gate": "scoped static specification",
+  "passed": true,
+  "sourceHashes": {
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": {
+      "before": "a5a5288bcfbeff4cf93a9a6ce6b86ebfd7690579a5efeb12d8ce7e310b2104ae",
+      "candidate": "7ec38bc31d32d4fbf5f72ab821db4a33c43f3edb6807396d0f71c16424cc5a14",
+      "exactInverseMatches": true
+    },
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts": {
+      "before": "1e1ccd5242762260213f8744c3cddf4328bbe35b100a0fba779e4c9cd7facb3a",
+      "candidate": "70cc8e526d4bb518716f50006941eab9b49e1647db1f56f9e1309040ef42e3a6",
+      "exactInverseMatches": true
+    },
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": {
+      "before": "2bb4abc56bd9987729d742844e5916b58c00698ff1eeeca26078d35427fbc00d",
+      "candidate": "09a6a67eb0e9b8fa7341a97f55e25bd5653d005cb5b738217c6c89de6cac8c67",
+      "exactInverseMatches": true
+    }
+  },
+  "sourceChange": "Only two detached scalar getters and a validated no-op gate; actual advances or pending hero sync still use the original full transaction",
+  "safety": [
+    "Invalid seconds/safe-integer ms guards run before any early return",
+    "No-op requires both old/equal high water and exact hero event cursor/count equality",
+    "Pending restored events retain transaction/sync, including at an old clock",
+    "No persistence/version/ledger/time/input policy change; three other byte regions exactly preserve predecessors",
+    "No test/typecheck/TS game/profile/save/browser operations for this increment"
+  ],
+  "unexecutedCases": [
+    "Old/equal ms plus synced cursor skips draft",
+    "Old/equal ms plus pending completion still synchronizes once",
+    "Future ms retains original advance/sync/validation",
+    "Invalid input rejected even when clock already advanced",
+    "Restored state, quota zero, no riders, rollback and fractional absolute ms",
+    "Mutating the detached clock object cannot change authority",
+    "Real performance and coarse/fine-frame behavior remain unmeasured"
+  ],
+  "independentQuality": "pending thr_wy4wnu5fyr",
+  "diff": "--- domain/V2EconomySession.ts before\n+++ domain/V2EconomySession.ts candidate\n@@ -97,6 +97,8 @@\n  /** Atomically restores a validated draft; performs no storage write. */\n  replaceFrom(serialized:string):void {const restored=V2EconomySession.restore(serialized);this.snapshot=restored.snapshot;}\n  get state():Readonly<V2EconomyState>{return clone(this.snapshot.state);}\n+ /** Scalar event progress only; avoids cloning the wallet to check pending replenishment. */\n+ get heroCompletionEventCount():number {return this.snapshot.state.heroCompletionEvents.length;}\n  serialize():string{return JSON.stringify(this.snapshot);}\n  setLedgerContext(context:V2LedgerContext|null):void {validateLedgerContext(context);this.snapshot.state.ledgerContext=clone(context);}\n  ledgerSummary(query:V2LedgerQuery){const s=this.snapshot.state,report=summarizeLedger(s.ledger,query);return {...report,reconciliation:{...report.reconciliation,currentCashCents:s.cashCents,balanced:report.reconciliation.expectedCashCents===s.cashCents}};}\n--- domain/V2FleetSession.ts before\n+++ domain/V2FleetSession.ts candidate\n@@ -27,6 +27,8 @@\n   this.value={quotaMs:0,lastAdvancedAt:nowMs,heroEventCursor:economy.state.heroCompletionEvents.length,heroCompletionsSeen:economy.state.heroCompletedOrders,nextBatchId:1,batches:[]};\n  }\n  get state():Readonly<V2FleetState>{return copy(this.value);}\n+ /** Detached clock scalars, not a mutable fleet or economic snapshot. */\n+ get clockProgress():Readonly<Pick<V2FleetState,'lastAdvancedAt'|'heroEventCursor'>> {return {lastAdvancedAt:this.value.lastAdvancedAt,heroEventCursor:this.value.heroEventCursor};}\n  setLedgerDayKeyResolver(resolver:((atMs:number)=>string)|null):void {check(resolver===null||typeof resolver==='function','账目日期解析器无效');this.ledgerDayKeyResolver=resolver;}\n  get quotaCapacityMs():number {const e=this.economy.state;return stage(e.heroCompletedOrders+e.npcCompletedOrders).capacity;}\n  serialize():string {return JSON.stringify({format:'county-v2-fleet',version:1,configId:V2_CONFIG_ID,economy:JSON.parse(this.economy.serialize()),fleet:this.value});}\n--- domain/V2DispatchSession.ts before\n+++ domain/V2DispatchSession.ts candidate\n@@ -93,7 +93,13 @@\n  });}\n  chargeSupply(costCents:number,detail?:V2SupplyChargeDetail):void {this.transact(d=>{d.economy.chargeSupply(costCents,detail);return null;});}\n  /** Composite owners advance old quota before each event, and flush the wall-clock tail once. */\n- advanceFleetTo(nowSeconds:number):void {this.transact(d=>{finite(nowSeconds);const nowMs=Math.floor(nowSeconds*1000);check(Number.isSafeInteger(nowMs));d.fleet.advanceTo(nowMs);return null;});}\n+ advanceFleetTo(nowSeconds:number):void {\n+  finite(nowSeconds);const nowMs=Math.floor(nowSeconds*1000);check(Number.isSafeInteger(nowMs));\n+  const progress=this.fleet.clockProgress;\n+  // A pending hero event still needs the original sync transaction, even at an old clock.\n+  if(nowMs<=progress.lastAdvancedAt&&progress.heroEventCursor===this.economy.heroCompletionEventCount)return;\n+  this.transact(d=>{d.fleet.advanceTo(nowMs);return null;});\n+ }\n  completeDelivery(orderId:string,arrivalToken:string,nowSeconds=this.frame.nowSeconds,outcome:V2DeliveryOutcome={lateGameSeconds:0,damage:'none'}):V2DeliveryReceipt {return this.transact(d=>{\n   identity(orderId);const order=d.orders.find(o=>o.id===orderId);check(order);\n   if(order.status==='completed'){check(order.receipt);return order.receipt;}\n"
+}

@@ -1,0 +1,9 @@
+{
+  "stage": "before-idempotency-guard",
+  "failedBeforeLiveCommit": true,
+  "reason": "Existing north_region.patch inserted duplicate already-installed active camera filter into staged renderer; byte invariant stopped publication",
+  "liveSceneSHA256": "e781547b0767a058e47fad5459e45ab308951c67cf6e3237c9f10a48d824eaa7",
+  "liveTiledSHA256": "5a4ee4e32ca61f88c81d97161469fa558fdfa75d1f8051ffaeef7c03badfee5c",
+  "mainInputsUnchanged": true,
+  "correction": "only skip a patch already present; retain existing renderer bytes and scene data"
+}

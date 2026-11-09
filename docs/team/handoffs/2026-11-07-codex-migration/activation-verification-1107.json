@@ -1,0 +1,49 @@
+{
+  "observedAt": "2026-11-07T07:16:25.343880+08:00",
+  "pm": "thr_4xmqy6fzdm",
+  "project": "proj_3sznws2gfk",
+  "environment": "env_e54zrbdgxt",
+  "checkout": "/Users/sanger/Documents/ChatGPT/taptap 2",
+  "branch": "codex/food-delivery",
+  "executionReadback": {
+    "provider": "codex",
+    "model": "ccs-sanger/gpt-6.1-sol",
+    "reasoning": "max",
+    "basis": "live thread show and client/turn/requested events"
+  },
+  "protectedArtifactCheck": {
+    "manifest": "protected-artifacts.json",
+    "checked": 224,
+    "missing": [],
+    "drift": []
+  },
+  "children": [
+    {
+      "thread": "thr_gf8gehviua",
+      "parent": "thr_4xmqy6fzdm",
+      "provider": "codex",
+      "statusBeforeActivation": "error",
+      "nativePoolBypassConfirmed": true,
+      "parentNotifications": "auto",
+      "writeScope": "docs/balance/2026-11-06-balance-round-01/a/"
+    },
+    {
+      "thread": "thr_29f6fcihz6",
+      "parent": "thr_4xmqy6fzdm",
+      "provider": "codex",
+      "statusBeforeActivation": "idle",
+      "nativePoolBypassConfirmed": true,
+      "parentNotifications": "auto",
+      "writeScope": "docs/reviews/2026-11-06-product-testing/b/codex-handoff/"
+    }
+  ],
+  "historicalConnectionError": "This chat uses model provider “bb-account-pool”, which is no longer configured. Restore this provider’s configuration to continue.",
+  "phase": "protected-evidence-verified-thread-routing-set-before-dispatch",
+  "notClaimed": [
+    "child connection success",
+    "new balance output",
+    "preview deployment",
+    "98 percent acceptance"
+  ],
+  "globalProviderCredentialsPermissionsAndUserSaveUntouched": true
+}

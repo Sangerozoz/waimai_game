@@ -1,0 +1,96 @@
+N1-01-B06 CONNECTED 3 points 1 nodes
+N1-03-B05 CONNECTED 6 points 67 nodes
+N1-04-B06 CONNECTED 5 points 85 nodes
+N1-06-B01 CONNECTED 5 points 168 nodes
+N2-01-B08 CONNECTED 4 points 6 nodes
+N2-03-B02 CONNECTED 4 points 7 nodes
+N2-04-B04 CONNECTED 4 points 40 nodes
+S1-01-B10 CONNECTED 4 points 10 nodes
+S1-04-B05 CONNECTED 3 points 1 nodes
+S1-05-B03 CONNECTED 5 points 38 nodes
+{
+  "activeBuildingCount": 10,
+  "activeEntryBlockerCount": 0,
+  "excludedCount": 5,
+  "originalFiveBlockedIds": [
+    "N1-04-B06",
+    "N2-01-B08",
+    "N2-02-B09",
+    "N2-03-B02",
+    "N2-04-B04"
+  ],
+  "noDoorOffsetOptimization": true,
+  "allActiveDoorStartsFromNativeVisualObservation": true,
+  "walkWidthMetres": 1.5,
+  "obstacleClearanceTargetMetres": 0.1,
+  "scope": "candidate geometry and hand-estimated native door correspondences; not precise native calibration or game/navigation acceptance",
+  "sourceCitySHA256": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+  "unchangedSourceInputs": {
+    "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/resources/map-sample/city.json": "536e3347d1ed6e512727426ee646412c1d553e061869257f615b975827220d20",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-02-county-zoning/selection.json": "f51e28ebe4710982640c9ca615b74c39b6296da71664cdbebb29daf654b3251f",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-003/road-constraint.json": "0a355ed3d02e3e1ec30f85e17ed7ee3047c96c7af639c1743b504952062d2d69",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/planning/mixed-street-layout.json": "72e1fd8210983467d87bbde3c87d42f21aa7684496d2fb0734aa06c49c6845ce",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/mixed-street.tmj": "60759f6f282c98e0de83c71fc49a5be4147e028e3b06edf2876dd640dc1cfdcf",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/integration/asset-calibration.json": "9733eb60c0de82d6e91a8874062e5b83f9cf36aae28bf27075650e66dbcb2db1",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/references/approved-25-index.json": "778105190f12bab0370dc8338613f02f31420f6fbda25f599970d4a6f0e7503d"
+  },
+  "anchorTranslations": [
+    {
+      "id": "N1-04-B06",
+      "previousAnchorMap": [
+        -1654.7798614252836,
+        199.37983408549914
+      ],
+      "newAnchorMap": [
+        -1656.7242510418753,
+        198.91148697182095
+      ],
+      "translationTNMetres": [
+        0,
+        -2
+      ],
+      "doorLocalOffsetUnchanged": true
+    },
+    {
+      "id": "S1-01-B10",
+      "previousAnchorMap": [
+        -1578.1404049905943,
+        -26.424270588605168
+      ],
+      "newAnchorMap": [
+        -1577.6720578769161,
+        -28.36866020519679
+      ],
+      "translationTNMetres": [
+        2,
+        0
+      ],
+      "doorLocalOffsetUnchanged": true
+    }
+  ],
+  "searchBounds": "1m grid,100m radius from fixed door,18000 expanded nodes per candidate; conservative existing footprints retained as obstacles",
+  "pathsAvoidEvenExcludedFootprintsDuringSearch": true,
+  "originalFiveDisposition": [
+    {
+      "id": "N1-04-B06",
+      "resolution": "pedestrian surface attached to fixed observed native door"
+    },
+    {
+      "id": "N2-01-B08",
+      "resolution": "pedestrian surface attached to fixed observed native door"
+    },
+    {
+      "id": "N2-02-B09",
+      "resolution": "曲面展馆入口/台阶与旧矩形包络不能可靠对应；门位/弧形地基未标定，暂剔除，不把弧墙任意一点当入口。"
+    },
+    {
+      "id": "N2-03-B02",
+      "resolution": "pedestrian surface attached to fixed observed native door"
+    },
+    {
+      "id": "N2-04-B04",
+      "resolution": "pedestrian surface attached to fixed observed native door"
+    }
+  ],
+  "orientationGapsPreservedVerbatim": true
+}

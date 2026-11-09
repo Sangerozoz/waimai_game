@@ -1,0 +1,286 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "map-batch-preparation-v1",
+  "title": "Approved map batch adapter input",
+  "type": "object",
+  "required": [
+    "projection"
+  ],
+  "properties": {
+    "projection": {
+      "type": "object",
+      "required": [
+        "originMap",
+        "axisX",
+        "axisY"
+      ]
+    },
+    "districts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/district"
+      }
+    },
+    "buildings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/object"
+      }
+    },
+    "fixtures": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/object"
+      }
+    },
+    "parkedVehicles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/object"
+      }
+    },
+    "groundSurfaces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/surface"
+      }
+    },
+    "roads": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/road"
+      }
+    },
+    "sourceIndices": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "sourceMappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sourceIndices",
+          "scenePersistentIds"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "pair": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number"
+      }
+    },
+    "object": {
+      "type": "object",
+      "required": [
+        "persistentId",
+        "libraryAssetId",
+        "anchorMap"
+      ],
+      "properties": {
+        "persistentId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "libraryAssetId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "anchorMap": {
+          "$ref": "#/$defs/pair"
+        },
+        "uniformScale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "worldSizeUnits": {
+          "$ref": "#/$defs/pair"
+        },
+        "anchorUV": {
+          "$ref": "#/$defs/pair"
+        },
+        "rotation": {
+          "const": 0
+        },
+        "rotationPNG": {
+          "const": 0
+        },
+        "mirrorPNG": {
+          "const": false
+        },
+        "flipX": {
+          "const": false
+        },
+        "flipY": {
+          "const": false
+        },
+        "entryPixel": {
+          "$ref": "#/$defs/pair"
+        },
+        "entryMap": {
+          "$ref": "#/$defs/pair"
+        },
+        "visualReplacementOf": {
+          "$ref": "#/$defs/sourceBinding"
+        }
+      },
+      "additionalProperties": true
+    },
+    "surface": {
+      "type": "object",
+      "required": [
+        "id",
+        "polygonMap",
+        "materialId"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "polygonMap": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/pair"
+          }
+        },
+        "materialId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "road": {
+      "type": "object",
+      "required": [
+        "id",
+        "nodes",
+        "width",
+        "direction"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/pair"
+          }
+        },
+        "width": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "district": {
+      "type": "object",
+      "properties": {
+        "buildings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/object"
+          }
+        },
+        "fixtures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/object"
+          }
+        },
+        "parkedVehicles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/object"
+          }
+        },
+        "groundSurfaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/surface"
+          }
+        },
+        "roads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/road"
+          }
+        },
+        "zoning": {},
+        "zone": {},
+        "landuse": {},
+        "landUse": {}
+      },
+      "additionalProperties": true
+    },
+    "sourceBinding": {
+      "type": "object",
+      "properties": {
+        "sourceIndices": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "sourcePolygonsMap": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "$ref": "#/$defs/pair"
+            }
+          }
+        },
+        "sourceIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sourcePolygonMap": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/pair"
+          }
+        },
+        "sourceDataChanged": {
+          "const": false
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "sourceIndices",
+            "sourcePolygonsMap"
+          ]
+        },
+        {
+          "required": [
+            "sourceIndex",
+            "sourcePolygonMap"
+          ]
+        }
+      ],
+      "additionalProperties": true
+    }
+  },
+  "description": "Schema documents shape; executable checks also require exact SHA, projection, city roads, true native PPU, crop anchor and admission. Unknown source metadata retained. Parent approval is external, CLI SHA is not self-approval."
+}

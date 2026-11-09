@@ -1,0 +1,124 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [
+    {
+      "id": "NPC-CLOCK-NOOP-PERF-REMAINDER",
+      "classification": "non-blocking-performance-boundary",
+      "locations": [
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:44-48,54-62,96-101",
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:56,65"
+      ],
+      "triggerChain": "本增量只在旧/相同毫秒且无待同步主角事件时跳过完整Dispatch事务。真正向前推进的帧尾、待同步事件及其他经济事务仍保留完整克隆、恢复和校验；withLedgerTime读取previous时的经济状态克隆也未改。",
+      "impact": "可以确认空推进不再无条件进入完整事务，但不能据此认定NPC-FRAME-PERF-01全部成本消失、U01已解决或FPS提高。",
+      "minimalRecommendation": "将本次记录为无操作路径的结构性优化。其余成本和整体性能结论保留待阶段授权后的测量，不为追求减少克隆而删除帧尾刷新或削弱真实推进验证。"
+    }
+  ],
+  "summary": "NPC-FRAME-PERF-01三hunk最小集成增量独立静态质量PASS。已独立核对当前Economy/Fleet/Dispatch源码及上下游门禁，并将三hunk在内存逆变换，字节哈希精确恢复上一轮实际审过的前态。早退条件对有效已构造/已恢复状态充分：旧/相同高水位使原Fleet.advanceTo不推进，无待同步事件使原syncDraft不改变状态；游标落后则不会早退，仍走原事务并同步一次。输入验证先于早退，数值getter不克隆或泄露内态，真实推进及异常不发布边界保留。首次与收口SHA一致。范围仅本次增量，不把原NPC-frame正确性PASS直接套到新SHA，不重跑其全量审查。未写文件、改权限、运行测试/typecheck/TS/业务/游戏/存档/浏览器/构建/故障注入或派新Agent，未涉及地图制作。只读范围已交还父PM；本PASS仅静态，不代表性能或用户验收。",
+  "sourceHashes": {
+    "algorithm": "SHA-256",
+    "primary": {
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "7ec38bc31d32d4fbf5f72ab821db4a33c43f3edb6807396d0f71c16424cc5a14",
+      "delivery-game/assets/scripts/domain/V2FleetSession.ts": "70cc8e526d4bb518716f50006941eab9b49e1647db1f56f9e1309040ef42e3a6",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "09a6a67eb0e9b8fa7341a97f55e25bd5653d005cb5b738217c6c89de6cac8c67"
+    },
+    "verifiedPredecessorsByExactInverse": {
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "a5a5288bcfbeff4cf93a9a6ce6b86ebfd7690579a5efeb12d8ce7e310b2104ae",
+      "delivery-game/assets/scripts/domain/V2FleetSession.ts": "1e1ccd5242762260213f8744c3cddf4328bbe35b100a0fba779e4c9cd7facb3a",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "2bb4abc56bd9987729d742844e5916b58c00698ff1eeeca26078d35427fbc00d"
+    },
+    "contextDependencies": {
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "90d6e5f4bb9e5322037c483d57dda65fb1c1f1473d4c406c34ef86b144610b16",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "7d4480870bcb128f729a0b6f2a130a590b6b4e45fea7dbc6e08d770e399a72c4",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "6ede7a45eed46a1875e187d1f728e045f44db82de6f7d83a685131d9e6093c16",
+      "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23"
+    },
+    "specificationArtifact": {
+      "path": "docs/reviews/2026-11-05-game-development/performance/npc-clock-noop-spec.json",
+      "sha256": "7816be95be6ddad4f5ba40edf37282c1943de0fa39845aa54d32132e22b7c5c5",
+      "independentlyVerifiedHunks": 3,
+      "allInverseHashesMatchPreviouslyReviewedSources": true
+    },
+    "initialAndClosingHashesMatch": true,
+    "drift": []
+  },
+  "deferredCases": [
+    {
+      "id": "N01",
+      "case": "旧/相同毫秒、主角事件全部同步时跳过事务",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:96-101",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:62-68,84-86"
+      ],
+      "staticReasoning": "原Fleet.advanceTo在nowMs不超过lastAdvancedAt时直接返回；原syncDraft在cursor等于事件长度时循环为空且游标保持原值。新增条件只跳过这两个操作均不改变业务状态的路径。此结论以构造/恢复和正常命令已经维持有效状态为前提，不是任意损坏内存的验证器。"
+    },
+    {
+      "id": "N02",
+      "case": "合法恢复后游标落后，即使旧时刻也须同步",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:35-46,62-68",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:56-61,100-101,154-159"
+      ],
+      "staticReasoning": "Fleet恢复允许满足heroCompletionsSeen对应关系的游标落后状态。此时cursor与真实事件长度不等，早退条件不成立；原transact仍恢复并验证组合、重新绑定resolver，在change之后调用syncHeroCompletions补齐事件。后续同刻调用才可早退，不会漏补或重补。游标超界仍由原恢复校验拒绝。"
+    },
+    {
+      "id": "N03",
+      "case": "无新主角事件但有NPC结算、换地图或车辆变动",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:48-56,70-95",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:64-76,96-101"
+      ],
+      "staticReasoning": "只要时间真正前进，即使事件长度未变也不会早退，原startBatches、锁定合同、due结算及额度消耗仍执行。对于旧/相同时刻，原Fleet.advanceTo本就不启动新批或结算；有效Fleet状态又禁止未付款订单的elapsedMs已经达到due，因此没有被门禁漏掉的到期结算。地图、车辆等正常命令有各自事务校验，不能仅因这些资产改变就推导同毫秒必须额外经营。"
+    },
+    {
+      "id": "N04",
+      "case": "无效输入、绝对毫秒floor及倒退时刻",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:22-23,96-101",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:10,84-85"
+      ],
+      "staticReasoning": "类型、有限、非负检查及floor后安全整数毫秒检查均在读取进度和早退之前。非法输入不能借旧时刻门禁返回成功；合法小数秒仍按原绝对毫秒floor规则处理，没有新增整数秒要求或逐帧取整累积。旧/倒退毫秒无待同步事件时不变，有待同步事件时只同步、不倒走经营时间。"
+    },
+    {
+      "id": "N05",
+      "case": "轻量getter对象隔离和权威实例对应",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/domain/V2EconomySession.ts:99-102",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:29-31,35-41",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:56-61,98-100,156-157"
+      ],
+      "staticReasoning": "heroCompletionEventCount直接返回长度数值，不经state克隆。clockProgress每次创建只含两个数值的新对象，无Fleet、事件数组或经济对象别名；修改返回对象不会改权威状态，Readonly不等于运行时freeze。Dispatch恢复共享同一经济实例，事务成功时economy/fleet成对替换；两个读取间无await或回调，不使用跨事务缓存进度。"
+    },
+    {
+      "id": "N06",
+      "case": "真实推进、输入失败和异常候选不发布",
+      "status": "static-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:56-62,96-101",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:58-60,84-96",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:101-119"
+      ],
+      "staticReasoning": "早退之外仍执行原Dispatch事务、Fleet原子推进、主角事件同步和完整validate；只有成功后才替换owner。输入失败在新门禁前抛错且无写入，其他异常仍由外层Runtime丢弃候选，未新增异常捕获后发布部分状态的路径。没有执行故障注入或存储失败案例。"
+    },
+    {
+      "id": "N07",
+      "case": "帧尾刷新、归日、合同、版本和此前NPC-frame正确性",
+      "status": "scoped-static-preservation-reviewed-runtime-not-executed",
+      "evidence": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:49-95",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:44-61,103-109",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:90-95",
+        "delivery-game/assets/scripts/domain/V2EconomySession.ts:98-103"
+      ],
+      "staticReasoning": "Game/Route/Runtime哈希与上一轮一致，未删除帧尾刷新或改事件offset；三hunk逆变换证明没有夹带其他改动。新增getter不进入原显式序列化对象，保存字段和版本未变；resolver/context、已签价格、额度公式和合同推进未改。上一轮NPC-frame完整PASS保留为前态历史，本轮仅补新三源的增量质量绑定，不声称重新执行或全量复验粗细帧、归日及恢复案例。"
+    }
+  ]
+}

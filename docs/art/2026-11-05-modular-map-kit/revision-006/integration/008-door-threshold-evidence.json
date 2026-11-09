@@ -1,0 +1,88 @@
+{
+  "actualEntryPixelChecks": [
+    {
+      "id": "008-B05",
+      "entryPixel": [
+        810,
+        1070
+      ],
+      "actualConvertedDoorMap": [
+        -2369.802943804486,
+        -642.0033699983652
+      ],
+      "planEntryMap": [
+        -2369.8029438044855,
+        -642.0033699983651
+      ],
+      "worldDifference": 4.687428401686771e-13
+    },
+    {
+      "id": "008-B06",
+      "entryPixel": [
+        730,
+        1038
+      ],
+      "actualConvertedDoorMap": [
+        -2365.9148218865034,
+        -655.8930340983618
+      ],
+      "planEntryMap": [
+        -2365.9148218865034,
+        -655.8930340983618
+      ],
+      "worldDifference": 0.0
+    },
+    {
+      "id": "008-B08",
+      "entryPixel": [
+        820,
+        803
+      ],
+      "actualConvertedDoorMap": [
+        -2359.9687151419494,
+        -675.3820264605608
+      ],
+      "planEntryMap": [
+        -2359.9687151419494,
+        -675.382026460561
+      ],
+      "worldDifference": 1.1368683772161603e-13
+    }
+  ],
+  "parentApprovedExceptionRecords": [
+    {
+      "connectionId": "008-B06-door",
+      "surfaceIndex": 0,
+      "exception": [
+        {
+          "ownDoorThresholdOnly": true,
+          "inferredRimOverlapDepthMetres": 0.12422100978648087,
+          "equivalentNativePixels": 7.5731357911464565,
+          "declaredGroundControlUncertaintyPixels": 25,
+          "noDoorPixelsMoved": true,
+          "interpretation": "doorstep/contact within manual ground-control uncertainty; requires integration visual check, not proven walk through wall"
+        }
+      ]
+    },
+    {
+      "connectionId": "008-B08-door",
+      "surfaceIndex": 0,
+      "exception": [
+        {
+          "ownDoorThresholdOnly": true,
+          "inferredRimOverlapDepthMetres": 0.19242735753281437,
+          "equivalentNativePixels": 11.555598251085538,
+          "declaredGroundControlUncertaintyPixels": 25,
+          "noDoorPixelsMoved": true,
+          "interpretation": "doorstep/contact within manual ground-control uncertainty; requires integration visual check, not proven walk through wall"
+        }
+      ]
+    }
+  ],
+  "visualEvidence": [
+    "cocos-008-door-b06.jpg",
+    "cocos-008-door-market.jpg"
+  ],
+  "observation": "visible path-to-step contact, no obvious broad wall-through route; not precise registration",
+  "noGeneralizedCollisionWaiver": true
+}

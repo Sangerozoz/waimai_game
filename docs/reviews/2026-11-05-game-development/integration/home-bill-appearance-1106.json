@@ -1,0 +1,73 @@
+{
+  "task": "HOME-BILL-REAL-SCREEN-1106",
+  "observedBuild": "v2-slots-polish-1106",
+  "servedMain": "assets/main/index.61678.js",
+  "servedMainSHA256": "ddce9694214a41c40d538dc27db95d55177d3cb12ee51a6627d35381de780a89",
+  "captures": [
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-polish-home-1106.jpg",
+      "dimensions": [
+        1586,
+        3128
+      ],
+      "sha256": "cfca406ffea84b69f56ea683e5d5ba1e96713188fef62acaaa1d741c0718ad08"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-polish-bills-1106.jpg",
+      "dimensions": [
+        1586,
+        3128
+      ],
+      "sha256": "369ce4b62ebbeac245029b9aea1b330cc3733f3c63f98e561aaa1d1b0bbae512"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-polish-home-located-1106.jpg",
+      "dimensions": [
+        1586,
+        3128
+      ],
+      "sha256": "430141add2883b9bace3e35493a32ed40762b74429fc1d701462cddec0041a59"
+    }
+  ],
+  "observed": [
+    "首页两块配送/本批浮层已不创建，当前实屏不显示；账本仍在账单",
+    "阿航活动卡真实显示空闲/经营时长已用完，无伪造配送计时；无原骑手数量条",
+    "右上补给是图标；首张付费地图目标半透明、不可换；当前真实0/1和差785.13",
+    "账单顶部无页标题、收入/金额前币图已移除，整页/底部无重新开始",
+    "账单真实今日配送1131.87、补给4、净赚1127.87；里程/在线/任务奖励未记录，不填假0"
+  ],
+  "initialViewFinding": {
+    "phase": "finished",
+    "unchangedPosition": [
+      -1094.4,
+      575.19
+    ],
+    "before": {
+      "follow": false,
+      "offset": [
+        2640,
+        0
+      ],
+      "scale": 4
+    },
+    "afterExistingLocateButton": {
+      "follow": true,
+      "offset": [
+        4377.6,
+        -2300.76
+      ],
+      "scale": 4
+    },
+    "scope": "only camera control clicked, no delivery/movement/economy action; source UI configure has no initial motion binding",
+    "candidateNotYetObserved": true
+  },
+  "noNewGameClearSaveInjectedSaveSpendingOrOrderAcceptance": true,
+  "normalMenusAndCameraOnly": true,
+  "noPhaseTestsTypecheckOrFPSMeasurement": true,
+  "limits": [
+    "unchanged old map visuals remain unsuitable for overall98%",
+    "activity delivery timer and multi-NPC scrolling not observed",
+    "no full bills reconciliation or lifecycle tests",
+    "source core has newer reviewed delta, these images bind to served polish artifact, not an unbuilt revision"
+  ]
+}

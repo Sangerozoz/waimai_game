@@ -1,4 +1,5 @@
-import { isValid, Layers, Node, Rect, resources, Size, Sprite, SpriteFrame, Texture2D, UITransform } from 'cc';
+import { isValid, Layers, Node, Rect, Size, Sprite, SpriteFrame, UITransform } from 'cc';
+import { loadArtRegion } from './UIArtResources';
 
 type Crop={resource:string;rect:[number,number,number,number]};
 const crops:Record<string,Crop>={};
@@ -123,35 +124,31 @@ crops['batch-M04-landmark']={resource:'map-sample/anime/existing-20261031/M04-me
 crops['batch-M05-display']={resource:'map-sample/anime/existing-20261031/M05-global-display-original',rect:[0,0,1,1]};
 crops['batch-M05-landmark']={resource:'map-sample/anime/existing-20261031/M05-global-landmark-original',rect:[0,0,1,1]};
 crops['profile-master']={resource:'map-sample/anime/au01/rider-master-original',rect:[0,0,1,1]};
-const atlases=new Map<string,Promise<Texture2D>>(),frames=new Map<string,SpriteFrame>();
-function loadAtlas(resource:string):Promise<Texture2D> {
- const cached=atlases.get(resource);if(cached)return cached;
- const pending=new Promise<Texture2D>((resolve,reject)=>resources.load(resource+'/texture',Texture2D,(error,texture)=>{
-  if(error){reject(error);return;}texture.addRef();resolve(texture);
- }));
- atlases.set(resource,pending);pending.catch(()=>{if(atlases.get(resource)===pending)atlases.delete(resource);});return pending;
-}
+const frames=new Map<string,SpriteFrame>();
+const fallbackFrames=new Map<string,SpriteFrame>();
+const webKeys=new Set([...foodKeys,'avatar','recruit','vehicle','map','bills','station','coin','heart','bag','close','target','confirm','pause','side-d','side-d-plus','side-c','side-c-plus','side-b','side-b-plus','side-a','side-s','side-ss','side-sss']);
 // Immutable frames and their textures are retained once for the lifetime of the game.
 export function loadCartoonFrame(key:string):Promise<SpriteFrame> {
  const crop=crops[key];if(!crop)return Promise.reject(new Error('Unknown cartoon art: '+key));
  const cached=frames.get(key);if(cached)return Promise.resolve(cached);
- return loadAtlas(crop.resource).then(texture=>{
+ return loadArtRegion(crop.resource,crop.rect,{normalized:true,web:webKeys.has(key)}).then(region=>{
   const existing=frames.get(key);if(existing)return existing;
-  const [left,top,width,height]=crop.rect,x=Math.round(left*texture.width),y=Math.round(top*texture.height);
-  const w=Math.round((left+width)*texture.width)-x,h=Math.round((top+height)*texture.height)-y;
-  const frame=new SpriteFrame();frame.texture=texture;frame.rect=new Rect(x,y,w,h);frame.originalSize=new Size(w,h);frame.addRef();frames.set(key,frame);return frame;
+  const cache=region.retryWeb?fallbackFrames:frames,cachedFallback=cache.get(key);if(cachedFallback)return cachedFallback;
+  const [x,y,w,h]=region.rect;
+  const frame=new SpriteFrame();frame.texture=region.texture;frame.rect=new Rect(x,y,w,h);frame.originalSize=new Size(region.sourceRect[2],region.sourceRect[3]);frame.addRef();cache.set(key,frame);return frame;
  });
 }
 export function cartoonArt(parent:Node,key:string,x:number,y:number,width:number,height:number,fallback?:Node):Node {
  const picture=new Node('CartoonArt-'+key);picture.layer=Layers.Enum.UI_2D;parent.addChild(picture);picture.setPosition(x,y);
  const transform=picture.addComponent(UITransform);transform.setContentSize(width,height);picture.active=false;
  const sprite=picture.addComponent(Sprite);sprite.sizeMode=Sprite.SizeMode.CUSTOM;
+ picture.emit('ui-art-state','loading',key);
  loadCartoonFrame(key).then(frame=>{
-  if(!isValid(parent,true)||!isValid(picture,true)||parent.activeInHierarchy===false)return;
+  if(!isValid(parent,true)||!isValid(picture,true))return;
   const scale=Math.min(width/frame.originalSize.width,height/frame.originalSize.height);
   transform.setContentSize(frame.originalSize.width*scale,frame.originalSize.height*scale);
-  sprite.spriteFrame=frame;picture.active=true;if(fallback&&isValid(fallback,true))fallback.active=false;
- },()=>{/* Retain the native fallback; the next opening may retry. */});return picture;
+  sprite.spriteFrame=frame;picture.active=true;picture.emit('ui-art-state','ready',key);if(fallback&&isValid(fallback,true))fallback.active=false;
+ },error=>{if(isValid(picture,true)){picture.emit('ui-art-state','failed',key,String(error));console.warn(`[Cartoon art fallback] ${key}`,error);}});return picture;
 }
 export function cartoonFoodKey(index:number):string|null{return foodKeys[index]||null;}
 

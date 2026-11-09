@@ -1,0 +1,60 @@
+{
+  "recordedAt": "2026-11-07T04:24:56.665406+00:00",
+  "owner": "thr_4xmqy6fzdm",
+  "inputBaselineSHA256": "34fd131185a492c279e74bcacad3119019be60256d29fd991ae918f5a4887836",
+  "approvedSources": {
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": "75e745549c67d3715ca7852538fb7da3cb46e0fc7161d87988eb940f9ee65fc3",
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts": "25bb29bbe67739022e1330865bf9c5a06557808c1e65fcc1f7bd4af07facc43e",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "77c2faba87e27b86c69bfe5841f015fa6dcc75dcc024e78bfe3a6bf1d5efedd0",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "6e8b1a0bcf17cb19d07d97a6257fc0e660744e1a7d8258210a00843935108019",
+    "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "bee518024daa35c2b18dd42d41a491beaf995290f36e90edf28b161c60b9aeb3",
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "5e845960371dedcea1a7ccf09d75f7c1285de10c49af0952daf02257c51a8b0b"
+  },
+  "newTests": {
+    "delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs": "45d4723fe90f0cf4ae809c11b9da79612ba5c0011feffdfddd63a872f7a41a99",
+    "delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs": "47221c855c390760a03d8e325c7d85d55310fbee825f8e19de3af3d9eaffe039",
+    "delivery-game/tests/emergency-loan-ui.test.cjs": "5814a1377fe193ac34ac23d9be17f99ad1f8e6eae58ecdfac536956c2106d1b8"
+  },
+  "checks": {
+    "default-regression-followup-receipt.json": {
+      "counts": {
+        "tests": 145,
+        "pass": 145,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    "ui-regression-receipt.json": {
+      "counts": {
+        "tests": 11,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    "typecheck-receipt.json": {}
+  },
+  "checkReuse": "UI/typecheck already passed on unchanged six production sources; only two CJS tests were then extended and full default suite rerun 145/145. Build assets unchanged.",
+  "reviewEvidence": {
+    "domain/handoff-receipt.json": "4587700a76540dd582a574e824f45f6cac9bce1d947192fe58f0ee1724737f6b",
+    "domain/review-followup/handoff-receipt.json": "31efc2bc1243ea25836ce9c9521f33675d380d11fde18984629ed8d6abb4c8ed",
+    "domain/review-followup/test-changes.diff": "496d809a3168d52ad9aaf08db33b8e32718103aff852bc01cb7fe7e7db37dd8a",
+    "backend-review-request.json": "e9516e5a12e0715ce8484e1601e23a04e7959308469736d8529d5c57bad72f9a",
+    "backend-review.diff": "5c94f34e48f3a5ceef1b298a038d05d6a6d5899e899af695fb14ce540c51bc70",
+    "backend-review-initial-result.json": "2c9b80a76702cb41037217fb5cbdae9078507931c42709c8d5b76cf4450ae68e",
+    "backend-review-followup-request.json": "6d74505362d63ed3cc6a87d6e2877fbb7a4004d27d2e894c3d6f022ee0393059",
+    "backend-review-thread-output.json": "f1b20782aca060dff754cefafb36e6fe817615974abf4aa0c48059bc880db8ab",
+    "backend-review-result.json": "9d03f1b600eb17c75a5f35e4c2ccecbea51196e9028e4025dbfbcf6ee84f0fb7",
+    "ui/review-followup-request.json": "fa000c79b6612c0ad553096e06767a927f112ba1848bbe01e51746e3203312fb",
+    "ui/review-followup.diff": "e164cfb27c6ed7dfa6d51dd3f93e49853591515d9d47f59b067d852ccf2699e5",
+    "ui/independent-review-followup-b.json": "c72387d3db5a6d023c960bed6ae2a38348afc93fe6acf2532a981be0a326aa43",
+    "browser/transport-adaptation-receipt.json": "779caa25e5c1456e1567d24cbb8ecccbd0d211a4a11a3ac4f79d4ca4713f0a9c"
+  },
+  "browserReceipt": "browser/receipt.json",
+  "originalSourceFixtureDirectPackedRestoreBlocked": true,
+  "realUserBrowserOrSaveAccess": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "visual-properties-approved-core-density-rejected",
+  "reviewedVersion": "compact-pair-v1",
+  "userQuote": "建筑还是太少了，这里像是郊区，不像是城市中心那种繁华的地方。城市中心一般建筑非常密集。但是整体画风、颜色、清晰度、比例，我觉得没有问题。段路遮挡这些也没有。",
+  "acceptedByUser": {
+    "paintingStyle": true,
+    "colors": true,
+    "nativeClarity": true,
+    "buildingRoadProportions": true,
+    "noVisibleRoadBreakOrObstructionReported": true
+  },
+  "notAccepted": {
+    "centralUrbanBuildingDensity": "Too few buildings; looks suburban rather than a prosperous city centre",
+    "wholeMapOrRemainingRegions": "Not reviewed or accepted by this feedback",
+    "BAsCityCentre": "No separate city-centre density approval for B"
+  },
+  "frozenInputs": {
+    "A_native_SHA256": "9ee0467ccf07936b677c946100619e59c6d68cda324d6e99aadf1cb95d7420a2",
+    "B_native_SHA256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+    "roadGraph_SHA256": "fd5f81578aa7d4050532b3b2571a2708eb036c2cc71dcdd4b14780240d2ba224",
+    "Tiled_SHA256": "62b916c820b3af8e9ca02ea607db7470460d53548da978b22b29a64393bdf10d"
+  },
+  "nextBoundedRevision": {
+    "firstTarget": "A commercial city-centre region, density only",
+    "appearance": "Continuous shopfronts, mixed commercial/office/residential massing, front/back building groups, substantially less oversized vacant lawn inside the core",
+    "preserve": ["Accepted style and palette", "Camera and native readable scale", "Existing building/road proportions", "Market identity", "Approved road geometry and shared eastern band", "Old source bytes and all user-edited files"],
+    "noShortcut": ["Do not shrink buildings or roads to pack more objects", "Do not expand the map", "Do not darken/recolor accepted art", "Do not return to individual-sprite mass production"],
+    "B": "Reuse B unchanged for this bounded A comparison, not a permanent freeze or a separate density approval; future urban-to-suburban zoning still applies",
+    "newVersionDirectory": "../compact-pair-v2-density/",
+    "remainingRegions": "Do not produce before the core-density correction is reviewed"
+  },
+  "notImplied": ["Native Tiled repaint verified", "Formal game tests passed", "Production-game integration", "Whole-city acceptance"]
+}

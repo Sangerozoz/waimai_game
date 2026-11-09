@@ -1,0 +1,66 @@
+{
+  "capturedAt": "2026-11-07T02:21:49.161561+00:00",
+  "pm": "thr_4xmqy6fzdm",
+  "author": "thr_29f6fcihz6",
+  "independentReviewer": "thr_gf8gehviua",
+  "status": "PREVENTION_VERIFIED_BUILT_DEPLOYED_EXISTING_SAVE_RESCUE_OPEN",
+  "authorReceipt": "docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/receipt.json",
+  "authorReceiptSHA256": "5e593d6779a1bd58eb79aff63b74c2b33e6e4bfb45a8531b68e9c97724daa63f",
+  "reviewFile": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/independent-review-a.md",
+  "reviewSHA256": "b00c9e2b21ea14afd328eca6226bfbd71033752a512b9741eeb9081095a148f4",
+  "authorReadOnlyAudit": {
+    "exitCode": 0,
+    "artifacts": 19,
+    "protectedLiveMatchBeforeIntegration": 292,
+    "a36LiveMatchBeforeIntegration": 36,
+    "greenTests": 71,
+    "finalROOTOnlyChangeVerified": true
+  },
+  "approvedChanges": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "beforeSHA256": "90b331aea0ecfb05cef239b09b08affc97402336273611eedafd96497fa694a8",
+      "afterSHA256": "c16544237e819b6ca03830e07c9723cf78f71d20b7292273f8c016bec8cc539d",
+      "reason": "Reviewed prevention guard; no restore or existing batch semantics changed"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "beforeSHA256": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+      "afterSHA256": "bd22eb20d158dc60880a89cd4911aba0aba2aab16f7c3c44bbc13ab4bf0cda34",
+      "reason": "Reviewed prevention guard; no restore or existing batch semantics changed"
+    },
+    {
+      "path": "delivery-game/tests/run-v2.cjs",
+      "beforeSHA256": "7457b384b29dec1b8660205b356ffa3f06b4799cdc3ebafa318a7d02d101f23b",
+      "afterSHA256": "47366e914febeaf87d0f5807b2cab7bd8be159153323bc1d852ec66bb85a7b38",
+      "reason": "Compile PlaceCatalog required by the new real-city public Game regression"
+    }
+  ],
+  "newFiles": [
+    {
+      "path": "delivery-game/tests/product-regression-1106/hero-car-reserve.test.cjs",
+      "sha256": "23819a18703548df6970b7e4db6e84227f1f208220bacd7896cdf830711dbf13",
+      "tests": 18
+    }
+  ],
+  "originalProtection": {
+    "path": "docs/team/handoffs/2026-11-07-codex-migration/protected-artifacts.json",
+    "sha256": "30156fa1e9871345d3cc2d81626a405fd721219a06343aa646be9797a6bdc129",
+    "fileCount": 224,
+    "beforeDrift": [],
+    "approvedChangedCount": 3,
+    "otherUnchangedCount": 221,
+    "unexpectedDrift": []
+  },
+  "productionBuilt": true,
+  "realBrowserOrUserSaveAccess": false,
+  "oldZeroQuotaSaveRescued": false,
+  "defaultRegression": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/default-regression-receipt.json",
+  "typecheck": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/typecheck-receipt.json",
+  "buildReceipt": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/build-receipt.json",
+  "updatedAt": "2026-11-07T02:30:25.400104+00:00",
+  "previewReceipt": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/preview-deployment-receipt.json",
+  "formalUserIssuesClosed": 0,
+  "wholeProductAccepted": false,
+  "visual98Accepted": false
+}

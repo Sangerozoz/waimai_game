@@ -1,0 +1,1007 @@
+--- docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/source-before/domain/V2EconomySession.ts
++++ delivery-game/assets/scripts/domain/V2EconomySession.ts
+@@ -13,9 +13,12 @@
+ export interface V2Rider { id:string; level:number; vehicleId:string|null }
+ export interface V2DeliveryEffects { profileId:string;speedRelativeToStarter:number;incomeFactor:number;capacity:V2Capacity }
+ export interface V2OrdinaryPricing { version:'ordinary-effort-v1'|'distance-effort-slots-v1'; deliveryMetres:number }
++export const V2_HERO_EMERGENCY_POLICY='hero-emergency-base-v1';
++export interface V2HeroEmergencyLoan { policyId:typeof V2_HERO_EMERGENCY_POLICY;sequence:number;active:boolean }
++export interface V2EmergencyVehicleRef {kind:'emergency';loanSequence:number;policyId:typeof V2_HERO_EMERGENCY_POLICY}
+ export type V2OrdinaryPricingById=Readonly<Record<string,Readonly<{deliveryMetres:number}>>>;
+ export const V2_ORDINARY_PRICING=Object.freeze({version:'ordinary-effort-v1' as const,protectedBasisPoints:10000,baseBasisPoints:9000,deliveryMetresCap:2000,basisPointsPerDeliveryMetre:1,extraKgBasisPoints:500,extraKgCap:2});
+-export interface V2DeliveryQuote { id:string; configId:string; incomeCents:number; heroOrderOrdinal:number; kind:'ordinary'|'special'; mapId:number; vehicleId:string; weightKg?:number; vehicleLevel?:number; incomeFactor?:number; xpMultiplier?:number; heroCompletedAtAcceptance?:number; specialCoins?:number; ordinaryPricing?:V2OrdinaryPricing;terms?:V2ContractTerms }
++export interface V2DeliveryQuote { id:string; configId:string; incomeCents:number; heroOrderOrdinal:number; kind:'ordinary'|'special'; mapId:number; vehicleId?:string;vehicleRef?:V2EmergencyVehicleRef; weightKg?:number; vehicleLevel?:number; incomeFactor?:number; xpMultiplier?:number; heroCompletedAtAcceptance?:number; specialCoins?:number; ordinaryPricing?:V2OrdinaryPricing;terms?:V2ContractTerms }
+ export interface V2DeliveryReceipt extends Partial<V2FinalSettlement> { id:string; incomeCents:number; heroOrderOrdinal:number }
+ export interface V2FleetQuote { id:string; riderId:string; vehicleId:string; vehicleLevel:number; riderLevel:number; mapId:number; weightKg?:number; incomeCents:number; capacityKg?:number; speedRelativeToStarter:number; baseIncomeFactor:number; fixedServiceReduction:number;terms?:V2ContractTerms }
+ export interface V2HeroCompletionEvent { id:string; teamCompletedAfter:number }
+@@ -25,8 +28,9 @@
+  riders:V2Rider[]; vehicles:V2Vehicle[]; ownedMapIds:number[]; selectedMapId:number;
+  npcCompletedOrders:number; heroCompletionEvents:V2HeroCompletionEvent[]; fleetQuotes:V2FleetQuote[]; activeQuotes:V2DeliveryQuote[];
+  settledOrderIds:string[]; activeQuote:V2DeliveryQuote|null; lastReceipt:V2DeliveryReceipt|null;
+-}
+-export interface V2EconomySnapshot { format:'county-v2-economy'; version:1|2; configId:string; state:V2EconomyState; legacyCheckpoint?:string; [key:string]:unknown }
++ heroEmergencyLoan?:V2HeroEmergencyLoan;
++}
++export interface V2EconomySnapshot { format:'county-v2-economy'; version:1|2|3; configId:string; state:V2EconomyState; legacyCheckpoint?:string; [key:string]:unknown }
+ const clone=<T>(value:T):T=>JSON.parse(JSON.stringify(value));
+ function check(condition:unknown,message='存档校验失败'):asserts condition {if(!condition)throw new Error(message);}
+ function int(value:unknown,min=0,max=Number.MAX_SAFE_INTEGER):value is number{return typeof value==='number'&&Number.isSafeInteger(value)&&value>=min&&value<=max;}
+@@ -34,6 +38,13 @@
+ function identity(value:unknown):value is string{return typeof value==='string'&&value.length>0&&value.length<=200;}
+ function hasRecoverableHeroVehicle(state:Readonly<V2EconomyState>):boolean {
+  return state.vehicles.some(vehicle=>!state.riders.some(rider=>rider.id!=='hero'&&rider.vehicleId===vehicle.id)&&!state.fleetQuotes.some(quote=>quote.vehicleId===vehicle.id));
++}
++/** Ownership stays real; reclaiming may additionally detach an NPC's future assignment. */
++function reclaimableHeroVehicleIds(state:Readonly<V2EconomyState>):string[] {return state.vehicles.filter(v=>!state.fleetQuotes.some(q=>q.vehicleId===v.id)).map(v=>v.id);}
++const emergencyVehicle=()=>({modelId:'starter' as const,level:1});
++function validateEmergencyRef(quote:V2DeliveryQuote,state:Readonly<V2EconomyState>):void {
++ const ref=quote.vehicleRef,loan=state.heroEmergencyLoan;
++ check(object(ref)&&Reflect.ownKeys(ref).length===3&&['kind','loanSequence','policyId'].every(k=>Object.prototype.propertyIsEnumerable.call(ref,k))&&ref.kind==='emergency'&&ref.policyId===V2_HERO_EMERGENCY_POLICY&&int(ref.loanSequence,1)&&loan&&ref.loanSequence<=loan.sequence&&!('vehicleId' in quote),'应急合同车辆来源无效');
+ }
+ /** Canonical metres for the versioned price only; never alter route or trip distance. */
+ export function quantizeOrdinaryDeliveryMetres(raw:unknown):number {
+@@ -63,6 +74,7 @@
+ }
+ /** New metadata is checked on active AND historical quotes; absent legacy quotes are untouched. */
+ function validateLegacyOrdinaryPricingQuote(quote:V2DeliveryQuote,state:Readonly<V2EconomyState>):void {
++ check(!('vehicleRef' in quote),'旧公斤合同不能使用借车来源');
+  if(!('ordinaryPricing' in quote))return;
+  check(Object.prototype.hasOwnProperty.call(quote,'ordinaryPricing')&&quote.kind==='ordinary','专送或继承字段不能附普通计价');
+  const pricing=quote.ordinaryPricing;
+@@ -90,12 +102,13 @@
+ export function validateLegacyV2EconomySnapshot(value:unknown):asserts value is V2EconomySnapshot {
+  check(object(value)&&value.format==='county-v2-economy'&&value.version===1&&value.configId===V2_CONFIG_ID,'存档版本或经济配置版本不受支持');
+  check(object(value.state));const s=value.state;
++ check(!('heroEmergencyLoan' in s),'旧经济容器不能包含借车记录');
+  for(const key of ['cashCents','heroCompletedOrders','heroExperience','hireCount','nextVehicleId'])check(int(s[key]));
+  check(int(s.hireCount,0,30)&&int(s.nextVehicleId,1)&&s.heroExperience===(s.heroCompletedOrders as number)*10);
+  check(Array.isArray(s.riders)&&s.riders.length===s.hireCount+1&&Array.isArray(s.vehicles)&&s.vehicles.length>0);
+  const vehicleIds=new Set<string>(),assigned=new Set<string>(),riderIds=new Set<string>();let maxId=0;
+  for(const v of s.vehicles){
+-  check(object(v)&&identity(v.id)&&!vehicleIds.has(v.id)&&int(v.level,1,30));vehicleIds.add(v.id);
++  check(object(v)&&!('vehicleRef' in v)&&identity(v.id)&&!vehicleIds.has(v.id)&&int(v.level,1,30));vehicleIds.add(v.id);
+   check(v.modelId==='starter'||int(v.modelId,1,10));
+ 
+   if(/^v2-vehicle-[1-9]\d*$/.test(v.id))maxId=Math.max(maxId,Number(v.id.slice(11)));
+@@ -115,7 +128,7 @@
+  let previous=0;const eventIds=new Set<string>();
+  for(const ev of typedState.heroCompletionEvents){check(object(ev)&&identity(ev.id)&&!eventIds.has(ev.id)&&s.settledOrderIds.includes(ev.id)&&int(ev.teamCompletedAfter,1)&&ev.teamCompletedAfter>previous&&ev.teamCompletedAfter<=Number(s.heroCompletedOrders)+Number(s.npcCompletedOrders));eventIds.add(ev.id);previous=ev.teamCompletedAfter;}
+  const openIds=new Set<string>();
+- for(const q of typedState.activeQuotes){check(object(q)&&identity(q.id)&&!openIds.has(q.id)&&!s.settledOrderIds.includes(q.id)&&q.configId===V2_CONFIG_ID&&int(q.mapId,1,5)&&vehicleIds.has(q.vehicleId)&&int(q.incomeCents)&&int(q.heroOrderOrdinal,1));openIds.add(q.id);
++ for(const q of typedState.activeQuotes){check(object(q)&&!('vehicleRef' in q)&&identity(q.id)&&!openIds.has(q.id)&&!s.settledOrderIds.includes(q.id)&&q.configId===V2_CONFIG_ID&&int(q.mapId,1,5)&&identity(q.vehicleId)&&vehicleIds.has(q.vehicleId)&&int(q.incomeCents)&&int(q.heroOrderOrdinal,1));openIds.add(q.id);
+   check(q.kind==='ordinary'||q.kind==='special');
+   {check(typeof q.incomeFactor==='number'&&Number.isFinite(q.incomeFactor)&&q.incomeFactor>0&&typeof q.xpMultiplier==='number'&&Number.isFinite(q.xpMultiplier)&&q.xpMultiplier>=1&&q.xpMultiplier<=1.6&&int(q.vehicleLevel,1,30)&&typeof q.weightKg==='number'&&Number.isFinite(q.weightKg)&&q.weightKg>0);
+    const lockedVehicle=typedState.vehicles.find(v=>v.id===q.vehicleId)!;check(q.incomeFactor===vehicleEffects({...lockedVehicle,level:q.vehicleLevel!}).incomeFactor&&int(q.heroCompletedAtAcceptance)&&q.heroCompletedAtAcceptance<=typedState.heroCompletedOrders);
+@@ -126,7 +139,7 @@
+  }
+  check(typedState.activeQuotes.length===0||typedState.activeQuotes.every(q=>q.vehicleId===typedState.riders[0].vehicleId&&q.mapId===typedState.selectedMapId));
+  check(JSON.stringify(s.activeQuote)===JSON.stringify(s.activeQuotes[0]||null));
+- for(const q of typedState.fleetQuotes){check(object(q)&&identity(q.id)&&!openIds.has(q.id)&&!s.settledOrderIds.includes(q.id)&&riderIds.has(q.riderId)&&q.riderId!=='hero'&&vehicleIds.has(q.vehicleId)&&int(q.riderLevel,1,30)&&int(q.vehicleLevel,1,30)&&int(q.mapId,1,5)&&int(q.weightKg,1)&&int(q.incomeCents));openIds.add(q.id);
++ for(const q of typedState.fleetQuotes){check(object(q)&&!('vehicleRef' in q)&&identity(q.id)&&!openIds.has(q.id)&&!s.settledOrderIds.includes(q.id)&&riderIds.has(q.riderId)&&q.riderId!=='hero'&&vehicleIds.has(q.vehicleId)&&int(q.riderLevel,1,30)&&int(q.vehicleLevel,1,30)&&int(q.mapId,1,5)&&int(q.weightKg,1)&&int(q.incomeCents));openIds.add(q.id);
+   const v=(s as unknown as V2EconomyState).vehicles.find(v=>v.id===q.vehicleId)!;const effects=vehicleEffects({...v,level:q.vehicleLevel}),rider=riderEffects(q.riderId,q.riderLevel);
+   check(q.capacityKg===effects.capacityKg&&q.speedRelativeToStarter===effects.speedRelativeToStarter&&q.weightKg<=q.capacityKg&&q.baseIncomeFactor===rider.baseIncomeFactor&&q.fixedServiceReduction===rider.fixedServiceReduction&&q.incomeCents===Math.round(C.maps[q.mapId-1].ordinaryBaseFee*100*effects.incomeFactor*rider.incomeFactor),'NPC锁定报价校验失败');
+  }
+@@ -152,7 +165,7 @@
+ export function contractTerms(quote:{terms?:V2ContractTerms}):V2ContractTerms {
+  check(Object.prototype.propertyIsEnumerable.call(quote,'terms'),'新容器缺少合同单位');return parseV2ContractTerms(quote.terms);
+ }
+-function heroSlotTerms(id:string,kind:'ordinary'|'special',vehicle:V2Vehicle,riderLevel:number):V2SlotContractTerms {
++function heroSlotTerms(id:string,kind:'ordinary'|'special',vehicle:Pick<V2Vehicle,'modelId'|'level'>,riderLevel:number):V2SlotContractTerms {
+  const effects=slotVehicleEffects(vehicle);return {version:'slots-v1',profileId:V2_SLOT_PROFILE_ID,pricePolicyId:kind==='ordinary'?V2_SLOT_PRICE_POLICY:'slots-special-v1',effectPolicyId:V2_SLOT_EFFECT_POLICY,
+  load:slotLoadForOrderId(id),capacity:effects.capacity,vehicleLevel:vehicle.level,riderLevel,speedRelativeToStarter:effects.speedRelativeToStarter,incomeFactor:effects.incomeFactor,riderIncomeFactor:1,fixedServiceReduction:0};
+ }
+@@ -162,8 +175,10 @@
+  speedRelativeToStarter:effects.speedRelativeToStarter,incomeFactor:effects.incomeFactor,riderIncomeFactor:training.incomeFactor,fixedServiceReduction:training.fixedServiceReduction};
+ }
+ export function validateSlotDeliveryQuote(q:V2DeliveryQuote,state:Readonly<V2EconomyState>):void {
+- check(object(q)&&identity(q.id)&&q.configId===V2_SLOT_PROFILE_ID&&!('weightKg' in q)&&int(q.mapId,1,5)&&identity(q.vehicleId)&&int(q.incomeCents)&&int(q.heroOrderOrdinal,1)&&int(q.vehicleLevel,1,30)&&int(q.heroCompletedAtAcceptance)&&q.heroCompletedAtAcceptance<=state.heroCompletedOrders&&q.heroOrderOrdinal>q.heroCompletedAtAcceptance,'格子合同身份无效');
+- check(q.kind==='ordinary'||q.kind==='special');const v=state.vehicles.find(v=>v.id===q.vehicleId);check(v&&q.vehicleLevel<=v.level);
++ check(object(q)&&identity(q.id)&&q.configId===V2_SLOT_PROFILE_ID&&!('weightKg' in q)&&int(q.mapId,1,5)&&int(q.incomeCents)&&int(q.heroOrderOrdinal,1)&&int(q.vehicleLevel,1,30)&&int(q.heroCompletedAtAcceptance)&&q.heroCompletedAtAcceptance<=state.heroCompletedOrders&&q.heroOrderOrdinal>q.heroCompletedAtAcceptance,'格子合同身份无效');
++ check(q.kind==='ordinary'||q.kind==='special');
++ if('vehicleRef' in q)validateEmergencyRef(q,state);else check(identity(q.vehicleId),'实车合同缺少车辆身份');
++ const v='vehicleRef' in q?emergencyVehicle():state.vehicles.find(v=>v.id===q.vehicleId);check(v&&q.vehicleLevel<=v.level);
+  const terms=contractTerms(q);check(terms.version==='slots-v1'&&sameV2ContractTerms(terms,heroSlotTerms(q.id,q.kind,{...v,level:q.vehicleLevel},state.riders[0].level)));
+  const accepted=q.heroCompletedAtAcceptance,expectedXp=accepted<C.intro.safeOrders?1:getPlayerIncomeMultiplier(accepted*10<50?1:getExperienceLevel(accepted*10+50));
+  check(q.incomeFactor===terms.incomeFactor&&q.xpMultiplier===expectedXp);
+@@ -173,7 +188,7 @@
+  check(q.incomeCents===slotOrdinaryIncomeCents(q.mapId,terms.incomeFactor,expectedXp,accepted,p.deliveryMetres),'格子合同金额不匹配');
+ }
+ export function validateSlotFleetQuote(q:V2FleetQuote,state:Readonly<V2EconomyState>):void {
+- check(object(q)&&identity(q.id)&&!('weightKg' in q)&&!('capacityKg' in q)&&int(q.mapId,1,5)&&int(q.incomeCents)&&int(q.vehicleLevel,1,30)&&int(q.riderLevel,1,30));
++ check(object(q)&&identity(q.id)&&!('vehicleRef' in q)&&!('weightKg' in q)&&!('capacityKg' in q)&&int(q.mapId,1,5)&&int(q.incomeCents)&&int(q.vehicleLevel,1,30)&&int(q.riderLevel,1,30));
+  const v=state.vehicles.find(v=>v.id===q.vehicleId),r=state.riders.find(r=>r.id===q.riderId&&r.id!=='hero');check(v&&r&&q.vehicleLevel<=v.level&&q.riderLevel<=r.level);
+  const effects=slotVehicleEffects({...v,level:q.vehicleLevel}),training=slotRiderEffects(r.id,q.riderLevel),terms=contractTerms(q);
+  check(terms.version==='slots-v1'&&sameV2ContractTerms(terms,fleetSlotTerms(q.id,{...v,level:q.vehicleLevel},{...r,level:q.riderLevel})));
+@@ -187,20 +202,24 @@
+ export function validateV2EconomySnapshot(value:unknown):asserts value is V2EconomySnapshot {
+  check(object(value)&&object(value.state));const s=value.state as unknown as V2EconomyState;
+  check(Array.isArray(s.activeQuotes)&&Array.isArray(s.fleetQuotes));
++ if(value.version!==3)check(!('heroEmergencyLoan' in s)&&[...s.activeQuotes,...s.fleetQuotes].every(q=>object(q)&&!('vehicleRef' in q)),'旧容器不能包含借车来源');
+  if(value.version===1){
+   check([...s.activeQuotes,...s.fleetQuotes].every(q=>object(q)&&!('terms' in q)&&!('load' in q)&&!('occupiedSlots' in q)));
+   validateLegacyV2EconomySnapshot(value);return;
+  }
+- check(value.format==='county-v2-economy'&&value.version===2&&value.configId===V2_SLOT_PROFILE_ID,'经济配置版本不受支持');
++ check(value.format==='county-v2-economy'&&(value.version===2||value.version===3)&&value.configId===V2_SLOT_PROFILE_ID,'经济配置版本不受支持');
++ if(value.version===3){const loan=s.heroEmergencyLoan;check(object(loan)&&Reflect.ownKeys(loan).length===3&&['policyId','sequence','active'].every(k=>Object.prototype.propertyIsEnumerable.call(loan,k))&&loan.policyId===V2_HERO_EMERGENCY_POLICY&&int(loan.sequence,1)&&typeof loan.active==='boolean','借车记录无效');check(!loan.active||Array.isArray(s.riders)&&s.riders[0]?.vehicleId===null,'借车期间不能装备实车');}
+  const activeLegacy:V2DeliveryQuote[]=[],fleetLegacy:V2FleetQuote[]=[],ids=new Set<string>();
+  for(const q of [...s.activeQuotes,...s.fleetQuotes]){check(object(q)&&identity(q.id)&&!ids.has(q.id)&&Array.isArray(s.settledOrderIds)&&!s.settledOrderIds.includes(q.id));ids.add(q.id);contractTerms(q);}
+  for(const q of s.activeQuotes){if(contractTerms(q).version==='slots-v1')validateSlotDeliveryQuote(q,s);else {check(!('load' in q)&&!('occupiedSlots' in q));activeLegacy.push(legacyQuotePayload(q));}}
+  for(const q of s.fleetQuotes){if(contractTerms(q).version==='slots-v1')validateSlotFleetQuote(q,s);else {check(!('load' in q)&&!('occupiedSlots' in q));fleetLegacy.push(legacyQuotePayload(q));}}
+  check(JSON.stringify(s.activeQuote)===JSON.stringify(s.activeQuotes[0]||null));
+- const projection={...value,version:1,configId:V2_CONFIG_ID,state:{...s,activeQuotes:activeLegacy,activeQuote:activeLegacy[0]||null,fleetQuotes:fleetLegacy}};
++ const {heroEmergencyLoan,...realState}=s;
++ const projection={...value,version:1,configId:V2_CONFIG_ID,state:{...realState,activeQuotes:activeLegacy,activeQuote:activeLegacy[0]||null,fleetQuotes:fleetLegacy}};
+  validateLegacyV2EconomySnapshot(projection);
+- check(s.activeQuotes.every(q=>q.vehicleId===s.riders[0].vehicleId&&q.mapId===s.selectedMapId));
++ check(s.activeQuotes.every(q=>q.mapId===s.selectedMapId&&('vehicleRef' in q?heroEmergencyLoan?.active&&q.vehicleRef?.loanSequence===heroEmergencyLoan.sequence:!heroEmergencyLoan?.active&&q.vehicleId===s.riders[0].vehicleId)),'主角活动合同车辆来源不一致');
+  if(s.activeQuotes.length){check(!s.activeQuotes.some(q=>q.kind==='special')||s.activeQuotes.length===1);const terms=s.activeQuotes.map(contractTerms);check(terms.every(t=>t.version===terms[0].version));
++  check(s.activeQuotes.every(q=>JSON.stringify(q.vehicleRef)===JSON.stringify(s.activeQuotes[0].vehicleRef)&&q.vehicleId===s.activeQuotes[0].vehicleId),'批次车辆来源混合');
+   if(terms[0].version==='slots-v1')check(fitsV2Capacity(terms.map(t=>(t as V2SlotContractTerms).load),terms[0].capacity));
+  }
+ }
+@@ -224,21 +243,25 @@
+  /** Atomically restores a validated draft; performs no storage write. */
+  replaceFrom(serialized:string):void {const restored=V2EconomySession.restore(serialized);this.snapshot=restored.snapshot;}
+  get state():Readonly<V2EconomyState>{return clone(this.snapshot.state);}
+- get usesSlots():boolean{return this.snapshot.version===2;}
++ get usesSlots():boolean{return this.snapshot.configId===V2_SLOT_PROFILE_ID;}
++ get schemaVersion():V2EconomySnapshot['version'] {return this.snapshot.version;}
+  /** Read validated private authority, never a full snapshot; all returned objects are detached. */
+- get hasEquippedVehicle():boolean {return this.snapshot.state.riders[0].vehicleId!==null;}
++ get hasEquippedVehicle():boolean {return this.snapshot.state.riders[0].vehicleId!==null||this.snapshot.state.heroEmergencyLoan?.active===true;}
+  /** Owned car that the hero can equip, excluding NPC assignments and unpaid old contracts. */
+  get hasRecoverableHeroVehicle():boolean {return hasRecoverableHeroVehicle(this.snapshot.state);}
++ get reclaimableHeroVehicleIds():readonly string[] {return reclaimableHeroVehicleIds(this.snapshot.state);}
++ get minimumVehiclePurchaseCents():number {return Math.min(...C.vehicles.map(v=>slotVehiclePurchaseQuote(v.id).costCents));}
+  get nextBatchEffects():V2SlotVehicleEffects|null {
+-  const s=this.snapshot.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);return v?slotVehicleEffects(v):null;
++  const s=this.snapshot.state,v=s.heroEmergencyLoan?.active?emergencyVehicle():s.vehicles.find(v=>v.id===s.riders[0].vehicleId);return v?slotVehicleEffects(v):null;
+  }
+  deliveryEffectProjection(quoteId:string|null):V2DeliveryEffects|null {
+-  const s=this.snapshot.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);if(!v)return null;
++  const s=this.snapshot.state;
+   const quote=quoteId===null?null:s.activeQuotes.find(q=>q.id===quoteId);check(quoteId===null||quote,'当前配送效果合同不一致');
+   const terms=quote?.terms;
+   if(terms?.version==='slots-v1')return {profileId:terms.profileId,speedRelativeToStarter:terms.speedRelativeToStarter,incomeFactor:terms.incomeFactor,capacity:{version:'slots-v1',capacitySlots:terms.capacity.capacitySlots}};
+-  if(quote){const legacy=vehicleEffects(v);return {profileId:V2_CONFIG_ID,speedRelativeToStarter:legacy.speedRelativeToStarter,incomeFactor:legacy.incomeFactor,capacity:{version:'kg-v1',capacityKg:legacy.capacityKg}};}
+-  const current=slotVehicleEffects(v);return {profileId:V2_SLOT_PROFILE_ID,speedRelativeToStarter:current.speedRelativeToStarter,incomeFactor:current.incomeFactor,capacity:current.capacity};
++  const v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);
++  if(quote){check(v,'旧主角合同车辆丢失');const legacy=vehicleEffects(v);return {profileId:V2_CONFIG_ID,speedRelativeToStarter:legacy.speedRelativeToStarter,incomeFactor:legacy.incomeFactor,capacity:{version:'kg-v1',capacityKg:legacy.capacityKg}};}
++  const current=this.nextBatchEffects;return current?{profileId:V2_SLOT_PROFILE_ID,speedRelativeToStarter:current.speedRelativeToStarter,incomeFactor:current.incomeFactor,capacity:current.capacity}:null;
+  }
+  vehicleEffectProjection(vehicleId:string):V2SlotVehicleEffects|null {
+   const v=this.snapshot.state.vehicles.find(v=>v.id===vehicleId);return v?slotVehicleEffects(v):null;
+@@ -252,6 +275,21 @@
+   next.state.activeQuotes=next.state.activeQuotes.map(wrapLegacyQuote);next.state.activeQuote=next.state.activeQuotes[0]||null;
+   next.state.fleetQuotes=next.state.fleetQuotes.map(wrapLegacyQuote);next.version=2;next.configId=V2_SLOT_PROFILE_ID;
+   validateV2EconomySnapshot(next);this.snapshot=next;
++ }
++ /** Local economic transition. Fleet owns the zero-quota aggregate check. */
++ beginHeroEmergencyLoan(expectedSequence:number):number {
++  const s=this.snapshot.state,sequence=s.heroEmergencyLoan?.sequence??0;this.idle();
++  check(int(expectedSequence)&&expectedSequence===sequence&&!s.heroEmergencyLoan?.active,'借车请求重复或序号已过期');
++  check(s.riders[0].vehicleId===null&&s.vehicles.length>0&&reclaimableHeroVehicleIds(s).length===0,'请先取回可用实车');
++  check(s.cashCents<this.minimumVehiclePurchaseCents,'余额足够购车，请正常购车');check(int(sequence+1,1),'借车序号超出范围');
++  this.enableSlots();const next=clone(this.snapshot);next.version=3;next.state.heroEmergencyLoan={policyId:V2_HERO_EMERGENCY_POLICY,sequence:sequence+1,active:true};
++  validateV2EconomySnapshot(next);this.snapshot=next;return sequence+1;
++ }
++ finishHeroEmergencyLoan(loanSequence:number,vehicleId:string):void {
++  const s=this.snapshot.state,loan=s.heroEmergencyLoan;this.idle();
++  check(loan?.active&&int(loanSequence,1)&&loanSequence===loan.sequence,'归还请求重复或借车序号已过期');
++  check(identity(vehicleId)&&reclaimableHeroVehicleIds(s).includes(vehicleId),'实车不存在或仍有未付旧合同');
++  this.transact(0,d=>{for(const rider of d.riders)if(rider.id!=='hero'&&rider.vehicleId===vehicleId)rider.vehicleId=null;d.riders[0].vehicleId=vehicleId;d.heroEmergencyLoan!.active=false;});
+  }
+  vehicleUpgradePrice(id:string){const v=this.snapshot.state.vehicles.find(v=>v.id===id);check(v,'车辆不存在');return v.level===30?null:this.usesSlots?slotVehicleUpgradeQuote(v):vehicleUpgradeQuote(v);}
+  riderUpgradePrice(id:string){const r=this.snapshot.state.riders.find(r=>r.id===id);check(r&&r.id!=='hero','人物无效');return r.level===30?null:this.usesSlots?slotRiderUpgradeQuote(id,r.level):riderUpgradeQuote(id,r.level);}
+@@ -274,6 +312,7 @@
+  hireRider(id:string):void {check(/^npc-([1-9]|[12]\d|30)$/.test(id),'人物无效');check(!this.snapshot.state.riders.some(r=>r.id===id),'人物已招募');const price=this.usesSlots?slotRiderHireQuote(id).costCents:riderHireQuote(id).priceCents;this.transact(price,s=>{s.riders.push({id,level:1,vehicleId:null});s.hireCount++;},'rider_hire',{riderId:id},this.usesSlots);}
+  assignVehicle(riderId:string,vehicleId:string|null):void {
+   const s=this.snapshot.state;check(s.riders.some(r=>r.id===riderId),'人物未招募');check(vehicleId===null||s.vehicles.some(v=>v.id===vehicleId),'车辆不存在');
++  check(riderId!=='hero'||!s.heroEmergencyLoan?.active,'请使用取回实车并归还应急车');
+   check(vehicleId===null||!s.fleetQuotes.some(q=>q.vehicleId===vehicleId&&q.riderId!==riderId),'车辆仍执行旧批次');
+   check(vehicleId===null||!s.riders.some(r=>r.id!==riderId&&r.vehicleId===vehicleId),'车辆已被其他人物占用');
+   this.transact(0,s=>{s.riders.find(r=>r.id===riderId)!.vehicleId=vehicleId;if(riderId!=='hero'&&vehicleId!==null)check(hasRecoverableHeroVehicle(s),'请为主角保留一辆可用车辆');},undefined,{},this.usesSlots&&riderId!=='hero');
+@@ -303,13 +342,15 @@
+   });check(weight<=effects.capacityKg,'订单超载');const next=clone(this.snapshot);next.state.activeQuotes=quotes;next.state.activeQuote=quotes[0];validateV2EconomySnapshot(next);this.snapshot=next;return clone(quotes);
+  }
+  acceptSlotBatch(orders:readonly {id:string;kind:'ordinary'|'special';specialCoins?:number}[],byId:V2OrdinaryPricingById):V2DeliveryQuote[] {
+-  this.idle();check(this.usesSlots&&Array.isArray(orders)&&orders.length>0,'新格子批次无效');const s=this.snapshot.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);check(v,'主角尚未配车');
++  this.idle();check(this.usesSlots&&Array.isArray(orders)&&orders.length>0,'新格子批次无效');const s=this.snapshot.state,loan=s.heroEmergencyLoan,owned=s.vehicles.find(v=>v.id===s.riders[0].vehicleId),v=loan?.active?emergencyVehicle():owned;check(v,'主角尚未配车');
++  check(!loan?.active||reclaimableHeroVehicleIds(s).length===0,'请先取回实车并归还应急车');
+   const pricing=slotPricingById(orders,byId),effects=slotVehicleEffects(v),seen=new Set<string>();
+   const xp=s.heroCompletedOrders<C.intro.safeOrders?1:getPlayerIncomeMultiplier(s.heroExperience<50?1:getExperienceLevel(s.heroExperience+50));
+   const quotes=orders.map((o,i):V2DeliveryQuote=>{
+    check(identity(o.id)&&!seen.has(o.id)&&!s.settledOrderIds.includes(o.id)&&!s.fleetQuotes.some(q=>q.id===o.id));seen.add(o.id);
+    check(o.kind==='ordinary'||o.kind==='special');if(o.kind==='special')check(orders.length===1&&int(o.specialCoins,100,150));
+-   const q:V2DeliveryQuote={id:o.id,configId:V2_SLOT_PROFILE_ID,kind:o.kind,mapId:s.selectedMapId,vehicleId:v.id,vehicleLevel:v.level,incomeFactor:effects.incomeFactor,xpMultiplier:xp,heroCompletedAtAcceptance:s.heroCompletedOrders,heroOrderOrdinal:s.heroCompletedOrders+i+1,
++   const source:Pick<V2DeliveryQuote,'vehicleRef'|'vehicleId'>=loan?.active?{vehicleRef:{kind:'emergency',loanSequence:loan.sequence,policyId:V2_HERO_EMERGENCY_POLICY}}:{vehicleId:owned!.id};
++   const q:V2DeliveryQuote={id:o.id,configId:V2_SLOT_PROFILE_ID,kind:o.kind,mapId:s.selectedMapId,...source,vehicleLevel:v.level,incomeFactor:effects.incomeFactor,xpMultiplier:xp,heroCompletedAtAcceptance:s.heroCompletedOrders,heroOrderOrdinal:s.heroCompletedOrders+i+1,
+    incomeCents:o.kind==='special'?o.specialCoins!*100:slotOrdinaryIncomeCents(s.selectedMapId,effects.incomeFactor,xp,s.heroCompletedOrders,pricing[o.id].deliveryMetres),terms:heroSlotTerms(o.id,o.kind,v,s.riders[0].level)};
+    if(o.kind==='special')q.specialCoins=o.specialCoins;else q.ordinaryPricing={version:V2_SLOT_PRICE_POLICY,deliveryMetres:pricing[o.id].deliveryMetres};return q;
+   });check(fitsV2Capacity(quotes.map(q=>(q.terms as V2SlotContractTerms).load),effects.capacity),'订单超载');
+--- docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/source-before/domain/V2FleetSession.ts
++++ delivery-game/assets/scripts/domain/V2FleetSession.ts
+@@ -6,7 +6,7 @@
+ export interface V2FleetOrder extends V2FleetQuote { dueMs:number }
+ export interface V2FleetBatch { id:number; riderId:string; vehicleId:string; mapId:number; elapsedMs:number; paidCount:number; orders:V2FleetOrder[] }
+ export interface V2FleetState { quotaMs:number; lastAdvancedAt:number; heroEventCursor:number; heroCompletionsSeen:number; nextBatchId:number; batches:V2FleetBatch[] }
+-export interface V2FleetSnapshot { format:'county-v2-fleet';version:1|2;configId:string;economy:V2EconomySnapshot;fleet:V2FleetState }
++export interface V2FleetSnapshot { format:'county-v2-fleet';version:1|2|3;configId:string;economy:V2EconomySnapshot;fleet:V2FleetState }
+ const copy=<T>(v:T):T=>JSON.parse(JSON.stringify(v));
+ function check(v:unknown,message='车队存档校验失败'):asserts v {if(!v)throw new Error(message);}
+ function integer(v:unknown,min=0,max=Number.MAX_SAFE_INTEGER):v is number {return typeof v==='number'&&Number.isSafeInteger(v)&&v>=min&&v<=max;}
+@@ -22,11 +22,11 @@
+ export class V2FleetSession {
+  readonly economy:V2EconomySession;
+  private value:V2FleetState;
+- private version:1|2;
++ private version:1|2|3;
+  // Host-local calendar policy is transient; never serialize a callback or infer a timezone.
+  private ledgerDayKeyResolver:((atMs:number)=>string)|null=null;
+  constructor(economy:V2EconomySession,nowMs=0){
+-  check(integer(nowMs),'经营时钟无效');check(economy.state.fleetQuotes.length===0,'已有车队合同须恢复组合快照');this.economy=economy;this.version=economy.usesSlots?2:1;
++  check(integer(nowMs),'经营时钟无效');check(economy.state.fleetQuotes.length===0,'已有车队合同须恢复组合快照');this.economy=economy;this.version=economy.schemaVersion;
+   this.value={quotaMs:0,lastAdvancedAt:nowMs,heroEventCursor:economy.state.heroCompletionEvents.length,heroCompletionsSeen:economy.state.heroCompletedOrders,nextBatchId:1,batches:[]};
+  }
+  get state():Readonly<V2FleetState>{return copy(this.value);}
+@@ -34,19 +34,19 @@
+  get clockProgress():Readonly<Pick<V2FleetState,'lastAdvancedAt'|'heroEventCursor'>> {return {lastAdvancedAt:this.value.lastAdvancedAt,heroEventCursor:this.value.heroEventCursor};}
+  setLedgerDayKeyResolver(resolver:((atMs:number)=>string)|null):void {check(resolver===null||typeof resolver==='function','账目日期解析器无效');this.ledgerDayKeyResolver=resolver;}
+  get quotaCapacityMs():number {const e=this.economy.state;return stage(e.heroCompletedOrders+e.npcCompletedOrders).capacity;}
+- serialize():string {return JSON.stringify({format:'county-v2-fleet',version:this.version,configId:this.version===2?V2_SLOT_PROFILE_ID:V2_CONFIG_ID,economy:JSON.parse(this.economy.serialize()),fleet:this.value});}
++ serialize():string {return JSON.stringify({format:'county-v2-fleet',version:this.version,configId:this.version===1?V2_CONFIG_ID:V2_SLOT_PROFILE_ID,economy:JSON.parse(this.economy.serialize()),fleet:this.value});}
+  /** Wrap only after the original fleet AND economy invariants have accepted the old payload. */
+- enableSlots():void {if(this.version===2)return;this.validate();this.economy.enableSlots();this.value={...this.value,batches:this.value.batches.map(b=>({...b,orders:b.orders.map(wrapLegacyQuote)}))};this.version=2;this.validate();}
++ enableSlots():void {if(this.version!==1)return;this.validate();this.economy.enableSlots();this.value={...this.value,batches:this.value.batches.map(b=>({...b,orders:b.orders.map(wrapLegacyQuote)}))};this.version=2;this.validate();}
+  static restore(serialized:string,sharedEconomy?:V2EconomySession):V2FleetSession {
+-  const raw=JSON.parse(serialized) as V2FleetSnapshot;check(raw&&raw.format==='county-v2-fleet'&&(raw.version===1&&raw.configId===V2_CONFIG_ID||raw.version===2&&raw.configId===V2_SLOT_PROFILE_ID),'车队版本不受支持');
++  const raw=JSON.parse(serialized) as V2FleetSnapshot;check(raw&&raw.format==='county-v2-fleet'&&(raw.version===1&&raw.configId===V2_CONFIG_ID||(raw.version===2||raw.version===3)&&raw.configId===V2_SLOT_PROFILE_ID),'车队版本不受支持');
+   const e=V2EconomySession.restore(JSON.stringify(raw.economy));if(sharedEconomy)check(sharedEconomy.serialize()===e.serialize(),'车队与钱包快照不一致');
+   // Construction bypass is private to validated restoration; fresh construction never accepts outstanding contracts.
+   const f=Object.create(V2FleetSession.prototype) as V2FleetSession;
+-  f.ledgerDayKeyResolver=null;f.version=raw.version;check(e.usesSlots===(f.version===2));
++  f.ledgerDayKeyResolver=null;f.version=raw.version;check(e.schemaVersion===f.version);
+   Object.defineProperty(f,'economy',{value:sharedEconomy||e,enumerable:true});f.value=copy(raw.fleet);f.validate();return f;
+  }
+  private validate():void {
+-  check(this.economy.usesSlots===(this.version===2));
++  check(this.economy.schemaVersion===this.version);
+   const s=this.value,e=this.economy.state;check(s&&integer(s.quotaMs,0,this.quotaCapacityMs)&&integer(s.lastAdvancedAt)&&integer(s.heroEventCursor,0,e.heroCompletionEvents.length)&&integer(s.heroCompletionsSeen,0,e.heroCompletedOrders)&&integer(s.nextBatchId,1)&&Array.isArray(s.batches));
+   // Older migrated completions are the baseline, never retroactively replenished.
+   check(s.heroCompletionsSeen===e.heroCompletedOrders-(e.heroCompletionEvents.length-s.heroEventCursor));
+@@ -55,11 +55,11 @@
+    // The signed vehicle stays reserved; its owner may choose another idle vehicle or null for future work.
+    check(e.riders.every(r=>r.id===b.riderId||r.vehicleId!==b.vehicleId)&&e.activeQuotes.every(q=>q.vehicleId!==b.vehicleId),'在途车辆被其他人物或主角合同占用');
+    const first=b.orders[0];check(first&&b.riderId===first.riderId&&b.vehicleId===first.vehicleId&&b.mapId===first.mapId);const t=timing(first,b.orders.length);let weight=0;
+-   const firstTerms=this.version===2?contractTerms(first):null,slots=firstTerms?.version==='slots-v1';
++   const firstTerms=this.version!==1?contractTerms(first):null,slots=firstTerms?.version==='slots-v1';
+    if(firstTerms?.version==='slots-v1')check(JSON.stringify(b.orders.map(o=>o.id))===JSON.stringify(slotFleetOrderIds(b.id,firstTerms.capacity.capacitySlots)));
+    if(this.version===1)check(b.orders.every(o=>!('terms' in o)));
+-   for(let i=0;i<b.orders.length;i++){const o=b.orders[i];check(o&&(slots||o.id===`fleet-${b.id}-${i}`)&&o.riderId===b.riderId&&o.vehicleId===b.vehicleId&&o.mapId===b.mapId&&o.vehicleLevel===first.vehicleLevel&&o.riderLevel===first.riderLevel&&o.baseIncomeFactor===first.baseIncomeFactor&&o.fixedServiceReduction===first.fixedServiceReduction&&o.capacityKg===first.capacityKg&&o.speedRelativeToStarter===first.speedRelativeToStarter&&o.incomeCents===first.incomeCents&&integer(o.dueMs,1)&&o.dueMs===t.road+t.service*(i+1));
+-    if(this.version===2)check(contractTerms(o).version===firstTerms!.version);
++   for(let i=0;i<b.orders.length;i++){const o=b.orders[i];check(o&&!('vehicleRef' in o)&&(slots||o.id===`fleet-${b.id}-${i}`)&&o.riderId===b.riderId&&o.vehicleId===b.vehicleId&&o.mapId===b.mapId&&o.vehicleLevel===first.vehicleLevel&&o.riderLevel===first.riderLevel&&o.baseIncomeFactor===first.baseIncomeFactor&&o.fixedServiceReduction===first.fixedServiceReduction&&o.capacityKg===first.capacityKg&&o.speedRelativeToStarter===first.speedRelativeToStarter&&o.incomeCents===first.incomeCents&&integer(o.dueMs,1)&&o.dueMs===t.road+t.service*(i+1));
++    if(this.version!==1)check(contractTerms(o).version===firstTerms!.version);
+     if(slots){validateSlotFleetQuote(o,e);}else{check(integer(o.weightKg,1));weight+=o.weightKg;}
+     if(i<b.paidCount)check(e.settledOrderIds.includes(o.id)&&b.elapsedMs>=o.dueMs);
+     else{check(b.elapsedMs<o.dueMs&&!unpaid.has(o.id));unpaid.add(o.id);const q=e.fleetQuotes.find(q=>q.id===o.id);check(q&&Object.keys(q).every(k=>k==='terms'?sameV2ContractTerms(contractTerms(q),contractTerms(o)):(q as unknown as Record<string,unknown>)[k]===(o as unknown as Record<string,unknown>)[k]),'车队与入账合同不一致');}
+@@ -78,6 +78,10 @@
+   for(let i=this.value.heroEventCursor;i<events.length;i++){const row=stage(events[i].teamCompletedAfter);this.value.quotaMs=Math.min(row.capacity,this.value.quotaMs+row.refill);this.value.heroCompletionsSeen++;}
+   this.value.heroEventCursor=events.length;
+  }
++ /** The quota check and loan activation share the authoritative fleet/economy draft. */
++ borrowEmergencyVehicle(expectedSequence:number):number {
++  return this.atomic(d=>{d.syncDraft();check(d.value.quotaMs===0,'经营额度尚未耗尽，不能应急借车');d.enableSlots();const sequence=d.economy.beginHeroEmergencyLoan(expectedSequence);d.version=3;return sequence;});
++ }
+  /** Consume each real hero completion event exactly once. Call at the completion instant. */
+  syncHeroCompletions():void {this.atomic(d=>d.syncDraft());}
+  completeHeroDelivery(id:string):V2DeliveryReceipt {return this.atomic(d=>{const r=d.economy.completeDelivery(id);d.syncDraft();return r;});}
+@@ -85,7 +89,7 @@
+   if(!this.economy.hasRecoverableHeroVehicle)return;
+   const e=this.economy.state;
+   for(const rider of e.riders){if(rider.id==='hero'||!rider.vehicleId||this.value.batches.some(b=>b.riderId===rider.id||b.vehicleId===rider.vehicleId))continue;
+-   if(this.version===2){
++   if(this.version!==1){
+     const vehicle=e.vehicles.find(v=>v.id===rider.vehicleId)!;const capacity=slotVehicleEffects(vehicle).capacitySlots,ids=slotFleetOrderIds(this.value.nextBatchId,capacity);
+     if(!ids.length)continue;const id=this.value.nextBatchId++,quotes=this.economy.registerSlotFleetOrders(rider.id,ids),t=timing(quotes[0],quotes.length);
+     this.value.batches.push({id,riderId:rider.id,vehicleId:vehicle.id,mapId:e.selectedMapId,elapsedMs:0,paidCount:0,orders:quotes.map((q,i)=>({...q,dueMs:t.road+t.service*(i+1)}))});continue;
+--- docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/source-before/domain/V2DispatchSession.ts
++++ delivery-game/assets/scripts/domain/V2DispatchSession.ts
+@@ -13,10 +13,15 @@
+ export type V2EconomyCommand =
+  {type:'buyVehicle';modelId:number}|{type:'hireRider';riderId:string}|
+  {type:'assignVehicle';riderId:string;vehicleId:string|null}|{type:'buyMap'|'selectMap';mapId:number}|
+- {type:'upgradeVehicle';vehicleId:string}|{type:'upgradeRider';riderId:string};
++ {type:'upgradeVehicle';vehicleId:string}|{type:'upgradeRider';riderId:string}|
++ {type:'borrowEmergencyVehicle';expectedSequence:number}|{type:'returnEmergencyVehicle';loanSequence:number;vehicleId:string};
++export type EmergencyLoanStatus=Readonly<{
++ phase:'unavailable'|'available'|'borrowed'|'returnable'|'returned';sequence:number;loanSequence:number|null;
++ returnVehicleIds:readonly string[];canStartBatch:boolean;reason:string;
++}>;
+ interface DispatchOrder extends V2DispatchOrder {quote:V2DeliveryQuote;status:'pending'|'completed'|'cancelled';receipt:V2DeliveryReceipt|null}
+ export interface V2DispatchSnapshot {
+- format:'county-v2-dispatch';version:1|2;economy:unknown;fleet:unknown;rewards:unknown;clockNeedsRebase:boolean;
++ format:'county-v2-dispatch';version:1|2|3;economy:unknown;fleet:unknown;rewards:unknown;clockNeedsRebase:boolean;
+  orders:DispatchOrder[];batchIds:string[];
+  frame:{sequence:number;nowSeconds:number;foreground:boolean;paused:boolean;fingerprint:string};control:'manual'|'auto';
+ }
+@@ -29,7 +34,7 @@
+ /** One owner for economic, fleet, reward and delivery states; no storage or Cocos dependency. */
+ export class V2DispatchSession {
+  private economy:V2EconomySession;
+- private version:1|2=1;
++ private version:1|2|3=1;
+  private fleet:V2FleetSession;
+  private rewards:RewardSession;
+  private orders:DispatchOrder[]=[];
+@@ -64,7 +69,20 @@
+  get nextBatchEffects(){return this.economy.nextBatchEffects;}
+  vehicleEffectProjection(vehicleId:string){return this.economy.vehicleEffectProjection(vehicleId);}
+  riderEffectProjection(riderId:string){return this.economy.riderEffectProjection(riderId);}
+- get usesSlots():boolean{return this.version===2;}
++ get usesSlots():boolean{return this.version===2||this.version===3;}
++ get schemaVersion():V2DispatchSnapshot['version'] {return this.version;}
++ get emergencyLoanStatus():EmergencyLoanStatus {
++  const e=this.economy.state,loan=e.heroEmergencyLoan,sequence=loan?.sequence??0,busy=this.batchIds.length>0;
++  const reclaimable=this.economy.reclaimableHeroVehicleIds;
++  if(loan?.active){const returnable=reclaimable.length>0;return {phase:returnable?'returnable':'borrowed',sequence,loanSequence:sequence,returnVehicleIds:reclaimable,canStartBatch:!busy&&!returnable,reason:busy?'请先完成当前配送批次':returnable?'请取回实车并归还应急车':'实车仍由旧合同保留，可继续亲送补额度'};}
++  let reason='';
++  if(busy)reason='请先完成当前配送批次';
++  else if(e.riders[0].vehicleId!==null)reason='主角已有实车';
++  else if(reclaimable.length>0||!e.vehicles.length)reason='请先卸装取回可用实车';
++  else if(this.fleet.state.quotaMs!==0||this.fleet.clockProgress.heroEventCursor!==this.economy.heroCompletionEventCount)reason='经营额度尚未耗尽';
++  else if(e.cashCents>=this.economy.minimumVehiclePurchaseCents)reason='余额足够购车，请正常购车';
++  return {phase:reason?sequence>0?'returned':'unavailable':'available',sequence,loanSequence:null,returnVehicleIds:[],canStartBatch:!busy&&this.economy.hasEquippedVehicle,reason:reason||'可临时借用基础2格车，真实亲送恢复额度'};
++ }
+  enableSlots():void {if(this.usesSlots)return;this.validate();this.fleet.enableSlots();this.orders=this.orders.map(o=>({...o,quote:wrapLegacyQuote(o.quote)}));this.version=2;this.validate();}
+  vehicleUpgradePrice(id:string){return this.economy.vehicleUpgradePrice(id);}
+  riderUpgradePrice(id:string){return this.economy.riderUpgradePrice(id);}
+@@ -89,9 +107,20 @@
+     case 'selectMap':d.economy.selectMap(command.mapId);break;
+     case 'upgradeVehicle':d.economy.upgradeVehicle(command.vehicleId);break;
+     case 'upgradeRider':d.economy.upgradeRider(command.riderId);break;
++    case 'borrowEmergencyVehicle':d.borrowEmergencyVehicle(command.expectedSequence);break;
++    case 'returnEmergencyVehicle':d.returnEmergencyVehicle(command.loanSequence,command.vehicleId);break;
+     default:throw new Error('Unknown V2 economic command');
+    }return null;
+   });
++ }
++ private borrowEmergencyVehicle(expectedSequence:number):void {
++  if(this.batchIds.length)throw new Error('请先完成当前配送批次');
++  const status=this.emergencyLoanStatus;if(status.phase!=='available')throw new Error(status.reason);
++  this.enableSlots();this.fleet.borrowEmergencyVehicle(expectedSequence);this.version=3;
++ }
++ private returnEmergencyVehicle(loanSequence:number,vehicleId:string):void {
++  if(this.batchIds.length)throw new Error('请先完成当前配送批次');
++  this.economy.finishHeroEmergencyLoan(loanSequence,vehicleId);
+  }
+  enterLobby(entryId:string,appearanceRoll:number,priceRoll:number){return this.transact(d=>d.rewards.enterLobby(entryId,appearanceRoll,priceRoll));}
+  requestAd(kind:AdBenefit,orderId:string|null,nowSeconds:number,ttlSeconds:number):AdTicket{return this.transact(d=>d.rewards.requestAd(kind,orderId,nowSeconds,ttlSeconds));}
+@@ -115,7 +144,7 @@
+   check(d.usesSlots&&Array.isArray(orders)&&orders.length>0&&d.batchIds.length===0);const seen=new Set<string>();
+   const canonical=orders.map(o=>{check(o&&!('weightKg' in o)&&Object.prototype.propertyIsEnumerable.call(o,'load'));identity(o.id);check(o.kind==='ordinary'||o.kind==='special');
+    const load=parseV2Load(o.load);check(load.version==='slots-v1'&&sameV2Load(load,slotLoadForOrderId(o.id))&&!seen.has(o.id)&&!d.orders.some(old=>old.id===o.id));seen.add(o.id);return {id:o.id,kind:o.kind,load};});
+-  const s=d.economy.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);check(v&&fitsV2Capacity(canonical.map(o=>o.load),slotVehicleEffects(v).capacity));
++  const effects=d.economy.nextBatchEffects;check(effects&&fitsV2Capacity(canonical.map(o=>o.load),effects.capacity));
+   if(canonical.some(o=>o.kind==='special'))check(d.control==='manual');
+   const reward=d.rewards.beginBatch(canonical.map(o=>({id:o.id,kind:o.kind==='ordinary'?'normal':'special'})));
+   const quotes=d.economy.acceptSlotBatch(canonical.map(o=>({id:o.id,kind:o.kind,...(o.kind==='special'?{specialCoins:reward.specialCoins!}:{})})),byId);
+@@ -165,11 +194,12 @@
+   return {autoRunSeconds,control:d.control};
+  });}
+  private validate():void {
+-  check(this.economy.usesSlots===this.usesSlots);
++  check(this.economy.schemaVersion===this.version);
+   const e=this.economy.state,r=this.rewards.snapshot();
+   check(Array.isArray(this.orders)&&Array.isArray(this.batchIds));
+   const ids=new Set<string>();
+   for(const o of this.orders){check(!!o);identity(o.id);check(!ids.has(o.id));ids.add(o.id);check(o.kind==='ordinary'||o.kind==='special');check(['pending','completed','cancelled'].includes(o.status));check(o.quote.id===o.id&&o.quote.kind===o.kind);
++   check(this.version===3||!('vehicleRef' in o.quote));
+    const terms=this.usesSlots?contractTerms(o.quote):null;
+    if(terms?.version==='slots-v1'){check(!('weightKg' in o)&&Object.prototype.propertyIsEnumerable.call(o,'load'));const load=parseV2Load(o.load);check(sameV2Load(load,terms.load)&&sameV2Load(load,slotLoadForOrderId(o.id)));}
+    else {check(!('load' in o));finite(o.weightKg);check(o.weightKg>0&&o.quote.weightKg===o.weightKg);if(!this.usesSlots)check(!('terms' in o.quote));}
+@@ -180,17 +210,19 @@
+   const pending=this.orders.filter(o=>o.status==='pending');check(pending.every(o=>this.batchIds.includes(o.id)));
+   check(pending.length===e.activeQuotes.length&&pending.every(o=>e.activeQuotes.some(q=>JSON.stringify(q)===JSON.stringify(o.quote))));
+   if(this.batchIds.length){check(r.activeBatch&&r.activeBatch.orders.length===this.batchIds.length&&r.activeBatch.orders.every(o=>this.batchIds.includes(o.id)&&this.orders.some(stored=>stored.id===o.id&&(stored.kind==='ordinary'?'normal':'special')===o.kind)));check(pending.length>0);
+-   const batch=this.orders.filter(o=>this.batchIds.includes(o.id));const vehicle=e.vehicles.find(v=>v.id===batch[0].quote.vehicleId);check(vehicle&&batch.every(o=>o.quote.vehicleId===vehicle.id));
++   const batch=this.orders.filter(o=>this.batchIds.includes(o.id)),firstQuote=batch[0].quote,vehicle=e.vehicles.find(v=>v.id===firstQuote.vehicleId);
++   if(firstQuote.vehicleRef){check(this.version===3&&e.heroEmergencyLoan?.active&&firstQuote.vehicleRef.loanSequence===e.heroEmergencyLoan.sequence&&batch.every(o=>!('vehicleId' in o.quote)&&JSON.stringify(o.quote.vehicleRef)===JSON.stringify(firstQuote.vehicleRef)));}
++   else check(vehicle&&batch.every(o=>!('vehicleRef' in o.quote)&&o.quote.vehicleId===vehicle.id));
+    const first=this.usesSlots?contractTerms(batch[0].quote):null;
+    if(first?.version==='slots-v1'){check(batch.every(o=>contractTerms(o.quote).version==='slots-v1'));check(fitsV2Capacity(batch.map(o=>parseV2Load(o.load)),first.capacity));}
+-   else {check(batch.every(o=>!('load' in o)));check(batch.reduce((sum,o)=>sum+o.weightKg!,0)<=vehicleEffects(vehicle).capacityKg);}
++   else {check(vehicle&&batch.every(o=>!('load' in o)));check(batch.reduce((sum,o)=>sum+o.weightKg!,0)<=vehicleEffects(vehicle).capacityKg);}
+    if(batch.some(o=>o.kind==='special'))check(batch.length===1&&this.control==='manual'&&r.activeBatch.specialCoins! *100===batch[0].quote.incomeCents);
+   }else check(r.activeBatch===null);
+   finite(this.frame.sequence);check(Number.isSafeInteger(this.frame.sequence));finite(this.frame.nowSeconds);check(typeof this.frame.foreground==='boolean'&&typeof this.frame.paused==='boolean'&&typeof this.frame.fingerprint==='string');
+   check(this.control==='manual'||this.control==='auto'&&r.autoRemainingSeconds>0);
+  }
+  static restore(serialized:string,port:V2DispatchPort,options:{preserveClock?:boolean}={}):V2DispatchSession {
+-  const s:V2DispatchSnapshot=JSON.parse(serialized);check(!!s&&s.format==='county-v2-dispatch'&&(s.version===1||s.version===2));
++  const s:V2DispatchSnapshot=JSON.parse(serialized);check(!!s&&s.format==='county-v2-dispatch'&&(s.version===1||s.version===2||s.version===3));
+   const result=new V2DispatchSession(port);result.economy=V2EconomySession.restore(JSON.stringify(s.economy));
+   result.fleet=V2FleetSession.restore(JSON.stringify(s.fleet),result.economy);result.rewards=RewardSession.restore(JSON.stringify(s.rewards));
+   result.version=s.version;result.orders=clone(s.orders);result.batchIds=clone(s.batchIds);result.frame=clone(s.frame);result.control=s.control;check(typeof s.clockNeedsRebase==='boolean');result.firstTickAfterRestore=options.preserveClock===true?s.clockNeedsRebase:true;
+--- docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/source-before/map-sample/V2GameSession.ts
++++ delivery-game/assets/scripts/map-sample/V2GameSession.ts
+@@ -1,4 +1,4 @@
+-import { V2DispatchSession } from '../domain/V2DispatchSession';
++import { V2DispatchSession, V2EconomyCommand } from '../domain/V2DispatchSession';
+ import { quantizeOrdinaryDeliveryMetres,contractTerms } from '../domain/V2EconomySession';
+ import { V2_SLOT_PROFILE_ID } from '../domain/V2EconomyProfiles';
+ import { parseV2Load,slotCandidateRequestCount,fitsV2Capacity } from '../domain/V2LoadRules';
+@@ -21,7 +21,14 @@
+  dispatch:V2DispatchSession;
+  private trip=new V2TripRules();
+  constructor(private readonly city:CityData,nowSeconds=0){this.route=new V2RouteSession(city);this.route.enableSlots();this.dispatch=new V2DispatchSession({verifyArrival:(order,token)=>this.route.verifyArrival(order,token)},nowSeconds,'slots-v1');}
+- serialize():string{const tripState=this.trip.state,route=this.route.snapshot();return JSON.stringify({format:'county-v2-game',version:6,profileId:V2_SLOT_PROFILE_ID,routeLoadProfile:route.version===3?'slots-v1':'kg-v1',route,dispatch:this.dispatch.snapshot(),tripState});}
++ serialize():string{const tripState=this.trip.state,route=this.route.snapshot();return JSON.stringify({format:'county-v2-game',version:this.dispatch.schemaVersion===3?7:6,profileId:V2_SLOT_PROFILE_ID,routeLoadProfile:route.version===3?'slots-v1':'kg-v1',route,dispatch:this.dispatch.snapshot(),tripState});}
++ /** Borrow/return additionally require route and trip boundaries, not only economic idleness. */
++ command(command:V2EconomyCommand):string|null {
++  if(command.type==='borrowEmergencyVehicle'||command.type==='returnEmergencyVehicle'){
++   if(this.dispatch.snapshot().batchIds.length||!['idle','finished'].includes(this.route.progress.phase)||this.trip.state.action)throw new Error('请先完成当前配送或补给动作，再借还应急车');
++  }
++  return this.dispatch.command(command);
++ }
+  snapshot(){return this.dispatch.snapshot();}
+  get tripState(){return this.trip.state;}
+  get routeSnapshot(){return {...this.route.snapshot(),position:this.route.position};}
+@@ -31,8 +38,8 @@
+   const effects=this.dispatch.deliveryEffects;if(!effects)throw new Error('主角未配车');return effects;
+  }
+  private get effects(){return this.deliveryEffects;}
+- normalCandidates(count=8):V2FoodOffer[]{if(!this.dispatch.hasEquippedVehicle)return [];if(!Number.isSafeInteger(count)||count<1||count>50)throw new Error('候选读取数量无效');const capacity=this.nextBatchEffects.capacitySlots;return this.route.slotCandidates(capacity,this.dispatch.snapshot().orders.map(o=>o.id),slotCandidateRequestCount(capacity),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity).map(order=>({...order,food:foodForV2Order(order.id)}));}
+- specialCandidate(id:string):V2FoodOffer|null {if(!this.dispatch.hasEquippedVehicle)return null;const order=this.route.slotSpecialCandidate(id,this.nextBatchEffects.capacitySlots,this.dispatch.snapshot().orders.map(o=>o.id),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);return order?{...order,food:foodForV2Order(order.id)}:null;}
++ normalCandidates(count=8):V2FoodOffer[]{if(!this.dispatch.hasEquippedVehicle||this.dispatch.emergencyLoanStatus.phase==='returnable')return [];if(!Number.isSafeInteger(count)||count<1||count>50)throw new Error('候选读取数量无效');const capacity=this.nextBatchEffects.capacitySlots;return this.route.slotCandidates(capacity,this.dispatch.snapshot().orders.map(o=>o.id),slotCandidateRequestCount(capacity),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity).map(order=>({...order,food:foodForV2Order(order.id)}));}
++ specialCandidate(id:string):V2FoodOffer|null {if(!this.dispatch.hasEquippedVehicle||this.dispatch.emergencyLoanStatus.phase==='returnable')return null;const order=this.route.slotSpecialCandidate(id,this.nextBatchEffects.capacitySlots,this.dispatch.snapshot().orders.map(o=>o.id),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);return order?{...order,food:foodForV2Order(order.id)}:null;}
+  acceptBatch(orders:V2RouteOrder[]){
+   if(this.trip.state.action)throw new Error('补给动作进行中');
+   const routeOrders=orders.map(o=>this.route.canonicalSlotOrder(o));
+@@ -136,10 +143,10 @@
+   return finish();
+  }
+  static restore(city:CityData,raw:string,options:{preserveClock?:boolean}={}):V2GameSession {
+-  const s=JSON.parse(raw);if(!s||s.format!=='county-v2-game'||[1,2,3,4,5,6].indexOf(s.version)<0)throw new Error('V2组合路线存档不兼容，需显式迁移');
++  const s=JSON.parse(raw);if(!s||s.format!=='county-v2-game'||[1,2,3,4,5,6,7].indexOf(s.version)<0)throw new Error('V2组合路线存档不兼容，需显式迁移');
+   // Old combinations cannot borrow the new grouping/ready acceptance gate.
+-  if(s.version===6){
+-   if(!Object.prototype.propertyIsEnumerable.call(s,'profileId')||s.profileId!==V2_SLOT_PROFILE_ID||!Object.prototype.propertyIsEnumerable.call(s,'routeLoadProfile')||!['kg-v1','slots-v1'].includes(s.routeLoadProfile)||s.route?.version!==(s.routeLoadProfile==='slots-v1'?3:2)||s.dispatch?.version!==2)throw new Error('组合与容量状态版本不一致');
++  if(s.version===6||s.version===7){
++   if(!Object.prototype.propertyIsEnumerable.call(s,'profileId')||s.profileId!==V2_SLOT_PROFILE_ID||!Object.prototype.propertyIsEnumerable.call(s,'routeLoadProfile')||!['kg-v1','slots-v1'].includes(s.routeLoadProfile)||s.route?.version!==(s.routeLoadProfile==='slots-v1'?3:2)||s.dispatch?.version!==(s.version===7?3:2))throw new Error('组合与容量状态版本不一致');
+   }else if(s.route?.version!==(s.version>=4?2:1)||s.dispatch?.version!==1)throw new Error('组合与路线状态版本不一致');
+   const result=new V2GameSession(city);
+   // All original combination checks run on the original structure, before Route
+@@ -148,9 +155,9 @@
+   const r=s.route,d=result.dispatch.snapshot();result.route.assertDispatch(d,r);
+   if(s.version===1){if(d.batchIds.length||!['idle','finished'].includes(r.phase))throw new Error('旧V2在途存档缺少体力行程，需显式迁移');}
+   else {
+-   if(!s.tripState||(s.version===2&&s.tripState.version!==1)||(s.version>=3&&s.version<=4&&s.tripState.version!==2)||(s.version===5&&s.tripState.version!==3)||(s.version===6&&![2,3].includes(s.tripState.version))||(s.version===6&&s.routeLoadProfile==='slots-v1'&&r.orders.length>0&&s.tripState.version!==3))throw new Error('组合与补给状态版本不一致');
++   if(!s.tripState||(s.version===2&&s.tripState.version!==1)||(s.version>=3&&s.version<=4&&s.tripState.version!==2)||(s.version===5&&s.tripState.version!==3)||((s.version===6||s.version===7)&&![2,3].includes(s.tripState.version))||((s.version===6||s.version===7)&&s.routeLoadProfile==='slots-v1'&&r.orders.length>0&&s.tripState.version!==3))throw new Error('组合与补给状态版本不一致');
+    result.trip=V2TripRules.restore(s.tripState);const t=result.trip.state;
+-   if(s.version===6&&t.version!==3&&t.orders.some((o:{id:string})=>{const q=d.orders.find(stored=>stored.id===o.id)?.quote;return q&&contractTerms(q).version==='slots-v1';}))throw new Error('格子合同不能降级食品规则');
++   if((s.version===6||s.version===7)&&t.version!==3&&t.orders.some((o:{id:string})=>{const q=d.orders.find(stored=>stored.id===o.id)?.quote;return q&&contractTerms(q).version==='slots-v1';}))throw new Error('格子合同不能降级食品规则');
+    // Match the old v1 omitted-latch inference without modifying its source bytes.
+    const charged=s.version<4&&r.serviceCharged===undefined?r.phase==='service'&&r.serviceSeconds>0:r.serviceCharged;
+    // Restoration must enforce the same action exclusivity as supply() and auto supply.
+@@ -166,7 +173,7 @@
+   // router-derived legs equality), then adds singleton membership without replanning.
+   result.route=V2RouteSession.restore(city,JSON.stringify(s.route));
+   if(s.version===1)result.route.cancel();
+-  if(s.version===5||s.version===6&&result.trip.state.version===3)for(const order of result.trip.state.orders)validateCanonicalFood(order.id,order.food);
++  if(s.version===5||(s.version===6||s.version===7)&&result.trip.state.version===3)for(const order of result.trip.state.orders)validateCanonicalFood(order.id,order.food);
+   // The original dispatch/fleet/economy, trip, geometry and combination gates ran first.
+   if(s.version<6)result.dispatch.enableSlots();
+   return result;
+--- docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/source-before/map-sample/V2RuntimeController.ts
++++ delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
+@@ -1,6 +1,6 @@
+ import { _decorator, Component, Game, game, sys } from 'cc';
+ import { V2EconomySnapshot } from '../domain/V2EconomySession';
+-import { V2DispatchSession } from '../domain/V2DispatchSession';
++import { V2DispatchSession, EmergencyLoanStatus } from '../domain/V2DispatchSession';
+ import { CityData, Preference } from './MapTypes';
+ import { V2RouteOrder } from './V2RouteSession';
+ import { V2GameSession } from './V2GameSession';
+@@ -163,6 +163,9 @@
+     get deliveryEffects() { return this.live?.dispatch.deliveryEffects || null; }
+     /** Current owned-asset effects for the next unsigned slot batch. */
+     get nextBatchEffects() { return this.live?.dispatch.nextBatchEffects || null; }
++    get emergencyLoanStatus(): EmergencyLoanStatus {
++        return this.live?.dispatch.emergencyLoanStatus || { phase: 'unavailable', sequence: 0, loanSequence: null, returnVehicleIds: [], canStartBatch: false, reason: '游戏尚未载入' };
++    }
+     vehicleEffects(vehicleId:string) { return this.live?.dispatch.vehicleEffectProjection(vehicleId) || null; }
+     riderEffects(riderId:string) { return this.live?.dispatch.riderEffectProjection(riderId) || null; }
+     vehicleUpgradeQuote(vehicleId:string) { return this.live?.dispatch.vehicleUpgradePrice(vehicleId)||null; }
+@@ -193,7 +196,7 @@
+         // apply the time spent waiting at the merchant to the newly started leg.
+         this.mutate(session => { this.requireForegroundTripCommand(); session.continueTrip(); });
+     }
+-    command(command: EconomyCommand): ReturnType<V2DispatchSession['command']> { return this.mutate(session => session.dispatch.command(command)); }
++    command(command: EconomyCommand): ReturnType<V2DispatchSession['command']> { return this.mutate(session => session.command(command)); }
+     stopAutomation(): void { this.mutate(session => session.dispatch.stopAutomation()); }
+     resumeAutomation(): void { this.mutate(session => session.dispatch.resumeAutomation()); }
+     acceptBatch(orders: Orders): ReturnType<V2GameSession['acceptBatch']> { return this.mutate(session => session.acceptBatch(orders)); }
+--- /dev/null
++++ delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs
+@@ -0,0 +1,296 @@
++'use strict';
++const {test}=require('node:test'),assert=require('node:assert/strict');
++const fs=require('node:fs'),path=require('node:path');
++const base=path.dirname(process.env.MAP_ROUTER_MODULE);
++const {V2GameSession}=require(path.join(base,'V2GameSession.js'));
++const {prepareCity}=require(path.join(base,'PlaceCatalog.js'));
++const {V2EconomySession}=require(path.join(base,'../domain/V2EconomySession.js'));
++const {V2FleetSession}=require(path.join(base,'../domain/V2FleetSession.js'));
++const {V2DispatchSession}=require(path.join(base,'../domain/V2DispatchSession.js'));
++const {queryProgressTargets}=require(path.join(base,'../domain/V2ProgressTargets.js'));
++const {V2_CONFIG_ID}=require(path.join(base,'../domain/V2EconomyConfig.js'));
++const {slotVehicleEffects,slotRiderEffects,slotMapBaseIncomeCents}=require(path.join(base,'../domain/V2EconomyProfiles.js'));
++const {slotFleetOrderIds,slotLoadForOrderId}=require(path.join(base,'../domain/V2LoadRules.js'));
++const ROOT=path.resolve(__dirname,'../../..');
++const pm=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json'),'utf8'));
++const city=prepareCity(JSON.parse(fs.readFileSync(path.join(ROOT,'delivery-game/assets/resources/map-sample/city.json'),'utf8')));
++const restore=raw=>V2GameSession.restore(city,typeof raw==='string'?raw:JSON.stringify(raw),{preserveClock:true});
++const legacy=()=>restore(pm.fixtures.signedZeroQuota);
++const clone=value=>JSON.parse(JSON.stringify(value));
++function advance(g,seconds,foreground=true,paused=false){const frame=g.snapshot().frame;return g.tick(frame.sequence+1,frame.nowSeconds+seconds,foreground,paused);}
++function roundTrip(g){const raw=g.serialize(),again=restore(raw);assert.equal(again.serialize(),raw);return again;}
++function atomicReject(g,action,pattern){const before=g.serialize();assert.throws(action,pattern);assert.equal(g.serialize(),before);}
++function offers(g,count=1){const candidates=g.normalCandidates();if(count===1){assert.ok(candidates.length);return [candidates[0]];}const small=candidates.filter(o=>o.load.occupiedSlots===1);assert.ok(small.length>=count,'actual city must supply enough one-slot orders');return small.slice(0,count);}
++function start(g,count=1){const selected=offers(g,count),quotes=g.acceptBatch(selected);g.beginTrip(g.routeChoices()[0].preference);return {selected,quotes};}
++function driveUntil(g,predicate,{reload=false,rest=true,onPhase}={}){
++ const phases=new Set();
++ for(let step=0;step<1500&&!predicate(g);step++){
++  const phase=g.route.progress.phase;
++  if(!phases.has(phase)){if(reload)g=roundTrip(g);phases.add(phase);if(onPhase)onPhase(g,phase);}
++  if(g.tripState.action)advance(g,1);
++  else if(g.tripState.blocked&&rest&&!(phase==='service'&&g.route.progress.serviceCharged))g.supply('rest');
++  else if(phase==='planned')g.beginTrip(g.routeChoices()[0].preference);
++  else if(phase==='pickup')g.pickup();
++  else if(phase==='ready')g.continueTrip();
++  else advance(g,.5);
++ }
++ assert.ok(predicate(g),'bounded real Game/Route driver reached its stop');return {g,phases};
++}
++function finish(g,options){return driveUntil(g,x=>x.snapshot().batchIds.length===0,options).g;}
++function finishOne(g){const count=g.dispatch.economyState.heroCompletedOrders;start(g);g=finish(g);assert.equal(g.dispatch.economyState.heroCompletedOrders,count+1);return g;}
++function borrowed(){const g=legacy();g.command({type:'borrowEmergencyVehicle',expectedSequence:0});return g;}
++// These are explicitly isolated compatibility inputs, not additional naturally reached terminals.
++// The original files are read-only. The kg adaptation changes NPC load representation/IDs only;
++// it preserves all cash, quota, timing, completed hero history and payable amounts.
++function kgCompatibilityTerminal(){
++ const raw=clone(pm.fixtures.signedZeroQuota),d=raw.dispatch,b=d.fleet.fleet.batches[0];
++ b.orders=b.orders.map((order,i)=>{const {terms,...q}=order;return {...q,id:`fleet-1-${i}`,weightKg:1,capacityKg:2,terms:{version:'kg-v1',profileId:V2_CONFIG_ID}};});
++ d.economy.state.fleetQuotes=b.orders.map(({dueMs,...q})=>q);d.fleet.economy=clone(d.economy);
++ return raw;
++}
++function oldReader(name,cache=new Map()){
++ if(cache.has(name))return cache.get(name).exports;
++ const sourceRoot=path.join(ROOT,'docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/source-before');
++ const file=path.join(sourceRoot,name+'.ts');
++ if(!fs.existsSync(file))return require(path.join(base,'..',name+'.js'));
++ const editor=process.env.COCOS_CREATOR||'/Applications/Cocos/Creator/3.8.8/CocosCreator.app';
++ const ts=require(path.join(editor,'Contents/Resources/app.asar.unpacked/node_modules/typescript'));
++ const js=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2020,module:ts.ModuleKind.CommonJS}}).outputText;
++ const module={exports:{}};cache.set(name,module);
++ const localRequire=id=>id.startsWith('.')?oldReader(path.posix.normalize(path.posix.join(path.posix.dirname(name),id)),cache):require(id);
++ new Function('require','module','exports',js)(localRequire,module,module.exports);return module.exports;
++}
++
++// Two paid-for vehicles and NPCs come from the preserved historical earned-funds fixture.
++// This boundary input freezes quota at zero and adds a hypothetical old second signed batch;
++// no owned assets, cash, ledger income or hero completion events are added by the input builder.
++function multiNPCCompatibilityTerminal(){
++ const history=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/historical-fixtures.json'),'utf8'));
++ const f=clone(history.fixtures['slots-v1'].reservedOldCarAndConfiguredNewCar),e=f.economy.state,r=e.riders.find(r=>r.id==='npc-2'),v=e.vehicles.find(v=>v.id===r.vehicleId);
++ const effects=slotVehicleEffects(v),training=slotRiderEffects(r.id,r.level),ids=slotFleetOrderIds(2,effects.capacitySlots);
++ const road=Math.ceil(60000/effects.speedRelativeToStarter*(1+.25*(ids.length-1))),service=Math.ceil(30000*(1-training.fixedServiceReduction));
++ const orders=ids.map((id,i)=>({id,riderId:r.id,vehicleId:v.id,vehicleLevel:v.level,riderLevel:r.level,mapId:1,incomeCents:Math.round(slotMapBaseIncomeCents(1)*effects.incomeFactor*training.incomeFactor),speedRelativeToStarter:effects.speedRelativeToStarter,baseIncomeFactor:training.baseIncomeFactor,fixedServiceReduction:training.fixedServiceReduction,
++  terms:{version:'slots-v1',profileId:effects.profileId,pricePolicyId:'slots-fleet-v1',effectPolicyId:'capacity-slots-effects-v1',load:slotLoadForOrderId(id),capacity:effects.capacity,vehicleLevel:v.level,riderLevel:r.level,speedRelativeToStarter:effects.speedRelativeToStarter,incomeFactor:effects.incomeFactor,riderIncomeFactor:training.incomeFactor,fixedServiceReduction:training.fixedServiceReduction},dueMs:road+service*(i+1)}));
++ f.fleet.batches.push({id:2,riderId:r.id,vehicleId:v.id,mapId:1,elapsedMs:0,paidCount:0,orders});f.fleet.nextBatchId=3;f.fleet.quotaMs=0;e.fleetQuotes.push(...orders.map(({dueMs,...q})=>q));
++ const raw=JSON.parse(new V2GameSession(city,0).serialize());raw.dispatch.economy=clone(f.economy);raw.dispatch.fleet=f;raw.dispatch.frame.nowSeconds=f.fleet.lastAdvancedAt/1000;return raw;
++}
++
++test('the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets',()=>{
++ const g=legacy(),before=g.snapshot(),trip=g.tripState;
++ assert.equal(g.dispatch.emergencyLoanStatus?.phase,'available');
++ assert.equal(g.serialize(),JSON.stringify(pm.fixtures.signedZeroQuota));
++ g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++ const after=g.snapshot();
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'borrowed');
++ assert.deepEqual(after.economy.state.vehicles,before.economy.state.vehicles);
++ assert.deepEqual(after.economy.state.riders,before.economy.state.riders);
++ for(const key of ['cashCents','heroExperience','heroCompletedOrders','ledger','fleetQuotes'])assert.deepEqual(after.economy.state[key],before.economy.state[key]);
++ assert.deepEqual(after.fleet.fleet,before.fleet.fleet);
++ assert.deepEqual(after.rewards,before.rewards);assert.deepEqual(g.tripState,trip);
++ assert.deepEqual(g.dispatch.nextBatchEffects.capacity,{version:'slots-v1',capacitySlots:2});
++ assert.equal(g.dispatch.nextBatchEffects.speedRelativeToStarter,1);
++ assert.equal(g.dispatch.nextBatchEffects.incomeFactor,1);
++ assert.ok(g.normalCandidates().length>0);
++ assert.equal(JSON.parse(g.serialize()).version,7);
++ assert.equal(after.version,3);assert.equal(after.economy.version,3);assert.equal(after.fleet.version,3);
++ assert.equal(restore(g.serialize()).serialize(),g.serialize());
++});
++
++test('loan status is detached and read-only; duplicate and stale commands cannot change the loan',()=>{
++ const g=legacy(),raw=g.serialize(),view=g.dispatch.emergencyLoanStatus;
++ view.returnVehicleIds.push('fabricated');view.phase='returned';
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'available');assert.equal(g.serialize(),raw);
++ for(const expectedSequence of [-1,1,.5,NaN])atomicReject(g,()=>g.command({type:'borrowEmergencyVehicle',expectedSequence}));
++ g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++ atomicReject(g,()=>g.command({type:'borrowEmergencyVehicle',expectedSequence:0}));
++ atomicReject(g,()=>g.command({type:'returnEmergencyVehicle',loanSequence:2,vehicleId:'starter-1'}));
++ atomicReject(g,()=>g.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}),/未付/);
++ for(const vehicleId of [null,'starter-1'])atomicReject(g,()=>g.command({type:'assignVehicle',riderId:'hero',vehicleId}),/归还/);
++});
++
++test('normal, detachable and genuinely earned affordable-car states cannot borrow',()=>{
++ const normal=new V2GameSession(city,0);atomicReject(normal,()=>normal.command({type:'borrowEmergencyVehicle',expectedSequence:0}));
++ const detachable=restore(pm.fixtures.beforeNPCSigning);assert.equal(detachable.dispatch.emergencyLoanStatus.phase,'unavailable');
++ atomicReject(detachable,()=>detachable.command({type:'borrowEmergencyVehicle',expectedSequence:0}));
++ let earned=new V2GameSession(city,0);for(let i=0;i<10;i++)earned=finishOne(earned);
++ assert.equal(earned.dispatch.economyState.cashCents,30000);
++ earned.command({type:'assignVehicle',riderId:'hero',vehicleId:null});
++ atomicReject(earned,()=>earned.command({type:'borrowEmergencyVehicle',expectedSequence:0}));
++});
++
++test('real Game deliveries preserve the same-path ten-order car and fifteen-order NPC budgets',()=>{
++ let g=new V2GameSession(city,0);for(let i=0;i<10;i++)g=finishOne(g);
++ assert.equal(g.dispatch.economyState.cashCents,30000);
++ g=roundTrip(g);const vehicleId=g.command({type:'buyVehicle',modelId:1});
++ assert.equal(g.dispatch.economyState.cashCents,0);assert.equal(g.dispatch.economyState.vehicles.length,2);
++ assert.equal(g.dispatch.economyState.ledger.entries.filter(e=>e.category==='vehicle_purchase'&&e.detail.vehicleId===vehicleId).length,1);
++ g.command({type:'assignVehicle',riderId:'hero',vehicleId});
++ for(let i=10;i<15;i++)g=finishOne(g);
++ assert.equal(g.dispatch.economyState.cashCents,12000);g.command({type:'hireRider',riderId:'npc-1'});
++ assert.equal(g.dispatch.economyState.cashCents,0);assert.equal(g.dispatch.economyState.hireCount,1);
++ g.command({type:'assignVehicle',riderId:'npc-1',vehicleId:'starter-1'});
++ assert.equal('heroEmergencyLoan' in g.dispatch.economyState,false);assert.equal(JSON.parse(g.serialize()).version,6);roundTrip(g);
++});
++
++test('an isolated original signed-batch compatibility input with remaining quota cannot borrow',()=>{
++ const history=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/historical-fixtures.json'),'utf8'));
++ const f=clone(history.fixtures['slots-v1'].signedRemaining),raw=JSON.parse(new V2GameSession(city,0).serialize());
++ // Only the empty Game wrapper is new; original signed Fleet/Economy and quota stay unchanged.
++ raw.dispatch.economy=clone(f.economy);raw.dispatch.fleet=f;raw.dispatch.frame.nowSeconds=f.fleet.lastAdvancedAt/1000;
++ const g=restore(raw);assert.ok(g.dispatch.fleetState.quotaMs>0);assert.equal(g.dispatch.economyState.riders[0].vehicleId,null);
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'unavailable');atomicReject(g,()=>g.command({type:'borrowEmergencyVehicle',expectedSequence:0}),/额度/);
++});
++
++test('Game refuses loan commands during real rest actions and all active route phases',()=>{
++ let g=legacy();g.supply('rest');atomicReject(g,()=>g.command({type:'borrowEmergencyVehicle',expectedSequence:0}),/补给/);
++ advance(g,0);advance(g,20);g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++ const selected=offers(g);g.acceptBatch(selected);
++ const driven=driveUntil(g,x=>x.snapshot().batchIds.length===0,{reload:true,onPhase:current=>{
++  for(const action of [()=>current.command({type:'borrowEmergencyVehicle',expectedSequence:1}),()=>current.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'})])atomicReject(current,action,/配送/);
++ }});g=driven.g;
++ assert.ok(driven.phases.has('planned'));assert.ok(driven.phases.has('pickup'));assert.ok(driven.phases.has('ready'));assert.ok(driven.phases.has('travelling'));assert.ok(driven.phases.has('service'));
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'borrowed');
++});
++
++test('first real delivery is insufficient; release waits for quota and never confiscates the current batch',()=>{
++ let g=borrowed();const oldOrders=clone(g.dispatch.fleetState.batches[0].orders),targets=queryProgressTargets(g.dispatch.economyState);
++ const {quotes}=start(g);assert.ok(quotes[0].vehicleRef);assert.equal('vehicleId' in quotes[0],false);
++ g=finish(g,{reload:true});assert.equal(g.dispatch.economyState.heroCompletedOrders,2);
++ assert.equal(g.dispatch.fleetState.quotaMs+g.dispatch.fleetState.batches[0].elapsedMs-60000,60000,'one delivery refills exactly 60 seconds, including its already consumed frame tail');
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'borrowed');assert.equal(g.dispatch.economyState.fleetQuotes.length,2);
++ advance(g,60,false,true);g=roundTrip(g);
++ assert.equal(g.dispatch.fleetState.quotaMs,0);assert.equal(g.dispatch.fleetState.batches[0].elapsedMs,120000);assert.equal(g.dispatch.fleetState.batches[0].paidCount,1);
++ assert.deepEqual(g.dispatch.fleetState.batches[0].orders,oldOrders);assert.equal(g.dispatch.economyState.fleetQuotes.length,1);
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'borrowed');
++ const batch=start(g,2),beforeCount=g.dispatch.economyState.heroCompletedOrders;
++ g=driveUntil(g,x=>x.dispatch.economyState.heroCompletedOrders===beforeCount+1).g;
++ assert.equal(g.snapshot().batchIds.length,2);assert.equal(g.dispatch.economyState.activeQuotes.length,1);
++ const signed=clone(g.snapshot().orders.filter(o=>g.snapshot().batchIds.includes(o.id)).map(o=>o.quote));
++ const unsigned=offers(g);assert.ok(unsigned.every(o=>!g.snapshot().orders.some(signed=>signed.id===o.id)));
++ advance(g,20,false,true);assert.equal(g.dispatch.emergencyLoanStatus.phase,'returnable');
++ assert.deepEqual(g.dispatch.emergencyLoanStatus.returnVehicleIds,['starter-1']);assert.equal(g.dispatch.emergencyLoanStatus.canStartBatch,false);
++ assert.equal(g.normalCandidates().length,0);assert.equal(g.specialCandidate('not-an-ad-grant'),null);
++ atomicReject(g,()=>g.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}),/配送/);
++ assert.deepEqual(g.snapshot().orders.filter(o=>g.snapshot().batchIds.includes(o.id)).map(o=>o.quote),signed);
++ g=finish(roundTrip(g));assert.equal(g.dispatch.economyState.heroCompletedOrders,beforeCount+2);
++ assert.deepEqual(g.snapshot().orders.filter(o=>batch.quotes.some(q=>q.id===o.id)).map(o=>o.quote),batch.quotes);
++ atomicReject(g,()=>g.acceptBatch(unsigned),/归还/);
++ const e=V2EconomySession.restore(JSON.stringify(g.snapshot().economy));
++ assert.throws(()=>e.acceptSlotBatch(unsigned.map(o=>({id:o.id,kind:o.kind})),Object.fromEntries(unsigned.map(o=>[o.id,{deliveryMetres:100}]))),/归还/);
++ const beforeReturn=g.dispatch.economyState;
++ g.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'});
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'returned');assert.equal(g.dispatch.economyState.riders[0].vehicleId,'starter-1');assert.equal(g.dispatch.economyState.riders.find(r=>r.id==='npc-1').vehicleId,null);
++ assert.deepEqual(g.dispatch.economyState.ledger,beforeReturn.ledger);assert.equal(g.dispatch.economyState.cashCents,beforeReturn.cashCents);
++ g=roundTrip(g);atomicReject(g,()=>g.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}));
++ assert.equal(queryProgressTargets(g.dispatch.economyState).find(t=>t.id==='first-car').progress,targets.find(t=>t.id==='first-car').progress);
++ g=finishOne(g);assert.equal(g.snapshot().orders.at(-1).quote.vehicleId,'starter-1');assert.equal('vehicleRef' in g.snapshot().orders.at(-1).quote,false);roundTrip(g);
++});
++
++test('cancelled emergency quotes remain valid after return alongside completed histories',()=>{
++ let g=borrowed();const {quotes}=start(g),before=g.dispatch.economyState;
++ g.cancelDelivery(quotes[0].id);assert.equal(g.dispatch.economyState.cashCents,before.cashCents);assert.equal(g.dispatch.fleetState.quotaMs,0);g=roundTrip(g);
++ for(let i=0;i<4&&g.dispatch.emergencyLoanStatus.phase!=='returnable';i++){g=finishOne(g);advance(g,60,false,true);}
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'returnable');
++ g.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'});g=roundTrip(g);
++ assert.equal(g.snapshot().orders.find(o=>o.id===quotes[0].id).status,'cancelled');assert.ok(g.snapshot().orders.some(o=>o.status==='completed'&&o.quote.vehicleRef));
++});
++
++test('borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements',()=>{
++ const g=borrowed(),s=g.dispatch.economyState,targets=queryProgressTargets(s);
++ assert.equal(s.vehicles.length,1);assert.equal(targets.find(t=>t.id==='first-car').completed,false);
++ const e=V2EconomySession.restore(JSON.stringify(g.snapshot().economy));
++ assert.equal(e.hasRecoverableHeroVehicle,false);assert.equal(e.vehicleEffectProjection('emergency-1'),null);
++ assert.throws(()=>e.upgradeVehicle('emergency-1'));assert.throws(()=>e.assignVehicle('npc-1','emergency-1'));
++ assert.throws(()=>e.registerSlotFleetOrders('npc-1',['fake-new-batch']));
++ advance(g,3600);assert.equal(g.dispatch.fleetState.nextBatchId,2);assert.equal(g.dispatch.fleetState.quotaMs,0);assert.deepEqual(g.dispatch.economyState,s);
++});
++
++test('forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow',()=>{
++ const g=borrowed();g.acceptBatch(offers(g));const raw=JSON.parse(g.serialize());
++ const mutations=[
++  s=>s.version=6,
++  s=>s.dispatch.version=2,
++  s=>s.dispatch.fleet.version=2,
++  s=>s.dispatch.economy.version=2,
++  s=>s.dispatch.economy.state.heroEmergencyLoan.policyId='unknown',
++  s=>s.dispatch.economy.state.heroEmergencyLoan.active=false,
++  s=>s.dispatch.economy.state.heroEmergencyLoan.sequence=0,
++  s=>s.dispatch.economy.state.riders[0].vehicleId='starter-1',
++  s=>{s.dispatch.economy.state.activeQuotes[0].vehicleId='starter-1';s.dispatch.orders.at(-1).quote.vehicleId='starter-1';},
++  s=>{s.dispatch.economy.state.activeQuotes[0].vehicleRef.loanSequence=2;s.dispatch.orders.at(-1).quote.vehicleRef.loanSequence=2;},
++  s=>{s.dispatch.economy.state.activeQuotes[0].terms.capacity.capacitySlots=3;s.dispatch.orders.at(-1).quote.terms.capacity.capacitySlots=3;},
++  s=>s.dispatch.economy.state.vehicles.push({id:'emergency-1',modelId:'emergency',level:1}),
++  s=>s.dispatch.fleet.fleet.batches[0].orders[0].vehicleRef={kind:'emergency',loanSequence:1,policyId:'hero-emergency-base-v1'},
++  s=>s.dispatch.economy.state.heroEmergencyLoan.unrecognized=true,
++  s=>s.version=8,
++ ];
++ for(const mutate of mutations){const changed=clone(raw);mutate(changed);changed.dispatch.economy.state.activeQuote=clone(changed.dispatch.economy.state.activeQuotes[0]);changed.dispatch.fleet.economy=clone(changed.dispatch.economy);assert.throws(()=>restore(changed));}
++ assert.equal(g.serialize(),JSON.stringify(raw));
++});
++
++test('an emergency source marker cannot be smuggled into permanent vehicle inventory',()=>{
++ const g=borrowed(),raw=JSON.parse(g.serialize());
++ raw.dispatch.economy.state.vehicles[0].vehicleRef={kind:'emergency',loanSequence:1,policyId:'hero-emergency-base-v1'};
++ raw.dispatch.fleet.economy=clone(raw.dispatch.economy);
++ assert.throws(()=>restore(raw));
++});
++
++for(const profile of ['kg-v1','slots-v1'])test(`${profile}: isolated compatibility batch preserves partial payments through real delivery and reload`,()=>{
++ const input=profile==='kg-v1'?kgCompatibilityTerminal():clone(pm.fixtures.signedZeroQuota);
++ let g=restore(input);assert.equal(g.serialize(),JSON.stringify(input));g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++ const signed=clone(g.dispatch.fleetState.batches[0].orders),cash=g.dispatch.economyState.cashCents;
++ g=finishOne(g);advance(g,60,false,true);g=roundTrip(g);
++ assert.equal(g.dispatch.fleetState.batches[0].paidCount,1);assert.equal(g.dispatch.fleetState.batches[0].elapsedMs,120000);
++ assert.deepEqual(g.dispatch.fleetState.batches[0].orders,signed);assert.equal(g.dispatch.economyState.npcCompletedOrders,1);
++ assert.equal(g.dispatch.economyState.ledger.entries.filter(e=>e.id===`order:${signed[0].id}`).length,1);
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'borrowed');
++ g=finishOne(g);advance(g,60,false,true);g=roundTrip(g);
++ assert.equal(g.dispatch.economyState.npcCompletedOrders,2);assert.equal(g.dispatch.fleetState.batches.length,0);
++ for(const q of signed){const paid=g.dispatch.economyState.ledger.entries.filter(e=>e.id===`order:${q.id}`);assert.equal(paid.length,1);assert.equal(paid[0].amountCents,q.incomeCents);}
++ assert.ok(g.dispatch.economyState.cashCents>cash);
++ g.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'});roundTrip(g);
++});
++
++test('kg paid NPC history cannot carry an emergency vehicle source',()=>{
++ let g=restore(kgCompatibilityTerminal());g.command({type:'borrowEmergencyVehicle',expectedSequence:0});g=finishOne(g);advance(g,60,false,true);
++ const raw=JSON.parse(g.serialize());assert.equal(raw.dispatch.fleet.fleet.batches[0].paidCount,1);
++ raw.dispatch.fleet.fleet.batches[0].orders[0].vehicleRef={kind:'emergency',loanSequence:1,policyId:'hero-emergency-base-v1'};
++ assert.throws(()=>restore(raw));
++});
++
++test('isolated two-NPC compatibility input recovers one real car without cancelling other unpaid work',()=>{
++ let g=restore(multiNPCCompatibilityTerminal());const before=g.dispatch.economyState;
++ assert.equal(before.vehicles.length,2);assert.equal(before.hireCount,2);assert.equal(g.dispatch.emergencyLoanStatus.phase,'available');
++ g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++ assert.deepEqual(g.dispatch.economyState.vehicles,before.vehicles);assert.deepEqual(g.dispatch.economyState.ledger,before.ledger);
++ const {quotes}=start(g);assert.ok(quotes[0].xpMultiplier>1,'real trained hero keeps the existing experience multiplier');assert.equal(quotes[0].incomeFactor,1);g=finish(g);
++ for(let i=0;i<5&&g.dispatch.emergencyLoanStatus.phase!=='returnable';i++){
++  for(let step=0;step<240&&g.dispatch.fleetState.quotaMs>0&&g.dispatch.emergencyLoanStatus.phase!=='returnable';step++)advance(g,.5,false,true);
++  if(g.dispatch.emergencyLoanStatus.phase!=='returnable')g=finishOne(g);
++ }
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'returnable');g=roundTrip(g);
++ const target=g.dispatch.emergencyLoanStatus.returnVehicleIds[0],remaining=clone(g.dispatch.economyState.fleetQuotes),ledger=clone(g.dispatch.economyState.ledger),fleet=g.dispatch.fleetState;
++ assert.ok(remaining.length>0,'another NPC still owns unpaid signed work at the first real release');
++ assert.ok(remaining.every(q=>q.vehicleId!==target));
++ g.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:target});assert.deepEqual(g.dispatch.economyState.fleetQuotes,remaining);assert.deepEqual(g.dispatch.economyState.ledger,ledger);
++ assert.deepEqual(g.dispatch.fleetState,fleet);
++ assert.equal(g.dispatch.economyState.riders[0].vehicleId,target);assert.equal(g.dispatch.economyState.vehicles.length,2);roundTrip(g);
++});
++
++test('isolated zero-stamina compatibility input borrows without stamina and uses actual free rest',()=>{
++ const raw=clone(pm.fixtures.signedZeroQuota);raw.tripState.stamina=0;raw.tripState.blocked=true;
++ let g=restore(raw);g.command({type:'borrowEmergencyVehicle',expectedSequence:0});assert.equal(g.tripState.stamina,0);
++ atomicReject(g,()=>g.acceptBatch(offers(g)));
++ const before=g.dispatch.economyState;g.supply('rest');g=roundTrip(g);advance(g,0);advance(g,20);
++ assert.equal(g.tripState.stamina,100);assert.equal(g.tripState.action,null);assert.deepEqual(g.dispatch.economyState,before);assert.equal(g.dispatch.fleetState.quotaMs,0);
++ g=finishOne(g);assert.equal(g.dispatch.economyState.heroCompletedOrders,before.heroCompletedOrders+1);roundTrip(g);
++});
++
++test('the original frozen readers reject all new containers, including returned loan history',()=>{
++ const originals={economy:oldReader('domain/V2EconomySession').V2EconomySession,fleet:oldReader('domain/V2FleetSession').V2FleetSession,dispatch:oldReader('domain/V2DispatchSession').V2DispatchSession,game:oldReader('map-sample/V2GameSession').V2GameSession};
++ assert.equal(originals.game.restore(city,JSON.stringify(pm.fixtures.signedZeroQuota),{preserveClock:true}).serialize(),JSON.stringify(pm.fixtures.signedZeroQuota));
++ let g=borrowed();
++ function rejectAll(){const s=g.snapshot();assert.throws(()=>originals.economy.restore(JSON.stringify(s.economy)));assert.throws(()=>originals.fleet.restore(JSON.stringify(s.fleet)));assert.throws(()=>originals.dispatch.restore(JSON.stringify(s),{verifyArrival:()=>false}));assert.throws(()=>originals.game.restore(city,g.serialize()));}
++ rejectAll();g=finishOne(g);advance(g,60,false,true);g=finishOne(g);advance(g,60,false,true);g.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'});rejectAll();roundTrip(g);
++ const forged=JSON.parse(g.serialize());forged.dispatch.orders.find(o=>o.quote.vehicleRef).quote.vehicleRef.policyId='forged-returned-history';assert.throws(()=>restore(forged));
++});
+--- /dev/null
++++ delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs
+@@ -0,0 +1,181 @@
++'use strict';
++// Real RuntimeController + Game + RuntimeStore, with memory storage/lease and Cocos lifecycle ports.
++// No browser profile, real save, wallet injection or shortcut settlement.
++const {test}=require('node:test'),assert=require('node:assert/strict');
++const fs=require('node:fs'),path=require('node:path'),Module=require('node:module');
++const root=path.resolve(__dirname,'../../..'),base=path.dirname(process.env.MAP_ROUTER_MODULE);
++const {V2GameSession}=require(path.join(base,'V2GameSession.js'));
++const {prepareCity}=require(path.join(base,'PlaceCatalog.js'));
++const storeModule=require(path.join(base,'V2RuntimeStore.js'));
++const {V2RuntimeStore,V2_RUNTIME_SAVE_KEY:SLOT,V2_SLOT_EPOCH_KEY:EPOCH}=storeModule;
++const city=prepareCity(JSON.parse(fs.readFileSync(path.join(root,'delivery-game/assets/resources/map-sample/city.json'),'utf8')));
++const original=JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json'),'utf8')).fixtures.signedZeroQuota);
++const ts=require(path.join(process.env.COCOS_CREATOR||'/Applications/Cocos/Creator/3.8.8/CocosCreator.app','Contents/Resources/app.asar.unpacked/node_modules/typescript'));
++const filename=path.join(root,'delivery-game/assets/scripts/map-sample/V2RuntimeController.ts');
++const controller=new Module(filename,module);controller.filename=filename;
++controller.require=id=>{
++ if(id==='cc')return {_decorator:{ccclass:()=>klass=>klass,property(){}},Component:class{},Game:{EVENT_HIDE:'hide',EVENT_SHOW:'show'},game:{on(){},off(){}},sys:{}};
++ if(id==='./V2GameSession')return {V2GameSession};
++ if(id==='./V2RuntimeStore')return storeModule;
++ throw Error('unexpected runtime value dependency '+id);
++};
++controller._compile(ts.transpileModule(fs.readFileSync(filename,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,experimentalDecorators:true}}).outputText,filename);
++const Runtime=controller.exports.V2RuntimeController;
++
++function storageFixture(raw=original){
++ const data=new Map([[SLOT,raw],[EPOCH,'fixture-epoch']]),writes=[];let holder=null,failPrimary=false,nowSeconds=1800000000;
++ const storage={getItem:key=>data.get(key)??null,setItem(key,value){if(key===SLOT&&failPrimary)throw Error('fixture storage write failed');data.set(key,value);writes.push([key,value]);},removeItem:key=>data.delete(key)};
++ const writer=()=>{const token={};return {get writable(){return holder===token;},async acquire(){if(holder)return false;holder=token;return true;},release(){if(holder===token)holder=null;}};};
++ async function open(){
++  const runtime=new Runtime();runtime.enableV2=true;
++  runtime.configure({city,nowSeconds:()=>nowSeconds,storage,writer:writer(),ads:{show(){throw Error('no ads in loan test');}}});
++  await runtime.startOrContinue();return runtime;
++ }
++ return {data,writes,storage,writer,open,advance:seconds=>{nowSeconds+=seconds;},get now(){return nowSeconds;},loseWriter:()=>{holder=null;},fail:()=>{failPrimary=true;}};
++}
++
++let releasedCache;
++function releasedLoan(){
++ if(releasedCache)return releasedCache;
++ const g=V2GameSession.restore(city,original,{preserveClock:true});g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++ let now=g.snapshot().frame.nowSeconds,sequence=g.snapshot().frame.sequence;
++ const advance=seconds=>g.tick(++sequence,now+=seconds,true,false);
++ for(let batch=0;batch<3&&g.dispatch.emergencyLoanStatus.phase!=='returnable';batch++){
++  const offer=g.normalCandidates()[0];assert.ok(offer,'loan must keep offering real work before recovery');
++  const completed=g.dispatch.economyState.heroCompletedOrders;
++  g.acceptBatch([offer]);g.beginTrip(g.routeChoices()[0].preference);
++  for(let i=0;i<2000&&g.dispatch.economyState.heroCompletedOrders===completed;i++){
++   if(g.route.progress.phase==='pickup')g.pickup();else if(g.route.progress.phase==='ready')g.continueTrip();else advance(.5);
++  }
++  assert.equal(g.dispatch.economyState.heroCompletedOrders,completed+1);advance(90);
++ }
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,'returnable');assert.equal(g.snapshot().batchIds.length,0);
++ releasedCache=g.serialize();return releasedCache;
++}
++
++test('runtime borrow is durably committed once and survives actual open clock rebasing',async()=>{
++ const f=storageFixture(),r=await f.open();try{
++  assert.equal(r.emergencyLoanStatus?.phase,'available');const before=r.snapshot.economy.state;
++  r.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++  assert.equal(r.emergencyLoanStatus.phase,'borrowed');assert.equal(r.emergencyLoanStatus.loanSequence,1);
++  assert.deepEqual(r.snapshot.economy.state.vehicles,before.vehicles);assert.equal(r.snapshot.economy.state.cashCents,0);assert.equal(r.snapshot.fleet.fleet.quotaMs,0);
++  const committed=f.data.get(SLOT);assert.equal(JSON.parse(committed).version,7);
++  assert.throws(()=>r.command({type:'borrowEmergencyVehicle',expectedSequence:0}));assert.equal(f.data.get(SLOT),committed);
++ }finally{r.onDestroy();}
++ f.advance(86400);const resumed=await f.open();try{assert.equal(resumed.snapshot.frame.nowSeconds,f.now);assert.equal(resumed.emergencyLoanStatus.loanSequence,1);assert.equal(resumed.emergencyLoanStatus.phase,'borrowed');assert.equal(resumed.snapshot.economy.state.vehicles.length,1);assert.equal(resumed.snapshot.economy.state.cashCents,0);}finally{resumed.onDestroy();}
++});
++
++test('runtime open rebases an emergency trip without moving it or changing signed terms',async()=>{
++ const g=V2GameSession.restore(city,original,{preserveClock:true});g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++ g.acceptBatch([g.normalCandidates()[0]]);g.beginTrip(g.routeChoices()[0].preference);
++ const beforeRoute=g.routeSnapshot,beforeTrip=g.tripState,before=g.snapshot(),raw=g.serialize();
++ const f=storageFixture(raw),r=await f.open();try{
++  assert.equal(r.snapshot.frame.nowSeconds,f.now);assert.notEqual(r.snapshot.frame.nowSeconds,before.frame.nowSeconds);assert.equal(r.emergencyLoanStatus.loanSequence,1);assert.equal(r.routeSnapshot.phase,beforeRoute.phase);assert.deepEqual(r.routeSnapshot.position,beforeRoute.position);
++  assert.deepEqual(r.snapshot.orders,before.orders);assert.deepEqual(r.snapshot.batchIds,before.batchIds);assert.deepEqual(r.tripState,beforeTrip);assert.equal(r.snapshot.economy.state.cashCents,0);
++  assert.equal(r.snapshot.fleet.fleet.quotaMs,0);assert.equal(JSON.parse(f.data.get(SLOT)).version,7);
++ }finally{r.onDestroy();}
++});
++
++test('actual runtime open preserves hero work at every route boundary while NPCs use only existing quota',async()=>{
++ const g=V2GameSession.restore(city,original,{preserveClock:true}),stages=new Map();
++ const capture=name=>{if(!stages.has(name))stages.set(name,{raw:g.serialize(),route:g.routeSnapshot});};
++ g.command({type:'borrowEmergencyVehicle',expectedSequence:0});capture('borrowed');
++ const candidates=g.normalCandidates().filter(order=>order.load.occupiedSlots===1).slice(0,2);assert.equal(candidates.length,2);
++ g.acceptBatch(candidates);capture('planned');g.beginTrip(g.routeChoices()[0].preference);
++ let now=g.snapshot().frame.nowSeconds,sequence=g.snapshot().frame.sequence;
++ for(let i=0;i<3000&&g.snapshot().batchIds.length;i++){
++  capture(g.route.progress.phase);
++  if(g.snapshot().orders.filter(o=>g.snapshot().batchIds.includes(o.id)&&o.status==='completed').length===1)capture('partial');
++  if(g.route.progress.phase==='pickup')g.pickup();else if(g.route.progress.phase==='ready')g.continueTrip();else g.tick(++sequence,now+=.5,true,false);
++ }
++ assert.equal(g.snapshot().batchIds.length,0);capture('finished');
++ for(const name of ['borrowed','planned','pickup','ready','travelling','service','partial','finished'])assert.ok(stages.has(name),name);
++ for(const [name,{raw,route}] of stages){
++  const before=JSON.parse(raw),f=storageFixture(raw),r=await f.open();try{
++   assert.equal(r.snapshot.frame.nowSeconds,f.now,name);assert.deepEqual(r.routeSnapshot,route,name);assert.deepEqual(r.tripState,before.tripState,name);
++   assert.deepEqual(r.snapshot.orders,before.dispatch.orders,name);assert.deepEqual(r.snapshot.batchIds,before.dispatch.batchIds,name);
++   const old=before.dispatch.economy.state,current=r.snapshot.economy.state,oldFleet=before.dispatch.fleet.fleet,currentFleet=r.snapshot.fleet.fleet;
++   const {ledgerContext:oldContext,cashCents:oldCash,npcCompletedOrders:oldCount,fleetQuotes:oldQuotes,settledOrderIds:oldPaid,ledger:oldLedger,...oldState}=old;
++   const {ledgerContext:currentContext,cashCents:currentCash,npcCompletedOrders:currentCount,fleetQuotes:currentQuotes,settledOrderIds:currentPaid,ledger:currentLedger,...currentState}=current;
++   assert.equal(currentContext.nowMs,f.now*1000,name);assert.deepEqual(currentState,oldState,name);assert.equal(r.snapshot.economy.version,before.dispatch.economy.version,name);
++   const work=Math.min(oldFleet.quotaMs,Math.max(0,f.now*1000-oldFleet.lastAdvancedAt));
++   const payable=oldFleet.batches.flatMap(batch=>batch.orders.slice(batch.paidCount).filter(order=>order.dueMs<=batch.elapsedMs+work));
++   const paidIds=new Set(payable.map(order=>order.id));
++   assert.equal(currentCash,oldCash+payable.reduce((sum,order)=>sum+order.incomeCents,0),name);assert.equal(currentCount,oldCount+payable.length,name);
++   assert.deepEqual(currentQuotes,oldQuotes.filter(order=>!paidIds.has(order.id)),name);
++   assert.deepEqual(currentLedger.entries.slice(0,oldLedger.entries.length),oldLedger.entries,name);assert.deepEqual(currentLedger.opening,oldLedger.opening,name);assert.equal(currentLedger.nextId,oldLedger.nextId,name);
++   const added=currentLedger.entries.slice(oldLedger.entries.length);assert.equal(added.length,payable.length,name);
++   for(const entry of added){const order=payable.find(order=>entry.id===`order:${order.id}`);assert.ok(order,name);assert.equal(entry.category,'npc_delivery',name);assert.equal(entry.amountCents,order.incomeCents,name);}
++   assert.deepEqual(currentPaid.slice(0,oldPaid.length),oldPaid,name);assert.deepEqual(new Set(currentPaid.slice(oldPaid.length)),paidIds,name);
++   assert.equal(currentFleet.nextBatchId,oldFleet.nextBatchId,name);assert.ok(currentFleet.quotaMs>=0&&currentFleet.quotaMs<=oldFleet.quotaMs,name);
++   assert.equal(r.emergencyLoanStatus.loanSequence,1,name);
++  }finally{r.onDestroy();}
++ }
++});
++
++test('failed borrowing save preserves published state and slot and stops further writes',async()=>{
++ const f=storageFixture(),r=await f.open();try{
++  const before=JSON.stringify(r.snapshot),bytes=f.data.get(SLOT);f.fail();
++  assert.throws(()=>r.command({type:'borrowEmergencyVehicle',expectedSequence:0}),/storage write failed/);
++  assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),bytes);assert.equal(r.ready,false);
++  assert.throws(()=>r.command({type:'borrowEmergencyVehicle',expectedSequence:0}));assert.equal(f.data.get(SLOT),bytes);
++ }finally{r.onDestroy();}
++});
++
++test('failed return save cannot publish an unequipped loan or a half-swapped real car',async()=>{
++ const f=storageFixture(releasedLoan()),r=await f.open();try{
++  assert.equal(r.emergencyLoanStatus.phase,'returnable');const before=JSON.stringify(r.snapshot),bytes=f.data.get(SLOT);f.fail();
++  assert.throws(()=>r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}),/storage write failed/);
++  assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),bytes);assert.equal(r.emergencyLoanStatus.phase,'returnable');assert.equal(r.ready,false);
++ }finally{r.onDestroy();}
++});
++
++test('a second writer cannot acquire the slot or duplicate the emergency car',async()=>{
++ const f=storageFixture(),first=await f.open();try{
++  first.command({type:'borrowEmergencyVehicle',expectedSequence:0});const before=f.data.get(SLOT);
++  await assert.rejects(f.open(),/请先关闭其他游戏页/);assert.equal(f.data.get(SLOT),before);assert.equal(first.emergencyLoanStatus.loanSequence,1);
++ }finally{first.onDestroy();}
++});
++
++test('slot byte conflict rejects borrowing without publishing the candidate',async()=>{
++ const f=storageFixture(),r=await f.open();try{
++  const before=JSON.stringify(r.snapshot);f.data.set(SLOT,original);
++  assert.throws(()=>r.command({type:'borrowEmergencyVehicle',expectedSequence:0}),/其他操作改变/);
++  assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),original);assert.equal(r.ready,false);
++ }finally{r.onDestroy();}
++});
++
++test('epoch loss rejects returning and preserves the active loan',async()=>{
++ const f=storageFixture(releasedLoan()),r=await f.open();try{
++  const before=JSON.stringify(r.snapshot),bytes=f.data.get(SLOT);f.data.set(EPOCH,'new-external-epoch');
++  assert.throws(()=>r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}),/世代|停止|改变/);
++  assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),bytes);assert.equal(r.emergencyLoanStatus.phase,'returnable');
++ }finally{r.onDestroy();}
++});
++
++test('losing the writer lease blocks both borrowing and returning before publication',async()=>{
++ for(const returning of [false,true]){
++  const f=storageFixture(returning?releasedLoan():original),r=await f.open();try{
++   const before=JSON.stringify(r.snapshot),bytes=f.data.get(SLOT);f.loseWriter();
++   assert.throws(()=>r.command(returning?{type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}:{type:'borrowEmergencyVehicle',expectedSequence:0}));
++   assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),bytes);assert.equal(r.ready,false);
++  }finally{r.onDestroy();}
++ }
++});
++
++test('returned loan history survives runtime reopen and repeat return cannot alter real assets',async()=>{
++ const f=storageFixture(releasedLoan()),r=await f.open();try{
++  r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'});
++  assert.equal(r.emergencyLoanStatus.phase,'returned');assert.equal(r.snapshot.economy.state.riders[0].vehicleId,'starter-1');assert.equal(r.snapshot.economy.state.riders.find(v=>v.id==='npc-1').vehicleId,null);
++  const before=f.data.get(SLOT);assert.throws(()=>r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}));assert.equal(f.data.get(SLOT),before);
++ }finally{r.onDestroy();}
++ const resumed=await f.open();try{assert.equal(resumed.emergencyLoanStatus.phase,'returned');assert.equal(resumed.snapshot.economy.state.vehicles.length,1);assert.ok(resumed.normalCandidates().length>0);}finally{resumed.onDestroy();}
++});
++
++test('future or corrupt game snapshots remain untouched and cannot turn into new loan progress',async()=>{
++ for(const bytes of ['not-json',JSON.stringify({...JSON.parse(original),version:999})]){
++  const f=storageFixture(bytes),store=new V2RuntimeStore(f.storage,f.writer());
++  await assert.rejects(store.open('continue',raw=>V2GameSession.restore(city,raw),()=>{throw Error('must not create new game');}),/已保留原进度/);
++  assert.equal(f.data.get(SLOT),bytes);assert.equal(f.writes.filter(([key])=>key===SLOT).length,0);store.close();
++ }
++});

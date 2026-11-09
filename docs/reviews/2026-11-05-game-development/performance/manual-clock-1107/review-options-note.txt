@@ -1,0 +1,1 @@
+冻结源/测试14项仍不改。PM追加只读公开接口探针：options-accessor-probe.cjs及options-accessor-probe-result.json。manual下deferAuto getter原版读取0次，候选guard读取1次；结果及状态字节相同但调用者可观察回调差异。请纳入当前Spec/质量边界并给结论；我会在本轮审查结束后补RED/GREEN，让两个defer flag也只对自有普通数据属性启用优化，其他options走原路径。当前候选包已构建但未部署，原试玩保持前包；不用运行探针、写文件或重新审模型外部内容。

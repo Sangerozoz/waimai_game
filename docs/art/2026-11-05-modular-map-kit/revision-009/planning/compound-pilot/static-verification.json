@@ -1,0 +1,857 @@
+{
+  "status": "passed-static-only-pending-independent-review",
+  "planSHA256": "a5564388f2efb4afc55c8baa50e0f0607b1d0484ded6c2b05b6cc9abda6edb27",
+  "sourceCount": 1,
+  "sceneCount": 1,
+  "moduleCount": 2,
+  "groundSurfaceCount": 5,
+  "renderedNewCount": 0,
+  "userAcceptedNewCount": 0,
+  "passedRuleCount": 95,
+  "failedRuleCount": 0,
+  "checks": [
+    {
+      "rule": "all-frozen-input-SHAs-unchanged",
+      "passed": true,
+      "evidence": 51
+    },
+    {
+      "rule": "projection-exact-frozen-copy",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "unique-sceneIds",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "unique-module-persistentIds",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "no-old-persistentId-reuse",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "unique-new-surfaceIds",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "no-old-surfaceId-reuse",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "no-repeated-source-within-scene-set",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "source-index-polygon-pair-count",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "no-source-cross-scene-reuse",
+      "passed": true,
+      "evidence": 125
+    },
+    {
+      "rule": "not-old-bound-or-reserved",
+      "passed": true,
+      "evidence": 125
+    },
+    {
+      "rule": "source-polygon-exact-copy",
+      "passed": true,
+      "evidence": 125
+    },
+    {
+      "rule": "each-owned-source-referenced-by-scene-module-union",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "scene-module-bidirectional-membership",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "scene-ground-membership",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "no-old-ground-edit-permission-assumed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "top-level-source-set-is-scene-union",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "module-replacement-owned-source-set",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "module-replacement-original-polygons",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "module-source-SHA-and-data-read-only",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "module-replacement-owned-source-set",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "module-replacement-original-polygons",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "module-source-SHA-and-data-read-only",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-surface-count-exact",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "counts-sources-scenes-modules-separate",
+      "passed": true,
+      "evidence": {
+        "sources": 1,
+        "scenes": 1,
+        "modules": 2
+      }
+    },
+    {
+      "rule": "only-trial-native-building-modules-and-ground",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "complete-source-road-node-IDs-order",
+      "passed": true,
+      "evidence": "605760963-0"
+    },
+    {
+      "rule": "complete-source-road-node-coordinates-order",
+      "passed": true,
+      "evidence": "605760963-0"
+    },
+    {
+      "rule": "every-other-road-field-exact-including-width-direction",
+      "passed": true,
+      "evidence": "605760963-0"
+    },
+    {
+      "rule": "module-known-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "module-source-subset-owned-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "only-admitted-old-native-assets",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "reasonable-single-positive-scale:B05",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "no-image-rotation-no-second-scale",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "final-worldSize-is-canonical-times-scale-once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "anchorUV-retained",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "actual-native-footprint-reconstruction",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "fixed-visible-native-door-pixel-map",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "anchor-in-owned-carrier",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "external-clearance:009compound-source0125-court-module-01-B05",
+      "passed": true,
+      "evidence": {
+        "otherSourceGap": 13.948740820530846,
+        "otherSourceIndex": 590,
+        "roadEdgeGap": 2.433242163885124,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 1.3123909736695167,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 19.14314724400905,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 180.1178572670426,
+        "nearestPOIIndex": 4,
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-omitted-obstacle-bound:009compound-source0125-court-module-01-B05",
+      "passed": true,
+      "evidence": {
+        "otherSources": 79.59640133402003,
+        "roadsAfterHalfWidth": 80.48589339148653,
+        "waterAfterBuffer": 101.95566475929425,
+        "oldGround": 89.83133569742132,
+        "oldBody": 83.99459774789352
+      }
+    },
+    {
+      "rule": "door-stop-semantic-separation",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "walk-start-at-real-threshold",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "real-source-road-segment-index",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "road-approach-segment-blue-entire",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "walk-end-exact-unchanged-road-shoulder",
+      "passed": true,
+      "evidence": 0.029999999999957172
+    },
+    {
+      "rule": "own-entity-clear-after-explicit-threshold-tolerance",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "shared-runtime-PNG-size-and-SHA:B05",
+      "passed": true,
+      "evidence": {
+        "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/integration/assets/B05-runtime-280.png",
+        "size": [
+          245,
+          280
+        ],
+        "bytes": 98302,
+        "mode": "RGBA"
+      }
+    },
+    {
+      "rule": "module-known-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "module-source-subset-owned-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "only-admitted-old-native-assets",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "reasonable-single-positive-scale:B01",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "no-image-rotation-no-second-scale",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "final-worldSize-is-canonical-times-scale-once",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "anchorUV-retained",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "actual-native-footprint-reconstruction",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "fixed-visible-native-door-pixel-map",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "anchor-in-owned-carrier",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "external-clearance:009compound-source0125-court-module-02-B01",
+      "passed": true,
+      "evidence": {
+        "otherSourceGap": 14.15449545264092,
+        "otherSourceIndex": 587,
+        "roadEdgeGap": 2.2413890250571873,
+        "roadSegment": [
+          "1046196060-0",
+          0
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 12.373368573219215,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 15.849491889739022,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 181.5106554625882,
+        "nearestPOIIndex": 6,
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-omitted-obstacle-bound:009compound-source0125-court-module-02-B01",
+      "passed": true,
+      "evidence": {
+        "otherSources": 82.67573330561906,
+        "roadsAfterHalfWidth": 81.43378784055484,
+        "waterAfterBuffer": 100.46045819784811,
+        "oldGround": 101.67253459170982,
+        "oldBody": 95.93122800556186
+      }
+    },
+    {
+      "rule": "door-stop-semantic-separation",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "walk-start-at-real-threshold",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "real-source-road-segment-index",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "road-approach-segment-blue-entire",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "walk-end-exact-unchanged-road-shoulder",
+      "passed": true,
+      "evidence": 0.029999999999957172
+    },
+    {
+      "rule": "own-entity-clear-after-explicit-threshold-tolerance",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "shared-runtime-PNG-size-and-SHA:B01",
+      "passed": true,
+      "evidence": {
+        "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-006/integration/assets/rt-B01-road-aligned-native-v1.png",
+        "size": [
+          224,
+          280
+        ],
+        "bytes": 97914,
+        "mode": "RGBA"
+      }
+    },
+    {
+      "rule": "peer-module-body-gap>=2m",
+      "passed": true,
+      "evidence": 4.691031036272155
+    },
+    {
+      "rule": "peer-door-path-never-through-peer-module",
+      "passed": true,
+      "evidence": 4.445288033340681
+    },
+    {
+      "rule": "ground-owned-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "external-clearance:009compound-source0125-court-module-01-B05-entry-walk-0",
+      "passed": true,
+      "evidence": {
+        "otherSourceGap": 13.612869127589187,
+        "otherSourceIndex": 590,
+        "roadEdgeGap": 0.029999999999957172,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 3.8169866979416693,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 22.133223240344122,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 177.30258040970367,
+        "nearestPOIIndex": 4,
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-omitted-obstacle-bound:009compound-source0125-court-module-01-B05-entry-walk-0",
+      "passed": true,
+      "evidence": {
+        "otherSources": 80.28438280321154,
+        "roadsAfterHalfWidth": 78.6099765369544,
+        "waterAfterBuffer": 100.53207932421448,
+        "oldGround": 89.60890252141171,
+        "oldBody": 83.8542739213642
+      }
+    },
+    {
+      "rule": "new-ground-outside-every-peer-entity:009compound-source0125-court-module-01-B05-entry-walk-0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-owned-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "external-clearance:009compound-source0125-court-module-02-B01-entry-walk-0",
+      "passed": true,
+      "evidence": {
+        "otherSourceGap": 16.827231375914653,
+        "otherSourceIndex": 587,
+        "roadEdgeGap": 0.029999999999957172,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 13.121918847110665,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 19.315996567736597,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 176.6534351346211,
+        "nearestPOIIndex": 4,
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-omitted-obstacle-bound:009compound-source0125-court-module-02-B01-entry-walk-0",
+      "passed": true,
+      "evidence": {
+        "otherSources": 82.97862520482619,
+        "roadsAfterHalfWidth": 77.63808236819568,
+        "waterAfterBuffer": 98.3731329989987,
+        "oldGround": 95.99201222634854,
+        "oldBody": 90.41351743817123
+      }
+    },
+    {
+      "rule": "new-ground-outside-every-peer-entity:009compound-source0125-court-module-02-B01-entry-walk-0",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-owned-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "external-clearance:009compound-source0125-court-shared-court",
+      "passed": true,
+      "evidence": {
+        "otherSourceGap": 13.445225918518473,
+        "otherSourceIndex": 587,
+        "roadEdgeGap": 1.1233521411607135,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 9.38641996995476,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 16.95632745612215,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 177.72626142469773,
+        "nearestPOIIndex": 4,
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-omitted-obstacle-bound:009compound-source0125-court-shared-court",
+      "passed": true,
+      "evidence": {
+        "otherSources": 83.51502200203278,
+        "roadsAfterHalfWidth": 78.72067939759694,
+        "waterAfterBuffer": 99.37341747167613,
+        "oldGround": 94.22463158457202,
+        "oldBody": 88.55457133665188
+      }
+    },
+    {
+      "rule": "new-ground-outside-every-peer-entity:009compound-source0125-court-shared-court",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "new-ground-outside-every-peer-entity:009compound-source0125-court-shared-court",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-owned-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "external-clearance:009compound-source0125-court-garden-bed",
+      "passed": true,
+      "evidence": {
+        "otherSourceGap": 8.228128584313612,
+        "otherSourceIndex": 587,
+        "roadEdgeGap": 7.665873152063776,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 5.035240343631818,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 12.717077771635239,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 177.9662217950362,
+        "nearestPOIIndex": 6,
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-omitted-obstacle-bound:009compound-source0125-court-garden-bed",
+      "passed": true,
+      "evidence": {
+        "otherSources": 82.18010586510584,
+        "roadsAfterHalfWidth": 79.76190673695812,
+        "waterAfterBuffer": 106.91904460852626,
+        "oldGround": 96.26538110455681,
+        "oldBody": 90.41782495481351
+      }
+    },
+    {
+      "rule": "new-ground-outside-every-peer-entity:009compound-source0125-court-garden-bed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "new-ground-outside-every-peer-entity:009compound-source0125-court-garden-bed",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "ground-owned-scene",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "external-clearance:009compound-source0125-court-court-link",
+      "passed": true,
+      "evidence": {
+        "otherSourceGap": 14.302796929272358,
+        "otherSourceIndex": 590,
+        "roadEdgeGap": 0.18244391573590057,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 4.559438001170793,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 23.371386099036926,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 176.840091042727,
+        "nearestPOIIndex": 4,
+        "blue": true
+      }
+    },
+    {
+      "rule": "global-omitted-obstacle-bound:009compound-source0125-court-court-link",
+      "passed": true,
+      "evidence": {
+        "otherSources": 81.04484807808575,
+        "roadsAfterHalfWidth": 77.8411449089027,
+        "waterAfterBuffer": 98.67741636261063,
+        "oldGround": 90.28177475517862,
+        "oldBody": 84.5376020194938
+      }
+    },
+    {
+      "rule": "new-ground-outside-every-peer-entity:009compound-source0125-court-court-link",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "new-ground-outside-every-peer-entity:009compound-source0125-court-court-link",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "finite-scene-paving-forms-connected-union",
+      "passed": true,
+      "evidence": 4
+    },
+    {
+      "rule": "garden-adjoins-purposeful-court",
+      "passed": true,
+      "evidence": null
+    },
+    {
+      "rule": "all-input-SHAs-unchanged-after-validation",
+      "passed": true,
+      "evidence": null
+    }
+  ],
+  "geometry": [
+    {
+      "id": "009compound-source0125-court-module-01-B05",
+      "clearance": {
+        "otherSourceGap": 13.948740820530846,
+        "otherSourceIndex": 590,
+        "roadEdgeGap": 2.433242163885124,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 1.3123909736695167,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 19.14314724400905,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 180.1178572670426,
+        "nearestPOIIndex": 4,
+        "blue": true
+      },
+      "omittedObstacleGuaranteedLowerBoundsMetres": {
+        "otherSources": 79.59640133402003,
+        "roadsAfterHalfWidth": 80.48589339148653,
+        "waterAfterBuffer": 101.95566475929425,
+        "oldGround": 89.83133569742132,
+        "oldBody": 83.99459774789352
+      }
+    },
+    {
+      "id": "009compound-source0125-court-module-02-B01",
+      "clearance": {
+        "otherSourceGap": 14.15449545264092,
+        "otherSourceIndex": 587,
+        "roadEdgeGap": 2.2413890250571873,
+        "roadSegment": [
+          "1046196060-0",
+          0
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 12.373368573219215,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 15.849491889739022,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 181.5106554625882,
+        "nearestPOIIndex": 6,
+        "blue": true
+      },
+      "omittedObstacleGuaranteedLowerBoundsMetres": {
+        "otherSources": 82.67573330561906,
+        "roadsAfterHalfWidth": 81.43378784055484,
+        "waterAfterBuffer": 100.46045819784811,
+        "oldGround": 101.67253459170982,
+        "oldBody": 95.93122800556186
+      }
+    },
+    {
+      "id": "009compound-source0125-court-module-01-B05-entry-walk-0",
+      "clearance": {
+        "otherSourceGap": 13.612869127589187,
+        "otherSourceIndex": 590,
+        "roadEdgeGap": 0.029999999999957172,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 3.8169866979416693,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 22.133223240344122,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 177.30258040970367,
+        "nearestPOIIndex": 4,
+        "blue": true
+      },
+      "omittedObstacleGuaranteedLowerBoundsMetres": {
+        "otherSources": 80.28438280321154,
+        "roadsAfterHalfWidth": 78.6099765369544,
+        "waterAfterBuffer": 100.53207932421448,
+        "oldGround": 89.60890252141171,
+        "oldBody": 83.8542739213642
+      }
+    },
+    {
+      "id": "009compound-source0125-court-module-02-B01-entry-walk-0",
+      "clearance": {
+        "otherSourceGap": 16.827231375914653,
+        "otherSourceIndex": 587,
+        "roadEdgeGap": 0.029999999999957172,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 13.121918847110665,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 19.315996567736597,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 176.6534351346211,
+        "nearestPOIIndex": 4,
+        "blue": true
+      },
+      "omittedObstacleGuaranteedLowerBoundsMetres": {
+        "otherSources": 82.97862520482619,
+        "roadsAfterHalfWidth": 77.63808236819568,
+        "waterAfterBuffer": 98.3731329989987,
+        "oldGround": 95.99201222634854,
+        "oldBody": 90.41351743817123
+      }
+    },
+    {
+      "id": "009compound-source0125-court-shared-court",
+      "clearance": {
+        "otherSourceGap": 13.445225918518473,
+        "otherSourceIndex": 587,
+        "roadEdgeGap": 1.1233521411607135,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 9.38641996995476,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 16.95632745612215,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 177.72626142469773,
+        "nearestPOIIndex": 4,
+        "blue": true
+      },
+      "omittedObstacleGuaranteedLowerBoundsMetres": {
+        "otherSources": 83.51502200203278,
+        "roadsAfterHalfWidth": 78.72067939759694,
+        "waterAfterBuffer": 99.37341747167613,
+        "oldGround": 94.22463158457202,
+        "oldBody": 88.55457133665188
+      }
+    },
+    {
+      "id": "009compound-source0125-court-garden-bed",
+      "clearance": {
+        "otherSourceGap": 8.228128584313612,
+        "otherSourceIndex": 587,
+        "roadEdgeGap": 7.665873152063776,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 5.035240343631818,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 12.717077771635239,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 177.9662217950362,
+        "nearestPOIIndex": 6,
+        "blue": true
+      },
+      "omittedObstacleGuaranteedLowerBoundsMetres": {
+        "otherSources": 82.18010586510584,
+        "roadsAfterHalfWidth": 79.76190673695812,
+        "waterAfterBuffer": 106.91904460852626,
+        "oldGround": 96.26538110455681,
+        "oldBody": 90.41782495481351
+      }
+    },
+    {
+      "id": "009compound-source0125-court-court-link",
+      "clearance": {
+        "otherSourceGap": 14.302796929272358,
+        "otherSourceIndex": 590,
+        "roadEdgeGap": 0.18244391573590057,
+        "roadSegment": [
+          "605760963-0",
+          2
+        ],
+        "waterSafetyGap": 9999,
+        "oldGroundGap": 4.559438001170793,
+        "oldSurfaceId": "009r4-src-0587-walk-0",
+        "oldBodyGap": 23.371386099036926,
+        "oldBodyId": "009r4-src-0587",
+        "POIclearance": 176.840091042727,
+        "nearestPOIIndex": 4,
+        "blue": true
+      },
+      "omittedObstacleGuaranteedLowerBoundsMetres": {
+        "otherSources": 81.04484807808575,
+        "roadsAfterHalfWidth": 77.8411449089027,
+        "waterAfterBuffer": 98.67741636261063,
+        "oldGround": 90.28177475517862,
+        "oldBody": 84.5376020194938
+      }
+    }
+  ],
+  "manualFootlineAndHiddenRearUncertaintyRetained": true,
+  "initialOwnDoorThresholdAllowanceMetres": 0.6,
+  "latestMarketLifeLayerNotInFrozen156SnapshotMustBeRechecked": true
+}

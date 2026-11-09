@@ -1,0 +1,126 @@
+{
+  "hudQuality": {
+    "passed": true,
+    "security_concerns": [],
+    "logic_errors": [],
+    "sourceHashes": {
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": {
+        "reviewedPredecessor": "1b70ff52c504c01fa1a790cf75d1d2ff087b9f510b208271c6fc4cb487533ef3",
+        "reviewStart": "6ad0cf81f8a93b1bf5fec786195124f0cf354a1f811934a314c0d0b9576b7b80",
+        "reviewEnd": "6ad0cf81f8a93b1bf5fec786195124f0cf354a1f811934a314c0d0b9576b7b80",
+        "exactInverseMatches": true
+      },
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "796a4111bc9c367672863351b4a93eb43031cd5e2fe83d303fe4979622dee4f0",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+      "delivery-game/assets/scripts/map-sample/SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "docs/reviews/2026-11-05-game-development/layout/home-stamina-spacing-spec.json": "15c3c8a7730e82da7255e24ed57d38bc274cb67b7988371f4736c4e689de95e7",
+      "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322",
+      "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30"
+    },
+    "limits": [
+      "PASS仅针对H02本次三行增量的第二阶段静态质量，不是实际画面通过，也不覆盖G02/G04或全局视觉。",
+      "独立在内存逆替换新增片段，重建SHA精确匹配刚审过的1b70前态，证明其余源码字节未变；没有只依赖PM规格声明。",
+      "V2GameUI.ts:90,110-115：只有full首页采用新坐标/尺寸；订单分支仍为energy(-53,30)、value(-1,字号21/宽84)、plus(53,28)。组件外框、金币与评价、整个体力组件的tap补给入口均保持。",
+      "首页横向设计框分别为energy[-68,-46]、数值[-40,44]、plus[49,67]，间隔6和5；外侧余量约2.851和3.851，均为正。glyph对energy/plus没有vehicles专用的额外放大。",
+      "数值字号21、宽84、居中、SampleUI.label的SHRINK条件及refreshHUD中的真实100/100字符串生成均未改。此次没有靠减小数字或替换样例值腾空间。",
+      "图标缩小后的实际清晰度、字体最终度量和运行留白尚无新截图，H02视觉接受状态仍待捕获，不能据静态框间距直接关闭。",
+      "未写任何文件、修改权限、运行tests/typecheck/TS游戏函数、浏览器、构建或存档；未派Agent、未涉及地图。只读范围交回PM。"
+    ]
+  },
+  "skinInvestigation": {
+    "findings": [
+      {
+        "id": "F01-source-pixels",
+        "status": "confirmed-file-observation",
+        "finding": "原皮肤素材确有贴轮廓的不规则白色/杂色及软alpha边缘；现有衍生仍保留这些形态。但不能把整张原画布上的大块碎屑都算成当前使用区域污染。",
+        "evidence": [
+          "实际用vision查看panel-glass-v1.png、bill-metric-v1.png、button-blue-v1.png、portrait-frame-v1.png及对应既有衍生，并放大panel有效裁切附近。",
+          "panel-glass有效框为[78,158,1620,570]，衍生为1368×482；上沿和转角仍可见不均匀细碎边缘。",
+          "portrait-frame原图及215×300衍生的内外边也有不规则细像素；该肖像框调用不走panel的GlassEdge，不能统一归因为额外Graphics。",
+          "只读alpha128连通分析中，panel-glass有效框只有一个主体连通块，bbox为[5,6,1613,565]；bill-metric也是一个主体块，bbox为[11,11,1682,670]。因此没有证据支持“有效框里存在大块高alpha孤立垃圾”或“矩形框裁断了高alpha主体”的笼统结论。"
+        ],
+        "causalLimit": "已确认素材层边缘不规则存在；它对既有运行截图中每个缺口的贡献尚未隔离，不能直接判为G02唯一根因。",
+        "assetBinding": {
+          "panelOriginalSHA": "65f0c30177220564a45220045c6171a57aa706492202d9a6b0c687c41dee4d77",
+          "panelDerivativeSHA": "55ea6921603327c49b45b6566426937f918b9f9f873699bfcf49bf8a3ba44c21"
+        }
+      },
+      {
+        "id": "F02-crop-nine-slice",
+        "status": "confirmed-source-trace",
+        "finding": "本轮未发现原框误用于小纹理、横纵inset换算混用或成功路径rect越界。不能据边角现象直接把九宫格实现判错。",
+        "evidence": [
+          "UIArtResources.ts:148-160仍按原resource＋原pixelRect查映射，衍生返回[0,0,w,h]，inset按横纵比例分别缩放。",
+          "V2ImageSkin.ts:47-59验证inset后使用SLICED，并通过drawScale控制角部逻辑尺寸。",
+          "panel-glass在337×166设计卡上，换算后四边约11.983/12设计单位；bill-metric在212×112卡上约8.766/8.764。",
+          "只读核对Cocos 3.8.8 SpriteFrame._calculateSlicedUV及sliced assembler：边距参与UV和顶点分段。cap宽度不是圆角半径，不能把约12的cap与8的Mask圆角直接当作已证实冲突。"
+        ],
+        "causalLimit": "局部圆角与Mask的精确对齐、亚像素边线是否被削弱仍未验证；本轮没有执行引擎或制作模拟运行图。"
+      },
+      {
+        "id": "F03-graphics-ownership",
+        "status": "confirmed-layer-structure",
+        "finding": "确有“位图边框＋附加GlassEdge”的双轮廓结构，但不是所有Graphics都在成功后重复可见。",
+        "evidence": [
+          "V2ApprovedSkin.ts:24-25：皮肤成功后原panel的g.enabled=false；仅panel-glass/bill-metric另外创建GlassEdge，线宽为1.8或选中态2.4设计单位。",
+          "skinSurface.ts对应的V2ApprovedSkin.ts:11-15中，Mask附属Graphics承担stencil裁剪，不应作为重复装饰线直接删除。",
+          "V2ApprovedSkin.ts:67-72的圆盘成功回调会关闭原圆形Graphics；圆盘没有GlassEdge。",
+          "肖像框通过portrait中的imageSkin直接叠加，也没有该GlassEdge。"
+        ],
+        "causalLimit": "额外轮廓可能参与某些卡片的多线观感，但尚未证明它造成现有缺角；不能把圆盘和肖像框的问题归入同一Graphics根因。"
+      },
+      {
+        "id": "F04-disc-sampling",
+        "status": "confirmed-assets-and-configuration",
+        "finding": "圆盘原图和292衍生的主要白环是连续的；既有orders截图的小尺寸圆盘呈点状/断续边缘。G04不属于九宫格切边问题。",
+        "evidence": [
+          "实际查看dispatch-disc-v1.png和chrome-a4404eda6e04.png：主要白环连续，外侧存在软alpha及零碎边缘像素，不能说原图设计本来就是虚线。",
+          "manifest的dispatch-disc没有inset，V2ImageSkin据此使用SIMPLE。",
+          "原图及衍生meta均声明linear min/mag、mipfilter=none、clamp-to-edge；这是文件配置，不是实际GPU状态读回。",
+          "292纹理画布映射146设计单位，在470宽比较画幅中约95.306像素，相当于每个截图像素约3.064个纹素。细环缩小后可能进入亚像素范围。",
+          "既有orders.jpg区域[197,742,275,821]与认可03-orders-v4.png对应圆盘已重新实看；×居中不再列为待修。"
+        ],
+        "causalLimit": "实际截图使用原图还是衍生、实际DPR/采样状态及JPEG影响没有在途证据，不能据此确认采样就是唯一根因。",
+        "assetBinding": {
+          "discOriginalSHA": "f56696e92ee3fe8eac15ff9707ead0f7b19c3911fe4247cd84b95eddc34aa727",
+          "discDerivativeSHA": "b5e894c0ce1d8dbccf212e32515bb56f4f36b9b87dd209e5eeca3c2110c2179a"
+        }
+      }
+    ],
+    "confirmedRootCauses": [],
+    "unverifiedHypotheses": [
+      {
+        "id": "H01",
+        "target": "G02",
+        "hypothesis": "原位图的贴边软alpha/不规则轮廓，在缩放后参与了灰白碎边与弱边现象。",
+        "known": "素材和衍生中的不规则边缘已实看确认。",
+        "unknown": "尚未与运行Mask、GlassEdge及缩放效果分离，不能确定贡献大小。"
+      },
+      {
+        "id": "H02",
+        "target": "G02",
+        "hypothesis": "位图自带轮廓与GlassEdge、Mask圆角在部分尺寸下对齐不一致，形成多线或局部削边。",
+        "known": "双轮廓和Mask结构存在。",
+        "unknown": "尚无单因素图层对照；Mask的stencil不能被当作普通描边删除。"
+      },
+      {
+        "id": "H03",
+        "target": "G04",
+        "hypothesis": "细白环在无mipmap的缩小采样、输出缩放及截图压缩共同作用下出现断续。",
+        "known": "源环连续，现有小尺寸JPEG现象不同，meta及缩放比例支持这种可能性。",
+        "unknown": "缺少实际加载分支、GPU采样/DPR与同帧无损PNG证据；alpha插值和JPEG影响亦未排除。"
+      }
+    ],
+    "minimalNextStep": {
+      "status": "recommendation-only，需要PM另行授权，本轮未执行",
+      "currentConclusion": "G02/G04的运行症状根因仍为unknown；没有依据现在一刀切改资源或给皮肤PASS。",
+      "sequence": [
+        "先限于一张panel-glass卡，区分位图本体、附加GlassEdge及Mask裁后轮廓，每次只改变一个因素；保留失败回退Graphics和必要stencil，不同时改配色、alpha与采样。",
+        "圆盘单独处理：先确认实际原图/衍生路径、输出比例，并取得同帧无损细节证据，再决定是否只针对该纹理的细环和采样收口；不再移动×或圆盘热区。",
+        "只有证实具体素材边缘贡献后，才考虑该皮肤的局部专用衍生修整并保留原图。不得盲重做143图、整体加蓝加粗，或牵涉地图、肖像身份、车辆和餐品重绘。"
+      ],
+      "scopeCompliance": "本轮仅只读源码、meta、既有PNG/JPEG和纯像素/几何数据；未写源、图片、manifest、报告或权限，未运行测试/typecheck、游戏、浏览器、构建、存档或素材生产，未派子Agent。两项工作未合并为全局PASS。"
+    }
+  }
+}

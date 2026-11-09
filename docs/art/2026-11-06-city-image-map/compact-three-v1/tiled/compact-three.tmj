@@ -1,0 +1,1085 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.12.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "width": 94,
+  "height": 62,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "infinite": false,
+  "backgroundcolor": "#a3ae8c",
+  "nextobjectid": 22,
+  "nextlayerid": 12,
+  "tilesets": [],
+  "layers": [
+    {
+      "id": 11,
+      "type": "imagelayer",
+      "name": "D尚未制作（非地图状态牌）",
+      "image": "D-not-produced-status.png",
+      "imagewidth": 1472,
+      "imageheight": 960,
+      "offsetx": 1536,
+      "offsety": 1024,
+      "visible": true,
+      "opacity": 1,
+      "locked": true
+    },
+    {
+      "id": 1,
+      "type": "group",
+      "name": "A2 区域（整体偏移仅在此）",
+      "offsetx": 0,
+      "offsety": 0,
+      "visible": true,
+      "locked": false,
+      "properties": [
+        {
+          "name": "regionId",
+          "type": "string",
+          "value": "A"
+        },
+        {
+          "name": "nativeSHA256",
+          "type": "string",
+          "value": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe"
+        }
+      ],
+      "layers": [
+        {
+          "id": 2,
+          "type": "imagelayer",
+          "name": "A2 完整原生的无损核心",
+          "image": "A2-core.png",
+          "offsetx": 0,
+          "offsety": 0,
+          "visible": true,
+          "locked": true,
+          "opacity": 1,
+          "properties": [
+            {
+              "name": "nativeSourceSHA256",
+              "type": "string",
+              "value": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe"
+            }
+          ],
+          "imagewidth": 1504,
+          "imageheight": 1024
+        },
+        {
+          "id": 3,
+          "type": "objectgroup",
+          "name": "A 可编辑道路中心线",
+          "draworder": "index",
+          "visible": true,
+          "locked": false,
+          "color": "#ff28b8",
+          "objects": [
+            {
+              "id": 1,
+              "name": "A-west",
+              "type": "road",
+              "x": 0,
+              "y": 556,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 95,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "name": "A-main-to-south",
+              "type": "road",
+              "x": 95,
+              "y": 556,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 255,
+                  "y": 0
+                },
+                {
+                  "x": 620,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "name": "A-main-to-loop",
+              "type": "road",
+              "x": 715,
+              "y": 556,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 440,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 4,
+              "name": "A-portal",
+              "type": "road",
+              "x": 1155,
+              "y": 556,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 145,
+                  "y": 0
+                },
+                {
+                  "x": 349,
+                  "y": 2
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 5,
+              "name": "A-upper-loop",
+              "type": "road",
+              "x": 95,
+              "y": 556,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 25,
+                  "y": -82
+                },
+                {
+                  "x": 54,
+                  "y": -189
+                },
+                {
+                  "x": 85,
+                  "y": -276
+                },
+                {
+                  "x": 109,
+                  "y": -313
+                },
+                {
+                  "x": 165,
+                  "y": -325
+                },
+                {
+                  "x": 405,
+                  "y": -339
+                },
+                {
+                  "x": 635,
+                  "y": -353
+                },
+                {
+                  "x": 775,
+                  "y": -359
+                },
+                {
+                  "x": 816,
+                  "y": -341
+                },
+                {
+                  "x": 862,
+                  "y": -311
+                },
+                {
+                  "x": 897,
+                  "y": -256
+                },
+                {
+                  "x": 950,
+                  "y": -176
+                },
+                {
+                  "x": 990,
+                  "y": -116
+                },
+                {
+                  "x": 1027,
+                  "y": -56
+                },
+                {
+                  "x": 1060,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "name": "A-south",
+              "type": "road",
+              "x": 715,
+              "y": 556,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": -2,
+                  "y": 84
+                },
+                {
+                  "x": -11,
+                  "y": 196
+                },
+                {
+                  "x": -23,
+                  "y": 344
+                },
+                {
+                  "x": -35.5,
+                  "y": 468
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ],
+          "opacity": 1
+        }
+      ],
+      "opacity": 1
+    },
+    {
+      "id": 4,
+      "type": "group",
+      "name": "B1 区域（整体偏移仅在此）",
+      "offsetx": 1472,
+      "offsety": 0,
+      "visible": true,
+      "locked": false,
+      "properties": [
+        {
+          "name": "regionId",
+          "type": "string",
+          "value": "B"
+        },
+        {
+          "name": "nativeSHA256",
+          "type": "string",
+          "value": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf"
+        }
+      ],
+      "layers": [
+        {
+          "id": 5,
+          "type": "imagelayer",
+          "name": "B1 完整原生的无损核心",
+          "image": "B1-core.png",
+          "offsetx": 32,
+          "offsety": 0,
+          "visible": true,
+          "locked": true,
+          "opacity": 1,
+          "properties": [
+            {
+              "name": "nativeSourceSHA256",
+              "type": "string",
+              "value": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf"
+            }
+          ],
+          "imagewidth": 1504,
+          "imageheight": 1024
+        },
+        {
+          "id": 6,
+          "type": "objectgroup",
+          "name": "B 可编辑道路中心线",
+          "draworder": "index",
+          "visible": true,
+          "locked": false,
+          "color": "#ff28b8",
+          "objects": [
+            {
+              "id": 7,
+              "name": "B-portal",
+              "type": "road",
+              "x": 32,
+              "y": 558,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 168,
+                  "y": 0
+                },
+                {
+                  "x": 318,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "name": "B-main-to-south",
+              "type": "road",
+              "x": 350,
+              "y": 558,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 254,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "name": "B-main-to-loop",
+              "type": "road",
+              "x": 604,
+              "y": 558,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 522,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "name": "B-east",
+              "type": "road",
+              "x": 1126,
+              "y": 558,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 410,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 11,
+              "name": "B-upper-loop",
+              "type": "road",
+              "x": 350,
+              "y": 558,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 38,
+                  "y": -66
+                },
+                {
+                  "x": 95,
+                  "y": -149
+                },
+                {
+                  "x": 137,
+                  "y": -214
+                },
+                {
+                  "x": 172,
+                  "y": -250
+                },
+                {
+                  "x": 220,
+                  "y": -254
+                },
+                {
+                  "x": 450,
+                  "y": -254
+                },
+                {
+                  "x": 623,
+                  "y": -254
+                },
+                {
+                  "x": 666,
+                  "y": -233
+                },
+                {
+                  "x": 702,
+                  "y": -161
+                },
+                {
+                  "x": 739,
+                  "y": -74
+                },
+                {
+                  "x": 776,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 12,
+              "name": "B-south",
+              "type": "road",
+              "x": 604,
+              "y": 558,
+              "rotation": 0,
+              "visible": true,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": -15,
+                  "y": 101
+                },
+                {
+                  "x": -44,
+                  "y": 242
+                },
+                {
+                  "x": -79,
+                  "y": 466
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant-actual-native-visual-trace"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ],
+          "opacity": 1
+        }
+      ],
+      "opacity": 1
+    },
+    {
+      "id": 7,
+      "type": "objectgroup",
+      "name": "边界、停靠及独立装饰（可编辑，当前空白）",
+      "objects": [],
+      "visible": true,
+      "locked": false,
+      "draworder": "index",
+      "opacity": 1
+    },
+    {
+      "id": 8,
+      "type": "group",
+      "name": "C 工坊服务／城市庭院",
+      "offsetx": 0,
+      "offsety": 960,
+      "visible": true,
+      "opacity": 1,
+      "locked": false,
+      "properties": [
+        {
+          "name": "regionId",
+          "type": "string",
+          "value": "C"
+        }
+      ],
+      "layers": [
+        {
+          "id": 9,
+          "type": "imagelayer",
+          "name": "C核心（北64px归既有图）",
+          "image": "C-core.png",
+          "imagewidth": 1536,
+          "imageheight": 960,
+          "offsetx": 0,
+          "offsety": 64,
+          "visible": true,
+          "opacity": 1,
+          "locked": true,
+          "properties": [
+            {
+              "name": "nativeSourceSHA256",
+              "type": "string",
+              "value": "6aa6063d2326c6d4004f97dee35b02fb58b87b2d2e22d1c3a89b5b6b2ebecfba"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "type": "objectgroup",
+          "name": "C 可编辑道路中心线",
+          "draworder": "index",
+          "visible": true,
+          "opacity": 1,
+          "locked": false,
+          "color": "#ff28b8",
+          "objects": [
+            {
+              "id": 13,
+              "name": "C-north-portal",
+              "type": "road",
+              "x": 679.5,
+              "y": 64,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0.0,
+                  "y": 0
+                },
+                {
+                  "x": -5.5,
+                  "y": 56
+                },
+                {
+                  "x": -17.5,
+                  "y": 162
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 14,
+              "name": "C-spine-to-cross",
+              "type": "road",
+              "x": 662,
+              "y": 226,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": -18,
+                  "y": 194
+                },
+                {
+                  "x": -30.5,
+                  "y": 314
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 15,
+              "name": "C-south",
+              "type": "road",
+              "x": 631.5,
+              "y": 540,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0.0,
+                  "y": 0
+                },
+                {
+                  "x": -13.5,
+                  "y": 110
+                },
+                {
+                  "x": -31.5,
+                  "y": 260
+                },
+                {
+                  "x": -53.5,
+                  "y": 360
+                },
+                {
+                  "x": -72.0,
+                  "y": 484
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 16,
+              "name": "C-west",
+              "type": "road",
+              "x": 0,
+              "y": 540,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 174,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 17,
+              "name": "C-main-west",
+              "type": "road",
+              "x": 174,
+              "y": 540,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 457.5,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 18,
+              "name": "C-main-middle",
+              "type": "road",
+              "x": 631.5,
+              "y": 540,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0.0,
+                  "y": 0
+                },
+                {
+                  "x": 418.5,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 19,
+              "name": "C-east",
+              "type": "road",
+              "x": 1050,
+              "y": 540,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 486,
+                  "y": 0
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 20,
+              "name": "C-upper-loop",
+              "type": "road",
+              "x": 174,
+              "y": 540,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 66,
+                  "y": -200
+                },
+                {
+                  "x": 93,
+                  "y": -261
+                },
+                {
+                  "x": 118,
+                  "y": -286
+                },
+                {
+                  "x": 161,
+                  "y": -294
+                },
+                {
+                  "x": 336,
+                  "y": -305
+                },
+                {
+                  "x": 488,
+                  "y": -314
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "id": 21,
+              "name": "C-service-road",
+              "type": "road",
+              "x": 1050,
+              "y": 540,
+              "width": 0,
+              "height": 0,
+              "visible": true,
+              "rotation": 0,
+              "opacity": 1,
+              "polyline": [
+                {
+                  "x": 0,
+                  "y": 0
+                },
+                {
+                  "x": 32,
+                  "y": 120
+                },
+                {
+                  "x": 84,
+                  "y": 280
+                },
+                {
+                  "x": 140,
+                  "y": 484
+                }
+              ],
+              "properties": [
+                {
+                  "name": "traceMethod",
+                  "type": "string",
+                  "value": "assistant visual trace of actual C native"
+                },
+                {
+                  "name": "newBusinessBinding",
+                  "type": "bool",
+                  "value": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "name": "coordinateSpace",
+      "type": "string",
+      "value": "native-image-pixels-not-metres"
+    },
+    {
+      "name": "pixelCanvasWidth",
+      "type": "int",
+      "value": 3008
+    },
+    {
+      "name": "pixelCanvasHeight",
+      "type": "int",
+      "value": 1984
+    },
+    {
+      "name": "newBusinessBindings",
+      "type": "int",
+      "value": 0
+    },
+    {
+      "name": "artworkVersion",
+      "type": "string",
+      "value": "approved complete A2 + original B1; no clipped mask composite"
+    }
+  ]
+}

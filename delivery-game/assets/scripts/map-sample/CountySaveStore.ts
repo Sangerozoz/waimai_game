@@ -1,4 +1,5 @@
 import { isTripProfile } from './TripClock';
+import { V2_CONFIG_ID } from '../domain/V2EconomyConfig';
 export const COUNTY_SAVE_KEY = 'delivery-county-save-v1';
 
 export interface StoragePort {
@@ -146,6 +147,11 @@ export class CountySaveStore {
         if(value.format==='county-commit') {
             if(value.version!==1)return true;
             try{return this.futureVersion(JSON.parse(value.snapshot));}catch{return false;}
+        }
+        if(value.format==='county-v2-economy') {
+            if(value.version!==1||value.configId!==V2_CONFIG_ID||!!value.state?.activeQuote&&value.state.activeQuote.configId!==V2_CONFIG_ID)return true;
+            if(typeof value.legacyCheckpoint==='string'){try{return this.futureVersion(JSON.parse(value.legacyCheckpoint));}catch{return false;}}
+            return false;
         }
         return Number.isSafeInteger(value.version)&&value.version>7 || value.vehicles!==undefined&&value.vehicles?.version!==1 || value.billing?.version>2 || value.active?.mileage!==undefined&&value.active.mileage?.profile!=='road-increment-v1' || value.active?.tripProfile!==undefined&&!isTripProfile(value.active.tripProfile);
     }

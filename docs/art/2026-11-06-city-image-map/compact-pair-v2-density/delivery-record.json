@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-11-06T08:53:15.260770+00:00",
+  "status": "real-density-candidate-produced-protection-composite-blocked-not-integrated",
+  "scope": "A urban-core density only; no new B request, no other region, no changes to old version or game.",
+  "parentRequest": "../planning/density-revision-request.md",
+  "acceptedOldProperties": {
+    "paintingStyle": true,
+    "colors": true,
+    "nativeClarity": true,
+    "buildingRoadProportions": true,
+    "noVisibleRoadBreakOrObstructionReported": true
+  },
+  "actualProductionCommands": {
+    "cwd": "/Users/sanger/Documents/ChatGPT/taptap 2",
+    "prepareCommandExact": "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 '/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v2-density/prepare_density.py'",
+    "productionCommandExact": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/Users/sanger/.hermes/installs/05069a40e5490101/environments/677640ce62e840b596ccb66a37917ce0/venv/lib/python3.14/site-packages:/Users/sanger/.hermes/hermes-agent:/Users/sanger/.hermes/tools/python-3.14.7+20260901-darwin-arm64/lib/python3.14/site-packages /Users/sanger/.hermes/tools/python-3.14.7+20260901-darwin-arm64/bin/python3 '/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v2-density/generate_density.py'",
+    "scope": "Prepare writes masks/guide and protection records only under this new directory. Production reads accepted A/mask/guide plus existing safe runtime credential resolver and makes one authorized images.edit call; output only in this directory. No package installation or credential printing. PYTHONDONTWRITEBYTECODE prevents library cache writes.",
+    "sourceFiles": [
+      "prepare_density.py",
+      "generate_density.py",
+      "prompt.txt"
+    ],
+    "previousDeniedProbeReconstructedOrRetried": false
+  },
+  "native": {
+    "path": "native/A-v2-api.png",
+    "sha256": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe",
+    "bytes": 3571585,
+    "actualSize": [
+      1536,
+      1024
+    ],
+    "model": "gpt-image-2",
+    "imageProvider": "openai-api",
+    "agentProvider": "acp-hermes-agent",
+    "agentModel": "openai-api:gpt-6.1-sol",
+    "qualityRequested": "high",
+    "qualityReturned": null,
+    "elapsedSeconds": 118.14631986618042,
+    "originalReturnedBytesPreserved": true,
+    "requestCount": 1,
+    "automaticRetries": 0
+  },
+  "inputs": {
+    "A": {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/native/A/native.png",
+      "sha256": "9ee0467ccf07936b677c946100619e59c6d68cda324d6e99aadf1cb95d7420a2"
+    },
+    "guide": {
+      "path": "inputs/edit-guide.png",
+      "sha256": "a368a1b5a2abffa3774a2d426b2a9d98db0799ac0c54cfb4d11b46b1514f53de",
+      "role": "PIL allowed-area annotation, not artwork"
+    },
+    "mask": {
+      "path": "inputs/edit-mask.png",
+      "sha256": "2df73111d6578e387030592dc77316d10d6f0df2c01f42085fd3703879a1ba9f",
+      "alphaConvention": "transparent editable, opaque protected"
+    },
+    "prompt": {
+      "path": "prompt.txt",
+      "sha256": "d58136343aec270b514169b6124a3913e9b774d1cdbb6ee7cbea37778ab4d6ad"
+    },
+    "productionCode": {
+      "path": "generate_density.py",
+      "sha256": "4d0063e35be5786feea0598929041b8516dea069c12fcd7be7e5e785b68e91b9"
+    }
+  },
+  "densityVisualObservation": [
+    "Eastern oversized garden replaced by a higher mixed-use rear block and lower connected commercial frontage.",
+    "Narrow infill added in the northern gap, using the original viewpoint rather than shrinking old buildings.",
+    "Foreground lawns now contain continuous low shop ranges and small courts; not merely extra trees or signs."
+  ],
+  "maskEndpointObservation": {
+    "clientFieldVerifiedBeforeRequest": true,
+    "actualRequestAcceptedMaskField": true,
+    "nonMaskPixelsHardPreserved": false,
+    "outsideMaskChangedPixels": 1270134,
+    "east64ChangedPixels": 65509,
+    "exactInternalReasonEstablished": false,
+    "rawDiffRecord": "analysis/raw-difference.json"
+  },
+  "protectedComposite": {
+    "candidateInspectionOnly": "analysis/protected-preview-unaccepted.png",
+    "useForDeliveryOrRuntime": false,
+    "failedReason": "Visual inspection shows the original hard mask cuts the east curved commercial frontage/steps and affects some foreground infill boundaries. A mechanically protected image is not acceptable if it truncates new architecture.",
+    "outlineEvidence": "analysis/mask-outline-on-api.png",
+    "silhouetteClippingAcceptedAsFix": false,
+    "newMaskOrImageRetryAttempted": false
+  },
+  "BReuse": {
+    "source": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/native/B/native.png",
+    "copy": "references/B-v1-native.png",
+    "sourceSHA256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+    "copySHA256": "9ea79c46fbf16d8fea278fdcea9fb127e535c9041beeb7875ff047ecaf794baf",
+    "byteForByte": true,
+    "newAPIRequest": false,
+    "cityCentreDensityApproved": false
+  },
+  "oldRoads": {
+    "graphSHA256": "fd5f81578aa7d4050532b3b2571a2708eb036c2cc71dcdd4b14780240d2ba224",
+    "frozenGraphSHA256": "fd5f81578aa7d4050532b3b2571a2708eb036c2cc71dcdd4b14780240d2ba224",
+    "oldTiledSHA256": "62b916c820b3af8e9ca02ea607db7470460d53548da978b22b29a64393bdf10d",
+    "frozenTiledSHA256": "62b916c820b3af8e9ca02ea607db7470460d53548da978b22b29a64393bdf10d",
+    "nodes": 11,
+    "edges": 12,
+    "offsetB": [
+      1472,
+      0
+    ],
+    "coreSeamX": 1504,
+    "geometryWrittenOrRedrawn": false,
+    "oldNavigationEvidenceReusedAsNewPass": false
+  },
+  "candidatePreview": {
+    "beforeAfter": "preview/A-before-after-api.png",
+    "beforeAfterHalfSizeOverview": "preview/A-before-after-overview.jpg",
+    "pairOverview": "preview/pair-v2-overview-not-approved.jpg",
+    "pairNativePixelComposite": "preview/pair-v2-api-candidate-not-approved.png",
+    "oneToOneCrops": [
+      "preview/east-block-1x.png",
+      "preview/frontage-1x.png"
+    ],
+    "newTiledOrNavigationPromotion": false,
+    "reason": "Density is visible, but a road/seam/existing-building pixel-preserving complete-building display candidate has not passed; do not integrate the raw or clipped composite as approved."
+  },
+  "protection": {
+    "protectedFileCount": 46,
+    "changedSources": [],
+    "newFilesUnderReadonlyOldVersion": [],
+    "sourcesUnchanged": true,
+    "snapshots": "protected-inputs.json"
+  },
+  "notPerformed": [
+    "B generation",
+    "second A image request",
+    "runtime integration or new navigation claim",
+    "repeated native Tiled repaint attempts",
+    "game tests/typecheck/regression/FPS",
+    "save/order operations",
+    "commit/push",
+    "provider/account/global permission changes"
+  ],
+  "userAcceptedNewDensity": false,
+  "wholeCityComplete": false,
+  "handoff": "Return bounded write lease. Await review of the real density edit and explicit decision on protection-mask limitations; no further generation."
+}

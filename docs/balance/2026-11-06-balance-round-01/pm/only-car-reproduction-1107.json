@@ -1,0 +1,2330 @@
+{
+  "scope": "Fresh in-memory current-city public-command reproduction; no browser, user save, reward, or wallet injection.",
+  "startedAt": "2026-11-07T01:28:19.726Z",
+  "command": [
+    "/Users/sanger/.hermes/node/bin/node",
+    "/Users/sanger/Documents/ChatGPT/taptap 2/docs/balance/2026-11-06-balance-round-01/pm/reproduce-only-car-1107.cjs"
+  ],
+  "checkpoints": [
+    {
+      "label": "fresh100coins2slots",
+      "atSeconds": 0,
+      "cashCents": 10000,
+      "heroCompletedOrders": 0,
+      "riders": [
+        {
+          "id": "hero",
+          "level": 1,
+          "vehicleId": "starter-1"
+        }
+      ],
+      "fleet": {
+        "quotaMs": 0,
+        "lastAdvancedAt": 0,
+        "heroEventCursor": 0,
+        "heroCompletionsSeen": 0,
+        "nextBatchId": 1,
+        "batches": []
+      }
+    },
+    {
+      "label": "firstDeliveryCompleted",
+      "atSeconds": 7,
+      "cashCents": 12000,
+      "heroCompletedOrders": 1,
+      "riders": [
+        {
+          "id": "hero",
+          "level": 1,
+          "vehicleId": "starter-1"
+        }
+      ],
+      "fleet": {
+        "quotaMs": 60000,
+        "lastAdvancedAt": 7000,
+        "heroEventCursor": 1,
+        "heroCompletionsSeen": 1,
+        "nextBatchId": 1,
+        "batches": []
+      }
+    },
+    {
+      "label": "quotaExhaustedOldContractsReserved",
+      "atSeconds": 67,
+      "cashCents": 0,
+      "heroCompletedOrders": 1,
+      "riders": [
+        {
+          "id": "hero",
+          "level": 1,
+          "vehicleId": null
+        },
+        {
+          "id": "npc-1",
+          "level": 1,
+          "vehicleId": "starter-1"
+        }
+      ],
+      "fleet": {
+        "quotaMs": 0,
+        "lastAdvancedAt": 67000,
+        "heroEventCursor": 1,
+        "heroCompletionsSeen": 1,
+        "nextBatchId": 2,
+        "batches": [
+          {
+            "id": 1,
+            "riderId": "npc-1",
+            "vehicleId": "starter-1",
+            "mapId": 1,
+            "elapsedMs": 60000,
+            "paidCount": 0,
+            "orders": [
+              {
+                "id": "fleet-1-0",
+                "riderId": "npc-1",
+                "vehicleId": "starter-1",
+                "vehicleLevel": 1,
+                "riderLevel": 1,
+                "mapId": 1,
+                "incomeCents": 2000,
+                "speedRelativeToStarter": 1,
+                "baseIncomeFactor": 1,
+                "fixedServiceReduction": 0,
+                "terms": {
+                  "version": "slots-v1",
+                  "profileId": "capacity-slots-economy-2026-11-06-v1",
+                  "pricePolicyId": "slots-fleet-v1",
+                  "effectPolicyId": "capacity-slots-effects-v1",
+                  "load": {
+                    "version": "slots-v1",
+                    "occupiedSlots": 1
+                  },
+                  "capacity": {
+                    "version": "slots-v1",
+                    "capacitySlots": 2
+                  },
+                  "vehicleLevel": 1,
+                  "riderLevel": 1,
+                  "speedRelativeToStarter": 1,
+                  "incomeFactor": 1,
+                  "riderIncomeFactor": 1,
+                  "fixedServiceReduction": 0
+                },
+                "dueMs": 105000
+              },
+              {
+                "id": "fleet-1-2",
+                "riderId": "npc-1",
+                "vehicleId": "starter-1",
+                "vehicleLevel": 1,
+                "riderLevel": 1,
+                "mapId": 1,
+                "incomeCents": 2000,
+                "speedRelativeToStarter": 1,
+                "baseIncomeFactor": 1,
+                "fixedServiceReduction": 0,
+                "terms": {
+                  "version": "slots-v1",
+                  "profileId": "capacity-slots-economy-2026-11-06-v1",
+                  "pricePolicyId": "slots-fleet-v1",
+                  "effectPolicyId": "capacity-slots-effects-v1",
+                  "load": {
+                    "version": "slots-v1",
+                    "occupiedSlots": 1
+                  },
+                  "capacity": {
+                    "version": "slots-v1",
+                    "capacitySlots": 2
+                  },
+                  "vehicleLevel": 1,
+                  "riderLevel": 1,
+                  "speedRelativeToStarter": 1,
+                  "incomeFactor": 1,
+                  "riderIncomeFactor": 1,
+                  "fixedServiceReduction": 0
+                },
+                "dueMs": 135000
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "freeRestDidNotRefillQuotaOrReleaseContracts",
+      "atSeconds": 87,
+      "cashCents": 0,
+      "heroCompletedOrders": 1,
+      "riders": [
+        {
+          "id": "hero",
+          "level": 1,
+          "vehicleId": null
+        },
+        {
+          "id": "npc-1",
+          "level": 1,
+          "vehicleId": null
+        }
+      ],
+      "fleet": {
+        "quotaMs": 0,
+        "lastAdvancedAt": 87000,
+        "heroEventCursor": 1,
+        "heroCompletionsSeen": 1,
+        "nextBatchId": 2,
+        "batches": [
+          {
+            "id": 1,
+            "riderId": "npc-1",
+            "vehicleId": "starter-1",
+            "mapId": 1,
+            "elapsedMs": 60000,
+            "paidCount": 0,
+            "orders": [
+              {
+                "id": "fleet-1-0",
+                "riderId": "npc-1",
+                "vehicleId": "starter-1",
+                "vehicleLevel": 1,
+                "riderLevel": 1,
+                "mapId": 1,
+                "incomeCents": 2000,
+                "speedRelativeToStarter": 1,
+                "baseIncomeFactor": 1,
+                "fixedServiceReduction": 0,
+                "terms": {
+                  "version": "slots-v1",
+                  "profileId": "capacity-slots-economy-2026-11-06-v1",
+                  "pricePolicyId": "slots-fleet-v1",
+                  "effectPolicyId": "capacity-slots-effects-v1",
+                  "load": {
+                    "version": "slots-v1",
+                    "occupiedSlots": 1
+                  },
+                  "capacity": {
+                    "version": "slots-v1",
+                    "capacitySlots": 2
+                  },
+                  "vehicleLevel": 1,
+                  "riderLevel": 1,
+                  "speedRelativeToStarter": 1,
+                  "incomeFactor": 1,
+                  "riderIncomeFactor": 1,
+                  "fixedServiceReduction": 0
+                },
+                "dueMs": 105000
+              },
+              {
+                "id": "fleet-1-2",
+                "riderId": "npc-1",
+                "vehicleId": "starter-1",
+                "vehicleLevel": 1,
+                "riderLevel": 1,
+                "mapId": 1,
+                "incomeCents": 2000,
+                "speedRelativeToStarter": 1,
+                "baseIncomeFactor": 1,
+                "fixedServiceReduction": 0,
+                "terms": {
+                  "version": "slots-v1",
+                  "profileId": "capacity-slots-economy-2026-11-06-v1",
+                  "pricePolicyId": "slots-fleet-v1",
+                  "effectPolicyId": "capacity-slots-effects-v1",
+                  "load": {
+                    "version": "slots-v1",
+                    "occupiedSlots": 1
+                  },
+                  "capacity": {
+                    "version": "slots-v1",
+                    "capacitySlots": 2
+                  },
+                  "vehicleLevel": 1,
+                  "riderLevel": 1,
+                  "speedRelativeToStarter": 1,
+                  "incomeFactor": 1,
+                  "riderIncomeFactor": 1,
+                  "fixedServiceReduction": 0
+                },
+                "dueMs": 135000
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "errors": {
+    "detachNPC": null,
+    "returnToHero": "车辆仍执行旧批次",
+    "buyReplacement": "余额不足"
+  },
+  "fixtures": {
+    "beforeNPCSigning": {
+      "format": "county-v2-game",
+      "version": 6,
+      "profileId": "capacity-slots-economy-2026-11-06-v1",
+      "routeLoadProfile": "slots-v1",
+      "route": {
+        "format": "county-v2-route",
+        "version": 3,
+        "timeProfile": "road40-service2-1-grouped-v2",
+        "stopPolicy": "grouped",
+        "mapKey": "fnv2:318216:7809e3ba:9ad7ba6",
+        "nextId": 10,
+        "tripId": 1,
+        "anchor": {
+          "node": "1627580360",
+          "edge": null,
+          "elapsed": 0
+        },
+        "origin": {
+          "node": "1626058763",
+          "edge": null,
+          "elapsed": 0
+        },
+        "orders": [
+          {
+            "id": "v2-road-268",
+            "kind": "ordinary",
+            "sourceOfferId": "v2-road-268",
+            "pickupNode": "1626058686",
+            "dropoffNode": "1627580360",
+            "pickupName": "西街住址·566",
+            "dropoffName": "西街住址·567",
+            "load": {
+              "version": "slots-v1",
+              "occupiedSlots": 2
+            }
+          }
+        ],
+        "stops": [
+          {
+            "orderId": "v2-road-268",
+            "orderIds": [
+              "v2-road-268"
+            ],
+            "kind": "pickup",
+            "node": "1626058686"
+          },
+          {
+            "orderId": "v2-road-268",
+            "orderIds": [
+              "v2-road-268"
+            ],
+            "kind": "dropoff",
+            "node": "1627580360"
+          }
+        ],
+        "legs": [
+          {
+            "preference": "fast",
+            "nodes": [
+              "1626058763",
+              "9656239916",
+              "1626058957",
+              "1626059108",
+              "9656303628",
+              "1626059128",
+              "9656303625",
+              "1626059119",
+              "9656239909",
+              "7877600706",
+              "1626059050",
+              "9656239899",
+              "8848042977",
+              "1626058961",
+              "1626058915",
+              "1626058900",
+              "7877600705",
+              "1626058760",
+              "1626058686"
+            ],
+            "points": [
+              [
+                -2348.12,
+                -552.93
+              ],
+              [
+                -2347.54,
+                -549.29
+              ],
+              [
+                -2341.58,
+                -512.01
+              ],
+              [
+                -2349.08,
+                -448.88
+              ],
+              [
+                -2411.97,
+                -449.29
+              ],
+              [
+                -2424.16,
+                -451.15
+              ],
+              [
+                -2428.7,
+                -453.32
+              ],
+              [
+                -2432.38,
+                -455.08
+              ],
+              [
+                -2469.53,
+                -456.06
+              ],
+              [
+                -2515.19,
+                -457.26
+              ],
+              [
+                -2519.97,
+                -455.69
+              ],
+              [
+                -2525.37,
+                -459.94
+              ],
+              [
+                -2562.54,
+                -489.25
+              ],
+              [
+                -2568.56,
+                -494.05
+              ],
+              [
+                -2575.74,
+                -502.88
+              ],
+              [
+                -2590.83,
+                -518.85
+              ],
+              [
+                -2595.59,
+                -522.37
+              ],
+              [
+                -2723.17,
+                -569.07
+              ],
+              [
+                -2713.34,
+                -590.39
+              ]
+            ],
+            "segments": [
+              {
+                "road": "149665990-0:v2:0",
+                "metres": 3.685919152667326,
+                "seconds": 0.6143198587778876,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058763",
+                "to": "9656239916"
+              },
+              {
+                "road": "149665990-0:v2:0",
+                "metres": 37.753410441971965,
+                "seconds": 6.2922350736619945,
+                "roughness": 0.42,
+                "major": false,
+                "from": "9656239916",
+                "to": "1626058957"
+              },
+              {
+                "road": "149665990-0:v2:0",
+                "metres": 63.573948280722654,
+                "seconds": 10.59565804678711,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058957",
+                "to": "1626059108"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 62.89133644628633,
+                "seconds": 13.102361759642987,
+                "roughness": 0.75,
+                "major": false,
+                "from": "1626059108",
+                "to": "9656303628"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 12.331086732320115,
+                "seconds": 2.568976402566691,
+                "roughness": 0.75,
+                "major": false,
+                "from": "9656303628",
+                "to": "1626059128"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 5.031947932957945,
+                "seconds": 1.0483224860329052,
+                "roughness": 0.75,
+                "major": false,
+                "from": "1626059128",
+                "to": "9656303625"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 4.079215610874487,
+                "seconds": 0.8498365855988514,
+                "roughness": 0.75,
+                "major": false,
+                "from": "9656303625",
+                "to": "1626059119"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 37.16292372782323,
+                "seconds": 7.742275776629839,
+                "roughness": 0.75,
+                "major": false,
+                "from": "1626059119",
+                "to": "9656239909"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 45.675766003428855,
+                "seconds": 9.515784584047678,
+                "roughness": 0.75,
+                "major": false,
+                "from": "9656239909",
+                "to": "7877600706"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 5.031232453385308,
+                "seconds": 1.048173427788606,
+                "roughness": 0.75,
+                "major": false,
+                "from": "7877600706",
+                "to": "1626059050"
+              },
+              {
+                "road": "844495387-0:v2:0",
+                "metres": 6.871862920635203,
+                "seconds": 1.1453104867725339,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626059050",
+                "to": "9656239899"
+              },
+              {
+                "road": "844495387-0:v2:0",
+                "metres": 47.33587434494059,
+                "seconds": 7.889312390823432,
+                "roughness": 0.42,
+                "major": false,
+                "from": "9656239899",
+                "to": "8848042977"
+              },
+              {
+                "road": "844495387-0:v2:0",
+                "metres": 7.69937659814091,
+                "seconds": 1.283229433023485,
+                "roughness": 0.42,
+                "major": false,
+                "from": "8848042977",
+                "to": "1626058961"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 11.380742506532574,
+                "seconds": 1.896790417755429,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058961",
+                "to": "1626058915"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 21.971549786030234,
+                "seconds": 3.6619249643383722,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058915",
+                "to": "1626058900"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 5.920135133592978,
+                "seconds": 0.986689188932163,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058900",
+                "to": "7877600705"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 135.85855291441896,
+                "seconds": 22.64309215240316,
+                "roughness": 0.42,
+                "major": false,
+                "from": "7877600705",
+                "to": "1626058760"
+              },
+              {
+                "road": "149665560-0:v2:0",
+                "metres": 23.47703771773594,
+                "seconds": 3.9128396196226567,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058760",
+                "to": "1626058686"
+              }
+            ],
+            "metres": 537.7319187044656,
+            "seconds": 96.79713265520579,
+            "risk": 0.11564966143312871
+          },
+          {
+            "preference": "fast",
+            "nodes": [
+              "1626058686",
+              "1626058760",
+              "1626058754",
+              "1626058708",
+              "1626058745",
+              "1626058815",
+              "5109516350",
+              "1626058776",
+              "7877600704",
+              "1626058837",
+              "7877456353",
+              "7877456352",
+              "465523058",
+              "1627580360"
+            ],
+            "points": [
+              [
+                -2713.34,
+                -590.39
+              ],
+              [
+                -2723.17,
+                -569.07
+              ],
+              [
+                -2746.6,
+                -580.47
+              ],
+              [
+                -2757.75,
+                -581.77
+              ],
+              [
+                -2769.33,
+                -578.21
+              ],
+              [
+                -2817.81,
+                -556.49
+              ],
+              [
+                -2833.17,
+                -550.21
+              ],
+              [
+                -2840.31,
+                -549.14
+              ],
+              [
+                -2848.38,
+                -548.85
+              ],
+              [
+                -2900.8,
+                -546.96
+              ],
+              [
+                -2907.39,
+                -546.8
+              ],
+              [
+                -3002.84,
+                -542.25
+              ],
+              [
+                -3009.82,
+                -541.85
+              ],
+              [
+                -2993.08,
+                -511.4
+              ]
+            ],
+            "segments": [
+              {
+                "road": "149665560-0:v2:0",
+                "metres": 23.47703771773594,
+                "seconds": 3.9128396196226567,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058686",
+                "to": "1626058760"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 26.056187365000117,
+                "seconds": 4.342697894166686,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058760",
+                "to": "1626058754"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 11.225528940767196,
+                "seconds": 1.8709214901278661,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058754",
+                "to": "1626058708"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 12.114866899805294,
+                "seconds": 2.0191444833008823,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058708",
+                "to": "1626058745"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 53.12314749711281,
+                "seconds": 8.853857916185468,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058745",
+                "to": "1626058815"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 16.594215859750758,
+                "seconds": 2.765702643291793,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058815",
+                "to": "5109516350"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 7.219729911845614,
+                "seconds": 1.2032883186409358,
+                "roughness": 0.42,
+                "major": false,
+                "from": "5109516350",
+                "to": "1626058776"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 8.07520897562426,
+                "seconds": 1.3458681626040434,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058776",
+                "to": "7877600704"
+              },
+              {
+                "road": "149665634-0:v2:0",
+                "metres": 52.45406085328387,
+                "seconds": 8.069855515889826,
+                "roughness": 0.18,
+                "major": true,
+                "from": "7877600704",
+                "to": "1626058837"
+              },
+              {
+                "road": "1432482906-0:v2:0",
+                "metres": 6.591942050715856,
+                "seconds": 1.0141449308793624,
+                "roughness": 0.18,
+                "major": true,
+                "from": "1626058837",
+                "to": "7877456353"
+              },
+              {
+                "road": "844484491-0:v2:0",
+                "metres": 95.5583852940183,
+                "seconds": 14.701290045233584,
+                "roughness": 0.18,
+                "major": true,
+                "from": "7877456353",
+                "to": "7877456352"
+              },
+              {
+                "road": "149814677-0:v2:0",
+                "metres": 6.991451923599292,
+                "seconds": 1.075607988246045,
+                "roughness": 0.18,
+                "major": true,
+                "from": "7877456352",
+                "to": "465523058"
+              },
+              {
+                "road": "149814231-0:v2:0",
+                "metres": 34.74809491180791,
+                "seconds": 5.791349151967985,
+                "roughness": 0.42,
+                "major": false,
+                "from": "465523058",
+                "to": "1627580360"
+              }
+            ],
+            "metres": 354.2298582010672,
+            "seconds": 56.96656816015714,
+            "risk": 0.0466977580866349
+          }
+        ],
+        "preference": "fast",
+        "cursor": 2,
+        "legSeconds": 0,
+        "serviceSeconds": 0,
+        "serviceCharged": false,
+        "phase": "finished",
+        "picked": [
+          "v2-road-268"
+        ],
+        "arrivals": [
+          {
+            "id": "v2-road-268",
+            "token": "arrival:1:1:v2-road-268"
+          }
+        ],
+        "loadProfile": "slots-v1",
+        "sourceNextId": 1
+      },
+      "dispatch": {
+        "format": "county-v2-dispatch",
+        "version": 2,
+        "clockNeedsRebase": false,
+        "economy": {
+          "format": "county-v2-economy",
+          "version": 2,
+          "configId": "capacity-slots-economy-2026-11-06-v1",
+          "state": {
+            "ledger": {
+              "opening": {
+                "id": "opening",
+                "balanceCents": 10000,
+                "atMs": null,
+                "dayKey": null,
+                "source": "initial"
+              },
+              "entries": [
+                {
+                  "id": "order:v2-road-268",
+                  "category": "hero_ordinary",
+                  "amountCents": 2000,
+                  "atMs": 6924,
+                  "dayKey": null,
+                  "detail": {
+                    "orderId": "v2-road-268",
+                    "vehicleId": "starter-1",
+                    "mapId": 1
+                  }
+                },
+                {
+                  "id": "transaction:1",
+                  "category": "rider_hire",
+                  "amountCents": -12000,
+                  "atMs": null,
+                  "dayKey": null,
+                  "detail": {
+                    "riderId": "npc-1"
+                  }
+                }
+              ],
+              "nextId": 2
+            },
+            "cashCents": 0,
+            "heroCompletedOrders": 1,
+            "heroExperience": 10,
+            "hireCount": 1,
+            "nextVehicleId": 1,
+            "riders": [
+              {
+                "id": "hero",
+                "level": 1,
+                "vehicleId": null
+              },
+              {
+                "id": "npc-1",
+                "level": 1,
+                "vehicleId": "starter-1"
+              }
+            ],
+            "vehicles": [
+              {
+                "id": "starter-1",
+                "modelId": "starter",
+                "level": 1
+              }
+            ],
+            "ownedMapIds": [
+              1
+            ],
+            "selectedMapId": 1,
+            "npcCompletedOrders": 0,
+            "heroCompletionEvents": [
+              {
+                "id": "v2-road-268",
+                "teamCompletedAfter": 1
+              }
+            ],
+            "fleetQuotes": [],
+            "activeQuotes": [],
+            "settledOrderIds": [
+              "v2-road-268"
+            ],
+            "activeQuote": null,
+            "lastReceipt": {
+              "id": "v2-road-268",
+              "incomeCents": 2000,
+              "baseIncomeCents": 2000,
+              "lateRetain": 1,
+              "damageRetain": 1,
+              "lateGameSeconds": 0,
+              "damage": "none",
+              "ratingDelta": 1,
+              "heroOrderOrdinal": 1
+            },
+            "ledgerContext": null
+          }
+        },
+        "fleet": {
+          "format": "county-v2-fleet",
+          "version": 2,
+          "configId": "capacity-slots-economy-2026-11-06-v1",
+          "economy": {
+            "format": "county-v2-economy",
+            "version": 2,
+            "configId": "capacity-slots-economy-2026-11-06-v1",
+            "state": {
+              "ledger": {
+                "opening": {
+                  "id": "opening",
+                  "balanceCents": 10000,
+                  "atMs": null,
+                  "dayKey": null,
+                  "source": "initial"
+                },
+                "entries": [
+                  {
+                    "id": "order:v2-road-268",
+                    "category": "hero_ordinary",
+                    "amountCents": 2000,
+                    "atMs": 6924,
+                    "dayKey": null,
+                    "detail": {
+                      "orderId": "v2-road-268",
+                      "vehicleId": "starter-1",
+                      "mapId": 1
+                    }
+                  },
+                  {
+                    "id": "transaction:1",
+                    "category": "rider_hire",
+                    "amountCents": -12000,
+                    "atMs": null,
+                    "dayKey": null,
+                    "detail": {
+                      "riderId": "npc-1"
+                    }
+                  }
+                ],
+                "nextId": 2
+              },
+              "cashCents": 0,
+              "heroCompletedOrders": 1,
+              "heroExperience": 10,
+              "hireCount": 1,
+              "nextVehicleId": 1,
+              "riders": [
+                {
+                  "id": "hero",
+                  "level": 1,
+                  "vehicleId": null
+                },
+                {
+                  "id": "npc-1",
+                  "level": 1,
+                  "vehicleId": "starter-1"
+                }
+              ],
+              "vehicles": [
+                {
+                  "id": "starter-1",
+                  "modelId": "starter",
+                  "level": 1
+                }
+              ],
+              "ownedMapIds": [
+                1
+              ],
+              "selectedMapId": 1,
+              "npcCompletedOrders": 0,
+              "heroCompletionEvents": [
+                {
+                  "id": "v2-road-268",
+                  "teamCompletedAfter": 1
+                }
+              ],
+              "fleetQuotes": [],
+              "activeQuotes": [],
+              "settledOrderIds": [
+                "v2-road-268"
+              ],
+              "activeQuote": null,
+              "lastReceipt": {
+                "id": "v2-road-268",
+                "incomeCents": 2000,
+                "baseIncomeCents": 2000,
+                "lateRetain": 1,
+                "damageRetain": 1,
+                "lateGameSeconds": 0,
+                "damage": "none",
+                "ratingDelta": 1,
+                "heroOrderOrdinal": 1
+              },
+              "ledgerContext": null
+            }
+          },
+          "fleet": {
+            "quotaMs": 60000,
+            "lastAdvancedAt": 7000,
+            "heroEventCursor": 1,
+            "heroCompletionsSeen": 1,
+            "nextBatchId": 1,
+            "batches": []
+          }
+        },
+        "rewards": {
+          "version": 1,
+          "sequence": 0,
+          "autoRemainingSeconds": 0,
+          "entries": [],
+          "candidates": [],
+          "tickets": [],
+          "activeBatch": null
+        },
+        "orders": [
+          {
+            "id": "v2-road-268",
+            "kind": "ordinary",
+            "load": {
+              "version": "slots-v1",
+              "occupiedSlots": 2
+            },
+            "quote": {
+              "id": "v2-road-268",
+              "configId": "capacity-slots-economy-2026-11-06-v1",
+              "kind": "ordinary",
+              "mapId": 1,
+              "vehicleId": "starter-1",
+              "vehicleLevel": 1,
+              "incomeFactor": 1,
+              "xpMultiplier": 1,
+              "heroCompletedAtAcceptance": 0,
+              "heroOrderOrdinal": 1,
+              "incomeCents": 2000,
+              "terms": {
+                "version": "slots-v1",
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "pricePolicyId": "distance-effort-slots-v1",
+                "effectPolicyId": "capacity-slots-effects-v1",
+                "load": {
+                  "version": "slots-v1",
+                  "occupiedSlots": 2
+                },
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "vehicleLevel": 1,
+                "riderLevel": 1,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1,
+                "riderIncomeFactor": 1,
+                "fixedServiceReduction": 0
+              },
+              "ordinaryPricing": {
+                "version": "distance-effort-slots-v1",
+                "deliveryMetres": 354
+              }
+            },
+            "status": "completed",
+            "receipt": {
+              "id": "v2-road-268",
+              "incomeCents": 2000,
+              "baseIncomeCents": 2000,
+              "lateRetain": 1,
+              "damageRetain": 1,
+              "lateGameSeconds": 0,
+              "damage": "none",
+              "ratingDelta": 1,
+              "heroOrderOrdinal": 1
+            }
+          }
+        ],
+        "batchIds": [],
+        "frame": {
+          "sequence": 14,
+          "nowSeconds": 7,
+          "foreground": true,
+          "paused": false,
+          "fingerprint": "[7,true,false]"
+        },
+        "control": "manual"
+      },
+      "tripState": {
+        "version": 3,
+        "stamina": 96.21607644618895,
+        "rating": 81,
+        "gameSeconds": 243.7637008153629,
+        "weather": "clear",
+        "seed": 2357859289,
+        "mapId": 1,
+        "preference": "fast",
+        "blocked": false,
+        "orders": [
+          {
+            "id": "v2-road-268",
+            "deadlineGameSeconds": 543.7637008153629,
+            "picked": true,
+            "delivered": true,
+            "risk": 0,
+            "draw": 0.43276869552209973,
+            "severityDraw": 0.5489818959031254,
+            "heldMetres": 354.2298582010672,
+            "safe": true,
+            "food": {
+              "version": "food-risk-v1",
+              "foodId": "spicy-rice-noodles",
+              "fragility": "fragile"
+            }
+          }
+        ],
+        "supplySpentCents": 0,
+        "batchAccounting": {
+          "orderIds": [
+            "v2-road-268"
+          ],
+          "supplySpentCentsStart": 0,
+          "inventoryUsedStart": {
+            "water": 0,
+            "noodles": 0,
+            "drink": 0,
+            "fastFood": 0,
+            "milkTea": 0,
+            "premiumMeal": 0
+          },
+          "end": {
+            "supplySpentCents": 0,
+            "inventoryUsed": {
+              "water": 0,
+              "noodles": 0,
+              "drink": 0,
+              "fastFood": 0,
+              "milkTea": 0,
+              "premiumMeal": 0
+            }
+          }
+        },
+        "inventory": {
+          "water": 0,
+          "noodles": 0,
+          "drink": 0,
+          "fastFood": 0,
+          "milkTea": 0,
+          "premiumMeal": 0
+        },
+        "inventoryUsed": {
+          "water": 0,
+          "noodles": 0,
+          "drink": 0,
+          "fastFood": 0,
+          "milkTea": 0,
+          "premiumMeal": 0
+        },
+        "supplyGrants": [],
+        "action": null,
+        "autoSupplyPolicy": {
+          "enabled": false,
+          "budgetCents": 0,
+          "spentCents": 0,
+          "allowPaid": false,
+          "useInventory": false
+        }
+      }
+    },
+    "signedZeroQuota": {
+      "format": "county-v2-game",
+      "version": 6,
+      "profileId": "capacity-slots-economy-2026-11-06-v1",
+      "routeLoadProfile": "slots-v1",
+      "route": {
+        "format": "county-v2-route",
+        "version": 3,
+        "timeProfile": "road40-service2-1-grouped-v2",
+        "stopPolicy": "grouped",
+        "mapKey": "fnv2:318216:7809e3ba:9ad7ba6",
+        "nextId": 10,
+        "tripId": 1,
+        "anchor": {
+          "node": "1627580360",
+          "edge": null,
+          "elapsed": 0
+        },
+        "origin": {
+          "node": "1626058763",
+          "edge": null,
+          "elapsed": 0
+        },
+        "orders": [
+          {
+            "id": "v2-road-268",
+            "kind": "ordinary",
+            "sourceOfferId": "v2-road-268",
+            "pickupNode": "1626058686",
+            "dropoffNode": "1627580360",
+            "pickupName": "西街住址·566",
+            "dropoffName": "西街住址·567",
+            "load": {
+              "version": "slots-v1",
+              "occupiedSlots": 2
+            }
+          }
+        ],
+        "stops": [
+          {
+            "orderId": "v2-road-268",
+            "orderIds": [
+              "v2-road-268"
+            ],
+            "kind": "pickup",
+            "node": "1626058686"
+          },
+          {
+            "orderId": "v2-road-268",
+            "orderIds": [
+              "v2-road-268"
+            ],
+            "kind": "dropoff",
+            "node": "1627580360"
+          }
+        ],
+        "legs": [
+          {
+            "preference": "fast",
+            "nodes": [
+              "1626058763",
+              "9656239916",
+              "1626058957",
+              "1626059108",
+              "9656303628",
+              "1626059128",
+              "9656303625",
+              "1626059119",
+              "9656239909",
+              "7877600706",
+              "1626059050",
+              "9656239899",
+              "8848042977",
+              "1626058961",
+              "1626058915",
+              "1626058900",
+              "7877600705",
+              "1626058760",
+              "1626058686"
+            ],
+            "points": [
+              [
+                -2348.12,
+                -552.93
+              ],
+              [
+                -2347.54,
+                -549.29
+              ],
+              [
+                -2341.58,
+                -512.01
+              ],
+              [
+                -2349.08,
+                -448.88
+              ],
+              [
+                -2411.97,
+                -449.29
+              ],
+              [
+                -2424.16,
+                -451.15
+              ],
+              [
+                -2428.7,
+                -453.32
+              ],
+              [
+                -2432.38,
+                -455.08
+              ],
+              [
+                -2469.53,
+                -456.06
+              ],
+              [
+                -2515.19,
+                -457.26
+              ],
+              [
+                -2519.97,
+                -455.69
+              ],
+              [
+                -2525.37,
+                -459.94
+              ],
+              [
+                -2562.54,
+                -489.25
+              ],
+              [
+                -2568.56,
+                -494.05
+              ],
+              [
+                -2575.74,
+                -502.88
+              ],
+              [
+                -2590.83,
+                -518.85
+              ],
+              [
+                -2595.59,
+                -522.37
+              ],
+              [
+                -2723.17,
+                -569.07
+              ],
+              [
+                -2713.34,
+                -590.39
+              ]
+            ],
+            "segments": [
+              {
+                "road": "149665990-0:v2:0",
+                "metres": 3.685919152667326,
+                "seconds": 0.6143198587778876,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058763",
+                "to": "9656239916"
+              },
+              {
+                "road": "149665990-0:v2:0",
+                "metres": 37.753410441971965,
+                "seconds": 6.2922350736619945,
+                "roughness": 0.42,
+                "major": false,
+                "from": "9656239916",
+                "to": "1626058957"
+              },
+              {
+                "road": "149665990-0:v2:0",
+                "metres": 63.573948280722654,
+                "seconds": 10.59565804678711,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058957",
+                "to": "1626059108"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 62.89133644628633,
+                "seconds": 13.102361759642987,
+                "roughness": 0.75,
+                "major": false,
+                "from": "1626059108",
+                "to": "9656303628"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 12.331086732320115,
+                "seconds": 2.568976402566691,
+                "roughness": 0.75,
+                "major": false,
+                "from": "9656303628",
+                "to": "1626059128"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 5.031947932957945,
+                "seconds": 1.0483224860329052,
+                "roughness": 0.75,
+                "major": false,
+                "from": "1626059128",
+                "to": "9656303625"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 4.079215610874487,
+                "seconds": 0.8498365855988514,
+                "roughness": 0.75,
+                "major": false,
+                "from": "9656303625",
+                "to": "1626059119"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 37.16292372782323,
+                "seconds": 7.742275776629839,
+                "roughness": 0.75,
+                "major": false,
+                "from": "1626059119",
+                "to": "9656239909"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 45.675766003428855,
+                "seconds": 9.515784584047678,
+                "roughness": 0.75,
+                "major": false,
+                "from": "9656239909",
+                "to": "7877600706"
+              },
+              {
+                "road": "149665835-0:v2:0",
+                "metres": 5.031232453385308,
+                "seconds": 1.048173427788606,
+                "roughness": 0.75,
+                "major": false,
+                "from": "7877600706",
+                "to": "1626059050"
+              },
+              {
+                "road": "844495387-0:v2:0",
+                "metres": 6.871862920635203,
+                "seconds": 1.1453104867725339,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626059050",
+                "to": "9656239899"
+              },
+              {
+                "road": "844495387-0:v2:0",
+                "metres": 47.33587434494059,
+                "seconds": 7.889312390823432,
+                "roughness": 0.42,
+                "major": false,
+                "from": "9656239899",
+                "to": "8848042977"
+              },
+              {
+                "road": "844495387-0:v2:0",
+                "metres": 7.69937659814091,
+                "seconds": 1.283229433023485,
+                "roughness": 0.42,
+                "major": false,
+                "from": "8848042977",
+                "to": "1626058961"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 11.380742506532574,
+                "seconds": 1.896790417755429,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058961",
+                "to": "1626058915"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 21.971549786030234,
+                "seconds": 3.6619249643383722,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058915",
+                "to": "1626058900"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 5.920135133592978,
+                "seconds": 0.986689188932163,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058900",
+                "to": "7877600705"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 135.85855291441896,
+                "seconds": 22.64309215240316,
+                "roughness": 0.42,
+                "major": false,
+                "from": "7877600705",
+                "to": "1626058760"
+              },
+              {
+                "road": "149665560-0:v2:0",
+                "metres": 23.47703771773594,
+                "seconds": 3.9128396196226567,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058760",
+                "to": "1626058686"
+              }
+            ],
+            "metres": 537.7319187044656,
+            "seconds": 96.79713265520579,
+            "risk": 0.11564966143312871
+          },
+          {
+            "preference": "fast",
+            "nodes": [
+              "1626058686",
+              "1626058760",
+              "1626058754",
+              "1626058708",
+              "1626058745",
+              "1626058815",
+              "5109516350",
+              "1626058776",
+              "7877600704",
+              "1626058837",
+              "7877456353",
+              "7877456352",
+              "465523058",
+              "1627580360"
+            ],
+            "points": [
+              [
+                -2713.34,
+                -590.39
+              ],
+              [
+                -2723.17,
+                -569.07
+              ],
+              [
+                -2746.6,
+                -580.47
+              ],
+              [
+                -2757.75,
+                -581.77
+              ],
+              [
+                -2769.33,
+                -578.21
+              ],
+              [
+                -2817.81,
+                -556.49
+              ],
+              [
+                -2833.17,
+                -550.21
+              ],
+              [
+                -2840.31,
+                -549.14
+              ],
+              [
+                -2848.38,
+                -548.85
+              ],
+              [
+                -2900.8,
+                -546.96
+              ],
+              [
+                -2907.39,
+                -546.8
+              ],
+              [
+                -3002.84,
+                -542.25
+              ],
+              [
+                -3009.82,
+                -541.85
+              ],
+              [
+                -2993.08,
+                -511.4
+              ]
+            ],
+            "segments": [
+              {
+                "road": "149665560-0:v2:0",
+                "metres": 23.47703771773594,
+                "seconds": 3.9128396196226567,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058686",
+                "to": "1626058760"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 26.056187365000117,
+                "seconds": 4.342697894166686,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058760",
+                "to": "1626058754"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 11.225528940767196,
+                "seconds": 1.8709214901278661,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058754",
+                "to": "1626058708"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 12.114866899805294,
+                "seconds": 2.0191444833008823,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058708",
+                "to": "1626058745"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 53.12314749711281,
+                "seconds": 8.853857916185468,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058745",
+                "to": "1626058815"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 16.594215859750758,
+                "seconds": 2.765702643291793,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058815",
+                "to": "5109516350"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 7.219729911845614,
+                "seconds": 1.2032883186409358,
+                "roughness": 0.42,
+                "major": false,
+                "from": "5109516350",
+                "to": "1626058776"
+              },
+              {
+                "road": "149666001-0:v2:0",
+                "metres": 8.07520897562426,
+                "seconds": 1.3458681626040434,
+                "roughness": 0.42,
+                "major": false,
+                "from": "1626058776",
+                "to": "7877600704"
+              },
+              {
+                "road": "149665634-0:v2:0",
+                "metres": 52.45406085328387,
+                "seconds": 8.069855515889826,
+                "roughness": 0.18,
+                "major": true,
+                "from": "7877600704",
+                "to": "1626058837"
+              },
+              {
+                "road": "1432482906-0:v2:0",
+                "metres": 6.591942050715856,
+                "seconds": 1.0141449308793624,
+                "roughness": 0.18,
+                "major": true,
+                "from": "1626058837",
+                "to": "7877456353"
+              },
+              {
+                "road": "844484491-0:v2:0",
+                "metres": 95.5583852940183,
+                "seconds": 14.701290045233584,
+                "roughness": 0.18,
+                "major": true,
+                "from": "7877456353",
+                "to": "7877456352"
+              },
+              {
+                "road": "149814677-0:v2:0",
+                "metres": 6.991451923599292,
+                "seconds": 1.075607988246045,
+                "roughness": 0.18,
+                "major": true,
+                "from": "7877456352",
+                "to": "465523058"
+              },
+              {
+                "road": "149814231-0:v2:0",
+                "metres": 34.74809491180791,
+                "seconds": 5.791349151967985,
+                "roughness": 0.42,
+                "major": false,
+                "from": "465523058",
+                "to": "1627580360"
+              }
+            ],
+            "metres": 354.2298582010672,
+            "seconds": 56.96656816015714,
+            "risk": 0.0466977580866349
+          }
+        ],
+        "preference": "fast",
+        "cursor": 2,
+        "legSeconds": 0,
+        "serviceSeconds": 0,
+        "serviceCharged": false,
+        "phase": "finished",
+        "picked": [
+          "v2-road-268"
+        ],
+        "arrivals": [
+          {
+            "id": "v2-road-268",
+            "token": "arrival:1:1:v2-road-268"
+          }
+        ],
+        "loadProfile": "slots-v1",
+        "sourceNextId": 1
+      },
+      "dispatch": {
+        "format": "county-v2-dispatch",
+        "version": 2,
+        "clockNeedsRebase": false,
+        "economy": {
+          "format": "county-v2-economy",
+          "version": 2,
+          "configId": "capacity-slots-economy-2026-11-06-v1",
+          "state": {
+            "ledger": {
+              "opening": {
+                "id": "opening",
+                "balanceCents": 10000,
+                "atMs": null,
+                "dayKey": null,
+                "source": "initial"
+              },
+              "entries": [
+                {
+                  "id": "order:v2-road-268",
+                  "category": "hero_ordinary",
+                  "amountCents": 2000,
+                  "atMs": 6924,
+                  "dayKey": null,
+                  "detail": {
+                    "orderId": "v2-road-268",
+                    "vehicleId": "starter-1",
+                    "mapId": 1
+                  }
+                },
+                {
+                  "id": "transaction:1",
+                  "category": "rider_hire",
+                  "amountCents": -12000,
+                  "atMs": null,
+                  "dayKey": null,
+                  "detail": {
+                    "riderId": "npc-1"
+                  }
+                }
+              ],
+              "nextId": 2
+            },
+            "cashCents": 0,
+            "heroCompletedOrders": 1,
+            "heroExperience": 10,
+            "hireCount": 1,
+            "nextVehicleId": 1,
+            "riders": [
+              {
+                "id": "hero",
+                "level": 1,
+                "vehicleId": null
+              },
+              {
+                "id": "npc-1",
+                "level": 1,
+                "vehicleId": "starter-1"
+              }
+            ],
+            "vehicles": [
+              {
+                "id": "starter-1",
+                "modelId": "starter",
+                "level": 1
+              }
+            ],
+            "ownedMapIds": [
+              1
+            ],
+            "selectedMapId": 1,
+            "npcCompletedOrders": 0,
+            "heroCompletionEvents": [
+              {
+                "id": "v2-road-268",
+                "teamCompletedAfter": 1
+              }
+            ],
+            "fleetQuotes": [
+              {
+                "id": "fleet-1-0",
+                "riderId": "npc-1",
+                "vehicleId": "starter-1",
+                "vehicleLevel": 1,
+                "riderLevel": 1,
+                "mapId": 1,
+                "incomeCents": 2000,
+                "speedRelativeToStarter": 1,
+                "baseIncomeFactor": 1,
+                "fixedServiceReduction": 0,
+                "terms": {
+                  "version": "slots-v1",
+                  "profileId": "capacity-slots-economy-2026-11-06-v1",
+                  "pricePolicyId": "slots-fleet-v1",
+                  "effectPolicyId": "capacity-slots-effects-v1",
+                  "load": {
+                    "version": "slots-v1",
+                    "occupiedSlots": 1
+                  },
+                  "capacity": {
+                    "version": "slots-v1",
+                    "capacitySlots": 2
+                  },
+                  "vehicleLevel": 1,
+                  "riderLevel": 1,
+                  "speedRelativeToStarter": 1,
+                  "incomeFactor": 1,
+                  "riderIncomeFactor": 1,
+                  "fixedServiceReduction": 0
+                }
+              },
+              {
+                "id": "fleet-1-2",
+                "riderId": "npc-1",
+                "vehicleId": "starter-1",
+                "vehicleLevel": 1,
+                "riderLevel": 1,
+                "mapId": 1,
+                "incomeCents": 2000,
+                "speedRelativeToStarter": 1,
+                "baseIncomeFactor": 1,
+                "fixedServiceReduction": 0,
+                "terms": {
+                  "version": "slots-v1",
+                  "profileId": "capacity-slots-economy-2026-11-06-v1",
+                  "pricePolicyId": "slots-fleet-v1",
+                  "effectPolicyId": "capacity-slots-effects-v1",
+                  "load": {
+                    "version": "slots-v1",
+                    "occupiedSlots": 1
+                  },
+                  "capacity": {
+                    "version": "slots-v1",
+                    "capacitySlots": 2
+                  },
+                  "vehicleLevel": 1,
+                  "riderLevel": 1,
+                  "speedRelativeToStarter": 1,
+                  "incomeFactor": 1,
+                  "riderIncomeFactor": 1,
+                  "fixedServiceReduction": 0
+                }
+              }
+            ],
+            "activeQuotes": [],
+            "settledOrderIds": [
+              "v2-road-268"
+            ],
+            "activeQuote": null,
+            "lastReceipt": {
+              "id": "v2-road-268",
+              "incomeCents": 2000,
+              "baseIncomeCents": 2000,
+              "lateRetain": 1,
+              "damageRetain": 1,
+              "lateGameSeconds": 0,
+              "damage": "none",
+              "ratingDelta": 1,
+              "heroOrderOrdinal": 1
+            },
+            "ledgerContext": null
+          }
+        },
+        "fleet": {
+          "format": "county-v2-fleet",
+          "version": 2,
+          "configId": "capacity-slots-economy-2026-11-06-v1",
+          "economy": {
+            "format": "county-v2-economy",
+            "version": 2,
+            "configId": "capacity-slots-economy-2026-11-06-v1",
+            "state": {
+              "ledger": {
+                "opening": {
+                  "id": "opening",
+                  "balanceCents": 10000,
+                  "atMs": null,
+                  "dayKey": null,
+                  "source": "initial"
+                },
+                "entries": [
+                  {
+                    "id": "order:v2-road-268",
+                    "category": "hero_ordinary",
+                    "amountCents": 2000,
+                    "atMs": 6924,
+                    "dayKey": null,
+                    "detail": {
+                      "orderId": "v2-road-268",
+                      "vehicleId": "starter-1",
+                      "mapId": 1
+                    }
+                  },
+                  {
+                    "id": "transaction:1",
+                    "category": "rider_hire",
+                    "amountCents": -12000,
+                    "atMs": null,
+                    "dayKey": null,
+                    "detail": {
+                      "riderId": "npc-1"
+                    }
+                  }
+                ],
+                "nextId": 2
+              },
+              "cashCents": 0,
+              "heroCompletedOrders": 1,
+              "heroExperience": 10,
+              "hireCount": 1,
+              "nextVehicleId": 1,
+              "riders": [
+                {
+                  "id": "hero",
+                  "level": 1,
+                  "vehicleId": null
+                },
+                {
+                  "id": "npc-1",
+                  "level": 1,
+                  "vehicleId": "starter-1"
+                }
+              ],
+              "vehicles": [
+                {
+                  "id": "starter-1",
+                  "modelId": "starter",
+                  "level": 1
+                }
+              ],
+              "ownedMapIds": [
+                1
+              ],
+              "selectedMapId": 1,
+              "npcCompletedOrders": 0,
+              "heroCompletionEvents": [
+                {
+                  "id": "v2-road-268",
+                  "teamCompletedAfter": 1
+                }
+              ],
+              "fleetQuotes": [
+                {
+                  "id": "fleet-1-0",
+                  "riderId": "npc-1",
+                  "vehicleId": "starter-1",
+                  "vehicleLevel": 1,
+                  "riderLevel": 1,
+                  "mapId": 1,
+                  "incomeCents": 2000,
+                  "speedRelativeToStarter": 1,
+                  "baseIncomeFactor": 1,
+                  "fixedServiceReduction": 0,
+                  "terms": {
+                    "version": "slots-v1",
+                    "profileId": "capacity-slots-economy-2026-11-06-v1",
+                    "pricePolicyId": "slots-fleet-v1",
+                    "effectPolicyId": "capacity-slots-effects-v1",
+                    "load": {
+                      "version": "slots-v1",
+                      "occupiedSlots": 1
+                    },
+                    "capacity": {
+                      "version": "slots-v1",
+                      "capacitySlots": 2
+                    },
+                    "vehicleLevel": 1,
+                    "riderLevel": 1,
+                    "speedRelativeToStarter": 1,
+                    "incomeFactor": 1,
+                    "riderIncomeFactor": 1,
+                    "fixedServiceReduction": 0
+                  }
+                },
+                {
+                  "id": "fleet-1-2",
+                  "riderId": "npc-1",
+                  "vehicleId": "starter-1",
+                  "vehicleLevel": 1,
+                  "riderLevel": 1,
+                  "mapId": 1,
+                  "incomeCents": 2000,
+                  "speedRelativeToStarter": 1,
+                  "baseIncomeFactor": 1,
+                  "fixedServiceReduction": 0,
+                  "terms": {
+                    "version": "slots-v1",
+                    "profileId": "capacity-slots-economy-2026-11-06-v1",
+                    "pricePolicyId": "slots-fleet-v1",
+                    "effectPolicyId": "capacity-slots-effects-v1",
+                    "load": {
+                      "version": "slots-v1",
+                      "occupiedSlots": 1
+                    },
+                    "capacity": {
+                      "version": "slots-v1",
+                      "capacitySlots": 2
+                    },
+                    "vehicleLevel": 1,
+                    "riderLevel": 1,
+                    "speedRelativeToStarter": 1,
+                    "incomeFactor": 1,
+                    "riderIncomeFactor": 1,
+                    "fixedServiceReduction": 0
+                  }
+                }
+              ],
+              "activeQuotes": [],
+              "settledOrderIds": [
+                "v2-road-268"
+              ],
+              "activeQuote": null,
+              "lastReceipt": {
+                "id": "v2-road-268",
+                "incomeCents": 2000,
+                "baseIncomeCents": 2000,
+                "lateRetain": 1,
+                "damageRetain": 1,
+                "lateGameSeconds": 0,
+                "damage": "none",
+                "ratingDelta": 1,
+                "heroOrderOrdinal": 1
+              },
+              "ledgerContext": null
+            }
+          },
+          "fleet": {
+            "quotaMs": 0,
+            "lastAdvancedAt": 67000,
+            "heroEventCursor": 1,
+            "heroCompletionsSeen": 1,
+            "nextBatchId": 2,
+            "batches": [
+              {
+                "id": 1,
+                "riderId": "npc-1",
+                "vehicleId": "starter-1",
+                "mapId": 1,
+                "elapsedMs": 60000,
+                "paidCount": 0,
+                "orders": [
+                  {
+                    "id": "fleet-1-0",
+                    "riderId": "npc-1",
+                    "vehicleId": "starter-1",
+                    "vehicleLevel": 1,
+                    "riderLevel": 1,
+                    "mapId": 1,
+                    "incomeCents": 2000,
+                    "speedRelativeToStarter": 1,
+                    "baseIncomeFactor": 1,
+                    "fixedServiceReduction": 0,
+                    "terms": {
+                      "version": "slots-v1",
+                      "profileId": "capacity-slots-economy-2026-11-06-v1",
+                      "pricePolicyId": "slots-fleet-v1",
+                      "effectPolicyId": "capacity-slots-effects-v1",
+                      "load": {
+                        "version": "slots-v1",
+                        "occupiedSlots": 1
+                      },
+                      "capacity": {
+                        "version": "slots-v1",
+                        "capacitySlots": 2
+                      },
+                      "vehicleLevel": 1,
+                      "riderLevel": 1,
+                      "speedRelativeToStarter": 1,
+                      "incomeFactor": 1,
+                      "riderIncomeFactor": 1,
+                      "fixedServiceReduction": 0
+                    },
+                    "dueMs": 105000
+                  },
+                  {
+                    "id": "fleet-1-2",
+                    "riderId": "npc-1",
+                    "vehicleId": "starter-1",
+                    "vehicleLevel": 1,
+                    "riderLevel": 1,
+                    "mapId": 1,
+                    "incomeCents": 2000,
+                    "speedRelativeToStarter": 1,
+                    "baseIncomeFactor": 1,
+                    "fixedServiceReduction": 0,
+                    "terms": {
+                      "version": "slots-v1",
+                      "profileId": "capacity-slots-economy-2026-11-06-v1",
+                      "pricePolicyId": "slots-fleet-v1",
+                      "effectPolicyId": "capacity-slots-effects-v1",
+                      "load": {
+                        "version": "slots-v1",
+                        "occupiedSlots": 1
+                      },
+                      "capacity": {
+                        "version": "slots-v1",
+                        "capacitySlots": 2
+                      },
+                      "vehicleLevel": 1,
+                      "riderLevel": 1,
+                      "speedRelativeToStarter": 1,
+                      "incomeFactor": 1,
+                      "riderIncomeFactor": 1,
+                      "fixedServiceReduction": 0
+                    },
+                    "dueMs": 135000
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "rewards": {
+          "version": 1,
+          "sequence": 0,
+          "autoRemainingSeconds": 0,
+          "entries": [],
+          "candidates": [],
+          "tickets": [],
+          "activeBatch": null
+        },
+        "orders": [
+          {
+            "id": "v2-road-268",
+            "kind": "ordinary",
+            "load": {
+              "version": "slots-v1",
+              "occupiedSlots": 2
+            },
+            "quote": {
+              "id": "v2-road-268",
+              "configId": "capacity-slots-economy-2026-11-06-v1",
+              "kind": "ordinary",
+              "mapId": 1,
+              "vehicleId": "starter-1",
+              "vehicleLevel": 1,
+              "incomeFactor": 1,
+              "xpMultiplier": 1,
+              "heroCompletedAtAcceptance": 0,
+              "heroOrderOrdinal": 1,
+              "incomeCents": 2000,
+              "terms": {
+                "version": "slots-v1",
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "pricePolicyId": "distance-effort-slots-v1",
+                "effectPolicyId": "capacity-slots-effects-v1",
+                "load": {
+                  "version": "slots-v1",
+                  "occupiedSlots": 2
+                },
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "vehicleLevel": 1,
+                "riderLevel": 1,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1,
+                "riderIncomeFactor": 1,
+                "fixedServiceReduction": 0
+              },
+              "ordinaryPricing": {
+                "version": "distance-effort-slots-v1",
+                "deliveryMetres": 354
+              }
+            },
+            "status": "completed",
+            "receipt": {
+              "id": "v2-road-268",
+              "incomeCents": 2000,
+              "baseIncomeCents": 2000,
+              "lateRetain": 1,
+              "damageRetain": 1,
+              "lateGameSeconds": 0,
+              "damage": "none",
+              "ratingDelta": 1,
+              "heroOrderOrdinal": 1
+            }
+          }
+        ],
+        "batchIds": [],
+        "frame": {
+          "sequence": 15,
+          "nowSeconds": 67,
+          "foreground": true,
+          "paused": false,
+          "fingerprint": "[67,true,false]"
+        },
+        "control": "manual"
+      },
+      "tripState": {
+        "version": 3,
+        "stamina": 96.21607644618895,
+        "rating": 81,
+        "gameSeconds": 243.7637008153629,
+        "weather": "clear",
+        "seed": 2357859289,
+        "mapId": 1,
+        "preference": "fast",
+        "blocked": false,
+        "orders": [
+          {
+            "id": "v2-road-268",
+            "deadlineGameSeconds": 543.7637008153629,
+            "picked": true,
+            "delivered": true,
+            "risk": 0,
+            "draw": 0.43276869552209973,
+            "severityDraw": 0.5489818959031254,
+            "heldMetres": 354.2298582010672,
+            "safe": true,
+            "food": {
+              "version": "food-risk-v1",
+              "foodId": "spicy-rice-noodles",
+              "fragility": "fragile"
+            }
+          }
+        ],
+        "supplySpentCents": 0,
+        "batchAccounting": {
+          "orderIds": [
+            "v2-road-268"
+          ],
+          "supplySpentCentsStart": 0,
+          "inventoryUsedStart": {
+            "water": 0,
+            "noodles": 0,
+            "drink": 0,
+            "fastFood": 0,
+            "milkTea": 0,
+            "premiumMeal": 0
+          },
+          "end": {
+            "supplySpentCents": 0,
+            "inventoryUsed": {
+              "water": 0,
+              "noodles": 0,
+              "drink": 0,
+              "fastFood": 0,
+              "milkTea": 0,
+              "premiumMeal": 0
+            }
+          }
+        },
+        "inventory": {
+          "water": 0,
+          "noodles": 0,
+          "drink": 0,
+          "fastFood": 0,
+          "milkTea": 0,
+          "premiumMeal": 0
+        },
+        "inventoryUsed": {
+          "water": 0,
+          "noodles": 0,
+          "drink": 0,
+          "fastFood": 0,
+          "milkTea": 0,
+          "premiumMeal": 0
+        },
+        "supplyGrants": [],
+        "action": null,
+        "autoSupplyPolicy": {
+          "enabled": false,
+          "budgetCents": 0,
+          "spentCents": 0,
+          "allowPaid": false,
+          "useInventory": false
+        }
+      }
+    }
+  },
+  "compilerExit": 0,
+  "sourceHashes": {
+    "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+    "delivery-game/assets/scripts/domain/V2SupplyCatalog.ts": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb",
+    "delivery-game/assets/scripts/domain/GameConfig.ts": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e",
+    "delivery-game/assets/scripts/domain/V2TripRules.ts": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97",
+    "delivery-game/assets/scripts/domain/V2EconomyConfig.ts": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976",
+    "delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+    "delivery-game/assets/scripts/domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644",
+    "delivery-game/assets/scripts/domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+    "delivery-game/assets/scripts/domain/V2RiderEconomy.ts": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": "90b331aea0ecfb05cef239b09b08affc97402336273611eedafd96497fa694a8",
+    "delivery-game/assets/scripts/domain/V2FleetSession.ts": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+    "delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+    "delivery-game/assets/scripts/map-sample/CityExtent.ts": "6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194",
+    "delivery-game/assets/scripts/map-sample/DispatchAreas.ts": "c872dfada500e934ff2ce7577a39dd642d072caa4151279563472e9b47327641",
+    "delivery-game/assets/scripts/map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690",
+    "delivery-game/assets/scripts/map-sample/RiderAnchor.ts": "08205207aa146b0d2d2bf5784e20ef8a559f574180a8f00c3756e5087fd16d65",
+    "delivery-game/assets/scripts/map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+    "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+    "delivery-game/assets/scripts/map-sample/CountyConfig.ts": "f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f",
+    "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+    "delivery-game/assets/scripts/map-sample/VehicleOwnership.ts": "f63dc3da46b561ad50e3891e60e1dc26fe0c48039e07ed779d8989e484169ed1",
+    "delivery-game/assets/scripts/map-sample/DeliveryClock.ts": "163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef",
+    "delivery-game/assets/scripts/map-sample/TripClock.ts": "13d8b7f5721a410b8fb11c21bc5c5ebd4475d7507d94f35698617f53d7fde4bc",
+    "delivery-game/assets/scripts/map-sample/CountyRules.ts": "6bf9548f2e733c82ef799da0e50a6be17d2abd5d04cca4a0ac73c23f5a63ec13",
+    "delivery-game/assets/scripts/map-sample/ManualHandoff.ts": "2f6c02332fb52fe8e3c75cfaf260149ce93a6d5cf1d4532f9c72145ee3d31a95",
+    "delivery-game/assets/scripts/map-sample/OrderPresentation.ts": "541d11ec650364dfab41132a0dea9242ba6f5dca48113062b43274764ca38d86",
+    "delivery-game/assets/scripts/map-sample/DeliveryLedger.ts": "a02941528a1f7abac34a7b012a5dcdac7f4ac98e15afe60e20bdfd4373e63c73",
+    "delivery-game/assets/scripts/map-sample/OrderBook.ts": "27d0813ff4b942ce843627e270e1a4470670e3833c33601703c0e25b0b0e229b",
+    "delivery-game/assets/scripts/map-sample/CountySnapshot.ts": "325284afe5645a420c62188abb8dcb2840c140b229a0fdb88c61bda6af56d0df",
+    "delivery-game/assets/scripts/map-sample/UrbanCatalog.ts": "5040a6f800273f76345fdc99bba37b307e9df7ef0b058c4666bcdb12e58cc6c1",
+    "delivery-game/assets/scripts/map-sample/PlaceCatalog.ts": "35e937c1092bbef796260e93abd909f136ea09bcee78fa231f805c4061f01399"
+  },
+  "restoreValidated": true,
+  "sourceDrift": [],
+  "status": "REPRODUCED_ZERO_CASH_ZERO_QUOTA_RESERVED_ONLY_CAR",
+  "scratchRemoved": true,
+  "exitCode": 0,
+  "finishedAt": "2026-11-07T01:28:21.098Z"
+}

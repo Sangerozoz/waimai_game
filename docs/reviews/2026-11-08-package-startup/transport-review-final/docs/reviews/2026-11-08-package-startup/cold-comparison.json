@@ -1,0 +1,45 @@
+{
+  "scope": "one bounded cold-cache headless sample per variant; not a player guarantee, mobile-device FPS or final instant-play acceptance",
+  "network": {
+    "downloadBytesPerSecond": 200000,
+    "latencyMs": 150,
+    "cacheDisabled": true
+  },
+  "samples": [
+    {
+      "variant": "before",
+      "entryMs": 23153.5,
+      "entryBodyBytes": 3681344,
+      "entryTransferBytes": 3688244,
+      "clickToHomeMs": 23936.899999976158,
+      "homeCumulativeBodyBytes": 8669031,
+      "homeCumulativeTransferBytes": 8678931,
+      "phase": "idle",
+      "page": "\u9996\u9875",
+      "runtimeError": "",
+      "observerError": null,
+      "pageErrors": [],
+      "freshIsolatedSlot": true
+    },
+    {
+      "variant": "after",
+      "entryMs": 7640.199999988079,
+      "entryBodyBytes": 979796,
+      "entryTransferBytes": 986696,
+      "clickToHomeMs": 5546.800000011921,
+      "homeCumulativeBodyBytes": 2263155,
+      "homeCumulativeTransferBytes": 2273055,
+      "phase": "idle",
+      "page": "\u9996\u9875",
+      "runtimeError": "",
+      "observerError": null,
+      "pageErrors": [],
+      "freshIsolatedSlot": true
+    }
+  ],
+  "limits": [
+    "images not compressed; image provenance/budget gate remains blocked",
+    "UI picture-complete time not equated to runtime-ready time",
+    "human delay between entry and click excluded from click-to-home"
+  ]
+}

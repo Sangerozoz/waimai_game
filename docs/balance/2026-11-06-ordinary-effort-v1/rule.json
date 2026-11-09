@@ -1,0 +1,21 @@
+{
+  "version": "ordinary-effort-v1",
+  "decision": "PM-approved implementation choice under the user's autonomous product-development authorization; not a claim of user gameplay acceptance or calibrated balance",
+  "scope": "New hero ordinary-order contracts only",
+  "safeOrdersSource": "V2_CONFIG.intro.safeOrders (currently 15), evaluated once at batch acceptance from heroCompletedOrders",
+  "protectedBasisPoints": 10000,
+  "baseBasisPoints": 9000,
+  "deliveryMetresCap": 2000,
+  "basisPointsPerDeliveryMetre": 1,
+  "extraKgBasisPoints": 500,
+  "extraKgCap": 2,
+  "trustedDistance": "V2RouteSession.fastest(pickupNode, dropoffNode).heldMetres; exclude rider-to-shop segment",
+  "distanceQuantization": "Require finite nonnegative raw heldMetres and safe-integer result, then max(1, Math.round(raw)); allow an otherwise-legal zero-length route instead of newly rejecting it",
+  "weight": "Positive safe-integer actual order weightKg for new priced contracts, never vehicle capacity",
+  "formulaAfterProtection": "N = 9000 + min(D, 2000) + 500 * min(W - 1, 2); F = N / 10000",
+  "incomeCents": "Math.round(map ordinaryBaseFee * 100 * locked vehicle incomeFactor * locked xpMultiplier * F), rounded once only",
+  "preserve": ["Existing intro batch-level protection and purchase/upgrade/recruit prices", "NPC and special-order pricing", "Existing signed contract amounts and all receipts", "Current unique slot, configId and strict restore/atomic writer protections", "Map production remains completely independent"],
+  "compatibility": "Optional versioned ordinaryPricing metadata on new ordinary quotes; absent metadata keeps original quote validation with no synthesized distance or repricing; unknown version rejects without clearing saves",
+  "releaseGate": "Production inputs come only from validated GameSession routes; preview/accept/settlement share the frozen contract; validate new and old representations before coordinated deployment",
+  "limits": ["The 0.90-to-1.20 range is a bounded product choice, not a measured order-supply average", "No guarantee that every distinct order has a distinct rounded price", "No claim of a measured 20-minute team or 98-percent UI completion", "No new parameters are deployed by writing this rule file alone"]
+}

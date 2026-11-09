@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [],
+  "summary": "NEXT-B-UI-RESIDUAL-1106 第二阶段独立静态质量审查通过，未发现本批范围内的安全或逻辑阻塞。已核对真实消费者、registry、manifest及精确增量：账单的coin和income→coin-stack调用已按范围移除，无图槽居中；其他指标、钱包余额、报价和账本计算保持。nav-base/button-disabled无效请求已移除，clock/coin-stack正常主图片路径保留，回退失败诊断未被屏蔽。两份主目标初读与收口SHA一致。本轮没有写入任何文件或改变Mode/权限，已释放只读范围给父PM；不覆盖L01—L03历史，不关闭U38或远程缺图，不代表实际显示或98%达标。",
+  "sourceHashes": {
+    "primary": {
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": {
+        "preEdit": "cbcc769df60e8d5bfeeeb7d4c33ccb78faa12cbf8e271f9195950d8b6a97f210",
+        "reviewStart": "1b70ff52c504c01fa1a790cf75d1d2ff087b9f510b208271c6fc4cb487533ef3",
+        "reviewEnd": "1b70ff52c504c01fa1a790cf75d1d2ff087b9f510b208271c6fc4cb487533ef3",
+        "baselineEvidence": "实际读取并校验docs/reviews/2026-11-05-game-development/performance/light-read-stage/delivery-game/assets/scripts/map-sample/V2GameUI.ts，SHA与preEdit一致；精确diff仅涉及walletDetails及bills的图标/文字槽。render、refreshHUD、报价、账目筛选求和、骑手、车辆布局、订单和update中的routeMotion/跟随/HUD节流保持原字节。"
+      },
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": {
+        "preEdit": "e3be2228f8ac59746fa412146b289b2c0a267fa18184fcf5859460f59f972e8e",
+        "reviewStart": "796a4111bc9c367672863351b4a93eb43031cd5e2fe83d303fe4979622dee4f0",
+        "reviewEnd": "796a4111bc9c367672863351b4a93eb43031cd5e2fe83d303fe4979622dee4f0",
+        "baselineEvidence": "仅在内存逆转nav-base、禁用皮肤和glyph回退三处变更，重建SHA与preEdit完全一致；据此独立核对精确增量，未执行TS或写入重建文件。"
+      }
+    },
+    "dependencies": {
+      "initialAndClosingHashesMatch": true,
+      "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+      "delivery-game/assets/scripts/map-sample/CartoonArt.ts": "5b59bb9d4c15fba335754f430641d228a20ea31023cf6385f333fba200d73e52",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/scripts/map-sample/SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322"
+    },
+    "additionalReadEvidence": {
+      "delivery-game/assets/scripts/map-sample/V2Spacing.ts": "8bc275d4946c45a8d6f239209229429cd38b75bb84ecfd3205dab71e5535c84a",
+      "delivery-game/assets/scripts/map-sample/V2GameBootstrap.ts": "722715a3e1e1589109c8f8173abfa7e5ee39453514bd4b23d1b3b9b59336f35f",
+      "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30",
+      "docs/reviews/2026-11-05-game-development/layout/ui-residual-cleanup.md": "c9b419892958b409deacd7c6c12729bbe8986005d1ba50e3be57394d44c2ddaa"
+    },
+    "primaryDrift": []
+  },
+  "deferredCases": [
+    {
+      "id": "D01",
+      "case": "账单币图移除与真实金额显示",
+      "execution": "未运行",
+      "staticEvidence": [
+        "manifest.json:184-201,646-665：icon-income与icon-coin-stack的resource/rect相同；定向JSON检查未发现其他同区域金币别名。",
+        "V2GameUI.ts:461-473,490-495：今日及累计配送收入传null，不再调用income/coin-stack；expense、profit、trophy、cart保留，任务奖励仍显示未记录。",
+        "无图槽宽212、文字宽192且中心为0，左右各留10；有图槽仍为原textX=30、textW=w-73。金额来源、颜色和账目计算未改。",
+        "V2GameUI.ts:106-108的账单顶栏币图旁路保持原字节；七日图、余额说明及明细未发现残留金币区域调用。"
+      ]
+    },
+    {
+      "id": "D02",
+      "case": "账单、其他页面及补给上下文的钱包",
+      "execution": "未运行",
+      "staticEvidence": [
+        "V2GameUI.ts:202-211：仅page为账单且supplyOpen为false时省略钱包coin，并居中标题；其他页或补给上下文保留原图标及标题布局。",
+        "余额仍直接读取this.state.cashCents并使用原coins格式；关闭及前往账单命令未改。"
+      ]
+    },
+    {
+      "id": "D03",
+      "case": "正常皮肤、导航底板与禁用按钮点击",
+      "execution": "未运行",
+      "staticEvidence": [
+        "V2ApprovedSkin.ts:18-26：NavigationBase不匹配Navigation-前缀，保留原深色Graphics底板；实际Navigation-*Face继续请求已有nav-tile/nav-selected。",
+        "V2ApprovedSkin.ts:43-47：禁用按钮不请求不存在的button-disabled，保留原灰底和文字，且不绑定tap；启用按钮仍请求原button-orange/button-blue。",
+        "SampleUI.ts:62-83及V2GameBootstrap.ts:44的消费者已追读；未见本批新增启禁用或hit target错误。"
+      ]
+    },
+    {
+      "id": "D04",
+      "case": "clock/coin-stack及其他回退的成功、失败、隐藏与销毁竞态",
+      "execution": "未运行，未故障注入",
+      "staticEvidence": [
+        "V2ApprovedSkin.ts:49-65：clock使用文字临时回退，coin-stack明确回退到已注册coin；主路径仍为imageSkin(n,'icon-'+kind)，未替换正常native主图片。",
+        "实际消费者的native key均存在且未被标rejected，对应原图文件存在；明确Cartoon别名目标均在registry中定义。",
+        "CartoonArt.ts:146-151：成功仅隐藏传入的文字占位，失败保留占位并告警；若native先成功隐藏整个fallback，晚到Cartoon结果不会重新激活该父fallback。",
+        "V2ImageSkin.ts:38-44,60-62：成功/失败回调保留严格存活检查，销毁帧处理未改；真正无效native key仍进入失败事件及原warn去重路径，没有新增吞警告处理器。"
+      ]
+    },
+    {
+      "id": "D05",
+      "case": "编译诊断及运行集成",
+      "execution": "未执行tests、typecheck、回归、TS或游戏函数、Creator构建、浏览器及真实/合成存档操作",
+      "staticEvidence": [
+        "作者报告提及的includes/padStart自动诊断不作为本轮编译结果；精确前后文本证明这些API调用在原版本已存在，本轮未新增这些API，也未修改项目lib配置。",
+        "报价、账本数据、routeMotion、跟随、HUD及车辆布局的保留由精确diff支持，不等于这些功能已运行回归通过。"
+      ]
+    },
+    {
+      "id": "D06",
+      "case": "用户体验与范围外事项",
+      "execution": "未验收",
+      "staticEvidence": [
+        "骑手新排版、万元规则仍待用户确认，不作为本批回归缺陷。",
+        "地图及相关制作完全排除，未派子Agent或地图任务；未写报告、源码或其他文件，未修改Mode/权限。",
+        "U38、远程缺图、实际图像可见性和98%目标仍由父PM后续统一验证，本次静态PASS不关闭这些反馈。"
+      ]
+    }
+  ]
+}

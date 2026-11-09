@@ -1,0 +1,146 @@
+TAP version 13
+# [V2 runtime failure] {
+#   stage: 'transaction.action',
+#   errorType: 'Error',
+#   frames: [
+#     '    at V2DispatchSession.borrowEmergencyVehicle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2DispatchSession.js:152:19)',
+#     '    at /private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2DispatchSession.js:137:23',
+#     '    at V2DispatchSession.transact (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2DispatchSession.js:95:24)',
+#     '    at V2DispatchSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2DispatchSession.js:110:21)',
+#     '    at V2GameSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/map-sample/V2GameSession.js:33:30)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:62',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:164:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at Object.setItem (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:27:102)',
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/map-sample/V2RuntimeStore.js:138:26)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:119:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:119:10)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at Object.setItem (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:27:102)',
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/map-sample/V2RuntimeStore.js:138:26)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:128:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:128:10)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/map-sample/V2RuntimeStore.js:137:23)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:143:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:143:10)',
+#     '    at async Test.run (node:internal/test_runner/test:1054:7)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.action',
+#   errorType: 'Error',
+#   frames: [
+#     '    at check (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2EconomySession.js:29:11)',
+#     '    at V2EconomySession.finishHeroEmergencyLoan (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2EconomySession.js:404:9)',
+#     '    at V2DispatchSession.returnEmergencyVehicle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2DispatchSession.js:160:22)',
+#     '    at /private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2DispatchSession.js:140:23',
+#     '    at V2DispatchSession.transact (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2DispatchSession.js:95:24)',
+#     '    at V2DispatchSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/domain/V2DispatchSession.js:110:21)',
+#     '    at V2GameSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-e2nSbH/map-sample/V2GameSession.js:33:30)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:62'
+#   ]
+# }
+# Subtest: runtime borrow is durably committed once and survives actual open clock rebasing
+ok 1 - runtime borrow is durably committed once and survives actual open clock rebasing
+  ---
+  duration_ms: 23.49075
+  type: 'test'
+  ...
+# Subtest: runtime open rebases an emergency trip without moving it or changing signed terms
+ok 2 - runtime open rebases an emergency trip without moving it or changing signed terms
+  ---
+  duration_ms: 223.804375
+  type: 'test'
+  ...
+# Subtest: actual runtime open preserves hero work at every route boundary while NPCs use only existing quota
+ok 3 - actual runtime open preserves hero work at every route boundary while NPCs use only existing quota
+  ---
+  duration_ms: 285.674208
+  type: 'test'
+  ...
+# Subtest: failed borrowing save preserves published state and slot and stops further writes
+ok 4 - failed borrowing save preserves published state and slot and stops further writes
+  ---
+  duration_ms: 3.76575
+  type: 'test'
+  ...
+# Subtest: failed return save cannot publish an unequipped loan or a half-swapped real car
+ok 5 - failed return save cannot publish an unequipped loan or a half-swapped real car
+  ---
+  duration_ms: 787.732125
+  type: 'test'
+  ...
+# Subtest: a second writer cannot acquire the slot or duplicate the emergency car
+ok 6 - a second writer cannot acquire the slot or duplicate the emergency car
+  ---
+  duration_ms: 3.452833
+  type: 'test'
+  ...
+# Subtest: slot byte conflict rejects borrowing without publishing the candidate
+ok 7 - slot byte conflict rejects borrowing without publishing the candidate
+  ---
+  duration_ms: 3.574459
+  type: 'test'
+  ...
+# Subtest: epoch loss rejects returning and preserves the active loan
+ok 8 - epoch loss rejects returning and preserves the active loan
+  ---
+  duration_ms: 1.332083
+  type: 'test'
+  ...
+# Subtest: losing the writer lease blocks both borrowing and returning before publication
+ok 9 - losing the writer lease blocks both borrowing and returning before publication
+  ---
+  duration_ms: 2.972
+  type: 'test'
+  ...
+# Subtest: returned loan history survives runtime reopen and repeat return cannot alter real assets
+ok 10 - returned loan history survives runtime reopen and repeat return cannot alter real assets
+  ---
+  duration_ms: 220.6405
+  type: 'test'
+  ...
+# Subtest: future or corrupt game snapshots remain untouched and cannot turn into new loan progress
+ok 11 - future or corrupt game snapshots remain untouched and cannot turn into new loan progress
+  ---
+  duration_ms: 0.390625
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1859.211875

@@ -1,0 +1,78 @@
+TAP version 13
+# Subtest: the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+ok 1 - the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+  ---
+  duration_ms: 227.786875
+  type: 'test'
+  ...
+# Subtest: loan status is detached and read-only; duplicate and stale commands cannot change the loan
+ok 2 - loan status is detached and read-only; duplicate and stale commands cannot change the loan
+  ---
+  duration_ms: 6.385375
+  type: 'test'
+  ...
+# Subtest: normal, detachable and genuinely earned affordable-car states cannot borrow
+ok 3 - normal, detachable and genuinely earned affordable-car states cannot borrow
+  ---
+  duration_ms: 2380.681917
+  type: 'test'
+  ...
+# Subtest: Game refuses loan commands during real rest actions and all active route phases
+ok 4 - Game refuses loan commands during real rest actions and all active route phases
+  ---
+  duration_ms: 233.223333
+  type: 'test'
+  ...
+# Subtest: first real delivery is insufficient; release waits for quota and never confiscates the current batch
+not ok 5 - first real delivery is insufficient; release waits for quota and never confiscates the current batch
+  ---
+  duration_ms: 228.116208
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs:93:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    59714 !== 60000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 60000
+  actual: 59714
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs:96:95)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: cancelled emergency quotes remain valid after return alongside completed histories
+ok 6 - cancelled emergency quotes remain valid after return alongside completed histories
+  ---
+  duration_ms: 492.5715
+  type: 'test'
+  ...
+# Subtest: borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+ok 7 - borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+  ---
+  duration_ms: 2.077416
+  type: 'test'
+  ...
+# Subtest: forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+ok 8 - forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+  ---
+  duration_ms: 214.328833
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 7
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3986.667916

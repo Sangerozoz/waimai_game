@@ -1,0 +1,133 @@
+{
+  "task": "SLOTS-JOINT-REAL-PREVIEW-1106",
+  "buildRoot": "delivery-game/build/v2-slots-joint-1106",
+  "creatorExitCode": 36,
+  "buildFinished": "2026-11-06 19:11:53",
+  "inputCount": 503,
+  "inputDriftAfterAppearance": [],
+  "currentUrls": [
+    "http://127.0.0.1:4182/?v2=1&rev=slots-joint-1106",
+    "http://127.0.0.1:4196/?v2=1&rev=slots-joint-1106"
+  ],
+  "HTTPArtifactChecks": [
+    {
+      "port": 4182,
+      "file": "index.html",
+      "HTTP": 200,
+      "matchesBuiltArtifact": true
+    },
+    {
+      "port": 4182,
+      "file": "assets/main/index.2acb2.js",
+      "HTTP": 200,
+      "matchesBuiltArtifact": true
+    },
+    {
+      "port": 4196,
+      "file": "index.html",
+      "HTTP": 200,
+      "matchesBuiltArtifact": true
+    },
+    {
+      "port": 4196,
+      "file": "assets/main/index.2acb2.js",
+      "HTTP": 200,
+      "matchesBuiltArtifact": true
+    },
+    {
+      "port": 4197,
+      "file": "index.html",
+      "HTTP": 200,
+      "matchesBuiltArtifact": true
+    },
+    {
+      "port": 4197,
+      "file": "assets/main/index.2acb2.js",
+      "HTTP": 200,
+      "matchesBuiltArtifact": true
+    }
+  ],
+  "terminals": {
+    "4182": "term_q5s2xs3gb4",
+    "4196": "term_6wttm7t5wz",
+    "4197": "term_2fc7vikpqn"
+  },
+  "supersededTerminals": {
+    "4182": "term_qpf49vss35",
+    "4196": "term_eec37rur9w"
+  },
+  "images": [
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-joint-entry-ready-1106.png",
+      "width": 793,
+      "height": 1564,
+      "sha256": "7ab51e2cf7d0500df016d74cf7a02d166b5278cf84b3fefe547e3bba2d5aeb05"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-joint-existing-entry-1106.png",
+      "width": 630,
+      "height": 1702,
+      "sha256": "2b4e0f4788e117cf0b91c99554501e703c4525520831d665f7e271727038c6c7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-joint-riders-ready-1106.png",
+      "width": 1586,
+      "height": 3128,
+      "sha256": "9dd1c0b54e4b9329b3727c000e1a613cd97184f9458cacdf87f3d3262c3f5e71"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-joint-upgrade-preview-1106.png",
+      "width": 1586,
+      "height": 3128,
+      "sha256": "44ea97f6c5d3d4fe51382568aa774edc78b594d263ca39d0dc63931a07e89598"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-joint-vehicles-1106.png",
+      "width": 1586,
+      "height": 3128,
+      "sha256": "7d35360a64a52ab2efa5d922806906c1ce14107c7dc0a28ff34a2be07de81cd3"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-joint-orders-1106.png",
+      "width": 1586,
+      "height": 3128,
+      "sha256": "b2c6a079809ceaa221ca08124a78d8aa7b7baffa2eb48aa90371b6c1d8a74a17"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/integration/slots-joint-final-native-1106.png",
+      "width": 630,
+      "height": 1702,
+      "sha256": "0a8a261e255545eb2ef9fb5f9b411363554077a1767ce3714aacdcb162933364"
+    }
+  ],
+  "observed": [
+    "new Cocos build renders initial entry on isolated4197 without starting new game",
+    "existing4196 shows Continue-only entry; normal Continue restores actual existing progress without reset",
+    "actual rider page shows NPC阿航Lv3 and upgrade60, income+16%, service saving6%",
+    "upgrade preview shows Lv3→4, training16%→24%, service6%→9%, fee60 and balance714.87; returned without confirming",
+    "model3满载 vehicle page shows actual vehicle/background,6 slots and purchase1000; did not purchase",
+    "lobby shows food images,1/2 slots and naturally differing quote28.34/31.17/27.12; selected0, actual hero summary0/6 slots",
+    "current runtime lastError read at lobby is empty, not proof of original exception root cause closure",
+    "desktop viewport restored315x851 DPR2, user tab preserved showing new lobby; both automation sessions closed"
+  ],
+  "appearanceActions": [
+    "normal existing-tab navigation to new4196 artifact",
+    "normal Continue-existing-progress click",
+    "rider menu",
+    "open upgrade preview then Return, no confirmation",
+    "vehicle menu",
+    "order-lobby menu, no selection or acceptance"
+  ],
+  "noDirectStorageReadWriteOrSaveInjection": true,
+  "noPurchasesHiringUpgradesOrderAcceptance": true,
+  "phaseTestsTypecheckRegressionRun": false,
+  "scopeLimits": [
+    "normal app Continue/menus execute normal restoration/read/auto-save paths; this was not a no-execution check",
+    "only these observed pages/current model and existing progress, not all31 portraits/10 vehicle states or every legacy save",
+    "new-game initial2 slots is source-reviewed, not demonstrated by creating a new slot; existing hero retains owned level and currently6 slots",
+    "insufficient→sufficient funds, actual debit/settlement/NPC/ETA/risk/delivery/follow/performance not behavior-tested",
+    "local screenshots do not establish remote shared-path image visibility or98% fidelity",
+    "advertising SDK still unavailable; no ad success simulated",
+    "Creator log retained OTA_VERSION_CONFLICT and build-script SIGTERM diagnostics despite documented-success code36 and real rendered artifact"
+  ]
+}

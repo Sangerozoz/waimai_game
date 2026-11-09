@@ -1,0 +1,73 @@
+{
+  "status": "pre-generation-pixel-contract-not-yet-observed-art",
+  "requestedNativeSize": [
+    1536,
+    1024
+  ],
+  "referenceActualPilotSize": [
+    1536,
+    1024
+  ],
+  "coordinateSpace": "native-image-pixels-not-metres",
+  "regions": [
+    {
+      "id": "A",
+      "role": "commercial-life-core",
+      "offset": [
+        0,
+        0
+      ],
+      "coreLocal": [
+        0,
+        0,
+        1504,
+        1024
+      ]
+    },
+    {
+      "id": "B",
+      "role": "residential-education",
+      "offset": [
+        1472,
+        0
+      ],
+      "coreLocal": [
+        32,
+        0,
+        1536,
+        1024
+      ]
+    }
+  ],
+  "overlapPixels": 64,
+  "sharedGlobalBand": [
+    1472,
+    0,
+    1536,
+    1024
+  ],
+  "coreBoundaryGlobalX": 1504,
+  "portal": {
+    "id": "AB-main",
+    "centerY": 600,
+    "directionAtSeam": [
+      1,
+      0
+    ],
+    "asphaltWidthPixels": 56,
+    "sidewalkWidthEachPixels": 14,
+    "AEdge": [
+      1536,
+      600
+    ],
+    "BEdge": [
+      0,
+      600
+    ]
+  },
+  "noBuildingsInSharedBand": true,
+  "edgeGroundFullyPainted": true,
+  "whiteDisplayMarginsForbidden": true,
+  "nativeWarpOrRescaleAllowed": false,
+  "mergeRule": "A owns x<1504, B owns x>=1504. Route endpoints must be confirmed on actual art before merging."
+}

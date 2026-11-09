@@ -1,0 +1,1 @@
+const p=await browser.getPage('main');const data=await p.evaluate(index=>{const w=globalThis.__lightProfile.windows[index];if(!w)throw Error('Missing window');return w;} ,3);JSON.stringify(data);

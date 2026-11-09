@@ -1,0 +1,62 @@
+--- review-01/delivery-game/assets/scripts/domain/V2FleetSession.ts
++++ followup/delivery-game/assets/scripts/domain/V2FleetSession.ts
+@@ -84,7 +84,7 @@
+  }
+  /** Consume each real hero completion event exactly once. Call at the completion instant. */
+  syncHeroCompletions():void {
+-  if(this.value.heroEventCursor===this.economy.heroCompletionEventCount)return;
++  if(this.value.heroEventCursor===this.economy.heroCompletionEventCount){this.validate();return;}
+   this.atomic(d=>d.syncDraft());
+  }
+  completeHeroDelivery(id:string):V2DeliveryReceipt {return this.atomic(d=>{const r=d.economy.completeDelivery(id);d.syncDraft();return r;});}
+--- review-01/delivery-game/tests/product-regression-1106/hero-sync-noop.test.cjs
++++ followup/delivery-game/tests/product-regression-1106/hero-sync-noop.test.cjs
+@@ -63,3 +63,23 @@
+   assert.throws(()=>V2FleetSession.restore(JSON.stringify(raw)));
+  });
+ }
++
++for(const [from,to] of [['kg-v1','slots-v1'],['slots-v1','kg-v1']]){
++ test(`${from}: an equal-event wallet replacement cannot hide a fleet schema mismatch`,()=>{
++  const economy=new V2EconomySession(from),f=new V2FleetSession(economy,0);
++  economy.replaceFrom(new V2EconomySession(to).serialize());
++  const before=f.serialize();
++  assert.equal(f.state.heroEventCursor,economy.heroCompletionEventCount);
++  assert.throws(()=>f.syncHeroCompletions(),'sync must retain composite validation even without new events');
++  assert.equal(f.serialize(),before,'reject without further changing the already-replaced input');
++  assert.throws(()=>V2FleetSession.restore(before),'mixed-version input remains unreadable');
++ });
++}
++
++test('direct economy slot promotion still requires coordinated fleet promotion before sync',()=>{
++ const economy=new V2EconomySession('kg-v1'),f=new V2FleetSession(economy,0);
++ economy.enableSlots();const before=f.serialize();
++ assert.equal(f.state.heroEventCursor,economy.heroCompletionEventCount);
++ assert.throws(()=>f.syncHeroCompletions());assert.equal(f.serialize(),before);
++ assert.throws(()=>V2FleetSession.restore(before));
++});
+--- review-01/docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark.cjs
++++ followup/docs/reviews/2026-11-05-game-development/performance/hero-sync-noop-1107/benchmark.cjs
+@@ -14,6 +14,7 @@
+ const inputBefore=JSON.parse(fs.readFileSync(path.join(__dirname,'input-before.json'),'utf8'));
+ for(const row of inputBefore.files){
+  if(row.path==='delivery-game/assets/scripts/domain/V2FleetSession.ts')assert.equal(sha(before),row.sha256);
++ else if(row.path==='delivery-game/tests/product-regression-1106/hero-sync-noop.test.cjs')continue; // Revised test is not loaded by this model benchmark.
+  else assert.equal(sha(fs.readFileSync(path.join(root,row.path))),row.sha256,`input drift: ${row.path}`);
+ }
+ 
+@@ -70,7 +71,7 @@
+  v.Game.restore(v.city,serialized,{preserveClock:true});const end=performance.now();
+  return {serialized,sample:{restoreBeforeMs:restored-start,tickMs:ticked-restored,serializeMs:saved-ticked,restoreAfterMs:end-saved,totalMs:end-start,outputSHA256:sha(serialized)}};
+ }
+-const stats=values=>{const sorted=values.slice().sort((a,b)=>a-b);return {medianMs:sorted[Math.floor(sorted.length/2)],minMs:sorted[0],maxMs:sorted[sorted.length-1]};};
++const stats=values=>{const sorted=values.slice().sort((a,b)=>a-b),middle=Math.floor(sorted.length/2);return {medianMs:sorted.length%2?sorted[middle]:(sorted[middle-1]+sorted[middle])/2,minMs:sorted[0],maxMs:sorted[sorted.length-1]};};
+ const results=[];
+ for(const workload of workloads){
+  const samples=[[],[]];let compared=0;
+@@ -85,4 +86,4 @@
+  const raw=JSON.parse(workload.raw),summary=samples.map((rows,index)=>({variant:variants[index].name,total:stats(rows.map(r=>r.totalMs)),tick:stats(rows.map(r=>r.tickMs))}));
+  results.push({name:workload.name,source:workload.source,derivation:workload.derivation||null,inputSHA256:sha(workload.raw),inputBytes:Buffer.byteLength(workload.raw),heroCompletedOrders:raw.dispatch.economy.state.heroCompletedOrders,npcCompletedOrders:raw.dispatch.economy.state.npcCompletedOrders,phase:raw.route.phase,byteEqualComparisons:compared,summary,medianTotalReductionPercent:(1-summary[1].total.medianMs/summary[0].total.medianMs)*100,samples});
+ }
+-process.stdout.write(JSON.stringify({status:'PASS_PAIRED_MODEL_TRANSACTION_ONLY',recordedAt:new Date().toISOString(),scope:'in-memory source restore/tick/serialize/full-restore candidate; no disk commit, UI rendering, FPS, real player storage or fresh long-term simulation',node:process.version,platform:process.platform,architecture:process.arch,sourceBeforeSHA256:sha(before),sourceAfterSHA256:sha(after),fixtureSources:[{path:longPath,sha256:sha(longRaw)},{path:originalPath,sha256:sha(originalBytes)}],loadedInputs:variants.map(v=>({variant:v.name,files:v.loaded})),byteEqualComparisons:results.reduce((sum,r)=>sum+r.byteEqualComparisons,0),results},null,2)+'\n');
++process.stdout.write(JSON.stringify({status:'PASS_PAIRED_MODEL_TRANSACTION_ONLY',recordedAt:new Date().toISOString(),scope:'in-memory source restore/tick/serialize/full-restore candidate; no disk commit, UI rendering, FPS, real player storage or fresh long-term simulation',medianPolicy:'arithmetic mean of the two middle values for eight retained samples',node:process.version,platform:process.platform,architecture:process.arch,sourceBeforeSHA256:sha(before),sourceAfterSHA256:sha(after),fixtureSources:[{path:longPath,sha256:sha(longRaw)},{path:originalPath,sha256:sha(originalBytes)}],loadedInputs:variants.map(v=>({variant:v.name,files:v.loaded})),byteEqualComparisons:results.reduce((sum,r)=>sum+r.byteEqualComparisons,0),results},null,2)+'\n');

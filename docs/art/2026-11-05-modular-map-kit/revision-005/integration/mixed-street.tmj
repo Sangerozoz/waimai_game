@@ -1,0 +1,1980 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.11.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "width": 96,
+  "height": 96,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "infinite": false,
+  "nextobjectid": 100,
+  "nextlayerid": 4,
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "name": "Five buildings and inward lamps",
+      "tilewidth": 280,
+      "tileheight": 280,
+      "tilecount": 10,
+      "columns": 0,
+      "objectalignment": "bottomleft",
+      "tiles": [
+        {
+          "id": 0,
+          "image": "assets/rt-B01-road-aligned-native-v1.png",
+          "imagewidth": 224,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "image": "assets/B02-runtime-280.png",
+          "imagewidth": 234,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B02"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "image": "assets/B03-runtime-280.png",
+          "imagewidth": 166,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B03"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "image": "assets/B04-runtime-280.png",
+          "imagewidth": 280,
+          "imageheight": 263,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B04"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "image": "assets/B05-runtime-280.png",
+          "imagewidth": 245,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B05"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "image": "assets/rt-T01-v1.png",
+          "imagewidth": 203,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "image": "assets/T02-free-runtime-280.png",
+          "imagewidth": 139,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "image": "assets/T03-pine-runtime-280.png",
+          "imagewidth": 203,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T03"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "image": "assets/L-near-280.png",
+          "imagewidth": 131,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L-near"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "image": "assets/L-far-280.png",
+          "imagewidth": 102,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L-far"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "name": "Controlled ground colours and paving",
+      "type": "objectgroup",
+      "draworder": "index",
+      "objects": [
+        {
+          "id": 23,
+          "name": "rear-informal-grove-01",
+          "type": "ground-surface",
+          "x": 441.1208780482239,
+          "y": 726.9054744883113,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 777.9645014553894,
+              "y": -422.16053548668856
+            },
+            {
+              "x": 828.063045285613,
+              "y": -349.52233121100153
+            },
+            {
+              "x": 50.09854383022366,
+              "y": 72.63820427568703
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G03-meadow"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "name": "near-interstitial-planting-01",
+          "type": "ground-surface",
+          "x": 491.2194218784476,
+          "y": 799.5436787639983,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 27.297000051066277,
+              "y": -14.812650367954006
+            },
+            {
+              "x": 43.996514661139315,
+              "y": 9.400084390606708
+            },
+            {
+              "x": 16.69951461007298,
+              "y": 24.2127347585606
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "name": "rear-shared-walk-01",
+          "type": "ground-surface",
+          "x": 518.5164219295139,
+          "y": 784.7310283960443,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 177.43050033193094,
+              "y": -96.28222739170087
+            },
+            {
+              "x": 194.13001494200387,
+              "y": -72.06949263314016
+            },
+            {
+              "x": 16.699514610073038,
+              "y": 24.212734758560714
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "name": "exhibition-shared-passage-01",
+          "type": "ground-surface",
+          "x": 695.9469222614448,
+          "y": 688.4488010043434,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 27.297000051066107,
+              "y": -14.812650367953893
+            },
+            {
+              "x": 135.84384501654893,
+              "y": 142.570125562699
+            },
+            {
+              "x": 108.54684496548282,
+              "y": 157.38277593065288
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "name": "rear-shared-walk-02",
+          "type": "ground-surface",
+          "x": 723.2439223125109,
+          "y": 673.6361506363895,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 272.9700005106629,
+              "y": -148.12650367953984
+            },
+            {
+              "x": 289.6695151207357,
+              "y": -123.91376892097901
+            },
+            {
+              "x": 16.699514610072924,
+              "y": 24.212734758560714
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "name": "residential-shared-passage-01",
+          "type": "ground-surface",
+          "x": 996.2139228231738,
+          "y": 525.5096469568497,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 27.29700005106656,
+              "y": -14.812650367954234
+            },
+            {
+              "x": 135.84384501654927,
+              "y": 142.57012556269865
+            },
+            {
+              "x": 108.54684496548293,
+              "y": 157.38277593065288
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "name": "rear-shared-walk-03",
+          "type": "ground-surface",
+          "x": 1023.5109228742404,
+          "y": 510.69699658889544,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 232.02450043406338,
+              "y": -125.90752812760888
+            },
+            {
+              "x": 248.7240150441362,
+              "y": -101.694793369048
+            },
+            {
+              "x": 16.69951461007281,
+              "y": 24.212734758560828
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "name": "near-interstitial-planting-02",
+          "type": "ground-surface",
+          "x": 1255.5354233083037,
+          "y": 384.78946846128656,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 13.648500025533167,
+              "y": -7.406325183976833
+            },
+            {
+              "x": 30.348014635605978,
+              "y": 16.80640957458388
+            },
+            {
+              "x": 16.69951461007281,
+              "y": 24.212734758560885
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "name": "near-interstitial-planting-03",
+          "type": "ground-surface",
+          "x": 507.91893648852056,
+          "y": 823.7564135225589,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 40.9455000765995,
+              "y": -22.218975551930953
+            },
+            {
+              "x": 120.26819447445166,
+              "y": 92.7915145512377
+            },
+            {
+              "x": 79.32269439785227,
+              "y": 115.01049010316865
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "name": "exhibition-rear-border-01",
+          "type": "ground-surface",
+          "x": 548.8644365651201,
+          "y": 801.5374379706279,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 163.78200030639766,
+              "y": -88.87590220772381
+            },
+            {
+              "x": 167.95687895891558,
+              "y": -82.82271851808446
+            },
+            {
+              "x": 4.174878652517805,
+              "y": 6.053183689639354
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "name": "office-rear-terrace-01",
+          "type": "ground-surface",
+          "x": 739.9434369225838,
+          "y": 697.8488853949502,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 136.48500025533144,
+              "y": -74.06325183976992
+            },
+            {
+              "x": 163.62171149670223,
+              "y": -34.71755785710684
+            },
+            {
+              "x": 27.13671124137079,
+              "y": 39.34569398266319
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "name": "near-interstitial-planting-04",
+          "type": "ground-surface",
+          "x": 876.4284371779153,
+          "y": 623.7856335551803,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 27.29700005106622,
+              "y": -14.812650367953893
+            },
+            {
+              "x": 112.88201242769856,
+              "y": 109.27761526967765
+            },
+            {
+              "x": 85.58501237663233,
+              "y": 124.09026563763155
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "name": "shared-pocket-garden-01",
+          "type": "ground-surface",
+          "x": 903.7254372289815,
+          "y": 608.9729831872264,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 109.18800020426511,
+              "y": -59.25060147181591
+            },
+            {
+              "x": 155.1116653819688,
+              "y": 7.334419114228922
+            },
+            {
+              "x": 45.92366517770381,
+              "y": 66.58502058604472
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G01-lawn"
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "name": "shared-pocket-garden-02",
+          "type": "ground-surface",
+          "x": 1040.2104374843132,
+          "y": 534.9097313474563,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 95.53950017873194,
+              "y": -51.84427628783885
+            },
+            {
+              "x": 141.46316535643587,
+              "y": 14.740744298205982
+            },
+            {
+              "x": 45.9236651777037,
+              "y": 66.58502058604483
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G01-lawn"
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "name": "near-interstitial-planting-05",
+          "type": "ground-surface",
+          "x": 1135.749937663045,
+          "y": 483.0654550596174,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 27.297000051066107,
+              "y": -14.812650367953836
+            },
+            {
+              "x": 110.79457310143812,
+              "y": 106.25102342485695
+            },
+            {
+              "x": 83.49757305037201,
+              "y": 121.06367379281073
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "name": "tower-rain-garden-01",
+          "type": "ground-surface",
+          "x": 1163.0469377141112,
+          "y": 468.2528046916636,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 95.53950017873194,
+              "y": -51.844276287838966
+            },
+            {
+              "x": 128.9385293988803,
+              "y": -3.418806770715207
+            },
+            {
+              "x": 33.39902922014835,
+              "y": 48.42546951712376
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "name": "near-interstitial-planting-06",
+          "type": "ground-surface",
+          "x": 1258.5864378928432,
+          "y": 416.4085284038246,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 27.29700005106656,
+              "y": -14.812650367954177
+            },
+            {
+              "x": 110.79457310143857,
+              "y": 106.25102342485667
+            },
+            {
+              "x": 83.49757305037224,
+              "y": 121.06367379281079
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "name": "near-interstitial-planting-07",
+          "type": "ground-surface",
+          "x": 587.2416308863728,
+          "y": 938.7669036257275,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 54.594000102132554,
+              "y": -29.625300735908013
+            },
+            {
+              "x": 67.11863605969017,
+              "y": -11.46574966698438
+            },
+            {
+              "x": 12.52463595755762,
+              "y": 18.159551068923633
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "name": "B04-entry-patio-01",
+          "type": "ground-surface",
+          "x": 641.8356309885054,
+          "y": 909.1416028898195,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 136.48500025533144,
+              "y": -74.06325183976992
+            },
+            {
+              "x": 165.70915082296426,
+              "y": -31.690966012282956
+            },
+            {
+              "x": 29.22415056763282,
+              "y": 42.37228582748696
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "name": "near-interstitial-planting-08",
+          "type": "ground-surface",
+          "x": 778.3206312438368,
+          "y": 835.0783510500496,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 13.648500025533167,
+              "y": -7.406325183976946
+            },
+            {
+              "x": 26.173135983090788,
+              "y": 10.753225884946687
+            },
+            {
+              "x": 12.52463595755762,
+              "y": 18.159551068923633
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "name": "near-interstitial-planting-09",
+          "type": "ground-surface",
+          "x": 1219.2475107134171,
+          "y": 604.1291288524282,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 40.9455000765995,
+              "y": -22.21897555193084
+            },
+            {
+              "x": 45.120378729119466,
+              "y": -16.165791862288984
+            },
+            {
+              "x": 4.174878652520192,
+              "y": 6.053183689641969
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "name": "B03-entry-patio-01",
+          "type": "ground-surface",
+          "x": 1260.1930107900166,
+          "y": 581.9101533004973,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 68.24250012766561,
+              "y": -37.03162591988507
+            },
+            {
+              "x": 93.29177204277858,
+              "y": -0.7125237820403072
+            },
+            {
+              "x": 25.049271915112968,
+              "y": 36.31910213784465
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "name": "near-interstitial-planting-10",
+          "type": "ground-surface",
+          "x": 1328.4355109176822,
+          "y": 544.8785273806122,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 40.9455000765995,
+              "y": -22.218975551930953
+            },
+            {
+              "x": 49.295257381637384,
+              "y": -10.112608172649743
+            },
+            {
+              "x": 8.349757305037883,
+              "y": 12.106367379281437
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "name": "near-interstitial-planting-11",
+          "type": "ground-surface",
+          "x": 825.5284492992162,
+          "y": 821.9391510325818,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 13.648500025533053,
+              "y": -7.406325183976946
+            },
+            {
+              "x": 19.910818004310727,
+              "y": 1.6734503504836766
+            },
+            {
+              "x": 6.26231797877756,
+              "y": 9.079775534460623
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 47,
+          "name": "B02-entry-patio-01",
+          "type": "ground-surface",
+          "x": 839.1769493247492,
+          "y": 814.5328258486048,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 109.18800020426522,
+              "y": -59.25060147181591
+            },
+            {
+              "x": 132.14983279311798,
+              "y": -25.958091178792074
+            },
+            {
+              "x": 22.96183258885287,
+              "y": 33.29251029302384
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 48,
+          "name": "near-interstitial-planting-12",
+          "type": "ground-surface",
+          "x": 948.3649495290144,
+          "y": 755.2822243767889,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 40.94550007659939,
+              "y": -22.218975551930953
+            },
+            {
+              "x": 47.207818055377174,
+              "y": -13.139200017470557
+            },
+            {
+              "x": 6.2623179787776735,
+              "y": 9.079775534460623
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "name": "near-interstitial-planting-13",
+          "type": "ground-surface",
+          "x": 1127.8828891872054,
+          "y": 662.0265888299089,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 20.472750038298273,
+              "y": -11.1094877759665
+            },
+            {
+              "x": 24.64762869081619,
+              "y": -5.056304086327032
+            },
+            {
+              "x": 4.174878652517691,
+              "y": 6.053183689639468
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 50,
+          "name": "B05-entry-patio-01",
+          "type": "ground-surface",
+          "x": 1148.3556392255036,
+          "y": 650.9171010539424,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 54.59400010213267,
+              "y": -29.625300735908013
+            },
+            {
+              "x": 75.46839336472567,
+              "y": 0.6406177122947838
+            },
+            {
+              "x": 20.874393262593003,
+              "y": 30.265918448202797
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 51,
+          "name": "near-interstitial-planting-14",
+          "type": "ground-surface",
+          "x": 1202.9496393276363,
+          "y": 621.2918003180343,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 61.418250114900275,
+              "y": -33.32846332789518
+            },
+            {
+              "x": 65.59312876741797,
+              "y": -27.27527963825571
+            },
+            {
+              "x": 4.174878652517691,
+              "y": 6.053183689639468
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        },
+        {
+          "id": 52,
+          "name": "sidewalk-near-01",
+          "type": "ground-surface",
+          "x": 599.7662668439305,
+          "y": 956.9264546946512,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 54.594000102132554,
+              "y": -29.625300735908013
+            },
+            {
+              "x": 71.29351471220775,
+              "y": -5.412565977344684
+            },
+            {
+              "x": 16.699514610075198,
+              "y": 24.212734758563215
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 53,
+          "name": "sidewalk-near-02",
+          "type": "ground-surface",
+          "x": 790.8452672013944,
+          "y": 853.2379021189732,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 54.59400010213244,
+              "y": -29.625300735907786
+            },
+            {
+              "x": 71.29351471220764,
+              "y": -5.4125659773445705
+            },
+            {
+              "x": 16.699514610075198,
+              "y": 24.21273475856333
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 54,
+          "name": "sidewalk-near-03",
+          "type": "ground-surface",
+          "x": 954.6272675077921,
+          "y": 764.3619999112495,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 54.594000102132554,
+              "y": -29.625300735908127
+            },
+            {
+              "x": 71.29351471220775,
+              "y": -5.412565977344798
+            },
+            {
+              "x": 16.699514610075084,
+              "y": 24.212734758563215
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 55,
+          "name": "B01-entry-patio-01",
+          "type": "ground-surface",
+          "x": 1009.2212676099247,
+          "y": 734.7366991753414,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 81.89100015319889,
+              "y": -44.43795110386179
+            },
+            {
+              "x": 98.59051476327397,
+              "y": -20.225216345298463
+            },
+            {
+              "x": 16.699514610075198,
+              "y": 24.21273475856333
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 56,
+          "name": "sidewalk-near-04",
+          "type": "ground-surface",
+          "x": 1091.1122677631236,
+          "y": 690.2987480714796,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 61.418250114898,
+              "y": -33.32846332789779
+            },
+            {
+              "x": 78.11776472497309,
+              "y": -9.115728569334465
+            },
+            {
+              "x": 16.699514610075084,
+              "y": 24.21273475856333
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 57,
+          "name": "sidewalk-near-05",
+          "type": "ground-surface",
+          "x": 1207.124517980154,
+          "y": 627.3449840076738,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 61.418250114900275,
+              "y": -33.32846332789518
+            },
+            {
+              "x": 78.11776472497559,
+              "y": -9.11572856933185
+            },
+            {
+              "x": 16.699514610075312,
+              "y": 24.21273475856333
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 58,
+          "name": "sidewalk-near-06",
+          "type": "ground-surface",
+          "x": 1336.78526822272,
+          "y": 556.9848947598937,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 40.9455000765995,
+              "y": -22.21897555193118
+            },
+            {
+              "x": 57.64501468667481,
+              "y": 1.9937592066321486
+            },
+            {
+              "x": 16.699514610075084,
+              "y": 24.21273475856333
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 59,
+          "name": "sidewalk-far-01",
+          "type": "ground-surface",
+          "x": 751.5063400219682,
+          "y": 1040.958502567577,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 709.7220013277234,
+              "y": -385.1289095668034
+            },
+            {
+              "x": 728.0914673988069,
+              "y": -358.4949013323835
+            },
+            {
+              "x": 18.369466071083366,
+              "y": 26.63400823441998
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "S01-paving"
+            }
+          ]
+        },
+        {
+          "id": 60,
+          "name": "opposite-planting-strip-01",
+          "type": "ground-surface",
+          "x": 769.8758060930516,
+          "y": 1067.592510801997,
+          "visible": true,
+          "polygon": [
+            {
+              "x": 0.0,
+              "y": 0.0
+            },
+            {
+              "x": 709.7220013277235,
+              "y": -385.1289095668035
+            },
+            {
+              "x": 758.150593696939,
+              "y": -314.91197876697333
+            },
+            {
+              "x": 48.42859236921572,
+              "y": 70.21693079983015
+            }
+          ],
+          "properties": [
+            {
+              "name": "surfaceAssetId",
+              "type": "string",
+              "value": "G02-planting"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Original roads — locked visual reference; source JSON unchanged",
+      "type": "imagelayer",
+      "image": "original-roads.png",
+      "x": 0,
+      "y": 0,
+      "visible": true,
+      "locked": true,
+      "opacity": 1
+    },
+    {
+      "id": 2,
+      "name": "Static sprites — editable index order",
+      "type": "objectgroup",
+      "draworder": "index",
+      "objects": [
+        {
+          "id": 22,
+          "name": "mixed-tree-rear-natural-grove-05",
+          "type": "sprite",
+          "gid": 7,
+          "x": 1135.9253798318462,
+          "y": 389.9089715658362,
+          "width": 47.45142857142857,
+          "height": 95.90857142857143,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-rear-natural-grove-05"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "mixed-building-B03",
+          "type": "sprite",
+          "gid": 3,
+          "x": 1190.3627638488038,
+          "y": 590.0737335479553,
+          "width": 161.74956143436438,
+          "height": 273.1989543738959,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-building-B03"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B03"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "name": "mixed-tree-pocket-garden-trio-03",
+          "type": "sprite",
+          "gid": 7,
+          "x": 1077.6067836644302,
+          "y": 544.671751791514,
+          "width": 47.45142857142857,
+          "height": 95.90857142857143,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-pocket-garden-trio-03"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "name": "mixed-tree-pocket-garden-trio-02",
+          "type": "sprite",
+          "gid": 8,
+          "x": 963.7815890890117,
+          "y": 588.4895098240305,
+          "width": 76.70857142857143,
+          "height": 105.6,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-pocket-garden-trio-02"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T03"
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "name": "mixed-tree-rear-natural-grove-04",
+          "type": "sprite",
+          "gid": 7,
+          "x": 736.3935460660576,
+          "y": 588.4128677103693,
+          "width": 47.45142857142857,
+          "height": 95.90857142857143,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-rear-natural-grove-04"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "mixed-building-B05",
+          "type": "sprite",
+          "gid": 5,
+          "x": 1072.5856384713543,
+          "y": 651.6575967247517,
+          "width": 162.89381696451238,
+          "height": 186.4247650916342,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-building-B05"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B05"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "name": "mixed-tree-pocket-garden-trio-01",
+          "type": "sprite",
+          "gid": 7,
+          "x": 943.0165076837018,
+          "y": 616.0431018565605,
+          "width": 47.45142857142857,
+          "height": 95.90857142857143,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-pocket-garden-trio-01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "name": "mixed-tree-rear-natural-grove-03",
+          "type": "sprite",
+          "gid": 7,
+          "x": 683.1002804426025,
+          "y": 638.9608736681284,
+          "width": 47.45142857142857,
+          "height": 95.90857142857143,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-rear-natural-grove-03"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "mixed-lamp-near-03",
+          "type": "sprite",
+          "gid": 9,
+          "x": 1201.0372166685613,
+          "y": 642.1960976459455,
+          "width": 28.61714285714286,
+          "height": 61.074285714285715,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-lamp-near-03"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L-near"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "name": "mixed-tree-rear-natural-grove-02",
+          "type": "sprite",
+          "gid": 8,
+          "x": 544.0172542594566,
+          "y": 681.5111237984612,
+          "width": 76.70857142857143,
+          "height": 105.6,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-rear-natural-grove-02"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T03"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "name": "mixed-building-B01",
+          "type": "sprite",
+          "gid": 1,
+          "x": 963.571257594916,
+          "y": 725.1708855611896,
+          "width": 126.97974516368971,
+          "height": 159.04824252666003,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-building-B01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "name": "mixed-lamp-far-03",
+          "type": "sprite",
+          "gid": 10,
+          "x": 1390.5054785850334,
+          "y": 702.3596774489627,
+          "width": 32.731428571428566,
+          "height": 89.69142857142857,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-lamp-far-03"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L-far"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "name": "mixed-tree-rear-natural-grove-01",
+          "type": "sprite",
+          "gid": 7,
+          "x": 507.48417574041537,
+          "y": 724.2761180402716,
+          "width": 47.45142857142857,
+          "height": 95.90857142857143,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-rear-natural-grove-01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "mixed-building-B02",
+          "type": "sprite",
+          "gid": 2,
+          "x": 758.9200578529423,
+          "y": 817.567450682866,
+          "width": 212.1841140919684,
+          "height": 254.06255766275166,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-building-B02"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B02"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "name": "mixed-tree-street-pit-singles-03",
+          "type": "sprite",
+          "gid": 6,
+          "x": 1381.9062247996653,
+          "y": 771.865405477901,
+          "width": 75.70285714285714,
+          "height": 104.50285714285714,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-street-pit-singles-03"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "mixed-lamp-near-02",
+          "type": "sprite",
+          "gid": 9,
+          "x": 941.7157161834314,
+          "y": 782.9162761415084,
+          "width": 28.61714285714286,
+          "height": 61.074285714285715,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-lamp-near-02"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L-near"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "mixed-building-B04",
+          "type": "sprite",
+          "gid": 4,
+          "x": 542.7222476506699,
+          "y": 905.8338607300554,
+          "width": 262.0242729978566,
+          "height": 246.0321812186447,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-building-B04"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B04"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "name": "mixed-lamp-far-02",
+          "type": "sprite",
+          "gid": 10,
+          "x": 1117.5354780743705,
+          "y": 850.4861811285025,
+          "width": 32.731428571428566,
+          "height": 89.69142857142857,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-lamp-far-02"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L-far"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "name": "mixed-tree-street-pit-singles-02",
+          "type": "sprite",
+          "gid": 6,
+          "x": 1136.2332243400685,
+          "y": 905.1792587894869,
+          "width": 75.70285714285714,
+          "height": 104.50285714285714,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-street-pit-singles-02"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "mixed-lamp-near-01",
+          "type": "sprite",
+          "gid": 9,
+          "x": 682.3942156983017,
+          "y": 923.6364546370712,
+          "width": 28.61714285714286,
+          "height": 61.074285714285715,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-lamp-near-01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L-near"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "name": "mixed-lamp-far-01",
+          "type": "sprite",
+          "gid": 10,
+          "x": 830.9169775381743,
+          "y": 1006.0190099920194,
+          "width": 32.731428571428566,
+          "height": 89.69142857142857,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-lamp-far-01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "L-far"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "mixed-tree-street-pit-singles-01",
+          "type": "sprite",
+          "gid": 6,
+          "x": 863.2632238294055,
+          "y": 1053.3057624690266,
+          "width": 75.70285714285714,
+          "height": 104.50285714285714,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "mixed-tree-street-pit-singles-01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T01"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "properties": [
+    {
+      "name": "status",
+      "type": "string",
+      "value": "editable-candidate-not-accepted"
+    },
+    {
+      "name": "projectionId",
+      "type": "string",
+      "value": "orthographic-e62.5-a45-v1"
+    }
+  ]
+}

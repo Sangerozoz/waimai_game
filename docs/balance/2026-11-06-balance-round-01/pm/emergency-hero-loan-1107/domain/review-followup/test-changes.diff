@@ -1,0 +1,111 @@
+--- before/delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs
++++ delivery-game/tests/product-regression-1106/emergency-hero-loan.test.cjs
+@@ -118,6 +118,37 @@
+  atomicReject(earned,()=>earned.command({type:'borrowEmergencyVehicle',expectedSequence:0}));
+ });
+ 
++// Synthetic compatibility inputs isolate ONLY the cash predicate. The ledger opening
++// offset reconciles the changed test input; it is not earned income, a gameplay grant,
++// or another naturally reached terminal. Original fixture files remain untouched.
++function cashBoundaryCompatibilityInput(cashCents){
++ const raw=clone(pm.fixtures.signedZeroQuota),e=raw.dispatch.economy.state;
++ e.ledger.opening.balanceCents+=cashCents-e.cashCents;e.cashCents=cashCents;
++ raw.dispatch.fleet.economy=clone(raw.dispatch.economy);return raw;
++}
++for(const [cashCents,phase] of [[29999,'available'],[30000,'unavailable'],[30001,'unavailable']])test(`isolated cash-only compatibility input: ${cashCents} cents at the 30000-cent car boundary`,()=>{
++ const input=cashBoundaryCompatibilityInput(cashCents),normalised=clone(input),original=clone(pm.fixtures.signedZeroQuota);
++ for(const economy of [normalised.dispatch.economy,normalised.dispatch.fleet.economy]){
++  economy.state.cashCents=original.dispatch.economy.state.cashCents;
++  economy.state.ledger.opening.balanceCents=original.dispatch.economy.state.ledger.opening.balanceCents;
++ }
++ assert.deepEqual(normalised,original,'all non-cash eligibility, contracts, assets, quota and history are identical');
++ const g=restore(input),e=V2EconomySession.restore(JSON.stringify(g.snapshot().economy));
++ assert.equal(e.minimumVehiclePurchaseCents,30000);assert.deepEqual(e.reclaimableHeroVehicleIds,[]);
++ assert.equal(g.snapshot().batchIds.length,0);assert.equal(g.route.progress.phase,'finished');assert.equal(g.tripState.action,null);
++ assert.equal(g.dispatch.fleetState.quotaMs,0);assert.equal(g.dispatch.economyState.riders[0].vehicleId,null);
++ assert.equal(g.dispatch.emergencyLoanStatus.phase,phase);
++ if(cashCents<30000){
++  const before=g.dispatch.economyState;g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
++  assert.equal(g.dispatch.emergencyLoanStatus.phase,'borrowed');assert.equal(g.dispatch.economyState.cashCents,cashCents);
++  assert.deepEqual(g.dispatch.economyState.ledger,before.ledger);assert.deepEqual(g.dispatch.economyState.vehicles,before.vehicles);roundTrip(g);
++ }else{
++  assert.match(g.dispatch.emergencyLoanStatus.reason,/余额足够购车/);
++  atomicReject(g,()=>g.command({type:'borrowEmergencyVehicle',expectedSequence:0}),/余额足够购车/);
++  const bought=g.command({type:'buyVehicle',modelId:1});assert.ok(bought);assert.equal(g.dispatch.economyState.cashCents,cashCents-30000);
++ }
++});
++
+ test('real Game deliveries preserve the same-path ten-order car and fifteen-order NPC budgets',()=>{
+  let g=new V2GameSession(city,0);for(let i=0;i<10;i++)g=finishOne(g);
+  assert.equal(g.dispatch.economyState.cashCents,30000);
+--- before/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs
++++ delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs
+@@ -179,3 +179,68 @@
+   assert.equal(f.data.get(SLOT),bytes);assert.equal(f.writes.filter(([key])=>key===SLOT).length,0);store.close();
+  }
+ });
++
++test('existing recorded auto rights drive a real emergency trip across runtime open, release, return and owned-car continuation',async t=>{
++ // Isolated recorded reward-event input, through the real domain API. This is not
++ // evidence of a live SDK success. The runtime ads port still throws if called.
++ const seed=V2GameSession.restore(city,original,{preserveClock:true}),at=seed.snapshot().frame.nowSeconds;
++ const ticket=seed.dispatch.requestAd('auto',null,at,30);
++ assert.equal(seed.dispatch.resolveAd(ticket,'completed',at),true);seed.dispatch.stopAutomation();
++ assert.equal(seed.snapshot().rewards.autoRemainingSeconds,600);
++ const f=storageFixture(seed.serialize()),events=[];let r=await f.open();
++ const mark=name=>{const s=r.snapshot;events.push({name,now:f.now,phase:r.routeSnapshot.phase,control:s.control,loan:r.emergencyLoanStatus.phase,batchIds:s.batchIds,orders:s.orders.length,heroCompleted:s.economy.state.heroCompletedOrders,npcCompleted:s.economy.state.npcCompletedOrders,quotaMs:s.fleet.fleet.quotaMs,autoRemainingSeconds:s.rewards.autoRemainingSeconds});};
++ const step=seconds=>{f.advance(seconds);r.update(0);assert.equal(r.lastError,'');assert.equal(r.ready,true);};
++ const until=(predicate,label,max=1600)=>{for(let i=0;i<max&&!predicate();i++)step(.25);assert.ok(predicate(),label);};
++ try{
++  r.command({type:'borrowEmergencyVehicle',expectedSequence:0});r.resumeAutomation();
++  until(()=>r.snapshot.batchIds.length>0&&r.routeSnapshot.phase==='travelling','auto must actually accept and move an emergency batch');
++  const before=r.snapshot,route=r.routeSnapshot,trip=r.tripState,heroBefore=before.economy.state.heroCompletedOrders;
++  assert.equal(before.control,'auto');assert.ok(before.rewards.autoRemainingSeconds<600);
++  for(const id of before.batchIds){const q=before.orders.find(o=>o.id===id).quote;assert.equal(q.vehicleRef.kind,'emergency');assert.equal('vehicleId' in q,false);}
++  assert.equal(before.fleet.fleet.quotaMs,0);mark('auto-signed-and-moving-before-open');
++  r.onDestroy();r=null;f.advance(30);r=await f.open();
++  assert.deepEqual(r.routeSnapshot,route);assert.deepEqual(r.tripState,trip);assert.deepEqual(r.snapshot.orders,before.orders);
++  assert.deepEqual(r.snapshot.batchIds,before.batchIds);assert.equal(r.snapshot.economy.state.heroCompletedOrders,heroBefore);
++  assert.equal(r.snapshot.control,'auto');assert.equal(r.snapshot.rewards.autoRemainingSeconds,before.rewards.autoRemainingSeconds);
++  assert.equal(r.snapshot.economy.state.cashCents,0);assert.equal(r.snapshot.fleet.fleet.quotaMs,0);mark('actual-open-preserved-in-flight-auto');
++  r.stopAutomation();r.resumeAutomation();
++  until(()=>r.snapshot.economy.state.heroCompletedOrders===heroBefore+1,'resumed auto must finish the first real delivery');
++  assert.equal(r.emergencyLoanStatus.phase,'borrowed');mark('first-auto-delivery-refilled-only-sixty-seconds');
++  r.setPaused(true);const pausedRoute=r.routeSnapshot,pausedTrip=r.tripState;step(60);
++  assert.deepEqual(r.routeSnapshot,pausedRoute);assert.deepEqual(r.tripState,pausedTrip);
++  assert.equal(r.snapshot.economy.state.heroCompletedOrders,heroBefore+1);assert.equal(r.snapshot.fleet.fleet.quotaMs,0);
++  assert.equal(r.snapshot.fleet.fleet.batches[0].elapsedMs,120000);assert.equal(r.snapshot.fleet.fleet.batches[0].paidCount,1);
++  assert.equal(r.emergencyLoanStatus.phase,'borrowed');mark('old-batch-partially-paid-still-reserved');
++  r.setPaused(false);
++  until(()=>r.snapshot.economy.state.heroCompletedOrders>=heroBefore+2&&r.snapshot.batchIds.length>0,'auto must refill again and sign an in-flight emergency batch');
++  const activeIds=[...r.snapshot.batchIds],signed=r.snapshot.orders.filter(o=>activeIds.includes(o.id)).map(o=>o.quote);
++  r.setPaused(true);const oldBatch=r.snapshot.fleet.fleet.batches[0],remaining=oldBatch.orders.at(-1).dueMs-oldBatch.elapsedMs;
++  assert.ok(remaining>250&&r.snapshot.fleet.fleet.quotaMs>=remaining);
++  step((remaining-250)/1000);assert.equal(r.emergencyLoanStatus.phase,'borrowed');
++  r.setPaused(false);until(()=>r.emergencyLoanStatus.phase==='returnable','existing NPC work must release the real car during the signed auto batch',8);
++  assert.deepEqual(r.snapshot.batchIds,activeIds);assert.ok(r.snapshot.orders.some(o=>activeIds.includes(o.id)&&o.status==='pending'));
++  assert.deepEqual(r.snapshot.orders.filter(o=>activeIds.includes(o.id)).map(o=>o.quote),signed);mark('real-car-released-during-current-auto-batch');
++  const acceptedAtRelease=r.snapshot.orders.length;
++  until(()=>r.snapshot.batchIds.length===0,'the whole existing emergency batch must finish automatically');
++  assert.equal(r.snapshot.orders.length,acceptedAtRelease);
++  assert.ok(activeIds.every(id=>r.snapshot.orders.find(o=>o.id===id).status==='completed'));
++  assert.deepEqual(r.snapshot.orders.filter(o=>activeIds.includes(o.id)).map(o=>o.quote),signed);
++  assert.equal(r.snapshot.control,'auto');assert.equal(r.emergencyLoanStatus.canStartBatch,false);assert.equal(r.normalCandidates().length,0);
++  const completed=r.snapshot.economy.state.heroCompletedOrders,rights=r.snapshot.rewards.autoRemainingSeconds;
++  assert.ok(rights>0);step(30);
++  assert.equal(r.snapshot.orders.length,acceptedAtRelease);assert.equal(r.snapshot.batchIds.length,0);
++  assert.equal(r.snapshot.economy.state.heroCompletedOrders,completed);assert.equal(r.snapshot.rewards.autoRemainingSeconds,rights);mark('auto-remained-blocked-before-explicit-return');
++  const beforeReturn=r.snapshot.economy.state;
++  r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'});
++  assert.equal(r.emergencyLoanStatus.phase,'returned');assert.equal(r.snapshot.economy.state.riders[0].vehicleId,'starter-1');
++  assert.equal(r.snapshot.economy.state.riders.find(v=>v.id==='npc-1').vehicleId,null);
++  assert.deepEqual(r.snapshot.economy.state.ledger,beforeReturn.ledger);assert.equal(r.snapshot.economy.state.cashCents,beforeReturn.cashCents);mark('explicit-runtime-return');
++  until(()=>r.snapshot.batchIds.length>0,'auto must sign a real owned-car batch after explicit return');
++  const realId=r.snapshot.batchIds[0],quote=r.snapshot.orders.find(o=>o.id===realId).quote;
++  assert.equal(quote.vehicleId,'starter-1');assert.equal('vehicleRef' in quote,false);mark('owned-car-auto-batch-started');
++  until(()=>r.snapshot.orders.find(o=>o.id===realId).status==='completed','the real owned-car auto delivery must actually complete');
++  mark('owned-car-auto-delivery-completed');r.stopAutomation();
++ }finally{
++  r?.onDestroy();t.diagnostic(JSON.stringify({fixture:'original signedZeroQuota plus isolated canonical completed reward event, no live SDK call',rewardTicket:ticket,events}));
++ }
++});

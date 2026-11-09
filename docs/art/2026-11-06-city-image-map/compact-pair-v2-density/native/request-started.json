@@ -1,0 +1,36 @@
+{
+  "operation": "images.edit",
+  "model": "gpt-image-2",
+  "region": "A-v2-density",
+  "size": "1536x1024",
+  "quality": "high",
+  "n": 1,
+  "maxRetries": 0,
+  "inputs": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v1/native/A/native.png",
+      "sha256": "9ee0467ccf07936b677c946100619e59c6d68cda324d6e99aadf1cb95d7420a2",
+      "role": "accepted-A-mother-for-density-edit-only"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v2-density/inputs/edit-guide.png",
+      "sha256": "a368a1b5a2abffa3774a2d426b2a9d98db0799ac0c54cfb4d11b46b1514f53de",
+      "role": "allowed-area-annotation-not-art-or-new-palette"
+    }
+  ],
+  "mask": {
+    "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v2-density/inputs/edit-mask.png",
+    "sha256": "2df73111d6578e387030592dc77316d10d6f0df2c01f42085fd3703879a1ba9f",
+    "semantics": "alpha0 editable, alpha255 protected; applies to first input A"
+  },
+  "promptPath": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-06-city-image-map/compact-pair-v2-density/prompt.txt",
+  "promptSHA256": "d58136343aec270b514169b6124a3913e9b774d1cdbb6ee7cbea37778ab4d6ad",
+  "codeSHA256": "4d0063e35be5786feea0598929041b8516dea069c12fcd7be7e5e785b68e91b9",
+  "sdkMaskCapability": "Images.edit mask: FileTypes; extract_files paths includes mask, previously inspected.",
+  "endpointHardPreservationBeforeRequest": "unverified; measured on this single real result, no extra probe",
+  "executionCommands": "execution-commands.json",
+  "agentProvider": "acp-hermes-agent",
+  "agentModel": "openai-api:gpt-6.1-sol",
+  "reasoningEffortRequested": "high",
+  "startedUnix": 1793954741.512129
+}

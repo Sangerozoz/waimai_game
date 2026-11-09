@@ -1,0 +1,48 @@
+--- review-01/delivery-game/assets/scripts/domain/V2DispatchSession.ts
++++ review-02/delivery-game/assets/scripts/domain/V2DispatchSession.ts
+@@ -197,7 +197,9 @@
+   return {autoRunSeconds:0,control:'manual'};
+  }
+  tick(sequence:number,nowSeconds:number,foreground:boolean,paused:boolean,options:{deferAuto?:boolean;deferFleet?:boolean}={}):V2DispatchTick {
+-  if(options.deferAuto===true&&options.deferFleet===true&&this.control==='manual'&&!this.rewards.hasPendingAd&&this.fleet.clockProgress.heroEventCursor===this.economy.heroCompletionEventCount){
++  // Preserve the original transaction's getter evaluation and inherited-option semantics.
++  const deferAuto=options&&Object.getOwnPropertyDescriptor(options,'deferAuto'),deferFleet=options&&Object.getOwnPropertyDescriptor(options,'deferFleet');
++  if(deferAuto&&deferAuto.value===true&&deferFleet&&deferFleet.value===true&&this.control==='manual'&&!this.rewards.hasPendingAd&&this.fleet.clockProgress.heroEventCursor===this.economy.heroCompletionEventCount){
+    const arrival=this.port&&Object.getOwnPropertyDescriptor(this.port,'verifyArrival');
+    if(arrival&&typeof arrival.value==='function')return this.tickManualClock(sequence,nowSeconds,foreground,paused);
+   }
+--- review-01/delivery-game/tests/product-regression-1106/manual-clock.test.cjs
++++ review-02/delivery-game/tests/product-regression-1106/manual-clock.test.cjs
+@@ -94,3 +94,32 @@
+  assert.ok(observed.count>0,'an external accessor must not be invoked inside an in-place clock update');
+  assert.deepEqual(observed.result,{autoRunSeconds:0,control:'manual'});
+ });
++
++test('manual options do not introduce a deferAuto getter read',()=>{
++ const d=make('slots-v1');let autoReads=0,fleetReads=0;
++ const options={get deferAuto(){autoReads++;return true;},get deferFleet(){fleetReads++;return true;}};
++ const observed=encodedCalls(d,()=>d.tick(1,1,true,false,options));
++ assert.deepEqual([autoReads,fleetReads],[0,1]);assert.ok(observed.count>0);
++});
++
++test('a throwing deferAuto getter remains uncalled by the original manual semantics',()=>{
++ const d=make('slots-v1'),options={get deferAuto(){throw Error('deferAuto must not run in manual');},deferFleet:true};
++ assert.doesNotThrow(()=>d.tick(1,1,true,false,options));assert.equal(d.tickContext.sequence,1);
++});
++
++test('a reentrant deferAuto getter cannot introduce an economic command into a manual clock',()=>{
++ const d=make('slots-v1'),before=d.snapshot().economy;
++ const options={get deferAuto(){d.command({type:'upgradeVehicle',vehicleId:'starter-1'});return true;},deferFleet:true};
++ d.tick(1,1,true,false,options);assert.deepEqual(d.snapshot().economy,before);
++});
++
++test('a throwing deferFleet getter retains original transaction entry and atomic rejection',()=>{
++ const d=make('slots-v1'),before=d.serialize(),options={deferAuto:true,get deferFleet(){throw Error('isolated option getter failure');}};let thrown;
++ const observed=encodedCalls(d,()=>{try{d.tick(1,1,true,false,options);}catch(error){thrown=error;}});
++ assert.match(thrown?.message||'',/isolated option getter failure/);assert.ok(observed.count>0);assert.equal(d.serialize(),before);
++});
++
++test('inherited defer flags retain the original generic path',()=>{
++ const d=make('slots-v1'),options=Object.create({deferAuto:true,deferFleet:true});
++ const observed=encodedCalls(d,()=>d.tick(1,1,true,false,options));assert.ok(observed.count>0);assert.equal(d.tickContext.sequence,1);
++});

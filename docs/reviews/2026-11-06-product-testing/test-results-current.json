@@ -1,0 +1,332 @@
+{
+  "state": "scoped-emergency-loan-delivery-verified-full-acceptance-open",
+  "capturedAt": "2026-11-07T04:28:12.799671+00:00",
+  "userAuthorization": "继续并测试一下",
+  "runs": [
+    {
+      "command": "TMPDIR=/Users/sanger/.hermes/cache/scratch node tests/run-v2.cjs",
+      "exitCode": 1,
+      "kind": "product-v2-blocked-before-tests",
+      "log": "v2-suite-initial.log",
+      "tap": {},
+      "tsDiagnosticLines": 2,
+      "logSHA256": "33174d96b665fb624d4f9a3cae29d80b5de9b626574c0e16531cf3c48e93ccb7"
+    },
+    {
+      "command": "node scripts/typecheck.cjs",
+      "exitCode": 2,
+      "kind": "initial-project-typecheck",
+      "log": "typecheck-initial.log",
+      "tap": {},
+      "tsDiagnosticLines": 122,
+      "logSHA256": "f2561a38741c802bd56407f676df372dd6c1a44834fe1e1397901f95a9054596"
+    },
+    {
+      "command": "node scripts/typecheck.cjs",
+      "exitCode": 2,
+      "kind": "after-config-root-cause-fix",
+      "log": "typecheck-after-config.log",
+      "tap": {},
+      "tsDiagnosticLines": 1,
+      "logSHA256": "3e2224a4d9eeaa32d9da74a8a381d2b1d62657defd205cda4461f63872546f46"
+    },
+    {
+      "command": "node --test tests/ui-art-resources-1106.test.cjs",
+      "exitCode": 0,
+      "kind": "isolated-resource-adapter",
+      "log": "ui-art-unit.log",
+      "tap": {
+        "tests": 13,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "tsDiagnosticLines": 0,
+      "logSHA256": "82edc17da99c6f61699c8de3d7106d4f0ee4e5b99a30f4153d06a0dad6437964"
+    },
+    {
+      "command": "node --test tests/ui-runtime-storage-adapter-1106.test.cjs",
+      "exitCode": 0,
+      "kind": "in-memory-storage-adapter",
+      "log": "storage-adapter-unit.log",
+      "tap": {
+        "tests": 15,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "tsDiagnosticLines": 0,
+      "logSHA256": "c04fae2566edb36cffd066484db11b3ba8a0487046093aeca6a4578cfe515c1f"
+    }
+  ],
+  "adapterTotal": 28,
+  "adapterPassed": 28,
+  "adapterFailed": 0,
+  "productV2Suite": "145/145 complete default isolated suite passed; includes original113, new domain20 and Runtime12; strict compilation; no whole-product acceptance.",
+  "browser": "New isolated headless4208 flow complete and closed: packed-transport-terminal only; borrow/cancel, real delivery/ready/reload, two emergency deliveries, old contracts settled once, explicit return/reload, owned-car continuation; original source terminal direct Creator restore remains blocked and unchanged.",
+  "workers": [
+    {
+      "thread": "thr_gf8gehviua",
+      "provider": "codex",
+      "status": "idle-write-scope-returned"
+    },
+    {
+      "thread": "thr_29f6fcihz6",
+      "provider": "codex",
+      "status": "idle-write-scope-returned"
+    }
+  ],
+  "realUserSaveAccess": false,
+  "publishedPreviewChanged": true,
+  "uiTestsAreMocksNotRenderedProof": true,
+  "modifiedByPM": "2026-11-07T04:28:12.799671+00:00",
+  "latest": {
+    "pureV2": {
+      "tests": 145,
+      "pass": 145,
+      "fail": 0,
+      "skipped": 0,
+      "exit": 0,
+      "receipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/default-regression-followup-receipt.json",
+      "defaultInvocation": true
+    },
+    "typecheck": {
+      "exit": 0,
+      "receipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/typecheck-receipt.json",
+      "sourceFrozenSinceCheck": true
+    },
+    "resourceAdapter": {
+      "tests": 13,
+      "pass": 13,
+      "fail": 0
+    },
+    "storageAdapter": {
+      "tests": 15,
+      "pass": 15,
+      "fail": 0
+    },
+    "compiledPlannedLoadFix": {
+      "red": {
+        "tests": 4,
+        "pass": 1,
+        "fail": 3
+      },
+      "green": {
+        "tests": 4,
+        "pass": 4,
+        "fail": 0
+      },
+      "receipt": "planned-iterator-fix-receipt.json"
+    },
+    "realUI": {
+      "scope": "one protected ordinary 2-slot contract, original B20-B41 on 2026-11-06",
+      "supplementReceipt": "b/codex-handoff/final-supplement-receipt.json",
+      "manualPickupAndContinueObserved": true,
+      "autoDeliveryObserved": true,
+      "nonzeroReloadCashCoins": 120,
+      "finalObservedAfterWaterCashCoins": 119,
+      "reloadAfterWaterObserved": false,
+      "oldSessionClosed": true,
+      "fullU01PerformancePassed": false
+    },
+    "public4182or4196UpdatedThisBatch": true,
+    "wholeProductAccepted": false,
+    "visual98Accepted": false,
+    "previewIdentityReceipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/preview-deployment-receipt.json",
+    "balanceModel": {
+      "report": "docs/balance/2026-11-06-balance-round-01/a/report.md",
+      "savedRunsReconciledThisContinuation": 41,
+      "inputHashesVerified": 36,
+      "independentReviewPending": false,
+      "onlyCarSoftlockFixed": true,
+      "candidateCApproved": false,
+      "longTerm80PercentValidated": false,
+      "independentReviewReceipt": "docs/balance/2026-11-06-balance-round-01/pm/independent-review-admission-1107.json",
+      "onlyCarPreventionStatus": "integrated, full default 113/113 and typecheck0; built and HTTP identity verified on 4182/4196",
+      "existingLockedSaveRescueImplemented": true,
+      "longTerm": {
+        "status": "bounded-partial-result-admitted",
+        "report": "docs/balance/2026-11-06-balance-round-01/a/long-term-1107/report.md",
+        "pmOfflineAdmission": "docs/balance/2026-11-06-balance-round-01/pm/long-term-admission-1107.json",
+        "simulatedMinutes": 150.07622281205207,
+        "equippedNPCs": 12,
+        "ownedMapCount": 3,
+        "paidModelCount": 5,
+        "assetTimeRatio": null,
+        "trainingExcluded": true,
+        "sameCityReused": true
+      },
+      "onlyCarPreventionVerified": true,
+      "restrictedLoanStatus": "Implemented and verified for compatible map identity; original source-fixture direct packed restore remains open."
+    },
+    "pmOnlyCarReproduction": {
+      "exit": 0,
+      "receipt": "docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json",
+      "scope": "Fresh in-memory current-city public-command reproduction; no browser, user save, reward, or wallet injection."
+    },
+    "historyBeforeHeroReserve1107": {
+      "pureV2": {
+        "tests": 95,
+        "pass": 95,
+        "fail": 0,
+        "skipped": 0,
+        "exit": 0,
+        "verifiedFinalLog": "a/v2-suite-final-complete.log",
+        "inputDriftAtPMReadback": []
+      },
+      "typecheck": {
+        "exit": 0,
+        "log": "typecheck-post-ui-fix.log"
+      },
+      "previewIdentityReceipt": "pm-preview-admission-1107.json"
+    },
+    "heroCarPrevention": {
+      "status": "verified-and-deployed",
+      "receipt": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/integration-receipt.json",
+      "existingLockedSaveRescueImplemented": true,
+      "newBrowserExecution": false,
+      "rescueImplementationReceipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/integration-receipt.json"
+    },
+    "historyBeforeEmergencyLoan1107": {
+      "pureV2": {
+        "tests": 113,
+        "pass": 113,
+        "fail": 0,
+        "skipped": 0,
+        "exit": 0,
+        "receipt": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/default-regression-receipt.json",
+        "defaultInvocation": true
+      },
+      "typecheck": {
+        "exit": 0,
+        "receipt": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/typecheck-receipt.json"
+      },
+      "previewIdentityReceipt": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/preview-deployment-receipt.json",
+      "heroCarPrevention": {
+        "status": "verified-and-deployed",
+        "receipt": "docs/balance/2026-11-06-balance-round-01/pm/softlock-prevention-1107/integration-receipt.json",
+        "existingLockedSaveRescueImplemented": false,
+        "newBrowserExecution": false
+      }
+    },
+    "emergencyLoanUI": {
+      "tests": 11,
+      "pass": 11,
+      "fail": 0,
+      "exit": 0,
+      "receipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/ui-regression-receipt.json",
+      "kind": "real UI render/navigation/update with Cocos drawing ports replaced; distinct from actual Creator rendered proof"
+    },
+    "emergencyHeroLoan": {
+      "status": "implemented-reviewed-tested-deployed",
+      "report": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/report.md",
+      "sourceReview": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/backend-review-result.json",
+      "uiReview": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/ui/independent-review-followup-b.json",
+      "actualCocosBrowserReceipt": "docs/balance/2026-11-06-balance-round-01/pm/emergency-hero-loan-1107/browser/receipt.json",
+      "realUserSaveAccess": false,
+      "browserInput": "packed-transport-terminal; only route.mapKey adaptation",
+      "emergencyDeliveries": 2,
+      "oldNPCContractsPaidOnce": 2,
+      "ownedCarContinuationDeliveries": 1,
+      "finalCashCoins": 100,
+      "finalHeroCompletedIncludingOriginal": 4,
+      "finalNPCCompleted": 2,
+      "permanentVehicleCount": 1,
+      "returnedReloadObserved": true,
+      "originalSourceFixtureDirectPackedRestore": "BLOCKED; original bytes/failure retained",
+      "unchangedPackedResourceFiles": 524,
+      "liveAdSDKTested": false,
+      "wholeProductAccepted": false
+    }
+  },
+  "historicalCurrentBeforeCodexAdmission1107": {
+    "state": "in-progress-not-final-acceptance",
+    "capturedAt": "2026-11-06T22:26:09.756879+08:00",
+    "browser": "Developer B owns fresh isolated headless 4198 with frozen v2-tick-follow-1106; no result asserted yet.",
+    "workers": [
+      {
+        "thread": "thr_j9izunn7qx",
+        "status": "active",
+        "provider": "acp-hermes-agent",
+        "testTaskInLatestTurn": true,
+        "pendingInteraction": null
+      },
+      {
+        "thread": "thr_tviezvnwds",
+        "status": "active",
+        "provider": "acp-hermes-agent",
+        "testTaskInLatestTurn": true,
+        "pendingInteraction": null
+      }
+    ],
+    "publishedPreviewChanged": false,
+    "latest": {
+      "pureV2": {
+        "tests": 95,
+        "pass": 95,
+        "fail": 0,
+        "skipped": 0,
+        "exit": 0,
+        "verifiedFinalLog": "a/v2-suite-final-complete.log",
+        "inputDriftAtPMReadback": []
+      },
+      "typecheck": {
+        "exit": 0,
+        "log": "typecheck-post-ui-fix.log"
+      },
+      "resourceAdapter": {
+        "tests": 13,
+        "pass": 13,
+        "fail": 0
+      },
+      "storageAdapter": {
+        "tests": 15,
+        "pass": 15,
+        "fail": 0
+      },
+      "compiledPlannedLoadFix": {
+        "red": {
+          "tests": 4,
+          "pass": 1,
+          "fail": 3
+        },
+        "green": {
+          "tests": 4,
+          "pass": 4,
+          "fail": 0
+        },
+        "receipt": "planned-iterator-fix-receipt.json"
+      },
+      "realUI": {
+        "scope": "one protected ordinary 2-slot contract, original B20-B41 on 2026-11-06",
+        "supplementReceipt": "b/codex-handoff/final-supplement-receipt.json",
+        "manualPickupAndContinueObserved": true,
+        "autoDeliveryObserved": true,
+        "nonzeroReloadCashCoins": 120,
+        "finalObservedAfterWaterCashCoins": 119,
+        "reloadAfterWaterObserved": false,
+        "oldSessionClosed": true,
+        "fullU01PerformancePassed": false
+      },
+      "public4182or4196UpdatedThisBatch": true,
+      "wholeProductAccepted": false,
+      "visual98Accepted": false,
+      "previewIdentityReceipt": "pm-preview-admission-1107.json",
+      "balanceModel": {
+        "report": "docs/balance/2026-11-06-balance-round-01/a/report.md",
+        "savedRunsReconciledThisContinuation": 41,
+        "inputHashesVerified": 36,
+        "independentReviewPending": true,
+        "onlyCarSoftlockFixed": false,
+        "candidateCApproved": false,
+        "longTerm80PercentValidated": false
+      }
+    }
+  },
+  "owner": "thr_4xmqy6fzdm",
+  "updatedAt": "2026-11-07T04:28:12.799671+00:00"
+}

@@ -1,0 +1,173 @@
+--- a/delivery-game/assets/scripts/map-sample/V2GameUI.ts
++++ b/delivery-game/assets/scripts/map-sample/V2GameUI.ts
+@@ -12,6 +12,8 @@
+ import { queryProgressTargets } from '../domain/V2ProgressTargets';
+ const { ccclass } = _decorator;
+ type Page='首页'|'骑手'|'车辆'|'订单大厅'|'地图'|'账单';
++type FundsState=Readonly<V2EconomySnapshot['state']>;
++type UpgradePresentation=Readonly<{detail:string;costCents:number}>;
+ const INK=UI.ink;
+ import { V2_SPACE as S, V2_CONTENT as CW, V2_LAYOUT as L, columnWidth } from './V2Spacing';
+ import { master as M, portraitDisplayName } from './V2ImageSkin';
+@@ -75,6 +77,8 @@
+  private riderStatuses=new Map<string,Label>();
+  private vehicleReturnRider:string|null=null;
+  private supplyOpen=false;
++ private fundsViews=new Map<Node,(state:FundsState)=>void>();
++ private upgradeModal:Node|null=null;
+  configure(runtime:V2RuntimeController,data:CityData,canvas:Node):void {
+   this.runtime=runtime;this.root=item(canvas,'V2GameUI',0,0,720,1280);
+   this.map=new CityMap(this.root,data,1280,()=>sys.openURL('https://www.openstreetmap.org/copyright'),0,128,{left:0,right:0},1280);
+@@ -95,6 +99,7 @@
+   this.page=page;this.supplyOpen=false;this.configureRider=null;this.render();
+  }
+  private render():void {
++  this.closeUpgrade();this.fundsViews.clear();
+   this.runtime.setPaused(this.supplyOpen||this.page!=='首页');
+   for(const [key,scroll] of this.scrollViews)if(isValid(scroll,true))this.scrollOffsets.set(key,scroll.getScrollOffset().y);
+   this.scrollViews.clear();this.npcActivity.clear();
+@@ -156,12 +161,28 @@
+   if(this.heroHUD){const xp=experienceProgress(s.heroExperience);this.heroHUD.string=CONFIG.maps[s.selectedMapId-1].name+' ›';if(this.heroLevel)this.heroLevel.string=`Lv.${xp.level}`;if(this.xpBar){this.xpBar.setScale(Math.max(.01,xp.progress),1,1);this.xpBar.setPosition(24+46*xp.progress,-20);}}
+  }
+ 
++ /** Refresh only money-dependent labels/actions at the existing HUD cadence. */
++ private bindFunds(view:Node,refresh:(state:FundsState)=>void):void {
++  this.fundsViews.set(view,refresh);refresh(this.state);
++ }
++ private refreshFunds(state:FundsState):void {
++  for(const [view,refresh] of this.fundsViews){
++   if(!isValid(view,true)){this.fundsViews.delete(view);continue;}
++   if(view.activeInHierarchy)refresh(state);
++  }
++ }
++ private closeUpgrade():void {
++  const modal=this.upgradeModal;this.upgradeModal=null;
++  if(modal){this.fundsViews.delete(modal);if(isValid(modal,true)){modal.active=false;modal.destroy();}}
++ }
++
+  private home():void {
+   const snap=this.runtime.snapshot!,allTargets=queryProgressTargets(this.state);
+   const targets=['first-car','first-npc','first-paid-map'].map(id=>allTargets.find(t=>t.id===id)).filter((t):t is NonNullable<typeof t>=>!!t&&!t.completed);
+   if(targets.length){
+    const target=targets[0],c=panel(this.body,'ProgressTarget',-62,-400,558,83,'#EFFAFFA6');
+-   label(c,target.label,-103,19,21,INK,310,true,'left');label(c,`${target.progress}/${target.target} · 还差 ${(target.shortfallCents/100).toFixed(2)}金币`,-103,-16,16,UI.muted,310,false,'left');
++   label(c,target.label,-103,19,21,INK,310,true,'left');const progress=label(c,`${target.progress}/${target.target} · 还差 ${(target.shortfallCents/100).toFixed(2)}金币`,-103,-16,16,UI.muted,310,false,'left');
++   this.bindFunds(c,state=>{const current=queryProgressTargets(state).find(row=>row.id===target.id);if(current)progress.string=`${current.progress}/${current.target} · 还差 ${(current.shortfallCents/100).toFixed(2)}金币`;});
+    action(c,'›',220,0,72,58,()=>this.act(()=>this.navigate(({vehicles:'车辆',riders:'骑手',maps:'地图'} as const)[target.destination])),true,false);
+   }
+   this.homeNPCs();
+@@ -254,7 +275,19 @@
+    label(card,`${option.durationSeconds}秒 · ${!active?'无配送期限推进':beforeDeparture?'未出发，不耗配送期限':`期限推进 ${option.gameSeconds}秒`}`,0,-4,18,UI.muted,410,false,'left');
+    label(card,`库存 ${option.quantity}`,258,61,20,INK,130,true,'right');
+    label(card,`${option.unlocked?'已开放':'未开放'} · 最高已购地图达到${CONFIG.maps[option.unlockMapId-1].name}`,-10,-35,17,option.unlocked?UI.muted:'#BF3E12',CW-28,false,'center');
+-   action(card,`购买并使用 ${(option.costCents/100).toFixed(2)}金币`,-157,-68,330,44,()=>this.act(()=>supply(option.id)),available&&option.unlocked&&this.state.cashCents>=option.costCents);
++   const purchase=item(card,'SupplyPurchase',-157,-68,330,44);
++   const canPurchase=(state:FundsState)=>available&&option.unlocked&&state.cashCents>=option.costCents;
++   let purchaseEnabled:boolean|undefined,purchaseButton:Node|null=null;
++   const refreshPurchase=(state:FundsState)=>{
++    const enabled=canPurchase(state);if(enabled===purchaseEnabled)return;purchaseEnabled=enabled;
++    if(purchaseButton){purchaseButton.active=false;purchaseButton.destroy();}
++    const button=action(purchase,`购买并使用 ${(option.costCents/100).toFixed(2)}金币`,0,0,330,44,()=>{
++     if(purchaseButton!==button||!isValid(button,true)||!button.activeInHierarchy)return;
++     const current=this.state;if(!canPurchase(current)){refreshPurchase(current);return;}
++     this.act(()=>supply(option.id));
++    },enabled);purchaseButton=button;
++   };
++   this.bindFunds(purchase,refreshPurchase);
+    action(card,option.quantity>0?'使用库存':'暂无库存',181,-68,298,44,()=>this.act(()=>supply(option.id,'inventory')),available&&option.unlocked&&option.quantity>0,false);
+   });
+   const after=options.length*206+154;
+@@ -364,7 +397,10 @@
+    const buttonY=-cardH/2+3+buttonHeight/2;
+    if(r){
+     this.riderAction(card,'配置车辆',i===0?infoX:-(buttonW+S.gap)/2,buttonY,i===0?infoW:buttonW,buttonHeight,()=>this.act(()=>{this.configureRider=id;}),true,false);
+-    if(i>0)this.riderAction(card,upgradeText,(buttonW+S.gap)/2,buttonY,buttonW,buttonHeight,()=>{if(upgrade)this.showUpgrade('升级骑手',`等级 ${r.level} → ${upgrade.nextLevel}\n培养收入 +${percent(upgrade.current.trainingIncomeFactor-1)}% → +${percent(upgrade.next.trainingIncomeFactor-1)}%\n取送省时 ${percent(upgrade.current.fixedServiceReduction)}% → ${percent(upgrade.next.fixedServiceReduction)}%`,upgrade.costCents,()=>this.runtime.command({type:'upgradeRider',riderId:id}));},!!upgrade);
++    if(i>0)this.riderAction(card,upgradeText,(buttonW+S.gap)/2,buttonY,buttonW,buttonHeight,()=>{if(upgrade)this.showUpgrade('升级骑手',state=>{
++     const rider=state.riders.find(row=>row.id===id),quote=rider?riderUpgradeQuote(id,rider.level):null;
++     return rider&&quote?{detail:`等级 ${rider.level} → ${quote.nextLevel}\n培养收入 +${percent(quote.current.trainingIncomeFactor-1)}% → +${percent(quote.next.trainingIncomeFactor-1)}%\n取送省时 ${percent(quote.current.fixedServiceReduction)}% → ${percent(quote.next.fixedServiceReduction)}%`,costCents:quote.costCents}:null;
++    },()=>this.runtime.command({type:'upgradeRider',riderId:id}));},!!upgrade);
+    }else if(hire)this.riderAction(card,'招募',infoX,buttonY,infoW,buttonHeight,()=>this.act(()=>this.runtime.command({type:'hireRider',riderId:id})),s.hireCount<30);
+   });
+   this.refreshRiderStatuses();
+@@ -453,25 +489,56 @@
+    const buttonW=(textW-S.gap)/2,buttonY=-cardH/2+S.buttonEdge+22;
+    action(card,equipped?'已配备':owner?'已占用':oldBatch?'旧批次中':'配备车辆',textLeft+buttonW/2,buttonY,buttonW,44,()=>this.act(()=>this.runtime.command({type:'assignVehicle',riderId:id,vehicleId:vehicle.id})),!equipped&&!owner&&!oldBatch&&!heroBusy,false);
+    action(card,quote?'升级车辆':'已满级',textLeft+buttonW+S.gap+buttonW/2,buttonY,buttonW,44,()=>{
+-    if(quote)this.showUpgrade('升级车辆',`等级 ${vehicle.level} → ${quote.nextLevel}\n速度 ×${quote.current.speedRelativeToStarter.toFixed(2)} → ×${quote.next.speedRelativeToStarter.toFixed(2)}\n容量 ${quote.current.capacityKg.toFixed(1)} → ${quote.next.capacityKg.toFixed(1)} kg\n收入加成 +${Math.round((quote.current.incomeFactor-1)*100)}% → +${Math.round((quote.next.incomeFactor-1)*100)}%`,quote.costCents,()=>this.runtime.command({type:'upgradeVehicle',vehicleId:vehicle.id}));
++    if(quote)this.showUpgrade('升级车辆',state=>{
++     const current=state.vehicles.find(row=>row.id===vehicle.id);
++     if(!current||state.activeQuote&&state.riders[0].vehicleId===vehicle.id)return null;
++     const upgrade=vehicleUpgradeQuote(current);
++     return upgrade?{detail:`等级 ${current.level} → ${upgrade.nextLevel}\n速度 ×${upgrade.current.speedRelativeToStarter.toFixed(2)} → ×${upgrade.next.speedRelativeToStarter.toFixed(2)}\n容量 ${upgrade.current.capacityKg.toFixed(1)} → ${upgrade.next.capacityKg.toFixed(1)} kg\n收入加成 +${Math.round((upgrade.current.incomeFactor-1)*100)}% → +${Math.round((upgrade.next.incomeFactor-1)*100)}%`,costCents:upgrade.costCents}:null;
++    },()=>this.runtime.command({type:'upgradeVehicle',vehicleId:vehicle.id}));
+    },!!quote&&!heroVehicleBusy);
+   });
+  }
+ 
+- private showUpgrade(title:string,detail:string,costCents:number,commit:()=>unknown):void {
++ private showUpgrade(title:string,readQuote:(state:FundsState)=>UpgradePresentation|null,commit:()=>unknown):void {
++  this.closeUpgrade();
+   const modal=panel(this.root,'UpgradeShade',0,0,720,1280,'#17365BAA','#17365BAA');modal.addComponent(BlockInputEvents);
++  this.upgradeModal=modal;let submitting=false;
++  const close=()=>{if(this.upgradeModal===modal)this.closeUpgrade();};
+   const sheet=panel(modal,'Vehicle-UpgradeSheet',0,0,636,494,'#EFFAFF',UI.blue);
+   glyph(sheet,'wrench',-264,190,38);label(sheet,title,-12,190,31,INK,432,true,'left');
+-  action(sheet,'×',270,190,54,44,()=>modal.destroy(),true,false);
++  action(sheet,'×',270,190,54,44,close,true,false);
+   panel(sheet,'UpgradeDivider',0,146,580,1,UI.line,UI.line);
+-  label(sheet,detail,0,61,22,INK,568,false,'center');
++  const detail=label(sheet,'',0,61,22,INK,568,false,'center');
+   glyph(sheet,'coin',-245,-64,33);
+-  label(sheet,`本次费用 ${(costCents/100).toFixed(2)} 金币`,43,-64,25,INK,482,true,'left');
+-  const shortfall=Math.max(0,costCents-this.state.cashCents);
+-  label(sheet,`当前余额 ${(this.state.cashCents/100).toFixed(2)} 金币`,0,-108,20,UI.muted,568,false,'center');
+-  label(sheet,shortfall?`余额不足，还差 ${(shortfall/100).toFixed(2)} 金币`:'确认后扣除本次费用并提升等级',0,-142,19,shortfall?'#BF3E12':UI.muted,568,false,'center');
+-  action(sheet,'返回',-147,-199,268,54,()=>modal.destroy(),true,false);
+-  action(sheet,'确认升级',147,-199,268,54,()=>{modal.destroy();this.act(commit);},shortfall===0);
++  const cost=label(sheet,'',43,-64,25,INK,482,true,'left');
++  const balance=label(sheet,'',0,-108,20,UI.muted,568,false,'center');
++  const notice=label(sheet,'',0,-142,19,UI.muted,568,false,'center');
++  action(sheet,'返回',-147,-199,268,54,close,true,false);
++  const quoteKey=(quote:UpgradePresentation|null)=>quote?JSON.stringify([quote.costCents,quote.detail]):'unavailable';
++  let displayedKey:string|null=null,displayedCash:number|null=null,buttonKey='',confirm:Node|null=null;
++  const refresh=(state:FundsState)=>{
++   if(this.upgradeModal!==modal||!isValid(modal,true))return;
++   const quote=readQuote(state),key=quoteKey(quote);
++   if(key===displayedKey&&state.cashCents===displayedCash)return;
++   displayedKey=key;displayedCash=state.cashCents;
++   detail.string=quote?.detail??'当前升级不可用，请返回重新选择';
++   const lines=detail.string.split('\n').length;detail.node.getComponent(UITransform)!.setContentSize(568,lines>1?22*1.45*lines+6:22*1.6);
++   cost.string=quote?`本次费用 ${(quote.costCents/100).toFixed(2)} 金币`:'当前没有可用升级报价';
++   balance.string=`当前余额 ${(state.cashCents/100).toFixed(2)} 金币`;
++   const shortfall=quote?Math.max(0,quote.costCents-state.cashCents):0,enabled=!!quote&&shortfall===0;
++   notice.string=!quote?'请返回后重新选择升级':shortfall?`余额不足，还差 ${(shortfall/100).toFixed(2)} 金币`:'确认后扣除本次费用并提升等级';
++   notice.color=col(!quote||shortfall?'#BF3E12':UI.muted);
++   const nextButtonKey=JSON.stringify([key,enabled]);if(nextButtonKey===buttonKey)return;buttonKey=nextButtonKey;
++   if(confirm){confirm.active=false;confirm.destroy();}
++   const button=action(sheet,'确认升级',147,-199,268,54,()=>{
++    if(submitting||this.upgradeModal!==modal||confirm!==button||!isValid(button,true)||!button.activeInHierarchy)return;
++    const current=this.state,fresh=readQuote(current);
++    if(quoteKey(fresh)!==key){refresh(current);if(fresh)notice.string='升级报价已更新，请核对后再次确认';return;}
++    if(!fresh||current.cashCents<fresh.costCents){refresh(current);return;}
++    submitting=true;close();this.act(commit);
++   },enabled);confirm=button;
++  };
++  this.bindFunds(modal,refresh);
+  }
+ 
+  private vehicles():void {
+@@ -731,6 +798,7 @@
+   this.elapsed+=dt;if(this.elapsed<.5)return;this.elapsed=0;
+   const snap=this.runtime.snapshot;if(!snap)return;
+   this.refreshHUD();this.refreshRiderStatuses();this.refreshNPCActivity();
++  this.refreshFunds((snap.economy as V2EconomySnapshot).state);
+   if(this.runtime.lastError&&this.errorText)this.errorText.string=this.runtime.lastError;
+   const trip=this.runtime.tripState;
+   // Cursor/membership and supply boundaries may change without changing phase or batch IDs.
+@@ -746,5 +814,5 @@
+   if(this.tripActionText)this.tripActionText.string=this.tripControl().text;
+  }
+ 
+- onDestroy():void {this.map?.cancelLocate();this.root?.destroy();}
++ onDestroy():void {this.closeUpgrade();this.fundsViews.clear();this.map?.cancelLocate();this.root?.destroy();}
+ }

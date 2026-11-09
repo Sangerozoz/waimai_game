@@ -1,0 +1,148 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [
+    {
+      "id": "KNOWN-NPC-EVENT-TIMING",
+      "priority": "known-independent-gap",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:43-48,85",
+        "delivery-game/assets/scripts/domain/V2DispatchSession.ts:88-94,104-119",
+        "delivery-game/assets/scripts/domain/V2FleetSession.ts:60-66,82-94"
+      ],
+      "summary": "NPC按帧内真实主角交付时点补额度尚未解决；这是任务明确排除的既有独立缺口，不计作本次新增回归或A-QUALITY-01。",
+      "staticCounterexample": "Game先Dispatch.tick推进Fleet到帧尾，arrival再使用Dispatch默认帧尾nowSeconds结算主角。额度为0且主角实际在一个粗帧中途完成时，新额度要到帧尾才补；拆帧会在中途补额度后继续经营。仅静态推演，未执行粗帧/拆帧比较。",
+      "minimalFix": "由父PM按已留档cross-module-contract第6节另行串行安排真实eventAt/offset及帧尾Fleet推进，保留逐笔workAt归日，不通过改NPC账目日期或改数值掩盖。NPC日期线的质量PASS不覆盖Game帧内事件时点。"
+    },
+    {
+      "id": "KNOWN-ROUTE-SNAPSHOT-CLONING",
+      "priority": "known-independent-gap",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/V2GameSession.ts:17,62,69,76,81,83",
+        "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:19,53",
+        "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:129"
+      ],
+      "summary": "routeSnapshot及Game推进分支仍克隆完整Route，包括完整legs；既有性能缺口未解决，不能以expectedLegs缓存证明每帧克隆已消失。",
+      "staticCounterexample": "每次读取Game.routeSnapshot先调用Route.snapshot，而snapshot对完整state作JSON往返；Game.tick本身也重复调用snapshot。已有较长路线时仍会复制完整legs，缓存只减少权威期望legs重算，不消除此复制。未运行或测量帧率、耗时、内存，不作性能退化量化。",
+      "minimalFix": "由现有Runtime/性能owner另行提供不暴露可变内态的轻量只读进度接口；持久化、完整权威legs比较与缓存可信来源继续保留。本审查不修改UI/Runtime或擅自削弱恢复验证。"
+    }
+  ],
+  "summary": "A-QUALITY-01修后定向独立质量静态复审PASS：新增互斥断言拒绝补给action与已扣点服务并存，保留无action已扣服务、未扣点低体力服务加补给、Game4 ready补给及原版本门禁。当前security_concerns与logic_errors均为空。原FAIL、反例及旧SHA保留为历史；源码文本逆替换哈希证明Game仅新增注释和断言两行，Route/Trip及所记依赖未变。原24项规格报告仍绑定旧Game SHA，不冒充当前全量规格复验或运行通过。NPC帧内时点及完整快照克隆仍未解决。",
+  "sourceSHA": {
+    "algorithm": "SHA-256",
+    "workspace": "/Users/sanger/Documents/ChatGPT/taptap 2",
+    "environment": "env_e54zrbdgxt",
+    "reviewerThread": "thr_wy4wnu5fyr",
+    "parentThread": "thr_axf6i4e89t",
+    "primary": {
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "73d4daea391b506dd38f0fcd25fb04d9ae387e5aa07a148b42bf2699c7839a5e",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "0101ac3eac40b82432d14c2bbb47dde4cdf8913fdb31ddb65fac362697c9af37",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "6ede7a45eed46a1875e187d1f728e045f44db82de6f7d83a685131d9e6093c16"
+    },
+    "initialAndClosingPrimaryMatch": true,
+    "matchesSpecificationReviewPrimary": false,
+    "specificationReview": {
+      "path": "docs/reviews/2026-11-05-game-development/logic/core-loop/review-round2/spec.json",
+      "sha256": "9d1c3781f388c93746b472ad68280fdea63eefe45d852c0f3f8061881e70f827",
+      "use": "仅保留初审的规格前置来源。Route/Trip仍匹配；Game已因两行互斥修复改变，原24项规格证据不绑定当前Game。本报告只补A-QUALITY-01定向独立复审与精确增量隔离，不声称重做全量规格或NPC日期线7文件审核。"
+    },
+    "reviewHistory": [
+      {
+        "stage": "initial-independent-quality-review",
+        "passed": false,
+        "securityConcernIds": [],
+        "blockingFindingIds": ["A-QUALITY-01"],
+        "primary": {
+          "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "73d4daea391b506dd38f0fcd25fb04d9ae387e5aa07a148b42bf2699c7839a5e",
+          "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "2ff12cb7cb96d334d54c76ee68bd2db711e7ea21264585ef9b02c0480c78ecac",
+          "delivery-game/assets/scripts/domain/V2TripRules.ts": "6ede7a45eed46a1875e187d1f728e045f44db82de6f7d83a685131d9e6093c16"
+        },
+        "finding": {
+          "id": "A-QUALITY-01",
+          "priority": "P2",
+          "title": "组合恢复允许补给动作与已扣点取送服务同时在途",
+          "locationsAtInitialSHA": ["delivery-game/assets/scripts/map-sample/V2GameSession.ts:36-38,59-65,103-110", "delivery-game/assets/scripts/domain/V2TripRules.ts:121-124", "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:198,215-216"],
+          "classification": "既有恢复遗漏，不是本次分组/ready新增回归；原FAIL是当前质量门禁发现而非运行失败。",
+          "staticCounterexample": "其余校验合法的Game4取餐服务中，serviceCharged=true且serviceSeconds在0与2之间、全组picked；同时Trip携带在途rest（elapsed=0、duration=10、gameSeconds=600、restore=20、cost=0、source=rest），体力低于100。旧Game组合恢复只查成员、恢复量和开放状态，不查动作互斥；Route/Trip分别合法，整体却违反Game.supply已扣服务禁补给门禁。tick先推进补给后处理服务。完整初审反例、影响及历史旧分支证据保留于quality-review.md原FAIL历史段，均未执行。",
+          "minimalFixRequested": "在组合恢复原门闩推断后，拒绝t.action与已扣点service并存；保留原Legacy门禁及Game1/2边界，不清action/门闩、不补跑、不清档或新增slot。",
+          "status": "resolved-by-PM-targeted-static-re-review-only",
+          "reviewerEditedSource": false
+        }
+      },
+      {
+        "stage": "A-QUALITY-01-targeted-independent-re-review-after-PM-fix",
+        "passed": true,
+        "blockingFindingIds": [],
+        "gameSHA256": "0101ac3eac40b82432d14c2bbb47dde4cdf8913fdb31ddb65fac362697c9af37",
+        "scope": "仅互斥断言、有效门闩推断和相邻合法恢复路径；不是24项规格全量重审。"
+      }
+    ],
+    "targetedReReview": {
+      "findingId": "A-QUALITY-01",
+      "status": "static-pass",
+      "sourceEvidence": ["delivery-game/assets/scripts/map-sample/V2GameSession.ts:91-118（特别是105-112）", "delivery-game/assets/scripts/domain/V2TripRules.ts:108-124", "delivery-game/assets/scripts/map-sample/V2RouteSession.ts:172-183,189-223"],
+      "exactDeltaEvidence": "只在内存中从当前Game源码移除新增注释及互斥断言两行，SHA-256精确恢复初审2ff12cb7cb96d334d54c76ee68bd2db711e7ea21264585ef9b02c0480c78ecac。未写回源码、未制造快照、未导入或执行游戏代码。",
+      "linePolicy": "本次新增证据使用当前Game行号；初审历史中Game第106行起的原行号在修后后移2行。Game第105行及之前、Route和Trip行号不变。",
+      "cases": [
+        {"id": "R01", "case": "新旧版本：有rest/购买/库存action，service且有效charged=true", "staticResult": "新增Game:107不区分kind/source，凡能通过原Trip门禁的动作均拒绝；pickup和dropoff、服务起点或半程均覆盖。", "executed": false},
+        {"id": "R02", "case": "Game2/3 Route1缺serviceCharged", "staticResult": "Game:105仍按service且serviceSeconds>0推断；>0时有action拒绝、无action继续原校验。serviceSeconds=0时有效charged=false，有合法补给不被新断言拒绝，原picked及Route门禁仍决定合法性。", "executed": false},
+        {"id": "R03", "case": "新旧版本：无action的已扣点服务，包括体力为0", "staticResult": "t.action为null使新断言短路；不重置门闩或体力，继续原picked/legs/进度校验。后续Game:62仍排除自动补给、Route服务门闩仍允许完成剩余时长而不二扣。", "executed": false},
+        {"id": "R04", "case": "新旧版本：未扣点低体力service加合法补给", "staticResult": "有效charged=false使新断言短路；服务计时须按原门禁为0，pickup组未扣点picked特例仍在Game:108-109；补给rest量、购买开放及Trip动作来源校验仍按原规则。", "executed": false},
+        {"id": "R05", "case": "Game4 ready加合法补给", "staticResult": "phase不是service使新断言短路；Route:208仍要求计时0/门闩false/商家anchor，Trip与Dispatch对应继续原检查。Game1/2/3不新增ready支持，仍由旧Route门禁拒绝。", "executed": false},
+        {"id": "R06", "case": "旧版本/库存适用边界", "staticResult": "Game1无Trip分支完全未改；Game2必须Trip1，原迁移只认water/noodles/rest并把非rest来源规范为purchase，不新增库存语义。Game3/4的Trip2库存动作先受原grant/数量校验，若通过再受不区分来源的新互斥断言；当前奖励表为空，不能制造或声称已有合法库存档可运行。", "executed": false},
+        {"id": "R07", "case": "畸形门闩/未知版本/错配及原完整恢复链", "staticResult": "新断言是纯拒绝条件，不能放宽版本或Trip/Route校验；Route2缺门闩仍在原boolean校验拒绝。允许分支无写入、无重新规划、无时钟/收入/slot操作，继续原Legacy完整门禁和singleton转换。", "executed": false}
+      ],
+      "integrationBoundary": "本次Game新SHA应作为最终集成的增量质量绑定；NPC归日核心文件未变不等于旧报告对Game依赖SHA自动更新。未重写其他线报告、未声称NPC帧内时点或旧7文件hash审核覆盖新Game。"
+    },
+    "contextDependencies": {
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "bb6dc40f960f5867b96bf9eeaad218d8d6a9d2aa648b53ce34aa0afcff892d81",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "adbc39af0f133714df647a0e8df78789171efbec94468d227557001ddf422a6a",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "a5a5288bcfbeff4cf93a9a6ce6b86ebfd7690579a5efeb12d8ce7e310b2104ae",
+      "delivery-game/assets/scripts/domain/V2FleetSession.ts": "1e1ccd5242762260213f8744c3cddf4328bbe35b100a0fba779e4c9cd7facb3a",
+      "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+      "delivery-game/assets/scripts/domain/V2SupplyCatalog.ts": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb",
+      "delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "8efdff34d0f3214a69922b9ef2b8cdd86672f1631a26b8962dc18e6efea07f7f",
+      "delivery-game/assets/scripts/map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690"
+    },
+    "contextDependencyDriftAtClose": [],
+    "historicalTargetedRead": {
+      "path": "delivery-game/temp/programming/packer-driver/targets/editor/chunks/8a/8a2aa821425f85b7718846c89d02831cc644a3b5.js.map",
+      "fileSHA256": "fdfa98138194431d1b6b832096081a5a1e6462c9dd4ee1b03ab8edb2f62e3054",
+      "embeddedSourceSHA256": "41a0d0348a5ceb24dbbad657bf939955fd4d41ff73b66f63e4cdfb9b7a573309",
+      "readLines": "V2GameSession.ts:89-100",
+      "purpose": "只针对已发现的动作互斥遗漏，确认旧组合恢复是否也缺失；未遍历Creator缓存、未读取完整旧构建包、未导入或执行应用。"
+    }
+  },
+  "limitations": [
+    {
+      "category": "scope",
+      "detail": "仅独立审产品核心Route/Game/Trip质量，相关依赖只读追接口。RoadRouter仅作现有只读API依赖；不审地图素材生产加工、道路/建筑制作、拼接配准、地图数据或边界修复，不向地图线派工。并行UI/车辆/图片资源线不纳入结论。"
+    },
+    {
+      "category": "static-coverage",
+      "detail": "初审已独立追踪权威全集商家键、分组/容量、组原子扣点、门闩、凭证收入去重、ready/continue、自动余秒/跨批、取消anchor、中断、版本和缓存及候选提交。本轮只定向追互斥修复及合法恢复分支；源码文本逆替换哈希证明其他部分未变，初审未发现其他阻塞的质量证据按其原SHA保留。未发现本次修复误拒正常合法旧状态或额外规格影响；不是24项规格全量重做、运行证明或形式化证明。"
+    },
+    {
+      "category": "execution-prohibited",
+      "detail": "用户未说阶段完成；初审和定向复审均未运行tests/typecheck/回归、游戏函数、真实或合成快照、故障注入、游戏页面、用户slot、Creator、构建或部署。所有反例及接受/拒绝分支都是源码推演，没有制造快照或运行夹具。未因禁止执行而自动FAIL，也不把静态PASS当运行通过；未额外运行includes诊断或修改tsconfig。"
+    },
+    {
+      "category": "historical-boundary",
+      "detail": "初审曾对A-QUALITY-01精准读取旧Game恢复12行确认其历史属性，来源和SHA保留；本轮未重复读取缓存或旧包。当前修复与初审候选的精确差异来自源码逆替换哈希，而不是把更早缓存当紧邻基线；不把历史FAIL抹掉或称新增回归。"
+    },
+    {
+      "category": "security-boundary",
+      "detail": "所读主链未发现硬编码凭据、动态代码执行、命令/SQL/路径注入、网络外传或后门；没有读取凭据。空security_concerns不是安全认证，结构/组合校验也不是本地存档防篡改认证。"
+    },
+    {
+      "category": "deferred-verification",
+      "detail": "同店多成员未扣点/已扣点半程、免费补给后继续、零余秒到店/ready/顾客完成、跨批次数及首15边界、取消边中/腿末/零长度腿、旧Game3所有阶段转换、缺门闩推断、未来/错配/非法组合拒绝、唯一slot提交，均未执行，留阶段集中验证。A-QUALITY-01由非修复者完成定向静态复审，但rest/购买/库存冲突及合法分支运行案例仍未执行。"
+    },
+    {
+      "category": "handoff",
+      "detail": "只写quality-review.json与quality-review.md；没有改源码、其他文档、公共进度或技能，没有新子Agent、commit或push。已释放只读范围。源码修复与后续门禁由父PM安排；本审查不自己修复、不关闭反馈，不代表功能、性能、构建、部署、98%视觉或用户验收。"
+    }
+  ]
+}

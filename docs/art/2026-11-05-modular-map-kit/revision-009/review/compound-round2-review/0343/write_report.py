@@ -1,0 +1,59 @@
+from pathlib import Path
+import json
+H=Path(__file__).resolve().parent;r=json.loads((H/'review.json').read_text())
+s=f'''# 0343第二小批首包：独立差异复审
+
+**{r['verdict']}**。只允许父对本SHA安排受限折线profile适配与一次局部实景比较；不批准直接调用旧125单例consumer、不改125既有scope、不批准邻近352/339或批量入图。未执行producer或共享consumer主程序。
+
+候选：revision-009/planning/compound-round2/scene-0343.json
+
+SHA256 `{r['candidateSHA256']}`。
+
+基线scene SHA `{r['baselineSceneSHA256']}`；TMJ SHA `{r['baselineTiledSHA256']}`。pipeline发布记录与实际字节一致，163静态/506面/82源并集/83绑定模块；source125已在compoundScenes中一scene两模块，合法共享源，完整纳入旧实体/旧面保护。没有回退156/161。若之后发布前进或候选SHA变更，必须重新核，不自动继承本复审。
+
+## 本包差异与复核结果
+
+- 实际1源[343]/1scene/2modules/9面/rendered0，schema及各声明计数一致。producer来信5面为口误，本次按冻结JSON和import-contract的9面复核，未改字节。sceneId/moduleIds/groundSurfaceIds双向一致且唯一，module与面归属该scene，无旧ID重用。343不在旧82源或reservations中；两模块共享343仅在本scene，不扩大任何源豁免。
+- 原city.buildings[343]多边形与scene/两模块副本逐值一致，源SHA保持；原语义unknown，garden只是旧美术语境，scenicProgramme为PM视觉设计，没有新经营地址/POI/nav。867.3387㎡载体只安排44.0801㎡两模块及有限庭院，不因此宣称全载体已丰富完成或整县密度完成。
+- canonical PPU/anchor、脚线控制点和真门像素独立反投影一致。B05@0.9、B01@1，尺寸canonical×一次正比例，nodeScale1/rotation0。新增nativeFootlineEvidence把上一包分散的B01手估四点显式归档；仍是可见脚线+隐藏后角推断，25px不确定性，非测绘认证。既有B01/B05原生与运行PNG SHA核对不变。
+- 原149397478-0完整15节点ID/坐标/顺序及所有其他原字段逐值保持，width5/direction1。B05接segment3，B01接segment2，两端中心线离道路真实半宽后均余0.03m；接不同原路段只是美术步行关系，没有新增导航边或原停靠点重绑。
+- 体间距独立复算 **{r['bodyGapMetres']:.9f}m**，与producer一致，满足2m门禁。同源双方实体、路径及共享面没有互相豁免。
+
+## 三点折线路径：逐段与转角
+
+每模块centreline3点，前段1.5m长、后段分别13.676029m和24.585695m；每段均独立重建1.5m宽条带，另在中点以固定T/N轴构造1.5×1.5m转角面，和JSON逐点一致。两条带与转角面分别相交，未出现断裂。六块门路/转角面在9面中逐一对应；thresholdOf仅第一面可指本门，后段/转角均为null，不继承门槛豁免。
+
+|模块|首段切去0.6m后距自体m|完整后段距自体m|完整转角距自体m|整条路径对另一体最小m|
+|---|---:|---:|---:|---:|
+'''
+for q in r['routeGeometry']:
+ a=q['ownGapAfterFirst0_6mAndFullLaterPieces'];s+=f"|{q['module'].split('-module-')[-1]}|{a[0]:.6f}|{a[1]:.6f}|{a[2]:.6f}|{min(q['peerGaps']):.6f}|\n"
+s+='''
+首0.6m手估门槛容差仅用于真实首段/本模块；其后尾段须≥0.05m，完整后段/转角对自己及所有其他新实体须≥0.15m。本包均满足。八块铺装（六门路+shared-walk+shared-court）构成连通并集，garden与court接边且不覆盖door/shared-walk。shared-walk是两已很接近长路径间的短桥接小面，不拿面数当场景丰富程度证明。
+
+## 全局真实旧障碍补查
+
+按163个实际旧脚点证据（包括市场五物、125两楼）、506个最新旧面、所有非343原source、多段原道路/原width、水域与水道3m半宽+5m安全、原POI节点和蓝边重新求距离。bbox仅作已证明下界剪枝，不靠producer67项标绿、不略过未画原楼；完整分项/最近障碍ID见review.json。
+
+|候选|最近他源m|最近原车道边m|最近旧面m|最近旧脚点m|
+|---|---:|---:|---:|---:|
+'''
+for q in r['globalClearance']:
+ s+=f"|{q['id'].replace('009compound-r2-source0343-','')}|{q['otherSource']['gap']:.6f}|{q['road']['gap']:.6f}|{q['oldGround506']['gap']:.6f}|{q['oldContact163']['gap']:.6f}|\n"
+s+='''
+所有11个待加体/面满足当前静态门禁；其中B01对原source339仅2.436090m，仍按原实体保护；不因339正在另线试算而豁免。后段全宽面最近车道边分别0.016915m/0.025795m，比中心线端点0.03m更小但仍为正，确实按全宽面检查而非只查路线点。旧普通草坪/庭院也照旧保护，未请求编辑权限。旧125两楼和5面纳入障碍，未改绑定或显示状态。
+
+## consumer必须适配，不能直接套旧单例
+
+只读compound_import.py:39–80仍固定old161、source!=125，:66用a,b=整条centrelineMap，:80固定四铺地。新包有3点、8铺地与新scene343；直接调用会报错或错误套用旧豁免。这是consumer当前受限scope，非本包几何失败。实施者应另做仅pin本候选SHA/scene及最新基线的profile，保持125旧scope独立：
+
+1. 基线按发布版本的163实际脚点/506面以及旧compoundScenes集合建立，源豁免取新scene明确持有的343；不能保留hardcoded125或漏掉125两楼，也不能放开旧地面。
+2. 路径至少逐相邻点拆段，并验证每段宽度、段序、真实首点/门、每个转角面及ground绑定。首0.6m裁切仅对首段且thresholdOf==本模块，后段/转角全部完整互避；不把后段穿本体当门槛特例。
+3. 按实际声明铺装集合检查连通，不固定4面或仅看centrelines；花土不覆盖门路，shared-court有真实连接。源数按scene源集合并集，模块单列；若将来实际入图应为84源绑定模块/83源并集而不是84源，displayed必须等实际证据。
+4. 实施者需在其独立验证入口覆盖本差异负例：三点路径漏段、后段/转角穿自体、错误thresholdOf、首段不从真门起、转角缺失/断连、宽度不符、车道侵入、跨scene源重用、重复导入与旧125被误豁免。审查没有执行consumer探针，不声称这些功能已实现或运行通过。
+
+剩余非阻塞画面风险：B01后段距B05仅0.395449m，门槛/脚线有25px手估误差，入图必须重点看门路与墙脚、长路径层次及前后遮挡；两体虽过2m，余量约0.584m。长而近似重叠的两段铺装可能呈重复条带，静态连通不代表美术协调。地块大而本包场景有限，不能给全地块/全县完成结论；不以本审查要求强塞更多楼。
+
+'''
+s+=f"保护：{r['protectedInputCount']}个明确稳定输入前后SHA一致（input-sha-before/after.json），只写本目录；未读取邻近352/339半写规划或registry。review_static.py复用已读纯几何/先前纯审查函数AST，不执行producer assemble/verify或共享consumer模块；本次{len(r['checks'])}个独立断言通过。未生图/游戏tests/typecheck/回归/FPS/浏览器/服务/存档/提交，无实现改动；静态safe不等于显示/用户验收。\n"
+(H/'REPORT.md').write_text(s);print(H/'REPORT.md')

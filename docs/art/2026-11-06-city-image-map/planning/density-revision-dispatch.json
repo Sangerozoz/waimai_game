@@ -1,0 +1,81 @@
+{
+  "threadId": "thr_gje67q2cgt",
+  "providerReadback": "acp-hermes-agent",
+  "explicitModel": "openai-api:gpt-6.1-sol",
+  "explicitReasoning": "high",
+  "statusReadback": "active",
+  "scope": "compact-pair-v2-density only; all v1/source/user files read-only",
+  "requestSHA256": "263a559e0f11662520bc4857369fe0ca82411bd70eb144ccd361dba7e044942d",
+  "dispatch": {
+    "threadId": "thr_gje67q2cgt",
+    "ok": true,
+    "delivery": "sent",
+    "mode": "auto"
+  },
+  "instructionReadback": true,
+  "modeBefore": {
+    "id": "_bb/legacy-mode",
+    "label": "Mode",
+    "description": null,
+    "category": "mode",
+    "type": "select",
+    "value": "default",
+    "pendingValue": null,
+    "values": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Ask before edits.",
+        "group": null
+      },
+      {
+        "id": "accept_edits",
+        "label": "Accept Edits",
+        "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+        "group": null
+      },
+      {
+        "id": "dont_ask",
+        "label": "Don't Ask",
+        "description": "Auto-allow file edits for this session except sensitive paths.",
+        "group": null
+      }
+    ]
+  },
+  "modeAtDispatch": {
+    "options": [
+      {
+        "id": "_bb/legacy-mode",
+        "label": "Mode",
+        "description": null,
+        "category": "mode",
+        "type": "select",
+        "value": "default",
+        "pendingValue": "accept_edits",
+        "values": [
+          {
+            "id": "default",
+            "label": "Default",
+            "description": "Ask before edits.",
+            "group": null
+          },
+          {
+            "id": "accept_edits",
+            "label": "Accept Edits",
+            "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+            "group": null
+          },
+          {
+            "id": "dont_ask",
+            "label": "Don't Ask",
+            "description": "Auto-allow file edits for this session except sensitive paths.",
+            "group": null
+          }
+        ]
+      }
+    ]
+  },
+  "restoreAtHandback": "default",
+  "nativeResultClaimed": false,
+  "userFeedback": "compact-pair-v1/user-review-001.json"
+}

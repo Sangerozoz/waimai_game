@@ -1,0 +1,50 @@
+{
+  "newThreadId": "thr_fs5qphhxgc",
+  "status": "created-pending-before-native-start",
+  "providerId": "codex",
+  "requestedModel": "ccs-sanger/gpt-6.1-sol",
+  "requestedReasoning": "max",
+  "poolBypassedBeforeFirstTurn": true,
+  "bypassRead": {
+    "ok": true,
+    "threadId": "thr_fs5qphhxgc",
+    "bypassed": true
+  },
+  "initialQueue": [
+    {
+      "id": "qmsg_2979kwcnin",
+      "origin": "cli",
+      "originPluginId": null,
+      "initiator": "user",
+      "senderThreadId": null,
+      "threadId": "thr_fs5qphhxgc",
+      "content": [
+        {
+          "type": "text",
+          "text": "你是接管本项目地图线的新主会话，不是旧Hermes的辅助角色。用户最新明确要求Codex提供方内GPT-6.1-Sol（Sanger）、强度max，并要求保持任务进度/约束继续执行。本次实际选择provider=codex、model=ccs-sanger/gpt-6.1-sol、reasoning=max。源对话@thread:thr_2qc9rtsa9r不再派工，旧延迟素材消息不恢复旧队列。当前AGENTS顶端已记录本次地图路由覆盖；不影响产品线。\n同一checkout /Users/sanger/Documents/ChatGPT/taptap 2，env_e54zrbdgxt，branch codex/food-delivery。不要fork/新worktree、不要清理/覆盖未提交或用户手调。不读取旧长聊天，先读精简交接：docs/team/handoffs/2026-11-07-map-codex-sanger/handoff.md。完整来源和保护SHA在同目录map-protected-snapshot.json；仅地图，不接产品/UI/经济/存档、不改凭据/账户/全局配置、不使用GPT-6-astra。\n第一步用bb status --json和bb thread options --self --json核实际Provider/模型/max，写同目录new-thread-receipt.json（非秘密ID/设置、已读当前入口、当前阶段、下一个具体动作）；不要只确认收到就结束。\n然后继续当前真实目标：整区底图＋独立矢量描路，已有A2/B1/C三地区。先读docs/art/2026-11-06-city-image-map/planning/progress-current.json与handoff列出的scope/norms/实际能力证据。用户最近允许继续生图，但迁移不代表旧25面积1/4、全路网/米制覆盖、原生返回尺寸等门禁自动通过；不能把3张/补D当整城或一半，不能缩城缩楼/暗改相机/插值冒高清，也别恢复单楼朝向矩阵。若已满足规范并能实际推进就执行；若确需范围/清晰度/图数真实取舍，依据已有证据具体汇报，不泛问已知决定、不伪造输出。\n原生母版/旧25/用户图/旧city/边界/路网/手调布局都保留。按已授权图像API或现有实际工具能力工作；新通道工具缺失就明示，不暗切回旧队列或新付费后端。图像生成、实际入图、导航小样、正式游戏测试和用户验收分层，地图未获当前全游戏测试授权。你是新的地图主入口，后续按明确写集自主持续推进，成果用真实文件/尺寸/hash/实际显示支撑。",
+          "mentions": []
+        }
+      ],
+      "model": "ccs-sanger/gpt-6.1-sol",
+      "reasoningLevel": "max",
+      "permissionMode": "auto",
+      "serviceTier": "default",
+      "groupWithNext": false,
+      "sendAt": 1793984015481,
+      "state": "scheduled",
+      "waitingOn": {
+        "kind": "time"
+      },
+      "failureReason": null,
+      "payload": {
+        "kind": "inline"
+      },
+      "editable": true,
+      "createdAt": 1793983985495,
+      "updatedAt": 1793983985495
+    }
+  ],
+  "oldAttempt": "thr_5xd9wkm7y2",
+  "oldFailure": "first native session was persisted with bb-account-pool provider; cannot resume after scoped bypass",
+  "handoff": "handoff.md"
+}

@@ -1,0 +1,464 @@
+{
+  "status": "PASS_NARROW_OWNED_RESTORE_DELIVERY",
+  "verifiedAt": "2026-11-07T13:14:50.013512+00:00",
+  "productionChangedFiles": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "sha256": "df5f1f2b75366b2e8fa96b736df262eb421b37f2f1c62396ec89c8ac5a838f71"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "sha256": "0de156bc4bff7e0f866e6d735608bdeee9004c5681ad4de7855e25b634ad2e8b"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "sha256": "15bfeec20263bc71449ea74f6374a954c0297ebb5259adeb5750d9ea43ae5ba3"
+    }
+  ],
+  "baselineInputs": 772,
+  "unchangedBaselineInputs": 769,
+  "newTestFile": "delivery-game/tests/product-regression-1106/owned-restore.test.cjs",
+  "newTestCount": 11,
+  "defaultRegression": {
+    "tests": 167,
+    "pass": 167,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "typecheckExitCode": 0,
+  "review": {
+    "spec": "PASS",
+    "quality": "PASS",
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "modelByteEqualComparisons": 40,
+  "modelLongHistoryReductionPercent": {
+    "existing-150min-pickup": 12.36336041527334,
+    "existing-150min-travelling": 12.388576041214193
+  },
+  "creatorExitCode": 36,
+  "buildInputs": 773,
+  "buildInputDrift": [],
+  "buildOutputFiles": 550,
+  "javascriptFiles": 14,
+  "packedResourceFilesByteEqual": 524,
+  "httpIdentityChecks": 30,
+  "servedBuild": "delivery-game/build/v2-owned-restore-1107",
+  "terminals": {
+    "4182": "term_3vvuatwq8q",
+    "4196": "term_bj3zsyc84g"
+  },
+  "browserBeforeAfter": [
+    {
+      "window": "pickup-wait",
+      "beforeDurationMs": 3010.699999988079,
+      "afterDurationMs": 3025.0,
+      "beforeFrameIntervalMedianMs": 133.3,
+      "afterFrameIntervalMedianMs": 116.7,
+      "beforeRuntime": {
+        "count": 23,
+        "totalMs": 2788.600000143051,
+        "meanMs": 121.24347826708917,
+        "retainedSampleCount": 23,
+        "sampleMedianMs": 120.7
+      },
+      "beforeCommitMeanMs": 3.7000000062196152,
+      "afterRuntime": {
+        "count": 26,
+        "totalMs": 2825.3999999165535,
+        "meanMs": 108.66923076602129,
+        "retainedSampleCount": 26,
+        "sampleMedianMs": 108.75
+      },
+      "afterCommitMeanMs": 2.7769230672946343,
+      "runtimeMeanReductionPercent": 10.371071236811503
+    },
+    {
+      "window": "ready-wait",
+      "beforeDurationMs": 2538.099999964237,
+      "afterDurationMs": 2540.199999988079,
+      "beforeFrameIntervalMedianMs": 133.3,
+      "afterFrameIntervalMedianMs": 116.6,
+      "beforeRuntime": {
+        "count": 20,
+        "totalMs": 2394.69999986887,
+        "meanMs": 119.7349999934435,
+        "retainedSampleCount": 20,
+        "sampleMedianMs": 118.65
+      },
+      "beforeCommitMeanMs": 3.1849999964237212,
+      "afterRuntime": {
+        "count": 22,
+        "totalMs": 2369.69999986887,
+        "meanMs": 107.7136363576759,
+        "retainedSampleCount": 22,
+        "sampleMedianMs": 107.05
+      },
+      "afterCommitMeanMs": 2.854545449668711,
+      "runtimeMeanReductionPercent": 10.039974641020477
+    },
+    {
+      "window": "actual-travel",
+      "beforeDurationMs": 4848.899999976158,
+      "afterDurationMs": 4783.900000035763,
+      "beforeFrameIntervalMedianMs": 133.3,
+      "afterFrameIntervalMedianMs": 116.7,
+      "beforeRuntime": {
+        "count": 36,
+        "totalMs": 4405.900000095367,
+        "meanMs": 122.38611111376021,
+        "retainedSampleCount": 36,
+        "sampleMedianMs": 120.35
+      },
+      "beforeCommitMeanMs": 3.0250000026490955,
+      "afterRuntime": {
+        "count": 40,
+        "totalMs": 4389.700000226498,
+        "meanMs": 109.74250000566244,
+        "retainedSampleCount": 40,
+        "sampleMedianMs": 108.1
+      },
+      "afterCommitMeanMs": 2.7975000008940696,
+      "runtimeMeanReductionPercent": 10.330919900171754
+    }
+  ],
+  "realPackedDeliveryFrom771To772": true,
+  "ledgerReconciled": true,
+  "consoleResource404CountPerSuccessfulCapture": 1,
+  "browsersClosed": true,
+  "temporaryServerClosed": true,
+  "realUserBrowserOrSaveAccess": false,
+  "remoteAuthenticatedContentVerified": false,
+  "acceptance": {
+    "U01": "OPEN; long-history runtime transaction still about109ms",
+    "physicalDeviceFPS": "NOT_VERIFIED",
+    "originalRawCrossPackedRestore": "BLOCKED",
+    "overall98Percent": "NOT_ACCEPTED",
+    "formalUserItemsClosed": 0
+  },
+  "evidenceFiles": [
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/benchmark-receipt.json",
+      "sha256": "a3b3e3a11327e615b72868dc3c4052e3a8c924a92914e911e03e0721aabf4b46"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/benchmark-result.json",
+      "sha256": "9aee8b77339b307cf483d6fe06cec4c09c76c4369649568d175b45e08c7f1ec0"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/benchmark-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/benchmark.cjs",
+      "sha256": "33848543be0d7a21bb8cbb42f617445fdc6d3f570a254932c1af98e683e65f57"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/02-inspect-loaded-asset-receipt.json",
+      "sha256": "a5ef1bc72c04496b4a8a5f48bb83d26f203cf4350574d17ba2ebbe12e80ba4b1"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/02-inspect-loaded-asset-result.json",
+      "sha256": "d6f2fd85b1e5ef55ac929b33d58d1a3af9ca74a2bb0cb8e7a2c83316d339a644"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/02-inspect-loaded-asset-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/02-inspect-loaded-asset.js",
+      "sha256": "2bd0d3934b63e0b86ca0f9d3b9be8c70069c03515952ec38ac6d96f2169fc5b7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-1-receipt.json",
+      "sha256": "99e936682b263715ad9b651a9b84b45cf27dd0bd8aacbb1a3c2efb1f235bb9a9"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-1-result.json",
+      "sha256": "7905cd9a4617e0bbd91c332f89602a1fae93be7217787ef686856985e6d74cf8"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-1-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-1.js",
+      "sha256": "13b7f38ee9a1088009f85ab7a7de1ef702c6871f651c0e67e31926c4d08d6547"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-2-receipt.json",
+      "sha256": "d2c54e9c78b37e43c8dacd4d9de05a33f92044dc1ce39bff1096956cd55a50d3"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-2-result.json",
+      "sha256": "49a3e0c2ab8e4c66c14d4b3f4a217ecf2681dfe0e97e988b89c5e328419d638d"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-2-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-2.js",
+      "sha256": "ae42bcdf22e5ef8a650aaa6b96b16d01b6f0754baee8b25e59c902978ae7e5cc"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-3-receipt.json",
+      "sha256": "d6ac6c0fcc1793faa9b2d1e14b47e8933ace339b7175190328622f414a559ccf"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-3-result.json",
+      "sha256": "b0673f3349adfad240bd5f63cb7bb3eb62ff8b072ad5680c6d61a1dd1938e4f6"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-3-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/04-seed-chunk-3.js",
+      "sha256": "95ebf95148604958f1fcd73cfe2037367a3b5ebb303d5b09eb68bf58be963468"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/05-seed-decoded-receipt.json",
+      "sha256": "2159d0e76a154baef9114175c9fdfd43907bc4dd8769e8e173457af37f832336"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/05-seed-decoded-result.json",
+      "sha256": "ec8d6f420c5dafb2a3b25ccb2fe0a59a072f76e3f6b6398976c8b091fbaad222"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/05-seed-decoded-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/05-seed-decoded.js",
+      "sha256": "66968d602589f65d1a6c4f4c9162be8c62654b0d7f6a469e1ee58083bf67a19d"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/10-light-instrument-open-receipt.json",
+      "sha256": "6745ad8f3d9f82cccc4837017d5ded319c11155a5784eeb4e009eaa75042802d"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/10-light-instrument-open-result.json",
+      "sha256": "84e04cddff34b041476544a43bbad7a641f41c06f4cfd21ee1a749b3b2dfb989"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/10-light-instrument-open-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/10-light-instrument-open.js",
+      "sha256": "4df214855b66cb56682db9063b4f42bf3ce62017cc21525d359273d8c5afad3c"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/11-light-pickup-window-receipt.json",
+      "sha256": "a0d2d506d79611edf7f4fbffe8c4527722ce6f13a6763bb6911b33529d21b8e7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/11-light-pickup-window-result.json",
+      "sha256": "e8ead6ac36ed3835db60e15e1510da7dcfaeaf340eef7337aa6522f819e546d5"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/11-light-pickup-window-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/11-light-pickup-window.js",
+      "sha256": "a0008cbf520708233b9b323e25eb6814e2ba3d7bd6d0953f2ec78942e6fab035"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/12-light-service-travel-receipt.json",
+      "sha256": "e6fca7b067ca8d7caacf77058c51cd88cf4ad8f2772909d2064fe60bef042b1a"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/12-light-service-travel-result.json",
+      "sha256": "b3f3472585ed97fde249b815c6db4425cd6642bcc40a03205512bfbf1b65f28e"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/12-light-service-travel-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/12-light-service-travel.js",
+      "sha256": "5d0403339007e0c576883ca8ed36e3a0bb9cbbecec8f7997a8fd3350b4174e7a"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/close-result.json",
+      "sha256": "622fc5a2518129ebac23f665e32da6a48f7ffc136edb73cd1115d24d6c026422"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/final-state-result.json",
+      "sha256": "943af3bd8c328ac9a0963aac4fe89f82623c2b32551281a26795fa04204c0271"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/input-binding.json",
+      "sha256": "936006c7fb2d26a3da6aef4f414b2511399af31bce09dc64336a760b83908308"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/screen-1.jpg",
+      "sha256": "b5521adbc75e3ba398e4c48df043cdbc43668aecd6759fcf9e5b4087841cd8be"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/screen-result.json",
+      "sha256": "9c17af3ae258b850a75eefafb74fdfc1ac364f6fc7dc51942cf9bf61e777e3a0"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/session-open-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/session-open.json",
+      "sha256": "b3fcf001a5e8c8888701aa50cff08b3a5d9f39ab1abc609b9ec249bd717e7386"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/window-0-response.json",
+      "sha256": "b30e7dd294f6e8bc354fd1c0bd8e3f62bd9a1b242f28036692b0d4a6dd2a40b5"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/window-0.json",
+      "sha256": "5b4f1a90f9bc8653038475df9114c9489764366d9ba451f76f18554628c126bd"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/window-1-response.json",
+      "sha256": "9f003cc539a82b17543c4121bd5f285180325d0484a118bc3b0e79d789645bf4"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/window-1.json",
+      "sha256": "3783d5ca6930860927827b0746d42dd550aa9527dc7a59ee83dcb6895a5a1ee9"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/window-2-response.json",
+      "sha256": "7a140fc5eb169463d84b8f844f4c5bdfa9763f13b8e23c09b9a528b57d59d13b"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/window-2.json",
+      "sha256": "64c4135cac14d86bbc35b2a560723e8d9db9e0f5b69f69afe0ab5ac4c0a52df7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/window-3-response.json",
+      "sha256": "df4c2fc188ec5e8defc7e4ff201ba6900ac146c5f64938577ef7237cc8dfb8c8"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser/window-3.json",
+      "sha256": "c936b82a2e7233e90c14845d60e0c973904ade71c1b448fd5a29583dcc5a8091"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser-comparison-receipt.json",
+      "sha256": "434dcadf9a1bf3a7a6fbd3fab32fc1755abfd7f3503b0bb881be36418efec6c4"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/build-config.json",
+      "sha256": "f2a5e0b059365e886226f177c6276a54986d3097cbc471a8af697a980117b2ac"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/build-inputs.json",
+      "sha256": "fb5966718ae43a08a27cfc3deb7e0780eb690849e48760055da70a5df9d3a298"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/build-output-manifest.json",
+      "sha256": "6560c4043a6f4f28d01b7a3a3ec12f5782e58c2c4a5d606e402e4f0b77202bcb"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/build-receipt.json",
+      "sha256": "1dc60a746e8b50b3ea7bda6ce03740051523796a2f0dd66cdac5d9b65f7daf35"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/candidate-server-close.json",
+      "sha256": "0be7ccafee6ea60c73510ac6cc4bd14ec60c47e095a7e0b6f8fbee09e3fc3621"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/candidate-server.json",
+      "sha256": "a1fd08b740f1398639806c8799127a2adfc6ed392f0ba1f056c760a878fc5397"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/connect-receipt.json",
+      "sha256": "c69d7b6f486bf20653d20b1044803e36872d19aa81095a4cee016b959df695fa"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/creator-build.log",
+      "sha256": "f86e4875e89415607bd88a1bc9e16f41a604869852557a1660c2a4adf8de2e16"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/default-regression-receipt.json",
+      "sha256": "ea576920c7b0a8339fc2bf950d553ba38dc62f15827df165174cec2493e6d397"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/default-regression.log",
+      "sha256": "9d8776052f6e30077aed4568d0d563c3c44b424f15e0ec3dc2023af33ad39d73"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/green-receipt.json",
+      "sha256": "3dbe4c120dc66ee31ac6a8c0510b2284d46bfd3c0c710df49c7fa139ed159af7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/green.log",
+      "sha256": "a97b7d77a45d55bfa0d7f99e7443888844a78357ffbbeb0bb3dd5951e6d0adf6"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/handoff-updates.json",
+      "sha256": "665be9460bccd7674739e40ba6d8a7f490e7492aab0c28b0ccded4e10f978277"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/independent-review-result.json",
+      "sha256": "64a60855f56f47bfe1de3280f16e7077f01dd4360fca8fa669f800ee38580f1b"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/input-before.json",
+      "sha256": "5a696e28c4b3f9c5e7f9b6471adc66ff586c3ebb1225a200439fc12dbf404019"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/packed-resource-compatibility.json",
+      "sha256": "c9b7d02e50a19ef8fda1d37701e1a69ffaeacfbf169f9470064366d04bb8dac2"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/preview-deployment-receipt.json",
+      "sha256": "a7e6deaa12e33ddccbab3bc69842c024f4f759d701d4028c45c0652aa2ecb2a7"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/red-receipt.json",
+      "sha256": "617277b78a4bf5ebb60920cc9e76ee8c076ff70b7be5ad6c90a81323d36db941"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/red.log",
+      "sha256": "86acedf6f6f025a9296bd8e3344df04c7206e12de8fbb13514276767d7161c47"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/report.md",
+      "sha256": "6997ef075eaffe6a8dca0717451ed9e29d7a21c94fafaec201a3adf2c2ed23f3"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/review-prompt.txt",
+      "sha256": "b60c43d9008144a21723bbd5c0779f14e84f7256da51f6b5e85b98bf75dcdb52"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/review-request.json",
+      "sha256": "58e37f7c68de069bb4e0324e7d666ad6ddad2a327e38076efc9cff196b431286"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/review.diff",
+      "sha256": "6e5d17e8b2956de588158b3cd3edf6f2ba34e81a9f56b163f9816359df28b4bb"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/source-before/V2DispatchSession.ts",
+      "sha256": "77c2faba87e27b86c69bfe5841f015fa6dcc75dcc024e78bfe3a6bf1d5efedd0"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/source-before/V2EconomySession.ts",
+      "sha256": "75e745549c67d3715ca7852538fb7da3cb46e0fc7161d87988eb940f9ee65fc3"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/source-before/V2FleetSession.ts",
+      "sha256": "2851ebfbe1eb89135161d896150a6d06f42f04ef1ba4d8aa563edca68a0949f8"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/typecheck-receipt.json",
+      "sha256": "b57b3facf0122edb661617f77c75ce36de5b34188c51881929edf0554db22959"
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

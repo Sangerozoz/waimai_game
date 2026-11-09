@@ -1,0 +1,286 @@
+{
+  "assumptions": [
+    "Static representative states, not a simulated purchase progression or game test.",
+    "NPC quota available throughout each stated active minute; no hidden refill assumed.",
+    "NPC expected mean weight 2kg; fractional batch counts are planning averages, not actual fractional orders.",
+    "No travel geometry, weather loss, ad latency or hero supplies modeled in NPC rates.",
+    "All NPCs in a row have identical equipment; neither affordability nor arrival time at that state is assumed."
+  ],
+  "introLedger": [
+    {
+      "delivered": 1,
+      "cashBeforePurchase": 120,
+      "purchase": null,
+      "cashAfterPurchase": 120
+    },
+    {
+      "delivered": 2,
+      "cashBeforePurchase": 140,
+      "purchase": null,
+      "cashAfterPurchase": 140
+    },
+    {
+      "delivered": 3,
+      "cashBeforePurchase": 160,
+      "purchase": null,
+      "cashAfterPurchase": 160
+    },
+    {
+      "delivered": 4,
+      "cashBeforePurchase": 180,
+      "purchase": null,
+      "cashAfterPurchase": 180
+    },
+    {
+      "delivered": 5,
+      "cashBeforePurchase": 200,
+      "purchase": null,
+      "cashAfterPurchase": 200
+    },
+    {
+      "delivered": 6,
+      "cashBeforePurchase": 220,
+      "purchase": null,
+      "cashAfterPurchase": 220
+    },
+    {
+      "delivered": 7,
+      "cashBeforePurchase": 240,
+      "purchase": null,
+      "cashAfterPurchase": 240
+    },
+    {
+      "delivered": 8,
+      "cashBeforePurchase": 260,
+      "purchase": null,
+      "cashAfterPurchase": 260
+    },
+    {
+      "delivered": 9,
+      "cashBeforePurchase": 280,
+      "purchase": null,
+      "cashAfterPurchase": 280
+    },
+    {
+      "delivered": 10,
+      "cashBeforePurchase": 300,
+      "purchase": "firstCar",
+      "cashAfterPurchase": 0
+    },
+    {
+      "delivered": 11,
+      "cashBeforePurchase": 24,
+      "purchase": null,
+      "cashAfterPurchase": 24
+    },
+    {
+      "delivered": 12,
+      "cashBeforePurchase": 48,
+      "purchase": null,
+      "cashAfterPurchase": 48
+    },
+    {
+      "delivered": 13,
+      "cashBeforePurchase": 72,
+      "purchase": null,
+      "cashAfterPurchase": 72
+    },
+    {
+      "delivered": 14,
+      "cashBeforePurchase": 96,
+      "purchase": null,
+      "cashAfterPurchase": 96
+    },
+    {
+      "delivered": 15,
+      "cashBeforePurchase": 120,
+      "purchase": "firstRider",
+      "cashAfterPurchase": 0
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "初始团队",
+      "npcCount": 1,
+      "map": 1,
+      "vehicle": "初始旧车",
+      "vehicleLevel": 1,
+      "riderLevel": 1,
+      "npcRate": {
+        "expectedBatchOrders": 1.0,
+        "expectedBatchSeconds": 90.0,
+        "coinsPerMinute": 13.333
+      },
+      "fleetCoinsPerActiveMinute": 13.33,
+      "fleetGrossPer30QuotaMinutes": 399.99,
+      "nextRiderPrice": 400,
+      "nextRiderAndSameBaseCarSavingActiveMinutes": 52.5
+    },
+    {
+      "scenario": "小团队",
+      "npcCount": 3,
+      "map": 2,
+      "vehicle": "轻燕",
+      "vehicleLevel": 5,
+      "riderLevel": 5,
+      "npcRate": {
+        "expectedBatchOrders": 2.138,
+        "expectedBatchSeconds": 117.668,
+        "coinsPerMinute": 42.605
+      },
+      "fleetCoinsPerActiveMinute": 127.81,
+      "fleetGrossPer30QuotaMinutes": 3834.45,
+      "nextRiderPrice": 7770,
+      "nextRiderAndSameBaseCarSavingActiveMinutes": 67.83
+    },
+    {
+      "scenario": "成长团队",
+      "npcCount": 8,
+      "map": 3,
+      "vehicle": "城风",
+      "vehicleLevel": 10,
+      "riderLevel": 10,
+      "npcRate": {
+        "expectedBatchOrders": 3.351,
+        "expectedBatchSeconds": 151.546,
+        "coinsPerMinute": 90.966
+      },
+      "fleetCoinsPerActiveMinute": 727.73,
+      "fleetGrossPer30QuotaMinutes": 21831.84,
+      "nextRiderPrice": 109750,
+      "nextRiderAndSameBaseCarSavingActiveMinutes": 156.31
+    },
+    {
+      "scenario": "成熟团队",
+      "npcCount": 16,
+      "map": 4,
+      "vehicle": "疾影",
+      "vehicleLevel": 15,
+      "riderLevel": 15,
+      "npcRate": {
+        "expectedBatchOrders": 4.623,
+        "expectedBatchSeconds": 182.216,
+        "coinsPerMinute": 181.637
+      },
+      "fleetCoinsPerActiveMinute": 2906.19,
+      "fleetGrossPer30QuotaMinutes": 87185.76,
+      "nextRiderPrice": 713160,
+      "nextRiderAndSameBaseCarSavingActiveMinutes": 249.87
+    },
+    {
+      "scenario": "长期扩编",
+      "npcCount": 29,
+      "map": 5,
+      "vehicle": "晨光",
+      "vehicleLevel": 30,
+      "riderLevel": 30,
+      "npcRate": {
+        "expectedBatchOrders": 10,
+        "expectedBatchSeconds": 328.864,
+        "coinsPerMinute": 459.765
+      },
+      "fleetCoinsPerActiveMinute": 13333.18,
+      "fleetGrossPer30QuotaMinutes": 399995.55,
+      "nextRiderPrice": 3552500,
+      "nextRiderAndSameBaseCarSavingActiveMinutes": 272.82
+    },
+    {
+      "scenario": "满编满配",
+      "npcCount": 30,
+      "map": 5,
+      "vehicle": "晨光",
+      "vehicleLevel": 30,
+      "riderLevel": 30,
+      "npcRate": {
+        "expectedBatchOrders": 10,
+        "expectedBatchSeconds": 328.864,
+        "coinsPerMinute": 459.765
+      },
+      "fleetCoinsPerActiveMinute": 13792.95,
+      "fleetGrossPer30QuotaMinutes": 413788.5,
+      "nextRiderPrice": null,
+      "nextRiderAndSameBaseCarSavingActiveMinutes": null
+    }
+  ],
+  "mapMarginalPayback": [
+    {
+      "npcCount": 1,
+      "mapToBuy": 2,
+      "incrementalFleetCoinsPerMinute": 16.4,
+      "simplePaybackActiveMinutes": 365.81
+    },
+    {
+      "npcCount": 1,
+      "mapToBuy": 3,
+      "incrementalFleetCoinsPerMinute": 18.6,
+      "simplePaybackActiveMinutes": 1881.72
+    },
+    {
+      "npcCount": 1,
+      "mapToBuy": 4,
+      "incrementalFleetCoinsPerMinute": 26.04,
+      "simplePaybackActiveMinutes": 5760.37
+    },
+    {
+      "npcCount": 1,
+      "mapToBuy": 5,
+      "incrementalFleetCoinsPerMinute": 35.34,
+      "simplePaybackActiveMinutes": 16977.93
+    },
+    {
+      "npcCount": 8,
+      "mapToBuy": 2,
+      "incrementalFleetCoinsPerMinute": 131.22,
+      "simplePaybackActiveMinutes": 45.73
+    },
+    {
+      "npcCount": 8,
+      "mapToBuy": 3,
+      "incrementalFleetCoinsPerMinute": 148.8,
+      "simplePaybackActiveMinutes": 235.22
+    },
+    {
+      "npcCount": 8,
+      "mapToBuy": 4,
+      "incrementalFleetCoinsPerMinute": 208.32,
+      "simplePaybackActiveMinutes": 720.05
+    },
+    {
+      "npcCount": 8,
+      "mapToBuy": 5,
+      "incrementalFleetCoinsPerMinute": 282.72,
+      "simplePaybackActiveMinutes": 2122.24
+    },
+    {
+      "npcCount": 30,
+      "mapToBuy": 2,
+      "incrementalFleetCoinsPerMinute": 492.06,
+      "simplePaybackActiveMinutes": 12.19
+    },
+    {
+      "npcCount": 30,
+      "mapToBuy": 3,
+      "incrementalFleetCoinsPerMinute": 558.0,
+      "simplePaybackActiveMinutes": 62.72
+    },
+    {
+      "npcCount": 30,
+      "mapToBuy": 4,
+      "incrementalFleetCoinsPerMinute": 781.2,
+      "simplePaybackActiveMinutes": 192.01
+    },
+    {
+      "npcCount": 30,
+      "mapToBuy": 5,
+      "incrementalFleetCoinsPerMinute": 1060.2,
+      "simplePaybackActiveMinutes": 565.93
+    }
+  ],
+  "completionSpend": {
+    "all30Riders": 29647900,
+    "allMaps": 791000,
+    "thirtyTopCars": 2550000,
+    "thirtyTopCarsMaxUpgrades": 7650000,
+    "all30RidersTraining": 144000
+  }
+}

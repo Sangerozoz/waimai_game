@@ -1,0 +1,60 @@
+{
+  "status": "authorized-next-resource-wave-not-completed",
+  "currentVisualApproval": "User accepted revision-005 mixed-street view and authorized continued progress; not full county/calibration/game acceptance.",
+  "runtimeMaxEdge": 280,
+  "referenceIndex": "references/approved-25-index.json",
+  "readOnlyApprovedStreet": "../revision-005/",
+  "geometryBasis": "../revision-003/road-constraint.json",
+  "originalCity": "delivery-game/assets/resources/map-sample/city.json",
+  "zoning": "docs/art/2026-11-02-county-zoning/selection.json",
+  "assets": [
+    {
+      "id": "B06",
+      "family": "low-rise residential, visibly distinct roof/facade from B05",
+      "owner": "residential"
+    },
+    {
+      "id": "B07",
+      "family": "mid-rise residential, balconies/solid wall and massing distinct from B03 office",
+      "owner": "residential"
+    },
+    {
+      "id": "B08",
+      "family": "market/commercial with visibly distinct covered entrance/roof",
+      "owner": "civic-commercial"
+    },
+    {
+      "id": "B09",
+      "family": "public science/library/cultural with distinctive curved/circular or otherwise non-box morphology from actual25 source",
+      "owner": "civic-commercial"
+    },
+    {
+      "id": "B10",
+      "family": "workshop/warehouse with visible industrial roof/material identity",
+      "owner": "industry"
+    },
+    {
+      "id": "B11",
+      "family": "small utility/garage/service building, not another white glass office",
+      "owner": "industry"
+    },
+    {
+      "id": "V01",
+      "family": "compact hatchback background/parked car",
+      "owner": "vehicles"
+    },
+    {
+      "id": "V02",
+      "family": "box-shaped small cargo van, genuinely different from hatchback",
+      "owner": "vehicles"
+    }
+  ],
+  "constraints": [
+    "Original25/current5 raw PNGs and original city/roads/zones/saves remain read-only.",
+    "No planar rotate/mirror/shear or renamed colour variants counted as diversity.",
+    "Only actual referenced<=280 runtime derivatives enter the map package; shared image/Frame per unique file.",
+    "Each reference selection records image number/region/version/sourceSHA/complete bbox before native generation.",
+    "No new gameplay/UI/economy/vehicle catalogue/POI changes, no game tests/typecheck/regression, no commits/pushes.",
+    "No extra native retries beyond bounded assigned candidates; report blockers honestly."
+  ]
+}

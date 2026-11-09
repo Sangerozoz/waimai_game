@@ -1,0 +1,3521 @@
+diff --git a/delivery-game/assets/scripts/domain/V2RiderEconomy.ts b/delivery-game/assets/scripts/domain/V2RiderEconomy.ts
+--- a/delivery-game/assets/scripts/domain/V2RiderEconomy.ts
++++ b/delivery-game/assets/scripts/domain/V2RiderEconomy.ts
+@@ -1,4 +1,6 @@
+ import { V2_CONFIG as C } from './V2EconomyConfig';
++// Explicit new helpers; the legacy exports below remain the legacy evaluator.
++export { slotRiderEffects,slotRiderUpgradeQuote,slotRiderHireQuote } from './V2EconomyProfiles';
+ 
+ function levelCheck(level:number):void {
+  if(!Number.isInteger(level)||level<1||level>30)throw new Error('人物等级无效');
+diff --git a/delivery-game/assets/scripts/domain/V2EconomySession.ts b/delivery-game/assets/scripts/domain/V2EconomySession.ts
+--- a/delivery-game/assets/scripts/domain/V2EconomySession.ts
++++ b/delivery-game/assets/scripts/domain/V2EconomySession.ts
+@@ -3,15 +3,21 @@
+ import { V2DeliveryOutcome, V2FinalSettlement, settleTripIncome } from './V2TripRules';
+ import { V2_CONFIG as C, V2_CONFIG_ID } from './V2EconomyConfig';
+ import { getExperienceLevel, getPlayerIncomeMultiplier } from './GameConfig';
++import { V2_SLOT_PROFILE_ID,V2_SLOT_PRICE_POLICY,V2_SLOT_EFFECT_POLICY,V2_SLOT_START_CENTS,slotVehicleEffects,slotVehicleUpgradeQuote,slotRiderEffects,slotRiderUpgradeQuote,slotVehiclePurchaseQuote,slotRiderHireQuote,slotMapBaseIncomeCents,slotMapPurchaseQuote,slotNextHirePriceCents,parseV2ContractTerms,sameV2ContractTerms } from './V2EconomyProfiles';
++import type { V2ContractTerms,V2SlotContractTerms,V2SlotVehicleEffects,V2SlotRiderEffects } from './V2EconomyProfiles';
++import { slotLoadForOrderId,fitsV2Capacity } from './V2LoadRules';
++import type { V2Capacity } from './V2LoadRules';
++
+ 
+ export interface V2Vehicle { id:string; modelId:number|'starter'|'legacy'; level:number; legacyTier?:number; legacySpeedKph?:number; legacyCapacityKg?:number; legacyIncomeFactor?:number }
+ export interface V2Rider { id:string; level:number; vehicleId:string|null }
+-export interface V2OrdinaryPricing { version:'ordinary-effort-v1'; deliveryMetres:number }
++export interface V2DeliveryEffects { profileId:string;speedRelativeToStarter:number;incomeFactor:number;capacity:V2Capacity }
++export interface V2OrdinaryPricing { version:'ordinary-effort-v1'|'distance-effort-slots-v1'; deliveryMetres:number }
+ export type V2OrdinaryPricingById=Readonly<Record<string,Readonly<{deliveryMetres:number}>>>;
+ export const V2_ORDINARY_PRICING=Object.freeze({version:'ordinary-effort-v1' as const,protectedBasisPoints:10000,baseBasisPoints:9000,deliveryMetresCap:2000,basisPointsPerDeliveryMetre:1,extraKgBasisPoints:500,extraKgCap:2});
+-export interface V2DeliveryQuote { id:string; configId:string; incomeCents:number; heroOrderOrdinal:number; kind:'ordinary'|'special'; mapId:number; vehicleId:string; weightKg?:number; vehicleLevel?:number; incomeFactor?:number; xpMultiplier?:number; heroCompletedAtAcceptance?:number; specialCoins?:number; ordinaryPricing?:V2OrdinaryPricing }
++export interface V2DeliveryQuote { id:string; configId:string; incomeCents:number; heroOrderOrdinal:number; kind:'ordinary'|'special'; mapId:number; vehicleId:string; weightKg?:number; vehicleLevel?:number; incomeFactor?:number; xpMultiplier?:number; heroCompletedAtAcceptance?:number; specialCoins?:number; ordinaryPricing?:V2OrdinaryPricing;terms?:V2ContractTerms }
+ export interface V2DeliveryReceipt extends Partial<V2FinalSettlement> { id:string; incomeCents:number; heroOrderOrdinal:number }
+-export interface V2FleetQuote { id:string; riderId:string; vehicleId:string; vehicleLevel:number; riderLevel:number; mapId:number; weightKg:number; incomeCents:number; capacityKg:number; speedRelativeToStarter:number; baseIncomeFactor:number; fixedServiceReduction:number }
++export interface V2FleetQuote { id:string; riderId:string; vehicleId:string; vehicleLevel:number; riderLevel:number; mapId:number; weightKg?:number; incomeCents:number; capacityKg?:number; speedRelativeToStarter:number; baseIncomeFactor:number; fixedServiceReduction:number;terms?:V2ContractTerms }
+ export interface V2HeroCompletionEvent { id:string; teamCompletedAfter:number }
+ export interface V2EconomyState {
+  ledger:V2Ledger; ledgerContext?:V2LedgerContext|null;
+@@ -20,7 +26,7 @@
+  npcCompletedOrders:number; heroCompletionEvents:V2HeroCompletionEvent[]; fleetQuotes:V2FleetQuote[]; activeQuotes:V2DeliveryQuote[];
+  settledOrderIds:string[]; activeQuote:V2DeliveryQuote|null; lastReceipt:V2DeliveryReceipt|null;
+ }
+-export interface V2EconomySnapshot { format:'county-v2-economy'; version:1; configId:string; state:V2EconomyState; legacyCheckpoint?:string; [key:string]:unknown }
++export interface V2EconomySnapshot { format:'county-v2-economy'; version:1|2; configId:string; state:V2EconomyState; legacyCheckpoint?:string; [key:string]:unknown }
+ const clone=<T>(value:T):T=>JSON.parse(JSON.stringify(value));
+ function check(condition:unknown,message='存档校验失败'):asserts condition {if(!condition)throw new Error(message);}
+ function int(value:unknown,min=0,max=Number.MAX_SAFE_INTEGER):value is number{return typeof value==='number'&&Number.isSafeInteger(value)&&value>=min&&value<=max;}
+@@ -53,7 +59,7 @@
+  const cents=Math.round(C.maps[mapId-1].ordinaryBaseFee*100*incomeFactor*xpMultiplier*(n/rule.protectedBasisPoints));check(int(cents),'普通报价超出安全范围');return cents;
+ }
+ /** New metadata is checked on active AND historical quotes; absent legacy quotes are untouched. */
+-export function validateOrdinaryPricingQuote(quote:V2DeliveryQuote,state:Readonly<V2EconomyState>):void {
++function validateLegacyOrdinaryPricingQuote(quote:V2DeliveryQuote,state:Readonly<V2EconomyState>):void {
+  if(!('ordinaryPricing' in quote))return;
+  check(Object.prototype.hasOwnProperty.call(quote,'ordinaryPricing')&&quote.kind==='ordinary','专送或继承字段不能附普通计价');
+  const pricing=quote.ordinaryPricing;
+@@ -78,7 +84,7 @@
+  const cumulative=(level:number)=>typeof vehicle.modelId==='number'?C.upgradeLevels[level-1].vehicleCumulativeCosts[vehicle.modelId-1]:vehicleCumulativeUpgradeCost(basis,level);
+  return {costCents:(cumulative(vehicle.level+1)-cumulative(vehicle.level))*100,current:vehicleEffects(vehicle),next:vehicleEffects({...vehicle,level:vehicle.level+1}),nextLevel:vehicle.level+1};
+ }
+-export function validateV2EconomySnapshot(value:unknown):asserts value is V2EconomySnapshot {
++export function validateLegacyV2EconomySnapshot(value:unknown):asserts value is V2EconomySnapshot {
+  check(object(value)&&value.format==='county-v2-economy'&&value.version===1&&value.configId===V2_CONFIG_ID,'存档版本或经济配置版本不受支持');
+  check(object(value.state));const s=value.state;
+  for(const key of ['cashCents','heroCompletedOrders','heroExperience','hireCount','nextVehicleId'])check(int(s[key]));
+@@ -101,7 +107,7 @@
+  check(Array.isArray(s.settledOrderIds)&&s.settledOrderIds.every(identity)&&new Set(s.settledOrderIds).size===s.settledOrderIds.length);
+  check(int(s.npcCompletedOrders)&&Array.isArray(s.heroCompletionEvents)&&Array.isArray(s.fleetQuotes)&&Array.isArray(s.activeQuotes));
+  check(s.heroCompletionEvents.length<=Number(s.heroCompletedOrders)&&int(Number(s.heroCompletedOrders)+Number(s.npcCompletedOrders)));
+- const typedState=s as unknown as V2EconomyState;
++ const typedState=s as unknown as Omit<V2EconomyState,'fleetQuotes'>&{fleetQuotes:(V2FleetQuote&{weightKg:number;capacityKg:number})[]};
+  let previous=0;const eventIds=new Set<string>();
+  for(const ev of typedState.heroCompletionEvents){check(object(ev)&&identity(ev.id)&&!eventIds.has(ev.id)&&s.settledOrderIds.includes(ev.id)&&int(ev.teamCompletedAfter,1)&&ev.teamCompletedAfter>previous&&ev.teamCompletedAfter<=Number(s.heroCompletedOrders)+Number(s.npcCompletedOrders));eventIds.add(ev.id);previous=ev.teamCompletedAfter;}
+  const openIds=new Set<string>();
+@@ -126,6 +132,81 @@
+ 
+ }
+ 
++/** New units have their own tariff. In particular, there is no extraKg input. */
++export function slotOrdinaryIncomeCents(mapId:number,incomeFactor:number,xpMultiplier:number,acceptedCount:number,deliveryMetres:number):number {
++ check(int(mapId,1,5)&&Number.isFinite(incomeFactor)&&incomeFactor>0&&Number.isFinite(xpMultiplier)&&xpMultiplier>=1&&xpMultiplier<=1.6&&int(acceptedCount)&&int(deliveryMetres,1),'格子普通报价输入无效');
++ const rule=V2_ORDINARY_PRICING,n=acceptedCount<C.intro.safeOrders?rule.protectedBasisPoints:rule.baseBasisPoints+Math.min(deliveryMetres,rule.deliveryMetresCap)*rule.basisPointsPerDeliveryMetre;
++ const cents=Math.round(slotMapBaseIncomeCents(mapId)*incomeFactor*xpMultiplier*(n/rule.protectedBasisPoints));check(int(cents));return cents;
++}
++export function legacyQuotePayload<T extends {terms?:V2ContractTerms}>(quote:T):Omit<T,'terms'> {
++ const {terms,...payload}=quote;return payload;
++}
++/** Call only after the original containing payload has passed its complete validator. */
++export function wrapLegacyQuote<T extends {terms?:V2ContractTerms}>(quote:T):T {
++ check(!('terms' in quote),'旧合同不能附新条款');return {...quote,terms:{version:'kg-v1',profileId:V2_CONFIG_ID}};
++}
++export function contractTerms(quote:{terms?:V2ContractTerms}):V2ContractTerms {
++ check(Object.prototype.propertyIsEnumerable.call(quote,'terms'),'新容器缺少合同单位');return parseV2ContractTerms(quote.terms);
++}
++function heroSlotTerms(id:string,kind:'ordinary'|'special',vehicle:V2Vehicle,riderLevel:number):V2SlotContractTerms {
++ const effects=slotVehicleEffects(vehicle);return {version:'slots-v1',profileId:V2_SLOT_PROFILE_ID,pricePolicyId:kind==='ordinary'?V2_SLOT_PRICE_POLICY:'slots-special-v1',effectPolicyId:V2_SLOT_EFFECT_POLICY,
++ load:slotLoadForOrderId(id),capacity:effects.capacity,vehicleLevel:vehicle.level,riderLevel,speedRelativeToStarter:effects.speedRelativeToStarter,incomeFactor:effects.incomeFactor,riderIncomeFactor:1,fixedServiceReduction:0};
++}
++function fleetSlotTerms(id:string,vehicle:V2Vehicle,rider:V2Rider):V2SlotContractTerms {
++ const effects=slotVehicleEffects(vehicle),training=slotRiderEffects(rider.id,rider.level);
++ return {version:'slots-v1',profileId:V2_SLOT_PROFILE_ID,pricePolicyId:'slots-fleet-v1',effectPolicyId:V2_SLOT_EFFECT_POLICY,load:slotLoadForOrderId(id),capacity:effects.capacity,vehicleLevel:vehicle.level,riderLevel:rider.level,
++ speedRelativeToStarter:effects.speedRelativeToStarter,incomeFactor:effects.incomeFactor,riderIncomeFactor:training.incomeFactor,fixedServiceReduction:training.fixedServiceReduction};
++}
++export function validateSlotDeliveryQuote(q:V2DeliveryQuote,state:Readonly<V2EconomyState>):void {
++ check(object(q)&&identity(q.id)&&q.configId===V2_SLOT_PROFILE_ID&&!('weightKg' in q)&&int(q.mapId,1,5)&&identity(q.vehicleId)&&int(q.incomeCents)&&int(q.heroOrderOrdinal,1)&&int(q.vehicleLevel,1,30)&&int(q.heroCompletedAtAcceptance)&&q.heroCompletedAtAcceptance<=state.heroCompletedOrders&&q.heroOrderOrdinal>q.heroCompletedAtAcceptance,'格子合同身份无效');
++ check(q.kind==='ordinary'||q.kind==='special');const v=state.vehicles.find(v=>v.id===q.vehicleId);check(v&&q.vehicleLevel<=v.level);
++ const terms=contractTerms(q);check(terms.version==='slots-v1'&&sameV2ContractTerms(terms,heroSlotTerms(q.id,q.kind,{...v,level:q.vehicleLevel},state.riders[0].level)));
++ const accepted=q.heroCompletedAtAcceptance,expectedXp=accepted<C.intro.safeOrders?1:getPlayerIncomeMultiplier(accepted*10<50?1:getExperienceLevel(accepted*10+50));
++ check(q.incomeFactor===terms.incomeFactor&&q.xpMultiplier===expectedXp);
++ if(q.kind==='special'){check(!('ordinaryPricing' in q)&&int(q.specialCoins,100,150)&&q.incomeCents===q.specialCoins*100);return;}
++ check(Object.prototype.propertyIsEnumerable.call(q,'ordinaryPricing'),'格子普通合同缺少可信距离');const p=q.ordinaryPricing;
++ check(pricingRecord(p)&&Reflect.ownKeys(p).length===2&&Object.prototype.propertyIsEnumerable.call(p,'version')&&Object.prototype.propertyIsEnumerable.call(p,'deliveryMetres')&&p.version===V2_SLOT_PRICE_POLICY&&int(p.deliveryMetres,1));
++ check(q.incomeCents===slotOrdinaryIncomeCents(q.mapId,terms.incomeFactor,expectedXp,accepted,p.deliveryMetres),'格子合同金额不匹配');
++}
++export function validateSlotFleetQuote(q:V2FleetQuote,state:Readonly<V2EconomyState>):void {
++ check(object(q)&&identity(q.id)&&!('weightKg' in q)&&!('capacityKg' in q)&&int(q.mapId,1,5)&&int(q.incomeCents)&&int(q.vehicleLevel,1,30)&&int(q.riderLevel,1,30));
++ const v=state.vehicles.find(v=>v.id===q.vehicleId),r=state.riders.find(r=>r.id===q.riderId&&r.id!=='hero');check(v&&r&&q.vehicleLevel<=v.level&&q.riderLevel<=r.level);
++ const effects=slotVehicleEffects({...v,level:q.vehicleLevel}),training=slotRiderEffects(r.id,q.riderLevel),terms=contractTerms(q);
++ check(terms.version==='slots-v1'&&sameV2ContractTerms(terms,fleetSlotTerms(q.id,{...v,level:q.vehicleLevel},{...r,level:q.riderLevel})));
++ check(q.speedRelativeToStarter===effects.speedRelativeToStarter&&q.baseIncomeFactor===training.baseIncomeFactor&&q.fixedServiceReduction===training.fixedServiceReduction&&q.incomeCents===Math.round(slotMapBaseIncomeCents(q.mapId)*effects.incomeFactor*training.incomeFactor));
++}
++export function validateOrdinaryPricingQuote(q:V2DeliveryQuote,state:Readonly<V2EconomyState>):void {
++ if('terms' in q){const terms=contractTerms(q);if(terms.version==='slots-v1'){validateSlotDeliveryQuote(q,state);return;}validateLegacyOrdinaryPricingQuote(legacyQuotePayload(q),state);return;}
++ validateLegacyOrdinaryPricingQuote(q,state);
++}
++/** Common invariants reuse the complete legacy validator; only new quotes use the new evaluator. */
++export function validateV2EconomySnapshot(value:unknown):asserts value is V2EconomySnapshot {
++ check(object(value)&&object(value.state));const s=value.state as unknown as V2EconomyState;
++ check(Array.isArray(s.activeQuotes)&&Array.isArray(s.fleetQuotes));
++ if(value.version===1){
++  check([...s.activeQuotes,...s.fleetQuotes].every(q=>object(q)&&!('terms' in q)&&!('load' in q)&&!('occupiedSlots' in q)));
++  validateLegacyV2EconomySnapshot(value);return;
++ }
++ check(value.format==='county-v2-economy'&&value.version===2&&value.configId===V2_SLOT_PROFILE_ID,'经济配置版本不受支持');
++ const activeLegacy:V2DeliveryQuote[]=[],fleetLegacy:V2FleetQuote[]=[],ids=new Set<string>();
++ for(const q of [...s.activeQuotes,...s.fleetQuotes]){check(object(q)&&identity(q.id)&&!ids.has(q.id)&&Array.isArray(s.settledOrderIds)&&!s.settledOrderIds.includes(q.id));ids.add(q.id);contractTerms(q);}
++ for(const q of s.activeQuotes){if(contractTerms(q).version==='slots-v1')validateSlotDeliveryQuote(q,s);else {check(!('load' in q)&&!('occupiedSlots' in q));activeLegacy.push(legacyQuotePayload(q));}}
++ for(const q of s.fleetQuotes){if(contractTerms(q).version==='slots-v1')validateSlotFleetQuote(q,s);else {check(!('load' in q)&&!('occupiedSlots' in q));fleetLegacy.push(legacyQuotePayload(q));}}
++ check(JSON.stringify(s.activeQuote)===JSON.stringify(s.activeQuotes[0]||null));
++ const projection={...value,version:1,configId:V2_CONFIG_ID,state:{...s,activeQuotes:activeLegacy,activeQuote:activeLegacy[0]||null,fleetQuotes:fleetLegacy}};
++ validateLegacyV2EconomySnapshot(projection);
++ check(s.activeQuotes.every(q=>q.vehicleId===s.riders[0].vehicleId&&q.mapId===s.selectedMapId));
++ if(s.activeQuotes.length){check(!s.activeQuotes.some(q=>q.kind==='special')||s.activeQuotes.length===1);const terms=s.activeQuotes.map(contractTerms);check(terms.every(t=>t.version===terms[0].version));
++  if(terms[0].version==='slots-v1')check(fitsV2Capacity(terms.map(t=>(t as V2SlotContractTerms).load),terms[0].capacity));
++ }
++}
++function slotPricingById(orders:readonly {id:string;kind:'ordinary'|'special'}[],byId:V2OrdinaryPricingById):V2OrdinaryPricingById {
++ check(pricingRecord(byId)&&orders.every(o=>object(o)&&identity(o.id)&&(o.kind==='ordinary'||o.kind==='special')));const ordinary=orders.filter(o=>o.kind==='ordinary'),keys=Reflect.ownKeys(byId);
++ check(keys.length===ordinary.length&&keys.every(key=>typeof key==='string'&&ordinary.some(o=>o.id===key)));
++ const result:Record<string,{deliveryMetres:number}>=Object.create(null);
++ for(const o of ordinary){check(Object.prototype.hasOwnProperty.call(byId,o.id));const p=byId[o.id];check(pricingRecord(p)&&Reflect.ownKeys(p).length===1&&Object.prototype.hasOwnProperty.call(p,'deliveryMetres'));result[o.id]={deliveryMetres:quantizeOrdinaryDeliveryMetres(p.deliveryMetres)};}
++ return result;
++}
+ function ordinaryIncomeCents(s:V2EconomyState,vehicle:V2Vehicle):number {
+  const xpMultiplier=s.heroCompletedOrders<C.intro.safeOrders?1:getPlayerIncomeMultiplier(s.heroExperience<50?1:getExperienceLevel(s.heroExperience+50));
+  return Math.round(C.maps[s.selectedMapId-1].ordinaryBaseFee*100*vehicleEffects(vehicle).incomeFactor*xpMultiplier);
+@@ -134,47 +215,78 @@
+ /** Pure economic commands. No storage, clocks, random rewards, map rendering or route mutation. */
+ export class V2EconomySession {
+  private snapshot:V2EconomySnapshot;
+- constructor(){this.snapshot={format:'county-v2-economy',version:1,configId:V2_CONFIG_ID,state:{ledger:createLedger(C.startCoins*100,'initial'),cashCents:C.startCoins*100,heroCompletedOrders:0,heroExperience:0,hireCount:0,nextVehicleId:1,riders:[{id:'hero',level:1,vehicleId:'starter-1'}],vehicles:[{id:'starter-1',modelId:'starter',level:1}],ownedMapIds:[1],selectedMapId:1,npcCompletedOrders:0,heroCompletionEvents:[],fleetQuotes:[],activeQuotes:[],settledOrderIds:[],activeQuote:null,lastReceipt:null}};}
++ constructor(loadProfile:'kg-v1'|'slots-v1'='kg-v1'){check(loadProfile==='kg-v1'||loadProfile==='slots-v1');const cash=loadProfile==='slots-v1'?V2_SLOT_START_CENTS:C.startCoins*100;this.snapshot={format:'county-v2-economy',version:loadProfile==='slots-v1'?2:1,configId:loadProfile==='slots-v1'?V2_SLOT_PROFILE_ID:V2_CONFIG_ID,state:{ledger:createLedger(cash,'initial'),cashCents:cash,heroCompletedOrders:0,heroExperience:0,hireCount:0,nextVehicleId:1,riders:[{id:'hero',level:1,vehicleId:'starter-1'}],vehicles:[{id:'starter-1',modelId:'starter',level:1}],ownedMapIds:[1],selectedMapId:1,npcCompletedOrders:0,heroCompletionEvents:[],fleetQuotes:[],activeQuotes:[],settledOrderIds:[],activeQuote:null,lastReceipt:null}};}
+  static restore(serialized:string):V2EconomySession {const raw:unknown=JSON.parse(serialized);validateV2EconomySnapshot(raw);const session=new V2EconomySession();session.snapshot=clone(raw);return session;}
+  /** Atomically restores a validated draft; performs no storage write. */
+  replaceFrom(serialized:string):void {const restored=V2EconomySession.restore(serialized);this.snapshot=restored.snapshot;}
+  get state():Readonly<V2EconomyState>{return clone(this.snapshot.state);}
++ get usesSlots():boolean{return this.snapshot.version===2;}
++ /** Read validated private authority, never a full snapshot; all returned objects are detached. */
++ get hasEquippedVehicle():boolean {return this.snapshot.state.riders[0].vehicleId!==null;}
++ get nextBatchEffects():V2SlotVehicleEffects|null {
++  const s=this.snapshot.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);return v?slotVehicleEffects(v):null;
++ }
++ deliveryEffectProjection(quoteId:string|null):V2DeliveryEffects|null {
++  const s=this.snapshot.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);if(!v)return null;
++  const quote=quoteId===null?null:s.activeQuotes.find(q=>q.id===quoteId);check(quoteId===null||quote,'当前配送效果合同不一致');
++  const terms=quote?.terms;
++  if(terms?.version==='slots-v1')return {profileId:terms.profileId,speedRelativeToStarter:terms.speedRelativeToStarter,incomeFactor:terms.incomeFactor,capacity:{version:'slots-v1',capacitySlots:terms.capacity.capacitySlots}};
++  if(quote){const legacy=vehicleEffects(v);return {profileId:V2_CONFIG_ID,speedRelativeToStarter:legacy.speedRelativeToStarter,incomeFactor:legacy.incomeFactor,capacity:{version:'kg-v1',capacityKg:legacy.capacityKg}};}
++  const current=slotVehicleEffects(v);return {profileId:V2_SLOT_PROFILE_ID,speedRelativeToStarter:current.speedRelativeToStarter,incomeFactor:current.incomeFactor,capacity:current.capacity};
++ }
++ vehicleEffectProjection(vehicleId:string):V2SlotVehicleEffects|null {
++  const v=this.snapshot.state.vehicles.find(v=>v.id===vehicleId);return v?slotVehicleEffects(v):null;
++ }
++ riderEffectProjection(riderId:string):V2SlotRiderEffects|null {
++  const r=this.snapshot.state.riders.find(r=>r.id===riderId&&r.id!=='hero');return r?slotRiderEffects(r.id,r.level):null;
++ }
++ /** Promotion follows full legacy validation; no cash, levels, prices or ledger entries are manufactured. */
++ enableSlots():void {
++  if(this.usesSlots)return;validateV2EconomySnapshot(this.snapshot);const next=clone(this.snapshot);
++  next.state.activeQuotes=next.state.activeQuotes.map(wrapLegacyQuote);next.state.activeQuote=next.state.activeQuotes[0]||null;
++  next.state.fleetQuotes=next.state.fleetQuotes.map(wrapLegacyQuote);next.version=2;next.configId=V2_SLOT_PROFILE_ID;
++  validateV2EconomySnapshot(next);this.snapshot=next;
++ }
++ vehicleUpgradePrice(id:string){const v=this.snapshot.state.vehicles.find(v=>v.id===id);check(v,'车辆不存在');return v.level===30?null:this.usesSlots?slotVehicleUpgradeQuote(v):vehicleUpgradeQuote(v);}
++ riderUpgradePrice(id:string){const r=this.snapshot.state.riders.find(r=>r.id===id);check(r&&r.id!=='hero','人物无效');return r.level===30?null:this.usesSlots?slotRiderUpgradeQuote(id,r.level):riderUpgradeQuote(id,r.level);}
+  /** Scalar event progress only; avoids cloning the wallet to check pending replenishment. */
+  get heroCompletionEventCount():number {return this.snapshot.state.heroCompletionEvents.length;}
+  serialize():string{return JSON.stringify(this.snapshot);}
+  setLedgerContext(context:V2LedgerContext|null):void {validateLedgerContext(context);this.snapshot.state.ledgerContext=clone(context);}
+  ledgerSummary(query:V2LedgerQuery){const s=this.snapshot.state,report=summarizeLedger(s.ledger,query);return {...report,reconciliation:{...report.reconciliation,currentCashCents:s.cashCents,balanced:report.reconciliation.expectedCashCents===s.cashCents}};}
+  private record(s:V2EconomyState,category:V2LedgerCategory,amountCents:number,detail:V2LedgerDetail={},id?:string):void {appendLedger(s.ledger,{id,category,amountCents,detail},s.ledgerContext||null);}
+- get nextHirePriceCents():number|null{return cheapestUnhiredRider(this.snapshot.state.riders)?.priceCents??null;}
++ get nextHirePriceCents():number|null{return this.usesSlots?slotNextHirePriceCents(this.snapshot.state.riders):cheapestUnhiredRider(this.snapshot.state.riders)?.priceCents??null;}
+  private idle():void {check(!this.snapshot.state.activeQuote,'配送中请先完成订单');}
+  /** Historical module compile surface only; current snapshots reject legacy checkpoints. */
+  get hasPendingLegacyTrip():boolean {return false;}
+- private transact(cost:number,change:(draft:V2EconomyState)=>void,category?:V2LedgerCategory,detail:V2LedgerDetail={}):void {
+-  this.idle();check(int(cost),'金额超出安全范围');check(this.snapshot.state.cashCents>=cost,'余额不足');const next=clone(this.snapshot);next.state.cashCents-=cost;change(next.state);if(cost>0){check(category,'账目类别缺失');this.record(next.state,category,-cost,detail);}validateV2EconomySnapshot(next);this.snapshot=next;
++ private transact(cost:number,change:(draft:V2EconomyState)=>void,category?:V2LedgerCategory,detail:V2LedgerDetail={},allowDuringHero=false):void {
++  if(!allowDuringHero)this.idle();check(int(cost),'金额超出安全范围');check(this.snapshot.state.cashCents>=cost,'余额不足');const next=clone(this.snapshot);next.state.cashCents-=cost;change(next.state);if(cost>0){check(category,'账目类别缺失');this.record(next.state,category,-cost,detail);}validateV2EconomySnapshot(next);this.snapshot=next;
+  }
+  buyVehicle(modelId:number):string {check(int(modelId,1,10),'车型无效');const id=`v2-vehicle-${this.snapshot.state.nextVehicleId}`;
+-  this.transact(C.vehicles[modelId-1].price*100,s=>{s.vehicles.push({id,modelId,level:1});s.nextVehicleId++;},'vehicle_purchase',{vehicleId:id,modelId});return id;
+- }
+- hireRider(id:string):void {check(/^npc-([1-9]|[12]\d|30)$/.test(id),'人物无效');check(!this.snapshot.state.riders.some(r=>r.id===id),'人物已招募');const price=riderHireQuote(id).priceCents;this.transact(price,s=>{s.riders.push({id,level:1,vehicleId:null});s.hireCount++;},'rider_hire',{riderId:id});}
++  this.transact(this.usesSlots?slotVehiclePurchaseQuote(modelId).costCents:C.vehicles[modelId-1].price*100,s=>{s.vehicles.push({id,modelId,level:1});s.nextVehicleId++;},'vehicle_purchase',{vehicleId:id,modelId},this.usesSlots);return id;
++ }
++ hireRider(id:string):void {check(/^npc-([1-9]|[12]\d|30)$/.test(id),'人物无效');check(!this.snapshot.state.riders.some(r=>r.id===id),'人物已招募');const price=this.usesSlots?slotRiderHireQuote(id).costCents:riderHireQuote(id).priceCents;this.transact(price,s=>{s.riders.push({id,level:1,vehicleId:null});s.hireCount++;},'rider_hire',{riderId:id},this.usesSlots);}
+  assignVehicle(riderId:string,vehicleId:string|null):void {
+   const s=this.snapshot.state;check(s.riders.some(r=>r.id===riderId),'人物未招募');check(vehicleId===null||s.vehicles.some(v=>v.id===vehicleId),'车辆不存在');
+   check(vehicleId===null||!s.fleetQuotes.some(q=>q.vehicleId===vehicleId&&q.riderId!==riderId),'车辆仍执行旧批次');
+   check(vehicleId===null||!s.riders.some(r=>r.id!==riderId&&r.vehicleId===vehicleId),'车辆已被其他人物占用');
+-  this.transact(0,s=>{s.riders.find(r=>r.id===riderId)!.vehicleId=vehicleId;});
+- }
+- buyMap(id:number):void {check(int(id,1,5),'地图无效');check(!this.snapshot.state.ownedMapIds.includes(id),'地图已拥有');this.transact(C.maps[id-1].price*100,s=>{s.ownedMapIds.push(id);},'map_purchase',{mapId:id});}
++  this.transact(0,s=>{s.riders.find(r=>r.id===riderId)!.vehicleId=vehicleId;},undefined,{},this.usesSlots&&riderId!=='hero');
++ }
++ buyMap(id:number):void {check(int(id,1,5),'地图无效');check(!this.snapshot.state.ownedMapIds.includes(id),'地图已拥有');this.transact(this.usesSlots?slotMapPurchaseQuote(id).costCents:C.maps[id-1].price*100,s=>{s.ownedMapIds.push(id);},'map_purchase',{mapId:id});}
+  selectMap(id:number):void {check(this.snapshot.state.ownedMapIds.includes(id),'地图未购买');this.transact(0,s=>{s.selectedMapId=id;});}
+  upgradeVehicle(id:string):void {
+   const vehicle=this.snapshot.state.vehicles.find(v=>v.id===id);check(vehicle,'车辆不存在');check(vehicle.level<30,'车辆已满级');
+-  const cost=vehicleUpgradeQuote(vehicle)!.costCents;
+-  this.transact(cost,s=>{s.vehicles.find(v=>v.id===id)!.level++;},'vehicle_upgrade',{vehicleId:id,level:vehicle.level+1});
++  const cost=this.vehicleUpgradePrice(id)!.costCents;
++  check(!this.snapshot.state.activeQuotes.some(q=>q.vehicleId===id),'主角配送中不能升级当前车辆');
++  this.transact(cost,s=>{s.vehicles.find(v=>v.id===id)!.level++;},'vehicle_upgrade',{vehicleId:id,level:vehicle.level+1},this.usesSlots);
+  }
+  upgradeRider(id:string):void {const rider=this.snapshot.state.riders.find(r=>r.id===id);check(rider,'人物未招募');check(rider.level<30,'人物已满级');check(id!=='hero','主角通过配送获得经验等级');
+-  this.transact(riderUpgradeQuote(id,rider.level)!.costCents,s=>{s.riders.find(r=>r.id===id)!.level++;},'rider_upgrade',{riderId:id,level:rider.level+1});
++  this.transact(this.riderUpgradePrice(id)!.costCents,s=>{s.riders.find(r=>r.id===id)!.level++;},'rider_upgrade',{riderId:id,level:rider.level+1},this.usesSlots);
+  }
+  /** Creates immutable contracts; routing/arrival must still be confirmed by the caller. */
+  acceptOrdinary(id:string):V2DeliveryQuote {return this.acceptBatch([{id,kind:'ordinary',weightKg:1}])[0];}
+  acceptBatch(orders:{id:string;kind:'ordinary'|'special';weightKg:number;specialCoins?:number}[],ordinaryPricingById?:V2OrdinaryPricingById):V2DeliveryQuote[] {
++  check(!this.usesSlots,'新批次必须显式使用整数容量合同');
+   this.idle();check(Array.isArray(orders)&&orders.length>0,'空订单批次');const s=this.snapshot.state,vehicle=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);check(vehicle,'主角尚未配车');
+   const pricingById=normalizeOrdinaryPricingById(orders,ordinaryPricingById);
+   const ids=new Set<string>();let weight=0;const effects=vehicleEffects(vehicle),xpMultiplier=s.heroCompletedOrders<C.intro.safeOrders?1:getPlayerIncomeMultiplier(s.heroExperience<50?1:getExperienceLevel(s.heroExperience+50));
+@@ -183,6 +295,19 @@
+    const pricing:V2OrdinaryPricing|undefined=o.kind==='ordinary'&&pricingById!==undefined?{version:V2_ORDINARY_PRICING.version,deliveryMetres:pricingById[o.id].deliveryMetres}:undefined;
+    const q:V2DeliveryQuote={id:o.id,configId:V2_CONFIG_ID,incomeCents:o.kind==='special'?o.specialCoins!*100:pricing?ordinaryEffortIncomeCents(s.selectedMapId,effects.incomeFactor,xpMultiplier,s.heroCompletedOrders,o.weightKg,pricing.deliveryMetres):ordinaryIncomeCents(s,vehicle),heroOrderOrdinal:s.heroCompletedOrders+i+1,kind:o.kind,mapId:s.selectedMapId,vehicleId:vehicle.id,weightKg:o.weightKg,vehicleLevel:vehicle.level,incomeFactor:effects.incomeFactor,xpMultiplier,heroCompletedAtAcceptance:s.heroCompletedOrders};if(o.kind==='special')q.specialCoins=o.specialCoins;if(pricing)q.ordinaryPricing=pricing;return q;
+   });check(weight<=effects.capacityKg,'订单超载');const next=clone(this.snapshot);next.state.activeQuotes=quotes;next.state.activeQuote=quotes[0];validateV2EconomySnapshot(next);this.snapshot=next;return clone(quotes);
++ }
++ acceptSlotBatch(orders:readonly {id:string;kind:'ordinary'|'special';specialCoins?:number}[],byId:V2OrdinaryPricingById):V2DeliveryQuote[] {
++  this.idle();check(this.usesSlots&&Array.isArray(orders)&&orders.length>0,'新格子批次无效');const s=this.snapshot.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);check(v,'主角尚未配车');
++  const pricing=slotPricingById(orders,byId),effects=slotVehicleEffects(v),seen=new Set<string>();
++  const xp=s.heroCompletedOrders<C.intro.safeOrders?1:getPlayerIncomeMultiplier(s.heroExperience<50?1:getExperienceLevel(s.heroExperience+50));
++  const quotes=orders.map((o,i):V2DeliveryQuote=>{
++   check(identity(o.id)&&!seen.has(o.id)&&!s.settledOrderIds.includes(o.id)&&!s.fleetQuotes.some(q=>q.id===o.id));seen.add(o.id);
++   check(o.kind==='ordinary'||o.kind==='special');if(o.kind==='special')check(orders.length===1&&int(o.specialCoins,100,150));
++   const q:V2DeliveryQuote={id:o.id,configId:V2_SLOT_PROFILE_ID,kind:o.kind,mapId:s.selectedMapId,vehicleId:v.id,vehicleLevel:v.level,incomeFactor:effects.incomeFactor,xpMultiplier:xp,heroCompletedAtAcceptance:s.heroCompletedOrders,heroOrderOrdinal:s.heroCompletedOrders+i+1,
++   incomeCents:o.kind==='special'?o.specialCoins!*100:slotOrdinaryIncomeCents(s.selectedMapId,effects.incomeFactor,xp,s.heroCompletedOrders,pricing[o.id].deliveryMetres),terms:heroSlotTerms(o.id,o.kind,v,s.riders[0].level)};
++   if(o.kind==='special')q.specialCoins=o.specialCoins;else q.ordinaryPricing={version:V2_SLOT_PRICE_POLICY,deliveryMetres:pricing[o.id].deliveryMetres};return q;
++  });check(fitsV2Capacity(quotes.map(q=>(q.terms as V2SlotContractTerms).load),effects.capacity),'订单超载');
++  const next=clone(this.snapshot);next.state.activeQuotes=quotes;next.state.activeQuote=quotes[0];validateV2EconomySnapshot(next);this.snapshot=next;return clone(quotes);
+  }
+  cancelDelivery(id:string):void {const next=clone(this.snapshot);check(next.state.activeQuotes.some(q=>q.id===id),'当前配送订单不匹配');next.state.activeQuotes=next.state.activeQuotes.filter(q=>q.id!==id);next.state.activeQuote=next.state.activeQuotes[0]||null;validateV2EconomySnapshot(next);this.snapshot=next;}
+  chargeSupply(costCents:number,detail:V2SupplyChargeDetail={}):void {
+@@ -201,6 +326,7 @@
+  }
+  /** No caller-supplied amount: only current assets and legal integer weights establish NPC credit. */
+  registerFleetOrders(riderId:string,ids:string[],weights:number[]):V2FleetQuote[] {
++  check(!this.usesSlots,'新NPC批次必须使用整数容量合同');
+   const s=this.snapshot.state,r=s.riders.find(r=>r.id===riderId&&r.id!=='hero'),v=s.vehicles.find(v=>v.id===r?.vehicleId);check(r&&v,'NPC未配车');
+   check(!s.fleetQuotes.some(q=>q.riderId===riderId||q.vehicleId===v.id),'NPC或车辆仍有旧批次');check(ids.length>0&&ids.length===weights.length&&new Set(ids).size===ids.length,'NPC批次无效');const effects=vehicleEffects(v),rider=riderEffects(riderId,r.level);
+   check(weights.every(w=>int(w,1))&&weights.reduce((a,b)=>a+b,0)<=effects.capacityKg,'NPC订单超载');
+@@ -208,6 +334,15 @@
+   const quotes=ids.map((id,i)=>({id,riderId,vehicleId:v.id,vehicleLevel:v.level,riderLevel:r.level,mapId:s.selectedMapId,weightKg:weights[i],baseIncomeFactor:rider.baseIncomeFactor,fixedServiceReduction:rider.fixedServiceReduction,incomeCents:Math.round(C.maps[s.selectedMapId-1].ordinaryBaseFee*100*effects.incomeFactor*rider.incomeFactor),capacityKg:effects.capacityKg,speedRelativeToStarter:effects.speedRelativeToStarter}));
+   const next=clone(this.snapshot);next.state.fleetQuotes.push(...quotes);validateV2EconomySnapshot(next);this.snapshot=next;return clone(quotes);
+  }
++ registerSlotFleetOrders(riderId:string,ids:readonly string[]):V2FleetQuote[] {
++  check(this.usesSlots);const s=this.snapshot.state,r=s.riders.find(r=>r.id===riderId&&r.id!=='hero'),v=s.vehicles.find(v=>v.id===r?.vehicleId);check(r&&v,'NPC未配车');
++  check(!s.fleetQuotes.some(q=>q.riderId===riderId||q.vehicleId===v.id),'NPC或车辆仍有旧批次');check(ids.length>0&&new Set(ids).size===ids.length);
++  const effects=slotVehicleEffects(v),training=slotRiderEffects(riderId,r.level);
++  check(fitsV2Capacity(ids.map(slotLoadForOrderId),effects.capacity),'NPC订单超载');
++  for(const id of ids)check(identity(id)&&!s.settledOrderIds.includes(id)&&!s.activeQuotes.some(q=>q.id===id)&&!s.fleetQuotes.some(q=>q.id===id));
++  const quotes:V2FleetQuote[]=ids.map(id=>({id,riderId,vehicleId:v.id,vehicleLevel:v.level,riderLevel:r.level,mapId:s.selectedMapId,incomeCents:Math.round(slotMapBaseIncomeCents(s.selectedMapId)*effects.incomeFactor*training.incomeFactor),speedRelativeToStarter:effects.speedRelativeToStarter,baseIncomeFactor:training.baseIncomeFactor,fixedServiceReduction:training.fixedServiceReduction,terms:fleetSlotTerms(id,v,r)}));
++  const next=clone(this.snapshot);next.state.fleetQuotes.push(...quotes);validateV2EconomySnapshot(next);this.snapshot=next;return clone(quotes);
++ }
+  settleFleetOrder(id:string):number {
+   const s=this.snapshot.state;if(s.settledOrderIds.includes(id))return 0;const q=s.fleetQuotes.find(q=>q.id===id);check(q,'NPC订单未签约');
+   const next=clone(this.snapshot);next.state.cashCents+=q.incomeCents;this.record(next.state,'npc_delivery',q.incomeCents,{orderId:id,riderId:q.riderId,vehicleId:q.vehicleId,mapId:q.mapId},`order:${id}`);next.state.npcCompletedOrders++;next.state.settledOrderIds.push(id);next.state.fleetQuotes=next.state.fleetQuotes.filter(q=>q.id!==id);validateV2EconomySnapshot(next);this.snapshot=next;return q.incomeCents;
+diff --git a/delivery-game/assets/scripts/domain/V2FleetSession.ts b/delivery-game/assets/scripts/domain/V2FleetSession.ts
+--- a/delivery-game/assets/scripts/domain/V2FleetSession.ts
++++ b/delivery-game/assets/scripts/domain/V2FleetSession.ts
+@@ -1,10 +1,12 @@
+ import { V2_CONFIG as C, V2_CONFIG_ID } from './V2EconomyConfig';
+-import { V2EconomySession, V2EconomySnapshot, V2FleetQuote, V2DeliveryReceipt, vehicleEffects } from './V2EconomySession';
++import { V2EconomySession, V2EconomySnapshot, V2FleetQuote, V2DeliveryReceipt, vehicleEffects,contractTerms,wrapLegacyQuote,validateSlotFleetQuote } from './V2EconomySession';
++import { V2_SLOT_PROFILE_ID,slotVehicleEffects,sameV2ContractTerms } from './V2EconomyProfiles';
++import { slotFleetOrderIds,fitsV2Capacity } from './V2LoadRules';
+ 
+ export interface V2FleetOrder extends V2FleetQuote { dueMs:number }
+ export interface V2FleetBatch { id:number; riderId:string; vehicleId:string; mapId:number; elapsedMs:number; paidCount:number; orders:V2FleetOrder[] }
+ export interface V2FleetState { quotaMs:number; lastAdvancedAt:number; heroEventCursor:number; heroCompletionsSeen:number; nextBatchId:number; batches:V2FleetBatch[] }
+-export interface V2FleetSnapshot { format:'county-v2-fleet';version:1;configId:string;economy:V2EconomySnapshot;fleet:V2FleetState }
++export interface V2FleetSnapshot { format:'county-v2-fleet';version:1|2;configId:string;economy:V2EconomySnapshot;fleet:V2FleetState }
+ const copy=<T>(v:T):T=>JSON.parse(JSON.stringify(v));
+ function check(v:unknown,message='车队存档校验失败'):asserts v {if(!v)throw new Error(message);}
+ function integer(v:unknown,min=0,max=Number.MAX_SAFE_INTEGER):v is number {return typeof v==='number'&&Number.isSafeInteger(v)&&v>=min&&v<=max;}
+@@ -20,10 +22,11 @@
+ export class V2FleetSession {
+  readonly economy:V2EconomySession;
+  private value:V2FleetState;
++ private version:1|2;
+  // Host-local calendar policy is transient; never serialize a callback or infer a timezone.
+  private ledgerDayKeyResolver:((atMs:number)=>string)|null=null;
+  constructor(economy:V2EconomySession,nowMs=0){
+-  check(integer(nowMs),'经营时钟无效');check(economy.state.fleetQuotes.length===0,'已有车队合同须恢复组合快照');this.economy=economy;
++  check(integer(nowMs),'经营时钟无效');check(economy.state.fleetQuotes.length===0,'已有车队合同须恢复组合快照');this.economy=economy;this.version=economy.usesSlots?2:1;
+   this.value={quotaMs:0,lastAdvancedAt:nowMs,heroEventCursor:economy.state.heroCompletionEvents.length,heroCompletionsSeen:economy.state.heroCompletedOrders,nextBatchId:1,batches:[]};
+  }
+  get state():Readonly<V2FleetState>{return copy(this.value);}
+@@ -31,33 +34,44 @@
+  get clockProgress():Readonly<Pick<V2FleetState,'lastAdvancedAt'|'heroEventCursor'>> {return {lastAdvancedAt:this.value.lastAdvancedAt,heroEventCursor:this.value.heroEventCursor};}
+  setLedgerDayKeyResolver(resolver:((atMs:number)=>string)|null):void {check(resolver===null||typeof resolver==='function','账目日期解析器无效');this.ledgerDayKeyResolver=resolver;}
+  get quotaCapacityMs():number {const e=this.economy.state;return stage(e.heroCompletedOrders+e.npcCompletedOrders).capacity;}
+- serialize():string {return JSON.stringify({format:'county-v2-fleet',version:1,configId:V2_CONFIG_ID,economy:JSON.parse(this.economy.serialize()),fleet:this.value});}
++ serialize():string {return JSON.stringify({format:'county-v2-fleet',version:this.version,configId:this.version===2?V2_SLOT_PROFILE_ID:V2_CONFIG_ID,economy:JSON.parse(this.economy.serialize()),fleet:this.value});}
++ /** Wrap only after the original fleet AND economy invariants have accepted the old payload. */
++ enableSlots():void {if(this.version===2)return;this.validate();this.economy.enableSlots();this.value={...this.value,batches:this.value.batches.map(b=>({...b,orders:b.orders.map(wrapLegacyQuote)}))};this.version=2;this.validate();}
+  static restore(serialized:string,sharedEconomy?:V2EconomySession):V2FleetSession {
+-  const raw=JSON.parse(serialized) as V2FleetSnapshot;check(raw&&raw.format==='county-v2-fleet'&&raw.version===1&&raw.configId===V2_CONFIG_ID,'车队版本不受支持');
++  const raw=JSON.parse(serialized) as V2FleetSnapshot;check(raw&&raw.format==='county-v2-fleet'&&(raw.version===1&&raw.configId===V2_CONFIG_ID||raw.version===2&&raw.configId===V2_SLOT_PROFILE_ID),'车队版本不受支持');
+   const e=V2EconomySession.restore(JSON.stringify(raw.economy));if(sharedEconomy)check(sharedEconomy.serialize()===e.serialize(),'车队与钱包快照不一致');
+   // Construction bypass is private to validated restoration; fresh construction never accepts outstanding contracts.
+   const f=Object.create(V2FleetSession.prototype) as V2FleetSession;
+-  f.ledgerDayKeyResolver=null;
++  f.ledgerDayKeyResolver=null;f.version=raw.version;check(e.usesSlots===(f.version===2));
+   Object.defineProperty(f,'economy',{value:sharedEconomy||e,enumerable:true});f.value=copy(raw.fleet);f.validate();return f;
+  }
+  private validate():void {
++  check(this.economy.usesSlots===(this.version===2));
+   const s=this.value,e=this.economy.state;check(s&&integer(s.quotaMs,0,this.quotaCapacityMs)&&integer(s.lastAdvancedAt)&&integer(s.heroEventCursor,0,e.heroCompletionEvents.length)&&integer(s.heroCompletionsSeen,0,e.heroCompletedOrders)&&integer(s.nextBatchId,1)&&Array.isArray(s.batches));
+   // Older migrated completions are the baseline, never retroactively replenished.
+   check(s.heroCompletionsSeen===e.heroCompletedOrders-(e.heroCompletionEvents.length-s.heroEventCursor));
+   const ids=new Set<number>(),riders=new Set<string>(),vehicles=new Set<string>(),unpaid=new Set<string>();
+   for(const b of s.batches){check(b&&integer(b.id,1,s.nextBatchId-1)&&!ids.has(b.id)&&!riders.has(b.riderId)&&!vehicles.has(b.vehicleId)&&integer(b.elapsedMs)&&Array.isArray(b.orders)&&b.orders.length>0&&integer(b.paidCount,0,b.orders.length-1));ids.add(b.id);riders.add(b.riderId);vehicles.add(b.vehicleId);
++   // The signed vehicle stays reserved; its owner may choose another idle vehicle or null for future work.
++   check(e.riders.every(r=>r.id===b.riderId||r.vehicleId!==b.vehicleId)&&e.activeQuotes.every(q=>q.vehicleId!==b.vehicleId),'在途车辆被其他人物或主角合同占用');
+    const first=b.orders[0];check(first&&b.riderId===first.riderId&&b.vehicleId===first.vehicleId&&b.mapId===first.mapId);const t=timing(first,b.orders.length);let weight=0;
+-   for(let i=0;i<b.orders.length;i++){const o=b.orders[i];check(o&&o.id===`fleet-${b.id}-${i}`&&o.riderId===b.riderId&&o.vehicleId===b.vehicleId&&o.mapId===b.mapId&&o.vehicleLevel===first.vehicleLevel&&o.riderLevel===first.riderLevel&&o.baseIncomeFactor===first.baseIncomeFactor&&o.fixedServiceReduction===first.fixedServiceReduction&&o.capacityKg===first.capacityKg&&o.speedRelativeToStarter===first.speedRelativeToStarter&&o.incomeCents===first.incomeCents&&integer(o.weightKg,1)&&integer(o.dueMs,1)&&o.dueMs===t.road+t.service*(i+1));weight+=o.weightKg;
++   const firstTerms=this.version===2?contractTerms(first):null,slots=firstTerms?.version==='slots-v1';
++   if(firstTerms?.version==='slots-v1')check(JSON.stringify(b.orders.map(o=>o.id))===JSON.stringify(slotFleetOrderIds(b.id,firstTerms.capacity.capacitySlots)));
++   if(this.version===1)check(b.orders.every(o=>!('terms' in o)));
++   for(let i=0;i<b.orders.length;i++){const o=b.orders[i];check(o&&(slots||o.id===`fleet-${b.id}-${i}`)&&o.riderId===b.riderId&&o.vehicleId===b.vehicleId&&o.mapId===b.mapId&&o.vehicleLevel===first.vehicleLevel&&o.riderLevel===first.riderLevel&&o.baseIncomeFactor===first.baseIncomeFactor&&o.fixedServiceReduction===first.fixedServiceReduction&&o.capacityKg===first.capacityKg&&o.speedRelativeToStarter===first.speedRelativeToStarter&&o.incomeCents===first.incomeCents&&integer(o.dueMs,1)&&o.dueMs===t.road+t.service*(i+1));
++    if(this.version===2)check(contractTerms(o).version===firstTerms!.version);
++    if(slots){validateSlotFleetQuote(o,e);}else{check(integer(o.weightKg,1));weight+=o.weightKg;}
+     if(i<b.paidCount)check(e.settledOrderIds.includes(o.id)&&b.elapsedMs>=o.dueMs);
+-    else{check(b.elapsedMs<o.dueMs&&!unpaid.has(o.id));unpaid.add(o.id);const q=e.fleetQuotes.find(q=>q.id===o.id);check(q&&Object.keys(q).every(k=>(q as unknown as Record<string,unknown>)[k]===(o as unknown as Record<string,unknown>)[k]),'车队与入账合同不一致');}
++    else{check(b.elapsedMs<o.dueMs&&!unpaid.has(o.id));unpaid.add(o.id);const q=e.fleetQuotes.find(q=>q.id===o.id);check(q&&Object.keys(q).every(k=>k==='terms'?sameV2ContractTerms(contractTerms(q),contractTerms(o)):(q as unknown as Record<string,unknown>)[k]===(o as unknown as Record<string,unknown>)[k]),'车队与入账合同不一致');}
+    }
+-   check(weight<=first.capacityKg);
++   if(slots){check(firstTerms?.version==='slots-v1');check(fitsV2Capacity(b.orders.map(o=>{const terms=contractTerms(o);check(terms.version==='slots-v1');check(JSON.stringify(terms.capacity)===JSON.stringify(firstTerms.capacity));return terms.load;}),firstTerms.capacity));}
++   else check(typeof first.capacityKg==='number'&&weight<=first.capacityKg);
+   }
+   check(unpaid.size===e.fleetQuotes.length&&e.fleetQuotes.every(q=>unpaid.has(q.id)),'车队合同丢失');
+  }
+  private atomic<T>(change:(draft:V2FleetSession)=>T):T {
+   const d=V2FleetSession.restore(this.serialize());d.setLedgerDayKeyResolver(this.ledgerDayKeyResolver);const result=change(d);d.validate();
+-  this.economy.replaceFrom(d.economy.serialize());this.value=d.value;return result;
++  this.economy.replaceFrom(d.economy.serialize());this.value=d.value;this.version=d.version;return result;
+  }
+  private syncDraft():void {
+   const events=this.economy.state.heroCompletionEvents;
+@@ -70,6 +84,11 @@
+  private startBatches():void {
+   const e=this.economy.state;
+   for(const rider of e.riders){if(rider.id==='hero'||!rider.vehicleId||this.value.batches.some(b=>b.riderId===rider.id||b.vehicleId===rider.vehicleId))continue;
++   if(this.version===2){
++    const vehicle=e.vehicles.find(v=>v.id===rider.vehicleId)!;const capacity=slotVehicleEffects(vehicle).capacitySlots,ids=slotFleetOrderIds(this.value.nextBatchId,capacity);
++    if(!ids.length)continue;const id=this.value.nextBatchId++,quotes=this.economy.registerSlotFleetOrders(rider.id,ids),t=timing(quotes[0],quotes.length);
++    this.value.batches.push({id,riderId:rider.id,vehicleId:vehicle.id,mapId:e.selectedMapId,elapsedMs:0,paidCount:0,orders:quotes.map((q,i)=>({...q,dueMs:t.road+t.service*(i+1)}))});continue;
++   }
+    const vehicle=e.vehicles.find(v=>v.id===rider.vehicleId)!;const capacity=vehicleEffects(vehicle).capacityKg,map=C.maps[e.selectedMapId-1];const distribution=e.selectedMapId<=2?[1,2,3]:e.selectedMapId===3?[1,3,5]:[1,3,6];
+    const weights:number[]=[];let remaining=capacity;
+    // Versioned deterministic supply: repeated saves and partitioned advances use identical batches.
+diff --git a/delivery-game/assets/scripts/domain/V2DispatchSession.ts b/delivery-game/assets/scripts/domain/V2DispatchSession.ts
+--- a/delivery-game/assets/scripts/domain/V2DispatchSession.ts
++++ b/delivery-game/assets/scripts/domain/V2DispatchSession.ts
+@@ -1,10 +1,13 @@
+ import { V2LedgerContext, V2SupplyChargeDetail } from './V2Ledger';
+ import { V2DeliveryOutcome, settleTripIncome } from './V2TripRules';
+-import { V2EconomySession, V2DeliveryQuote, V2DeliveryReceipt, V2OrdinaryPricingById, normalizeOrdinaryPricingById, validateOrdinaryPricingQuote, vehicleEffects } from './V2EconomySession';
++import { V2EconomySession, V2DeliveryQuote, V2DeliveryReceipt, V2OrdinaryPricingById, normalizeOrdinaryPricingById, validateOrdinaryPricingQuote, vehicleEffects,contractTerms,wrapLegacyQuote } from './V2EconomySession';
++import { slotVehicleEffects } from './V2EconomyProfiles';
++import { parseV2Load,slotLoadForOrderId,sameV2Load,fitsV2Capacity } from './V2LoadRules';
++import type { V2SlotLoad } from './V2LoadRules';
+ import { V2FleetSession } from './V2FleetSession';
+ import { RewardSession, AdBenefit, AdTicket, AdOutcome } from '../rewards-v2/RewardSession';
+ 
+-export interface V2DispatchOrder { id:string; kind:'ordinary'|'special'; weightKg:number }
++export interface V2DispatchOrder { id:string; kind:'ordinary'|'special'; weightKg?:number;load?:V2SlotLoad }
+ /** Real route adapter verifies a delivery event. Elapsed time is never arrival evidence. */
+ export interface V2DispatchPort { verifyArrival(order:Readonly<V2DispatchOrder>,arrivalToken:string):boolean }
+ export type V2EconomyCommand =
+@@ -13,7 +16,7 @@
+  {type:'upgradeVehicle';vehicleId:string}|{type:'upgradeRider';riderId:string};
+ interface DispatchOrder extends V2DispatchOrder {quote:V2DeliveryQuote;status:'pending'|'completed'|'cancelled';receipt:V2DeliveryReceipt|null}
+ export interface V2DispatchSnapshot {
+- format:'county-v2-dispatch';version:1;economy:unknown;fleet:unknown;rewards:unknown;clockNeedsRebase:boolean;
++ format:'county-v2-dispatch';version:1|2;economy:unknown;fleet:unknown;rewards:unknown;clockNeedsRebase:boolean;
+  orders:DispatchOrder[];batchIds:string[];
+  frame:{sequence:number;nowSeconds:number;foreground:boolean;paused:boolean;fingerprint:string};control:'manual'|'auto';
+ }
+@@ -26,6 +29,7 @@
+ /** One owner for economic, fleet, reward and delivery states; no storage or Cocos dependency. */
+ export class V2DispatchSession {
+  private economy:V2EconomySession;
++ private version:1|2=1;
+  private fleet:V2FleetSession;
+  private rewards:RewardSession;
+  private orders:DispatchOrder[]=[];
+@@ -34,9 +38,9 @@
+  private control:'manual'|'auto'='manual';
+  private firstTickAfterRestore=false;
+  private ledgerDayKeyResolver:((atMs:number)=>string)|null=null;
+- constructor(private readonly port:V2DispatchPort,nowSeconds=0){
++ constructor(private readonly port:V2DispatchPort,nowSeconds=0,loadProfile:'kg-v1'|'slots-v1'='kg-v1'){
+   check(!!port&&typeof port.verifyArrival==='function');finite(nowSeconds);check(Number.isSafeInteger(Math.floor(nowSeconds*1000)));
+-  this.economy=new V2EconomySession();this.rewards=new RewardSession();
++  check(loadProfile==='kg-v1'||loadProfile==='slots-v1');this.economy=new V2EconomySession(loadProfile);this.version=loadProfile==='slots-v1'?2:1;this.rewards=new RewardSession();
+   this.fleet=new V2FleetSession(this.economy,Math.floor(nowSeconds*1000));this.frame.nowSeconds=nowSeconds;
+  }
+  setLedgerContext(context:V2LedgerContext|null):void {this.economy.setLedgerContext(context);}
+@@ -51,18 +55,28 @@
+  setLedgerDayKeyResolver(resolver:((atMs:number)=>string)|null):void {this.fleet.setLedgerDayKeyResolver(resolver);this.ledgerDayKeyResolver=resolver;}
+  get economyState(){return this.economy.state;}
+  get fleetState(){return this.fleet.state;}
+- snapshot():V2DispatchSnapshot {return clone({format:'county-v2-dispatch',version:1,clockNeedsRebase:this.firstTickAfterRestore,economy:JSON.parse(this.economy.serialize()),fleet:JSON.parse(this.fleet.serialize()),rewards:JSON.parse(this.rewards.serialize()),orders:this.orders,batchIds:this.batchIds,frame:this.frame,control:this.control});}
++ get hasEquippedVehicle():boolean {return this.economy.hasEquippedVehicle;}
++ get deliveryEffects(){const id=this.orders.find(o=>o.status==='pending'&&this.batchIds.includes(o.id))?.id??null;return this.economy.deliveryEffectProjection(id);}
++ get nextBatchEffects(){return this.economy.nextBatchEffects;}
++ vehicleEffectProjection(vehicleId:string){return this.economy.vehicleEffectProjection(vehicleId);}
++ riderEffectProjection(riderId:string){return this.economy.riderEffectProjection(riderId);}
++ get usesSlots():boolean{return this.version===2;}
++ enableSlots():void {if(this.usesSlots)return;this.validate();this.fleet.enableSlots();this.orders=this.orders.map(o=>({...o,quote:wrapLegacyQuote(o.quote)}));this.version=2;this.validate();}
++ vehicleUpgradePrice(id:string){return this.economy.vehicleUpgradePrice(id);}
++ riderUpgradePrice(id:string){return this.economy.riderUpgradePrice(id);}
++ snapshot():V2DispatchSnapshot {return clone({format:'county-v2-dispatch',version:this.version,clockNeedsRebase:this.firstTickAfterRestore,economy:JSON.parse(this.economy.serialize()),fleet:JSON.parse(this.fleet.serialize()),rewards:JSON.parse(this.rewards.serialize()),orders:this.orders,batchIds:this.batchIds,frame:this.frame,control:this.control});}
+  serialize():string{return JSON.stringify(this.snapshot());}
+  private transact<T>(change:(draft:V2DispatchSession)=>T):T {
+   const draft=V2DispatchSession.restore(this.serialize(),this.port);draft.firstTickAfterRestore=this.firstTickAfterRestore;
+   draft.setLedgerDayKeyResolver(this.ledgerDayKeyResolver);
+   const result=change(draft);draft.fleet.syncHeroCompletions();draft.validate();
+   this.economy=draft.economy;this.fleet=draft.fleet;this.rewards=draft.rewards;
+-  this.orders=draft.orders;this.batchIds=draft.batchIds;this.frame=draft.frame;this.control=draft.control;this.firstTickAfterRestore=draft.firstTickAfterRestore;
++  this.orders=draft.orders;this.batchIds=draft.batchIds;this.frame=draft.frame;this.control=draft.control;this.firstTickAfterRestore=draft.firstTickAfterRestore;this.version=draft.version;
+   return clone(result);
+  }
+  command(command:V2EconomyCommand):string|null {
+-  return this.transact(d=>{check(!!command&&d.batchIds.length===0);
++  return this.transact(d=>{check(!!command);
++   if(d.batchIds.length){check(d.usesSlots);check(command.type==='buyVehicle'||command.type==='hireRider'||command.type==='upgradeRider'||command.type==='assignVehicle'&&command.riderId!=='hero'||command.type==='upgradeVehicle'&&!d.orders.some(o=>d.batchIds.includes(o.id)&&o.quote.vehicleId===command.vehicleId));}
+    switch(command.type){
+     case 'buyVehicle':return d.economy.buyVehicle(command.modelId);
+     case 'hireRider':d.economy.hireRider(command.riderId);break;
+@@ -80,7 +94,8 @@
+  resolveAd(ticket:AdTicket,outcome:AdOutcome,nowSeconds:number):boolean{return this.transact(d=>{const granted=d.rewards.resolveAd(ticket,outcome,nowSeconds);if(granted&&ticket.benefit==='auto'){if(!d.orders.some(o=>d.batchIds.includes(o.id)&&o.kind==='special'))d.control='auto';d.frame.nowSeconds=Math.max(d.frame.nowSeconds,nowSeconds);}return granted;});}
+  stopAutomation():void {this.transact(d=>{d.control='manual';return null;});}
+  resumeAutomation():void {this.transact(d=>{check(d.rewards.autoRemainingSeconds>0&&!d.orders.some(o=>d.batchIds.includes(o.id)&&o.kind==='special'));d.control='auto';return null;});}
+- acceptBatch(orders:V2DispatchOrder[],ordinaryPricingById?:V2OrdinaryPricingById):V2DeliveryQuote[]{return this.transact(d=>{
++ acceptBatch(orders:(V2DispatchOrder&{weightKg:number})[],ordinaryPricingById?:V2OrdinaryPricingById):V2DeliveryQuote[]{return this.transact(d=>{
++  check(!d.usesSlots);
+   check(Array.isArray(orders)&&orders.length>0&&d.batchIds.length===0);
+   const seen=new Set<string>();let kg=0;
+   for(const order of orders){check(!!order);identity(order.id);finite(order.weightKg);check(order.weightKg>0&&(order.kind==='ordinary'||order.kind==='special'));check(!seen.has(order.id)&&!d.orders.some(o=>o.id===order.id));seen.add(order.id);kg+=order.weightKg;}
+@@ -91,6 +106,16 @@
+   const quotes=d.economy.acceptBatch(orders.map(o=>({...o,...(o.kind==='special'?{specialCoins:rewardBatch.specialCoins!}:{})})),pricingById);
+   d.orders.push(...orders.map((o,i)=>({...clone(o),quote:clone(quotes[i]),status:'pending' as const,receipt:null})));
+   d.batchIds=orders.map(o=>o.id);return quotes;
++ });}
++ acceptSlotBatch(orders:readonly V2DispatchOrder[],byId:V2OrdinaryPricingById):V2DeliveryQuote[]{return this.transact(d=>{
++  check(d.usesSlots&&Array.isArray(orders)&&orders.length>0&&d.batchIds.length===0);const seen=new Set<string>();
++  const canonical=orders.map(o=>{check(o&&!('weightKg' in o)&&Object.prototype.propertyIsEnumerable.call(o,'load'));identity(o.id);check(o.kind==='ordinary'||o.kind==='special');
++   const load=parseV2Load(o.load);check(load.version==='slots-v1'&&sameV2Load(load,slotLoadForOrderId(o.id))&&!seen.has(o.id)&&!d.orders.some(old=>old.id===o.id));seen.add(o.id);return {id:o.id,kind:o.kind,load};});
++  const s=d.economy.state,v=s.vehicles.find(v=>v.id===s.riders[0].vehicleId);check(v&&fitsV2Capacity(canonical.map(o=>o.load),slotVehicleEffects(v).capacity));
++  if(canonical.some(o=>o.kind==='special'))check(d.control==='manual');
++  const reward=d.rewards.beginBatch(canonical.map(o=>({id:o.id,kind:o.kind==='ordinary'?'normal':'special'})));
++  const quotes=d.economy.acceptSlotBatch(canonical.map(o=>({id:o.id,kind:o.kind,...(o.kind==='special'?{specialCoins:reward.specialCoins!}:{})})),byId);
++  d.orders.push(...canonical.map((o,i)=>({...o,quote:clone(quotes[i]),status:'pending' as const,receipt:null})));d.batchIds=canonical.map(o=>o.id);return quotes;
+  });}
+  chargeSupply(costCents:number,detail?:V2SupplyChargeDetail):void {this.transact(d=>{d.economy.chargeSupply(costCents,detail);return null;});}
+  /** Composite owners advance old quota before each event, and flush the wall-clock tail once. */
+@@ -105,7 +130,7 @@
+   identity(orderId);const order=d.orders.find(o=>o.id===orderId);check(order);
+   if(order.status==='completed'){check(order.receipt);return order.receipt;}
+   check(order.status==='pending'&&d.batchIds.includes(order.id));identity(arrivalToken);
+-  check(d.port.verifyArrival({id:order.id,kind:order.kind,weightKg:order.weightKg},arrivalToken)===true);
++  check(d.port.verifyArrival(order.load?{id:order.id,kind:order.kind,load:clone(order.load)}:{id:order.id,kind:order.kind,weightKg:order.weightKg},arrivalToken)===true);
+   finite(nowSeconds);check(Number.isSafeInteger(Math.floor(nowSeconds*1000)));d.fleet.advanceTo(Math.floor(nowSeconds*1000));
+   const receipt=d.withLedgerTime(nowSeconds,()=>d.economy.completeDelivery(orderId,outcome));order.status='completed';order.receipt=receipt;d.closeFinishedBatch();return receipt;
+  });}
+@@ -136,10 +161,14 @@
+   return {autoRunSeconds,control:d.control};
+  });}
+  private validate():void {
++  check(this.economy.usesSlots===this.usesSlots);
+   const e=this.economy.state,r=this.rewards.snapshot();
+   check(Array.isArray(this.orders)&&Array.isArray(this.batchIds));
+   const ids=new Set<string>();
+-  for(const o of this.orders){check(!!o);identity(o.id);finite(o.weightKg);check(o.weightKg>0&&!ids.has(o.id));ids.add(o.id);check(o.kind==='ordinary'||o.kind==='special');check(['pending','completed','cancelled'].includes(o.status));check(o.quote.id===o.id&&o.quote.kind===o.kind&&o.quote.weightKg===o.weightKg);
++  for(const o of this.orders){check(!!o);identity(o.id);check(!ids.has(o.id));ids.add(o.id);check(o.kind==='ordinary'||o.kind==='special');check(['pending','completed','cancelled'].includes(o.status));check(o.quote.id===o.id&&o.quote.kind===o.kind);
++   const terms=this.usesSlots?contractTerms(o.quote):null;
++   if(terms?.version==='slots-v1'){check(!('weightKg' in o)&&Object.prototype.propertyIsEnumerable.call(o,'load'));const load=parseV2Load(o.load);check(sameV2Load(load,terms.load)&&sameV2Load(load,slotLoadForOrderId(o.id)));}
++   else {check(!('load' in o));finite(o.weightKg);check(o.weightKg>0&&o.quote.weightKg===o.weightKg);if(!this.usesSlots)check(!('terms' in o.quote));}
+    validateOrdinaryPricingQuote(o.quote,e);
+    if(o.status==='completed'){const r=o.receipt;check(r?.id===o.id&&e.settledOrderIds.includes(o.id));if(r.baseIncomeCents===undefined)check(r.incomeCents===o.quote.incomeCents);else {const final=settleTripIncome(o.quote.incomeCents,{lateGameSeconds:r.lateGameSeconds!,damage:r.damage!});check(r.baseIncomeCents===o.quote.incomeCents&&r.incomeCents===final.incomeCents&&r.lateRetain===final.lateRetain&&r.damageRetain===final.damageRetain&&r.ratingDelta===final.ratingDelta);}}else check(o.receipt===null&&!e.settledOrderIds.includes(o.id));
+   }
+@@ -147,17 +176,20 @@
+   const pending=this.orders.filter(o=>o.status==='pending');check(pending.every(o=>this.batchIds.includes(o.id)));
+   check(pending.length===e.activeQuotes.length&&pending.every(o=>e.activeQuotes.some(q=>JSON.stringify(q)===JSON.stringify(o.quote))));
+   if(this.batchIds.length){check(r.activeBatch&&r.activeBatch.orders.length===this.batchIds.length&&r.activeBatch.orders.every(o=>this.batchIds.includes(o.id)&&this.orders.some(stored=>stored.id===o.id&&(stored.kind==='ordinary'?'normal':'special')===o.kind)));check(pending.length>0);
+-   const batch=this.orders.filter(o=>this.batchIds.includes(o.id));const vehicle=e.vehicles.find(v=>v.id===batch[0].quote.vehicleId);check(vehicle&&batch.every(o=>o.quote.vehicleId===vehicle.id)&&batch.reduce((sum,o)=>sum+o.weightKg,0)<=vehicleEffects(vehicle).capacityKg);
++   const batch=this.orders.filter(o=>this.batchIds.includes(o.id));const vehicle=e.vehicles.find(v=>v.id===batch[0].quote.vehicleId);check(vehicle&&batch.every(o=>o.quote.vehicleId===vehicle.id));
++   const first=this.usesSlots?contractTerms(batch[0].quote):null;
++   if(first?.version==='slots-v1'){check(batch.every(o=>contractTerms(o.quote).version==='slots-v1'));check(fitsV2Capacity(batch.map(o=>parseV2Load(o.load)),first.capacity));}
++   else {check(batch.every(o=>!('load' in o)));check(batch.reduce((sum,o)=>sum+o.weightKg!,0)<=vehicleEffects(vehicle).capacityKg);}
+    if(batch.some(o=>o.kind==='special'))check(batch.length===1&&this.control==='manual'&&r.activeBatch.specialCoins! *100===batch[0].quote.incomeCents);
+   }else check(r.activeBatch===null);
+   finite(this.frame.sequence);check(Number.isSafeInteger(this.frame.sequence));finite(this.frame.nowSeconds);check(typeof this.frame.foreground==='boolean'&&typeof this.frame.paused==='boolean'&&typeof this.frame.fingerprint==='string');
+   check(this.control==='manual'||this.control==='auto'&&r.autoRemainingSeconds>0);
+  }
+  static restore(serialized:string,port:V2DispatchPort,options:{preserveClock?:boolean}={}):V2DispatchSession {
+-  const s:V2DispatchSnapshot=JSON.parse(serialized);check(!!s&&s.format==='county-v2-dispatch'&&s.version===1);
++  const s:V2DispatchSnapshot=JSON.parse(serialized);check(!!s&&s.format==='county-v2-dispatch'&&(s.version===1||s.version===2));
+   const result=new V2DispatchSession(port);result.economy=V2EconomySession.restore(JSON.stringify(s.economy));
+   result.fleet=V2FleetSession.restore(JSON.stringify(s.fleet),result.economy);result.rewards=RewardSession.restore(JSON.stringify(s.rewards));
+-  result.orders=clone(s.orders);result.batchIds=clone(s.batchIds);result.frame=clone(s.frame);result.control=s.control;check(typeof s.clockNeedsRebase==='boolean');result.firstTickAfterRestore=options.preserveClock===true?s.clockNeedsRebase:true;
++  result.version=s.version;result.orders=clone(s.orders);result.batchIds=clone(s.batchIds);result.frame=clone(s.frame);result.control=s.control;check(typeof s.clockNeedsRebase==='boolean');result.firstTickAfterRestore=options.preserveClock===true?s.clockNeedsRebase:true;
+   result.validate();return result;
+  }
+ }
+diff --git a/delivery-game/assets/scripts/map-sample/V2RouteSession.ts b/delivery-game/assets/scripts/map-sample/V2RouteSession.ts
+--- a/delivery-game/assets/scripts/map-sample/V2RouteSession.ts
++++ b/delivery-game/assets/scripts/map-sample/V2RouteSession.ts
+@@ -2,12 +2,13 @@
+ import { CityData, MapRoute, Point, Preference, RouteSegment } from './MapTypes';
+ import { RoadRouter, routePosition } from './RoadRouter';
+ import { contains } from './CityExtent';
++import { parseV2Load,slotLoadForOrderId,sameV2Load } from '../domain/V2LoadRules';
+ 
+-export interface V2RouteOrder extends V2DispatchOrder { pickupNode:string; dropoffNode:string; pickupName:string; dropoffName:string }
++export interface V2RouteOrder extends V2DispatchOrder { pickupNode:string; dropoffNode:string; pickupName:string; dropoffName:string;sourceOfferId?:string }
+ interface Stop { orderId:string; orderIds:string[]; kind:'pickup'|'dropoff'; node:string }
+ interface Anchor { node:string; edge:RouteSegment|null; elapsed:number }
+ export interface V2RouteSnapshot {
+- format:'county-v2-route';version:2;timeProfile:'road40-service2-1-grouped-v2';stopPolicy:'legacy-sequential'|'grouped';mapKey:string;nextId:number;tripId:number;
++ format:'county-v2-route';version:2|3;timeProfile:'road40-service2-1-grouped-v2';stopPolicy:'legacy-sequential'|'grouped';mapKey:string;nextId:number;tripId:number;loadProfile?:'slots-v1';sourceNextId?:number;
+  anchor:Anchor;orders:V2RouteOrder[];stops:Stop[];legs:MapRoute[];preference:Preference;
+  cursor:number;legSeconds:number;serviceSeconds:number;phase:'idle'|'planned'|'travelling'|'pickup'|'service'|'ready'|'finished';
+  serviceCharged:boolean;picked:string[];arrivals:{id:string;token:string}[];origin:Anchor;
+@@ -65,7 +66,20 @@
+   const first=this.router.nodes.get(anchor.edge.from)!;
+   return {...route,nodes:[first.id,...route.nodes],points:[[first.x,first.y] as Point,...route.points],segments:[copy(anchor.edge),...route.segments],metres:route.metres+anchor.edge.metres,seconds:route.seconds+anchor.edge.seconds};
+  }
+- private legal(order:V2RouteOrder):boolean {return !!order&&typeof order.id==='string'&&order.id.length>0&&order.id.length<=200&&(order.kind==='ordinary'||order.kind==='special')&&Number.isSafeInteger(order.weightKg)&&order.weightKg>0&&this.places.some(p=>p.node===order.pickupNode)&&this.places.some(p=>p.node===order.dropoffNode)&&order.pickupNode!==order.dropoffNode&&typeof order.pickupName==='string'&&typeof order.dropoffName==='string';}
++ private legal(order:V2RouteOrder,version:2|3=2):boolean {
++  if(!(order&&typeof order.id==='string'&&order.id.length>0&&order.id.length<=200&&(order.kind==='ordinary'||order.kind==='special')&&this.places.some(p=>p.node===order.pickupNode)&&this.places.some(p=>p.node===order.dropoffNode)&&order.pickupNode!==order.dropoffNode&&typeof order.pickupName==='string'&&typeof order.dropoffName==='string'))return false;
++  if(version===2)return !('load' in order)&&typeof order.weightKg==='number'&&Number.isSafeInteger(order.weightKg)&&order.weightKg>0;
++  if('weightKg' in order||!Object.prototype.propertyIsEnumerable.call(order,'load')||typeof order.sourceOfferId!=='string')return false;
++  const match=/^v2-road-([1-9]\d*)$/.exec(order.sourceOfferId);if(!match)return false;const ordinal=Number(match[1]);if(!Number.isSafeInteger(ordinal)||order.kind==='ordinary'&&order.id!==order.sourceOfferId)return false;
++  const a=this.places[ordinal%this.places.length],b=this.places[(ordinal+1)%this.places.length];
++  if(order.pickupNode!==a.node||order.pickupName!==a.name||order.dropoffNode!==b.node||order.dropoffName!==b.name)return false;
++  try{const load=parseV2Load(order.load);return load.version==='slots-v1'&&sameV2Load(load,slotLoadForOrderId(order.id));}catch{return false;}
++ }
++ canonicalSlotOrder(raw:V2RouteOrder):V2RouteOrder {
++  check(this.legal(raw,3));const ordinal=Number(raw.sourceOfferId!.slice(8));check(ordinal>=this.state.nextId&&ordinal-this.state.nextId<this.places.length*2);
++  return {id:raw.id,kind:raw.kind,sourceOfferId:raw.sourceOfferId!,pickupNode:raw.pickupNode,dropoffNode:raw.dropoffNode,pickupName:raw.pickupName,dropoffName:raw.dropoffName,load:slotLoadForOrderId(raw.id)};
++ }
++ enableSlots():void {check(this.state.phase==='idle'&&this.state.orders.length===0);this.state={...this.state,version:3,loadProfile:'slots-v1',sourceNextId:this.state.nextId};}
+  /** Require an operating pair that is also unambiguous in the authoritative source.
+   * Unknown/ambiguous names remain legal singleton offers, never a grouping key.
+   */
+@@ -91,13 +105,33 @@
+    result.push({id,kind:'ordinary',weightKg:weights[k%weights.length],pickupNode:a.node,dropoffNode:b.node,pickupName:a.name,dropoffName:b.name});
+   }return result;
+  }
++ slotCandidates(capacitySlots:number,usedIds:string[],count:number,maxMetres=Infinity):V2RouteOrder[]{
++  check(Number.isSafeInteger(capacitySlots)&&capacitySlots>0&&Number.isSafeInteger(count)&&count>0&&count<=50);const result:V2RouteOrder[]=[];
++  for(let k=0;k<this.places.length*2&&result.length<count;k++){
++   const a=this.places[(this.state.nextId+k)%this.places.length],b=this.places[(this.state.nextId+k+1)%this.places.length],id='v2-road-'+(this.state.nextId+k);
++   if(!Number.isSafeInteger(this.state.nextId+k)||a.node===b.node||usedIds.includes(id)||!this.path(this.state.anchor,a.node,'fast')||!this.router.find(a.node,b.node,'fast')||!this.router.find(b.node,this.state.anchor.edge?.to||this.state.anchor.node,'fast'))continue;
++   if(this.fastest(a.node,b.node).metres>maxMetres)continue;
++   const load=slotLoadForOrderId(id);if(load.occupiedSlots>capacitySlots)continue;
++   result.push({id,kind:'ordinary',sourceOfferId:id,load,pickupNode:a.node,dropoffNode:b.node,pickupName:a.name,dropoffName:b.name});
++  }return result;
++ }
++ slotSpecialCandidate(id:string,capacitySlots:number,usedIds:string[],maxMetres=Infinity):V2RouteOrder|null {
++  const candidate=this.slotCandidates(capacitySlots,usedIds,1,maxMetres)[0];if(!candidate)return null;
++  const load=slotLoadForOrderId(id);return load.occupiedSlots<=capacitySlots?{...candidate,id,kind:'special',load}:null;
++ }
+  fastest(pickup:string,dropoff:string):{metres:number;gameSeconds:number;heldMetres:number} {const a=this.path(this.state.anchor,pickup,'fast'),b=this.router.find(pickup,dropoff,'fast');check(a&&b);return {metres:a.metres+b.metres-(this.state.anchor.edge?this.state.anchor.edge.metres*this.state.anchor.elapsed/this.state.anchor.edge.seconds:0),gameSeconds:a.seconds+b.seconds-this.state.anchor.elapsed+90,heldMetres:b.metres};}
+  specialCandidate(id:string,capacityKg:number,usedIds:string[],maxMetres=Infinity):V2RouteOrder|null {const candidate=this.candidates(capacityKg,usedIds,1,maxMetres)[0];return candidate?{...candidate,id,kind:'special',weightKg:1}:null;}
+  plan(orders:V2RouteOrder[]):void {
+-  check(['idle','finished'].includes(this.state.phase)&&Array.isArray(orders)&&orders.length>0&&orders.every(o=>this.legal(o))&&new Set(orders.map(o=>o.id)).size===orders.length);
++  this.planOrders(orders,false);
++ }
++ planSlots(orders:V2RouteOrder[]):void {this.planOrders(orders,true);}
++ private planOrders(orders:V2RouteOrder[],slots:boolean):void {
++  check(['idle','finished'].includes(this.state.phase)&&Array.isArray(orders)&&orders.length>0&&orders.every(o=>this.legal(o,slots?3:2))&&new Set(orders.map(o=>o.id)).size===orders.length);
++  if(slots)orders.forEach(o=>this.canonicalSlotOrder(o));else check(this.state.version===2);
++  check(Number.isSafeInteger(this.state.nextId+orders.length+8));
+   const stops=this.plannedStops(orders,'grouped');
+   let anchor=copy(this.state.anchor);for(const stop of stops){check(this.path(anchor,stop.node,'fast'));anchor={node:stop.node,edge:null,elapsed:0};}
+-  this.state={...this.state,stopPolicy:'grouped',orders:copy(orders),stops,legs:[],origin:copy(this.state.anchor),cursor:0,legSeconds:0,serviceSeconds:0,serviceCharged:false,phase:'planned',picked:[],arrivals:[],tripId:this.state.tripId+1,nextId:this.state.nextId+orders.length+8};
++  this.state={...this.state,...(slots?{version:3 as const,loadProfile:'slots-v1' as const,sourceNextId:this.state.nextId}:{}),stopPolicy:'grouped',orders:copy(orders),stops,legs:[],origin:copy(this.state.anchor),cursor:0,legSeconds:0,serviceSeconds:0,serviceCharged:false,phase:'planned',picked:[],arrivals:[],tripId:this.state.tripId+1,nextId:this.state.nextId+orders.length+8};
+  }
+  private makeLegs(preference:Preference,origin=this.state.origin,stops:readonly {node:string}[]=this.state.stops):MapRoute[]{let anchor=copy(origin);return stops.map(stop=>{const route=this.path(anchor,stop.node,preference);check(route);anchor={node:stop.node,edge:null,elapsed:0};return route;});}
+  /** Cache only router-derived immutable strings, never legs supplied by a checkpoint.
+@@ -171,16 +205,17 @@
+   }
+   return seconds-remaining;
+  }
+- verifyArrival(order:Readonly<V2DispatchOrder>,token:string):boolean{return this.state.arrivals.some(a=>a.id===order.id&&a.token===token)&&this.state.orders.some(o=>o.id===order.id&&o.kind===order.kind&&o.weightKg===order.weightKg);}
++ private sameOrderLoad(a:Readonly<V2DispatchOrder>,b:Readonly<V2DispatchOrder>):boolean {return a.load&&b.load?!('weightKg' in a)&&!('weightKg' in b)&&sameV2Load(parseV2Load(a.load),parseV2Load(b.load)):!('load' in a)&&!('load' in b)&&a.weightKg===b.weightKg;}
++ verifyArrival(order:Readonly<V2DispatchOrder>,token:string):boolean{return this.state.arrivals.some(a=>a.id===order.id&&a.token===token)&&this.state.orders.some(o=>o.id===order.id&&o.kind===order.kind&&this.sameOrderLoad(o,order));}
+  cancel():void {
+   const s=this.state;if(s.phase==='travelling'){const leg=s.legs[s.cursor];let elapsed=s.legSeconds;let anchor:Anchor={node:s.stops[s.cursor].node,edge:null,elapsed:0};for(const edge of leg.segments){if(elapsed<edge.seconds){anchor={node:edge.from,edge:copy(edge),elapsed};break;}elapsed-=edge.seconds;}s.anchor=anchor;}
+-  s.serviceCharged=false;s.phase='idle';s.orders=[];s.stops=[];s.legs=[];s.cursor=0;s.legSeconds=0;s.serviceSeconds=0;s.picked=[];s.arrivals=[];s.origin=copy(s.anchor);
++  s.serviceCharged=false;s.phase='idle';s.orders=[];s.stops=[];s.legs=[];s.cursor=0;s.legSeconds=0;s.serviceSeconds=0;s.picked=[];s.arrivals=[];s.origin=copy(s.anchor);if(s.version===3)s.sourceNextId=s.nextId;
+  }
+  /** The snapshot argument lets Game check the original combination before upgrade. */
+  assertDispatch(dispatch:V2DispatchSnapshot,route:Pick<V2RouteSnapshot,'orders'|'arrivals'>=this.state):void {
+   const pending=dispatch.orders.filter(o=>o.status==='pending');
+-  check(pending.every(o=>route.orders.some(r=>r.id===o.id&&r.kind===o.kind&&r.weightKg===o.weightKg)));
+-  check(route.orders.every(o=>dispatch.orders.some(d=>d.id===o.id&&d.kind===o.kind&&d.weightKg===o.weightKg&&d.status!=='cancelled')));
++  check(pending.every(o=>route.orders.some(r=>r.id===o.id&&r.kind===o.kind&&this.sameOrderLoad(r,o))));
++  check(route.orders.every(o=>dispatch.orders.some(d=>d.id===o.id&&d.kind===o.kind&&this.sameOrderLoad(d,o)&&d.status!=='cancelled')));
+   check(dispatch.orders.filter(o=>o.status==='completed'&&route.orders.some(r=>r.id===o.id)).every(o=>route.arrivals.some(a=>a.id===o.id)));
+  }
+  /** Keep the entire v1 acceptance gate before adding any v2 fields.
+@@ -203,8 +238,11 @@
+  static restore(city:CityData,raw:string):V2RouteSession {
+   const parsed=JSON.parse(raw);if(parsed?.version===1)return V2RouteSession.restoreLegacy(city,parsed);
+   const route=new V2RouteSession(city),s:V2RouteSnapshot=parsed;
+-  check(s&&s.format==='county-v2-route'&&s.version===2&&s.timeProfile==='road40-service2-1-grouped-v2'&&s.mapKey===route.state.mapKey&&['legacy-sequential','grouped'].includes(s.stopPolicy));
+-  check(Number.isSafeInteger(s.nextId)&&s.nextId>0&&Number.isSafeInteger(s.tripId)&&s.tripId>=0&&Array.isArray(s.orders)&&s.orders.every(o=>route.legal(o))&&new Set(s.orders.map(o=>o.id)).size===s.orders.length);
++  check(s&&s.format==='county-v2-route'&&(s.version===2||s.version===3)&&s.timeProfile==='road40-service2-1-grouped-v2'&&s.mapKey===route.state.mapKey&&['legacy-sequential','grouped'].includes(s.stopPolicy));
++  if(s.version===3)check(Object.prototype.propertyIsEnumerable.call(s,'loadProfile')&&s.loadProfile==='slots-v1'&&Object.prototype.propertyIsEnumerable.call(s,'sourceNextId')&&typeof s.sourceNextId==='number'&&Number.isSafeInteger(s.sourceNextId)&&s.sourceNextId>0&&s.stopPolicy==='grouped');
++  else check(!('loadProfile' in s)&&!('sourceNextId' in s));
++  check(Number.isSafeInteger(s.nextId)&&s.nextId>0&&Number.isSafeInteger(s.tripId)&&s.tripId>=0&&Array.isArray(s.orders)&&s.orders.every(o=>route.legal(o,s.version))&&new Set(s.orders.map(o=>o.id)).size===s.orders.length);
++  if(s.version===3){check(s.phase==='idle'?s.sourceNextId===s.nextId:s.nextId===s.sourceNextId!+s.orders.length+8);check(s.orders.every(o=>{const ordinal=Number(o.sourceOfferId!.slice(8));return ordinal>=s.sourceNextId!&&ordinal-s.sourceNextId!<route.places.length*2;}));}
+   const validateAnchor=(a:Anchor)=>{check(a&&route.router.nodes.has(a.node)&&nonnegative(a.elapsed));if(a.edge){check(route.roadEdges.some(e=>e.from===a.edge!.from&&e.to===a.edge!.to&&e.road===a.edge!.road&&e.metres===a.edge!.metres&&e.seconds===a.edge!.seconds&&e.roughness===a.edge!.roughness)&&a.node===a.edge.from&&a.elapsed<a.edge.seconds);}else check(a.elapsed===0);};validateAnchor(s.anchor);validateAnchor(s.origin);
+   check(['idle','planned','travelling','pickup','service','ready','finished'].includes(s.phase)&&['fast','main','smooth'].includes(s.preference)&&Number.isSafeInteger(s.cursor)&&s.cursor>=0&&nonnegative(s.legSeconds)&&nonnegative(s.serviceSeconds)&&s.serviceSeconds<2);
+   check(Array.isArray(s.stops)&&Array.isArray(s.legs)&&Array.isArray(s.picked)&&Array.isArray(s.arrivals));
+diff --git a/delivery-game/assets/scripts/map-sample/V2GameSession.ts b/delivery-game/assets/scripts/map-sample/V2GameSession.ts
+--- a/delivery-game/assets/scripts/map-sample/V2GameSession.ts
++++ b/delivery-game/assets/scripts/map-sample/V2GameSession.ts
+@@ -1,5 +1,8 @@
+ import { V2DispatchSession } from '../domain/V2DispatchSession';
+-import { quantizeOrdinaryDeliveryMetres, vehicleEffects } from '../domain/V2EconomySession';
++import { quantizeOrdinaryDeliveryMetres,contractTerms } from '../domain/V2EconomySession';
++import { V2_SLOT_PROFILE_ID } from '../domain/V2EconomyProfiles';
++import { parseV2Load,slotCandidateRequestCount,fitsV2Capacity } from '../domain/V2LoadRules';
++import type { V2Capacity } from '../domain/V2LoadRules';
+ import { V2TripRules, V2SupplyKind, V2AutoSupplyInput, V2FoodRiskContract, parseV2FoodRisk } from '../domain/V2TripRules';
+ import { V2_SUPPLY_CATALOG } from '../domain/V2SupplyCatalog';
+ import { CityData, Preference } from './MapTypes';
+@@ -17,20 +20,24 @@
+  route:V2RouteSession;
+  dispatch:V2DispatchSession;
+  private trip=new V2TripRules();
+- constructor(private readonly city:CityData,nowSeconds=0){this.route=new V2RouteSession(city);this.dispatch=new V2DispatchSession({verifyArrival:(order,token)=>this.route.verifyArrival(order,token)},nowSeconds);}
+- serialize():string{const tripState=this.trip.state;return JSON.stringify({format:'county-v2-game',version:tripState.version===3?5:4,route:this.route.snapshot(),dispatch:this.dispatch.snapshot(),tripState});}
++ constructor(private readonly city:CityData,nowSeconds=0){this.route=new V2RouteSession(city);this.route.enableSlots();this.dispatch=new V2DispatchSession({verifyArrival:(order,token)=>this.route.verifyArrival(order,token)},nowSeconds,'slots-v1');}
++ serialize():string{const tripState=this.trip.state,route=this.route.snapshot();return JSON.stringify({format:'county-v2-game',version:6,profileId:V2_SLOT_PROFILE_ID,routeLoadProfile:route.version===3?'slots-v1':'kg-v1',route,dispatch:this.dispatch.snapshot(),tripState});}
+  snapshot(){return this.dispatch.snapshot();}
+  get tripState(){return this.trip.state;}
+  get routeSnapshot(){return {...this.route.snapshot(),position:this.route.position};}
+  get routeMotion(){return this.route.motion;}
+- private get equippedVehicle(){const s=this.dispatch.economyState;return s.vehicles.find(v=>v.id===s.riders[0].vehicleId);}
+- private get effects(){const v=this.equippedVehicle;if(!v)throw new Error('主角未配车');return vehicleEffects(v);}
+- normalCandidates(count=8):V2FoodOffer[]{if(!this.equippedVehicle)return [];return this.route.candidates(this.effects.capacityKg,this.dispatch.snapshot().orders.map(o=>o.id),count,this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity).map(order=>({...order,food:foodForV2Order(order.id)}));}
+- specialCandidate(id:string):V2FoodOffer|null {if(!this.equippedVehicle)return null;const order=this.route.specialCandidate(id,this.effects.capacityKg,this.dispatch.snapshot().orders.map(o=>o.id),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);return order?{...order,food:foodForV2Order(order.id)}:null;}
++ get nextBatchEffects(){const effects=this.dispatch.nextBatchEffects;if(!effects)throw new Error('主角未配车');return effects;}
++ get deliveryEffects():{profileId:string;speedRelativeToStarter:number;incomeFactor:number;capacity:V2Capacity} {
++  const effects=this.dispatch.deliveryEffects;if(!effects)throw new Error('主角未配车');return effects;
++ }
++ private get effects(){return this.deliveryEffects;}
++ normalCandidates(count=8):V2FoodOffer[]{if(!this.dispatch.hasEquippedVehicle)return [];if(!Number.isSafeInteger(count)||count<1||count>50)throw new Error('候选读取数量无效');const capacity=this.nextBatchEffects.capacitySlots;return this.route.slotCandidates(capacity,this.dispatch.snapshot().orders.map(o=>o.id),slotCandidateRequestCount(capacity),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity).map(order=>({...order,food:foodForV2Order(order.id)}));}
++ specialCandidate(id:string):V2FoodOffer|null {if(!this.dispatch.hasEquippedVehicle)return null;const order=this.route.slotSpecialCandidate(id,this.nextBatchEffects.capacitySlots,this.dispatch.snapshot().orders.map(o=>o.id),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);return order?{...order,food:foodForV2Order(order.id)}:null;}
+  acceptBatch(orders:V2RouteOrder[]){
+   if(this.trip.state.action)throw new Error('补给动作进行中');
+-  const routeOrders=orders.map(o=>({id:o.id,kind:o.kind,weightKg:o.weightKg,pickupNode:o.pickupNode,dropoffNode:o.dropoffNode,pickupName:o.pickupName,dropoffName:o.dropoffName}));
+-  const candidate=V2RouteSession.restore(this.city,this.route.serialize());candidate.plan(routeOrders);
++  const routeOrders=orders.map(o=>this.route.canonicalSlotOrder(o));
++  const usedIds=new Set(this.dispatch.snapshot().orders.map(o=>o.id));if(routeOrders.some(o=>usedIds.has(o.id))||!fitsV2Capacity(routeOrders.map(o=>parseV2Load(o.load)),this.nextBatchEffects.capacity))throw new Error('订单已签约或超过整数容量');
++  const candidate=V2RouteSession.restore(this.city,this.route.serialize());candidate.planSlots(routeOrders);
+   const fastest=routeOrders.map(o=>this.route.fastest(o.pickupNode,o.dropoffNode));
+   const ordinaryPricingById:Record<string,{deliveryMetres:number}>=Object.create(null);
+   routeOrders.forEach((order,i)=>{if(order.kind==='ordinary')ordinaryPricingById[order.id]={deliveryMetres:fastest[i].heldMetres};});
+@@ -44,7 +51,7 @@
+   });
+   const trip=V2TripRules.restore(this.trip.state);trip.begin(this.dispatch.economyState.selectedMapId,candidate.progress.tripId,routeOrders.map((o,i)=>({id:o.id,...fastest[i],fastestGameSeconds:fastest[i].gameSeconds,safe})),foodById);
+   if(trip.state.version!==3)throw new Error('新配送批次缺少食品规则');
+-  const quotes=this.dispatch.acceptBatch(routeOrders,ordinaryPricingById);this.route=candidate;this.trip=trip;return quotes;
++  const quotes=this.dispatch.acceptSlotBatch(routeOrders,ordinaryPricingById);this.route=candidate;this.trip=trip;return quotes;
+  }
+  /** Planned continuous travel/service only: no manual waits, supplies, future events or stamina stops. */
+  routeChoices(){
+@@ -97,7 +104,7 @@
+    if(seconds<=0)break;
+    // Settle only work available at this action instant, never borrow frame-end NPC income.
+    const actionAt=wallStart+used;this.dispatch.advanceFleetTo(actionAt);
+-   if(automatic&&!this.equippedVehicle)break;
++   if(automatic&&!this.dispatch.hasEquippedVehicle)break;
+    if(automatic&&this.trip.state.blocked&&!(this.route.progress.phase==='service'&&this.route.progress.serviceCharged)){
+     const choice=this.trip.chooseAutoSupply(this.highestSupplyMap,this.dispatch.economyState.cashCents);
+     if(!choice)break;
+@@ -107,8 +114,8 @@
+    }
+    let phase=this.route.progress.phase;
+    if(automatic&&['idle','finished'].includes(phase)&&this.dispatch.snapshot().batchIds.length===0){
+-    let capacity=this.effects.capacityKg;const selected:V2RouteOrder[]=[];
+-    for(const offer of this.normalCandidates(8))if(offer.weightKg<=capacity){selected.push(offer);capacity-=offer.weightKg;}
++    let capacity=this.nextBatchEffects.capacitySlots;const selected:V2RouteOrder[]=[];
++    for(const offer of this.normalCandidates(8)){const load=parseV2Load(offer.load);if(load.version!=='slots-v1')throw new Error('自动配送缺少格子条款');if(load.occupiedSlots<=capacity){selected.push(offer);capacity-=load.occupiedSlots;}}
+     // A combination may be long even when its individual offers are short.
+     while(selected.length){try{this.acceptBatch(selected);break;}catch(error){if(this.dispatch.snapshot().batchIds.length)throw error;selected.pop();}}
+     if(!selected.length)break;
+@@ -129,9 +136,11 @@
+   return finish();
+  }
+  static restore(city:CityData,raw:string,options:{preserveClock?:boolean}={}):V2GameSession {
+-  const s=JSON.parse(raw);if(!s||s.format!=='county-v2-game'||[1,2,3,4,5].indexOf(s.version)<0)throw new Error('V2组合路线存档不兼容，需显式迁移');
++  const s=JSON.parse(raw);if(!s||s.format!=='county-v2-game'||[1,2,3,4,5,6].indexOf(s.version)<0)throw new Error('V2组合路线存档不兼容，需显式迁移');
+   // Old combinations cannot borrow the new grouping/ready acceptance gate.
+-  if(s.route?.version!==(s.version>=4?2:1))throw new Error('组合与路线状态版本不一致');
++  if(s.version===6){
++   if(!Object.prototype.propertyIsEnumerable.call(s,'profileId')||s.profileId!==V2_SLOT_PROFILE_ID||!Object.prototype.propertyIsEnumerable.call(s,'routeLoadProfile')||!['kg-v1','slots-v1'].includes(s.routeLoadProfile)||s.route?.version!==(s.routeLoadProfile==='slots-v1'?3:2)||s.dispatch?.version!==2)throw new Error('组合与容量状态版本不一致');
++  }else if(s.route?.version!==(s.version>=4?2:1)||s.dispatch?.version!==1)throw new Error('组合与路线状态版本不一致');
+   const result=new V2GameSession(city);
+   // All original combination checks run on the original structure, before Route
+   // normalizes any legacy stop. Dispatch.restore is pure and does not invoke its port.
+@@ -139,8 +148,9 @@
+   const r=s.route,d=result.dispatch.snapshot();result.route.assertDispatch(d,r);
+   if(s.version===1){if(d.batchIds.length||!['idle','finished'].includes(r.phase))throw new Error('旧V2在途存档缺少体力行程，需显式迁移');}
+   else {
+-   if(!s.tripState||(s.version===2&&s.tripState.version!==1)||(s.version>=3&&s.version<=4&&s.tripState.version!==2)||(s.version===5&&s.tripState.version!==3))throw new Error('组合与补给状态版本不一致');
++   if(!s.tripState||(s.version===2&&s.tripState.version!==1)||(s.version>=3&&s.version<=4&&s.tripState.version!==2)||(s.version===5&&s.tripState.version!==3)||(s.version===6&&![2,3].includes(s.tripState.version))||(s.version===6&&s.routeLoadProfile==='slots-v1'&&r.orders.length>0&&s.tripState.version!==3))throw new Error('组合与补给状态版本不一致');
+    result.trip=V2TripRules.restore(s.tripState);const t=result.trip.state;
++   if(s.version===6&&t.version!==3&&t.orders.some((o:{id:string})=>{const q=d.orders.find(stored=>stored.id===o.id)?.quote;return q&&contractTerms(q).version==='slots-v1';}))throw new Error('格子合同不能降级食品规则');
+    // Match the old v1 omitted-latch inference without modifying its source bytes.
+    const charged=s.version<4&&r.serviceCharged===undefined?r.phase==='service'&&r.serviceSeconds>0:r.serviceCharged;
+    // Restoration must enforce the same action exclusivity as supply() and auto supply.
+@@ -156,7 +166,9 @@
+   // router-derived legs equality), then adds singleton membership without replanning.
+   result.route=V2RouteSession.restore(city,JSON.stringify(s.route));
+   if(s.version===1)result.route.cancel();
+-  if(s.version===5)for(const order of result.trip.state.orders)validateCanonicalFood(order.id,order.food);
++  if(s.version===5||s.version===6&&result.trip.state.version===3)for(const order of result.trip.state.orders)validateCanonicalFood(order.id,order.food);
++  // The original dispatch/fleet/economy, trip, geometry and combination gates ran first.
++  if(s.version<6)result.dispatch.enableSlots();
+   return result;
+  }
+ }
+diff --git a/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts b/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
+--- a/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
++++ b/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
+@@ -6,6 +6,7 @@
+ import { V2GameSession } from './V2GameSession';
+ import { RewardedAdSDK } from '../rewards-v2/RewardSession';
+ import { V2RuntimeStore, V2WriterPort, SingleSlotStorage } from './V2RuntimeStore';
++
+ 
+ const { ccclass, property } = _decorator;
+ type EconomyCommand = Parameters<V2DispatchSession['command']>[0];
+@@ -158,6 +159,14 @@
+     }
+     get routeSnapshot() { return this.live?.routeSnapshot || null; }
+     get routeMotion() { return this.live?.routeMotion || null; }
++    /** Signed active-delivery units/effects; a legacy active batch remains kilograms. */
++    get deliveryEffects() { return this.live?.dispatch.deliveryEffects || null; }
++    /** Current owned-asset effects for the next unsigned slot batch. */
++    get nextBatchEffects() { return this.live?.dispatch.nextBatchEffects || null; }
++    vehicleEffects(vehicleId:string) { return this.live?.dispatch.vehicleEffectProjection(vehicleId) || null; }
++    riderEffects(riderId:string) { return this.live?.dispatch.riderEffectProjection(riderId) || null; }
++    vehicleUpgradeQuote(vehicleId:string) { return this.live?.dispatch.vehicleUpgradePrice(vehicleId)||null; }
++    riderUpgradeQuote(riderId:string) { return this.live?.dispatch.riderUpgradePrice(riderId)||null; }
+     normalCandidates(count = 8) { if (!this.live) return []; return this.live.normalCandidates(count); }
+     /** Read-only preview using the same signed contract as acceptance; never saves or accepts live orders. */
+     quoteCandidates(orders: Orders) {
+@@ -187,7 +196,7 @@
+     command(command: EconomyCommand): ReturnType<V2DispatchSession['command']> { return this.mutate(session => session.dispatch.command(command)); }
+     stopAutomation(): void { this.mutate(session => session.dispatch.stopAutomation()); }
+     resumeAutomation(): void { this.mutate(session => session.dispatch.resumeAutomation()); }
+-    acceptBatch(orders: Orders): ReturnType<V2DispatchSession['acceptBatch']> { return this.mutate(session => session.acceptBatch(orders)); }
++    acceptBatch(orders: Orders): ReturnType<V2GameSession['acceptBatch']> { return this.mutate(session => session.acceptBatch(orders)); }
+     completeDelivery(id: string, arrivalToken: string): ReturnType<V2DispatchSession['completeDelivery']> {
+         return this.mutate(session => session.completeDelivery(id, arrivalToken));
+     }
+diff --git a/delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts b/delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts
+new file mode 100644
+--- /dev/null
++++ b/delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts
+@@ -0,0 +1,2547 @@
++// Generated from docs/balance/2026-11-06-capacity-slots-economy/parameters.json; do not edit values here.
++export const V2_SLOT_CONFIG_SOURCE_SHA256 = "1bd6db1c573e3b48ee7bef0b0be20bceeae290cfe2d6d05b0cd72f2e5f99fd91";
++export const V2_SLOT_CONFIG = {
++  "profileId": "capacity-slots-economy-2026-11-06-v1",
++  "status": "PM-selected-first-calibration; not integrated or game-tested; not global balance acceptance",
++  "sourceProposal": "../../reviews/2026-11-05-game-development/economy/slots-economy-candidate-1106/a-proposal.md",
++  "legacyConfigId": "frontloaded-2026-11-04-v3-hire-training-tail",
++  "legacyParametersSHA256": "f0dee208cab056b3c984ee0f469dec46d1a6e7bc6195ccd7085c1f1da2f45653",
++  "startCoins": 100,
++  "maps": [
++    {
++      "id": 1,
++      "name": "晴川县",
++      "price": 0,
++      "ordinaryBaseFee": 20,
++      "expectedBatchDensityCap": 2
++    },
++    {
++      "id": 2,
++      "name": "云浦市",
++      "price": 1500,
++      "ordinaryBaseFee": 27,
++      "expectedBatchDensityCap": 3
++    },
++    {
++      "id": 3,
++      "name": "星澜城",
++      "price": 10000,
++      "ordinaryBaseFee": 37,
++      "expectedBatchDensityCap": 5
++    },
++    {
++      "id": 4,
++      "name": "曜川都会",
++      "price": 45000,
++      "ordinaryBaseFee": 51,
++      "expectedBatchDensityCap": 7
++    },
++    {
++      "id": 5,
++      "name": "海境港",
++      "price": 600000,
++      "ordinaryBaseFee": 70,
++      "expectedBatchDensityCap": 10
++    }
++  ],
++  "vehicles": [
++    {
++      "id": 1,
++      "name": "街行",
++      "price": 300,
++      "speedRelativeToStarter": 1.1,
++      "incomeFactor": 1.2,
++      "baseCapacitySlots": 3
++    },
++    {
++      "id": 2,
++      "name": "轻燕",
++      "price": 600,
++      "speedRelativeToStarter": 1.3,
++      "incomeFactor": 1.3,
++      "baseCapacitySlots": 4
++    },
++    {
++      "id": 3,
++      "name": "满载",
++      "price": 1000,
++      "speedRelativeToStarter": 1.2,
++      "incomeFactor": 1.5,
++      "baseCapacitySlots": 6
++    },
++    {
++      "id": 4,
++      "name": "城风",
++      "price": 1800,
++      "speedRelativeToStarter": 1.5,
++      "incomeFactor": 1.55,
++      "baseCapacitySlots": 5
++    },
++    {
++      "id": 5,
++      "name": "远途",
++      "price": 3000,
++      "speedRelativeToStarter": 1.5,
++      "incomeFactor": 1.9,
++      "baseCapacitySlots": 8
++    },
++    {
++      "id": 6,
++      "name": "疾影",
++      "price": 5000,
++      "speedRelativeToStarter": 1.8,
++      "incomeFactor": 1.85,
++      "baseCapacitySlots": 6
++    },
++    {
++      "id": 7,
++      "name": "重航",
++      "price": 8000,
++      "speedRelativeToStarter": 1.75,
++      "incomeFactor": 2.35,
++      "baseCapacitySlots": 10
++    },
++    {
++      "id": 8,
++      "name": "星驰",
++      "price": 12000,
++      "speedRelativeToStarter": 2,
++      "incomeFactor": 2.15,
++      "baseCapacitySlots": 8
++    },
++    {
++      "id": 9,
++      "name": "金穗",
++      "price": 80000,
++      "speedRelativeToStarter": 2.0,
++      "incomeFactor": 2.9,
++      "baseCapacitySlots": 12
++    },
++    {
++      "id": 10,
++      "name": "晨光",
++      "price": 160000,
++      "speedRelativeToStarter": 2.3,
++      "incomeFactor": 3.2,
++      "baseCapacitySlots": 10
++    }
++  ],
++  "riders": [
++    {
++      "price": 120,
++      "id": "npc-1",
++      "baseIncomeFactor": 1
++    },
++    {
++      "price": 130,
++      "id": "npc-2",
++      "baseIncomeFactor": 1.01
++    },
++    {
++      "price": 170,
++      "id": "npc-3",
++      "baseIncomeFactor": 1.02
++    },
++    {
++      "price": 910,
++      "id": "npc-4",
++      "baseIncomeFactor": 1.03
++    },
++    {
++      "price": 1740,
++      "id": "npc-5",
++      "baseIncomeFactor": 1.035
++    },
++    {
++      "price": 2760,
++      "id": "npc-6",
++      "baseIncomeFactor": 1.04
++    },
++    {
++      "price": 3940,
++      "id": "npc-7",
++      "baseIncomeFactor": 1.045
++    },
++    {
++      "price": 5270,
++      "id": "npc-8",
++      "baseIncomeFactor": 1.05
++    },
++    {
++      "price": 6750,
++      "id": "npc-9",
++      "baseIncomeFactor": 1.055
++    },
++    {
++      "price": 8360,
++      "id": "npc-10",
++      "baseIncomeFactor": 1.06
++    },
++    {
++      "price": 10090,
++      "id": "npc-11",
++      "baseIncomeFactor": 1.065
++    },
++    {
++      "price": 11940,
++      "id": "npc-12",
++      "baseIncomeFactor": 1.07
++    },
++    {
++      "price": 13910,
++      "id": "npc-13",
++      "baseIncomeFactor": 1.075
++    },
++    {
++      "price": 15990,
++      "id": "npc-14",
++      "baseIncomeFactor": 1.08
++    },
++    {
++      "price": 18170,
++      "id": "npc-15",
++      "baseIncomeFactor": 1.085
++    },
++    {
++      "price": 20460,
++      "id": "npc-16",
++      "baseIncomeFactor": 1.09
++    },
++    {
++      "price": 22850,
++      "id": "npc-17",
++      "baseIncomeFactor": 1.095
++    },
++    {
++      "price": 25330,
++      "id": "npc-18",
++      "baseIncomeFactor": 1.1
++    },
++    {
++      "price": 27920,
++      "id": "npc-19",
++      "baseIncomeFactor": 1.105
++    },
++    {
++      "price": 30590,
++      "id": "npc-20",
++      "baseIncomeFactor": 1.11
++    },
++    {
++      "price": 33350,
++      "id": "npc-21",
++      "baseIncomeFactor": 1.115
++    },
++    {
++      "price": 36210,
++      "id": "npc-22",
++      "baseIncomeFactor": 1.12
++    },
++    {
++      "price": 39140,
++      "id": "npc-23",
++      "baseIncomeFactor": 1.125
++    },
++    {
++      "price": 42170,
++      "id": "npc-24",
++      "baseIncomeFactor": 1.13
++    },
++    {
++      "price": 880000,
++      "id": "npc-25",
++      "baseIncomeFactor": 1.14
++    },
++    {
++      "price": 1760000,
++      "id": "npc-26",
++      "baseIncomeFactor": 1.16
++    },
++    {
++      "price": 3080000,
++      "id": "npc-27",
++      "baseIncomeFactor": 1.18
++    },
++    {
++      "price": 4840000,
++      "id": "npc-28",
++      "baseIncomeFactor": 1.2
++    },
++    {
++      "price": 7040000,
++      "id": "npc-29",
++      "baseIncomeFactor": 1.22
++    },
++    {
++      "price": 9680000,
++      "id": "npc-30",
++      "baseIncomeFactor": 1.24
++    }
++  ],
++  "starterVehicle": {
++    "price": 0,
++    "upgradeCostBasis": 150,
++    "speedRelativeToStarter": 1,
++    "incomeFactor": 1,
++    "sellable": false,
++    "baseCapacitySlots": 2
++  },
++  "catalogNote": "copied capacityKg fields are legacy provenance only; do not use in slots business rules. Integration must expose separately typed slots effects.",
++  "occupiedSlots": [
++    1,
++    2
++  ],
++  "capacityIncreaseLevels": [
++    3,
++    5,
++    8,
++    10,
++    15,
++    20,
++    25,
++    30
++  ],
++  "rounding": "costs are integer coins; paid-model per-level fee rounds half-up to a multiple of 5 after scaling; wallet remains integer cents",
++  "levels": [
++    {
++      "level": 1,
++      "starterUpgradeCoins": 0,
++      "starterCumulativeUpgradeCoins": 0,
++      "starterCapacitySlots": 2,
++      "riderUpgradeCoins": 0,
++      "riderCumulativeUpgradeCoins": 0,
++      "vehicleSpeedBonus": 0.0,
++      "vehicleIncomeBonus": 0.0,
++      "riderTrainingIncomeBonus": 0.0,
++      "fixedServiceReduction": 0.0,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 3
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 4
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 5
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 0,
++          "cumulativeUpgradeCoins": 0,
++          "capacitySlots": 10
++        }
++      ]
++    },
++    {
++      "level": 2,
++      "starterUpgradeCoins": 20,
++      "starterCumulativeUpgradeCoins": 20,
++      "starterCapacitySlots": 2,
++      "riderUpgradeCoins": 30,
++      "riderCumulativeUpgradeCoins": 30,
++      "vehicleSpeedBonus": 0.03,
++      "vehicleIncomeBonus": 0.04,
++      "riderTrainingIncomeBonus": 0.08,
++      "fixedServiceReduction": 0.03,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 30,
++          "cumulativeUpgradeCoins": 30,
++          "capacitySlots": 3
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 40,
++          "cumulativeUpgradeCoins": 40,
++          "capacitySlots": 4
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 55,
++          "cumulativeUpgradeCoins": 55,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 75,
++          "cumulativeUpgradeCoins": 75,
++          "capacitySlots": 5
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 95,
++          "cumulativeUpgradeCoins": 95,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 120,
++          "cumulativeUpgradeCoins": 120,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 155,
++          "cumulativeUpgradeCoins": 155,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 190,
++          "cumulativeUpgradeCoins": 190,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 490,
++          "cumulativeUpgradeCoins": 490,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 695,
++          "cumulativeUpgradeCoins": 695,
++          "capacitySlots": 10
++        }
++      ]
++    },
++    {
++      "level": 3,
++      "starterUpgradeCoins": 30,
++      "starterCumulativeUpgradeCoins": 50,
++      "starterCapacitySlots": 3,
++      "riderUpgradeCoins": 45,
++      "riderCumulativeUpgradeCoins": 75,
++      "vehicleSpeedBonus": 0.06,
++      "vehicleIncomeBonus": 0.08,
++      "riderTrainingIncomeBonus": 0.16,
++      "fixedServiceReduction": 0.06,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 45,
++          "cumulativeUpgradeCoins": 75,
++          "capacitySlots": 4
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 65,
++          "cumulativeUpgradeCoins": 105,
++          "capacitySlots": 5
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 80,
++          "cumulativeUpgradeCoins": 135,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 110,
++          "cumulativeUpgradeCoins": 185,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 140,
++          "cumulativeUpgradeCoins": 235,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 185,
++          "cumulativeUpgradeCoins": 305,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 230,
++          "cumulativeUpgradeCoins": 385,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 285,
++          "cumulativeUpgradeCoins": 475,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 735,
++          "cumulativeUpgradeCoins": 1225,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 1040,
++          "cumulativeUpgradeCoins": 1735,
++          "capacitySlots": 11
++        }
++      ]
++    },
++    {
++      "level": 4,
++      "starterUpgradeCoins": 45,
++      "starterCumulativeUpgradeCoins": 95,
++      "starterCapacitySlots": 3,
++      "riderUpgradeCoins": 60,
++      "riderCumulativeUpgradeCoins": 135,
++      "vehicleSpeedBonus": 0.09,
++      "vehicleIncomeBonus": 0.12,
++      "riderTrainingIncomeBonus": 0.24,
++      "fixedServiceReduction": 0.09,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 70,
++          "cumulativeUpgradeCoins": 145,
++          "capacitySlots": 4
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 95,
++          "cumulativeUpgradeCoins": 200,
++          "capacitySlots": 5
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 125,
++          "cumulativeUpgradeCoins": 260,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 165,
++          "cumulativeUpgradeCoins": 350,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 215,
++          "cumulativeUpgradeCoins": 450,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 275,
++          "cumulativeUpgradeCoins": 580,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 350,
++          "cumulativeUpgradeCoins": 735,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 425,
++          "cumulativeUpgradeCoins": 900,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 1100,
++          "cumulativeUpgradeCoins": 2325,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 1560,
++          "cumulativeUpgradeCoins": 3295,
++          "capacitySlots": 11
++        }
++      ]
++    },
++    {
++      "level": 5,
++      "starterUpgradeCoins": 60,
++      "starterCumulativeUpgradeCoins": 155,
++      "starterCapacitySlots": 4,
++      "riderUpgradeCoins": 80,
++      "riderCumulativeUpgradeCoins": 215,
++      "vehicleSpeedBonus": 0.12,
++      "vehicleIncomeBonus": 0.16,
++      "riderTrainingIncomeBonus": 0.32,
++      "fixedServiceReduction": 0.12,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 90,
++          "cumulativeUpgradeCoins": 235,
++          "capacitySlots": 5
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 125,
++          "cumulativeUpgradeCoins": 325,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 165,
++          "cumulativeUpgradeCoins": 425,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 220,
++          "cumulativeUpgradeCoins": 570,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 285,
++          "cumulativeUpgradeCoins": 735,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 365,
++          "cumulativeUpgradeCoins": 945,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 465,
++          "cumulativeUpgradeCoins": 1200,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 570,
++          "cumulativeUpgradeCoins": 1470,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 1470,
++          "cumulativeUpgradeCoins": 3795,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 2080,
++          "cumulativeUpgradeCoins": 5375,
++          "capacitySlots": 12
++        }
++      ]
++    },
++    {
++      "level": 6,
++      "starterUpgradeCoins": 80,
++      "starterCumulativeUpgradeCoins": 235,
++      "starterCapacitySlots": 4,
++      "riderUpgradeCoins": 100,
++      "riderCumulativeUpgradeCoins": 315,
++      "vehicleSpeedBonus": 0.15,
++      "vehicleIncomeBonus": 0.2,
++      "riderTrainingIncomeBonus": 0.4,
++      "fixedServiceReduction": 0.15,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 120,
++          "cumulativeUpgradeCoins": 355,
++          "capacitySlots": 5
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 170,
++          "cumulativeUpgradeCoins": 495,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 220,
++          "cumulativeUpgradeCoins": 645,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 295,
++          "cumulativeUpgradeCoins": 865,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 380,
++          "cumulativeUpgradeCoins": 1115,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 490,
++          "cumulativeUpgradeCoins": 1435,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 620,
++          "cumulativeUpgradeCoins": 1820,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 760,
++          "cumulativeUpgradeCoins": 2230,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 1960,
++          "cumulativeUpgradeCoins": 5755,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 2770,
++          "cumulativeUpgradeCoins": 8145,
++          "capacitySlots": 12
++        }
++      ]
++    },
++    {
++      "level": 7,
++      "starterUpgradeCoins": 100,
++      "starterCumulativeUpgradeCoins": 335,
++      "starterCapacitySlots": 4,
++      "riderUpgradeCoins": 125,
++      "riderCumulativeUpgradeCoins": 440,
++      "vehicleSpeedBonus": 0.18,
++      "vehicleIncomeBonus": 0.24,
++      "riderTrainingIncomeBonus": 0.48,
++      "fixedServiceReduction": 0.18,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 150,
++          "cumulativeUpgradeCoins": 505,
++          "capacitySlots": 5
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 210,
++          "cumulativeUpgradeCoins": 705,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 275,
++          "cumulativeUpgradeCoins": 920,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 365,
++          "cumulativeUpgradeCoins": 1230,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 475,
++          "cumulativeUpgradeCoins": 1590,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 610,
++          "cumulativeUpgradeCoins": 2045,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 775,
++          "cumulativeUpgradeCoins": 2595,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 950,
++          "cumulativeUpgradeCoins": 3180,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 2450,
++          "cumulativeUpgradeCoins": 8205,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 3465,
++          "cumulativeUpgradeCoins": 11610,
++          "capacitySlots": 12
++        }
++      ]
++    },
++    {
++      "level": 8,
++      "starterUpgradeCoins": 125,
++      "starterCumulativeUpgradeCoins": 460,
++      "starterCapacitySlots": 5,
++      "riderUpgradeCoins": 155,
++      "riderCumulativeUpgradeCoins": 595,
++      "vehicleSpeedBonus": 0.21,
++      "vehicleIncomeBonus": 0.28,
++      "riderTrainingIncomeBonus": 0.56,
++      "fixedServiceReduction": 0.21,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 190,
++          "cumulativeUpgradeCoins": 695,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 265,
++          "cumulativeUpgradeCoins": 970,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 340,
++          "cumulativeUpgradeCoins": 1260,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 460,
++          "cumulativeUpgradeCoins": 1690,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 595,
++          "cumulativeUpgradeCoins": 2185,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 765,
++          "cumulativeUpgradeCoins": 2810,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 970,
++          "cumulativeUpgradeCoins": 3565,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 1185,
++          "cumulativeUpgradeCoins": 4365,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 3060,
++          "cumulativeUpgradeCoins": 11265,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 4330,
++          "cumulativeUpgradeCoins": 15940,
++          "capacitySlots": 13
++        }
++      ]
++    },
++    {
++      "level": 9,
++      "starterUpgradeCoins": 155,
++      "starterCumulativeUpgradeCoins": 615,
++      "starterCapacitySlots": 5,
++      "riderUpgradeCoins": 190,
++      "riderCumulativeUpgradeCoins": 785,
++      "vehicleSpeedBonus": 0.24,
++      "vehicleIncomeBonus": 0.32,
++      "riderTrainingIncomeBonus": 0.64,
++      "fixedServiceReduction": 0.24,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 235,
++          "cumulativeUpgradeCoins": 930,
++          "capacitySlots": 6
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 330,
++          "cumulativeUpgradeCoins": 1300,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 425,
++          "cumulativeUpgradeCoins": 1685,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 570,
++          "cumulativeUpgradeCoins": 2260,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 735,
++          "cumulativeUpgradeCoins": 2920,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 950,
++          "cumulativeUpgradeCoins": 3760,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1200,
++          "cumulativeUpgradeCoins": 4765,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 1470,
++          "cumulativeUpgradeCoins": 5835,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 3795,
++          "cumulativeUpgradeCoins": 15060,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 5370,
++          "cumulativeUpgradeCoins": 21310,
++          "capacitySlots": 13
++        }
++      ]
++    },
++    {
++      "level": 10,
++      "starterUpgradeCoins": 190,
++      "starterCumulativeUpgradeCoins": 805,
++      "starterCapacitySlots": 6,
++      "riderUpgradeCoins": 230,
++      "riderCumulativeUpgradeCoins": 1015,
++      "vehicleSpeedBonus": 0.27,
++      "vehicleIncomeBonus": 0.36,
++      "riderTrainingIncomeBonus": 0.72,
++      "fixedServiceReduction": 0.27,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 285,
++          "cumulativeUpgradeCoins": 1215,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 405,
++          "cumulativeUpgradeCoins": 1705,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 520,
++          "cumulativeUpgradeCoins": 2205,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 700,
++          "cumulativeUpgradeCoins": 2960,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 900,
++          "cumulativeUpgradeCoins": 3820,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1165,
++          "cumulativeUpgradeCoins": 4925,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1470,
++          "cumulativeUpgradeCoins": 6235,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 1800,
++          "cumulativeUpgradeCoins": 7635,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 4655,
++          "cumulativeUpgradeCoins": 19715,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 6580,
++          "cumulativeUpgradeCoins": 27890,
++          "capacitySlots": 14
++        }
++      ]
++    },
++    {
++      "level": 11,
++      "starterUpgradeCoins": 210,
++      "starterCumulativeUpgradeCoins": 1015,
++      "starterCapacitySlots": 6,
++      "riderUpgradeCoins": 250,
++      "riderCumulativeUpgradeCoins": 1265,
++      "vehicleSpeedBonus": 0.2865,
++      "vehicleIncomeBonus": 0.382,
++      "riderTrainingIncomeBonus": 0.759,
++      "fixedServiceReduction": 0.2765,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 315,
++          "cumulativeUpgradeCoins": 1530,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 445,
++          "cumulativeUpgradeCoins": 2150,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 575,
++          "cumulativeUpgradeCoins": 2780,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 770,
++          "cumulativeUpgradeCoins": 3730,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 995,
++          "cumulativeUpgradeCoins": 4815,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1285,
++          "cumulativeUpgradeCoins": 6210,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1625,
++          "cumulativeUpgradeCoins": 7860,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 1990,
++          "cumulativeUpgradeCoins": 9625,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 5145,
++          "cumulativeUpgradeCoins": 24860,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 7275,
++          "cumulativeUpgradeCoins": 35165,
++          "capacitySlots": 14
++        }
++      ]
++    },
++    {
++      "level": 12,
++      "starterUpgradeCoins": 215,
++      "starterCumulativeUpgradeCoins": 1230,
++      "starterCapacitySlots": 6,
++      "riderUpgradeCoins": 260,
++      "riderCumulativeUpgradeCoins": 1525,
++      "vehicleSpeedBonus": 0.303,
++      "vehicleIncomeBonus": 0.404,
++      "riderTrainingIncomeBonus": 0.798,
++      "fixedServiceReduction": 0.283,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 325,
++          "cumulativeUpgradeCoins": 1855,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 455,
++          "cumulativeUpgradeCoins": 2605,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 590,
++          "cumulativeUpgradeCoins": 3370,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 790,
++          "cumulativeUpgradeCoins": 4520,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1020,
++          "cumulativeUpgradeCoins": 5835,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1315,
++          "cumulativeUpgradeCoins": 7525,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1665,
++          "cumulativeUpgradeCoins": 9525,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2040,
++          "cumulativeUpgradeCoins": 11665,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 5265,
++          "cumulativeUpgradeCoins": 30125,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 7450,
++          "cumulativeUpgradeCoins": 42615,
++          "capacitySlots": 14
++        }
++      ]
++    },
++    {
++      "level": 13,
++      "starterUpgradeCoins": 220,
++      "starterCumulativeUpgradeCoins": 1450,
++      "starterCapacitySlots": 6,
++      "riderUpgradeCoins": 270,
++      "riderCumulativeUpgradeCoins": 1795,
++      "vehicleSpeedBonus": 0.3195,
++      "vehicleIncomeBonus": 0.426,
++      "riderTrainingIncomeBonus": 0.837,
++      "fixedServiceReduction": 0.2895,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 330,
++          "cumulativeUpgradeCoins": 2185,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 465,
++          "cumulativeUpgradeCoins": 3070,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 600,
++          "cumulativeUpgradeCoins": 3970,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 810,
++          "cumulativeUpgradeCoins": 5330,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1045,
++          "cumulativeUpgradeCoins": 6880,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1345,
++          "cumulativeUpgradeCoins": 8870,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1705,
++          "cumulativeUpgradeCoins": 11230,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2085,
++          "cumulativeUpgradeCoins": 13750,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 5390,
++          "cumulativeUpgradeCoins": 35515,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 7620,
++          "cumulativeUpgradeCoins": 50235,
++          "capacitySlots": 14
++        }
++      ]
++    },
++    {
++      "level": 14,
++      "starterUpgradeCoins": 225,
++      "starterCumulativeUpgradeCoins": 1675,
++      "starterCapacitySlots": 6,
++      "riderUpgradeCoins": 280,
++      "riderCumulativeUpgradeCoins": 2075,
++      "vehicleSpeedBonus": 0.336,
++      "vehicleIncomeBonus": 0.448,
++      "riderTrainingIncomeBonus": 0.876,
++      "fixedServiceReduction": 0.296,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 340,
++          "cumulativeUpgradeCoins": 2525,
++          "capacitySlots": 7
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 475,
++          "cumulativeUpgradeCoins": 3545,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 615,
++          "cumulativeUpgradeCoins": 4585,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 825,
++          "cumulativeUpgradeCoins": 6155,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1065,
++          "cumulativeUpgradeCoins": 7945,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1380,
++          "cumulativeUpgradeCoins": 10250,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1745,
++          "cumulativeUpgradeCoins": 12975,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2135,
++          "cumulativeUpgradeCoins": 15885,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 5510,
++          "cumulativeUpgradeCoins": 41025,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 7795,
++          "cumulativeUpgradeCoins": 58030,
++          "capacitySlots": 14
++        }
++      ]
++    },
++    {
++      "level": 15,
++      "starterUpgradeCoins": 230,
++      "starterCumulativeUpgradeCoins": 1905,
++      "starterCapacitySlots": 7,
++      "riderUpgradeCoins": 290,
++      "riderCumulativeUpgradeCoins": 2365,
++      "vehicleSpeedBonus": 0.3525,
++      "vehicleIncomeBonus": 0.47,
++      "riderTrainingIncomeBonus": 0.915,
++      "fixedServiceReduction": 0.3025,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 345,
++          "cumulativeUpgradeCoins": 2870,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 490,
++          "cumulativeUpgradeCoins": 4035,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 630,
++          "cumulativeUpgradeCoins": 5215,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 845,
++          "cumulativeUpgradeCoins": 7000,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1090,
++          "cumulativeUpgradeCoins": 9035,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1410,
++          "cumulativeUpgradeCoins": 11660,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1780,
++          "cumulativeUpgradeCoins": 14755,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2180,
++          "cumulativeUpgradeCoins": 18065,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 5635,
++          "cumulativeUpgradeCoins": 46660,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 7965,
++          "cumulativeUpgradeCoins": 65995,
++          "capacitySlots": 15
++        }
++      ]
++    },
++    {
++      "level": 16,
++      "starterUpgradeCoins": 235,
++      "starterCumulativeUpgradeCoins": 2140,
++      "starterCapacitySlots": 7,
++      "riderUpgradeCoins": 300,
++      "riderCumulativeUpgradeCoins": 2665,
++      "vehicleSpeedBonus": 0.369,
++      "vehicleIncomeBonus": 0.492,
++      "riderTrainingIncomeBonus": 0.954,
++      "fixedServiceReduction": 0.309,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 355,
++          "cumulativeUpgradeCoins": 3225,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 500,
++          "cumulativeUpgradeCoins": 4535,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 645,
++          "cumulativeUpgradeCoins": 5860,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 865,
++          "cumulativeUpgradeCoins": 7865,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1115,
++          "cumulativeUpgradeCoins": 10150,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1440,
++          "cumulativeUpgradeCoins": 13100,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1820,
++          "cumulativeUpgradeCoins": 16575,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2230,
++          "cumulativeUpgradeCoins": 20295,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 5755,
++          "cumulativeUpgradeCoins": 52415,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 8140,
++          "cumulativeUpgradeCoins": 74135,
++          "capacitySlots": 15
++        }
++      ]
++    },
++    {
++      "level": 17,
++      "starterUpgradeCoins": 240,
++      "starterCumulativeUpgradeCoins": 2380,
++      "starterCapacitySlots": 7,
++      "riderUpgradeCoins": 310,
++      "riderCumulativeUpgradeCoins": 2975,
++      "vehicleSpeedBonus": 0.3855,
++      "vehicleIncomeBonus": 0.514,
++      "riderTrainingIncomeBonus": 0.993,
++      "fixedServiceReduction": 0.3155,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 360,
++          "cumulativeUpgradeCoins": 3585,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 510,
++          "cumulativeUpgradeCoins": 5045,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 655,
++          "cumulativeUpgradeCoins": 6515,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 880,
++          "cumulativeUpgradeCoins": 8745,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1140,
++          "cumulativeUpgradeCoins": 11290,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1470,
++          "cumulativeUpgradeCoins": 14570,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1860,
++          "cumulativeUpgradeCoins": 18435,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2275,
++          "cumulativeUpgradeCoins": 22570,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 5880,
++          "cumulativeUpgradeCoins": 58295,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 8315,
++          "cumulativeUpgradeCoins": 82450,
++          "capacitySlots": 15
++        }
++      ]
++    },
++    {
++      "level": 18,
++      "starterUpgradeCoins": 245,
++      "starterCumulativeUpgradeCoins": 2625,
++      "starterCapacitySlots": 7,
++      "riderUpgradeCoins": 320,
++      "riderCumulativeUpgradeCoins": 3295,
++      "vehicleSpeedBonus": 0.402,
++      "vehicleIncomeBonus": 0.536,
++      "riderTrainingIncomeBonus": 1.032,
++      "fixedServiceReduction": 0.322,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 370,
++          "cumulativeUpgradeCoins": 3955,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 520,
++          "cumulativeUpgradeCoins": 5565,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 670,
++          "cumulativeUpgradeCoins": 7185,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 900,
++          "cumulativeUpgradeCoins": 9645,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1160,
++          "cumulativeUpgradeCoins": 12450,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1500,
++          "cumulativeUpgradeCoins": 16070,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1900,
++          "cumulativeUpgradeCoins": 20335,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2325,
++          "cumulativeUpgradeCoins": 24895,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6000,
++          "cumulativeUpgradeCoins": 64295,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 8485,
++          "cumulativeUpgradeCoins": 90935,
++          "capacitySlots": 15
++        }
++      ]
++    },
++    {
++      "level": 19,
++      "starterUpgradeCoins": 250,
++      "starterCumulativeUpgradeCoins": 2875,
++      "starterCapacitySlots": 7,
++      "riderUpgradeCoins": 330,
++      "riderCumulativeUpgradeCoins": 3625,
++      "vehicleSpeedBonus": 0.4185,
++      "vehicleIncomeBonus": 0.558,
++      "riderTrainingIncomeBonus": 1.071,
++      "fixedServiceReduction": 0.3285,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 375,
++          "cumulativeUpgradeCoins": 4330,
++          "capacitySlots": 8
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 530,
++          "cumulativeUpgradeCoins": 6095,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 685,
++          "cumulativeUpgradeCoins": 7870,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 920,
++          "cumulativeUpgradeCoins": 10565,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1185,
++          "cumulativeUpgradeCoins": 13635,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1530,
++          "cumulativeUpgradeCoins": 17600,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1935,
++          "cumulativeUpgradeCoins": 22270,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2370,
++          "cumulativeUpgradeCoins": 27265,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6125,
++          "cumulativeUpgradeCoins": 70420,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 8660,
++          "cumulativeUpgradeCoins": 99595,
++          "capacitySlots": 15
++        }
++      ]
++    },
++    {
++      "level": 20,
++      "starterUpgradeCoins": 255,
++      "starterCumulativeUpgradeCoins": 3130,
++      "starterCapacitySlots": 8,
++      "riderUpgradeCoins": 340,
++      "riderCumulativeUpgradeCoins": 3965,
++      "vehicleSpeedBonus": 0.435,
++      "vehicleIncomeBonus": 0.58,
++      "riderTrainingIncomeBonus": 1.11,
++      "fixedServiceReduction": 0.335,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 385,
++          "cumulativeUpgradeCoins": 4715,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 540,
++          "cumulativeUpgradeCoins": 6635,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 700,
++          "cumulativeUpgradeCoins": 8570,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 935,
++          "cumulativeUpgradeCoins": 11500,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1210,
++          "cumulativeUpgradeCoins": 14845,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1560,
++          "cumulativeUpgradeCoins": 19160,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 1975,
++          "cumulativeUpgradeCoins": 24245,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2420,
++          "cumulativeUpgradeCoins": 29685,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6245,
++          "cumulativeUpgradeCoins": 76665,
++          "capacitySlots": 18
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 8835,
++          "cumulativeUpgradeCoins": 108430,
++          "capacitySlots": 16
++        }
++      ]
++    },
++    {
++      "level": 21,
++      "starterUpgradeCoins": 260,
++      "starterCumulativeUpgradeCoins": 3390,
++      "starterCapacitySlots": 8,
++      "riderUpgradeCoins": 350,
++      "riderCumulativeUpgradeCoins": 4315,
++      "vehicleSpeedBonus": 0.4515,
++      "vehicleIncomeBonus": 0.602,
++      "riderTrainingIncomeBonus": 1.149,
++      "fixedServiceReduction": 0.3415,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 390,
++          "cumulativeUpgradeCoins": 5105,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 550,
++          "cumulativeUpgradeCoins": 7185,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 710,
++          "cumulativeUpgradeCoins": 9280,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 955,
++          "cumulativeUpgradeCoins": 12455,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1235,
++          "cumulativeUpgradeCoins": 16080,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1590,
++          "cumulativeUpgradeCoins": 20750,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2015,
++          "cumulativeUpgradeCoins": 26260,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2465,
++          "cumulativeUpgradeCoins": 32150,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6370,
++          "cumulativeUpgradeCoins": 83035,
++          "capacitySlots": 18
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 9005,
++          "cumulativeUpgradeCoins": 117435,
++          "capacitySlots": 16
++        }
++      ]
++    },
++    {
++      "level": 22,
++      "starterUpgradeCoins": 265,
++      "starterCumulativeUpgradeCoins": 3655,
++      "starterCapacitySlots": 8,
++      "riderUpgradeCoins": 360,
++      "riderCumulativeUpgradeCoins": 4675,
++      "vehicleSpeedBonus": 0.468,
++      "vehicleIncomeBonus": 0.624,
++      "riderTrainingIncomeBonus": 1.188,
++      "fixedServiceReduction": 0.348,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 400,
++          "cumulativeUpgradeCoins": 5505,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 560,
++          "cumulativeUpgradeCoins": 7745,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 725,
++          "cumulativeUpgradeCoins": 10005,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 975,
++          "cumulativeUpgradeCoins": 13430,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1255,
++          "cumulativeUpgradeCoins": 17335,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1625,
++          "cumulativeUpgradeCoins": 22375,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2055,
++          "cumulativeUpgradeCoins": 28315,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2515,
++          "cumulativeUpgradeCoins": 34665,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6490,
++          "cumulativeUpgradeCoins": 89525,
++          "capacitySlots": 18
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 9180,
++          "cumulativeUpgradeCoins": 126615,
++          "capacitySlots": 16
++        }
++      ]
++    },
++    {
++      "level": 23,
++      "starterUpgradeCoins": 270,
++      "starterCumulativeUpgradeCoins": 3925,
++      "starterCapacitySlots": 8,
++      "riderUpgradeCoins": 370,
++      "riderCumulativeUpgradeCoins": 5045,
++      "vehicleSpeedBonus": 0.4845,
++      "vehicleIncomeBonus": 0.646,
++      "riderTrainingIncomeBonus": 1.227,
++      "fixedServiceReduction": 0.3545,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 405,
++          "cumulativeUpgradeCoins": 5910,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 575,
++          "cumulativeUpgradeCoins": 8320,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 740,
++          "cumulativeUpgradeCoins": 10745,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 990,
++          "cumulativeUpgradeCoins": 14420,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1280,
++          "cumulativeUpgradeCoins": 18615,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1655,
++          "cumulativeUpgradeCoins": 24030,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2090,
++          "cumulativeUpgradeCoins": 30405,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2560,
++          "cumulativeUpgradeCoins": 37225,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6615,
++          "cumulativeUpgradeCoins": 96140,
++          "capacitySlots": 18
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 9355,
++          "cumulativeUpgradeCoins": 135970,
++          "capacitySlots": 16
++        }
++      ]
++    },
++    {
++      "level": 24,
++      "starterUpgradeCoins": 275,
++      "starterCumulativeUpgradeCoins": 4200,
++      "starterCapacitySlots": 8,
++      "riderUpgradeCoins": 380,
++      "riderCumulativeUpgradeCoins": 5425,
++      "vehicleSpeedBonus": 0.501,
++      "vehicleIncomeBonus": 0.668,
++      "riderTrainingIncomeBonus": 1.266,
++      "fixedServiceReduction": 0.361,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 415,
++          "cumulativeUpgradeCoins": 6325,
++          "capacitySlots": 9
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 585,
++          "cumulativeUpgradeCoins": 8905,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 755,
++          "cumulativeUpgradeCoins": 11500,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 1010,
++          "cumulativeUpgradeCoins": 15430,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1305,
++          "cumulativeUpgradeCoins": 19920,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1685,
++          "cumulativeUpgradeCoins": 25715,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2130,
++          "cumulativeUpgradeCoins": 32535,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2610,
++          "cumulativeUpgradeCoins": 39835,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6735,
++          "cumulativeUpgradeCoins": 102875,
++          "capacitySlots": 18
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 9525,
++          "cumulativeUpgradeCoins": 145495,
++          "capacitySlots": 16
++        }
++      ]
++    },
++    {
++      "level": 25,
++      "starterUpgradeCoins": 280,
++      "starterCumulativeUpgradeCoins": 4480,
++      "starterCapacitySlots": 9,
++      "riderUpgradeCoins": 390,
++      "riderCumulativeUpgradeCoins": 5815,
++      "vehicleSpeedBonus": 0.5175,
++      "vehicleIncomeBonus": 0.69,
++      "riderTrainingIncomeBonus": 1.305,
++      "fixedServiceReduction": 0.3675,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 420,
++          "cumulativeUpgradeCoins": 6745,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 595,
++          "cumulativeUpgradeCoins": 9500,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 765,
++          "cumulativeUpgradeCoins": 12265,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 1030,
++          "cumulativeUpgradeCoins": 16460,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1330,
++          "cumulativeUpgradeCoins": 21250,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1715,
++          "cumulativeUpgradeCoins": 27430,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2170,
++          "cumulativeUpgradeCoins": 34705,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2655,
++          "cumulativeUpgradeCoins": 42490,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6860,
++          "cumulativeUpgradeCoins": 109735,
++          "capacitySlots": 19
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 9700,
++          "cumulativeUpgradeCoins": 155195,
++          "capacitySlots": 17
++        }
++      ]
++    },
++    {
++      "level": 26,
++      "starterUpgradeCoins": 285,
++      "starterCumulativeUpgradeCoins": 4765,
++      "starterCapacitySlots": 9,
++      "riderUpgradeCoins": 400,
++      "riderCumulativeUpgradeCoins": 6215,
++      "vehicleSpeedBonus": 0.534,
++      "vehicleIncomeBonus": 0.712,
++      "riderTrainingIncomeBonus": 1.344,
++      "fixedServiceReduction": 0.374,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 430,
++          "cumulativeUpgradeCoins": 7175,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 605,
++          "cumulativeUpgradeCoins": 10105,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 780,
++          "cumulativeUpgradeCoins": 13045,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 1045,
++          "cumulativeUpgradeCoins": 17505,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1350,
++          "cumulativeUpgradeCoins": 22600,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1745,
++          "cumulativeUpgradeCoins": 29175,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2210,
++          "cumulativeUpgradeCoins": 36915,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2705,
++          "cumulativeUpgradeCoins": 45195,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 6980,
++          "cumulativeUpgradeCoins": 116715,
++          "capacitySlots": 19
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 9875,
++          "cumulativeUpgradeCoins": 165070,
++          "capacitySlots": 17
++        }
++      ]
++    },
++    {
++      "level": 27,
++      "starterUpgradeCoins": 290,
++      "starterCumulativeUpgradeCoins": 5055,
++      "starterCapacitySlots": 9,
++      "riderUpgradeCoins": 410,
++      "riderCumulativeUpgradeCoins": 6625,
++      "vehicleSpeedBonus": 0.5505,
++      "vehicleIncomeBonus": 0.734,
++      "riderTrainingIncomeBonus": 1.383,
++      "fixedServiceReduction": 0.3805,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 435,
++          "cumulativeUpgradeCoins": 7610,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 615,
++          "cumulativeUpgradeCoins": 10720,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 795,
++          "cumulativeUpgradeCoins": 13840,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 1065,
++          "cumulativeUpgradeCoins": 18570,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1375,
++          "cumulativeUpgradeCoins": 23975,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1775,
++          "cumulativeUpgradeCoins": 30950,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2245,
++          "cumulativeUpgradeCoins": 39160,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2750,
++          "cumulativeUpgradeCoins": 47945,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 7105,
++          "cumulativeUpgradeCoins": 123820,
++          "capacitySlots": 19
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 10045,
++          "cumulativeUpgradeCoins": 175115,
++          "capacitySlots": 17
++        }
++      ]
++    },
++    {
++      "level": 28,
++      "starterUpgradeCoins": 295,
++      "starterCumulativeUpgradeCoins": 5350,
++      "starterCapacitySlots": 9,
++      "riderUpgradeCoins": 420,
++      "riderCumulativeUpgradeCoins": 7045,
++      "vehicleSpeedBonus": 0.567,
++      "vehicleIncomeBonus": 0.756,
++      "riderTrainingIncomeBonus": 1.422,
++      "fixedServiceReduction": 0.387,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 445,
++          "cumulativeUpgradeCoins": 8055,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 625,
++          "cumulativeUpgradeCoins": 11345,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 810,
++          "cumulativeUpgradeCoins": 14650,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 1085,
++          "cumulativeUpgradeCoins": 19655,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1400,
++          "cumulativeUpgradeCoins": 25375,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1805,
++          "cumulativeUpgradeCoins": 32755,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2285,
++          "cumulativeUpgradeCoins": 41445,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2800,
++          "cumulativeUpgradeCoins": 50745,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 7225,
++          "cumulativeUpgradeCoins": 131045,
++          "capacitySlots": 19
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 10220,
++          "cumulativeUpgradeCoins": 185335,
++          "capacitySlots": 17
++        }
++      ]
++    },
++    {
++      "level": 29,
++      "starterUpgradeCoins": 300,
++      "starterCumulativeUpgradeCoins": 5650,
++      "starterCapacitySlots": 9,
++      "riderUpgradeCoins": 430,
++      "riderCumulativeUpgradeCoins": 7475,
++      "vehicleSpeedBonus": 0.5835,
++      "vehicleIncomeBonus": 0.778,
++      "riderTrainingIncomeBonus": 1.461,
++      "fixedServiceReduction": 0.3935,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 450,
++          "cumulativeUpgradeCoins": 8505,
++          "capacitySlots": 10
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 635,
++          "cumulativeUpgradeCoins": 11980,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 820,
++          "cumulativeUpgradeCoins": 15470,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 1100,
++          "cumulativeUpgradeCoins": 20755,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1425,
++          "cumulativeUpgradeCoins": 26800,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1835,
++          "cumulativeUpgradeCoins": 34590,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2325,
++          "cumulativeUpgradeCoins": 43770,
++          "capacitySlots": 17
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2845,
++          "cumulativeUpgradeCoins": 53590,
++          "capacitySlots": 15
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 7350,
++          "cumulativeUpgradeCoins": 138395,
++          "capacitySlots": 19
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 10390,
++          "cumulativeUpgradeCoins": 195725,
++          "capacitySlots": 17
++        }
++      ]
++    },
++    {
++      "level": 30,
++      "starterUpgradeCoins": 305,
++      "starterCumulativeUpgradeCoins": 5955,
++      "starterCapacitySlots": 10,
++      "riderUpgradeCoins": 440,
++      "riderCumulativeUpgradeCoins": 7915,
++      "vehicleSpeedBonus": 0.6,
++      "vehicleIncomeBonus": 0.8,
++      "riderTrainingIncomeBonus": 1.5,
++      "fixedServiceReduction": 0.4,
++      "vehicles": [
++        {
++          "modelId": 1,
++          "upgradeCoins": 460,
++          "cumulativeUpgradeCoins": 8965,
++          "capacitySlots": 11
++        },
++        {
++          "modelId": 2,
++          "upgradeCoins": 645,
++          "cumulativeUpgradeCoins": 12625,
++          "capacitySlots": 12
++        },
++        {
++          "modelId": 3,
++          "upgradeCoins": 835,
++          "cumulativeUpgradeCoins": 16305,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 4,
++          "upgradeCoins": 1120,
++          "cumulativeUpgradeCoins": 21875,
++          "capacitySlots": 13
++        },
++        {
++          "modelId": 5,
++          "upgradeCoins": 1445,
++          "cumulativeUpgradeCoins": 28245,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 6,
++          "upgradeCoins": 1870,
++          "cumulativeUpgradeCoins": 36460,
++          "capacitySlots": 14
++        },
++        {
++          "modelId": 7,
++          "upgradeCoins": 2365,
++          "cumulativeUpgradeCoins": 46135,
++          "capacitySlots": 18
++        },
++        {
++          "modelId": 8,
++          "upgradeCoins": 2895,
++          "cumulativeUpgradeCoins": 56485,
++          "capacitySlots": 16
++        },
++        {
++          "modelId": 9,
++          "upgradeCoins": 7470,
++          "cumulativeUpgradeCoins": 145865,
++          "capacitySlots": 20
++        },
++        {
++          "modelId": 10,
++          "upgradeCoins": 10565,
++          "cumulativeUpgradeCoins": 206290,
++          "capacitySlots": 18
++        }
++      ]
++    }
++  ],
++  "supplyContract": {
++    "heroVisibleDefault": 8,
++    "requestedPoolCount": "min(50,max(8,2*capacitySlots))",
++    "stableFinitePool": true,
++    "noRerollOnScrollOrUpgrade": true,
++    "existingScanBoundRetained": true,
++    "noHardOrderCountCap": true,
++    "npcMapDensityCapNotNewRuleHardCap": true
++  },
++  "compatibility": [
++    "Legacy config/rules remain immutable and validate old envelopes before wrapping.",
++    "Old kg contracts, quotes, dueMs and earned value remain unchanged. New accepted work uses explicit slots/profile terms.",
++    "Owned levels and cash remain; future upgrades charge adjacent new fees only; no retroactive debit, refund or reset.",
++    "NPC adjustments affect only unsigned future batches; hero active-batch restrictions preserved."
++  ],
++  "exclusions": [
++    "No map geometry/data/production",
++    "No new paging UI, packing forecast, weather or traffic features",
++    "No claim that 20-minute/three-NPC experience or late-game total balance has passed"
++  ]
++} as const;
+diff --git a/delivery-game/assets/scripts/domain/V2EconomyProfiles.ts b/delivery-game/assets/scripts/domain/V2EconomyProfiles.ts
+new file mode 100644
+--- /dev/null
++++ b/delivery-game/assets/scripts/domain/V2EconomyProfiles.ts
+@@ -0,0 +1,90 @@
++import { V2_SLOT_CONFIG as C } from './V2SlotEconomyConfig';
++import { V2_CONFIG_ID as LEGACY_ID } from './V2EconomyConfig';
++import { parseV2Capacity,parseV2Load } from './V2LoadRules';
++import type { V2SlotLoad,V2SlotCapacity } from './V2LoadRules';
++
++export const V2_SLOT_PROFILE_ID=C.profileId;
++export const V2_SLOT_PRICE_POLICY='distance-effort-slots-v1';
++export const V2_SLOT_EFFECT_POLICY='capacity-slots-effects-v1';
++export const V2_SLOT_START_CENTS=C.startCoins*100;
++export interface V2SlotContractTerms {
++ version:'slots-v1';profileId:string;pricePolicyId:string;effectPolicyId:string;
++ load:V2SlotLoad;capacity:V2SlotCapacity;vehicleLevel:number;riderLevel:number;
++ speedRelativeToStarter:number;incomeFactor:number;riderIncomeFactor:number;fixedServiceReduction:number;
++}
++/** An opaque marker, not a reconstruction of historical legacy attributes. */
++export interface V2LegacyContractTerms {version:'kg-v1';profileId:string;}
++export type V2ContractTerms=V2SlotContractTerms|V2LegacyContractTerms;
++export interface V2SlotVehicleEffects {
++ profileId:typeof V2_SLOT_PROFILE_ID;capacity:V2SlotCapacity;capacitySlots:number;speedRelativeToStarter:number;incomeFactor:number;
++}
++export interface V2SlotRiderEffects {profileId:typeof V2_SLOT_PROFILE_ID;incomeFactor:number;baseIncomeFactor:number;fixedServiceReduction:number;}
++export interface V2SlotUpgradeQuote {fromLevel:number;toLevel:number;costCents:number;profileId:typeof V2_SLOT_PROFILE_ID;}
++function check(value:unknown):asserts value {if(!value)throw new Error('容量成长条款或参数无效');}
++function levelRow(level:number){check(Number.isInteger(level)&&level>=1&&level<=C.levels.length);const row=C.levels[level-1];check(row.level===level);return row;}
++function modelRow(modelId:number|'starter'|'legacy') {
++ check(modelId!=='legacy');if(modelId==='starter')return C.starterVehicle;
++ const model=C.vehicles.find(row=>row.id===modelId);check(model);return model;
++}
++function riderRow(riderId:string){const rider=C.riders.find(row=>row.id===riderId);check(rider);return rider;}
++
++export function slotVehicleEffects(vehicle:{modelId:number|'starter'|'legacy';level:number}):V2SlotVehicleEffects {
++ const row=levelRow(vehicle.level),model=modelRow(vehicle.modelId);
++ const capacitySlots=vehicle.modelId==='starter'?row.starterCapacitySlots:row.vehicles.find(value=>value.modelId===vehicle.modelId)?.capacitySlots;
++ check(typeof capacitySlots==='number'&&Number.isSafeInteger(capacitySlots)&&capacitySlots>0);
++ return {profileId:V2_SLOT_PROFILE_ID,capacity:{version:'slots-v1',capacitySlots},capacitySlots,
++ speedRelativeToStarter:model.speedRelativeToStarter*(1+row.vehicleSpeedBonus),incomeFactor:model.incomeFactor*(1+row.vehicleIncomeBonus)};
++}
++export function slotRiderEffects(riderId:string,level:number):V2SlotRiderEffects {
++ const row=levelRow(level),rider=riderRow(riderId);
++ return {profileId:V2_SLOT_PROFILE_ID,baseIncomeFactor:rider.baseIncomeFactor,incomeFactor:rider.baseIncomeFactor*(1+row.riderTrainingIncomeBonus),fixedServiceReduction:row.fixedServiceReduction};
++}
++export function slotVehicleUpgradeQuote(vehicle:{modelId:number|'starter'|'legacy';level:number}):V2SlotUpgradeQuote&{current:V2SlotVehicleEffects;next:V2SlotVehicleEffects;nextLevel:number} {
++ const row=levelRow(vehicle.level);check(vehicle.level<C.levels.length);modelRow(vehicle.modelId);
++ const next=levelRow(vehicle.level+1),currentModel=row.vehicles.find(value=>value.modelId===vehicle.modelId),nextModel=next.vehicles.find(value=>value.modelId===vehicle.modelId);
++ check(vehicle.modelId==='starter'||currentModel&&nextModel);
++ const cost=vehicle.modelId==='starter'?next.starterCumulativeUpgradeCoins-row.starterCumulativeUpgradeCoins:nextModel!.cumulativeUpgradeCoins-currentModel!.cumulativeUpgradeCoins;
++ check(Number.isSafeInteger(cost)&&cost>0&&cost===(vehicle.modelId==='starter'?next.starterUpgradeCoins:nextModel!.upgradeCoins));
++ return {fromLevel:row.level,toLevel:next.level,costCents:cost*100,profileId:V2_SLOT_PROFILE_ID,current:slotVehicleEffects(vehicle),next:slotVehicleEffects({...vehicle,level:next.level}),nextLevel:next.level};
++}
++export function slotRiderUpgradeQuote(riderId:string,level:number):V2SlotUpgradeQuote&{current:V2SlotRiderEffects;next:V2SlotRiderEffects;nextLevel:number} {
++ riderRow(riderId);const row=levelRow(level);check(level<C.levels.length);const next=levelRow(level+1);
++ const cost=next.riderCumulativeUpgradeCoins-row.riderCumulativeUpgradeCoins;
++ check(Number.isSafeInteger(cost)&&cost>0&&cost===next.riderUpgradeCoins);
++ return {fromLevel:row.level,toLevel:next.level,costCents:cost*100,profileId:V2_SLOT_PROFILE_ID,current:slotRiderEffects(riderId,row.level),next:slotRiderEffects(riderId,next.level),nextLevel:next.level};
++}
++export function slotRiderHireQuote(riderId:string){const row=riderRow(riderId);return {riderId:row.id,costCents:row.price*100};}
++export function slotVehiclePurchaseQuote(modelId:number){const model=C.vehicles.find(row=>row.id===modelId);check(model);return {modelId:model.id,costCents:model.price*100};}
++export function slotMapBaseIncomeCents(mapTier:number):number {const map=C.maps.find(row=>row.id===mapTier);check(map);return map.ordinaryBaseFee*100;}
++export function slotMapPurchaseQuote(mapId:number){const map=C.maps.find(row=>row.id===mapId);check(map);return {mapId:map.id,costCents:map.price*100};}
++export function slotNextHirePriceCents(owned:readonly {id:string}[]):number|null {const candidates=C.riders.filter(row=>!owned.some(r=>r.id===row.id));return candidates.length?Math.min(...candidates.map(row=>row.price*100)):null;}
++
++/** Required, exact metadata; absence and an unknown unit never choose legacy. */
++export function parseV2ContractTerms(raw:unknown):V2ContractTerms {
++ check(raw&&typeof raw==='object'&&!Array.isArray(raw));const value=raw as Record<string,unknown>;
++ if(value.version==='kg-v1'){
++  check(Reflect.ownKeys(value).length===2&&Object.prototype.propertyIsEnumerable.call(value,'version')&&Object.prototype.propertyIsEnumerable.call(value,'profileId')&&value.profileId===LEGACY_ID);
++  return {version:'kg-v1',profileId:LEGACY_ID};
++ }
++ const keys=['version','profileId','pricePolicyId','effectPolicyId','load','capacity','vehicleLevel','riderLevel','speedRelativeToStarter','incomeFactor','riderIncomeFactor','fixedServiceReduction'];
++ check(Reflect.ownKeys(value).length===keys.length&&keys.every(key=>Object.prototype.propertyIsEnumerable.call(value,key)));
++ check(value.version==='slots-v1');const version=value.version;
++ const load=parseV2Load(value.load),capacity=parseV2Capacity(value.capacity);check(load.version===version&&capacity.version===version);
++ check(value.profileId===V2_SLOT_PROFILE_ID);
++ check(value.effectPolicyId===V2_SLOT_EFFECT_POLICY);
++ const policies=[V2_SLOT_PRICE_POLICY,'slots-special-v1','slots-fleet-v1'];
++ check(typeof value.pricePolicyId==='string'&&policies.includes(value.pricePolicyId));
++ check(typeof value.vehicleLevel==='number'&&Number.isInteger(value.vehicleLevel)&&value.vehicleLevel>=1&&value.vehicleLevel<=30);
++ check(typeof value.riderLevel==='number'&&Number.isInteger(value.riderLevel)&&value.riderLevel>=1&&value.riderLevel<=30);
++ check(typeof value.speedRelativeToStarter==='number'&&Number.isFinite(value.speedRelativeToStarter)&&value.speedRelativeToStarter>0);
++ check(typeof value.incomeFactor==='number'&&Number.isFinite(value.incomeFactor)&&value.incomeFactor>0);
++ check(typeof value.riderIncomeFactor==='number'&&Number.isFinite(value.riderIncomeFactor)&&value.riderIncomeFactor>0);
++ check(typeof value.fixedServiceReduction==='number'&&Number.isFinite(value.fixedServiceReduction)&&value.fixedServiceReduction>=0&&value.fixedServiceReduction<1);
++ return {version,profileId:value.profileId as string,pricePolicyId:value.pricePolicyId,effectPolicyId:value.effectPolicyId as string,
++ load,capacity,vehicleLevel:value.vehicleLevel,riderLevel:value.riderLevel,speedRelativeToStarter:value.speedRelativeToStarter,
++ incomeFactor:value.incomeFactor,riderIncomeFactor:value.riderIncomeFactor,fixedServiceReduction:value.fixedServiceReduction};
++}
++export function sameV2ContractTerms(left:V2ContractTerms,right:V2ContractTerms):boolean {
++ const a=parseV2ContractTerms(left),b=parseV2ContractTerms(right);
++ return JSON.stringify(a)===JSON.stringify(b);
++}
+diff --git a/delivery-game/assets/scripts/domain/V2LoadRules.ts b/delivery-game/assets/scripts/domain/V2LoadRules.ts
+new file mode 100644
+--- /dev/null
++++ b/delivery-game/assets/scripts/domain/V2LoadRules.ts
+@@ -0,0 +1,67 @@
++/** Explicit load units. Parsing never converts or rounds legacy kilograms into slots. */
++export type V2Load=Readonly<{version:'kg-v1';weightKg:number}>|Readonly<{version:'slots-v1';occupiedSlots:1|2}>;
++export type V2Capacity=Readonly<{version:'kg-v1';capacityKg:number}>|Readonly<{version:'slots-v1';capacitySlots:number}>;
++export type V2SlotLoad=Extract<V2Load,{version:'slots-v1'}>;
++export type V2SlotCapacity=Extract<V2Capacity,{version:'slots-v1'}>;
++
++function check(value:unknown):asserts value {if(!value)throw new Error('配送容量单位或条款无效');}
++function record(raw:unknown,keys:readonly string[]):Record<string,unknown> {
++ check(raw&&typeof raw==='object'&&!Array.isArray(raw));
++ check(Reflect.ownKeys(raw).length===keys.length&&keys.every(key=>Object.prototype.propertyIsEnumerable.call(raw,key)));
++ return raw as Record<string,unknown>;
++}
++function positive(raw:unknown):raw is number {return typeof raw==='number'&&Number.isFinite(raw)&&raw>0;}
++
++export function parseV2Load(raw:unknown):V2Load {
++ check(raw&&typeof raw==='object'&&!Array.isArray(raw));
++ const version=(raw as {version?:unknown}).version;
++ if(version==='kg-v1'){const value=record(raw,['version','weightKg']);check(positive(value.weightKg));return {version,weightKg:value.weightKg};}
++ check(version==='slots-v1');const value=record(raw,['version','occupiedSlots']);
++ check(value.occupiedSlots===1||value.occupiedSlots===2);return {version,occupiedSlots:value.occupiedSlots};
++}
++
++export function parseV2Capacity(raw:unknown):V2Capacity {
++ check(raw&&typeof raw==='object'&&!Array.isArray(raw));
++ const version=(raw as {version?:unknown}).version;
++ if(version==='kg-v1'){const value=record(raw,['version','capacityKg']);check(positive(value.capacityKg));return {version,capacityKg:value.capacityKg};}
++ check(version==='slots-v1');const value=record(raw,['version','capacitySlots']);
++ check(typeof value.capacitySlots==='number'&&Number.isSafeInteger(value.capacitySlots)&&value.capacitySlots>0);
++ return {version,capacitySlots:value.capacitySlots};
++}
++
++/** Canonical deterministic portion for a validated order identity; consumes no draw. */
++export function slotLoadForOrderId(orderId:string):V2SlotLoad {
++ check(typeof orderId==='string'&&orderId.length>0&&orderId.length<=200);
++ let hash=2166136261;for(let i=0;i<orderId.length;i++)hash=Math.imul(hash^orderId.charCodeAt(i),16777619)>>>0;
++ return {version:'slots-v1',occupiedSlots:(hash&1)===0?1:2};
++}
++
++export function sameV2Load(left:V2Load,right:V2Load):boolean {
++ return left.version===right.version&&(left.version==='kg-v1'?left.weightKg===(right as Extract<V2Load,{version:'kg-v1'}>).weightKg:left.occupiedSlots===(right as V2SlotLoad).occupiedSlots);
++}
++
++export function totalV2Load(loads:readonly V2Load[],capacity:V2Capacity):number {
++ const limit=parseV2Capacity(capacity);let total=0;
++ for(const raw of loads){const load=parseV2Load(raw);check(load.version===limit.version);total+=load.version==='kg-v1'?load.weightKg:load.occupiedSlots;check(Number.isFinite(total)&&(load.version==='kg-v1'||Number.isSafeInteger(total)));}
++ return total;
++}
++
++export function fitsV2Capacity(loads:readonly V2Load[],capacity:V2Capacity):boolean {
++ const limit=parseV2Capacity(capacity),total=totalV2Load(loads,limit);
++ return total<=(limit.version==='kg-v1'?limit.capacityKg:limit.capacitySlots);
++}
++
++/** Read batch size, not a holding limit or a promise of available orders. */
++export function slotCandidateRequestCount(capacitySlots:number):number {
++ check(Number.isSafeInteger(capacitySlots)&&capacitySlots>0);
++ return Math.min(50,Math.max(8,2*capacitySlots));
++}
++/** A separate finite NPC pool. Skipping an oversized offer never rerolls it. */
++export function slotFleetOrderIds(batchId:number,capacitySlots:number):string[] {
++ check(Number.isSafeInteger(batchId)&&batchId>0);const count=slotCandidateRequestCount(capacitySlots),ids:string[]=[];let remaining=capacitySlots;
++ for(let index=0;index<count&&remaining>0;index++){
++  const id=`fleet-${batchId}-${index}`,load=slotLoadForOrderId(id);if(load.occupiedSlots>remaining)continue;
++  ids.push(id);remaining-=load.occupiedSlots;
++ }
++ return ids;
++}

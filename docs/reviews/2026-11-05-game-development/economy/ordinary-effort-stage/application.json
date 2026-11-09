@@ -1,0 +1,23 @@
+{
+  "task": "NEXT-A-U22-PRICING",
+  "patchSha256": "a7ab9f5f257b50937eee3e87365507c60b3d7b4efa4d614ed752b8eb3045b3d1",
+  "appliedVia": "patch mode=patch; 10 prevalidated exact-context hunks",
+  "sourceHashesBefore": {
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": "7ec38bc31d32d4fbf5f72ab821db4a33c43f3edb6807396d0f71c16424cc5a14",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "09a6a67eb0e9b8fa7341a97f55e25bd5653d005cb5b738217c6c89de6cac8c67",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "90d6e5f4bb9e5322037c483d57dda65fb1c1f1473d4c406c34ef86b144610b16"
+  },
+  "sourceHashesAfter": {
+    "delivery-game/assets/scripts/domain/V2EconomySession.ts": "affec422c530e37820354a88690f8df32010580ded276cb3f9ac697e8f142e2d",
+    "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "40c79d5443c35f2e6b3bba69fac129f07106d8d25ee76a6e27b7fde514d3fe0f",
+    "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "cd94c794d12e32cbe11d6c4e3cb5a0bfded29005e4afa49b679d9d2ba3b06232"
+  },
+  "qualityReview": "quality-review.json",
+  "pricingDeployed": false,
+  "testsRun": false,
+  "realSaveTouched": false,
+  "limits": [
+    "Source implementation and two static gates only; new historical metadata validation has unmeasured cost U22-PERF-01.",
+    "Earlier v2-showcase-hud-1106 bundle does NOT include these pricing changes."
+  ]
+}

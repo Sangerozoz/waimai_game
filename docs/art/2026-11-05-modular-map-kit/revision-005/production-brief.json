@@ -1,0 +1,82 @@
+{
+  "status": "two-native-lamp-outputs-verified-runtime-size-pilot-built-building-art-pending",
+  "nativeExecutionState": {
+    "executor": "proc_27cf20a09282",
+    "sessionId": "01a1abb6-0e58-7902-b98d-7f04350405bd",
+    "state": "stopped-after-repeated-network-failure",
+    "observedErrors": ["HTTP 503", "Responses WebSocket connection failure", "TLS handshake EOF", "HTTPS fallback waiting for network"],
+    "nativeResultReturned": false,
+    "generatedImageSessionDirectoryExists": false,
+    "nearLampCompleted": false,
+    "farLampStarted": false,
+    "note": "This failed executor is stopped. Historical failure record; later bounded retries are recorded separately below."
+  },
+  "successfulBoundedRetry": {
+    "asset": "L01-road-near-v1",
+    "file": "native/retry-near-001/L01-road-near-v1.png",
+    "actualSize": [1254, 1254],
+    "mode": "RGBA",
+    "sha256": "2f5edf4fbc5a29e9858006196dee50953a37f01809119159ace141695c632dd1",
+    "nativeBytesVerifiedByParent": true,
+    "elapsedSeconds": 137.91,
+    "hardDeadlineSeconds": 240,
+    "cameraObservation": "Vertical pole with head extending down-right per near-side guide; not yet integrated or user accepted.",
+    "stableServiceGuaranteed": false
+  },
+  "activeNativeTask": {
+    "asset": "L01-road-far-v1",
+    "executor": "proc_008151a03964",
+    "supervisorPID": 25923,
+    "status": "native-output-confirmed-not-integrated-or-user-accepted",
+    "hardDeadlineSeconds": 240,
+    "outputDirectory": "native/far-001/"
+  },
+  "scope": "Map assets and independent street assembly only. No gameplay/UI/economy/save changes.",
+  "authorization": "User accepted revision-004 building/street visual except lamp orientation, then explicitly requested execution and parallel task decomposition.",
+  "sourceConstraint": "../revision-003/road-constraint.json",
+  "sourceLayout": "../revision-004/viewer/assets/scene-layout.json",
+  "sourceSelection": "../building-selection.json",
+  "acceptedBuilding": "../revision-003/B01-road-aligned-native-v1.png",
+  "acceptedTree": "../pilot/T01-v1.png",
+  "lampAppearanceOnly": "../pilot/L01-v1.png",
+  "roadId": "149397380-0",
+  "frontageAngleScreenDeg": -28.486362688849802,
+  "depthAngleScreenDeg": 55.40598449120886,
+  "runtimeTexturePolicy": {
+    "rawOriginals": "Archive unchanged, not automatically packaged",
+    "pilotSmallSpriteMaxEdge": 280,
+    "pilotBuildingMaxEdge": 280,
+    "userConfirmedRuntimeMaxEdge": 280,
+    "rectangularTrimmedTextures": true,
+    "pivotAndWorldSizeRemapped": true,
+    "duplicateInstancesShareImagesAndFrames": true,
+    "includeOnlyActiveAssetFiles": true,
+    "pilotReport": "runtime-280/resource-report.json",
+    "pilotRuntimeObserved": true,
+    "finalMaxZoomOrDevicePerformanceAccepted": false
+  },
+  "assetDimensionsAre": "PM production candidates, not surveyed source or user hard constraints",
+  "buildings": [
+    {"id": "B01", "status": "reuse-accepted", "frontage": 8, "depth": 5.5, "height": 8, "tangentOffsetCandidate": 0},
+    {"id": "B02", "status": "planned-native", "frontage": 10, "depth": 7, "height": 14, "tangentOffsetCandidate": -11, "identity": "terraced glass office, genuinely stepped masses, not B01 with a new colour"},
+    {"id": "B03", "status": "planned-native", "frontage": 7, "depth": 6, "height": 18, "tangentOffsetCandidate": 18.5, "identity": "narrow vertically articulated glass mid-rise, not a duplicated apartment"},
+    {"id": "B04", "status": "planned-native", "frontage": 12, "depth": 9, "height": 7, "tangentOffsetCandidate": -24, "identity": "broad low public exhibition pavilion with distinct entrance and low wings"},
+    {"id": "B05", "status": "planned-native", "frontage": 7, "depth": 5, "height": 7.5, "tangentOffsetCandidate": 9.5, "identity": "small two-storey pitched-roof residence, not a flat-roof B01"}
+  ],
+  "nativeWave": ["L01-road-near-v1", "L01-road-far-v1", "B02-v1", "B03-v1", "B04-v1", "B05-v1", "T02-v1"],
+  "lanes": {
+    "layout": "planning/ only",
+    "geometryAndReferences": "references/ only",
+    "nativeProduction": "native/ only; sequential native image calls",
+    "parentIntegration": "integration/, viewer/, review evidence and index only"
+  },
+  "nonNegotiables": [
+    "Original city roads, node order, widths, connectivity and red/blue/green boundaries stay unchanged.",
+    "User probe.tmj, old revision.tmj and every accepted raw PNG are read-only.",
+    "Native generation only via existing built-in image_gen; no external paid API, credentials, PNG rotation/mirror/shear or fabricated renders.",
+    "Lamp poles vertical; sidewalk-side arms extend toward carriageway, optical surface faces down. Opposite road sides need actual orientation variants.",
+    "Asset guide is not proof of generated geometry. Inspect actual native PNGs and actual composed output.",
+    "No game tests/typecheck/regression, save access, git commits/pushes or deployment over another role's area.",
+    "No blind county expansion, fake four-way readiness, AI replacement roads or invented bridges."
+  ]
+}

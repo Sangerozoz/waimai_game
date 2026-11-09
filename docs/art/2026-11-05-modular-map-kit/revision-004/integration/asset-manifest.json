@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "packageComplete": true,
+  "status": "tiled-one-street-native-candidate-not-accepted",
+  "projection": {
+    "id": "orthographic-e62.5-a45-v1",
+    "elevationDeg": 62.5,
+    "azimuthDeg": 45,
+    "canvasYDown": true,
+    "axisX": [
+      0.7071067811865476,
+      0.62721137512625
+    ],
+    "axisY": [
+      -0.7071067811865476,
+      0.62721137512625
+    ],
+    "axisZ": [
+      0,
+      -0.4617486132350339
+    ],
+    "originMap": [
+      -1591.5766733668343,
+      75.0
+    ]
+  },
+  "assets": [
+    {
+      "id": "B01-road-tangent-candidate",
+      "kind": "block",
+      "file": "B01-road-aligned-native-v1.png",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sha256": "817678000e21a6d3c46bf9e95b7e9ab56d71791081616179a61a81cfe446576a",
+      "anchorUV": [
+        0.4996012759170654,
+        0.7340510366826156
+      ],
+      "nativePixelsPerUnit": 111.2618392940353,
+      "anchorMap": [
+        -1596.5787045725883,
+        58.400981377657935
+      ],
+      "sortMap": [
+        -1596.5787045725883,
+        58.400981377657935
+      ],
+      "projectionId": "orthographic-e62.5-a45-v1",
+      "orientationVariant": "source-road-149397380-segment-10",
+      "status": "hand-calibrated-native-candidate-not-user-accepted"
+    },
+    {
+      "id": "T01",
+      "anchorMap": [
+        -1593,
+        49
+      ],
+      "file": "T01-v1.png",
+      "sourceRelative": "../pilot/T01-v1.png",
+      "anchorPixel": [
+        620,
+        1020
+      ],
+      "nativePixelsPerUnit": 175,
+      "scaleMethod": "manual full-height visual candidate, original v1 canopy/trunk/pit preserved; no nominal6m fit",
+      "observations": [
+        "Full native v1 bytes retained. Candidate scale of 175px per projection unit preserves aspect ratio and tall tree appearance."
+      ],
+      "calibration": {
+        "method": "manual full-height visual candidate, original v1 canopy/trunk/pit preserved; no nominal6m fit",
+        "anchorPixel": [
+          620,
+          1020
+        ],
+        "status": "hand-estimated-visual-candidate-no-physical-fit"
+      },
+      "kind": "block",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "png": {
+        "bitDepth": 8,
+        "colourType": 6,
+        "hasNativeAlpha": true
+      },
+      "sha256": "168a9f318c6db4722960da0daa2a59bf9276360c033ad2ce148df6e204c70698",
+      "anchorUV": [
+        0.4944178628389155,
+        0.8133971291866029
+      ],
+      "sortMap": [
+        -1593,
+        49
+      ],
+      "projectionId": "orthographic-e62.5-a45-v1",
+      "status": "manual-calibration-native-candidate-not-user-accepted",
+      "source": "docs/art/2026-11-05-modular-map-kit/pilot/T01-v1.png"
+    },
+    {
+      "id": "L01",
+      "file": "L01-v1.png",
+      "anchorPixel": [
+        462,
+        1274
+      ],
+      "nativePixelsPerUnit": 264.21302956442446,
+      "scaleMethod": "manual pole-top420 to base1274 pixel vertical span / (nominal7m * abs(axisZ.y)); pad size not used to force fit",
+      "heightMeters": 7,
+      "footprintMeters": [
+        0.3,
+        0.3
+      ],
+      "anchorMap": [
+        -1599,
+        81
+      ],
+      "observations": [
+        "Manual pole/base anchor; height derived from nominal7m design target, not real measured physical size.",
+        "Native image preview shows broad exterior glow RGB, but sampled exterior pixels have alpha0; do not label visible glow from RGB preview alone. Need actual composited viewer inspection.",
+        "Lamp head underside pale region and very slender pole need runtime daylight/visibility review. Camera not validated."
+      ],
+      "sourceRelative": "../pilot/L01-v1.png",
+      "calibration": {
+        "method": "manual pole-top420 to base1274 pixel vertical span / (nominal7m * abs(axisZ.y)); pad size not used to force fit",
+        "anchorPixel": [
+          462,
+          1274
+        ],
+        "status": "hand-estimated-visual-candidate-no-physical-fit"
+      },
+      "kind": "block",
+      "nativeSize": [
+        1024,
+        1536
+      ],
+      "png": {
+        "bitDepth": 8,
+        "colourType": 6,
+        "hasNativeAlpha": true
+      },
+      "sha256": "093c0b487083a468fe8927e2a77f29c06fbf930e058a2eb6029de4a52c7a812d",
+      "anchorUV": [
+        0.451171875,
+        0.8294270833333334
+      ],
+      "sortMap": [
+        -1599,
+        81
+      ],
+      "projectionId": "orthographic-e62.5-a45-v1",
+      "status": "manual-calibration-native-candidate-not-user-accepted",
+      "source": "docs/art/2026-11-05-modular-map-kit/pilot/L01-v1.png"
+    },
+    {
+      "id": "L02",
+      "file": "L02-v1.png",
+      "anchorPixel": [
+        632,
+        1080
+      ],
+      "nativePixelsPerUnit": 281.538474126026,
+      "scaleMethod": "manual pole fork-joint300 to mounting-base1080 pixel span / (nominal6m pole * abs(axisZ.y)); curved arms not treated as pole height",
+      "heightMeters": 6,
+      "footprintMeters": [
+        0.3,
+        0.3
+      ],
+      "anchorMap": [
+        -1583,
+        89
+      ],
+      "observations": [
+        "Single native double-arm lamp,1265×1243RGBA, complete square foot. No raster rotation/mirroring.",
+        "Pole joint/base hand estimates and6m nominal target set uniform scale. Curved head dimensions and pad width remain unvalidated.",
+        "Thin pale/chromatic edge fragments visible in native preview; require actual-alpha composition review. Daytime LED undersides pale, no acceptance implied."
+      ],
+      "sourceRelative": "../pilot/L02-v1.png",
+      "calibration": {
+        "method": "manual pole fork-joint300 to mounting-base1080 pixel span / (nominal6m pole * abs(axisZ.y)); curved arms not treated as pole height",
+        "anchorPixel": [
+          632,
+          1080
+        ],
+        "status": "hand-estimated-visual-candidate-no-physical-fit"
+      },
+      "kind": "block",
+      "nativeSize": [
+        1265,
+        1243
+      ],
+      "png": {
+        "bitDepth": 8,
+        "colourType": 6,
+        "hasNativeAlpha": true
+      },
+      "sha256": "77d847d2324013dc6319a35977ea05dc77b5669789764d6f7b20c9242d73a2fd",
+      "anchorUV": [
+        0.49960474308300395,
+        0.8688656476267096
+      ],
+      "sortMap": [
+        -1583,
+        89
+      ],
+      "projectionId": "orthographic-e62.5-a45-v1",
+      "status": "manual-calibration-native-candidate-not-user-accepted",
+      "source": "docs/art/2026-11-05-modular-map-kit/pilot/L02-v1.png"
+    },
+    {
+      "id": "HC-R-NE",
+      "file": "HC-R-NE-v1.png",
+      "kind": "rider",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sha256": "0adda5fddff25e32c511c30f87b238193524355a5f1be3afe440a042861d99a3",
+      "direction": "ne",
+      "projectionId": "orthographic-e62.5-a45-v1",
+      "anchorUV": [
+        0.5279106858054227,
+        0.7639553429027113
+      ],
+      "wheelContactAnchorUV": [
+        0.5279106858054227,
+        0.7639553429027113
+      ],
+      "nativePixelsPerUnit": 1,
+      "opaqueBoundsUV": [
+        0.051834130781499205,
+        0.0685805422647528,
+        0.9513556618819776,
+        0.9720893141945773
+      ],
+      "opaqueBoundsThreshold": "alpha>8",
+      "wheelContactPixels": [
+        [
+          283,
+          1217
+        ],
+        [
+          1041,
+          699
+        ]
+      ],
+      "observations": [
+        "New native higher view with more visible helmet/box top; travel silhouette points NE, but drawn wheel axis is about34 degrees rather than exact road28.5 degrees. No plane rotation used.",
+        "Ground-contact midpoint is manually inferred from the two wheel bases; no baked ground background/shadow."
+      ]
+    },
+    {
+      "id": "HC-R-SW",
+      "file": "HC-R-SW-v1.png",
+      "kind": "rider",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "sha256": "9f686ca896008a1954a90da10dafebeb72680fcd10c59f3bc53c338a8fa84ae2",
+      "direction": "sw",
+      "projectionId": "orthographic-e62.5-a45-v1",
+      "anchorUV": [
+        0.48325358851674644,
+        0.7870813397129187
+      ],
+      "wheelContactAnchorUV": [
+        0.48325358851674644,
+        0.7870813397129187
+      ],
+      "nativePixelsPerUnit": 1,
+      "opaqueBoundsUV": [
+        0.04864433811802233,
+        0.05263157894736842,
+        0.9553429027113237,
+        0.9752791068580542
+      ],
+      "opaqueBoundsThreshold": "alpha>8",
+      "wheelContactPixels": [
+        [
+          175,
+          1220
+        ],
+        [
+          1037,
+          754
+        ]
+      ],
+      "observations": [
+        "Native opposite view, round front headlight lower-left, box upper-right, high view with helmet and box top visible; not a flipped NE image.",
+        "Rear wheel contact partially hidden by exhaust/box, so rear contact and midpoint are manual candidates. Minor independently painted identity/proportion and heading differences remain."
+      ]
+    },
+    {
+      "id": "S01-paving",
+      "file": "S01-paving.png",
+      "kind": "material",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "anchor": [],
+      "groundPolygon": [],
+      "footprintMeters": [],
+      "displayWidthMeters": 4,
+      "facing": "upright complete native bitmap; no 2D rotation",
+      "source": {
+        "tool": "built-in image_gen",
+        "originalPath": "/Users/sanger/.codex/generated_images/01a19b37-335c-7550-9350-5212e57009f9/exec-0c7cae06-aeeb-4fb4-a41d-49b42e2b88de.png",
+        "sha256": "45c3eb327861a41a418eb3d8ab9baf9e129c2022fd86051e6492451bc1e7ed3b"
+      },
+      "notes": [
+        "Opaque native repeating material; anchor/groundPolygon/footprintMeters intentionally empty. Use on exact source-road or paving geometry."
+      ],
+      "sha256": "45c3eb327861a41a418eb3d8ab9baf9e129c2022fd86051e6492451bc1e7ed3b"
+    },
+    {
+      "id": "S02-asphalt",
+      "file": "S02-asphalt.png",
+      "kind": "material",
+      "nativeSize": [
+        1254,
+        1254
+      ],
+      "anchor": [],
+      "groundPolygon": [],
+      "footprintMeters": [],
+      "displayWidthMeters": 4,
+      "facing": "upright complete native bitmap; no 2D rotation",
+      "source": {
+        "tool": "built-in image_gen",
+        "originalPath": "/Users/sanger/.codex/generated_images/01a19b37-335c-7550-9350-5212e57009f9/exec-d3ea6052-8235-449c-9305-12143567446e.png",
+        "sha256": "06cf22f3d6f84b39afb93fec03b67e6a84f4c823bbf91b7c9e1778cb960ef47f"
+      },
+      "notes": [
+        "Opaque native repeating material; anchor/groundPolygon/footprintMeters intentionally empty. Use on exact source-road or paving geometry."
+      ],
+      "sha256": "06cf22f3d6f84b39afb93fec03b67e6a84f4c823bbf91b7c9e1778cb960ef47f"
+    }
+  ],
+  "notes": [
+    "Native PNG bytes and alpha preserved. Anchors/physical dimensions are manual candidates.",
+    "Uniform positive scaling only; no plane rotations, mirroring, raster combinations or trimming.",
+    "Camera deviations and edge fringes remain for review. No game stage tests performed."
+  ]
+}

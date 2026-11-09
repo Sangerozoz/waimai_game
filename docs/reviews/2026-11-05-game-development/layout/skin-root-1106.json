@@ -1,0 +1,71 @@
+{
+  "task": "NEXT-B-SKIN-ROOT-1106：只读根因调查与单一最小方案。未写源码、报告、图片或权限，未执行游戏、浏览器、TS、测试、typecheck、构建或存档，未派Agent。不是G02/G04验收。",
+  "provedCause": [
+    {
+      "scope": "G02中普通panel-glass的冗余描边机制，不是全部缺口的完整根因",
+      "finding": "位图已有蓝色外轮廓及内侧亮边，成功显示后仍额外叠加普通GlassEdge。这不是发现源图缺边后的条件补偿，而是该类别每次成功都添加的第二套轮廓。",
+      "evidence": [
+        "实际查看combined-vehicles-model3.jpg全图及第一排卡片局部、认可02-vehicles-v1.png对应卡片，以及panel-glass-v1.png有效框左上角。运行卡片有青/白细边，认可图也有细蓝边与高光，不能把所有多线都判错。",
+        "manifest.json:64-81将panel-glass绑定到原PNG的[78,158,1620,570]；该有效框本身确有蓝线、亮边和贴轮廓不规则像素。资源副本与归档原PNG的SHA相同。",
+        "V2GameUI.ts:72,414,428-434：VehicleDetails与未选车型卡使用默认UI.line，选中卡显式使用#FF8A00。",
+        "V2ApprovedSkin.ts:24-25：成功后g.enabled=false，但panel-glass/bill-metric另建GlassEdge；普通线宽1.8、选中线宽2.4设计单位，且该节点位于SkinViewport之外。因此不是原fallback Graphics仍在重复绘制，而是位图与新增边线两套轮廓。"
+      ],
+      "limit": "可证明额外普通描边的来源，不能证明截图每个弱边、碎边、缺角都由它造成，也不能从JPEG分离出每条可见线的图层归属。"
+    },
+    {
+      "scope": "裁剪职责边界",
+      "finding": "SkinViewport附属Graphics承担8设计单位圆角stencil，不能作为普通装饰描边一并删除。",
+      "evidence": [
+        "V2ApprovedSkin.ts:9-15创建GRAPHICS_STENCIL并fill圆角区域；V2ImageSkin.ts:43-59在其内部绘制位图或九宫格。",
+        "既有hud-and-skin-review.json的F01/F02/F03与当前两份主源码SHA一致：素材边缘不规则、双轮廓存在；inset/rect越界及cap与Mask冲突仍未获证。"
+      ],
+      "limit": "本轮没有证明8单位stencil实际裁坏了某个角，没有把cap宽当圆角半径。"
+    }
+  ],
+  "unknowns": [
+    "缺少同一玻璃卡在相同输出尺寸下仅关闭普通GlassEdge的前后无损运行对照，尚不能确认改善幅度，或是否会暴露更明显的源图碎边。",
+    "源图贴边软alpha/不规则像素、实际原图或衍生分支、缩放/采样及JPEG压缩各自对弱边与缺角的贡献未知。有效裁切外的大块碎屑不能直接算成运行污染。",
+    "没有证明九宫格或inset越界，也没有证明原图圆角与8单位Mask不匹配；不据此调整rect、inset、drawScale或Mask半径。",
+    "bill-metric同样有位图加GlassEdge结构，但车辆截图不能证明账单槽去线后的视觉结果；本次最小方案不改bill-metric。",
+    "G04圆盘不属于本轮panel-glass方案覆盖范围；不能用玻璃卡双轮廓解释圆盘细环断续，G04根因继续保留unknown。"
+  ],
+  "minimalChange": {
+    "status": "一个可实现但尚未应用的候选，须PM下批冻结规格并授权后实施，不是已验证修复。",
+    "location": "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts:25，panel成功回调",
+    "change": "仅改变新增GlassEdge的条件：panel-glass且stroke===UI.line时不创建GlassEdge；bill-metric或非默认stroke的panel-glass仍沿用现有创建代码。",
+    "exactPredicate": "key==='bill-metric'||(key==='panel-glass'&&stroke!==UI.line)",
+    "expectedEffect": "默认玻璃卡以现有位图自身的蓝/亮轮廓为唯一普通边框，消除已证实的额外普通矢量描边来源；不承诺全部碎边或缺角消失。",
+    "preserve": [
+      "成功后的g.enabled=false不变，失败时原Graphics回退保持可见。",
+      "非默认stroke的语义轮廓保持，包括#FF8A00/#FF9600选中边及现有线宽；选中角标和含义不变。",
+      "保留SkinViewport、stencil及其Graphics，保留8单位半径、原位图alpha与透明度设置。",
+      "不改V2ImageSkin、manifest、pack、PNG、九宫格、inset、图标、热区、数据、公开API、重试或诊断，不整体加蓝加粗。"
+    ]
+  },
+  "proposedWriteSet": [
+    "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts：仅上述GlassEdge创建条件；本轮未取得或使用写权限。"
+  ],
+  "sourceHashes": {
+    "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "796a4111bc9c367672863351b4a93eb43031cd5e2fe83d303fe4979622dee4f0",
+    "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "705a2f051a53c6b39243086212673ca3f0e20ab8a0ca6a05be68ed370cc99b46",
+    "delivery-game/assets/scripts/map-sample/V2Spacing.ts": "8bc275d4946c45a8d6f239209229429cd38b75bb84ecfd3205dab71e5535c84a",
+    "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322",
+    "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30",
+    "delivery-game/assets/resources/ui-v2/panel-glass-v1.png": "65f0c30177220564a45220045c6171a57aa706492202d9a6b0c687c41dee4d77",
+    "docs/art/2026-11-04-ui-fidelity-assets/panel-glass-v1.png": "65f0c30177220564a45220045c6171a57aa706492202d9a6b0c687c41dee4d77",
+    "delivery-game/assets/resources/ui-v2/bill-metric-v1.png": "9c301d68bdbb286c0e91fb942d2f9d6cb8177281dc523f630fa7db4b95e22221",
+    "docs/art/2026-11-04-ui-fidelity-assets/bill-metric-v1.png": "9c301d68bdbb286c0e91fb942d2f9d6cb8177281dc523f630fa7db4b95e22221",
+    "docs/art/2026-11-02-approved-ui-reference/02-vehicles-v1.png": "2daca12074f1c7f1b12a65601b2e743e4dc4069d1dcbedfda734ef29e9ea877f",
+    "docs/reviews/2026-11-05-game-development/integration/visual-product-scene-1106/combined-vehicles-model3.jpg": "c7d3fcdfcf683ec6fa3514281b93a1ef66b1d697eb6751213a08576005ddc6ea",
+    "docs/reviews/2026-11-05-game-development/layout/hud-and-skin-review.json": "e9e1c76b66375208d95d265f5be8898dfd5f31acbf24b86b075c615fb7b90ffc"
+  },
+  "deferredVisualCases": [
+    "同尺寸车辆主参数卡与未选车型卡：只改变普通GlassEdge开关，比较直边、四角和原图亮边，使用原生无损截图，不同时改Mask或素材。",
+    "选中车型卡：橙色语义轮廓和勾选角标仍在，切换前后不把未选卡误呈为选中，保留其他非默认stroke状态。",
+    "皮肤加载成功/失败、晚完成、有效隐藏节点与销毁节点：原Graphics回退和资源生命周期保持，不为对照改变重试或诊断。",
+    "同一panel-glass类别在其他现有尺寸和透明填充下的边缘结果另作授权核对；bill-metric及其他皮肤不混入此次单因素改动。",
+    "本方案未验证G02整体外观，不关闭G04或98%目标；剩余弱边、缺角若仍在，保留unknown，不扩大为全套重画。"
+  ],
+  "blockers": []
+}

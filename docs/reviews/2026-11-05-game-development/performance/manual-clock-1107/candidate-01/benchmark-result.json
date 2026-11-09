@@ -1,0 +1,1912 @@
+{
+  "status": "PASS_PAIRED_MODEL_TRANSACTION_ONLY",
+  "scenarioMatrix": {
+    "scope": "direct Dispatch paired compatibility/corruption inputs; ad rights from explicit isolated domain events, not SDK verification; error names, results and complete state bytes compared, error diagnostic text is not part of this equality claim",
+    "scenarioCount": 29,
+    "stepComparisons": 83,
+    "cases": [
+      {
+        "profile": "kg-v1",
+        "name": "clock-edges",
+        "steps": [
+          {
+            "label": "tick-1-10",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "5842372d6230265f3630a90e69eb734e00544a31796b5cc332926bb04239f5ab"
+          },
+          {
+            "label": "tick-2-20",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "b5dbd51b82412cb7b8abc74d1e7e3626ff82d9e572382dfe2b651f5bf640e8c4"
+          },
+          {
+            "label": "tick-3-20",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "00203979f4ba6e753075b4b98fbf32b9b074a43c8cd467d33b5da4a5bc487644"
+          },
+          {
+            "label": "tick-4-5",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "21e9728df9f26cb3168eada6804f7d505fe7b11bbad686e5c7973f9602cb0fc6"
+          },
+          {
+            "label": "tick-5-21",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "b3026591c247681990465553040b8008563d89a6493083630f4b159c78413b90"
+          },
+          {
+            "label": "tick-5-21",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "b3026591c247681990465553040b8008563d89a6493083630f4b159c78413b90"
+          },
+          {
+            "label": "tick-5-22",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "b3026591c247681990465553040b8008563d89a6493083630f4b159c78413b90"
+          },
+          {
+            "label": "restored-duplicate",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "b4d3a935f3cd23da413af5d2f05b5e42ad77a7f4e8289bf7e487e729e0ce4f86"
+          },
+          {
+            "label": "restored-next",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "b3fe52a83c2fb3fb510d6741368c56a5f57684554d95f8dfcb56224159584fea"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "stopped-auto",
+        "steps": [
+          {
+            "label": "manual-with-rights",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "d427005e221639d1a41f04f746c7ffba5081fdda7f579a0bb78d80bd180d4f68"
+          },
+          {
+            "label": "resume",
+            "result": null,
+            "error": null,
+            "stateSHA256": "4bc0d19117293c27284a81954f855c6e5f22fc98395fcff0892d230923c60f6f"
+          },
+          {
+            "label": "auto",
+            "result": {
+              "autoRunSeconds": 1,
+              "control": "auto"
+            },
+            "error": null,
+            "stateSHA256": "45c635a2a8e8be34a65a490e40fa15fdd3d5d4d1f1611cb8e32f675ac415a7ac"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "pending-expiry",
+        "steps": [
+          {
+            "label": "expire",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "375704c17686a15898452c35f48a5d701d9579bcff8a243ae7d888bcd61d258b"
+          },
+          {
+            "label": "after-expire",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "4af7cbcbe251e754e37fdf11923a5b3169f5bb72dfa7170e293320e14dc5be5f"
+          },
+          {
+            "label": "stale-callback",
+            "result": false,
+            "error": null,
+            "stateSHA256": "4af7cbcbe251e754e37fdf11923a5b3169f5bb72dfa7170e293320e14dc5be5f"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "unseen-event",
+        "steps": [
+          {
+            "label": "pending-event",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "716700042395f5352acd4f65dbd43221e2b477b6a658e5814316736654b47ed9"
+          },
+          {
+            "label": "consumed-event",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "2717afdaff78e6604a093afd4a420ec765c43a6512415607baaaebfe54289c6d"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "active-and-historical-batch",
+        "steps": [
+          {
+            "label": "before-complete",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "22b5ce19cca8babe19fb9db97fa04a2d8b3749c00d8a619c4cd9bd876045781c"
+          },
+          {
+            "label": "complete",
+            "result": {
+              "id": "matrix-history",
+              "incomeCents": 2000,
+              "baseIncomeCents": 2000,
+              "lateRetain": 1,
+              "damageRetain": 1,
+              "lateGameSeconds": 0,
+              "damage": "none",
+              "ratingDelta": 1,
+              "heroOrderOrdinal": 1
+            },
+            "error": null,
+            "stateSHA256": "894e2e2852d288233f08ad951d1d4b54383fd2b6df6f5b0b63f881021708b6d0"
+          },
+          {
+            "label": "next-batch",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "19a5cc11c403222bb4c7ee808e7d814533c272a72c94fd49212bdfb2ede67d73"
+          },
+          {
+            "label": "cancel",
+            "result": null,
+            "error": null,
+            "stateSHA256": "22cefa72df7ba1901f9f11224fa89d2702780f345b789402dfba7e46dd927475"
+          },
+          {
+            "label": "after-cancel",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "dc5d9914a756d92024dd6bbd830a6677385ea17aa03e195d6323d6beb1c561b7"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "equal-separate-wallet",
+        "steps": [
+          {
+            "label": "equal-wallet",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "upgrade",
+            "result": null,
+            "error": null,
+            "stateSHA256": "116ceb532bb3f595e4737d17b50477dd27b3ac7eaf328b9180bf7aa24a383871"
+          },
+          {
+            "label": "after-upgrade",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "3703c8385a938b3c933a2b8515aa24728055447eae798b031a4e7bad4e73e332"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "changed-port",
+        "steps": [
+          {
+            "label": "invalid-port",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "073c7a0e388c4f13fdda82ddc7efb2c88d9c6b2a23db488baec76f9f312276af"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "invalid-clock",
+        "steps": [
+          {
+            "label": "valid-start",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "zero",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "fraction",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "NaN-sequence",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "negative-now",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "infinite-now",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "unsafe-ms",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "bad-foreground",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          },
+          {
+            "label": "bad-pause",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d3967f1b973d3320f051ba9b5692bccf7de407ac24030e5528b896ece151e8df"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "bad-wallet",
+        "steps": [
+          {
+            "label": "bad-wallet",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "1a94b342f6b7652065f03c428ea979077a87f456c6ac2843a4d04dc0a4a0a0cf"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "bad-history",
+        "steps": [
+          {
+            "label": "bad-history",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "995ae1b56f3fdf4c40c59fba5b1fd6dc629433294f53a3adb0225ab7b8882a00"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "bad-reward",
+        "steps": [
+          {
+            "label": "bad-reward",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "d081585202d552f566e97feaae4c1124c8e7c4f040427c03548769738b61bfcf"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "bad-version",
+        "steps": [
+          {
+            "label": "bad-version",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "1567eaa341fa1c319a427bd58ed477ebde1fc32f49a69a8d7835c2bf1fa79e9e"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "bad-rebase",
+        "steps": [
+          {
+            "label": "bad-rebase",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "6338e461dfbf07028d8840c336af374e9b78c11e22578f2039773b598d60af54"
+          }
+        ]
+      },
+      {
+        "profile": "kg-v1",
+        "name": "mixed-wallet",
+        "steps": [
+          {
+            "label": "mixed-wallet",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "50ab04efeb3fcb1724b72fc1b47016da9a2872fef9b22f104e55390f5c7f4b90"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "clock-edges",
+        "steps": [
+          {
+            "label": "tick-1-10",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "15da5a089547ee62df12e5120ef2a5d6709ad4c4c4fa01e808e24ba9e4630247"
+          },
+          {
+            "label": "tick-2-20",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "ae3324e608fb8bf68822c2247dfe6368880d5577946c09e31f6468c88ac5035f"
+          },
+          {
+            "label": "tick-3-20",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "595a80fbe3082dc9510cc4279025b92e983cf197cf00d082fbac38da1bd61fb5"
+          },
+          {
+            "label": "tick-4-5",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "6af17d24afe02118f9073852bd9436536d52accd13afde4d42e5cd446813dfc1"
+          },
+          {
+            "label": "tick-5-21",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "30116975192ec2d4e90e87d71871eb09b42b8bb56a41d756afa51bb2512ab46f"
+          },
+          {
+            "label": "tick-5-21",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "30116975192ec2d4e90e87d71871eb09b42b8bb56a41d756afa51bb2512ab46f"
+          },
+          {
+            "label": "tick-5-22",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "30116975192ec2d4e90e87d71871eb09b42b8bb56a41d756afa51bb2512ab46f"
+          },
+          {
+            "label": "restored-duplicate",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "563d7bf67f10afbb81d6d9d605d5516dd9e87d43f0e79e123b33e9300886d11c"
+          },
+          {
+            "label": "restored-next",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "50a9cd2f75bfd2cb1ca5db85b4741b8feb97a367b6866fec912e47a8918eed0f"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "stopped-auto",
+        "steps": [
+          {
+            "label": "manual-with-rights",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "3e502d70ea100d7a0c5dc39c15b633f66299427cd75076c67a9265e50d25daa8"
+          },
+          {
+            "label": "resume",
+            "result": null,
+            "error": null,
+            "stateSHA256": "28579fc03de0dfa04a7f067cbbb0d60538adf30376f6e7ce74dac614f8ed972d"
+          },
+          {
+            "label": "auto",
+            "result": {
+              "autoRunSeconds": 1,
+              "control": "auto"
+            },
+            "error": null,
+            "stateSHA256": "3acdf2c2d63b8177c011598af0a5441927ce2fde7f44203e4b51e65ec76aa746"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "pending-expiry",
+        "steps": [
+          {
+            "label": "expire",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "87766fd8dcc9dfabe79274917080c98ecb595537ef53ee4d73ebaecca98c8a2d"
+          },
+          {
+            "label": "after-expire",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "4bcd2b87de939f3befec7b6017069d393b1e20f4608dc9b959409b3c6ec5c6ab"
+          },
+          {
+            "label": "stale-callback",
+            "result": false,
+            "error": null,
+            "stateSHA256": "4bcd2b87de939f3befec7b6017069d393b1e20f4608dc9b959409b3c6ec5c6ab"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "unseen-event",
+        "steps": [
+          {
+            "label": "pending-event",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "bcd7fc418c2348ab2f811be13ed8c2aea91766ebf22e7eee2a4a663734367d24"
+          },
+          {
+            "label": "consumed-event",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "c33fc69e1913c659799e1c89f285572f014cc37d2a91cc10cf0679f00fcccd3f"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "active-and-historical-batch",
+        "steps": [
+          {
+            "label": "before-complete",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "93c936c0a015ba4d58de2837d86654df74c0e3211a38f7275c4cb4f877cd1aa5"
+          },
+          {
+            "label": "complete",
+            "result": {
+              "id": "matrix-history",
+              "incomeCents": 2000,
+              "baseIncomeCents": 2000,
+              "lateRetain": 1,
+              "damageRetain": 1,
+              "lateGameSeconds": 0,
+              "damage": "none",
+              "ratingDelta": 1,
+              "heroOrderOrdinal": 1
+            },
+            "error": null,
+            "stateSHA256": "bfebde8374a3bf1147b89bd71a1942b191dec3d18c798ed8bed184b2df426c66"
+          },
+          {
+            "label": "next-batch",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "3a13e25c53231bbbef6d632520f2b42b16168b4e834abe0c347c713faacf24bb"
+          },
+          {
+            "label": "cancel",
+            "result": null,
+            "error": null,
+            "stateSHA256": "632b380b525cbfd261df10a6893b805cc25c4b9a5fbcaee4e52258ebbb5465e5"
+          },
+          {
+            "label": "after-cancel",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "96286594914741c94d5043532d61be84b85f6eecb545a50ec72cb3311a342fa9"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "equal-separate-wallet",
+        "steps": [
+          {
+            "label": "equal-wallet",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "upgrade",
+            "result": null,
+            "error": null,
+            "stateSHA256": "6f944caefd993e3c4b8ef2c8a475a47b96ca5122a81ee3f5bdc71ac1f2ad8a11"
+          },
+          {
+            "label": "after-upgrade",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "0cd9549ef61ca5a6daa9b1d16296e39b048a32dcba6bbf943429dd0fd6ad6530"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "changed-port",
+        "steps": [
+          {
+            "label": "invalid-port",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "42f017ac99c6838835cb5d643b6be853033b4306e81e4341b8230bd46e2e64e3"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "invalid-clock",
+        "steps": [
+          {
+            "label": "valid-start",
+            "result": {
+              "autoRunSeconds": 0,
+              "control": "manual"
+            },
+            "error": null,
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "zero",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "fraction",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "NaN-sequence",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "negative-now",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "infinite-now",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "unsafe-ms",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "bad-foreground",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          },
+          {
+            "label": "bad-pause",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "8c555deddfd28755daf39dcfdf7cd360d3e5b8a63c00f87e4f3397567f7a04b3"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "bad-wallet",
+        "steps": [
+          {
+            "label": "bad-wallet",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "ffaeebe899940eb973cbf93647ba8114abc85b0331063b17e76f4086bf27a8f2"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "bad-history",
+        "steps": [
+          {
+            "label": "bad-history",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "88946ab66509063f6cd06a6dded5b5b2e7599ecf4612452f0b2019d9b70c9a61"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "bad-reward",
+        "steps": [
+          {
+            "label": "bad-reward",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "6796a4267b3662d24683ccacf472ffe6ff7226e6649c459c3d1c8e416c02a61a"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "bad-version",
+        "steps": [
+          {
+            "label": "bad-version",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "7d0de37ea0d7b52910c2a32c9b0a3c1f64d520cfe8faab2145c7ba5e05c9f61c"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "bad-rebase",
+        "steps": [
+          {
+            "label": "bad-rebase",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "7173248b16d55658f19550670faa49094a628210dc5db7728c971b0a4a875ddd"
+          }
+        ]
+      },
+      {
+        "profile": "slots-v1",
+        "name": "mixed-wallet",
+        "steps": [
+          {
+            "label": "mixed-wallet",
+            "result": null,
+            "error": {
+              "name": "Error"
+            },
+            "stateSHA256": "55112da5526fa570d148e7c5420a8f8391cc07d236a118d1242e2b5728618a43"
+          }
+        ]
+      }
+    ],
+    "emergencyClock": {
+      "result": {
+        "autoRunSeconds": 0,
+        "control": "manual"
+      },
+      "stateSHA256": "f3df850efdeeb1890313464a0bebc7023e0d74c78d83590b92a83faf1e78ac53"
+    }
+  },
+  "recordedAt": "2026-11-07T13:52:00.531Z",
+  "scope": "in-memory source restore/tick/serialize/full-restore candidate; no disk commit, UI rendering, FPS, real player storage or fresh long-term simulation",
+  "medianPolicy": "arithmetic mean of the two middle values for eight retained samples",
+  "node": "v22.22.3",
+  "platform": "darwin",
+  "architecture": "arm64",
+  "changedSources": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+      "beforeSHA256": "0de156bc4bff7e0f866e6d735608bdeee9004c5681ad4de7855e25b634ad2e8b",
+      "afterSHA256": "e2fa23fb26ccb04037b6e2096413205a6d3fca2878fb6d9f51b52b6661911b33"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+      "beforeSHA256": "15bfeec20263bc71449ea74f6374a954c0297ebb5259adeb5750d9ea43ae5ba3",
+      "afterSHA256": "941c8f37a6447541a8437485d105f8dd17c6a39ac2bab4baeb83e4ecd8e2b004"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "beforeSHA256": "df5f1f2b75366b2e8fa96b736df262eb421b37f2f1c62396ec89c8ac5a838f71",
+      "afterSHA256": "45bc5875b628aaf5b75de8e1b2a9e322cac8420627e31220eec0775ad1a16cc1"
+    }
+  ],
+  "fixtureSources": [
+    {
+      "path": "docs/balance/2026-11-06-balance-round-01/a/long-term-1107/run-01/end-state.json",
+      "sha256": "0aaec212918f92bb723a605d4db143108fd50bd39b2425f0b925ec2537052444"
+    },
+    {
+      "path": "docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json",
+      "sha256": "4c5eb4bc6c2daf432324a280636e0f381a8faea077cac069a0410f46a62cdffb"
+    }
+  ],
+  "loadedInputs": [
+    {
+      "variant": "frozen-before",
+      "files": [
+        {
+          "path": "delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+          "sha256": "6e8b1a0bcf17cb19d07d97a6257fc0e660744e1a7d8258210a00843935108019"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+          "sha256": "df5f1f2b75366b2e8fa96b736df262eb421b37f2f1c62396ec89c8ac5a838f71"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2TripRules.ts",
+          "sha256": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2SupplyCatalog.ts",
+          "sha256": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+          "sha256": "0de156bc4bff7e0f866e6d735608bdeee9004c5681ad4de7855e25b634ad2e8b"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2RiderEconomy.ts",
+          "sha256": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2EconomyConfig.ts",
+          "sha256": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2EconomyProfiles.ts",
+          "sha256": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts",
+          "sha256": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2LoadRules.ts",
+          "sha256": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2Ledger.ts",
+          "sha256": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/GameConfig.ts",
+          "sha256": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+          "sha256": "15bfeec20263bc71449ea74f6374a954c0297ebb5259adeb5750d9ea43ae5ba3"
+        },
+        {
+          "path": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts",
+          "sha256": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+          "sha256": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/RoadRouter.ts",
+          "sha256": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/CityExtent.ts",
+          "sha256": "6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/FoodCatalog.ts",
+          "sha256": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/CountyConfig.ts",
+          "sha256": "f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/PlaceCatalog.ts",
+          "sha256": "35e937c1092bbef796260e93abd909f136ea09bcee78fa231f805c4061f01399"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/CountySnapshot.ts",
+          "sha256": "325284afe5645a420c62188abb8dcb2840c140b229a0fdb88c61bda6af56d0df"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/VehicleOwnership.ts",
+          "sha256": "f63dc3da46b561ad50e3891e60e1dc26fe0c48039e07ed779d8989e484169ed1"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/TripClock.ts",
+          "sha256": "13d8b7f5721a410b8fb11c21bc5c5ebd4475d7507d94f35698617f53d7fde4bc"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/CountyRules.ts",
+          "sha256": "6bf9548f2e733c82ef799da0e50a6be17d2abd5d04cca4a0ac73c23f5a63ec13"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/DeliveryClock.ts",
+          "sha256": "163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/RiderAnchor.ts",
+          "sha256": "08205207aa146b0d2d2bf5784e20ef8a559f574180a8f00c3756e5087fd16d65"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/ManualHandoff.ts",
+          "sha256": "2f6c02332fb52fe8e3c75cfaf260149ce93a6d5cf1d4532f9c72145ee3d31a95"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/DeliveryLedger.ts",
+          "sha256": "a02941528a1f7abac34a7b012a5dcdac7f4ac98e15afe60e20bdfd4373e63c73"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/UrbanCatalog.ts",
+          "sha256": "5040a6f800273f76345fdc99bba37b307e9df7ef0b058c4666bcdb12e58cc6c1"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/DispatchAreas.ts",
+          "sha256": "c872dfada500e934ff2ce7577a39dd642d072caa4151279563472e9b47327641"
+        }
+      ]
+    },
+    {
+      "variant": "actual-after",
+      "files": [
+        {
+          "path": "delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+          "sha256": "6e8b1a0bcf17cb19d07d97a6257fc0e660744e1a7d8258210a00843935108019"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+          "sha256": "45bc5875b628aaf5b75de8e1b2a9e322cac8420627e31220eec0775ad1a16cc1"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2TripRules.ts",
+          "sha256": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2SupplyCatalog.ts",
+          "sha256": "f598658eb56545eb7fcf8f13e5180443072e0e7a68ad47958859d7a02bd4e7bb"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts",
+          "sha256": "e2fa23fb26ccb04037b6e2096413205a6d3fca2878fb6d9f51b52b6661911b33"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2RiderEconomy.ts",
+          "sha256": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2EconomyConfig.ts",
+          "sha256": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2EconomyProfiles.ts",
+          "sha256": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2SlotEconomyConfig.ts",
+          "sha256": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2LoadRules.ts",
+          "sha256": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2Ledger.ts",
+          "sha256": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/GameConfig.ts",
+          "sha256": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e"
+        },
+        {
+          "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts",
+          "sha256": "941c8f37a6447541a8437485d105f8dd17c6a39ac2bab4baeb83e4ecd8e2b004"
+        },
+        {
+          "path": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts",
+          "sha256": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/V2RouteSession.ts",
+          "sha256": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/RoadRouter.ts",
+          "sha256": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/CityExtent.ts",
+          "sha256": "6431d0670e81a17cd53ed5aeb29988964f5afd1e81774c7cdeee71af6322e194"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/FoodCatalog.ts",
+          "sha256": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/CountyConfig.ts",
+          "sha256": "f408c5239f719ef42acd19cf0a9e19ee9175c411597b41ce724937501143f37f"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/PlaceCatalog.ts",
+          "sha256": "35e937c1092bbef796260e93abd909f136ea09bcee78fa231f805c4061f01399"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/CountySnapshot.ts",
+          "sha256": "325284afe5645a420c62188abb8dcb2840c140b229a0fdb88c61bda6af56d0df"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/VehicleOwnership.ts",
+          "sha256": "f63dc3da46b561ad50e3891e60e1dc26fe0c48039e07ed779d8989e484169ed1"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/TripClock.ts",
+          "sha256": "13d8b7f5721a410b8fb11c21bc5c5ebd4475d7507d94f35698617f53d7fde4bc"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/CountyRules.ts",
+          "sha256": "6bf9548f2e733c82ef799da0e50a6be17d2abd5d04cca4a0ac73c23f5a63ec13"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/DeliveryClock.ts",
+          "sha256": "163b5a532a278f8daac0b53532bc502c64583c00407b71b9948e70f9dce655ef"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/RiderAnchor.ts",
+          "sha256": "08205207aa146b0d2d2bf5784e20ef8a559f574180a8f00c3756e5087fd16d65"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/ManualHandoff.ts",
+          "sha256": "2f6c02332fb52fe8e3c75cfaf260149ce93a6d5cf1d4532f9c72145ee3d31a95"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/DeliveryLedger.ts",
+          "sha256": "a02941528a1f7abac34a7b012a5dcdac7f4ac98e15afe60e20bdfd4373e63c73"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/UrbanCatalog.ts",
+          "sha256": "5040a6f800273f76345fdc99bba37b307e9df7ef0b058c4666bcdb12e58cc6c1"
+        },
+        {
+          "path": "delivery-game/assets/scripts/map-sample/DispatchAreas.ts",
+          "sha256": "c872dfada500e934ff2ce7577a39dd642d072caa4151279563472e9b47327641"
+        }
+      ]
+    }
+  ],
+  "byteEqualComparisons": 40,
+  "results": [
+    {
+      "name": "new-empty",
+      "source": "new game in memory",
+      "derivation": null,
+      "inputSHA256": "c8d2a171a13584ee4f68a15d17f3daf9a6c0ffc307193265ab9955b0975c7b2a",
+      "inputBytes": 2944,
+      "heroCompletedOrders": 0,
+      "npcCompletedOrders": 0,
+      "phase": "idle",
+      "byteEqualComparisons": 10,
+      "summary": [
+        {
+          "variant": "frozen-before",
+          "total": {
+            "medianMs": 0.26445799999999053,
+            "minMs": 0.24974999999994907,
+            "maxMs": 0.42899999999985994
+          },
+          "tick": {
+            "medianMs": 0.11804150000000391,
+            "minMs": 0.11024999999995089,
+            "maxMs": 0.12091699999996308
+          }
+        },
+        {
+          "variant": "actual-after",
+          "total": {
+            "medianMs": 0.2445625000000291,
+            "minMs": 0.22395800000003874,
+            "maxMs": 0.4247920000000249
+          },
+          "tick": {
+            "medianMs": 0.090791500000023,
+            "minMs": 0.08462499999995998,
+            "maxMs": 0.10008399999992434
+          }
+        }
+      ],
+      "medianTotalReductionPercent": 7.523122764280965,
+      "samples": [
+        [
+          {
+            "restoreBeforeMs": 0.2060839999999189,
+            "tickMs": 0.12075000000004366,
+            "serializeMs": 0.015916000000061103,
+            "restoreAfterMs": 0.08624999999983629,
+            "totalMs": 0.42899999999985994,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.09045800000012605,
+            "tickMs": 0.1169999999999618,
+            "serializeMs": 0.01637499999992542,
+            "restoreAfterMs": 0.06945800000016789,
+            "totalMs": 0.29329100000018116,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06941700000015771,
+            "tickMs": 0.1146249999999327,
+            "serializeMs": 0.015165999999908308,
+            "restoreAfterMs": 0.062125000000150976,
+            "totalMs": 0.2613330000001497,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06337500000017826,
+            "tickMs": 0.12091699999996308,
+            "serializeMs": 0.016707999999880485,
+            "restoreAfterMs": 0.06550000000015643,
+            "totalMs": 0.26650000000017826,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06391600000006292,
+            "tickMs": 0.11141699999984667,
+            "serializeMs": 0.015625,
+            "restoreAfterMs": 0.06108300000005329,
+            "totalMs": 0.2520409999999629,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06429200000002311,
+            "tickMs": 0.11962500000004184,
+            "serializeMs": 0.019207999999935055,
+            "restoreAfterMs": 0.06558399999994435,
+            "totalMs": 0.26870899999994435,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06354099999998652,
+            "tickMs": 0.11024999999995089,
+            "serializeMs": 0.015000000000100044,
+            "restoreAfterMs": 0.06095899999991161,
+            "totalMs": 0.24974999999994907,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06345799999985502,
+            "tickMs": 0.11908300000004601,
+            "serializeMs": 0.014875000000074579,
+            "restoreAfterMs": 0.0649999999998272,
+            "totalMs": 0.2624159999998028,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          }
+        ],
+        [
+          {
+            "restoreBeforeMs": 0.08683300000006966,
+            "tickMs": 0.09270799999990231,
+            "serializeMs": 0.01587500000005093,
+            "restoreAfterMs": 0.06987499999991087,
+            "totalMs": 0.2652909999999338,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.14783399999987523,
+            "tickMs": 0.09024999999996908,
+            "serializeMs": 0.015958000000182437,
+            "restoreAfterMs": 0.17074999999999818,
+            "totalMs": 0.4247920000000249,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.0761250000000473,
+            "tickMs": 0.09275000000002365,
+            "serializeMs": 0.016458999999940715,
+            "restoreAfterMs": 0.06649999999990541,
+            "totalMs": 0.25183399999991707,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.065166999999974,
+            "tickMs": 0.08637500000008913,
+            "serializeMs": 0.01499999999987267,
+            "restoreAfterMs": 0.062291000000186614,
+            "totalMs": 0.2288330000001224,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.0656659999999647,
+            "tickMs": 0.10008399999992434,
+            "serializeMs": 0.017583000000058746,
+            "restoreAfterMs": 0.06500000000005457,
+            "totalMs": 0.24833300000000236,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06304199999999582,
+            "tickMs": 0.08504100000004655,
+            "serializeMs": 0.015250000000150976,
+            "restoreAfterMs": 0.060624999999845386,
+            "totalMs": 0.22395800000003874,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06545899999991889,
+            "tickMs": 0.09133300000007694,
+            "serializeMs": 0.018250000000080036,
+            "restoreAfterMs": 0.06574999999997999,
+            "totalMs": 0.24079200000005585,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          },
+          {
+            "restoreBeforeMs": 0.06375000000002728,
+            "tickMs": 0.08462499999995998,
+            "serializeMs": 0.014541999999892141,
+            "restoreAfterMs": 0.06162500000004911,
+            "totalMs": 0.22454199999992852,
+            "outputSHA256": "b80d183cbef97782006759238674640d6d81963c3c002e9e6863f94bb66dc0b1"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "existing-150min-pickup",
+      "source": "docs/balance/2026-11-06-balance-round-01/a/long-term-1107/run-01/end-state.json",
+      "derivation": null,
+      "inputSHA256": "0aaec212918f92bb723a605d4db143108fd50bd39b2425f0b925ec2537052444",
+      "inputBytes": 1708413,
+      "heroCompletedOrders": 771,
+      "npcCompletedOrders": 884,
+      "phase": "pickup",
+      "byteEqualComparisons": 10,
+      "summary": [
+        {
+          "variant": "frozen-before",
+          "total": {
+            "medianMs": 126.76810400000022,
+            "minMs": 125.25374999999985,
+            "maxMs": 136.76270900000054
+          },
+          "tick": {
+            "medianMs": 68.51472900000022,
+            "minMs": 67.92079100000001,
+            "maxMs": 77.12904200000003
+          }
+        },
+        {
+          "variant": "actual-after",
+          "total": {
+            "medianMs": 114.67185399999994,
+            "minMs": 113.58299999999963,
+            "maxMs": 115.34637500000008
+          },
+          "tick": {
+            "medianMs": 55.86610450000012,
+            "minMs": 55.476250000000164,
+            "maxMs": 56.8298749999999
+          }
+        }
+      ],
+      "medianTotalReductionPercent": 9.54202959444772,
+      "samples": [
+        [
+          {
+            "restoreBeforeMs": 25.06595900000002,
+            "tickMs": 68.36200000000008,
+            "serializeMs": 7.587790999999925,
+            "restoreAfterMs": 24.551708999999846,
+            "totalMs": 125.56745899999987,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 25.88062499999978,
+            "tickMs": 77.12904200000003,
+            "serializeMs": 7.362916999999925,
+            "restoreAfterMs": 25.118416000000252,
+            "totalMs": 135.49099999999999,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 24.846875000000182,
+            "tickMs": 68.34037499999977,
+            "serializeMs": 7.362417000000278,
+            "restoreAfterMs": 24.704082999999628,
+            "totalMs": 125.25374999999985,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 27.8698330000002,
+            "tickMs": 69.05295799999976,
+            "serializeMs": 7.1209170000001905,
+            "restoreAfterMs": 25.151499999999942,
+            "totalMs": 129.1952080000001,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 25.896334000000024,
+            "tickMs": 67.92079100000001,
+            "serializeMs": 7.193124999999782,
+            "restoreAfterMs": 25.119125000000167,
+            "totalMs": 126.12937499999998,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 26.07641700000022,
+            "tickMs": 68.4474580000001,
+            "serializeMs": 7.240334000000075,
+            "restoreAfterMs": 25.071457999999893,
+            "totalMs": 126.83566700000029,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 25.560207999999875,
+            "tickMs": 68.58200000000033,
+            "serializeMs": 7.146249999999782,
+            "restoreAfterMs": 25.412083000000166,
+            "totalMs": 126.70054100000016,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 35.237334000000374,
+            "tickMs": 68.89237499999945,
+            "serializeMs": 7.468708000000333,
+            "restoreAfterMs": 25.164292000000387,
+            "totalMs": 136.76270900000054,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          }
+        ],
+        [
+          {
+            "restoreBeforeMs": 25.25287500000013,
+            "tickMs": 56.28620799999999,
+            "serializeMs": 7.089375000000018,
+            "restoreAfterMs": 25.89345800000001,
+            "totalMs": 114.52191600000015,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 25.831708000000162,
+            "tickMs": 55.906375000000025,
+            "serializeMs": 7.193124999999782,
+            "restoreAfterMs": 24.942917000000307,
+            "totalMs": 113.87412500000028,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 25.6215830000001,
+            "tickMs": 56.8298749999999,
+            "serializeMs": 7.135208000000148,
+            "restoreAfterMs": 25.45658400000002,
+            "totalMs": 115.04325000000017,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 25.598915999999917,
+            "tickMs": 56.28279199999997,
+            "serializeMs": 7.354291999999987,
+            "restoreAfterMs": 26.110375000000204,
+            "totalMs": 115.34637500000008,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 26.459665999999743,
+            "tickMs": 55.645084000000224,
+            "serializeMs": 7.332707999999911,
+            "restoreAfterMs": 25.77141699999993,
+            "totalMs": 115.20887499999981,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 25.827332999999726,
+            "tickMs": 55.476250000000164,
+            "serializeMs": 7.037417000000005,
+            "restoreAfterMs": 25.241999999999734,
+            "totalMs": 113.58299999999963,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 26.1697079999999,
+            "tickMs": 55.73637500000041,
+            "serializeMs": 6.99737499999992,
+            "restoreAfterMs": 25.736291999999594,
+            "totalMs": 114.63974999999982,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          },
+          {
+            "restoreBeforeMs": 26.01929100000052,
+            "tickMs": 55.825834000000214,
+            "serializeMs": 7.028665999999248,
+            "restoreAfterMs": 25.830167000000074,
+            "totalMs": 114.70395800000006,
+            "outputSHA256": "ff289c5ab783b6d0c7ff7ff2925adf4e5942f7d5fa5f16d6967a0fd777eb8731"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "existing-150min-travelling",
+      "source": "docs/balance/2026-11-06-balance-round-01/a/long-term-1107/run-01/end-state.json",
+      "derivation": [
+        {
+          "command": "pickup"
+        },
+        {
+          "command": "tick",
+          "sequence": 5038,
+          "nowSeconds": 9004.823368723124
+        },
+        {
+          "command": "tick",
+          "sequence": 5039,
+          "nowSeconds": 9005.073368723124
+        },
+        {
+          "command": "tick",
+          "sequence": 5040,
+          "nowSeconds": 9005.323368723124
+        },
+        {
+          "command": "tick",
+          "sequence": 5041,
+          "nowSeconds": 9005.573368723124
+        },
+        {
+          "command": "tick",
+          "sequence": 5042,
+          "nowSeconds": 9005.823368723124
+        },
+        {
+          "command": "tick",
+          "sequence": 5043,
+          "nowSeconds": 9006.073368723124
+        },
+        {
+          "command": "tick",
+          "sequence": 5044,
+          "nowSeconds": 9006.323368723124
+        },
+        {
+          "command": "tick",
+          "sequence": 5045,
+          "nowSeconds": 9006.573368723124
+        },
+        {
+          "command": "continueTrip"
+        }
+      ],
+      "inputSHA256": "4b9a3538af04cb4fef05b53ecaf4c0795e008507443c53cf813cd2e76193438f",
+      "inputBytes": 1708414,
+      "heroCompletedOrders": 771,
+      "npcCompletedOrders": 884,
+      "phase": "travelling",
+      "byteEqualComparisons": 10,
+      "summary": [
+        {
+          "variant": "frozen-before",
+          "total": {
+            "medianMs": 126.73052100000041,
+            "minMs": 126.14375000000018,
+            "maxMs": 127.36004200000025
+          },
+          "tick": {
+            "medianMs": 68.12856250000004,
+            "minMs": 67.92391599999974,
+            "maxMs": 68.68045799999982
+          }
+        },
+        {
+          "variant": "actual-after",
+          "total": {
+            "medianMs": 113.86160400000017,
+            "minMs": 113.02962500000012,
+            "maxMs": 123.84566600000016
+          },
+          "tick": {
+            "medianMs": 55.49791600000026,
+            "minMs": 55.023459,
+            "maxMs": 56.13395800000035
+          }
+        }
+      ],
+      "medianTotalReductionPercent": 10.154552272376593,
+      "samples": [
+        [
+          {
+            "restoreBeforeMs": 25.614207999999962,
+            "tickMs": 67.94533300000057,
+            "serializeMs": 7.192458999999872,
+            "restoreAfterMs": 25.641999999999825,
+            "totalMs": 126.39400000000023,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 26.09779200000048,
+            "tickMs": 68.18141599999944,
+            "serializeMs": 7.064124999999876,
+            "restoreAfterMs": 25.76850000000013,
+            "totalMs": 127.11183299999993,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 25.640167000000474,
+            "tickMs": 68.11175000000003,
+            "serializeMs": 7.021332999999686,
+            "restoreAfterMs": 25.582957999999962,
+            "totalMs": 126.35620800000015,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 26.12904200000048,
+            "tickMs": 67.96349999999984,
+            "serializeMs": 7.3116250000002765,
+            "restoreAfterMs": 25.662874999999985,
+            "totalMs": 127.06704200000058,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 25.557332999999744,
+            "tickMs": 68.14537500000006,
+            "serializeMs": 6.9638340000001335,
+            "restoreAfterMs": 25.510874999999942,
+            "totalMs": 126.17741699999988,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 25.84937499999978,
+            "tickMs": 68.68045799999982,
+            "serializeMs": 7.097667000000001,
+            "restoreAfterMs": 25.483791999999994,
+            "totalMs": 127.1112919999996,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 25.513750000000073,
+            "tickMs": 67.92391599999974,
+            "serializeMs": 7.23016700000062,
+            "restoreAfterMs": 25.475916999999754,
+            "totalMs": 126.14375000000018,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 26.281542000000627,
+            "tickMs": 68.48520800000006,
+            "serializeMs": 7.085291999999754,
+            "restoreAfterMs": 25.50799999999981,
+            "totalMs": 127.36004200000025,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          }
+        ],
+        [
+          {
+            "restoreBeforeMs": 25.69037500000013,
+            "tickMs": 55.30020799999966,
+            "serializeMs": 7.203042000000096,
+            "restoreAfterMs": 25.248540999999932,
+            "totalMs": 113.44216599999982,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 25.768833999999515,
+            "tickMs": 55.54979100000037,
+            "serializeMs": 7.135583999999653,
+            "restoreAfterMs": 25.338166000000456,
+            "totalMs": 113.79237499999999,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 25.712083000000348,
+            "tickMs": 55.075457999999344,
+            "serializeMs": 7.137666999999965,
+            "restoreAfterMs": 25.104417000000467,
+            "totalMs": 113.02962500000012,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 34.644250000000284,
+            "tickMs": 56.13395800000035,
+            "serializeMs": 7.190291999999317,
+            "restoreAfterMs": 25.877166000000216,
+            "totalMs": 123.84566600000016,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 25.685999999999694,
+            "tickMs": 55.023459,
+            "serializeMs": 7.092999999999847,
+            "restoreAfterMs": 25.902333,
+            "totalMs": 113.70479199999954,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 26.13629199999923,
+            "tickMs": 55.44604100000015,
+            "serializeMs": 7.037709000000177,
+            "restoreAfterMs": 25.62420800000018,
+            "totalMs": 114.24424999999974,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 25.82616700000017,
+            "tickMs": 55.65995800000019,
+            "serializeMs": 7.1397079999997,
+            "restoreAfterMs": 25.30500000000029,
+            "totalMs": 113.93083300000035,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          },
+          {
+            "restoreBeforeMs": 26.13054099999954,
+            "tickMs": 55.80529200000001,
+            "serializeMs": 7.124749999999949,
+            "restoreAfterMs": 25.312667000000147,
+            "totalMs": 114.37324999999964,
+            "outputSHA256": "a5c2f8da1b1c1d8f04e14347b79853070ae2a4b6b4df17fa98aff7a2a1f0e3ba"
+          }
+        ]
+      ]
+    },
+    {
+      "name": "signed-zero-quota-terminal",
+      "source": "docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json#fixtures.signedZeroQuota",
+      "derivation": null,
+      "inputSHA256": "987a2af631e96a6f275897302a9bdf8da5ca5bc85fe64e19168a6ddb72533366",
+      "inputBytes": 15858,
+      "heroCompletedOrders": 1,
+      "npcCompletedOrders": 0,
+      "phase": "finished",
+      "byteEqualComparisons": 10,
+      "summary": [
+        {
+          "variant": "frozen-before",
+          "total": {
+            "medianMs": 1.1709789999999884,
+            "minMs": 1.1335410000001502,
+            "maxMs": 1.1990829999995185
+          },
+          "tick": {
+            "medianMs": 0.47645799999963856,
+            "minMs": 0.4646249999996144,
+            "maxMs": 0.4862089999996897
+          }
+        },
+        {
+          "variant": "actual-after",
+          "total": {
+            "medianMs": 1.0954790000000685,
+            "minMs": 1.073500000000422,
+            "maxMs": 1.717333999999937
+          },
+          "tick": {
+            "medianMs": 0.40066650000017034,
+            "minMs": 0.3960000000006403,
+            "maxMs": 0.9146670000000086
+          }
+        }
+      ],
+      "medianTotalReductionPercent": 6.447596412909262,
+      "samples": [
+        [
+          {
+            "restoreBeforeMs": 0.30679200000031415,
+            "tickMs": 0.4747909999996409,
+            "serializeMs": 0.0892920000005688,
+            "restoreAfterMs": 0.3007499999994252,
+            "totalMs": 1.171624999999949,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.3070419999994556,
+            "tickMs": 0.48395800000071176,
+            "serializeMs": 0.08912499999951251,
+            "restoreAfterMs": 0.2929579999999987,
+            "totalMs": 1.1730829999996786,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.29316600000038306,
+            "tickMs": 0.4723340000000462,
+            "serializeMs": 0.08883299999979499,
+            "restoreAfterMs": 0.29041700000016135,
+            "totalMs": 1.1447500000003856,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.31958299999951123,
+            "tickMs": 0.4785830000000715,
+            "serializeMs": 0.08895900000061374,
+            "restoreAfterMs": 0.31195799999932206,
+            "totalMs": 1.1990829999995185,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.3091660000000047,
+            "tickMs": 0.4781249999996362,
+            "serializeMs": 0.08391699999992852,
+            "restoreAfterMs": 0.2991250000004584,
+            "totalMs": 1.1703330000000278,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.3065839999999298,
+            "tickMs": 0.4725829999997586,
+            "serializeMs": 0.08566700000028504,
+            "restoreAfterMs": 0.2929999999996653,
+            "totalMs": 1.1578339999996388,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.28979100000015023,
+            "tickMs": 0.4646249999996144,
+            "serializeMs": 0.08474999999998545,
+            "restoreAfterMs": 0.2943750000004002,
+            "totalMs": 1.1335410000001502,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.3105410000007396,
+            "tickMs": 0.4862089999996897,
+            "serializeMs": 0.08470800000031886,
+            "restoreAfterMs": 0.30033299999922747,
+            "totalMs": 1.1817909999999756,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          }
+        ],
+        [
+          {
+            "restoreBeforeMs": 0.3065420000002632,
+            "tickMs": 0.4038749999999709,
+            "serializeMs": 0.6639580000000933,
+            "restoreAfterMs": 0.34295899999960966,
+            "totalMs": 1.717333999999937,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.30749999999989086,
+            "tickMs": 0.4051660000004631,
+            "serializeMs": 0.09833399999934045,
+            "restoreAfterMs": 0.29554100000041217,
+            "totalMs": 1.1065410000001066,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.30616699999973207,
+            "tickMs": 0.39933300000029703,
+            "serializeMs": 0.08408400000007532,
+            "restoreAfterMs": 0.30391599999984464,
+            "totalMs": 1.093499999999949,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.290791999999783,
+            "tickMs": 0.3960000000006403,
+            "serializeMs": 0.08799999999973807,
+            "restoreAfterMs": 0.32266600000002654,
+            "totalMs": 1.097458000000188,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.3000000000001819,
+            "tickMs": 0.9146670000000086,
+            "serializeMs": 0.10612500000024738,
+            "restoreAfterMs": 0.3389999999999418,
+            "totalMs": 1.6597920000003796,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.3065420000002632,
+            "tickMs": 0.39604099999996834,
+            "serializeMs": 0.09495900000001711,
+            "restoreAfterMs": 0.292833000000428,
+            "totalMs": 1.0903750000006767,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.2942080000002534,
+            "tickMs": 0.40200000000004366,
+            "serializeMs": 0.08612499999981083,
+            "restoreAfterMs": 0.30037499999980355,
+            "totalMs": 1.0827079999999114,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          },
+          {
+            "restoreBeforeMs": 0.2944999999999709,
+            "tickMs": 0.39654200000040873,
+            "serializeMs": 0.08962499999961437,
+            "restoreAfterMs": 0.292833000000428,
+            "totalMs": 1.073500000000422,
+            "outputSHA256": "3d88de0135db5c08ea1ca28e78a341e763c1004bc6e3dfe2907df7dc9bc8308d"
+          }
+        ]
+      ]
+    }
+  ]
+}

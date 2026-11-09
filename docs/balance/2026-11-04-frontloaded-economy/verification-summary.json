@@ -1,0 +1,59 @@
+{
+  "configId": "frontloaded-2026-11-04-v3-hire-training-tail",
+  "kind": "standalone-parameter-planning-not-game-test",
+  "oldSummary": "archive/pre-hire-training-correction-v1/verification-summary.json",
+  "limitations": [
+    "planning supply is random/expected rather than runtime deterministic",
+    "planning routes are durations rather than actual county route geometry",
+    "45-minute sessions with finite shared quota and offline quota consumption",
+    "lowest-ID purchase path uses fixed ID table; arbitrary selection paths differ"
+  ],
+  "runs": [
+    {
+      "mode": "manual",
+      "pace": 1,
+      "squadMinutes": 19.91,
+      "content80Minutes": 292.37,
+      "full30Minutes": 1485.6,
+      "earlyFraction": 0.196803,
+      "under20MinuteSquad": true,
+      "within18To22PercentContentBand": true,
+      "accountingDrift": 1.71e-06
+    },
+    {
+      "mode": "auto",
+      "pace": 1,
+      "squadMinutes": 15.77,
+      "content80Minutes": 276.08,
+      "full30Minutes": 1440.82,
+      "earlyFraction": 0.191613,
+      "under20MinuteSquad": true,
+      "within18To22PercentContentBand": true,
+      "accountingDrift": 2.074e-05
+    },
+    {
+      "mode": "mixed",
+      "pace": 1,
+      "squadMinutes": 16.32,
+      "content80Minutes": 280.69,
+      "full30Minutes": 1467.73,
+      "earlyFraction": 0.191241,
+      "under20MinuteSquad": true,
+      "within18To22PercentContentBand": true,
+      "accountingDrift": 1.535e-05
+    },
+    {
+      "mode": "manual",
+      "pace": 1.5,
+      "squadMinutes": 27.41,
+      "content80Minutes": 315.78,
+      "full30Minutes": 1540.1,
+      "earlyFraction": 0.205039,
+      "under20MinuteSquad": false,
+      "within18To22PercentContentBand": true,
+      "accountingDrift": -9.55e-06
+    }
+  ],
+  "previousRevision": "archive/hire-training-v2-before-tail-calibration/verification-summary.json",
+  "tailMultiplier": 2.2
+}

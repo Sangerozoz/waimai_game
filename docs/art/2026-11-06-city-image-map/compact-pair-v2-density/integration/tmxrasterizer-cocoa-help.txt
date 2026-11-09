@@ -1,0 +1,48 @@
+Usage: /Applications/Tiled.app/Contents/MacOS/tmxrasterizer [options] map|world image
+Renders a Tiled map or world to an image.
+
+Options:
+  -h, --help                       Displays help on commandline options.
+  --help-all                       Displays help, including generic Qt options.
+  -v, --version                    Displays version information.
+  -s, --scale <scale>              The scale of the output image (default: 1).
+  -t, --tilesize <size>            The requested size in pixels at which a tile
+                                   is rendered (overrides the --scale option).
+  --size <size>                    The output image fits within a SIZE x SIZE
+                                   square (overrides the --scale and --tilesize
+                                   options).
+  -a, --anti-aliasing              Antialias edges of primitives.
+  --no-smoothing                   Use nearest neighbour instead of smooth
+                                   blending of pixels.
+  --ignore-visibility              Ignore all layer visibility flags in the map
+                                   file, and render all layers in the output
+                                   (default is to omit invisible layers).
+  --hide-layer <name>              Specifies a layer to omit from the output
+                                   image. Can be repeated to hide multiple
+                                   layers.
+  --show-layer <name>              If used only specified layers are shown. Can
+                                   be repeated to show multiple specified layers
+                                   only.
+  --hide-tile-layers               Don't render tile layers.
+  --hide-object-layers             Don't render object layers.
+  --hide-image-layers              Don't render image layers.
+  --hide-object <name>             Specifies an object to omit from the output
+                                   image. Can be repeated to hide multiple
+                                   objects. If multiple objects share the
+                                   specified name they all will be hidden.
+  --show-object <name>             If used only specified objects are shown.
+                                   Can be repeated to show multiple specified
+                                   objects only. If multiple objects share the
+                                   specified name they all will be shown.
+  --advance-animations <duration>  If used, tile animations are advanced by the
+                                   specified duration in milliseconds.
+  --frames <number>                Number of frames to export. This will add a
+                                   frame number suffix to the image names.
+                                   Animations are advanced by <frame-duration>
+                                   for each frame.
+  --frame-duration <number>        Duration of each frame in milliseconds,
+                                   defaults to 100.
+
+Arguments:
+  map|world                        Map or world file to render.
+  image                            Image file to output.

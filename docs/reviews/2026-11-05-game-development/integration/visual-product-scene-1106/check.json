@@ -1,0 +1,51 @@
+{
+  "candidate": "v2-product-u22-scene-1106",
+  "privateUrl": "http://127.0.0.1:4194/?v2=1&rev=product-u22-scene-1106",
+  "viewport": [
+    470,
+    837
+  ],
+  "observed": [
+    "initial isolated boot and home",
+    "full energy HUD without previous icon collision",
+    "model3 original vehicle plus independent scenery and contact-shadow SpriteFrames on actual vehicle page",
+    "single purchase control displayed but not activated"
+  ],
+  "actions": [
+    "start fresh isolated initial session",
+    "navigate vehicles only"
+  ],
+  "notPerformed": [
+    "purchase",
+    "upgrade",
+    "recruit",
+    "accept/deliver order",
+    "save injection",
+    "real-save access",
+    "phase tests or profiling",
+    "10-model visual matrix",
+    "public share deployment"
+  ],
+  "screenshots": {
+    "combined-home.jpg": "bf1c60c74e07107341c8c5271bfeab6c3d876f3ff4a644da0440927144a1a2f6",
+    "combined-vehicles-model3.jpg": "c7d3fcdfcf683ec6fa3514281b93a1ef66b1d697eb6751213a08576005ddc6ea",
+    "vehicle-runtime-detail.jpg": "dca60ce8d3521ea2f34e011dbe16361fa0022b0161bbabc649bf9a92188e3f5c"
+  },
+  "crop": {
+    "source": "combined-vehicles-model3.jpg",
+    "rect": [
+      13,
+      48,
+      457,
+      339
+    ],
+    "resized": false
+  },
+  "sceneLayerReceipt": "combined-runtime-layers.json",
+  "notes": [
+    "Native master retains historical actual provenance; this is an engine screenshot, not the prior offline composite.",
+    "Shadow originalSize remains512x96 but actual texture is2048x2048 because engine packed its SpriteFrame; resource readiness is not inferred from original texture dimensions alone.",
+    "No conclusion of zero browser console errors: per-run Node globals are not a durable console collector.",
+    "Repeat sampling and missing-shadow downgrade warnings S01/S02 retained; no new skin root-cause claim."
+  ]
+}

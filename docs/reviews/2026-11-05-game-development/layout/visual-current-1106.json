@@ -1,0 +1,209 @@
+{
+  "gate": "visual-spec-current",
+  "passed": false,
+  "blockers": [
+    {
+      "id": "U21",
+      "priority": "P1",
+      "status": "existing-unresolved，继续既有任务，不新增平行任务",
+      "issue": "车辆顶部仍是中性浅底上的平面产品照，尚未形成用户要求的独立产品场景与选中车辆相融合的沉浸展示。",
+      "actualEvidence": {
+        "screenshot": "vehicles.jpg",
+        "bbox470": [
+          12,
+          50,
+          458,
+          232
+        ],
+        "observation": "车图完整可见，但四周是大面积均匀浅色底；没有场地、接地关系或场景光影。下方车型名称、属性和购买区已存在，不能把这些作为场景完成证据。"
+      },
+      "referenceEvidence": [
+        "认可车辆原图02-vehicles-v1.png、02-vehicles-locked-v1.png确认车辆身份、完整轮廓和主视觉地位；最新U21覆盖旧的展示构图，不能要求退回旧左图右参数。",
+        "feedback-ledger.md的U21及layout/vehicle-showcase/README.md明确：需要场景＋选中车辆，中性UI底不是完成状态。"
+      ],
+      "sourceSymbols": [
+        "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts:10-22",
+        "delivery-game/assets/scripts/map-sample/V2GameUI.ts:411-422"
+      ],
+      "nextAction": "由既有U21产品工作线继续收口独立产品场景；保持现有车型原像素、名称、真实属性及唯一购买绑定，不借地图插图加工背景，也不因该素材缺口暂停其他产品UI工作。",
+      "acceptance": "后续真实车辆页截图中，场景与车的视角、尺度、光线及接地关系一致；车轮、后箱、镜完整，悬浮车型不被改成轮式。不能以helper存在或中性底替代实际场景证据。"
+    },
+    {
+      "id": "H02-resource-spacing",
+      "priority": "P1",
+      "status": "旧H02/G03缩小范围后的剩余项",
+      "issue": "首页满体力资源条内，闪电、100/100和加号挤贴，缺少独立可扫描的留白。",
+      "actualEvidence": {
+        "screenshot": "home.jpg",
+        "bbox470": [
+          304,
+          27,
+          398,
+          61
+        ],
+        "observation": "放大该区域后，闪电与首位数字贴近，100/100末位与加号紧接。当前值仍可辨，但三种信息几乎连读。金币条和评价条不应因此一起重排。"
+      },
+      "referenceEvidence": [
+        "00-home-v2.png顶部资源条，原图约[610,50,805,123]区域：图标、体力数字和加号分区明确。",
+        "revision-requirements-at-approval.md要求资源可读、数字与加号分离；样例78/100不限制当前真实100/100。"
+      ],
+      "sourceSymbols": [
+        "delivery-game/assets/scripts/map-sample/V2GameUI.ts:110-113",
+        "delivery-game/assets/scripts/map-sample/V2GameUI.ts:135-140"
+      ],
+      "nextAction": "仅调整首页体力组件内部槽位与间距，为真实100/100分配足够宽度；不以整体缩小字号处理，不改变资源数值、补给入口或其他HUD布局。",
+      "acceptance": "470宽实际截图中，满体力100/100仍清楚，图标、数字、加号互不接触且有稳定留白；不能靠改成78/100或裁掉字符达标。"
+    },
+    {
+      "id": "G02-G04-finish",
+      "priority": "P2",
+      "status": "既有共用皮肤任务的剩余精修，已改善部分不重做",
+      "issue": "共用皮肤仍有弱化、断续的边角和重复细线；橙圆外围仍可见点状环线，与认可稿连续平滑的环线和高光不同。",
+      "actualEvidence": [
+        {
+          "screenshot": "riders.jpg",
+          "bbox470": [
+            10,
+            59,
+            459,
+            284
+          ],
+          "observation": "卡片和肖像框已经可辨，但部分外沿融入纸底、角部有短断续线，按钮边角呈细小白缺口。这里只审共用材质，不要求实施held骑手新排版。"
+        },
+        {
+          "screenshot": "bills.jpg",
+          "bbox470": [
+            11,
+            68,
+            458,
+            240
+          ],
+          "observation": "今日经营和指标卡结构清楚，细边层次仍较参考平，部分角部线条不连续。不能继续沿用旧审计中“指标缺失”的结论。"
+        },
+        {
+          "screenshot": "orders.jpg",
+          "bbox470": [
+            197,
+            742,
+            275,
+            821
+          ],
+          "observation": "关闭×已基本光学居中；剩余是外围点状、断续环线，而不是×位置问题。"
+        }
+      ],
+      "referenceEvidence": [
+        "01-riders-v4.png及05-bills-v1.png：卡片使用连贯细蓝轮廓、白高光和浅蓝内层。",
+        "03-orders-v4.png及其他认可底栏：橙圆为连续平滑环线和较完整的高光过渡。"
+      ],
+      "sourceSymbols": [
+        "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts:9-26",
+        "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts:67-72",
+        "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts:47-59"
+      ],
+      "nextAction": "在既有共用皮肤任务内检查裁切、九宫格边距、描边叠加和显示采样；先收口小卡、大卡、按钮与圆盘样本，再复用。截图能证明现象，尚不能单独证明是哪一层造成。",
+      "acceptance": "后续同画幅截图中边角连续，无明显白缺口、点状环线或重复外框；保留现有浅蓝/白/橙基准，不整体加蓝、加粗边框或推翻已接近的底栏位置。P2不应阻止其他已明确产品工作继续。"
+    }
+  ],
+  "heldChanges": [
+    {
+      "ids": [
+        "U23",
+        "U24",
+        "U25",
+        "U26",
+        "U27",
+        "U28",
+        "U29"
+      ],
+      "status": "held",
+      "reason": "骑手称谓、姓名旁等级、未招募标记位置、收益/省时文案和招募价分离等新排版仍待用户确认。本次不擅自认可、不按确认稿要求源码实施，也不把当前未实施状态认定为新回归。"
+    },
+    {
+      "ids": [
+        "U30"
+      ],
+      "status": "held",
+      "reason": "万元近似及取整表达尚待确认。不得因截图保留完整金额就要求立即改万单位，更不得改内部精确数值。"
+    }
+  ],
+  "implementedObserved": [
+    {
+      "item": "U38账单币图移除",
+      "evidence": "bills.jpg与bills-wallet.jpg中，顶栏、今日配送收入、累计配送收入及钱包详情未见原金币/金币堆图；无图指标文字已居中。当前余额100仍显示。",
+      "conclusion": "本组截图可见，不再作为新任务重复派发；不替代真实非零账目验证或用户验收。"
+    },
+    {
+      "item": "四个基础页标题删除",
+      "evidence": "riders.jpg、vehicles.jpg、bills.jpg及map-page-labels.jpg顶部均未见旧基础页大标题。",
+      "conclusion": "已观察到；不按认可旧图要求加回。地图截图仅用于这个公共UI事实及底栏核对。"
+    },
+    {
+      "item": "订单明确覆盖项",
+      "evidence": "orders.jpg中餐名后有KG、报价使用¥、取送地址末尾pin已移除；时钟与蓝取绿送条可见。专送显示广告未接入。",
+      "conclusion": "这些已修项不再进入差距队列；不恢复旧币符、独立重量布局或地址pin，也不要求虚构广告可接状态。"
+    },
+    {
+      "item": "图片与导航的本地可见性改善",
+      "evidence": "本组截图可见主角/NPC肖像、车辆主图及宫格、餐图、四个底栏图标；车辆宫格已有橙边和角勾，当前入口关闭态存在。",
+      "conclusion": "旧G01的“这些本地图缺失”不能套用本组证据；旧V02蓝勾问题已改善。远程资源交付及点击联动仍未由这些静态图证明。"
+    },
+    {
+      "item": "账单结构与缺失字段表达改善",
+      "evidence": "bills.jpg可见今日经营、近7日配送收入、累计账目、累计支出明细；任务奖励、主角里程、在线字段用未记录表达，零账本未伪造有收入柱形。",
+      "conclusion": "不再重复旧B01/B02关于缺少这些槽位的结论，不要求照抄参考样例金额、里程或时长。"
+    },
+    {
+      "item": "首页与公共底栏已修部分",
+      "evidence": "home.jpg中地址/等级经验已分区，未见旧骑手数量条和两块结算悬浮文字；补给与定位入口分离。orders.jpg的圆盘×已基本居中。",
+      "conclusion": "不重新派头像整体重排、恢复骑手数量条或再次居中×。当前无已招募NPC，不能据此判断NPC活动卡分支失败。"
+    }
+  ],
+  "sourceHashes": {
+    "capturesRoot": "docs/reviews/2026-11-05-game-development/integration/visual-npc-ui-1106/",
+    "captures": {
+      "bootstrap.jpg": "4a09dd6aa3afba443d961de1bba6a7e8bbb8abe7bdc1e622cab176a15dc64a36",
+      "home.jpg": "5a422de96407240800bd321649c5002b3d98d9034699558560ffe49b8cafbfb9",
+      "bills.jpg": "0440ab46d7a40f93a349a26af0c9bb48c8eb2e86ccd8c5acc59b731f5b81d8df",
+      "bills-wallet.jpg": "afb2c1256fc3b41652d3917aa9c39f5ea17b3ae3a5e21226f5501ede6e6ac612",
+      "riders.jpg": "ef4db842f2814944bcb12b0e37027250cedf5613e0a9ca5769d4ff614a8e24f9",
+      "vehicles.jpg": "59bd51bb447c80aa97ea884655bc03a49966ae33833e31e95867344b60a56ce7",
+      "orders.jpg": "2cfa4e28186027106a35f8c20d62019e6333d552b6a7aacac36393d76afd83ea",
+      "map-page-labels.jpg": "d2ab802ee17ee8a8ed2832c4cc4f9227e781073d6305c3a852b9f26e9ac95faa"
+    },
+    "approvedReferencesRoot": "docs/art/2026-11-02-approved-ui-reference/",
+    "approvedReferences": {
+      "00-home-v2.png": "38eca74a46057a7c464c55017761bb19d3468aa93f4339be2eccc558e7a7110f",
+      "01-riders-v4.png": "5b3609a10398ce4e744e323a73de33dfb3f1a3bc9f8ad9f3bd68385433f8e21e",
+      "02-vehicles-v1.png": "2daca12074f1c7f1b12a65601b2e743e4dc4069d1dcbedfda734ef29e9ea877f",
+      "03-orders-v4.png": "f1dab7e79c260fd29e624ffc4d53bf36a5130d6a4f8103313e194df32ffd62bf",
+      "04-maps-v1.png": "e0b476242400e4182fe80f34416b113807df798358bf10ba21bb1faf39d8343a",
+      "05-bills-v1.png": "873b15d5217934a92c957e5165a961b9d37bc6e8100195e57a29620e1a2ff4b1",
+      "02-vehicles-locked-v1.png": "c2721fbf43699ed1dfbef4f9e1e49cf736d0a7750efc0455e24385634dfcf618",
+      "02-vehicles-gallery-scroll-v1.png": "57d0b5920a8dabf0a79d30c8076b4c8a9050c262ebcad35866fdd24c10aa2ed9"
+    },
+    "code": {
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "1b70ff52c504c01fa1a790cf75d1d2ff087b9f510b208271c6fc4cb487533ef3",
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "796a4111bc9c367672863351b4a93eb43031cd5e2fe83d303fe4979622dee4f0",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts": "aeee30bde4e3f121f39b395bd84feff5708b5dfb63cf4941cb91df6d9e00f14c",
+      "delivery-game/assets/scripts/map-sample/FoodImages.ts": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586"
+    },
+    "documents": {
+      "visual-npc-ui-1106/check.json": "0e3b2c98c9e4f9b02fc12a4a3d5ffcff823d93baa26e9c5d281d0fd490c77fe4",
+      "visual/spec-audit.md": "70291cddaf715aa4588e0d215fcf2d061fb839baa0c75a8530fb6cadc60b4bd6",
+      "revision-requirements-at-approval.md": "15b48e997f1fd9c1dd90c88e21ac81e5b26b28cd81bcb7a78abca99ea6221c3d"
+    },
+    "verification": "8张截图和8张认可原图均实际用vision逐张打开，相关细节追加区域查看；文件SHA全部匹配check.json/approval.json，截图均470×837。"
+  },
+  "limits": [
+    "passed=false依据本产品UI仍有U21及首页体力留白等明确差距，不以地图未交付为本线失败原因；P2仅为剩余精修，不虚构新增功能故障。",
+    "bbox470均为470×837截图上的[x1,y1,x2,y2]人工估读，约±4像素；参考图原始坐标另行说明。不是自动分割或相似度测量。",
+    "本次只读已有图片、文档及必要源符号；没有启动浏览器、游戏、测试/typecheck、业务操作、存档、构建或素材生产，没有写报告或其他文件、改权限、派Agent。",
+    "只审首页HUD/底栏及产品页面；地图主体、地图插图制作加工、路网、边界和拼接均排除，不向地图线派工或借地图图做车辆背景。",
+    "旧8图的样例金额、满员状态、旧车型等级/地图资格及原页面标题不覆盖后续明确要求；当前全宽车辆展示也不因旧图左图右参而被要求回滚。",
+    "本组为PM提供的隔离本地候选截图，不是用户远程屏幕。当前代码SHA只绑定源符号定位，不独立证明截图构建包与当前源码逐字节对应。",
+    "没有骑手末端、车辆后排/多次选车、禁用购买、非零账本或配送中动态证据；这些标未核验，不据静态主态直接判实现错误。",
+    "bootstrap和钱包没有单独冻结的认可原稿，不编造逐像素验收目标；钱包仅按既有公共风格及已明确币图删除要求核对。",
+    "未量化或宣称98%，未代填用户验收，未关闭远程缺图或公共反馈；已释放本次只读审阅范围给父PM。"
+  ]
+}

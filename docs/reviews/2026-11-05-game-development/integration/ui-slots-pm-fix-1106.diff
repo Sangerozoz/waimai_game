@@ -1,0 +1,16 @@
+--- a/delivery-game/assets/scripts/map-sample/V2GameUI.ts
++++ b/delivery-game/assets/scripts/map-sample/V2GameUI.ts
+@@ -224,13 +224,6 @@
+   const locate=panel(this.body,'LocateRider',290,-388,64,64,'#F2FBFF',UI.blue);glyph(locate,'target',0,0,56);tap(locate,()=>this.map.locate(true));
+   const supply=panel(this.body,'SupplyShortcut',290,425,76,76,'#EFFAFFEE',UI.blue);glyph(supply,'expense',0,0,54);tap(supply,()=>this.act(()=>{this.supplyOpen=true;}));
+   label(this.body,`已送 ${state.heroCompletedOrders} 单 · 团队 ${state.npcCompletedOrders} 单`,-68,-473,17,INK,440,false,'left');
+-  const active=snap.batchIds.length>0,effects=active?this.runtime.deliveryEffects:this.runtime.nextBatchEffects;
+-  const occupied=active?snap.orders.filter(order=>snap.batchIds.includes(order.id)).map(signedOrderLoad):[];
+-  const capacity=effects?(active?loadSummary(occupied,effects.capacity):capacityText(effects.capacity)):'未配车';
+-  const effectText=effects?`${active?'本批签约':'下批容量'} ${capacity} · 速度 ×${effects.speedRelativeToStarter.toFixed(2)} · 车辆收益 +${Math.round((effects.incomeFactor-1)*100)}%`:'主角尚未配车';
+-  const effectHeight=textHeight(effectText,18,CW-24),effectLabel=label(this.body,effectText,0,-295+effectHeight/2,18,INK,CW-24,false,'center');
+-  effectLabel.enableWrapText=true;effectLabel.lineHeight=Math.ceil(18*1.42);effectLabel.overflow=Label.Overflow.CLAMP;
+-  effectLabel.node.getComponent(UITransform)!.setContentSize(CW-24,effectHeight);
+   if(snap.batchIds.length){
+    const group=this.pickupGroup();
+    action(this.body,group?`${group.name} · ${group.count}份 ›`:'余单 / 路线',-190,-325,260,48,()=>this.act(()=>this.navigate('订单大厅')),true,false);

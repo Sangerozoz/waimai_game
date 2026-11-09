@@ -1,0 +1,214 @@
+{
+  "configId": "frontloaded-2026-11-04-v3-hire-training-tail",
+  "changes": [
+    "fixed ID prices + one innate income attribute",
+    "60% income / 25% service reduction at riderLv30",
+    "smooth cumulative rider cost reaches1600 (small rounding step oscillations retained)",
+    "vehicle cumulativeLv30=1.5P",
+    "last6 collection prices=original fixedID price*2.2; first24 unchanged"
+  ],
+  "calibrationSearchFiles": [
+    "tail-search.json",
+    "tail-search-refined.json"
+  ],
+  "finalRiders": [
+    {
+      "price": 120,
+      "id": "npc-1",
+      "baseIncomeFactor": 1
+    },
+    {
+      "price": 130,
+      "id": "npc-2",
+      "baseIncomeFactor": 1.01
+    },
+    {
+      "price": 170,
+      "id": "npc-3",
+      "baseIncomeFactor": 1.02
+    },
+    {
+      "price": 910,
+      "id": "npc-4",
+      "baseIncomeFactor": 1.03
+    },
+    {
+      "price": 1740,
+      "id": "npc-5",
+      "baseIncomeFactor": 1.035
+    },
+    {
+      "price": 2760,
+      "id": "npc-6",
+      "baseIncomeFactor": 1.04
+    },
+    {
+      "price": 3940,
+      "id": "npc-7",
+      "baseIncomeFactor": 1.045
+    },
+    {
+      "price": 5270,
+      "id": "npc-8",
+      "baseIncomeFactor": 1.05
+    },
+    {
+      "price": 6750,
+      "id": "npc-9",
+      "baseIncomeFactor": 1.055
+    },
+    {
+      "price": 8360,
+      "id": "npc-10",
+      "baseIncomeFactor": 1.06
+    },
+    {
+      "price": 10090,
+      "id": "npc-11",
+      "baseIncomeFactor": 1.065
+    },
+    {
+      "price": 11940,
+      "id": "npc-12",
+      "baseIncomeFactor": 1.07
+    },
+    {
+      "price": 13910,
+      "id": "npc-13",
+      "baseIncomeFactor": 1.075
+    },
+    {
+      "price": 15990,
+      "id": "npc-14",
+      "baseIncomeFactor": 1.08
+    },
+    {
+      "price": 18170,
+      "id": "npc-15",
+      "baseIncomeFactor": 1.085
+    },
+    {
+      "price": 20460,
+      "id": "npc-16",
+      "baseIncomeFactor": 1.09
+    },
+    {
+      "price": 22850,
+      "id": "npc-17",
+      "baseIncomeFactor": 1.095
+    },
+    {
+      "price": 25330,
+      "id": "npc-18",
+      "baseIncomeFactor": 1.1
+    },
+    {
+      "price": 27920,
+      "id": "npc-19",
+      "baseIncomeFactor": 1.105
+    },
+    {
+      "price": 30590,
+      "id": "npc-20",
+      "baseIncomeFactor": 1.11
+    },
+    {
+      "price": 33350,
+      "id": "npc-21",
+      "baseIncomeFactor": 1.115
+    },
+    {
+      "price": 36210,
+      "id": "npc-22",
+      "baseIncomeFactor": 1.12
+    },
+    {
+      "price": 39140,
+      "id": "npc-23",
+      "baseIncomeFactor": 1.125
+    },
+    {
+      "price": 42170,
+      "id": "npc-24",
+      "baseIncomeFactor": 1.13
+    },
+    {
+      "price": 880000,
+      "id": "npc-25",
+      "baseIncomeFactor": 1.14
+    },
+    {
+      "price": 1760000,
+      "id": "npc-26",
+      "baseIncomeFactor": 1.16
+    },
+    {
+      "price": 3080000,
+      "id": "npc-27",
+      "baseIncomeFactor": 1.18
+    },
+    {
+      "price": 4840000,
+      "id": "npc-28",
+      "baseIncomeFactor": 1.2
+    },
+    {
+      "price": 7040000,
+      "id": "npc-29",
+      "baseIncomeFactor": 1.22
+    },
+    {
+      "price": 9680000,
+      "id": "npc-30",
+      "baseIncomeFactor": 1.24
+    }
+  ],
+  "planningRuns": [
+    {
+      "mode": "manual",
+      "pace": 1,
+      "squadMinutes": 19.91,
+      "content80Minutes": 292.37,
+      "full30Minutes": 1485.6,
+      "earlyFraction": 0.196803,
+      "under20MinuteSquad": true,
+      "within18To22PercentContentBand": true,
+      "accountingDrift": 1.71e-06
+    },
+    {
+      "mode": "auto",
+      "pace": 1,
+      "squadMinutes": 15.77,
+      "content80Minutes": 276.08,
+      "full30Minutes": 1440.82,
+      "earlyFraction": 0.191613,
+      "under20MinuteSquad": true,
+      "within18To22PercentContentBand": true,
+      "accountingDrift": 2.074e-05
+    },
+    {
+      "mode": "mixed",
+      "pace": 1,
+      "squadMinutes": 16.32,
+      "content80Minutes": 280.69,
+      "full30Minutes": 1467.73,
+      "earlyFraction": 0.191241,
+      "under20MinuteSquad": true,
+      "within18To22PercentContentBand": true,
+      "accountingDrift": 1.535e-05
+    },
+    {
+      "mode": "manual",
+      "pace": 1.5,
+      "squadMinutes": 27.41,
+      "content80Minutes": 315.78,
+      "full30Minutes": 1540.1,
+      "earlyFraction": 0.205039,
+      "under20MinuteSquad": false,
+      "within18To22PercentContentBand": true,
+      "accountingDrift": -9.55e-06
+    }
+  ],
+  "gameTestsRun": false,
+  "userSavesAccessed": false
+}

@@ -1,0 +1,186 @@
+{
+  "scope": "static JSON extraction + independent arithmetic only; no TS/game/test/typecheck execution",
+  "configId": "frontloaded-2026-11-04-v3-hire-training-tail",
+  "tsConfigId": "frontloaded-2026-11-04-v3-hire-training-tail",
+  "exactDeepEquality": true,
+  "scalarLeafCount": 629,
+  "sha256": {
+    "docs/balance/2026-11-04-frontloaded-economy/parameters.json": "f0dee208cab056b3c984ee0f469dec46d1a6e7bc6195ccd7085c1f1da2f45653",
+    "delivery-game/assets/scripts/domain/V2EconomyConfig.ts": "21ed8f4aece45d4cdc78187f708b6e7eee754917b03af5def8460837cbcdd976",
+    "delivery-game/assets/scripts/domain/V2ProgressTargets.ts": "8927202367ff61e7160b17312ed4877a84da1ffe7036a487ac0839cde480fd9e"
+  },
+  "formulaMismatches": [],
+  "riderFirstFiveCumulative": [
+    0,
+    11,
+    39,
+    81,
+    136
+  ],
+  "riderUpgradeStepsCents": [
+    1100,
+    2800,
+    4200,
+    5500,
+    5500,
+    5500,
+    5600,
+    5600,
+    5600,
+    5600,
+    5700,
+    5700,
+    5800,
+    5700,
+    5800,
+    5900,
+    5800,
+    5900,
+    5900,
+    6000,
+    5900,
+    6000,
+    6100,
+    6000,
+    6100,
+    6200,
+    6100,
+    6200,
+    6200
+  ],
+  "riderUpgradeSumCents": 160000,
+  "vehicleUpgradeSumCents": [
+    45000,
+    90000,
+    150000,
+    270000,
+    450000,
+    750000,
+    1200000,
+    1800000,
+    12000000,
+    24000000
+  ],
+  "vehicleMaxExpectedCents": [
+    45000,
+    90000,
+    150000,
+    270000,
+    450000,
+    750000,
+    1200000,
+    1800000,
+    12000000,
+    24000000
+  ],
+  "starterCumulativeCoins": [
+    0,
+    2,
+    5,
+    11,
+    17,
+    20,
+    25,
+    30,
+    36,
+    43,
+    50,
+    57,
+    64,
+    72,
+    80,
+    89,
+    97,
+    106,
+    115,
+    124,
+    133,
+    143,
+    153,
+    163,
+    173,
+    183,
+    193,
+    204,
+    214,
+    225
+  ],
+  "starterUpgradeSumCents": 22500,
+  "riderMaxEffects": {
+    "income": 0.6,
+    "fixedServiceReduction": 0.25
+  },
+  "firstPaidMapIndependentScenarios": [
+    {
+      "ownedMapIds": [
+        1
+      ],
+      "cashCents": 10000,
+      "completed": false,
+      "priceCents": 150000,
+      "shortfallCents": 140000,
+      "canGo": false
+    },
+    {
+      "ownedMapIds": [
+        1
+      ],
+      "cashCents": 150000,
+      "completed": false,
+      "priceCents": 150000,
+      "shortfallCents": 0,
+      "canGo": true
+    },
+    {
+      "ownedMapIds": [
+        1,
+        2
+      ],
+      "cashCents": 0,
+      "completed": true,
+      "priceCents": 1000000,
+      "shortfallCents": 0,
+      "canGo": false
+    },
+    {
+      "ownedMapIds": [
+        1,
+        5
+      ],
+      "cashCents": 0,
+      "completed": true,
+      "priceCents": 150000,
+      "shortfallCents": 0,
+      "canGo": false
+    },
+    {
+      "ownedMapIds": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "cashCents": 0,
+      "completed": true,
+      "priceCents": null,
+      "shortfallCents": 0,
+      "canGo": false
+    }
+  ],
+  "introArithmetic": {
+    "startCoins": 100,
+    "tenOrdersCashCoins": 300,
+    "afterFirstCarCoins": 0,
+    "nextFiveOrdinaryCoins": 120,
+    "afterFirstNpcCoins": 0
+  },
+  "notVerified": [
+    "TS execution",
+    "typecheck",
+    "gameplay",
+    "user saves",
+    "balance acceptance",
+    "runtime/UI integration"
+  ]
+}

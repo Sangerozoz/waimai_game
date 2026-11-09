@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: native concurrent requests share one load and retain once
+ok 1 - native concurrent requests share one load and retain once
+  ---
+  duration_ms: 1.097208
+  type: 'test'
+  ...
+# Subtest: native transient failure retries finitely and retains only successful texture
+ok 2 - native transient failure retries finitely and retains only successful texture
+  ---
+  duration_ms: 0.34675
+  type: 'test'
+  ...
+# Subtest: exhausted native failure evicts rejected Promise for a later request
+ok 3 - exhausted native failure evicts rejected Promise for a later request
+  ---
+  duration_ms: 0.413708
+  type: 'test'
+  ...
+# Subtest: no-callback native loads reach a finite timeout and late callbacks cannot retain
+ok 4 - no-callback native loads reach a finite timeout and late callbacks cannot retain
+  ---
+  duration_ms: 0.422875
+  type: 'test'
+  ...
+# Subtest: JSON failure also evicts rather than poisoning subsequent callers
+ok 5 - JSON failure also evicts rather than poisoning subsequent callers
+  ---
+  duration_ms: 0.3595
+  type: 'test'
+  ...
+# Subtest: explicit native-only crop does not request optional web index
+ok 6 - explicit native-only crop does not request optional web index
+  ---
+  duration_ms: 0.741625
+  type: 'test'
+  ...
+# Subtest: valid derived region keeps source identity and scales slicing insets
+ok 7 - valid derived region keeps source identity and scales slicing insets
+  ---
+  duration_ms: 0.582958
+  type: 'test'
+  ...
+# Subtest: normalized request maps to the same canonical derived crop
+ok 8 - normalized request maps to the same canonical derived crop
+  ---
+  duration_ms: 0.342292
+  type: 'test'
+  ...
+# Subtest: wrong derivative dimensions never become cached success and may later recover
+ok 9 - wrong derivative dimensions never become cached success and may later recover
+  ---
+  duration_ms: 0.607084
+  type: 'test'
+  ...
+# Subtest: malformed optional index falls back visibly and demand-driven refresh recovers
+ok 10 - malformed optional index falls back visibly and demand-driven refresh recovers
+  ---
+  duration_ms: 0.546125
+  type: 'test'
+  ...
+# Subtest: inconsistent aliased derivative dimensions reject the whole index before retain
+ok 11 - inconsistent aliased derivative dimensions reject the whole index before retain
+  ---
+  duration_ms: 0.293542
+  type: 'test'
+  ...
+# Subtest: no-callback optional index times out promptly into original art
+ok 12 - no-callback optional index times out promptly into original art
+  ---
+  duration_ms: 0.253666
+  type: 'test'
+  ...
+# Subtest: out-of-bounds native crop rejects while a valid later crop remains usable
+ok 13 - out-of-bounds native crop rejects while a valid later crop remains usable
+  ---
+  duration_ms: 0.2495
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 145.248458

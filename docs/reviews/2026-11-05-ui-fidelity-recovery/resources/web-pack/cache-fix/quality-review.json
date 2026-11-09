@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "review_history": [
+    {
+      "revisionSHA": "a7c71f515644ec90ac6c71f05d7f05c543971acc9fd37c085dbdf27269bb92d4",
+      "passed": false,
+      "previousQualityJSON_SHA": "101ce7772ed60052a1a5fe79077bad2f6e24a9632d13d31f9ecf6d27ea7e9d27",
+      "previousQualityMD_SHA": "a625353af389a373d3bc397698d1cc8fd6c60d0b2bce28d25e8c78a754eb2307",
+      "logic_errors": [
+    {
+      "id": "L03",
+      "severity": "P2",
+      "title": "原裁切框超出结构合法的 pack source 尺寸时，回退未使该索引失效，后续仍粘在坏索引上",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:80-99",
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:148-157",
+        "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts:41-43"
+      ],
+      "trigger": "可选 pack 中被访问 source 的 size 是正安全整数二元组、regions 是合法对象，故整份结构检查通过；但该 size 小于当前调用方的合法原图裁切框。例实际 manifest/icon-riders 为 resource=ui-v2/nav-icons-v1、rect=[144,147,384,378]；若不完整索引声称 source.size=[500,500] 且 regions={}，会在 region 查找前因右端528、下端525越界而抛错。只是静态反例说明，没有写入/注入此数据；当前真实 source.size=[1268,1241] 不触发。",
+      "trace": [
+        "validateWebPack:85-96 接受该 source.size 和空 regions；pending 正常 fulfilled，成为 loadWebPack:106 后续复用的索引。",
+        "loadArtRegion:149 只在 source 缺失时失效；source 存在，150-151 的 checkRect 在 lookup 之前抛出。",
+        "157 捕获并转入原图回退，但未调用 invalidateWebPack(pending)；153 的缺 region 失效分支没有机会执行。",
+        "159-162 加载原图并返回 retryWeb=true；原图可正常显示，Cartoon 也不会错误写最终 frames。",
+        "下一次 UI 请求仍在 106 取同一 fulfilled 索引，再于151抛错；既无索引失效、也无冷却后的 loadAny 刷新机会。"
+      ],
+      "impact": "L01 的临时帧标记与 L02 的结构/纹理尺寸失败处理已明显修复，但这一已被代码检测出的索引语义不一致仍留在成功索引缓存，违背可选坏包回退后按需恢复的目标。不是永久占位，不证明当前资产坏或远程缺图由此造成。",
+      "minimal_suggestion": "把 Web 映射阶段 sourceRect/checkRect 失败也纳入对本次 pending 的身份保护失效和既有4s按需冷却，随后仍回原图；不要只覆盖缺 source/region 两个分支。保持 web:false 旁路，不为纹理网络错误随意清全局索引/纹理。"
+    }
+      ],
+      "resolution": {
+        "status": "resolved-by-targeted-static-review-only",
+        "currentRevisionSHA": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+        "fixCycle": 2,
+        "evidence": "UIArtResources.ts:148-157 现在将 source 存在性、pixelRect、checkRect、region 存在性放入同一映射 try，异常在157按本次 pending 身份失效并重抛至161，再以163-166的原图临时回退结束。L03 旧反例因此不再粘住成功索引。",
+        "adjacentPaths": "invalidateWebPack:101-104 的身份检查先于任何写入，旧 pending 不清新请求或延长其冷却；loadWebTexture:158 在映射 try 之后，普通纹理失败不触发该失效；web:false 仍跳过整个可选分支。",
+        "execution": "static-source-tracing-only; no fault injection or TS execution"
+      }
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "S01",
+      "locations": [
+        "delivery-game/assets/scripts/map-sample/UIArtResources.ts:120-128"
+      ],
+      "suggestion": "后续获准集中验证再观测重复定向重载的 GPU/native 资源回收、在途合并和后台计时。本轮可确认应用层未对坏尺寸先 addRef、未错误 decRef 别人持有的纹理，但不把引擎内部临时引用配平等同于已证明重载内存零增长。此为未执行边界，不是本次 FAIL 的依据。"
+    }
+  ],
+  "summary": "第2次修后定向独立静态质量 PASS：当前50fd03版本修复L03，所查增量及相邻合法/失败路径未发现未解决的安全或逻辑错误。L01/L02原FAIL与a7c版本L03 FAIL均保留历史；这是定向源码结论，不是重复全量SDK审查、运行通过、缺图关闭或98%验收。",
+  "sourceSHA": {
+    "primary": {
+      "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf"
+    },
+    "baselineAndDiff": {
+      "docs/reviews/2026-11-05-ui-fidelity-recovery/resources/web-pack/cache-fix/UIArtResources.before.ts.txt": "73e29316a757f4a37a2f47f188e8f558aa074aeb8270d7ce148cecab2ec9949f",
+      "docs/reviews/2026-11-05-ui-fidelity-recovery/resources/web-pack/cache-fix/candidate.diff": "1a751a4de400eb5f946aa975aa3815c24f83b1c6cf598990487a31ebf9a4c3e8"
+    },
+    "unchangedBoundInputs": {
+      "delivery-game/assets/scripts/map-sample/CartoonArt.ts": "5b59bb9d4c15fba335754f430641d228a20ea31023cf6385f333fba200d73e52",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/resources/ui-v2/web/pack.json": "fb8b62bfff79bb840f915cab6f977ccf37f1cb7e9ae0d116c40c56de3377de30",
+      "delivery-game/assets/resources/ui-v2/manifest.json": "557df1a20e05328132e1efa8467944dbf4f4baffc2878a1c35e55b5cb3e06322",
+      "delivery-game/assets/resources/ui-v2/portraits.json": "fc35329f1f63cce69c55ea5668af0eebe86ff6962a2216a6e34e03637c2df826",
+      "docs/reviews/2026-11-05-ui-fidelity-recovery/resources/web-pack/quality-review.json": "67d34f63fc97b1c50aecd2e283f0fac51d7fcf5d4e209a125501c568703cfcf5",
+      "docs/reviews/2026-11-05-ui-fidelity-recovery/resources/web-pack/quality-review.md": "62641fa2880ccc2c68c6ebbf948786019220073b1d923f2e05f3c66fd9ad4e78"
+    },
+    "engineRoot": "/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/Resources/resources/3d/engine",
+    "engine": {
+      "bin/.declarations/cc.d.ts": "4b549dcfd4be065f081fd842749efb8de2c44a941306ec39630ec80240f4036a",
+      "cocos/asset/asset-manager/asset-manager.ts": "417a48c0b42241fda54df55b25a9623809d65cbde9b445f3a85bb08849314c4a",
+      "cocos/asset/asset-manager/bundle.ts": "40beb79b5547e810679747e0da221ac8771211ab58001e8f573418b26b9c1081",
+      "cocos/asset/asset-manager/url-transformer.ts": "ce3a77ca1ea7543b9abb27cba0d12add5d02ffabfe67447fa6db4c544d0ca2d6",
+      "cocos/asset/asset-manager/preprocess.ts": "e61bbcedefb84e142ac09346f0d7b73e4b2d7c6e01289c3059ff70c10aec8d70",
+      "cocos/asset/asset-manager/load.ts": "6d780a266c09208625cc792a152cf51340e1d90fb30769216254dbf0ac2f7d67",
+      "cocos/asset/asset-manager/pack-manager.ts": "cdf5dae3df45ed289459b09ee2b2b9434d32f0f027e0b35b5680df48b0ac84bc",
+      "cocos/asset/asset-manager/downloader.ts": "5740536b57454b5016a71b9f31d44055594ef22b359814a08ec74a16d6884283",
+      "cocos/asset/asset-manager/parser.ts": "fe657c0bb005705ae9b163402a5930c23b32f1519fe5e0acd5edafb1644c3f15",
+      "cocos/asset/asset-manager/utilities.ts": "ae193ae08dc7c644055dacd70ea7ad7f3eeddd0311e6abf8905b3864d106b013",
+      "cocos/asset/asset-manager/depend-util.ts": "9e193394532eb5753676515c36d5d07ac4203066042e73ce3840b0d66fcaacbf",
+      "cocos/asset/asset-manager/release-manager.ts": "eba845e847cc284bb189c88fc3b3beb6aad0d9560e6a66f5ca62396028eec90e",
+      "cocos/asset/asset-manager/cache.ts": "3f6458b78b0d83974fae5c3c1d7776360861a51140d0375756f9d6f915b723b3",
+      "cocos/asset/asset-manager/shared.ts": "6e7b9c7846c77c0278915440ceb3fbdded67043c18f743ef3ec23e8547920d0d",
+      "cocos/asset/assets/asset.ts": "4d701b1188fad3a6df35b61b06c37fbb868506f7cf718d70d6fd2547ddf3257c",
+      "cocos/asset/assets/texture-2d.ts": "835104f8654ec69090e8a85c72174b25d0522ab2fd8e69d17b388c6aa0ede5b2",
+      "cocos/asset/assets/image-asset.ts": "6c6b8bc9b4c9a62a8e180c8d3013808520d71978d67d41d74f52b910f57f4388"
+    }
+  },
+  "limitations": [
+    "第2次fix-and-review的定向复审，复用非作者 thr_htnxptrv4w；父PM统一集成。当前167行完整读回；用修前快照和candidate.diff在内存严格重建前一a7c版本，SHA匹配。a7c到50fd03的精确文本增量只在loadArtRegion映射段；该函数之前全部字节与其余尾部逻辑不变。未执行TS，也未把文本一致性代替分支审查。",
+    "本轮初读/收口绑定50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf。CartoonArt、V2ImageSkin、pack、manifest、portraits及原web-pack两份FAIL未变。baselineAndDiff绑定73e修前及重建a7c的历史增量，不冒充本次50fd03的新diff文件。a7c/L03原发现保留在review_history，原Markdown完整保留于新Markdown历史段。",
+    "上一轮已独立追到本机Cocos 3.8.8的loadAny声明、回调、path/type/bundle、reload依赖与native缓存链。本轮无新增SDK调用且相关源码前缀/引擎SHA均未变，复用该有边界证据，不重复整份缓存读取，不声称对新版本重做全量SDK/产品规格审查。",
+    "reloadAsset 不等于取消、HTTP缓存失效或任意底层缓存强制清空。downloader/parser/pack-manager 对临时文件、解析或在途同 id 的合并仍可能存在；depend-util 对成功 UUID 依赖元数据也会复用。不据此承诺同会话任意依赖图/后缀热更可恢复。本次原路径/UUID/依赖身份未改。",
+    "本轮重点追L03原反例和相邻路径：source/region缺失、pixelRect/checkRect异常均在150-157按pending身份失效；4s按需冷却规则未变；旧pending不清新请求或延长其冷却；web:false直接原图；纹理网络/尺寸失败发生于158的独立加载段，只到外层161回退、不误清索引。sourceRect/derived仅在两者成功赋值并通过检查后抵达158；内层catch无正常返回，未见新增未赋值读取路径，未运行typecheck。",
+    "已查引用/晚回调：validate 先于 retain 和成功返回，错误尺寸/超时没有应用 addRef；同路径同期望尺寸共享 Promise，尺寸改变不会误用旧期望成功；无 releaseAll/releaseAsset/destroy 纹理或全局清缓存。attempt settled 保留；消费节点销毁/隐藏规则及每 key 有界帧缓存未改。未运行内存或引用计数观测，不声称引擎层资源零增长。",
+    "本轮仅静态源码/既有报告读取、文件SHA和内存文本patch/diff重建；未生成资产、未重做图片库存或全部JSON谓词检查。前轮pack的42来源/143region/143唯一衍生路径检查只对同SHA资产保留效力。L03仅为静态反例追踪，没有生成或执行故障数据；当前真实pack未因此被判损坏。",
+    "未执行任何 TS、tests/typecheck、游戏函数、真实/合成存档、故障注入、Creator 导入/构建、部署或浏览器操作。pack4s、失效后按需冷却4s、Web纹理序列15s、冷pack+Web纹理19s、原图/manifest单序列183s仅是名义配置算术，不是线上计时。未授权测试本身不作为 FAIL。",
+    "web:false 仍完全绕过pack并返回 retryWeb=false；原图/原 manifest 的公开API与3×60s策略未改，裁切取整/衍生全纹理rect/inset双轴缩放未改。地图及相关制作完全排除，未向地图线派工；未改资产、manifest、其他文档，不新派子Agent/commit/push/worktree。",
+    "只更新获准的两份质量报告并释放只读范围；不自行启动第3轮修复或派工。当前阻塞数组均为空，历史FAIL不是当前未解决错误。原L01/L02报告未覆盖、L03/a7c历史已保留；本次静态PASS不关闭用户缺图，不证明实际显示/游戏通过/98%达标。"
+  ]
+}

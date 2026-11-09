@@ -1,0 +1,30 @@
+{
+  "scope": "independent source-derived arithmetic; no TypeScript, game functions, saves or behavioral test",
+  "configId": "frontloaded-2026-11-04-v3-hire-training-tail",
+  "sourceRuntimeMatchesArchivedParams": true,
+  "formula": "base.capacityKg*(1+.25*Math.pow((level-1)/29,.65))",
+  "capacityRows": [
+    {
+      "name": "初始旧车",
+      "level1Kg": 2,
+      "level30Kg": 2.5,
+      "integerWeightUsableAtLevel1": 2,
+      "integerWeightUsableAtLevel30": 2,
+      "extraIntegerWeightCapacity": 0
+    },
+    {
+      "name": "街行",
+      "level1Kg": 3,
+      "level30Kg": 3.75,
+      "integerWeightUsableAtLevel1": 3,
+      "integerWeightUsableAtLevel30": 3,
+      "extraIntegerWeightCapacity": 0
+    }
+  ],
+  "starterCumulativeUpgradeCostTo10Coins": 43,
+  "starterFirstUpgradeCoins": 2,
+  "npcCumulativeUpgradeCostTo10Coins": 414,
+  "vehicle1CumulativeUpgradeCostTo10Coins": 85,
+  "finding": "初始旧车和街行的整段30级容量成长，在整数kg订单下均未新增可用整数重量容量；费用调高本身不能解决这一结构问题。",
+  "newPolicy": "初始2格、每餐1或2格；需同时重做容量成长、费用/收益及候选供给，不只替换kg标签。"
+}

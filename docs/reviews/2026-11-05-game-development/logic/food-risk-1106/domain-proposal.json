@@ -1,0 +1,154 @@
+{
+  "state": "received-proposal-not-implemented",
+  "proposal": {
+    "task": "FOOD-RISK-CONTRACT-1106",
+    "confirmedInputs": {
+      "rules": [
+        "docs/product/2026-11-02-delivery-game-product-v1.md:43,47,69",
+        "docs/balance/2026-11-02-product-v1/parameters.json:538-599"
+      ],
+      "baseProbability": {
+        "fragile": {
+          "fast": 0.12,
+          "main": 0.06,
+          "smooth": 0.02
+        },
+        "normal": {
+          "fast": 0.06,
+          "main": 0.03,
+          "smooth": 0.01
+        },
+        "durable": {
+          "fast": 0.02,
+          "main": 0.01,
+          "smooth": 0
+        }
+      },
+      "units": "参数包balanced对应现运行时main；地图系数依次0.25/0.5/0.75/1/1.25，雨/恶劣额外0.02/0.05，封顶0.25。不是再乘旧GameConfig.ROUTES。",
+      "catalog": {
+        "path": "delivery-game/assets/scripts/map-sample/FoodCatalog.ts:4-56",
+        "uniqueRows": 50,
+        "identity": "现有id/name/imageIndex/fragility为唯一目录，不另列50项。只复用GameConfig.ts:3的Fragility类型，不启用其旧价格/路线参数。"
+      },
+      "mapping": "V2GameUI.ts:25-27现为UTF-16 charCodeAt的FNV式hash，再对FOOD_CATALOG.length取余。新协议复用完全相同算法/目录顺序，不trim、改大小写或重抽；不调用带classRoll/itemRoll的selectFoodForOffer。",
+      "weight": "本批真实weightKg继续走原Route/Dispatch/容量/ordinary-effort-v1链。食品unitWeightKg不进入新DTO、Trip输入、容量或报价。"
+    },
+    "staticGap": {
+      "entryChain": "Game.normalCandidates/specialCandidate → Runtime透传 → UI offerFood展示 → Runtime.acceptBatch/quoteCandidates草稿 → Game.acceptBatch:23-32 → Trip.begin:33-37 → Trip.travel:96-100 → outcome:104 → Game.completeDelivery:64-66 → Dispatch结算。",
+      "evidence": [
+        "UI:530,571,607仍从订单id hash猜名字；TripOrder:14没有food。",
+        "Trip.travel:99在循环外固定normal基表，之后所有已取未送非safe单共同用该base；目录fragility从未进入权威风险。"
+      ],
+      "counterexample": "目录soup-noodles是fragile（FoodCatalog:11），chicken-rice是durable（:7）。在相同fast、地图系数1、晴天、归一化持餐暴露1、原risk=0的静态算式中，现规则两者都累积normal 6%，而确认规则分别应为12%和2%。只比较源公式，没有运行行程、生成订单或抽随机数。",
+      "legacyConstraint": "不能把当前展示hash推断的fragility补入旧在途；那会改变已保存risk与后续结算。"
+    },
+    "publicContract": {
+      "status": "以下均为拟新增/调整契约，未实施。推荐四源、无新目录副本或参数文件。",
+      "typesInTripRules": [
+        "export type V2FoodRiskContract=Readonly<{version:'food-risk-v1';foodId:string;fragility:Fragility}>;",
+        "export type V2FoodRiskById=Readonly<Record<string,V2FoodRiskContract>>;",
+        "V2TripState为严格判别联合：legacy version:2的orders禁止food字段；classified version:3的每个order必须有food:V2FoodRiskContract。其余既有字段原样。"
+      ],
+      "helpersInExistingFoodCatalog": [
+        "foodForV2Order(orderId:string):V2FoodRiskContract",
+        "foodPresentationById(foodId:string):Readonly<Pick<FoodItem,'id'|'name'|'imageIndex'|'fragility'>>"
+      ],
+      "helperSemantics": "选择helper从现有目录按当前hash取项，返回新标量对象；展示helper严格按已存foodId查唯一项并返回副本，未知id报错，不使用foodForOffer的默认饭盒回退。不泄漏目录对象，也不回传unitWeightKg。food-risk-v1冻结这份映射和目录身份/分类；未来改目录顺序或规则必须显式版本化，不能让旧合同随长度变化被重新分配。",
+      "validationSignature": "parseV2FoodRisk(raw:unknown):V2FoodRiskContract（拟由TripRules导出，仅作结构校验并返回副本）。",
+      "validation": "food必须为对象且own keys精确为version/foodId/fragility，版本精确food-risk-v1、foodId非空、fragility为既有三枚举；null、undefined显式字段、数组、未知版本/枚举、额外risk/draw/系数等拒绝。Game另对foodId和fragility与foodForV2Order(orderId)完整相等校验，Trip结构校验不能代替目录真实性绑定。",
+      "gameCandidateSignatures": [
+        "export type V2FoodOffer=V2RouteOrder & {food:V2FoodRiskContract};",
+        "normalCandidates(count=8):V2FoodOffer[]",
+        "specialCandidate(id:string):V2FoodOffer|null"
+      ],
+      "acceptance": "Game.acceptBatch的orders参数保持V2RouteOrder[]兼容。仍先通过原可达/经营/重量/容量/安全单检查，再由Game按合法订单id重算可信food。输入food缺失允许，Game仍生成新协议；输入显式food须结构/版本/全部值匹配，null或不匹配拒绝。绝不以caller的fragility/risk/draw作为结果。传Route/Dispatch的对象显式投影为id/kind/weightKg/pickupNode/dropoffNode/pickupName/dropoffName，不把候选food或任意风险字段混进既有报价/Route订单。",
+      "tripInputSignature": "begin(mapId:number,tripId:number,orders:{id:string;fastestGameSeconds:number;heldMetres:number;safe:boolean}[],foodById?:V2FoodRiskById):void",
+      "tripInputRules": "提供第四参时，先验证每个订单恰有一条food、无多余/缺失/重复ID，使用null-prototype字典及own-key检查，支持特殊字符串ID而不落入原型键；完整校验后才写状态或调用原roll。成功后该新批version=3，每单复制保存food。省略第四参只兼容version=2的旧领域调用，维持normal规则；version=3实例省略第四参不得降级。生产Game必须始终提供完整第四参并验证产物为Trip3。显式null不是省略。",
+      "riskAccumulation": "只对Trip3按每单已冻结food.fragility选择本表base；Trip2始终用原normal base。保留原增量min(0.25,oldRisk+(base*mapFactor+weatherExtra)*metres*fraction/heldMetres)，保持picked&&!delivered&&!safe及体力截断。天气加值不按帧额外加，不追溯已走路；safe保护不变。原seed/天气roll和每单draw/severityDraw生成次数、顺序、保存值及outcome/收入保留率不变。",
+      "uiConsumption": "候选读Game给出的food；Trip3订单卡及ETA身份行读trip.orders[id].food，再按foodId展示名称/图片/分类，不能重新hash兜底。Trip2仅允许共享hash作旧名字/图片的展示推测，明确“旧批按普通风险规则”，不把该推测当风险身份或写回。保留现有重量/金额/ETA，具体UI写租约由PM与B串行协调。",
+      "unchangedPorts": "Runtime现有normalCandidates/specialCandidate/tripState透传与quoteCandidates草稿可以沿用，ETA DTO/公式、Route格式、Dispatch报价/receipt、NPC与广告SDK接口不变。FoodCatalog仅以类型依赖Trip合同；Trip不运行时导入map-sample目录，Game负责真实目录绑定。"
+    },
+    "versionCompatibility": {
+      "recommendation": "新增Game5/Trip3；Route仍2，Dispatch仍1，经济config/slot不变。采用双格式保留旧批，不把旧在途自动包装成新风险格式。",
+      "serialization": "Trip2序列化为既有Game4/Route2/Trip2；Trip3序列化为Game5/Route2/Trip3。fresh无单可继续现Trip2；首次生产新批才转3/5。只取一次Trip快照决定格式，不额外增加帧内全量复制。",
+      "legacyRestore": "Game1-4先按原版本配对、完整旧Trip/Dispatch/组合检查及权威legs验证；沿用既有Trip1→2和Route1→2兼容步骤，不提前把版本号改成5以借新分支。旧当前批保持Trip2，原D/G/risk/draw/severityDraw/seed/action/到账不变；新食品格式只在下一次合法acceptBatch且旧批已结束/取消时创建。",
+      "strictPairs": [
+        "Game4+Trip3拒绝。",
+        "Game5+Trip2拒绝，不自动按legacy解释。",
+        "Game5必须Route2且Trip3；每单food完整且由Game按原订单id核验。",
+        "未知Game/Trip/food版本拒绝，不能退回normal。"
+      ],
+      "metadataPresence": [
+        "旧Trip1/2真实未记录food：只接受缺失，保持normal，不补当前hash分类。",
+        "旧Trip1/2显式出现food:null、undefined或任意food对象：拒绝保留字段污染，不静默剥离或自动升级。",
+        "Trip3缺失food、显式null/undefined、未知版本或ID/分类不符：拒绝，不默置normal。",
+        "reserved字段presence/own-key需在JSON clone可能丢弃undefined之前检查；旧原有完整验证仍必须执行，不能借转换修复坏数据。"
+      ],
+      "oldDisplayedFood": "旧批原本没有冻结食品身份，无法恢复其历史真实品类。保留现hash展示只为视觉兼容，并标明旧normal口径；不声称历史汤面已经按fragile结算。",
+      "historyScope": "不改Dispatch旧completed/cancelled与receipt，不补food、不重结算。新food权威保存在当前Trip3，随现有Trip订单生命周期保留；本契约不承诺在新批覆盖/取消清空Trip后提供永久历史食品详情，若需要必须另批扩大Dispatch记录契约。",
+      "releaseBoundary": "新reader先完整支持两格式；旧reader不支持Game5，应沿现RuntimeStore失败保留原slot并停止载入，不能清档兜底。版本是兼容/完整性边界，不是对整份存档重写的密码学签名。"
+    },
+    "minimalWriteSet": [
+      {
+        "path": "delivery-game/assets/scripts/map-sample/FoodCatalog.ts",
+        "change": "新增共享确定选择/严格展示查找helper，复用原50目录；旧selectFoodForOffer/foodForOffer不改。"
+      },
+      {
+        "path": "delivery-game/assets/scripts/domain/V2TripRules.ts",
+        "change": "新增食品合同/结构校验、Trip2/3严格联合与恢复分支、完整食品输入、每单分类base；保留deadline补丁。"
+      },
+      {
+        "path": "delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+        "change": "候选加法DTO、接受时可信生成/核对/白名单投影，Game4/5序列化与原/新严格恢复及canonical food核验。"
+      },
+      {
+        "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+        "change": "候选/当前批/ETA身份行改读冻结food；旧批单独展示兼容，不再把hash用于新批。仅在PM授予UI写租约后实施。"
+      }
+    ],
+    "implementationSteps": [
+      "PM先冻结本契约、版本配对和四源写租约；当前仍Default，只读。",
+      "先加入新/旧完整校验及双格式reader：旧验证不能减项，food未知/缺失不能降级，Runtime事务、slot和唯写者保持。",
+      "在现FoodCatalog加入无随机数、无权重替换的共享helper及结构类型；不复制目录或采用旧OrderBook抽样权重。",
+      "接Game候选/接受的canonical food及Trip.begin完整上下文；仅新批升Trip3/Game5，旧当前批留原规则。",
+      "在原travel每单循环选择新/旧base，保留原暴露累加、cap、safe与随机数序列；不引入红灯/变天排程。",
+      "由UI写集持有人接新food与旧normal标识；名称/图片用稳定foodId，实际weightKg/报价/ETA不变。",
+      "只做获准静态diff/SHA/分支核对并交独立复审；无批准不运行阶段案例或构建，不把身份接线当完整方案餐损概率预测已完成。"
+    ],
+    "decisionNeeded": [
+      "批准将当前hash映射及现有稳定目录作为food-risk-v1的新批确定选择规则，而非启用selectFoodForOffer的另一套分布。",
+      "批准Game5/Trip3与旧在途保留Game4/Trip2的双格式策略；不用同一新版本内可随意删food就回落legacy的可选模式。",
+      "协调四源实施及UI所属写租约、reader/writer统一发布；本轮不授权写入。其他既有数字均已确认，不再提交新概率/倍率/价格/奖励候选。"
+    ],
+    "sourceHashes": {
+      "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "7923a40ad6b3dd5a9038d221f65d94693a6fb06e59cae6eac9df8739a85410b4",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "0fe0d7fe23a1457e4c5286539ea32a7f5a796c94fe45312f5f143ddda65abce3",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "213cefc4da3a6166c5ba9b5bd36d3a795b94f676d92fcf5448324df79a768e01",
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "8fd5df4ee2cc7ca85cecd9488eec7cdd89fc08c374e8580d6bdcbc0b8336cd9c",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "a4af56bfbd972bebe0fe8dd48ea17cc2aab1a1d8b122241bb9b76ebe9e3780ff",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "725a4a6354712a960f854b80295d406049155e800cccc628eb97e19c2daff721",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "40c79d5443c35f2e6b3bba69fac129f07106d8d25ee76a6e27b7fde514d3fe0f",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "affec422c530e37820354a88690f8df32010580ded276cb3f9ac697e8f142e2d",
+      "delivery-game/assets/scripts/domain/GameConfig.ts": "1cb5be314ec1f8bb7373d55f3169b596b6fa493c26d49b9fa6da49f7bf59468e",
+      "docs/balance/2026-11-02-product-v1/parameters.json": "bbcb59ab5012fad90ec56dac6538078dcdb123203db771596d0d4944f9bd9789",
+      "docs/product/2026-11-02-delivery-game-product-v1.md": "39b81b848622d54446e40bbcf76f029b97508e6f4213cee7f3ba7b701ede4cee"
+    },
+    "limits": {
+      "status": "只读、标准JSON契约；未写源码/报告/权限或恢复Accept Edits。",
+      "evidence": "只读必要定义/消费者、目录文本条目计数及SHA；Game/Trip/UI与PM给定冻结SHA匹配。未执行TS、食品抽样、风险函数或任何游戏流程。",
+      "callerBoundary": "权威性以现有Route/Dispatch接受的合法订单为边界；本批拒绝caller食品风险字段替代canonical结果，不新增候选签发/防任意重命名ID系统，也不声称整个客户端已具备防篡改能力。",
+      "scope": "不读地图数据/素材、不更改路网/边界，不扩红灯/变天、NPC、广告、旧费用/购买资格/成长曲线。",
+      "forecastBoundary": "本契约覆盖食品身份、实际分类风险及类别显示；每方案餐损概率预测尚需独立读模型契约，不能把类别标签当V1:47全部完成。",
+      "deferredCases": [
+        "新批预览/接受同food，不受caller食品/风险字段及特殊ID影响",
+        "Game1-4旧有效在途完整校验后风险/抽值/累计值/到账保持",
+        "Game5/Trip3缺失/null/undefined/未知版本/食品错配拒绝",
+        "legacy/new版本交叉错配与下批唯一升级",
+        "三类食品及safe、零体力截断、天气、持餐前后、cap、分段/读档不重抽",
+        "UI旧批normal标识与新批冻结food一致，重量/金额/ETA/素材不回归"
+      ],
+      "notRun": "未运行tests/typecheck/TS/构建/浏览器/游戏/真实或合成档；未派Agent/Codex、未提交推送，不自判独立PASS。"
+    }
+  }
+}

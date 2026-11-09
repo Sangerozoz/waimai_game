@@ -1,0 +1,41 @@
+{
+  "reviewer": "thr_29f6fcihz6",
+  "scope": "read-only review only HTTP transport; TinyPNG compression is still pending credentials and not claimed successful",
+  "files": [
+    {
+      "path": "delivery-game/scripts/serve-web.py",
+      "sha256": "af0fc5e1ab0e5221b771c0a6b5044a5ff6a38b1c511215efa1494883e856d0e6"
+    },
+    {
+      "path": "delivery-game/scripts/serve-web.sh",
+      "sha256": "9aaa94d10a87307dc5ec0e972167c0d66ac5513e84e1502659933fb475e09d3f"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/test_web_transport.py",
+      "sha256": "62f04970633f768eb467e5bc2a8823405326866253c922162eb61ad19916fa9e"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-red.log",
+      "sha256": "95da95c9c0df2e6b7ba6b0a20006484e01a198fedf33d61e57ae355b28e6eacb"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/transport-green.log",
+      "sha256": "7ae2050e24700d40b7dfa87512acb4801abf9115e8b31dac0a3b3ad33996e3b5"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-11-08-package-startup-design.md",
+      "sha256": "10c5b6b957857c8ff5131975404c5bfdb211de3fc06f9c30cd6eec3c9ddcd882"
+    }
+  ],
+  "evidence": {
+    "RED": "8 tests,2 pass/6 fail; gzip/cache/path rejection business assertions",
+    "GREEN": "8/8"
+  },
+  "requirements": [
+    "gzip negotiation with identity fallback and q=0 handling",
+    "Vary/ETag variant/HEAD/304 correctness",
+    "HTML no-cache; versioned asset immutable",
+    "bind loopback; root and symlink boundaries",
+    "no user saves or model/account changes"
+  ]
+}

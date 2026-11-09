@@ -1,0 +1,78 @@
+{
+  "status": "source-inspected-existing-consumer-not-rendered-or-new-map-approved",
+  "sourceFiles": [
+    {
+      "path": "delivery-game/assets/scripts/map-sample/CityMap.ts",
+      "sha256": "8a122e7bd8be0057d297cf8a1cdcd73abd7f8aa1c0edf3eb2ca9dff919a40e3c"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/MapSample.ts",
+      "sha256": "a1d85e8faa914138ffbd5827f873ca417f60440f40921a94574ce12af2dbd647"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "sha256": "cea071606d173007ca8ce8acde05c74748e3243d2c4091390aedcdfcef550ed9"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/MapTypes.ts",
+      "sha256": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f"
+    }
+  ],
+  "references": {
+    "viewportWidth": "CityMap.ts:15,118",
+    "scaleConstants": "CityMap.ts:17,101",
+    "barLengthAndLabel": "CityMap.ts:142-143,316",
+    "manualZoomClamp": "CityMap.ts:309-311",
+    "projection": "CityMap.ts:329",
+    "consumers": [
+      "MapSample.ts:173",
+      "V2GameUI.ts:115"
+    ],
+    "resolutionPolicy": "MapSample.ts:166"
+  },
+  "viewportDesignUnits": 720,
+  "scaleBarDesignLength": 60,
+  "scaleBarLabelsNotFullViewportMetres": {
+    "default": 15.0,
+    "manualMin": 100.0,
+    "manualMax": 10.0
+  },
+  "worldViewWidthInCurrentlyLabelledMetres": {
+    "default": 180.0,
+    "manualMin": 1200.0,
+    "manualMax": 120.0
+  },
+  "equation": "full viewport width =720/scale, not60/scale. The10/15/100m values belong to a60-design-unit scale bar.",
+  "cssSamplingExamples": [
+    {
+      "assumedActualMapViewportCSSWidth": 320,
+      "nativeSamplesPerCSSPixelAssumption": 1,
+      "horizontalNativePixelsPerMetreForManualClosest": 2.6666666666666665
+    },
+    {
+      "assumedActualMapViewportCSSWidth": 375,
+      "nativeSamplesPerCSSPixelAssumption": 1,
+      "horizontalNativePixelsPerMetreForManualClosest": 3.125
+    },
+    {
+      "assumedActualMapViewportCSSWidth": 430,
+      "nativeSamplesPerCSSPixelAssumption": 1,
+      "horizontalNativePixelsPerMetreForManualClosest": 3.5833333333333335
+    },
+    {
+      "assumedActualMapViewportCSSWidth": 720,
+      "nativeSamplesPerCSSPixelAssumption": 1,
+      "horizontalNativePixelsPerMetreForManualClosest": 6.0
+    }
+  ],
+  "limits": [
+    "Only existing source traced. No game/page launched, source executed or save touched.",
+    "SHOW_ALL and actual CSS canvas width/letterboxing/DPR not runtime measured; example widths are not the user device.",
+    "Current renderer source is not user approval of a new baked-image map camera or a measured A2 metre mapping.",
+    "Source1:1 reference is a material observation baseline, not automatically the required whole-city sampling density.",
+    "Do not silently change camera limits, reinterpret scale-bar labels as full FOV, or use upsampling as newly generated detail.",
+    "Projection/coordinate-unit binding of the new native map remains a separate integration contract."
+  ],
+  "gameSourceWrites": false,
+  "productionReady": false
+}

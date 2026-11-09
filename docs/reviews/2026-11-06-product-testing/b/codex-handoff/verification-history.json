@@ -1,0 +1,22 @@
+{
+  "scope": "Offline supplement-verifier history only; these are not new game-test results.",
+  "attempts": [
+    {
+      "sequence": 1,
+      "exitCode": 1,
+      "failure": "JSONDecodeError while parsing historical B04 TOUCH_METHODS and B05 TOUCH_HANDLE JavaScript util.inspect arrays with single quotes.",
+      "rawGameEvidenceChanged": false
+    },
+    {
+      "sequence": 2,
+      "exitCode": 0,
+      "fix": "Whitelist only the two known debug tags as preserved raw text; all structured state tags still use strict JSON parsing.",
+      "result": "224 protected files, 89 original B files, 37 screenshot SHA checks; PASS."
+    },
+    {
+      "sequence": 3,
+      "exitCode": 0,
+      "result": "Final offline audit rerun after receipt/report; original 89 B files, protected224, capture37 unchanged. Required receipt keys, 53 golden SHA256 references, all40 stable issue IDs and local report links verified."
+    }
+  ]
+}

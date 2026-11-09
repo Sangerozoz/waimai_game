@@ -1,0 +1,44 @@
+{
+  "task": "U01-SNAPSHOT-CLONE-1106",
+  "baselineSHA256": "f6548bea8154dad55177420912c9b0422c8e9cc88ca66bee7dbabefbedc7fafa",
+  "candidateSHA256": "7830032d00753395a1fa9bf30c51683f5f152e74f10dc280b62ca71f1378f1af",
+  "patch": "--- a/delivery-game/assets/scripts/domain/V2DispatchSession.ts\n+++ b/delivery-game/assets/scripts/domain/V2DispatchSession.ts\n@@ -66,3 +66,3 @@\n  riderUpgradePrice(id:string){return this.economy.riderUpgradePrice(id);}\n- snapshot():V2DispatchSnapshot {return clone({format:'county-v2-dispatch',version:this.version,clockNeedsRebase:this.firstTickAfterRestore,economy:JSON.parse(this.economy.serialize()),fleet:JSON.parse(this.fleet.serialize()),rewards:JSON.parse(this.rewards.serialize()),orders:this.orders,batchIds:this.batchIds,frame:this.frame,control:this.control});}\n+ snapshot():V2DispatchSnapshot {return {format:'county-v2-dispatch',version:this.version,clockNeedsRebase:this.firstTickAfterRestore,economy:JSON.parse(this.economy.serialize()),fleet:JSON.parse(this.fleet.serialize()),rewards:JSON.parse(this.rewards.serialize()),...clone({orders:this.orders,batchIds:this.batchIds,frame:this.frame}),control:this.control};}\n  serialize():string{return JSON.stringify(this.snapshot());}\n",
+  "sourceEvidence": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts:18-24,67-75,188-193",
+      "finding": "原snapshot对已JSON.parse脱离的economy/fleet/rewards再整组clone。候选只将clone边界收缩至{orders,batchIds,frame}，三份已解析数据直接组装；orders内quote/receipt/load仍递归JSON隔离，batchIds/frame也脱离。顶层键序仍为format、version、clockNeedsRebase、economy、fleet、rewards、orders、batchIds、frame、control；version 1/2与字段不变。serialize、transact、clone(result)、restore/validate未改。"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2EconomySession.ts:217-222,254",
+      "finding": "serialize仅JSON.stringify私有snapshot；未调用命令、时钟、随机数或存储。其字符串在原snapshot同一位置JSON.parse，返回树已脱离Economy权威状态。"
+    },
+    {
+      "path": "delivery-game/assets/scripts/domain/V2FleetSession.ts:23-27,37,40-46",
+      "finding": "serialize仅构造格式/version/configId、解析economy.serialize并JSON.stringify含private value的容器，不推进经营或时钟。snapshot原有JSON.parse(fleet.serialize())保留，fleet及其嵌套economy均已脱离，且与独立economy分支没有共享可变引用。"
+    },
+    {
+      "path": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts:12-17,29-33",
+      "finding": "serialize仅JSON.stringify私有state，next才会增加sequence；snapshot没有调用next或其他状态变更方法。保留原位JSON.parse(rewards.serialize())，不额外调用Reward.snapshot。"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameSession.ts:24-25,34-39,73,80-97,148; delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:92,108-119,124-143",
+      "finding": "Game.serialize/snapshot、候选排重/签约、路线校验、tick帧上下文及恢复交叉校验消费原完整结构；Runtime经live.snapshot读取，事务仍serialize→restore验证→commit→publish。候选不改消费者、调用边界或唯一写者。"
+    },
+    {
+      "kind": "memory-only text integrity",
+      "finding": "精确unified diff正向应用重建候选，反向diff应用逐字恢复原文；比较前后方法外文本完全相同。交回前live SHA仍匹配基线。只执行Python字符串差分/哈希/JSON输出编码，未执行TypeScript、App、DTO或三个业务序列化器，未构造存档。"
+    }
+  ],
+  "unexecutedCases": [
+    "修改返回值orders中的quote、terms.capacity、receipt和load，以及batchIds/frame，确认不影响权威状态、其他返回分支或后续snapshot；反向修改权威状态不改变旧快照。",
+    "修改economy、fleet.fleet、fleet.economy、rewards的嵌套数组/对象，确认彼此和底层权威均隔离；重复snapshot返回独立树。",
+    "旧kg-v1/version1、新slots-v1/version2及其合法legacy包装批：待执行比较完整返回语义、字段/键序、可选字段JSON省略和序列化字节兼容，覆盖pending/completed/cancelled及null receipt。",
+    "恢复首帧clockNeedsRebase、frame/control、事件归日和事务结果：待阶段检查只读snapshot不改变时钟/随机序列，恢复及validate→commit→publish、失败保留行为维持原语义。"
+  ],
+  "limits": [
+    "只读补丁交回：未写任何源码、暂存、报告或权限，未应用候选；父PM物化并独立审查后决定应用，内存完整性检查不是质量PASS。",
+    "静态成本形状由一次包含economy/fleet/rewards的整聚合JSON往返，改为一次仅orders/batchIds/frame子树JSON往返；不是删除所有clone，也不主张JSON调用总数减少。",
+    "仍保留三模块序列化/解析，Fleet.serialize内部对Economy的额外序列化/解析、订单历史子树完整clone、外层Game/Dispatch serialize、事务restore/全量校验/commit以及clone(result)等成本。",
+    "未运行tests/typecheck、TS/App/DTO/序列化器、故障注入、浏览器、游戏、真实或合成存档、构建；未commit/push、新Agent/Codex。没有FPS测量，不宣称U01/U02或现场卡顿已解决。"
+  ]
+}

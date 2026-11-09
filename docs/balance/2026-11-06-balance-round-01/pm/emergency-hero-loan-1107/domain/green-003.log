@@ -1,0 +1,172 @@
+TAP version 13
+# Subtest: the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+ok 1 - the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+  ---
+  duration_ms: 243.890167
+  type: 'test'
+  ...
+# Subtest: loan status is detached and read-only; duplicate and stale commands cannot change the loan
+ok 2 - loan status is detached and read-only; duplicate and stale commands cannot change the loan
+  ---
+  duration_ms: 6.668792
+  type: 'test'
+  ...
+# Subtest: normal, detachable and genuinely earned affordable-car states cannot borrow
+ok 3 - normal, detachable and genuinely earned affordable-car states cannot borrow
+  ---
+  duration_ms: 2456.990083
+  type: 'test'
+  ...
+# Subtest: Game refuses loan commands during real rest actions and all active route phases
+ok 4 - Game refuses loan commands during real rest actions and all active route phases
+  ---
+  duration_ms: 234.90925
+  type: 'test'
+  ...
+# Subtest: first real delivery is insufficient; release waits for quota and never confiscates the current batch
+ok 5 - first real delivery is insufficient; release waits for quota and never confiscates the current batch
+  ---
+  duration_ms: 1022.610375
+  type: 'test'
+  ...
+# Subtest: cancelled emergency quotes remain valid after return alongside completed histories
+ok 6 - cancelled emergency quotes remain valid after return alongside completed histories
+  ---
+  duration_ms: 488.313416
+  type: 'test'
+  ...
+# Subtest: borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+ok 7 - borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+  ---
+  duration_ms: 2.1815
+  type: 'test'
+  ...
+# Subtest: forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+ok 8 - forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+  ---
+  duration_ms: 220.414292
+  type: 'test'
+  ...
+# Subtest: an emergency source marker cannot be smuggled into permanent vehicle inventory
+ok 9 - an emergency source marker cannot be smuggled into permanent vehicle inventory
+  ---
+  duration_ms: 1.743125
+  type: 'test'
+  ...
+# Subtest: one earned delivery cannot surrender the last recoverable hero car
+ok 10 - one earned delivery cannot surrender the last recoverable hero car
+  ---
+  duration_ms: 2.032334
+  type: 'test'
+  ...
+# Subtest: real Game/Dispatch commands reject surrender atomically and the hero can continue delivery
+ok 11 - real Game/Dispatch commands reject surrender atomically and the hero can continue delivery
+  ---
+  duration_ms: 753.5155
+  type: 'test'
+  ...
+# Subtest: kg-v1: proposed assignments reserve a real owned car, not future purchasing power
+ok 12 - kg-v1: proposed assignments reserve a real owned car, not future purchasing power
+  ---
+  duration_ms: 6.987875
+  type: 'test'
+  ...
+# Subtest: kg-v1: both public contract registration profiles reject dangerous historic state atomically
+ok 13 - kg-v1: both public contract registration profiles reject dangerous historic state atomically
+  ---
+  duration_ms: 0.175625
+  type: 'test'
+  ...
+# Subtest: kg-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+ok 14 - kg-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+  ---
+  duration_ms: 0.143375
+  type: 'test'
+  ...
+# Subtest: kg-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+ok 15 - kg-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+  ---
+  duration_ms: 0.533875
+  type: 'test'
+  ...
+# Subtest: kg-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+ok 16 - kg-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+  ---
+  duration_ms: 0.600666
+  type: 'test'
+  ...
+# Subtest: kg-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+ok 17 - kg-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+  ---
+  duration_ms: 0.508208
+  type: 'test'
+  ...
+# Subtest: kg-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+ok 18 - kg-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+  ---
+  duration_ms: 2.982625
+  type: 'test'
+  ...
+# Subtest: slots-v1: proposed assignments reserve a real owned car, not future purchasing power
+ok 19 - slots-v1: proposed assignments reserve a real owned car, not future purchasing power
+  ---
+  duration_ms: 8.035125
+  type: 'test'
+  ...
+# Subtest: slots-v1: both public contract registration profiles reject dangerous historic state atomically
+ok 20 - slots-v1: both public contract registration profiles reject dangerous historic state atomically
+  ---
+  duration_ms: 0.210042
+  type: 'test'
+  ...
+# Subtest: slots-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+ok 21 - slots-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+  ---
+  duration_ms: 0.133667
+  type: 'test'
+  ...
+# Subtest: slots-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+ok 22 - slots-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+  ---
+  duration_ms: 0.188
+  type: 'test'
+  ...
+# Subtest: slots-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+ok 23 - slots-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+  ---
+  duration_ms: 1.007792
+  type: 'test'
+  ...
+# Subtest: slots-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+ok 24 - slots-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+  ---
+  duration_ms: 0.595583
+  type: 'test'
+  ...
+# Subtest: slots-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+ok 25 - slots-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+  ---
+  duration_ms: 3.167333
+  type: 'test'
+  ...
+# Subtest: PM real Game historic pre-sign fixture restores unchanged and can return the car after skipped signing
+ok 26 - PM real Game historic pre-sign fixture restores unchanged and can return the car after skipped signing
+  ---
+  duration_ms: 218.6215
+  type: 'test'
+  ...
+# Subtest: PM real Game signed zero-quota fixture remains readable with identical contracts and no implicit rescue
+ok 27 - PM real Game signed zero-quota fixture remains readable with identical contracts and no implicit rescue
+  ---
+  duration_ms: 3.449666
+  type: 'test'
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4890.261125

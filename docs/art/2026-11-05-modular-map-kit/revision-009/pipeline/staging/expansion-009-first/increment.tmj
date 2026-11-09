@@ -1,0 +1,781 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.11.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": true,
+  "width": 0,
+  "height": 0,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextobjectid": 21,
+  "nextlayerid": 4,
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "name": "batch-calibrated-assets",
+      "tilewidth": 280,
+      "tileheight": 280,
+      "columns": 0,
+      "tilecount": 3,
+      "objectalignment": "bottomleft",
+      "tiles": [
+        {
+          "id": 0,
+          "image": "../shared-assets/c31dae925bf7dd0f1ff33db9c8ccad6166cba39236619b8d926990d2a41c468f.png",
+          "imagewidth": 224,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B01"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "image": "../shared-assets/7eca7f045716024f625c913e85f61ceda81f3997910ae488dc76d04536dffba9.png",
+          "imagewidth": 234,
+          "imageheight": 280,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B02"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "image": "../shared-assets/b8eb785226980b1bbbd931ff28f83ebbf8df9fa39a4683c66efa4db370223005.png",
+          "imagewidth": 280,
+          "imageheight": 197,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "B08"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "name": "expansion-009-first append-only",
+      "type": "group",
+      "offsetx": 0,
+      "offsety": 0,
+      "layers": [
+        {
+          "id": 2,
+          "type": "objectgroup",
+          "name": "new ground only",
+          "draworder": "index",
+          "objects": [
+            {
+              "id": 5,
+              "name": "009-src-0630-walk",
+              "type": "ground-surface",
+              "x": -1187.5138322435373,
+              "y": 3036.0422169472427,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 99.87947207075331,
+                  "y": 120.11187412086429
+                },
+                {
+                  "x": 119.19384569511863,
+                  "y": 107.47531682090721
+                },
+                {
+                  "x": 19.314373624365544,
+                  "y": -12.636557299957076
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0630-walk"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"existing-image\", \"assetId\": \"S01-paving\"}"
+                }
+              ]
+            },
+            {
+              "id": 6,
+              "name": "009-src-0630-garden-0",
+              "type": "ground-surface",
+              "x": -1373.3316638582583,
+              "y": 3001.103040430891,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 264.04967457977386,
+                  "y": -143.28591061307884
+                },
+                {
+                  "x": 280.7491891898462,
+                  "y": -119.07317585451801
+                },
+                {
+                  "x": 16.699514610073038,
+                  "y": 24.212734758561055
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0630-garden-0"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 7,
+              "name": "009-src-0630-garden-1",
+              "type": "ground-surface",
+              "x": -1370.2806492737182,
+              "y": 3032.7221003734285,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 13.64850002553294,
+                  "y": -7.406325183976605
+                },
+                {
+                  "x": 70.41514051432114,
+                  "y": 74.8999957710339
+                },
+                {
+                  "x": 56.76664048878774,
+                  "y": 82.30632095501096
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0630-garden-1"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 8,
+              "name": "009-src-0630-garden-2",
+              "type": "ground-surface",
+              "x": -1092.582474668412,
+              "y": 2882.029864576373,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 13.648500025533394,
+                  "y": -7.40632518397706
+                },
+                {
+                  "x": 70.41514051432159,
+                  "y": 74.8999957710339
+                },
+                {
+                  "x": 56.7666404887882,
+                  "y": 82.30632095501096
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0630-garden-2"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 9,
+              "name": "009-src-0633-walk",
+              "type": "ground-surface",
+              "x": -1686.404243159675,
+              "y": 3246.8083340467706,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 107.26945984477243,
+                  "y": 170.26527011639655
+                },
+                {
+                  "x": 128.220054487982,
+                  "y": 159.8803245603749
+                },
+                {
+                  "x": 20.95059464320957,
+                  "y": -10.384945556021648
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0633-walk"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"existing-image\", \"assetId\": \"S01-paving\"}"
+                }
+              ]
+            },
+            {
+              "id": 10,
+              "name": "009-src-0633-garden-0",
+              "type": "ground-surface",
+              "x": -1825.243531755626,
+              "y": 3195.9985886851305,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 154.77250819107394,
+                  "y": -83.98692332918245
+                },
+                {
+                  "x": 171.4720228011497,
+                  "y": -59.77418857061957
+                },
+                {
+                  "x": 16.699514610074857,
+                  "y": 24.21273475856333
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0633-garden-0"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 11,
+              "name": "009-src-0633-garden-1",
+              "type": "ground-surface",
+              "x": -1822.1925171710845,
+              "y": 3227.617648627671,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 13.648500025533394,
+                  "y": -7.40632518397706
+                },
+                {
+                  "x": 60.82315305356906,
+                  "y": 60.99251081607872
+                },
+                {
+                  "x": 47.17465302803521,
+                  "y": 68.39883600005624
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0633-garden-1"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 12,
+              "name": "009-src-0633-garden-2",
+              "type": "ground-surface",
+              "x": -1653.7715089544763,
+              "y": 3136.224400114511,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 13.64850002553294,
+                  "y": -7.40632518397706
+                },
+                {
+                  "x": 60.8231530535686,
+                  "y": 60.992510816079175
+                },
+                {
+                  "x": 47.174653028034754,
+                  "y": 68.39883600005624
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0633-garden-2"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 13,
+              "name": "009-src-0634-walk",
+              "type": "ground-surface",
+              "x": -2012.6788234008122,
+              "y": 3279.2617808232726,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 178.56841382376842,
+                  "y": 265.3309019084609
+                },
+                {
+                  "x": 199.1758244392554,
+                  "y": 254.41905962148803
+                },
+                {
+                  "x": 20.60741061548697,
+                  "y": -10.911842286972387
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0634-walk"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"existing-image\", \"assetId\": \"S01-paving\"}"
+                }
+              ]
+            },
+            {
+              "id": 14,
+              "name": "009-src-0634-garden-0",
+              "type": "ground-surface",
+              "x": -2151.6897040106246,
+              "y": 3228.1885870961564,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 154.7725081910744,
+                  "y": -83.98692332918245
+                },
+                {
+                  "x": 171.4720228011497,
+                  "y": -59.77418857061957
+                },
+                {
+                  "x": 16.699514610075767,
+                  "y": 24.21273475856333
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0634-garden-0"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 15,
+              "name": "009-src-0634-garden-1",
+              "type": "ground-surface",
+              "x": -2148.6386894260827,
+              "y": 3259.807647038697,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 13.648500025533849,
+                  "y": -7.40632518397706
+                },
+                {
+                  "x": 60.8231530535686,
+                  "y": 60.99251081607872
+                },
+                {
+                  "x": 47.17465302803521,
+                  "y": 68.39883600005624
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0634-garden-1"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 16,
+              "name": "009-src-0634-garden-2",
+              "type": "ground-surface",
+              "x": -1980.217681209475,
+              "y": 3168.414398525537,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 13.648500025533849,
+                  "y": -7.40632518397706
+                },
+                {
+                  "x": 60.82315305356906,
+                  "y": 60.992510816079175
+                },
+                {
+                  "x": 47.17465302803521,
+                  "y": 68.39883600005624
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0634-garden-2"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 17,
+              "name": "009-src-0635-walk",
+              "type": "ground-surface",
+              "x": -2178.736840928105,
+              "y": 3635.1583333418284,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 45.60792423307794,
+                  "y": 67.76781745330572
+                },
+                {
+                  "x": 66.21533484856491,
+                  "y": 56.85597516633288
+                },
+                {
+                  "x": 20.607410615486515,
+                  "y": -10.911842286972387
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0635-walk"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"existing-image\", \"assetId\": \"S01-paving\"}"
+                }
+              ]
+            },
+            {
+              "id": 18,
+              "name": "009-src-0635-garden-0",
+              "type": "ground-surface",
+              "x": -2296.5814639358277,
+              "y": 3597.5804067897184,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 88.16210432346634,
+                  "y": -47.840950456224164
+                },
+                {
+                  "x": 104.8616189335421,
+                  "y": -23.628215697660835
+                },
+                {
+                  "x": 16.699514610075312,
+                  "y": 24.21273475856333
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0635-garden-0"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 19,
+              "name": "009-src-0635-garden-1",
+              "type": "ground-surface",
+              "x": -2293.5304493512854,
+              "y": 3629.1994667322583,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 13.64850002553294,
+                  "y": -7.406325183976605
+                },
+                {
+                  "x": 48.72721292209235,
+                  "y": 43.45452861136255
+                },
+                {
+                  "x": 35.07871289655941,
+                  "y": 50.86085379533961
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0635-garden-1"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            },
+            {
+              "id": 20,
+              "name": "009-src-0635-garden-2",
+              "type": "ground-surface",
+              "x": -2191.7198450022856,
+              "y": 3573.9521910920575,
+              "polygon": [
+                {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                {
+                  "x": 13.64850002553294,
+                  "y": -7.40632518397706
+                },
+                {
+                  "x": 48.72721292209235,
+                  "y": 43.45452861136209
+                },
+                {
+                  "x": 35.07871289655941,
+                  "y": 50.86085379533915
+                }
+              ],
+              "properties": [
+                {
+                  "name": "sourceSurfaceId",
+                  "type": "string",
+                  "value": "009-src-0635-garden-2"
+                },
+                {
+                  "name": "materialJSON",
+                  "type": "string",
+                  "value": "{\"kind\": \"controlled-color\", \"color\": \"#9db486\"}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "type": "objectgroup",
+          "name": "new sprites only",
+          "draworder": "index",
+          "objects": [
+            {
+              "name": "009-src-0630",
+              "type": "sprite",
+              "x": -1360.0607205542606,
+              "y": 3075.274957077992,
+              "width": 334.77549824329947,
+              "height": 235.5918283175231,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "009-src-0630"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "B08"
+                }
+              ],
+              "id": 1,
+              "gid": 3
+            },
+            {
+              "name": "009-src-0633",
+              "type": "sprite",
+              "x": -1813.1971775423049,
+              "y": 3287.4494911767833,
+              "width": 212.1841140919684,
+              "height": 254.06255766275166,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "009-src-0633"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "B02"
+                }
+              ],
+              "id": 2,
+              "gid": 2
+            },
+            {
+              "name": "009-src-0634",
+              "type": "sprite",
+              "x": -2139.643349797303,
+              "y": 3319.6394895878093,
+              "width": 212.1841140919684,
+              "height": 254.06255766275166,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "009-src-0634"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "B02"
+                }
+              ],
+              "id": 3,
+              "gid": 2
+            },
+            {
+              "name": "009-src-0635",
+              "type": "sprite",
+              "x": -2281.8952182184944,
+              "y": 3669.2487654486417,
+              "width": 126.97974516368971,
+              "height": 159.04824252666003,
+              "rotation": 0,
+              "visible": true,
+              "properties": [
+                {
+                  "name": "persistentId",
+                  "type": "string",
+                  "value": "009-src-0635"
+                },
+                {
+                  "name": "assetId",
+                  "type": "string",
+                  "value": "B01"
+                }
+              ],
+              "id": 4,
+              "gid": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

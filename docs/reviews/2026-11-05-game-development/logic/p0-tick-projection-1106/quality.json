@@ -1,0 +1,55 @@
+{
+  "task": "U01-TICK-PROJECTION-QUALITY-1106",
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [],
+  "sourceHashes": {
+    "algorithm": "SHA-256",
+    "candidateRoot": "docs/reviews/2026-11-05-game-development/logic/p0-tick-projection-1106/assets/scripts",
+    "liveRoot": "delivery-game/assets/scripts",
+    "primary": {
+      "domain/V2DispatchSession.ts": {
+        "baseline": "7830032d00753395a1fa9bf30c51683f5f152e74f10dc280b62ca71f1378f1af",
+        "candidate": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+        "exactPatch": "c4f91d79401efca2682187a534c368df64f86cf09991916cd0d57926d820c4c1"
+      },
+      "map-sample/V2GameSession.ts": {
+        "baseline": "803f4bbac1fe657fa6fb71969bdaa47b4d6ba9c0b68487af501ba7b8d0268583",
+        "candidate": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+        "exactPatch": "c69831b9aacd317f7730aa22fd56503aeb4639eec953a07fe520796abbdb9517"
+      },
+      "rewards-v2/RewardSession.ts": {
+        "baseline": "8efdff34d0f3214a69922b9ef2b8cdd86672f1631a26b8962dc18e6efea07f7f",
+        "candidate": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+        "exactPatch": "3222444549f0d303b53e63f7ffa19dcc3bf52fdd1a842c1c626b077f27609ff0"
+      }
+    },
+    "liveDependencies": {
+      "domain/V2EconomySession.ts": "6465c5580a3a0568ed28e0a6227c2c3b1db2f945625baebdacd299a69d615d37",
+      "domain/V2FleetSession.ts": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+      "domain/V2TripRules.ts": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97",
+      "map-sample/V2RuntimeController.ts": "a560f14593b475769ccead1314cfd6dec31344f067484be96e5d8f657da7be01",
+      "map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23"
+    },
+    "inputs": {
+      "pm-spec.json": "0efbac4e2720f86d22395b3af5d2ec2afa5cf27af84695d756f61bab64e60b00",
+      "author-handoff.json": "3aefbe86614c67bf37032c54c0246dfb52808172d43ada00636d9a0f3d793f5b"
+    },
+    "independentExactForwardReverseHunks": 4,
+    "initialEqualsClosingForAllListedFiles": true,
+    "snapshotMethodByteIdenticalTo783Baseline": true,
+    "liveStillMatchesBaselines": true,
+    "drift": [],
+    "appliedByReviewer": false
+  },
+  "limits": [
+    "仅本次三源delta及必要邻接调用的独立静态质量PASS。已读取实际候选与PM规格，并独立将handoff的四个hunk逐一精确正向重建候选、反向还原基线；不是采用作者自述作为质量证明。",
+    "候选Dispatch:58-61的tickContext每次新建对象，恰含sequence、nowSeconds、foreground、paused、clockNeedsRebase、control、pendingAd七个原始值；不返回frame、Reward或其他可变内态。controlMode鲜读私有control。Reward:31只执行原tickets.some(status==='pending')，无过期、额度、序号、缓存或时钟副作用。",
+    "候选Game:91在dispatch.tick前捕获context；Dispatch:152-156仍先处理重复帧/sequence，再观察pending，最后expirePending。广告恰在本帧过期时，Game与Dispatch仍按本间隔开始时的pending阻止主角追补；未将判断挪到过期之后。首帧、恢复标志、前后台、暂停及回退时间的原条件保持。",
+    "候选Game:97的finish仍先advanceFleetTo(frameEnd)，再按before.control扣实际used，最后通过controlMode鲜读最终模式；自动额度耗尽转manual不会返回旧context或tick中的auto。其余循环、余秒、服务和到达处理不变。",
+    "Dispatch:71的783快照修订逐字保留；transact、restore、完整validate及保存版本字段没有改动。原序列化器为纯数据序列化，移除消费端的多余快照读取没有移除业务推进。Runtime:124-150、229-242的完整复验、必要commit后publish及30Hz门禁未改。",
+    "源码调用点独立计数：Game.tick直接Dispatch.snapshot由5处变3处；Dispatch.tick的pending判断不再调用Reward.snapshot。不是每帧实际调用次数或耗时。Game保留的三个分支快照、完整事务及其他聚合成本仍在，两个pending读取也仍各自扫描tickets；未profile，不量化FPS，不关闭U01/U02。",
+    "未运行TS/App/DTO/getter/serialize或其他业务函数，未执行tests/typecheck、构造存档、故障注入、浏览器或构建；未写文件、改权限或派Agent/Codex。实际广告过期、自动耗尽、恢复及异常不发布等场景保留为未执行。只读范围交还PM；本结论不覆盖整包、UI、运行、性能或用户验收，也不撤回既有联合作品。"
+  ]
+}

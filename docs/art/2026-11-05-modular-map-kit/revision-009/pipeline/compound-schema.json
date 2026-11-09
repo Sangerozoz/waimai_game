@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Restricted source125 scenic compound pilot, not bulk production",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "projection",
+    "scenes",
+    "buildings",
+    "groundSurfaces",
+    "sourceIndices",
+    "uniqueSourceCount",
+    "sceneCount",
+    "moduleCount",
+    "groundSurfaceCount"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "scene-compound-static-v1"
+    },
+    "sourceIndices": {
+      "const": [
+        125
+      ]
+    },
+    "uniqueSourceCount": {
+      "const": 1
+    },
+    "sceneCount": {
+      "const": 1
+    },
+    "moduleCount": {
+      "const": 2
+    },
+    "groundSurfaceCount": {
+      "const": 5
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "sceneId",
+          "moduleIds",
+          "groundSurfaceIds",
+          "sourceIndices",
+          "sourcePolygonsMap",
+          "sourceSHA256",
+          "originalSemanticStatus"
+        ],
+        "properties": {
+          "sceneId": {
+            "const": "009compound-source0125-court"
+          },
+          "sourceIndices": {
+            "const": [
+              125
+            ]
+          },
+          "originalSemanticStatus": {
+            "const": "unknown"
+          },
+          "moduleIds": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true
+          },
+          "groundSurfaceIds": {
+            "type": "array",
+            "minItems": 5,
+            "maxItems": 5,
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "buildings": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "persistentId",
+          "sceneId",
+          "visualReplacementOf",
+          "entryPixel",
+          "entryMap",
+          "footprintPolygonMap",
+          "worldSizeUnits",
+          "anchorUV",
+          "nodeScale"
+        ],
+        "properties": {
+          "nodeScale": {
+            "const": 1
+          },
+          "sceneId": {
+            "const": "009compound-source0125-court"
+          }
+        }
+      }
+    },
+    "groundSurfaces": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "sceneId",
+          "moduleIds",
+          "polygonMap",
+          "surfaceClass"
+        ]
+      }
+    }
+  },
+  "description": "Shape documentation only. compound_contract.py + compound_import.py enforce bidirectional module/surface ownership, exact city polygon/SHA, legacy/new source ownership union, old/reserved IDs, reviewed SHA, geometry and atomic staging before any live mutation."
+}

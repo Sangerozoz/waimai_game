@@ -1,0 +1,27 @@
+{
+  "task": "SLOTS-FIX01-EDIT-RECOVERY-1106",
+  "thread": "thr_j9izunn7qx",
+  "scope": "existing five staged Fleet/Economy/Dispatch/Game/Runtime sources and FIX01 receipts only",
+  "observedFailure": "ACP edit approval denied, no sources landed",
+  "observedBeforeResume": {
+    "status": "idle",
+    "effectiveNativeMode": "default",
+    "pendingValue": null,
+    "interactions": [],
+    "queue": []
+  },
+  "recovery": "set native accept_edits, resume existing authorized task, not retrying a failed BB turn",
+  "afterDispatchReadback": {
+    "value": "accept_edits",
+    "pendingValue": null,
+    "status": "active",
+    "providerId": "acp-hermes-agent",
+    "requestedModel": "openai-api:gpt-6.1-sol"
+  },
+  "actualEditRecoveryConfirmed": true,
+  "actualWriteProof": "staged Fleet source b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61 plus five-source FIX01 handback verified against manifest; no permission probe",
+  "requiredProof": "author checks mode after restoration then performs first genuinely needed Fleet source edit via normal patch; successful write/hash, not dummy probe",
+  "noGlobalProviderCredentialPermissionChange": true,
+  "noTestsBuildBusinessOrSaveAuthority": true,
+  "restoreAtHandback": "original default; do not start cleanup-only model turn"
+}

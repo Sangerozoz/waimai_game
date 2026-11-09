@@ -1,0 +1,341 @@
+{
+  "passed": true,
+  "reviewType": "independent-specification-review-only",
+  "reviewerThread": "thr_xian3wmj7j",
+  "parentThread": "thr_axf6i4e89t",
+  "workspace": "/Users/sanger/Documents/ChatGPT/taptap 2",
+  "scope": "核心配送闭环A；冻结契约第1—5节。源码只读，仅写review-round2/spec.json和spec.md。不替代下一阶段独立质量审查或运行验证。",
+  "verdict": "修后定向规格复审通过：PM已将A-SPEC-01改为经营配对存在且权威city.pois全集配对唯一，plannedStops及新恢复校验共用该门禁，未发现新的本范围规格阻塞。原24项逐条证据及全部未运行边界保留；不代表独立质量、构建或运行通过。",
+  "reviewHistory": [
+    {
+      "stage": "initial-spec-review",
+      "passed": false,
+      "blockingFindingIds": ["A-SPEC-01"],
+      "primarySourceSHA": {
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "3d4be4ecde9c8308d7aba15ec53e68a0a8c6d8c1481be53e63c7de256b9a8855",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameSession.ts": "2ff12cb7cb96d334d54c76ee68bd2db711e7ea21264585ef9b02c0480c78ecac",
+        "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2TripRules.ts": "6ede7a45eed46a1875e187d1f728e045f44db82de6f7d83a685131d9e6093c16"
+      }
+    },
+    {
+      "stage": "A-SPEC-01-targeted-re-review-after-PM-fix",
+      "passed": true,
+      "blockingFindingIds": [],
+      "routeSourceSHA": "73d4daea391b506dd38f0fcd25fb04d9ae387e5aa07a148b42bf2699c7839a5e",
+      "scope": "只读重审merchantKey、plannedStops、plan及新restore的规范Stop共用链；Game/Trip SHA与初审相同。只对源码文本作逆替换哈希比较，恢复出初审Route SHA，确认其余源码未变；没有运行游戏函数。"
+    }
+  ],
+  "evidenceLinePolicy": "除2.1和followupReview新增证据外，保留初审24项矩阵原行号；这些证据绑定reviewHistory初审SHA。修复在Route第67行新增一行，旧Route第69行起的原证据定位在修后文件整体后移1行；Game/Trip行号不变。依赖SHA仍是初审实际已读版本，未重新扩审并行UI/Runtime工作线。",
+  "followupReview": {
+    "findingId": "A-SPEC-01",
+    "passed": true,
+    "sourceEditedByReviewer": false,
+    "currentEvidence": ["V2RouteSession.ts:66-68", "V2RouteSession.ts:71-75,90-94", "V2RouteSession.ts:196-197"],
+    "staticReasoning": [
+      "原反例的权威全集重复配对使city.pois.filter(matches).length不是1，即使经营子集只剩一条，商家键也为null。",
+      "全集唯一但仅为非经营名称时this.places.some(matches)为false；空名称在length>0门禁拒绝。均不产生合并键。",
+      "只有经营配对存在且权威全集唯一的非空规范名称才返回node+name键；同键可合并，异node或异name不共键。",
+      "plannedStops中null键不读写known，每单单独建组；新plan和新restore均复用该函数。恢复若输入仍把歧义单合成多成员pickup，与重建的singleton列表不一致而拒绝。",
+      "legacy-sequential分支仍在读取merchantKey前直接返回逐单singleton，未改变旧在途顺序及接受边界。"
+    ],
+    "changeIsolationEvidence": "将当前源码merchantKey及注释在内存中逆替换为初审已读文本，SHA-256精确恢复3d4be4ecde9c8308d7aba15ec53e68a0a8c6d8c1481be53e63c7de256b9a8855；此操作只读源码、比较文本与哈希，未写源文件或快照、未导入执行游戏代码。",
+    "executionBoundary": "全部为静态分支推演；所有游戏、存档、测试、构建与部署仍未执行，独立质量审查由PM另派。"
+  },
+  "verification": {
+    "mode": "source-reading-and-hashes-only",
+    "gameFunctionsExecuted": false,
+    "realOrSyntheticSaveExecuted": false,
+    "testsOrTypecheckRun": false,
+    "buildOrDeploymentRun": false,
+    "sourceEdited": false,
+    "publicPlansOrLedgersEdited": false,
+    "subagentsSpawned": false,
+    "commitOrPushRun": false,
+    "note": "没有制造快照、读取用户slot、接单、扣款、注入故障或运行游戏代码。JSON报告格式校验不属于游戏验证。"
+  },
+  "requirements": [
+    {
+      "id": "1.1",
+      "requirement": "Route2/Game4；Stop包含orderId/orderIds/kind/node；stopPolicy为legacy-sequential或grouped；TripState2不变。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:7-18,51", "V2GameSession.ts:14,92-94,102", "V2TripRules.ts:17-24"],
+      "gap": null
+    },
+    {
+      "id": "1.2",
+      "requirement": "不改变原道路40倍率、取餐2现实秒/60游戏秒、逐单交付1/30及既有速度、报价、期限规则。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:87,129,147", "V2TripRules.ts:37,103", "V2GameSession.ts:27-28,30,85", "V2EconomySession.ts:26-30,133-139,151-154"],
+      "gap": null,
+      "note": "道路沿用原车速/天气修正；fastest的+90和Trip.begin的原期限公式保留，没有因合并重签。未核验运行时长。"
+    },
+    {
+      "id": "2.1",
+      "requirement": "只有相同pickupNode+规范pickupName，且该配对在权威city.pois中唯一的新订单才合并。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:63-75,90-94,196-197（修后行号）"],
+      "gap": null,
+      "note": "初审A-SPEC-01为gap；PM修后merchantKey保留非空名，并同时要求this.places.some(matches)和this.city.pois.filter(matches).length===1。权威全集重复、未知名或只有非经营配对均返回null；plannedStops按null不进入known而保持singleton。新restore重建同一规范Stops并精确比对，缺口已静态复审消除，未运行验证。"
+    },
+    {
+      "id": "2.2",
+      "requirement": "按商家首次出现顺序建组，每组一次pickup后按组内原顺序逐单dropoff。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:69-75,89-95"],
+      "gap": null,
+      "note": "Map只用于查找已知组，groups数组保存首次出现顺序；排程结构未因本次merchantKey最小修复改变。"
+    },
+    {
+      "id": "2.3",
+      "requirement": "重排后每个实际有向段重新验证可达，全部所选订单总重仍受整批容量限制。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:89-95,56-60", "V2GameSession.ts:24,28", "V2DispatchSession.ts:76-85,132-134", "V2EconomySession.ts:133-139"],
+      "gap": null,
+      "note": "只追踪既有router接口，没有修改或审查地图制作、几何、边界方案。"
+    },
+    {
+      "id": "2.4",
+      "requirement": "pickupGroup先原子校验所有ID和体力，成功仅扣1点并全组picked，服务仅一次2秒。",
+      "status": "static-satisfied",
+      "evidence": ["V2TripRules.ts:83-95", "V2RouteSession.ts:120,141-147", "V2GameSession.ts:85"],
+      "gap": null,
+      "note": "空/重复/未知/已取/已送ID在扣点前拒绝。低于1点只置blocked并返回false。多成员hook缺失时拒绝，未退化为逐ID重复扣点。"
+    },
+    {
+      "id": "2.5",
+      "requirement": "dropoff、到达凭证、每单期限、钱和经验仍逐单独立；共享取餐不共享结算。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:74,148,156", "V2TripRules.ts:37,91-95,104-105", "V2GameSession.ts:43-45", "V2DispatchSession.ts:88-95", "V2EconomySession.ts:151-154"],
+      "gap": null,
+      "note": "每个dropoff仍单成员并以tripId/Stop index/orderId生成令牌；收据重试沿既有completed分支，不重发经验。NPC补额度的帧内时点另列deferred，不在本条宣称已解决。"
+    },
+    {
+      "id": "2.6",
+      "requirement": "共享预算seconds=2*pickupStops+dropoffStops，stamina=pickupStops+dropoffStops；首15单及路线预算共用。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:76,112-115", "V2GameSession.ts:26,30"],
+      "gap": null
+    },
+    {
+      "id": "2.7",
+      "requirement": "单单fastest期限仍包含自身一次取餐和一次送达必要服务。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:87", "V2GameSession.ts:27", "V2TripRules.ts:33-37"],
+      "gap": null
+    },
+    {
+      "id": "3.1",
+      "requirement": "取餐完成立即ready，cursor下一站，legSeconds/serviceSeconds=0，serviceCharged=false，anchor仍在已取餐商家。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:139,147-150,55,207"],
+      "gap": null,
+      "note": "取餐结束return截断剩余秒；position在ready读取anchor，不预读下一leg的终点。"
+    },
+    {
+      "id": "3.2",
+      "requirement": "手动ready无动作空等不增加主角行程钟、里程、体力或餐损，不追回等待；NPC经营继续。",
+      "status": "static-satisfied",
+      "evidence": ["V2GameSession.ts:47-54,69,83-87", "V2RouteSession.ts:150", "V2RuntimeController.ts:101-118及continueTrip入口", "V2DispatchSession.ts:104-120"],
+      "gap": null,
+      "note": "Game先Dispatch.tick推进现实经营，再因manual ready不在可推进phase而退出；Runtime先同步旧时钟后执行continue。NPC额度/事件精确帧内先后不属于本条通过范围。"
+    },
+    {
+      "id": "3.3",
+      "requirement": "continueTrip只接受ready且无补给action，只改为travelling；不改位置、钱、期限；重复拒绝。",
+      "status": "static-satisfied",
+      "evidence": ["V2GameSession.ts:33", "V2RouteSession.ts:121,55,95"],
+      "gap": null,
+      "note": "动作门禁在Game，phase门禁在Route；下一leg起点与ready商家一致。"
+    },
+    {
+      "id": "3.4",
+      "requirement": "自动ready使用同一个continueTrip入口；合法秒数耗尽不代点下一动作。",
+      "status": "static-satisfied",
+      "evidence": ["V2GameSession.ts:52-60,83-87", "V2RouteSession.ts:124-127,149-150", "V2DispatchSession.ts:103,115-116"],
+      "gap": null,
+      "note": "Game while要求seconds>0；Route每轮先检查remaining<=0。自动费用只以实际used扣除，自动余段不会切换为同帧手动推进。精确浮点边界未运行。"
+    },
+    {
+      "id": "3.5",
+      "requirement": "顾客仍自动交付，逐单服务后自动走向下一计划站，不新增确认。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:139,148-151", "V2GameSession.ts:85,43-45"],
+      "gap": null
+    },
+    {
+      "id": "3.6",
+      "requirement": "零体力存在可达补给恢复通路，已扣点服务不二扣。",
+      "status": "static-satisfied",
+      "evidence": ["V2GameSession.ts:36-38,59-67", "V2TripRules.ts:66-81,83-98", "V2RouteSession.ts:141-147", "V2GameUI.ts:211-245,273-283"],
+      "gap": null,
+      "note": "Game和当前UI均仅在已扣点service锁补给，未扣点service可免费休息；已扣点服务即使体力降到0仍可完成剩余服务时长，serviceCharged防重扣。这里只核对静态可达入口，未操作页面。"
+    },
+    {
+      "id": "4.1",
+      "requirement": "旧Game3/Route1在任何结构升级前，完整执行原Route和组合校验。",
+      "status": "static-satisfied",
+      "evidence": ["V2GameSession.ts:91-114", "V2RouteSession.ts:168-183", "legacySources.GameSession.sourcesContent:89-100", "legacySources.RouteSession.sourcesContent:140-151"],
+      "gap": null,
+      "note": "实际对照现存旧构建中的Game3/Route1恢复逻辑及Creator缓存sourcesContent，不只依赖作者报告。原Dispatch对应校验和Trip组合校验先作用原始结构，restoreLegacy完整原门禁通过后才构造singleton。旧缓存只是历史代码证据，不是新源码构建/运行证据。"
+    },
+    {
+      "id": "4.2",
+      "requirement": "旧在途Stop顺序、cursor、legs、位置、计时、门闩、picked、arrival令牌以及已得钱经验不变；不重排、不重奖、不补造。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:171-183,55", "V2GameSession.ts:98-115", "V2TripRules.ts:108-126"],
+      "gap": null,
+      "note": "转换是旧状态拷贝后仅替换Route版本/profile/policy和加orderIds；缺失门闩按原推断。TripState2恢复不调用begin，Game.restore不调用completeDelivery或扣服务。真实/合成档均未执行。"
+    },
+    {
+      "id": "4.3",
+      "requirement": "旧批保留legacy-sequential，旧travelling不倒推，之后完成pickup才ready，新批才grouped。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:71,89-93,149-150,182"],
+      "gap": null
+    },
+    {
+      "id": "4.4",
+      "requirement": "新旧在途legs仍完整比较权威router输出，期望缓存不接受输入legs种入。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:95-110,179,203-204"],
+      "gap": null,
+      "note": "缓存值只来自makeLegs序列化；命中后仍完整JSON.stringify输入legs比较。按PreparedMap实例隔离、保留有界淘汰及超大项不缓存。没有评估或改变地图数据/几何/边界。"
+    },
+    {
+      "id": "4.5",
+      "requirement": "未知未来版本、错配版本、非法结构拒绝；旧Game1/2原边界不扩大。",
+      "status": "static-satisfied",
+      "evidence": ["V2GameSession.ts:92-105,114-115", "V2RouteSession.ts:172-181,185-222", "legacySources.GameSession.sourcesContent:89-100"],
+      "gap": null,
+      "note": "原关联A-SPEC-01现已修后静态复审消除：新restore共用修后的plannedStops身份门禁。Game1仍仅无活批且idle/finished并cancel；Game2必须TripState1且Route1；Game3必须TripState2/Route1；Game4必须TripState2/Route2。不能把结构校验称为本地档防篡改认证。"
+    },
+    {
+      "id": "5.1",
+      "requirement": "暂停、后台、恢复首帧不补跑主角行程或补给。",
+      "status": "static-satisfied",
+      "evidence": ["V2GameSession.ts:48-59", "V2DispatchSession.ts:107-119,139-144", "V2RuntimeController.ts:85-97及setPaused/onHide/onShow"],
+      "gap": null,
+      "note": "seconds<=0在advanceSupply前退出；active同时检查新旧foreground/paused、clockNeedsRebase和广告门禁。"
+    },
+    {
+      "id": "5.2",
+      "requirement": "取消保留真实当前位置，保留已完成收入经验，取消全部余单。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:157-160", "V2GameSession.ts:42", "V2DispatchSession.ts:96-101", "V2TripRules.ts:106-107"],
+      "gap": null,
+      "note": "ready直接保anchor；travelling根据实际edge/elapsed重建anchor，腿末端有目标节点默认值。没有回滚或重算已结算收入。"
+    },
+    {
+      "id": "5.3",
+      "requirement": "门闩前Route.picked、Trip未picked特例扩至整个pickup组，不漏/重。",
+      "status": "static-satisfied",
+      "evidence": ["V2GameSession.ts:105-107", "V2RouteSession.ts:120,219-221", "V2TripRules.ts:83-89"],
+      "gap": null,
+      "note": "新Game4按当前Stop.orderIds.includes逐单例外；旧Game沿原singleton orderId及原门闩推断。已扣点组不再适用例外。"
+    },
+    {
+      "id": "5.4",
+      "requirement": "ready、finished、picked和arrivals按实际Stop索引及逐单token完整校验。",
+      "status": "static-satisfied",
+      "evidence": ["V2RouteSession.ts:195-222", "V2GameSession.ts:99-110"],
+      "gap": null,
+      "note": "ready须前站pickup、anchor在该店、两计时0且门闩false；finished须cursor末端/末站anchor。completed前缀重建全部picked和arrival:<tripId>:<StopIndex>:<orderId>后完整比对，Game交叉核对Trip/Dispatch。"
+    }
+  ],
+  "blockingFindings": [],
+  "historicalFindings": [
+    {
+      "id": "A-SPEC-01",
+      "status": "resolved-by-PM-static-spec-re-review-only",
+      "lineReferenceVersion": "initial-spec-review-source-before-fix",
+      "priority": "P2",
+      "requirementIds": ["2.1", "4.5"],
+      "title": "经营POI子集唯一不等于权威city.pois配对唯一",
+      "locations": [
+        {"path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts", "startLine": 37, "endLine": 38},
+        {"path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts", "startLine": 63, "endLine": 74},
+        {"path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts", "startLine": 195, "endLine": 196}
+      ],
+      "staticCounterexample": [
+        "仅为源码分支推演，未构造或执行任何游戏/存档：权威city.pois中两个条目拥有完全相同的node=N、name=A，另有可经营顾客POI M/B。",
+        "operatingPOIs保留其中一个N/A及M/B，排除另一个N/A。prepare据此生成this.places，N/A在其中只剩一项。",
+        "两个不同ID的新订单均取自N/A。merchantKey使用this.places.filter(...).length===1，为两单返回同一键；plannedStops遂合并一次pickup。",
+        "按冻结要求，N/A在权威city.pois配对不唯一，两单必须保持singleton。新restore也复用plannedStops，因此会把这个不合规分组视为规范。"
+      ],
+      "impact": "歧义商家被合并，实际pickup次数及服务秒数/体力预算随之少于冻结保守规则；当前源数据是否出现该前提未检查、不作已发生断言。",
+      "recommendation": "经营资格继续沿用现有places；但merchantKey的身份唯一性证明另对只读权威this.city.pois全集核对node+规范name恰好一项。若不唯一则返回null、保守singleton。不要改POI、经营索引、router、道路或边界来绕过。若PM原意仅限经营子集，需要先明确修改冻结规格，不能静默当成已符合。",
+      "executed": false,
+      "sourceFixApplied": true,
+      "sourceFixAuthor": "parent PM thr_axf6i4e89t",
+      "reviewerEditedSource": false,
+      "resolutionEvidence": ["修后V2RouteSession.ts:66-68 同时证明经营配对存在和权威全集唯一", "修后V2RouteSession.ts:71-75,90-94 新计划复用修后商家键", "修后V2RouteSession.ts:196-197 新恢复重建同一规范Stops并逐字段/成员比对"],
+      "resolutionBoundary": "原fail及静态反例保留作历史；该缺口仅完成静态规格复审，不代表反例或游戏运行验证通过。"
+    }
+  ],
+  "sourceSHA": {
+    "algorithm": "SHA-256",
+    "primary": {
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "73d4daea391b506dd38f0fcd25fb04d9ae387e5aa07a148b42bf2699c7839a5e",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameSession.ts": "2ff12cb7cb96d334d54c76ee68bd2db711e7ea21264585ef9b02c0480c78ecac",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2TripRules.ts": "6ede7a45eed46a1875e187d1f728e045f44db82de6f7d83a685131d9e6093c16"
+    },
+    "contextDependencies": {
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "bb6dc40f960f5867b96bf9eeaad218d8d6a9d2aa648b53ce34aa0afcff892d81",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameUI.ts": "6ee10985eafe1cf86af61cad1605cd617edafd0e27a40bc274994f09ba2e3684",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeStore.ts": "f9b4fd66220bf3cb512399a3be88bf3704395989555396d6d1359701e7a1de23",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2DispatchSession.ts": "adbc39af0f133714df647a0e8df78789171efbec94468d227557001ddf422a6a",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2EconomySession.ts": "a5a5288bcfbeff4cf93a9a6ce6b86ebfd7690579a5efeb12d8ce7e310b2104ae",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/domain/V2FleetSession.ts": "1e1ccd5242762260213f8744c3cddf4328bbe35b100a0fba779e4c9cd7facb3a",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/RoadRouter.ts": "fa739698913092f025f1c98ec6882c675c1554e43d1ce6309b06241715a25690",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/rewards-v2/RewardSession.ts": "8efdff34d0f3214a69922b9ef2b8cdd86672f1631a26b8962dc18e6efea07f7f"
+    },
+    "note": "primary为修后定向复审最新三目标SHA，初审SHA完整保存在reviewHistory。Game/Trip与初审相同；Route只变化merchantKey及其注释，经源码文本逆替换哈希恢复初审SHA确认。contextDependencies和漂移记录保留初审上下文证据，不代表并行依赖最新文件；不得将本结论套用后续源码变更或第6节。",
+    "contextDependencyDriftAtClose": [
+      {
+        "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+        "disposition": "交还前SHA与已读版本不同；只保留已读SHA作为上下文证据，未追审其他owner后续UI改动。此为依赖后续变动，不算A规格新缺陷或已通过的UI验收。"
+      }
+    ]
+  },
+  "legacySources": {
+    "RouteSession": {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/temp/programming/packer-driver/targets/editor/chunks/4a/4aac077890d7a9171c6a9e27cfc8c63703e38531.js.map",
+      "fileSHA256": "6791d05ed294e61148ecfabd77d01515b2f688cf7613a3f49a84a6d48c7a8e13",
+      "sourcesContentSHA256": "9ec08021d1e3d8946ec41201071b4285952889f0dda752a68ca695ab0d356515",
+      "gateLines": "140-151"
+    },
+    "GameSession": {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/temp/programming/packer-driver/targets/editor/chunks/8a/8a2aa821425f85b7718846c89d02831cc644a3b5.js.map",
+      "fileSHA256": "fdfa98138194431d1b6b832096081a5a1e6462c9dd4ee1b03ab8edb2f62e3054",
+      "sourcesContentSHA256": "41a0d0348a5ceb24dbbad657bf939955fd4d41ff73b66f63e4cdfb9b7a573309",
+      "gateLines": "89-100"
+    },
+    "oldCandidateCrossCheck": {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/build/v2-candidate/assets/main/index.22b1d.js",
+      "sha256": "40d800692ab9e7fb1a9444e207f5e9d93188ae3c6cce67836a0d1c9229e6ab2c",
+      "lines": [105, 117],
+      "note": "只读取旧Game3/Route1编译模块恢复分支作历史代码交叉比对；未打开或执行旧候选，不代表新A源码构建。"
+    }
+  },
+  "deferredCases": [
+    {"id": "D01", "category": "unexecuted", "case": "同店/异店/同名异节点/同节点异名/空名/权威全集重复但经营子集唯一/仅非经营配对，以及组预算/总容量/有向跨站不可达。A-SPEC-01修后定向静态复审已完成；这些运行案例仍全部未执行，待阶段授权。"},
+    {"id": "D02", "category": "unexecuted", "case": "组pickup体力0、介于0和1、恰好1；未知/重复/已取/已送ID整组拒绝；未扣点及已扣点半程恢复、免费休息后继续，不重复扣点。"},
+    {"id": "D03", "category": "unexecuted", "case": "手动ready长尾截断、空等后继续、重复继续、补给action门禁、NPC独立经营、逐单顾客自动交付。"},
+    {"id": "D04", "category": "unexecuted", "case": "自动许可精确结束于到店、pickup服务结束ready、dropoff结束和跨批边界；零余秒不多代点、无授权补给停止不多扣权益。"},
+    {"id": "D05", "category": "unexecuted", "case": "旧Game3/Route1在idle/planned/道路中/取餐等待/未扣点/已扣半程/部分送达/finished升级；保持旧序、腿、位置、门闩、token、期限与已得钱经验；旧Game1/2及未来/错配版本拒绝边界。未用任何档执行。"},
+    {"id": "D06", "category": "unexecuted", "case": "新ready/finished/arrivals非法字段、缓存命中下输入legs改动仍拒绝、同一slot提交失败与并发writer失败不发布候选。这里只列未来案例，不进行故障注入。"},
+    {"id": "D07", "category": "unexecuted", "case": "后台/暂停/恢复首帧不补跑，ready及道路边中/腿末/零长度腿取消保位置；实际UI补给入口可见可用。"},
+    {"id": "D08", "category": "known-existing-gap-outside-A", "case": "第6节NPC帧内事件时点/新额度起算时刻/粗帧与拆帧一致性尚未在本审查的Game源码实现。不是A新回归，不据此否决第1—5节，也不称已经解决。"},
+    {"id": "D09", "category": "separate-stage", "case": "独立代码质量审查、类型/编译/性能/游戏验证、必要构建与部署均不在本规格审查中；用户问题关闭与98%验收由PM/用户另行负责。"},
+    {"id": "D10", "category": "out-of-scope", "case": "地图素材生产/加工、拼接配准、建筑道路街段、地图数据与边界修复全部属于独立地图线，未执行、未派工、不作为产品规格门禁。UI routeViewKey既有修复已见tripId，不归为A发现。"}
+  ],
+  "handoff": {
+    "readOnlyScopeReleased": true,
+    "needsPMAction": "A-SPEC-01修后定向规格复审完成，本范围无剩余规格阻塞；已释放只读范围，由父PM另派独立质量审查。审查者只更新两份报告，不代替质量或运行审查，不关闭用户反馈。",
+    "reports": [
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-05-game-development/logic/core-loop/review-round2/spec.json",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-05-game-development/logic/core-loop/review-round2/spec.md"
+    ]
+  }
+}

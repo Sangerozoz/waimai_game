@@ -1,0 +1,162 @@
+--- a/delivery-game/assets/scripts/map-sample/V2GameUI.ts
++++ b/delivery-game/assets/scripts/map-sample/V2GameUI.ts
+@@ -318,35 +318,85 @@
+  private riders():void {
+   const s=this.state;
+   if(this.configureRider){this.vehicleConfiguration(this.configureRider);return;}
+-  const gap=L.riderRowGap,cardW=columnWidth(2,gap),cardH=L.riderCardHeight,rowStep=cardH+gap,innerW=cardW-2*S.card,buttonW=(innerW-S.gap)/2;
+-  const c=this.scrolling('riders',M.y(L.riderTop),M.y(L.riderBottom),Math.ceil(31/2)*rowStep);
+-  for(let i=0;i<31;i++){
+-   const id=i===0?'hero':`npc-${i}`,r=s.riders.find(r=>r.id===id),x=(i%2===0?-1:1)*(cardW+gap)/2,y=-cardH/2-Math.floor(i/2)*rowStep;
+-   const card=this.card(c,'Rider-'+id,x,y,cardW,cardH);portrait(card,i,-cardW/2+S.card+49,r&&i>0?23:5,98,r&&i>0?116:144);
+-   const nameLabel=label(card,i===0?'我':`骑手 ${i}`,r&&i>0?-12:13,61,r&&i>0?22:26,INK,r&&i>0?66:116,true,'left');
+-   if(i>0)portraitDisplayName(id).then(name=>{if(name&&isValid(nameLabel,true))nameLabel.string=name;});
+-   if(i===0)levelBadge(card,`Lv.${experienceProgress(s.heroExperience).level}`,115,61);
+-   else if(r){levelBadge(card,`Lv.${r.level}`,52,61,48);this.riderStatuses.set(id,statusBadge(card,'待命',120,61,true,66));}
+-   else {statusBadge(card,'未招募',115,61);levelBadge(card,'Lv.1',-13,29,58,25);}
+-   if(i===0){const xp=experienceProgress(s.heroExperience);label(card,`经验 ${xp.current}/${xp.required}`,58,24,19,INK,192,false,'left');panel(card,'XPTrack',58,-6,192,12,'#AECBE7');panel(card,'XPFill',58-96*(1-xp.progress),-6,Math.max(2,192*xp.progress),10,UI.blue,UI.blue);}
+-   else {
+-    const e=riderEffects(id,r?.level??1);
++  const gap=L.riderRowGap,cardW=columnWidth(2,gap),innerW=cardW-2*S.card,buttonW=(innerW-S.gap)/2;
++  const portraitX=-cardW/2+S.card+46,infoLeft=-cardW/2+S.card+92+S.imageText,infoW=cardW/2-S.card-infoLeft,infoX=infoLeft+infoW/2;
++  const percent=(value:number)=>Number((value*100).toFixed(1));
++  // Keep exact money and readable fonts; long real values grow only their grid row.
++  const wrappedExtra=(value:string,size:number,width:number)=>Math.max(0,textHeight(value,size,width)-textHeight('字',size,width));
++  const cards=Array.from({length:31},(_,i)=>{
++   const id=i===0?'hero':`npc-${i}`,r=s.riders.find(r=>r.id===id);
++   const hire=i>0&&!r?riderHireQuote(id):null,upgrade=i>0&&r?riderUpgradeQuote(id,r.level):null;
++   const rows:{value:string;color:string;height:number}[]=[];
++   if(i===0){
++    const xp=experienceProgress(s.heroExperience);rows.push({value:`经验 ${xp.current}/${xp.required}`,color:INK,height:0});
++   }else {
++    const e=riderEffects(id,r?.level??1),income=`收入加成 +${percent(e.incomeFactor-1)}%`,saving=`取送省时 ${percent(e.fixedServiceReduction)}%`;
+     if(r){
+      const today=s.ledger.entries.filter(entry=>entry.category==='npc_delivery'&&entry.dayKey===this.runtime.ledgerQuery.todayDayKey&&entry.detail.riderId===id).reduce((n,entry)=>n+entry.amountCents,0);
+-     glyph(card,'coin',-30,27,23);label(card,`今日收入 ${coins(today)}`,72,27,19,'#FF7800',168,true,'left');
+-     glyph(card,'clock',-30,0,20);label(card,`作业耗时 ${Math.round((1-e.fixedServiceReduction)*100)}%`,73,0,17,INK,170,true,'left');
+-     glyph(card,'coin-stack',-30,-24,20);label(card,`收入加成 +${Math.round((e.incomeFactor-1)*100)}%`,73,-24,17,INK,170,true,'left');
+-    }else {
+-     glyph(card,'clock',-30,0,20);label(card,`作业耗时 ${Math.round((1-e.fixedServiceReduction)*100)}%`,73,0,17,INK,170,true,'left');
+-     glyph(card,'coin-stack',-30,-27,20);label(card,`收入加成 +${Math.round((e.incomeFactor-1)*100)}%`,73,-27,17,INK,170,true,'left');
+-    }
++     rows.push({value:`今日收入 ${coins(today)}`,color:'#FF7800',height:0},{value:income,color:INK,height:0},{value:saving,color:INK,height:0});
++    }else rows.push({value:income,color:INK,height:0},{value:saving,color:INK,height:0},{value:`价格 ${coins(hire!.priceCents)}金币`,color:'#FF7800',height:0});
+    }
++   rows.forEach(row=>{row.height=26+wrappedExtra(row.value,20,infoW);});
++   const upgradeText=upgrade?`升级骑手 ${coins(upgrade.costCents)}`:'已满级';
++   const buttonHeight=38+(i>0&&r?wrappedExtra(upgradeText,22,buttonW-10):0);
++   return {i,id,r,hire,upgrade,upgradeText,rows,buttonHeight,height:L.riderCardHeight+rows.reduce((n,row)=>n+row.height-26,0)+buttonHeight-38};
++  });
++  const rowHeights=Array.from({length:Math.ceil(cards.length/2)},(_,row)=>Math.max(...cards.slice(row*2,row*2+2).map(card=>card.height)));
++  const rowTops:number[]=[];let contentHeight=0;rowHeights.forEach(height=>{rowTops.push(contentHeight);contentHeight+=height+gap;});
++  const c=this.scrolling('riders',M.y(L.riderTop),M.y(L.riderBottom),contentHeight);
++  cards.forEach(({i,id,r,hire,upgrade,upgradeText,rows,buttonHeight})=>{
++   const row=Math.floor(i/2),cardH=rowHeights[row],x=(i%2===0?-1:1)*(cardW+gap)/2;
++   const card=this.card(c,'Rider-'+id,x,-rowTops[row]-cardH/2,cardW,cardH);
++   portrait(card,i,portraitX,cardH/2-(i===0?85:57),92,i===0?144:104);
++   this.riderIdentity(card,id,i===0?experienceProgress(s.heroExperience).level:r?.level??1,infoLeft,cardH/2-26);
++   if(i>0){
++    const status=statusBadge(card,r?'待命':'未招募',portraitX,cardH/2-125,!!r,100,24);
++    status.fontSize=18;status.lineHeight=23;status.enableWrapText=false;status.overflow=Label.Overflow.CLAMP;status.node.getComponent(UITransform)!.setContentSize(92,24);
++    if(r)this.riderStatuses.set(id,status);
++   }
++   if(i===0){
++    const xp=experienceProgress(s.heroExperience),line=rows[0],trackY=cardH/2-98-(line.height-26);
++    this.riderLine(card,line.value,infoX,cardH/2-51-line.height/2,infoW,line.height);
++    panel(card,'XPTrack',infoX,trackY,infoW,12,'#AECBE7');panel(card,'XPFill',infoX-infoW/2*(1-xp.progress),trackY,Math.max(2,infoW*xp.progress),10,UI.blue,UI.blue);
++   }else {
++    let top=cardH/2-47;rows.forEach(line=>{this.riderLine(card,line.value,infoX,top-line.height/2,infoW,line.height,20,line.color);top-=line.height+3;});
++   }
++   const buttonY=-cardH/2+3+buttonHeight/2;
+    if(r){
+-    action(card,'配置车辆',i===0?58:-(buttonW+S.gap)/2,-cardH/2+S.buttonEdge+19,i===0?192:buttonW,38,()=>this.act(()=>{this.configureRider=id;}),true,false);
+-    if(i>0){const q=riderUpgradeQuote(id,r.level);action(card,q?`升级骑手 ${q.costCents/100}`:'已满级',(buttonW+S.gap)/2,-cardH/2+S.buttonEdge+19,buttonW,38,()=>{if(q)this.showUpgrade('升级骑手',`等级 ${r.level} → ${q.nextLevel}\n培养收入 +${Math.round((q.current.trainingIncomeFactor-1)*100)}% → +${Math.round((q.next.trainingIncomeFactor-1)*100)}%\n取送服务耗时减少 ${Math.round(q.current.fixedServiceReduction*100)}% → ${Math.round(q.next.fixedServiceReduction*100)}%`,q.costCents,()=>this.runtime.command({type:'upgradeRider',riderId:id}));},!!q);}
+-   }else {const q=riderHireQuote(id);action(card,`招募 ${q.priceCents/100}金币`,58,-cardH/2+S.buttonEdge+19,192,38,()=>this.act(()=>this.runtime.command({type:'hireRider',riderId:id})),s.hireCount<30);}
+-  }
++    this.riderAction(card,'配置车辆',i===0?infoX:-(buttonW+S.gap)/2,buttonY,i===0?infoW:buttonW,buttonHeight,()=>this.act(()=>{this.configureRider=id;}),true,false);
++    if(i>0)this.riderAction(card,upgradeText,(buttonW+S.gap)/2,buttonY,buttonW,buttonHeight,()=>{if(upgrade)this.showUpgrade('升级骑手',`等级 ${r.level} → ${upgrade.nextLevel}\n培养收入 +${percent(upgrade.current.trainingIncomeFactor-1)}% → +${percent(upgrade.next.trainingIncomeFactor-1)}%\n取送省时 ${percent(upgrade.current.fixedServiceReduction)}% → ${percent(upgrade.next.fixedServiceReduction)}%`,upgrade.costCents,()=>this.runtime.command({type:'upgradeRider',riderId:id}));},!!upgrade&&s.cashCents>=upgrade.costCents);
++   }else if(hire)this.riderAction(card,'招募',infoX,buttonY,infoW,buttonHeight,()=>this.act(()=>this.runtime.command({type:'hireRider',riderId:id})),s.hireCount<30&&s.cashCents>=hire.priceCents);
++  });
+   this.refreshRiderStatuses();
++ }
++
++ private riderLine(parent:Node,value:string,x:number,y:number,width:number,height:number,size=20,color=INK):Label {
++  const text=label(parent,value,x,y,size,color,width,true,'left');text.enableWrapText=true;text.lineHeight=size*S.lineHeight;text.overflow=Label.Overflow.CLAMP;
++  text.node.getComponent(UITransform)!.setContentSize(width,height);return text;
++ }
++ private riderAction(parent:Node,value:string,x:number,y:number,width:number,height:number,fn:()=>void,enabled=true,primary=true):void {
++  const button=action(parent,value,x,y,width,height,fn,enabled,primary),text=button.getComponentInChildren(Label)!;
++  text.fontSize=22;text.lineHeight=22*S.lineHeight;text.enableWrapText=true;text.overflow=Label.Overflow.CLAMP;
++  text.node.getComponent(UITransform)!.setContentSize(width-10,height-6);
++ }
++ /** Measure again after the real portrait name arrives; Lv follows the ink, never a fixed remote slot. */
++ private riderIdentity(parent:Node,id:string,level:number,left:number,y:number,size=26):void {
++  const name=label(parent,id==='hero'?'主角':`骑手 ${id.slice(4)}`,0,y,size,INK,1,true,'left');
++  const marker=item(parent,'RiderInlineLevel',0,y,0,24),levelText=label(marker,`Lv.${level}`,0,0,16,'#FFFFFF',1,true,'center');
++  levelText.enableWrapText=false;levelText.overflow=Label.Overflow.NONE;levelText.updateRenderData(true);
++  const badgeW=Math.max(48,Math.ceil(levelText.node.getComponent(UITransform)!.width)+8);
++  const background=panel(marker,'LevelBadge',0,0,badgeW,24,UI.blue,UI.blue);background.setSiblingIndex(0);
++  levelText.overflow=Label.Overflow.CLAMP;levelText.lineHeight=21;levelText.node.getComponent(UITransform)!.setContentSize(badgeW-8,24);
++  marker.getComponent(UITransform)!.setContentSize(badgeW,24);
++  const layout=(value:string)=>{
++   if(!isValid(parent,true)||!isValid(name,true)||!isValid(marker,true))return;
++   name.string=value;name.enableWrapText=false;name.overflow=Label.Overflow.NONE;name.lineHeight=size*S.lineHeight;name.updateRenderData(true);
++   const width=name.node.getComponent(UITransform)!.width;
++   name.overflow=Label.Overflow.CLAMP;name.node.getComponent(UITransform)!.setContentSize(width,Math.ceil(size*1.4));
++   name.node.setPosition(left+width/2,y);marker.setPosition(left+width+6+badgeW/2,y);
++  };
++  layout(name.string);
++  if(id!=='hero')void portraitDisplayName(id).then(value=>{if(value)layout(value);});
+  }
+  private refreshRiderStatuses():void {
+   if(!this.riderStatuses.size)return;
+@@ -362,17 +412,16 @@
+   return vehicle.modelId==='starter'?'初始旧车':typeof vehicle.modelId==='number'?CONFIG.vehicles[vehicle.modelId-1].name:'保留车辆';
+  }
+  private riderName(parent:Node,id:string,x:number,y:number,width:number,size=23):void {
+-  const name=label(parent,id==='hero'?'我':`骑手 ${id.slice(4)}`,x,y,size,INK,width,true,'left');
++  const name=label(parent,id==='hero'?'主角':`骑手 ${id.slice(4)}`,x,y,size,INK,width,true,'left');
+   if(id!=='hero')portraitDisplayName(id).then(value=>{if(value&&isValid(name,true))name.string=value;});
+  }
+  private vehicleConfiguration(id:string):void {
+   const s=this.state,rider=s.riders.find(r=>r.id===id);
+   if(!rider){this.configureRider=null;this.riders();return;}
+-  const current=s.vehicles.find(v=>v.id===rider.vehicleId),heroBusy=!!s.activeQuote;
++  const current=s.vehicles.find(v=>v.id===rider.vehicleId),heroBusy=id==='hero'&&!!s.activeQuote;
+   const header=panel(this.body,'Rider-Configuration',0,418,CW,186);
+   portrait(header,id==='hero'?0:Number(id.slice(4)),-CW/2+S.card+52,0,104,146);
+-  this.riderName(header,id,-14,58,294,28);
+-  levelBadge(header,`Lv.${id==='hero'?experienceProgress(s.heroExperience).level:rider.level}`,CW/2-60,58,90,29);
++  this.riderIdentity(header,id,id==='hero'?experienceProgress(s.heroExperience).level:rider.level,-161,58,28);
+   label(header,current?`当前配车：${this.vehicleName(current)} · Lv.${current.level}`:'当前尚未配备车辆',66,13,21,INK,396,true,'left');
+   label(header,heroBusy?'请完成主角当前配送后再调整车辆':'选择已拥有的车辆，为这位骑手配备',66,-22,18,UI.muted,396,false,'left');
+   action(header,'返回骑手',-41,-64,164,40,()=>this.act(()=>{this.configureRider=null;}),true,false);
+@@ -385,7 +434,7 @@
+    const equipped=vehicle.id===rider.vehicleId,owner=s.riders.find(r=>r.id!==id&&r.vehicleId===vehicle.id);
+    // A vehicle detached from its rider can still be working an immutable fleet batch.
+    const oldBatch=s.fleetQuotes.find(q=>q.vehicleId===vehicle.id&&q.riderId!==id);
+-   const effects=vehicleEffects(vehicle),quote=vehicleUpgradeQuote(vehicle);
++   const effects=vehicleEffects(vehicle),quote=vehicleUpgradeQuote(vehicle),heroVehicleBusy=!!s.activeQuote&&s.riders[0].vehicleId===vehicle.id;
+    const card=panel(list,'Vehicle-Instance-'+i,0,-cardH/2-i*step,CW,cardH,'#EFFAFF',equipped?'#FF8A00':UI.line);
+    const pictureW=230,pictureX=-CW/2+S.card+pictureW/2,textLeft=-CW/2+S.card+pictureW+S.imageText,textW=CW/2-S.card-textLeft;
+    const fallback=label(card,'车型图片载入中',pictureX,19,18,UI.muted,pictureW,false,'center');
+@@ -405,7 +454,7 @@
+    action(card,equipped?'已配备':owner?'已占用':oldBatch?'旧批次中':'配备车辆',textLeft+buttonW/2,buttonY,buttonW,44,()=>this.act(()=>this.runtime.command({type:'assignVehicle',riderId:id,vehicleId:vehicle.id})),!equipped&&!owner&&!oldBatch&&!heroBusy,false);
+    action(card,quote?'升级车辆':'已满级',textLeft+buttonW+S.gap+buttonW/2,buttonY,buttonW,44,()=>{
+     if(quote)this.showUpgrade('升级车辆',`等级 ${vehicle.level} → ${quote.nextLevel}\n速度 ×${quote.current.speedRelativeToStarter.toFixed(2)} → ×${quote.next.speedRelativeToStarter.toFixed(2)}\n容量 ${quote.current.capacityKg.toFixed(1)} → ${quote.next.capacityKg.toFixed(1)} kg\n收入加成 +${Math.round((quote.current.incomeFactor-1)*100)}% → +${Math.round((quote.next.incomeFactor-1)*100)}%`,quote.costCents,()=>this.runtime.command({type:'upgradeVehicle',vehicleId:vehicle.id}));
+-   },!!quote&&!heroBusy);
++   },!!quote&&!heroVehicleBusy&&s.cashCents>=quote.costCents);
+   });
+  }
+ 
+--- a/delivery-game/assets/scripts/map-sample/V2Spacing.ts
++++ b/delivery-game/assets/scripts/map-sample/V2Spacing.ts
+@@ -7,7 +7,7 @@
+ 
+ /** Approved master measurements projected into the 720×1280 canvas. */
+ export const V2_LAYOUT={
+- riderCardHeight:166,riderRowGap:10,riderTop:120,riderBottom:1431,
++ riderCardHeight:180,riderRowGap:8,riderTop:120,riderBottom:1431,
+  vehicleTileHeight:194,vehicleRowStep:205,
+  mapHeight:202,mapRowStep:215,mapInset:4,
+ };

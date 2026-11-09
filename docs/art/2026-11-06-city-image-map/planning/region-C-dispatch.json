@@ -1,0 +1,52 @@
+{
+  "threadId": "thr_gje67q2cgt",
+  "providerReadback": "acp-hermes-agent",
+  "modelExplicit": "openai-api:gpt-6.1-sol",
+  "effortRequested": "high",
+  "statusReadback": "active",
+  "instructionReadback": true,
+  "approvedRequestSHA256": "dbee85566d237837ddb3b0fe3910fd405c2ab377158dc698887c397712ff5e34",
+  "dispatch": {
+    "threadId": "thr_gje67q2cgt",
+    "ok": true,
+    "delivery": "sent",
+    "mode": "auto"
+  },
+  "temporaryModeContinuousRenewal": {
+    "id": "_bb/legacy-mode",
+    "label": "Mode",
+    "description": null,
+    "category": "mode",
+    "type": "select",
+    "value": "accept_edits",
+    "pendingValue": null,
+    "values": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Ask before edits.",
+        "group": null
+      },
+      {
+        "id": "accept_edits",
+        "label": "Accept Edits",
+        "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+        "group": null
+      },
+      {
+        "id": "dont_ask",
+        "label": "Don't Ask",
+        "description": "Auto-allow file edits for this session except sensitive paths.",
+        "group": null
+      }
+    ]
+  },
+  "originalModeToRestore": "default",
+  "newNativeRequestsAllowed": 1,
+  "scope": [
+    "regions/C-001",
+    "compact-three-v1"
+  ],
+  "inputTechnicalGateIndependentlyVerified": "A2-B1 official Tiled raster exact to native crops; fresh evidence/image SHAs match; connected graph; actual capture inspected",
+  "CNativeRequestOrResultClaimed": false
+}

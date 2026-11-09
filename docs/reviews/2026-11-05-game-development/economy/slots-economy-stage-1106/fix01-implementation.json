@@ -1,0 +1,301 @@
+{
+  "task": "SLOTS-FIX01",
+  "status": "implemented-in-existing-stage-only-awaiting-independent-review",
+  "appliedToLive": false,
+  "firstActualWrite": {
+    "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts",
+    "beforeSHA256": "1f6a3ba97d5c86af8a57745b329dbcc8954648429f5838e7de8560656aaf1389",
+    "afterSHA256": "b34bcdcf9df928b623298f8c865fca3e65f572bc7bd9d1a0c0895398dc5bec61",
+    "normalPatchSuccess": true,
+    "nativeMode": "accept_edits",
+    "pendingValue": null
+  },
+  "changedSourceCount": 5,
+  "sourceAnchors": {
+    "domain/V2FleetSession.ts": {
+      "private validate():void": [
+        48
+      ],
+      "在途车辆被其他人物或主角合同占用": [
+        56
+      ],
+      "advanceTo(nowMs:number)": [
+        103
+      ]
+    },
+    "domain/V2EconomySession.ts": {
+      "export interface V2DeliveryEffects": [
+        14
+      ],
+      "get hasEquippedVehicle": [
+        225
+      ],
+      "get nextBatchEffects": [
+        226
+      ],
+      "deliveryEffectProjection(": [
+        229
+      ],
+      "vehicleEffectProjection(": [
+        237
+      ],
+      "riderEffectProjection(": [
+        240
+      ],
+      "enableSlots():void": [
+        244
+      ],
+      "acceptSlotBatch(": [
+        299
+      ]
+    },
+    "domain/V2DispatchSession.ts": {
+      "get hasEquippedVehicle": [
+        58
+      ],
+      "get deliveryEffects": [
+        59
+      ],
+      "get nextBatchEffects": [
+        60
+      ],
+      "vehicleEffectProjection(": [
+        61
+      ],
+      "riderEffectProjection(": [
+        62
+      ],
+      "private transact<T>": [
+        69
+      ],
+      "private validate():void": [
+        163
+      ],
+      "static restore(": [
+        188
+      ]
+    },
+    "map-sample/V2GameSession.ts": {
+      "get nextBatchEffects": [
+        29
+      ],
+      "get deliveryEffects": [
+        30
+      ],
+      "normalCandidates(": [
+        34,
+        118
+      ],
+      "specialCandidate(": [
+        35
+      ],
+      "tick(sequence:": [
+        90
+      ],
+      "this.dispatch.hasEquippedVehicle": [
+        34,
+        35,
+        107
+      ],
+      "static restore(": [
+        138
+      ]
+    },
+    "map-sample/V2RuntimeController.ts": {
+      "get deliveryEffects": [
+        163
+      ],
+      "get nextBatchEffects": [
+        165
+      ],
+      "vehicleEffects(vehicleId": [
+        166
+      ],
+      "riderEffects(riderId": [
+        167
+      ],
+      "private mutate<T>": [
+        124
+      ],
+      "private drive(": [
+        229
+      ]
+    }
+  },
+  "issues": {
+    "SLOTS-P2-RESERVATION-01": {
+      "evidence": "quality-part2-fail.json:7-18; original Fleet.validate:48-68",
+      "change": "Unconditional cross-owner and hero-activeQuote reservation guard at Fleet:56, using captured e; owner future null/idle vehicle preserved.",
+      "classification": "inherited restoration gap; not evidence of a live duplicate-vehicle incident"
+    },
+    "SLOTS-P2-PERF-01": {
+      "evidence": "quality-part2-fail.json:23-31; original Game:30-38 and Runtime:163-167",
+      "change": "Private-authority Economy projections; detached nested capacity; Dispatch scalar-ID delegation, Game/Runtime readers rewired.",
+      "classification": "new source-level allocation cost removed only from this read chain; no profiling claim"
+    }
+  },
+  "hotReadCounts": {
+    "meaning": "conditional source-level getter entry counts per reached read, not measured frequency or JSON-pass counts",
+    "rows": [
+      {
+        "reader": "Game.deliveryEffects signed",
+        "oldEconomyStateReads": 1,
+        "oldDispatchSnapshotReads": 1,
+        "newEconomyStateReads": 0,
+        "newDispatchSnapshotReads": 0
+      },
+      {
+        "reader": "Game.deliveryEffects unsigned",
+        "oldEconomyStateReads": 2,
+        "oldDispatchSnapshotReads": 1,
+        "newEconomyStateReads": 0,
+        "newDispatchSnapshotReads": 0
+      },
+      {
+        "reader": "Runtime.deliveryEffects signed / unsigned",
+        "oldEconomyStateReads": [
+          2,
+          3
+        ],
+        "oldDispatchSnapshotReads": 1,
+        "newEconomyStateReads": 0,
+        "newDispatchSnapshotReads": 0
+      },
+      {
+        "reader": "Game.nextBatchEffects / Runtime.nextBatchEffects",
+        "oldEconomyStateReads": [
+          1,
+          2
+        ],
+        "oldDispatchSnapshotReads": 0,
+        "newEconomyStateReads": 0,
+        "newDispatchSnapshotReads": 0
+      },
+      {
+        "reader": "Runtime.vehicleEffects or riderEffects",
+        "oldEconomyStateReads": 1,
+        "oldDispatchSnapshotReads": 0,
+        "newEconomyStateReads": 0,
+        "newDispatchSnapshotReads": 0
+      },
+      {
+        "reader": "normalCandidates / specialCandidate / auto existence check, each reached check",
+        "oldEconomyStateReads": 1,
+        "oldDispatchSnapshotReads": 0,
+        "newEconomyStateReads": 0,
+        "newDispatchSnapshotReads": 0
+      }
+    ]
+  },
+  "staticAssertions": {
+    "Fleet_only_two_required_guard_lines_added": true,
+    "Fleet_advance_and_event_calendar_identical": true,
+    "Economy_all_existing_validators_prices_and_quote_functions_identical": true,
+    "Economy_all_commands_quotes_ledger_and_serialization_tail_identical": true,
+    "Dispatch_all_transactions_clocks_restore_and_validation_identical": true,
+    "Game_acceptance_ETA_food_supply_settlement_identical": true,
+    "Game_tick_only_existence_read_replaced": true,
+    "Game_complete_restore_identical": true,
+    "Runtime_mutate_validate_commit_publish_identical": true,
+    "Runtime_quote_methods_lifecycle_and_30Hz_identical": true,
+    "Runtime_effects_no_economyState": true,
+    "Economy_projections_no_full_clone_clock_draft_or_storage": true,
+    "Dispatch_effects_same_pending_selection_without_snapshot": true,
+    "Frozen_capacity_constructed_not_aliased": true,
+    "Game_no_car_errors_preserved": true,
+    "Five_only_stage_source_changes": true,
+    "ReadOnlyDependenciesParametersUIAndSkinUnchanged": true,
+    "OriginalManifestsDiffContractsAndReportsUnchanged": true,
+    "LiveSourcesUnchanged": true,
+    "ExactDeltaForwardAndReverseReconstructFiveSources": true,
+    "ExactFullDiffForwardAndReverseReconstructTenSources": true,
+    "Game_effect_getters_no_full_snapshot_or_economyState": true
+  },
+  "residualCosts": [
+    "Runtime.mutate仍从committed完整Game.restore，候选完整serialize后再restore校验，commit成功才publish；30Hz与生命周期驱动未改。",
+    "Dispatch.transact仍完整serialize/restore、Fleet.syncHeroCompletions及validate；Fleet.atomic/advanceTo仍有完整恢复、经济替换及归日/逐笔结算。",
+    "Game.tick帧前/finish、候选历史占用、具体订单/补给/HUD/账单等需要完整对象的snapshot/state读取仍在。Game直接dispatch.snapshot调用点16→15，只移除了效果getter内那一处。",
+    "旧pending选择仍线性查Dispatch.orders并检查batchIds，Economy仍查拥有实例及activeQuotes，纯Profiles仍查参数行；未引入全局缓存。",
+    "Route完整authoritative legs恢复/比较、position线段遍历、UI全对象消费及资源成本未动。U01/U02未结案，未测耗时/FPS，不宣称现场卡顿根因或性能PASS。"
+  ],
+  "deferredCases": [
+    {
+      "id": "RESERVE-LEGACY-SLOT",
+      "case": "分别旧kg、slots以及混合容器中，NPC在途B被其他NPC或hero当前配车占用，应在Fleet恢复拒绝。"
+    },
+    {
+      "id": "RESERVE-HERO-QUOTE",
+      "case": "NPC在途B与hero activeQuotes车辆B交叉使用应拒绝；不改双方合同或修复状态。"
+    },
+    {
+      "id": "RESERVE-OWNER-FUTURE",
+      "case": "原NPC owner未来仍选B、卸为null、改为空闲C均继续合法；paidCount/dueMs/等级/账本不改。"
+    },
+    {
+      "id": "RESERVE-PARTIAL-END",
+      "case": "部分paid仍保留旧车，最后一笔完成后沿原批移除/配车限制释放；跨NPC互换旧保留车不合法。"
+    },
+    {
+      "id": "FROZEN-VERSUS-NEXT",
+      "case": "slots旧活批效果取冻结terms，kg旧活批走旧公式；未来升级/配车仅下一未签批及当前资产展示更新。"
+    },
+    {
+      "id": "QUERY-NULL-ERROR",
+      "case": "Runtime未就绪/销毁/无车null，未知实例/未知NPC/hero rider效果null；Game无车两getter仍抛原错误，候选[]/null及自动停止保持。"
+    },
+    {
+      "id": "QUERY-ALIAS",
+      "case": "调用者修改返回外层或嵌套capacity后，再读效果和序列化应不受影响；本批不执行DTO。"
+    },
+    {
+      "id": "QUERY-PENDING-ORDER",
+      "case": "合法组合中Economy.activeQuotes与Dispatch.orders排序不同时，仍按原Dispatch首个pending选冻结合同，不改用activeQuote首项。"
+    },
+    {
+      "id": "QUERY-PURITY",
+      "case": "重复轮询不得变更序列化字节、时钟、draw、draft、存储或推进；报价current/next/null结构仍原样。"
+    },
+    {
+      "id": "TIMING-REGRESSION-DEFERRED",
+      "case": "既有NPC帧内/跨午夜/暂停/补给/ready/ETA及30Hz事务行为均留阶段集中验证，不套用历史PASS。"
+    }
+  ],
+  "automaticLSP": {
+    "kind": "automatic-editor-feedback-only",
+    "activeTypecheckRun": false,
+    "shellLinter": "skipped; LSP handles .ts",
+    "fleetPatch": "success; no lsp_diagnostics field returned",
+    "fourSourcePatch": {
+      "Dispatch": [
+        "2307: isolated stage missing V2Ledger/V2TripRules/RewardSession",
+        "7006: existing callback parameters reported implicit any",
+        "2551/2339: receipt baseIncomeCents/lateGameSeconds/damage/lateRetain/damageRetain/ratingDelta unresolved"
+      ],
+      "Game": [
+        "2307: isolated stage missing V2TripRules/V2SupplyCatalog/MapTypes/FoodCatalog",
+        "7006: callback parameters reported implicit any",
+        "2339: receipt ratingDelta unresolved"
+      ],
+      "Runtime": [
+        "2307: isolated stage missing cc/MapTypes/RewardSession/V2RuntimeStore",
+        "7006: callback parameters reported implicit any",
+        "2571/18046: unknown values in batchSummary",
+        "tool ended with ... and 3 more; those diagnostics were not expanded"
+      ]
+    },
+    "selectorFollowupPatch": "success; no new diagnostics field returned; not proof prior diagnostics cleared",
+    "interpretation": "No compiler/run PASS. Did not copy missing dependencies, suppress diagnostics or widen types to any."
+  },
+  "notPerformed": [
+    "TS/App/DTO execution",
+    "tests/typecheck/regression",
+    "build/Creator/browser",
+    "game commands, purchases, upgrades, hiring or accepting orders",
+    "fault injection or real/synthetic saved states",
+    "commit/push",
+    "new Agent/Provider/Codex",
+    "mode/configuration edits"
+  ],
+  "reviewGate": "Original PART1/UI PASS remain historical SHA-bound; Economy projection, five-file delta and new UI dependency binding still require parent independent gates.",
+  "lease": "Stop writing at final handback; PM restores Default. Native mode was read only, not changed by author."
+}

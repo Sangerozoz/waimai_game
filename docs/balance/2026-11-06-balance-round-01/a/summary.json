@@ -1,0 +1,5528 @@
+{
+  "status": "first-round-model-complete; production-not-edited; not player/balance acceptance",
+  "command": "\"/Users/sanger/.hermes/node/bin/node\" \"/Users/sanger/Documents/ChatGPT/taptap 2/docs/balance/2026-11-06-balance-round-01/a/run-model.cjs\" \"--candidates\"",
+  "modelSHA256": "9d2f23996e2f5f2a880d08e1db6366efe47a2ad7b17e302ed616384b578ff901",
+  "runs": [
+    {
+      "id": "production/representative-100m/squad-first/regular/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 1370.8,
+          "heroOrders": 83,
+          "npcOrders": 29,
+          "heroOrdersPerMinute": 4.15,
+          "allOrdersPerMinute": 5.6,
+          "heroQuotedGrossCoins": 1947.52,
+          "heroReceivedCoins": 1947.52,
+          "npcReceivedCoins": 649.28,
+          "totalReceivedCoins": 2596.8,
+          "operatingNetCoins": 2590.8,
+          "operatingNetCoinsPerMinute": 129.54000000000002,
+          "cashChangeCoins": 1270.8,
+          "heroMeanReceivedCoins": 23.464096385542167,
+          "npcMeanReceivedCoins": 22.388965517241378,
+          "npcIncomeShare": 0.25003080714725817,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 6
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 43.79999999999961,
+          "quotaMs": 1186936,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 6960000,
+          "quotaClippedMs": 4823564,
+          "quotaConsumedMs": 949500,
+          "quotaUtilizationOfAdded": 0.13642241379310344,
+          "quotaNoWorkSeconds": 250.49999999999994,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9923076923076923,
+          "meanOrdersPerBatch": 1.8478260869565217,
+          "acceptedOrders": 85,
+          "batchCount": 46,
+          "roadMetres": 14800,
+          "travelSeconds": 336.13636263636346,
+          "manualSeconds": 607,
+          "supplySeconds": 6,
+          "firstCar": {
+            "seconds": 170.50002799999993,
+            "heroOrders": 10,
+            "cashCents": 0
+          },
+          "firstNPC": {
+            "seconds": 250.5000409999999,
+            "heroOrders": 15,
+            "cashCents": 0
+          },
+          "threeEquipped": {
+            "seconds": 725.7183078181811,
+            "heroOrders": 49,
+            "cashCents": 6410
+          },
+          "phase": "ready",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 8343.16,
+          "heroOrders": 258,
+          "npcOrders": 135,
+          "heroOrdersPerMinute": 4.3,
+          "allOrdersPerMinute": 6.55,
+          "heroQuotedGrossCoins": 6486.52,
+          "heroReceivedCoins": 6486.52,
+          "npcReceivedCoins": 3100.64,
+          "totalReceivedCoins": 9587.16,
+          "operatingNetCoins": 9563.16,
+          "operatingNetCoinsPerMinute": 159.386,
+          "cashChangeCoins": 8243.16,
+          "heroMeanReceivedCoins": 25.1415503875969,
+          "npcMeanReceivedCoins": 22.9677037037037,
+          "npcIncomeShare": 0.3234159021023953,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 24
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 53.399999999998826,
+          "quotaMs": 1499264,
+          "quotaCapacityMs": 1500000,
+          "quotaAddedMs": 27960000,
+          "quotaClippedMs": 23111236,
+          "quotaConsumedMs": 3349500,
+          "quotaUtilizationOfAdded": 0.1197961373390558,
+          "quotaNoWorkSeconds": 250.49999999999994,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1500000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9974424552429667,
+          "meanOrdersPerBatch": 1.9473684210526316,
+          "acceptedOrders": 259,
+          "batchCount": 133,
+          "roadMetres": 45400,
+          "travelSeconds": 1033.8636353636327,
+          "manualSeconds": 1768.1357146363705,
+          "supplySeconds": 24,
+          "firstCar": {
+            "seconds": 170.50002799999993,
+            "heroOrders": 10,
+            "cashCents": 0
+          },
+          "firstNPC": {
+            "seconds": 250.5000409999999,
+            "heroOrders": 15,
+            "cashCents": 0
+          },
+          "threeEquipped": {
+            "seconds": 725.7183078181811,
+            "heroOrders": 49,
+            "cashCents": 6410
+          },
+          "phase": "pickup",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 860.0,
+          "recoveredAtMinutes": 11.925,
+          "minutesSinceInvestment": 7.749999316666666,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 1163.52,
+          "recoveredAtMinutes": 27.601983333333333,
+          "minutesSinceInvestment": 19.27728493333333,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 1077.12,
+          "recoveredAtMinutes": 33.45896666666667,
+          "minutesSinceInvestment": 21.413661533333332,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 8,
+        "poolMax": 8,
+        "poolMean": 8,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 2
+      }
+    },
+    {
+      "id": "production/representative-100m/starter-upgrades-first/regular/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 644.86,
+          "heroOrders": 89,
+          "npcOrders": 19,
+          "heroOrdersPerMinute": 4.45,
+          "allOrdersPerMinute": 5.4,
+          "heroQuotedGrossCoins": 2194.29,
+          "heroReceivedCoins": 2185.26,
+          "npcReceivedCoins": 493.6,
+          "totalReceivedCoins": 2678.86,
+          "operatingNetCoins": 2669.86,
+          "operatingNetCoinsPerMinute": 133.493,
+          "cashChangeCoins": 544.86,
+          "heroMeanReceivedCoins": 24.553483146067418,
+          "npcMeanReceivedCoins": 25.978947368421053,
+          "npcIncomeShare": 0.1842574826605347,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 805,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 9
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 10,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.27,
+                "incomeFactor": 1.3599999999999999
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 99.59999999999958,
+          "quotaMs": 1192099,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 7260000,
+          "quotaClippedMs": 5478164,
+          "quotaConsumedMs": 589737,
+          "quotaUtilizationOfAdded": 0.08123099173553719,
+          "quotaNoWorkSeconds": 610.2630000000004,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 2.4722222222222223,
+          "acceptedOrders": 89,
+          "batchCount": 36,
+          "roadMetres": 16200,
+          "travelSeconds": 352.69958774594465,
+          "manualSeconds": 574.4,
+          "supplySeconds": 9,
+          "firstCar": {
+            "seconds": 546.1360533823082,
+            "heroOrders": 43,
+            "cashCents": 5556
+          },
+          "firstNPC": {
+            "seconds": 610.2633361095809,
+            "heroOrders": 47,
+            "cashCents": 3237
+          },
+          "threeEquipped": {
+            "seconds": 1000.6088606550353,
+            "heroOrders": 75,
+            "cashCents": 4748
+          },
+          "phase": "finished",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 8259.9,
+          "heroOrders": 263,
+          "npcOrders": 141,
+          "heroOrdersPerMinute": 4.383333333333334,
+          "allOrdersPerMinute": 6.733333333333333,
+          "heroQuotedGrossCoins": 6718.81,
+          "heroReceivedCoins": 6709.78,
+          "npcReceivedCoins": 3599.12,
+          "totalReceivedCoins": 10308.9,
+          "operatingNetCoins": 10284.9,
+          "operatingNetCoinsPerMinute": 171.415,
+          "cashChangeCoins": 8159.9,
+          "heroMeanReceivedCoins": 25.512471482889733,
+          "npcMeanReceivedCoins": 25.52567375886525,
+          "npcIncomeShare": 0.3491274529775243,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 805,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 24
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 10,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.27,
+                "incomeFactor": 1.3599999999999999
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 39.39999999999878,
+          "quotaMs": 1487954,
+          "quotaCapacityMs": 1500000,
+          "quotaAddedMs": 28140000,
+          "quotaClippedMs": 23662309,
+          "quotaConsumedMs": 2989737,
+          "quotaUtilizationOfAdded": 0.10624509594882729,
+          "quotaNoWorkSeconds": 610.2630000000004,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1500000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 2.1370967741935485,
+          "acceptedOrders": 265,
+          "batchCount": 124,
+          "roadMetres": 47000,
+          "travelSeconds": 1048.1541332004867,
+          "manualSeconds": 1737.000000000004,
+          "supplySeconds": 24,
+          "firstCar": {
+            "seconds": 546.1360533823082,
+            "heroOrders": 43,
+            "cashCents": 5556
+          },
+          "firstNPC": {
+            "seconds": 610.2633361095809,
+            "heroOrders": 47,
+            "cashCents": 3237
+          },
+          "threeEquipped": {
+            "seconds": 1000.6088606550353,
+            "heroOrders": 75,
+            "cashCents": 4748
+          },
+          "phase": "service",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 925.0,
+          "receivedCoins": 1577.6,
+          "recoveredAtMinutes": 40.07275,
+          "minutesSinceInvestment": 40.022749999999995,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 1042.32,
+          "recoveredAtMinutes": 32.495916666666666,
+          "minutesSinceInvestment": 19.277284716666667,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 979.2,
+          "recoveredAtMinutes": 38.04046666666667,
+          "minutesSinceInvestment": 21.413652316666663,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 8,
+        "poolMax": 12,
+        "poolMean": 8.161290322580646,
+        "actualSignedOrdersMin": 2,
+        "actualSignedOrdersMax": 4
+      }
+    },
+    {
+      "id": "production/representative-100m/capacity-car-first/regular/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 95.2,
+          "heroOrders": 79,
+          "npcOrders": 6,
+          "heroOrdersPerMinute": 3.95,
+          "allOrdersPerMinute": 4.25,
+          "heroQuotedGrossCoins": 1909.19,
+          "heroReceivedCoins": 1892.72,
+          "npcReceivedCoins": 128.48,
+          "totalReceivedCoins": 2021.2,
+          "operatingNetCoins": 2015.2,
+          "operatingNetCoinsPerMinute": 100.76,
+          "cashChangeCoins": -4.8,
+          "heroMeanReceivedCoins": 23.95848101265823,
+          "npcMeanReceivedCoins": 21.41333333333333,
+          "npcIncomeShare": 0.06356619829804076,
+          "spentCoins": {
+            "vehicle_purchase": 1600,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 6
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 3,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.2,
+                "incomeFactor": 1.5
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 51.99999999999959,
+          "quotaMs": 1186316,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 5940000,
+          "quotaClippedMs": 4407784,
+          "quotaConsumedMs": 345900,
+          "quotaUtilizationOfAdded": 0.05823232323232323,
+          "quotaNoWorkSeconds": 854.1000000000004,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1.6808510638297873,
+          "acceptedOrders": 79,
+          "batchCount": 47,
+          "roadMetres": 15000,
+          "travelSeconds": 347.91666166666624,
+          "manualSeconds": 609.8000000000001,
+          "supplySeconds": 6,
+          "firstCar": {
+            "seconds": 790.1001310000003,
+            "heroOrders": 46,
+            "cashCents": 109
+          },
+          "firstNPC": {
+            "seconds": 854.1001420000003,
+            "heroOrders": 51,
+            "cashCents": 1846
+          },
+          "threeEquipped": {
+            "seconds": 1194.31687166667,
+            "heroOrders": 79,
+            "cashCents": 9520
+          },
+          "phase": "finished",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 9370.75,
+          "heroOrders": 290,
+          "npcOrders": 112,
+          "heroOrdersPerMinute": 4.833333333333333,
+          "allOrdersPerMinute": 6.7,
+          "heroQuotedGrossCoins": 8772.52,
+          "heroReceivedCoins": 8746.63,
+          "npcReceivedCoins": 2571.12,
+          "totalReceivedCoins": 11317.75,
+          "operatingNetCoins": 11290.75,
+          "operatingNetCoinsPerMinute": 188.17916666666667,
+          "cashChangeCoins": 9270.75,
+          "heroMeanReceivedCoins": 30.160793103448274,
+          "npcMeanReceivedCoins": 22.95642857142857,
+          "npcIncomeShare": 0.22717589626913476,
+          "spentCoins": {
+            "vehicle_purchase": 1600,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 27
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 3,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.2,
+                "incomeFactor": 1.5
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 45.5999999999987,
+          "quotaMs": 1498100,
+          "quotaCapacityMs": 1500000,
+          "quotaAddedMs": 31260000,
+          "quotaClippedMs": 27016000,
+          "quotaConsumedMs": 2745900,
+          "quotaUtilizationOfAdded": 0.08784069097888676,
+          "quotaNoWorkSeconds": 854.1000000000004,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1500000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 2.91,
+          "acceptedOrders": 291,
+          "batchCount": 100,
+          "roadMetres": 51800,
+          "travelSeconds": 1112.4999950000022,
+          "manualSeconds": 1589.6000000000022,
+          "supplySeconds": 27,
+          "firstCar": {
+            "seconds": 790.1001310000003,
+            "heroOrders": 46,
+            "cashCents": 109
+          },
+          "firstNPC": {
+            "seconds": 854.1001420000003,
+            "heroOrders": 51,
+            "cashCents": 1846
+          },
+          "threeEquipped": {
+            "seconds": 1194.31687166667,
+            "heroOrders": 79,
+            "cashCents": 9520
+          },
+          "phase": "service",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 720.0,
+          "recoveredAtMinutes": 21.735,
+          "minutesSinceInvestment": 7.499997633333332,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 945.36,
+          "recoveredAtMinutes": 36.67923333333333,
+          "minutesSinceInvestment": 19.277285916666663,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 905.76,
+          "recoveredAtMinutes": 41.26893333333333,
+          "minutesSinceInvestment": 21.413652133333333,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 8,
+        "poolMax": 12,
+        "poolMean": 10.44,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 5
+      }
+    },
+    {
+      "id": "production/representative-100m/npc-first-only-car/regular/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 0,
+          "heroOrders": 1,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 0.05,
+          "allOrdersPerMinute": 0.05,
+          "heroQuotedGrossCoins": 20,
+          "heroReceivedCoins": 20,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 20,
+          "operatingNetCoins": 20,
+          "operatingNetCoinsPerMinute": 1,
+          "cashChangeCoins": -100,
+          "heroMeanReceivedCoins": 20,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 0
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": null
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 97.6,
+          "quotaMs": 0,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 60000,
+          "quotaClippedMs": 0,
+          "quotaConsumedMs": 60000,
+          "quotaUtilizationOfAdded": 1,
+          "quotaNoWorkSeconds": 21.6,
+          "quotaStalledSeconds": 1118.3999999999999,
+          "quotaPeakMs": 60000,
+          "firstQuotaEmpty": {
+            "seconds": 81.601003,
+            "cashCents": 0,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 0.5,
+          "meanOrdersPerBatch": 1,
+          "acceptedOrders": 1,
+          "batchCount": 1,
+          "roadMetres": 200,
+          "travelSeconds": 5,
+          "manualSeconds": 13.6,
+          "supplySeconds": 0,
+          "firstCar": null,
+          "firstNPC": {
+            "seconds": 21.600003,
+            "heroOrders": 1,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": true,
+          "stop": {
+            "kind": "only-car-quota-deadlock",
+            "seconds": 81.601003,
+            "cashCents": 0,
+            "quotaMs": 0,
+            "unpaidOrders": 2,
+            "reservedVehicleIds": [
+              "starter-1"
+            ],
+            "errors": {
+              "returnToHero": "车辆仍执行旧批次",
+              "buyReplacement": "余额不足"
+            }
+          }
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 0,
+          "heroOrders": 1,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 0.016666666666666666,
+          "allOrdersPerMinute": 0.016666666666666666,
+          "heroQuotedGrossCoins": 20,
+          "heroReceivedCoins": 20,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 20,
+          "operatingNetCoins": 20,
+          "operatingNetCoinsPerMinute": 0.3333333333333333,
+          "cashChangeCoins": -100,
+          "heroMeanReceivedCoins": 20,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 0
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": null
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 97.6,
+          "quotaMs": 0,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 60000,
+          "quotaClippedMs": 0,
+          "quotaConsumedMs": 60000,
+          "quotaUtilizationOfAdded": 1,
+          "quotaNoWorkSeconds": 21.6,
+          "quotaStalledSeconds": 3518.3999999999996,
+          "quotaPeakMs": 60000,
+          "firstQuotaEmpty": {
+            "seconds": 81.601003,
+            "cashCents": 0,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 0.5,
+          "meanOrdersPerBatch": 1,
+          "acceptedOrders": 1,
+          "batchCount": 1,
+          "roadMetres": 200,
+          "travelSeconds": 5,
+          "manualSeconds": 13.6,
+          "supplySeconds": 0,
+          "firstCar": null,
+          "firstNPC": {
+            "seconds": 21.600003,
+            "heroOrders": 1,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": true,
+          "stop": {
+            "kind": "only-car-quota-deadlock",
+            "seconds": 81.601003,
+            "cashCents": 0,
+            "quotaMs": 0,
+            "unpaidOrders": 2,
+            "reservedVehicleIds": [
+              "starter-1"
+            ],
+            "errors": {
+              "returnToHero": "车辆仍执行旧批次",
+              "buyReplacement": "余额不足"
+            }
+          }
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 0.0,
+          "recoveredAtMinutes": null,
+          "minutesSinceInvestment": null,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 8,
+        "poolMax": 8,
+        "poolMean": 8,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 1
+      }
+    },
+    {
+      "id": "production/representative-100m/squad-first/slow/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 285.24,
+          "heroOrders": 37,
+          "npcOrders": 10,
+          "heroOrdersPerMinute": 1.85,
+          "allOrdersPerMinute": 2.35,
+          "heroQuotedGrossCoins": 829.76,
+          "heroReceivedCoins": 829.76,
+          "npcReceivedCoins": 208.48,
+          "totalReceivedCoins": 1038.24,
+          "operatingNetCoins": 1035.24,
+          "operatingNetCoinsPerMinute": 51.762,
+          "cashChangeCoins": 185.24,
+          "heroMeanReceivedCoins": 22.425945945945944,
+          "npcMeanReceivedCoins": 20.848,
+          "npcIncomeShare": 0.20080135614116196,
+          "spentCoins": {
+            "vehicle_purchase": 600,
+            "rider_hire": 250,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 3
+          },
+          "fleetCount": 2,
+          "equippedNPCs": 2,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            }
+          ],
+          "stamina": 83.19999999999985,
+          "quotaMs": 897772,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 2220000,
+          "quotaClippedMs": 671728,
+          "quotaConsumedMs": 650500,
+          "quotaUtilizationOfAdded": 0.293018018018018,
+          "quotaNoWorkSeconds": 549.5,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 900000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9827586206896551,
+          "meanOrdersPerBatch": 1.6818181818181819,
+          "acceptedOrders": 37,
+          "batchCount": 22,
+          "roadMetres": 6400,
+          "travelSeconds": 149.77272627272723,
+          "manualSeconds": 940,
+          "supplySeconds": 3,
+          "firstCar": {
+            "seconds": 378.50002799999993,
+            "heroOrders": 10,
+            "cashCents": 0
+          },
+          "firstNPC": {
+            "seconds": 549.5000409999998,
+            "heroOrders": 15,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 4198.24,
+          "heroOrders": 118,
+          "npcOrders": 114,
+          "heroOrdersPerMinute": 1.9666666666666666,
+          "allOrdersPerMinute": 3.8666666666666667,
+          "heroQuotedGrossCoins": 2825.32,
+          "heroReceivedCoins": 2825.32,
+          "npcReceivedCoins": 2601.92,
+          "totalReceivedCoins": 5427.24,
+          "operatingNetCoins": 5418.24,
+          "operatingNetCoinsPerMinute": 90.304,
+          "cashChangeCoins": 4098.24,
+          "heroMeanReceivedCoins": 23.943389830508476,
+          "npcMeanReceivedCoins": 22.82385964912281,
+          "npcIncomeShare": 0.47941863636028625,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 9
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 31.99999999999946,
+          "quotaMs": 1193227,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 11580000,
+          "quotaClippedMs": 7336273,
+          "quotaConsumedMs": 3050500,
+          "quotaUtilizationOfAdded": 0.26342832469775473,
+          "quotaNoWorkSeconds": 549.5,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.994475138121547,
+          "meanOrdersPerBatch": 1.8888888888888888,
+          "acceptedOrders": 119,
+          "batchCount": 63,
+          "roadMetres": 21200,
+          "travelSeconds": 470.227271727272,
+          "manualSeconds": 2764.772427272725,
+          "supplySeconds": 9,
+          "firstCar": {
+            "seconds": 378.50002799999993,
+            "heroOrders": 10,
+            "cashCents": 0
+          },
+          "firstNPC": {
+            "seconds": 549.5000409999998,
+            "heroOrders": 15,
+            "cashCents": 0
+          },
+          "threeEquipped": {
+            "seconds": 1344.5001060000018,
+            "heroOrders": 41,
+            "cashCents": 53
+          },
+          "phase": "ready",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 800.0,
+          "recoveredAtMinutes": 16.658333333333335,
+          "minutesSinceInvestment": 7.499999316666666,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 969.6,
+          "recoveredAtMinutes": 36.4129,
+          "minutesSinceInvestment": 19.37729258333333,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 832.32,
+          "recoveredAtMinutes": 43.772000000000006,
+          "minutesSinceInvestment": 21.513664900000002,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 8,
+        "poolMax": 8,
+        "poolMean": 8,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 2
+      }
+    },
+    {
+      "id": "production/representative-100m/starter-upgrades-first/slow/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 103.18,
+          "heroOrders": 45,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 2.25,
+          "allOrdersPerMinute": 2.25,
+          "heroQuotedGrossCoins": 1120.21,
+          "heroReceivedCoins": 1111.18,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 1111.18,
+          "operatingNetCoins": 1108.18,
+          "operatingNetCoinsPerMinute": 55.409000000000006,
+          "cashChangeCoins": 3.18,
+          "heroMeanReceivedCoins": 24.69288888888889,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 300,
+            "rider_hire": 0,
+            "vehicle_upgrade": 805,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 3
+          },
+          "fleetCount": 0,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 10,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.27,
+                "incomeFactor": 1.3599999999999999
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            }
+          ],
+          "stamina": 63.599999999999795,
+          "quotaMs": 900000,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 2700000,
+          "quotaClippedMs": 1800000,
+          "quotaConsumedMs": 0,
+          "quotaUtilizationOfAdded": 0,
+          "quotaNoWorkSeconds": 1200,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 900000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 3.2142857142857144,
+          "acceptedOrders": 45,
+          "batchCount": 14,
+          "roadMetres": 8200,
+          "travelSeconds": 170.88140592776307,
+          "manualSeconds": 894,
+          "supplySeconds": 3,
+          "firstCar": {
+            "seconds": 1136.3360533823081,
+            "heroOrders": 43,
+            "cashCents": 5556
+          },
+          "firstNPC": null,
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 3591.18,
+          "heroOrders": 125,
+          "npcOrders": 99,
+          "heroOrdersPerMinute": 2.0833333333333335,
+          "allOrdersPerMinute": 3.7333333333333334,
+          "heroQuotedGrossCoins": 3101.21,
+          "heroReceivedCoins": 3092.18,
+          "npcReceivedCoins": 2536,
+          "totalReceivedCoins": 5628.18,
+          "operatingNetCoins": 5616.18,
+          "operatingNetCoinsPerMinute": 93.60300000000001,
+          "cashChangeCoins": 3491.18,
+          "heroMeanReceivedCoins": 24.73744,
+          "npcMeanReceivedCoins": 25.616161616161616,
+          "npcIncomeShare": 0.45058971106112455,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 805,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 12
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 10,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.27,
+                "incomeFactor": 1.3599999999999999
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 85.59999999999944,
+          "quotaMs": 1175063,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 11700000,
+          "quotaClippedMs": 8193000,
+          "quotaConsumedMs": 2331937,
+          "quotaUtilizationOfAdded": 0.1993108547008547,
+          "quotaNoWorkSeconds": 1268.063,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 2.309090909090909,
+          "acceptedOrders": 127,
+          "batchCount": 55,
+          "roadMetres": 23000,
+          "travelSeconds": 489.06322410958046,
+          "manualSeconds": 2723.936468890417,
+          "supplySeconds": 12,
+          "firstCar": {
+            "seconds": 1136.3360533823081,
+            "heroOrders": 43,
+            "cashCents": 5556
+          },
+          "firstNPC": {
+            "seconds": 1268.0633361095818,
+            "heroOrders": 47,
+            "cashCents": 3237
+          },
+          "threeEquipped": {
+            "seconds": 1940.3361183823145,
+            "heroOrders": 69,
+            "cashCents": 8359
+          },
+          "phase": "planned",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 925.0,
+          "receivedCoins": 1196.8,
+          "recoveredAtMinutes": 51.03608333333333,
+          "minutesSinceInvestment": 50.88608333333333,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 727.2,
+          "recoveredAtMinutes": 46.3435,
+          "minutesSinceInvestment": 19.377292383333334,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 612.0,
+          "recoveredAtMinutes": 53.7026,
+          "minutesSinceInvestment": 21.5136647,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 8,
+        "poolMax": 12,
+        "poolMean": 8.363636363636363,
+        "actualSignedOrdersMin": 2,
+        "actualSignedOrdersMax": 4
+      }
+    },
+    {
+      "id": "production/representative-100m/capacity-car-first/slow/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 705.48,
+          "heroOrders": 31,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 1.55,
+          "allOrdersPerMinute": 1.55,
+          "heroQuotedGrossCoins": 608.48,
+          "heroReceivedCoins": 608.48,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 608.48,
+          "operatingNetCoins": 605.48,
+          "operatingNetCoinsPerMinute": 30.274,
+          "cashChangeCoins": 605.48,
+          "heroMeanReceivedCoins": 19.628387096774194,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 0,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 3
+          },
+          "fleetCount": 0,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "starter-1"
+            }
+          ],
+          "stamina": 95.59999999999984,
+          "quotaMs": 900000,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 1860000,
+          "quotaClippedMs": 960000,
+          "quotaConsumedMs": 0,
+          "quotaUtilizationOfAdded": 0,
+          "quotaNoWorkSeconds": 1200,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 900000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1.1923076923076923,
+          "acceptedOrders": 31,
+          "batchCount": 26,
+          "roadMetres": 6200,
+          "travelSeconds": 154.9999969999999,
+          "manualSeconds": 952,
+          "supplySeconds": 3,
+          "firstCar": null,
+          "firstNPC": null,
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 2696.81,
+          "heroOrders": 123,
+          "npcOrders": 60,
+          "heroOrdersPerMinute": 2.05,
+          "allOrdersPerMinute": 3.05,
+          "heroQuotedGrossCoins": 3287.62,
+          "heroReceivedCoins": 3268.09,
+          "npcReceivedCoins": 1360.72,
+          "totalReceivedCoins": 4628.81,
+          "operatingNetCoins": 4616.81,
+          "operatingNetCoinsPerMinute": 76.94683333333334,
+          "cashChangeCoins": 2596.81,
+          "heroMeanReceivedCoins": 26.569837398373984,
+          "npcMeanReceivedCoins": 22.67866666666667,
+          "npcIncomeShare": 0.29396756401753366,
+          "spentCoins": {
+            "vehicle_purchase": 1600,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 12
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 3,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.2,
+                "incomeFactor": 1.5
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 89.19999999999943,
+          "quotaMs": 1177083,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 11340000,
+          "quotaClippedMs": 8450417,
+          "quotaConsumedMs": 1712500,
+          "quotaUtilizationOfAdded": 0.1510141093474427,
+          "quotaNoWorkSeconds": 1887.5000000000005,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 2.1206896551724137,
+          "acceptedOrders": 123,
+          "batchCount": 58,
+          "roadMetres": 22400,
+          "travelSeconds": 502.08332833333185,
+          "manualSeconds": 2716.916362666666,
+          "supplySeconds": 12,
+          "firstCar": {
+            "seconds": 1764.500131000006,
+            "heroOrders": 46,
+            "cashCents": 109
+          },
+          "firstNPC": {
+            "seconds": 1887.5001420000067,
+            "heroOrders": 51,
+            "cashCents": 1846
+          },
+          "threeEquipped": {
+            "seconds": 2478.0835293333394,
+            "heroOrders": 75,
+            "cashCents": 7935
+          },
+          "phase": "finished",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 460.0,
+          "recoveredAtMinutes": 39.208333333333336,
+          "minutesSinceInvestment": 7.749997633333332,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 509.04,
+          "recoveredAtMinutes": 55.80368333333333,
+          "minutesSinceInvestment": 19.377291633333336,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 391.68,
+          "recoveredAtMinutes": null,
+          "minutesSinceInvestment": null,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 8,
+        "poolMax": 12,
+        "poolMean": 9.35593220338983,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 5
+      }
+    },
+    {
+      "id": "production/representative-100m/npc-first-only-car/slow/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 0,
+          "heroOrders": 1,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 0.05,
+          "allOrdersPerMinute": 0.05,
+          "heroQuotedGrossCoins": 20,
+          "heroReceivedCoins": 20,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 20,
+          "operatingNetCoins": 20,
+          "operatingNetCoinsPerMinute": 1,
+          "cashChangeCoins": -100,
+          "heroMeanReceivedCoins": 20,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 0
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": null
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 97.6,
+          "quotaMs": 0,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 60000,
+          "quotaClippedMs": 0,
+          "quotaConsumedMs": 60000,
+          "quotaUtilizationOfAdded": 1,
+          "quotaNoWorkSeconds": 51,
+          "quotaStalledSeconds": 1089,
+          "quotaPeakMs": 60000,
+          "firstQuotaEmpty": {
+            "seconds": 111.001003,
+            "cashCents": 0,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 0.5,
+          "meanOrdersPerBatch": 1,
+          "acceptedOrders": 1,
+          "batchCount": 1,
+          "roadMetres": 200,
+          "travelSeconds": 5,
+          "manualSeconds": 43,
+          "supplySeconds": 0,
+          "firstCar": null,
+          "firstNPC": {
+            "seconds": 51.000003,
+            "heroOrders": 1,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": true,
+          "stop": {
+            "kind": "only-car-quota-deadlock",
+            "seconds": 111.001003,
+            "cashCents": 0,
+            "quotaMs": 0,
+            "unpaidOrders": 2,
+            "reservedVehicleIds": [
+              "starter-1"
+            ],
+            "errors": {
+              "returnToHero": "车辆仍执行旧批次",
+              "buyReplacement": "余额不足"
+            }
+          }
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 0,
+          "heroOrders": 1,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 0.016666666666666666,
+          "allOrdersPerMinute": 0.016666666666666666,
+          "heroQuotedGrossCoins": 20,
+          "heroReceivedCoins": 20,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 20,
+          "operatingNetCoins": 20,
+          "operatingNetCoinsPerMinute": 0.3333333333333333,
+          "cashChangeCoins": -100,
+          "heroMeanReceivedCoins": 20,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 0
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": null
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 97.6,
+          "quotaMs": 0,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 60000,
+          "quotaClippedMs": 0,
+          "quotaConsumedMs": 60000,
+          "quotaUtilizationOfAdded": 1,
+          "quotaNoWorkSeconds": 51,
+          "quotaStalledSeconds": 3489,
+          "quotaPeakMs": 60000,
+          "firstQuotaEmpty": {
+            "seconds": 111.001003,
+            "cashCents": 0,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 0.5,
+          "meanOrdersPerBatch": 1,
+          "acceptedOrders": 1,
+          "batchCount": 1,
+          "roadMetres": 200,
+          "travelSeconds": 5,
+          "manualSeconds": 43,
+          "supplySeconds": 0,
+          "firstCar": null,
+          "firstNPC": {
+            "seconds": 51.000003,
+            "heroOrders": 1,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": true,
+          "stop": {
+            "kind": "only-car-quota-deadlock",
+            "seconds": 111.001003,
+            "cashCents": 0,
+            "quotaMs": 0,
+            "unpaidOrders": 2,
+            "reservedVehicleIds": [
+              "starter-1"
+            ],
+            "errors": {
+              "returnToHero": "车辆仍执行旧批次",
+              "buyReplacement": "余额不足"
+            }
+          }
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 0.0,
+          "recoveredAtMinutes": null,
+          "minutesSinceInvestment": null,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 8,
+        "poolMax": 8,
+        "poolMean": 8,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 1
+      }
+    },
+    {
+      "id": "production/current-game-supply/squad-first/regular/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 1359.71,
+          "heroOrders": 78,
+          "npcOrders": 31,
+          "heroOrdersPerMinute": 3.9,
+          "allOrdersPerMinute": 5.45,
+          "heroQuotedGrossCoins": 1915.21,
+          "heroReceivedCoins": 1892.23,
+          "npcReceivedCoins": 702.48,
+          "totalReceivedCoins": 2594.71,
+          "operatingNetCoins": 2579.71,
+          "operatingNetCoinsPerMinute": 128.9855,
+          "cashChangeCoins": 1259.71,
+          "heroMeanReceivedCoins": 24.259358974358975,
+          "npcMeanReceivedCoins": 22.660645161290322,
+          "npcIncomeShare": 0.2707354579124449,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 15
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 80.98557487567327,
+          "quotaMs": 1187835,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 6420000,
+          "quotaClippedMs": 4242783,
+          "quotaConsumedMs": 989382,
+          "quotaUtilizationOfAdded": 0.15410934579439253,
+          "quotaNoWorkSeconds": 210.61799999999997,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9827586206896551,
+          "meanOrdersPerBatch": 1.9268292682926829,
+          "acceptedOrders": 79,
+          "batchCount": 41,
+          "roadMetres": 105507.21256216311,
+          "travelSeconds": 389.03467235352883,
+          "manualSeconds": 559.3999999999999,
+          "supplySeconds": 15,
+          "firstCar": {
+            "seconds": 142.85160206566923,
+            "heroOrders": 10,
+            "cashCents": 0
+          },
+          "firstNPC": {
+            "seconds": 210.61830644061675,
+            "heroOrders": 15,
+            "cashCents": 0
+          },
+          "threeEquipped": {
+            "seconds": 662.635816756303,
+            "heroOrders": 47,
+            "cashCents": 4171
+          },
+          "phase": "service",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 8097.48,
+          "heroOrders": 237,
+          "npcOrders": 137,
+          "heroOrdersPerMinute": 3.95,
+          "allOrdersPerMinute": 6.233333333333333,
+          "heroQuotedGrossCoins": 6272.1,
+          "heroReceivedCoins": 6220.36,
+          "npcReceivedCoins": 3145.12,
+          "totalReceivedCoins": 9365.48,
+          "operatingNetCoins": 9317.48,
+          "operatingNetCoinsPerMinute": 155.2913333333333,
+          "cashChangeCoins": 7997.48,
+          "heroMeanReceivedCoins": 26.246244725738396,
+          "npcMeanReceivedCoins": 22.9570802919708,
+          "npcIncomeShare": 0.33582048117128005,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 48
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 81.54574442361663,
+          "quotaMs": 1490792,
+          "quotaCapacityMs": 1500000,
+          "quotaAddedMs": 25500000,
+          "quotaClippedMs": 20619826,
+          "quotaConsumedMs": 3389382,
+          "quotaUtilizationOfAdded": 0.1329169411764706,
+          "quotaNoWorkSeconds": 210.61799999999997,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1500000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9943342776203966,
+          "meanOrdersPerBatch": 1.9916666666666667,
+          "acceptedOrders": 239,
+          "batchCount": 120,
+          "roadMetres": 335300.8303922736,
+          "travelSeconds": 1215.5993930000134,
+          "manualSeconds": 1625.4000000000033,
+          "supplySeconds": 48,
+          "firstCar": {
+            "seconds": 142.85160206566923,
+            "heroOrders": 10,
+            "cashCents": 0
+          },
+          "firstNPC": {
+            "seconds": 210.61830644061675,
+            "heroOrders": 15,
+            "cashCents": 0
+          },
+          "threeEquipped": {
+            "seconds": 662.635816756303,
+            "heroOrders": 47,
+            "cashCents": 4171
+          },
+          "phase": "travelling",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 880.0,
+          "recoveredAtMinutes": 11.0103,
+          "minutesSinceInvestment": 7.499994900000002,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 1163.52,
+          "recoveredAtMinutes": 26.591066666666666,
+          "minutesSinceInvestment": 19.27728495,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 1101.6,
+          "recoveredAtMinutes": 32.407583333333335,
+          "minutesSinceInvestment": 21.41365305,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 5,
+        "poolMax": 8,
+        "poolMean": 7.958333333333333,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 3
+      }
+    },
+    {
+      "id": "production/current-game-supply/starter-upgrades-first/regular/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 634.2,
+          "heroOrders": 85,
+          "npcOrders": 20,
+          "heroOrdersPerMinute": 4.25,
+          "allOrdersPerMinute": 5.25,
+          "heroQuotedGrossCoins": 2203.82,
+          "heroReceivedCoins": 2153.4,
+          "npcReceivedCoins": 520.8,
+          "totalReceivedCoins": 2674.2,
+          "operatingNetCoins": 2659.2,
+          "operatingNetCoinsPerMinute": 132.95999999999998,
+          "cashChangeCoins": 534.2,
+          "heroMeanReceivedCoins": 25.334117647058825,
+          "npcMeanReceivedCoins": 26.04,
+          "npcIncomeShare": 0.19474983172537583,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 805,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 15
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 10,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.27,
+                "incomeFactor": 1.3599999999999999
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 70.69189571676802,
+          "quotaMs": 1198301,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 6780000,
+          "quotaClippedMs": 4947109,
+          "quotaConsumedMs": 634590,
+          "quotaUtilizationOfAdded": 0.09359734513274336,
+          "quotaNoWorkSeconds": 565.4100000000001,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9921259842519685,
+          "meanOrdersPerBatch": 2.4285714285714284,
+          "acceptedOrders": 85,
+          "batchCount": 35,
+          "roadMetres": 105154.05214161574,
+          "travelSeconds": 377.7008355632755,
+          "manualSeconds": 554.6,
+          "supplySeconds": 15,
+          "firstCar": {
+            "seconds": 508.6626939208447,
+            "heroOrders": 42,
+            "cashCents": 5121
+          },
+          "firstNPC": {
+            "seconds": 565.4102879746791,
+            "heroOrders": 46,
+            "cashCents": 3095
+          },
+          "threeEquipped": {
+            "seconds": 987.4648600886734,
+            "heroOrders": 73,
+            "cashCents": 6606
+          },
+          "phase": "finished",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 7919.27,
+          "heroOrders": 240,
+          "npcOrders": 143,
+          "heroOrdersPerMinute": 4,
+          "allOrdersPerMinute": 6.383333333333334,
+          "heroQuotedGrossCoins": 6469.77,
+          "heroReceivedCoins": 6341.71,
+          "npcReceivedCoins": 3650.56,
+          "totalReceivedCoins": 9992.27,
+          "operatingNetCoins": 9944.27,
+          "operatingNetCoinsPerMinute": 165.73783333333333,
+          "cashChangeCoins": 7819.27,
+          "heroMeanReceivedCoins": 26.423791666666666,
+          "npcMeanReceivedCoins": 25.52839160839161,
+          "npcIncomeShare": 0.36533840658829275,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 805,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 48
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 10,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.27,
+                "incomeFactor": 1.3599999999999999
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 63.73715739513088,
+          "quotaMs": 1498809,
+          "quotaCapacityMs": 1500000,
+          "quotaAddedMs": 25380000,
+          "quotaClippedMs": 20846601,
+          "quotaConsumedMs": 3034590,
+          "quotaUtilizationOfAdded": 0.1195661938534279,
+          "quotaNoWorkSeconds": 565.4100000000001,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1500000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.997229916897507,
+          "meanOrdersPerBatch": 2.1327433628318584,
+          "acceptedOrders": 241,
+          "batchCount": 113,
+          "roadMetres": 338376.993114837,
+          "travelSeconds": 1230.6086016241916,
+          "manualSeconds": 1603.2000000000037,
+          "supplySeconds": 48,
+          "firstCar": {
+            "seconds": 508.6626939208447,
+            "heroOrders": 42,
+            "cashCents": 5121
+          },
+          "firstNPC": {
+            "seconds": 565.4102879746791,
+            "heroOrders": 46,
+            "cashCents": 3095
+          },
+          "threeEquipped": {
+            "seconds": 987.4648600886734,
+            "heroOrders": 73,
+            "cashCents": 6606
+          },
+          "phase": "service",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 925.0,
+          "receivedCoins": 1604.8,
+          "recoveredAtMinutes": 39.3252,
+          "minutesSinceInvestment": 39.275200000000005,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 1066.56,
+          "recoveredAtMinutes": 32.20735,
+          "minutesSinceInvestment": 19.277299216666666,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 979.2,
+          "recoveredAtMinutes": 37.821400000000004,
+          "minutesSinceInvestment": 21.413652333333335,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 4,
+        "poolMax": 12,
+        "poolMean": 8.123893805309734,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 4
+      }
+    },
+    {
+      "id": "production/current-game-supply/capacity-car-first/regular/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 266.74,
+          "heroOrders": 70,
+          "npcOrders": 3,
+          "heroOrdersPerMinute": 3.5,
+          "allOrdersPerMinute": 3.65,
+          "heroQuotedGrossCoins": 1735.22,
+          "heroReceivedCoins": 1665.74,
+          "npcReceivedCoins": 60,
+          "totalReceivedCoins": 1725.74,
+          "operatingNetCoins": 1716.74,
+          "operatingNetCoinsPerMinute": 85.837,
+          "cashChangeCoins": 166.74,
+          "heroMeanReceivedCoins": 23.796285714285716,
+          "npcMeanReceivedCoins": 20,
+          "npcIncomeShare": 0.03476769385886634,
+          "spentCoins": {
+            "vehicle_purchase": 1300,
+            "rider_hire": 250,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 9
+          },
+          "fleetCount": 2,
+          "equippedNPCs": 2,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 3,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.2,
+                "incomeFactor": 1.5
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            }
+          ],
+          "stamina": 28.431516905066218,
+          "quotaMs": 1174691,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 4860000,
+          "quotaClippedMs": 3438542,
+          "quotaConsumedMs": 246767,
+          "quotaUtilizationOfAdded": 0.05077510288065844,
+          "quotaNoWorkSeconds": 953.2330000000005,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1.744186046511628,
+          "acceptedOrders": 75,
+          "batchCount": 43,
+          "roadMetres": 112318.62827094844,
+          "travelSeconds": 411.7914059159727,
+          "manualSeconds": 549,
+          "supplySeconds": 29,
+          "firstCar": {
+            "seconds": 811.8002246171993,
+            "heroOrders": 45,
+            "cashCents": 113
+          },
+          "firstNPC": {
+            "seconds": 953.2336339337324,
+            "heroOrders": 53,
+            "cashCents": 11967
+          },
+          "threeEquipped": null,
+          "phase": "travelling",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 8844.55,
+          "heroOrders": 275,
+          "npcOrders": 107,
+          "heroOrdersPerMinute": 4.583333333333333,
+          "allOrdersPerMinute": 6.366666666666666,
+          "heroQuotedGrossCoins": 8748.45,
+          "heroReceivedCoins": 8350.15,
+          "npcReceivedCoins": 2462.4,
+          "totalReceivedCoins": 10812.55,
+          "operatingNetCoins": 10764.55,
+          "operatingNetCoinsPerMinute": 179.40916666666666,
+          "cashChangeCoins": 8744.55,
+          "heroMeanReceivedCoins": 30.364181818181816,
+          "npcMeanReceivedCoins": 23.013084112149535,
+          "npcIncomeShare": 0.22773536307346556,
+          "spentCoins": {
+            "vehicle_purchase": 1600,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 48
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 3,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.2,
+                "incomeFactor": 1.5
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 68.23014237352359,
+          "quotaMs": 1478858,
+          "quotaCapacityMs": 1500000,
+          "quotaAddedMs": 29460000,
+          "quotaClippedMs": 25334375,
+          "quotaConsumedMs": 2646767,
+          "quotaUtilizationOfAdded": 0.08984273591310252,
+          "quotaNoWorkSeconds": 953.2330000000005,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1500000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 2.9680851063829787,
+          "acceptedOrders": 279,
+          "batchCount": 94,
+          "roadMetres": 342290.27272153995,
+          "travelSeconds": 1184.8757797996725,
+          "manualSeconds": 1520.400000000002,
+          "supplySeconds": 68,
+          "firstCar": {
+            "seconds": 811.8002246171993,
+            "heroOrders": 45,
+            "cashCents": 113
+          },
+          "firstNPC": {
+            "seconds": 953.2336339337324,
+            "heroOrders": 53,
+            "cashCents": 11967
+          },
+          "threeEquipped": {
+            "seconds": 1286.4411377009396,
+            "heroOrders": 79,
+            "cashCents": 14060
+          },
+          "phase": "service",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 660.0,
+          "recoveredAtMinutes": 24.137216666666667,
+          "minutesSinceInvestment": 8.249989433333331,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 921.12,
+          "recoveredAtMinutes": 38.047783333333335,
+          "minutesSinceInvestment": 19.277287283333337,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 881.28,
+          "recoveredAtMinutes": 42.80435,
+          "minutesSinceInvestment": 21.41366436666667,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 5,
+        "poolMax": 12,
+        "poolMean": 10.414893617021276,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 5
+      }
+    },
+    {
+      "id": "production/current-game-supply/npc-first-only-car/regular/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 0,
+          "heroOrders": 1,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 0.05,
+          "allOrdersPerMinute": 0.05,
+          "heroQuotedGrossCoins": 20,
+          "heroReceivedCoins": 20,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 20,
+          "operatingNetCoins": 20,
+          "operatingNetCoinsPerMinute": 1,
+          "cashChangeCoins": -100,
+          "heroMeanReceivedCoins": 20,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 0
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": null
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 96.21607644618899,
+          "quotaMs": 0,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 60000,
+          "quotaClippedMs": 0,
+          "quotaConsumedMs": 60000,
+          "quotaUtilizationOfAdded": 1,
+          "quotaNoWorkSeconds": 20.444000000000003,
+          "quotaStalledSeconds": 1119.556,
+          "quotaPeakMs": 60000,
+          "firstQuotaEmpty": {
+            "seconds": 80.44509552038407,
+            "cashCents": 0,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1,
+          "acceptedOrders": 1,
+          "batchCount": 1,
+          "roadMetres": 891.9617769055328,
+          "travelSeconds": 3.8440925203840735,
+          "manualSeconds": 13.6,
+          "supplySeconds": 0,
+          "firstCar": null,
+          "firstNPC": {
+            "seconds": 20.444095520384074,
+            "heroOrders": 1,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": true,
+          "stop": {
+            "kind": "only-car-quota-deadlock",
+            "seconds": 80.44509552038407,
+            "cashCents": 0,
+            "quotaMs": 0,
+            "unpaidOrders": 2,
+            "reservedVehicleIds": [
+              "starter-1"
+            ],
+            "errors": {
+              "returnToHero": "车辆仍执行旧批次",
+              "buyReplacement": "余额不足"
+            }
+          }
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 0,
+          "heroOrders": 1,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 0.016666666666666666,
+          "allOrdersPerMinute": 0.016666666666666666,
+          "heroQuotedGrossCoins": 20,
+          "heroReceivedCoins": 20,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 20,
+          "operatingNetCoins": 20,
+          "operatingNetCoinsPerMinute": 0.3333333333333333,
+          "cashChangeCoins": -100,
+          "heroMeanReceivedCoins": 20,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 0
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": null
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 96.21607644618899,
+          "quotaMs": 0,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 60000,
+          "quotaClippedMs": 0,
+          "quotaConsumedMs": 60000,
+          "quotaUtilizationOfAdded": 1,
+          "quotaNoWorkSeconds": 20.444000000000003,
+          "quotaStalledSeconds": 3519.556,
+          "quotaPeakMs": 60000,
+          "firstQuotaEmpty": {
+            "seconds": 80.44509552038407,
+            "cashCents": 0,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1,
+          "acceptedOrders": 1,
+          "batchCount": 1,
+          "roadMetres": 891.9617769055328,
+          "travelSeconds": 3.8440925203840735,
+          "manualSeconds": 13.6,
+          "supplySeconds": 0,
+          "firstCar": null,
+          "firstNPC": {
+            "seconds": 20.444095520384074,
+            "heroOrders": 1,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": true,
+          "stop": {
+            "kind": "only-car-quota-deadlock",
+            "seconds": 80.44509552038407,
+            "cashCents": 0,
+            "quotaMs": 0,
+            "unpaidOrders": 2,
+            "reservedVehicleIds": [
+              "starter-1"
+            ],
+            "errors": {
+              "returnToHero": "车辆仍执行旧批次",
+              "buyReplacement": "余额不足"
+            }
+          }
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 0.0,
+          "recoveredAtMinutes": null,
+          "minutesSinceInvestment": null,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 6,
+        "poolMax": 6,
+        "poolMean": 6,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 1
+      }
+    },
+    {
+      "id": "production/current-game-supply/squad-first/slow/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 396.37,
+          "heroOrders": 38,
+          "npcOrders": 13,
+          "heroOrdersPerMinute": 1.9,
+          "allOrdersPerMinute": 2.55,
+          "heroQuotedGrossCoins": 873.58,
+          "heroReceivedCoins": 872.41,
+          "npcReceivedCoins": 276.96,
+          "totalReceivedCoins": 1149.37,
+          "operatingNetCoins": 1146.37,
+          "operatingNetCoinsPerMinute": 57.31849999999999,
+          "cashChangeCoins": 296.37,
+          "heroMeanReceivedCoins": 22.958157894736843,
+          "npcMeanReceivedCoins": 21.30461538461538,
+          "npcIncomeShare": 0.24096679050262318,
+          "spentCoins": {
+            "vehicle_purchase": 600,
+            "rider_hire": 250,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 3
+          },
+          "fleetCount": 2,
+          "equippedNPCs": 2,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            }
+          ],
+          "stamina": 25.4027549189563,
+          "quotaMs": 888699,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 2280000,
+          "quotaClippedMs": 684919,
+          "quotaConsumedMs": 706382,
+          "quotaUtilizationOfAdded": 0.3098166666666667,
+          "quotaNoWorkSeconds": 493.618,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 900000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9661016949152542,
+          "meanOrdersPerBatch": 1.7727272727272727,
+          "acceptedOrders": 39,
+          "batchCount": 22,
+          "roadMetres": 33298.62254052175,
+          "travelSeconds": 126.91480977501035,
+          "manualSeconds": 954,
+          "supplySeconds": 3,
+          "firstCar": {
+            "seconds": 334.8516020656691,
+            "heroOrders": 10,
+            "cashCents": 0
+          },
+          "firstNPC": {
+            "seconds": 493.61830644061666,
+            "heroOrders": 15,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "service",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 4274.27,
+          "heroOrders": 115,
+          "npcOrders": 116,
+          "heroOrdersPerMinute": 1.9166666666666667,
+          "allOrdersPerMinute": 3.85,
+          "heroQuotedGrossCoins": 2894.53,
+          "heroReceivedCoins": 2864.63,
+          "npcReceivedCoins": 2650.64,
+          "totalReceivedCoins": 5515.27,
+          "operatingNetCoins": 5494.27,
+          "operatingNetCoinsPerMinute": 91.57116666666667,
+          "cashChangeCoins": 4174.27,
+          "heroMeanReceivedCoins": 24.909826086956524,
+          "npcMeanReceivedCoins": 22.850344827586206,
+          "npcIncomeShare": 0.4806002244677051,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 21
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 53.099015287713684,
+          "quotaMs": 1154798,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 11280000,
+          "quotaClippedMs": 7018820,
+          "quotaConsumedMs": 3106382,
+          "quotaUtilizationOfAdded": 0.27538847517730497,
+          "quotaNoWorkSeconds": 493.618,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9882352941176471,
+          "meanOrdersPerBatch": 1.9830508474576272,
+          "acceptedOrders": 117,
+          "batchCount": 59,
+          "roadMetres": 154995.08359694583,
+          "travelSeconds": 563.9996980000022,
+          "manualSeconds": 2668,
+          "supplySeconds": 21,
+          "firstCar": {
+            "seconds": 334.8516020656691,
+            "heroOrders": 10,
+            "cashCents": 0
+          },
+          "firstNPC": {
+            "seconds": 493.61830644061666,
+            "heroOrders": 15,
+            "cashCents": 0
+          },
+          "threeEquipped": {
+            "seconds": 1294.539546871753,
+            "heroOrders": 41,
+            "cashCents": 4443
+          },
+          "phase": "travelling",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 800.0,
+          "recoveredAtMinutes": 15.726966666666668,
+          "minutesSinceInvestment": 7.499994900000001,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 993.84,
+          "recoveredAtMinutes": 34.759233333333334,
+          "minutesSinceInvestment": 19.37728521666667,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 856.8,
+          "recoveredAtMinutes": 42.93931666666666,
+          "minutesSinceInvestment": 21.513657549999998,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 5,
+        "poolMax": 8,
+        "poolMean": 7.915254237288136,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 3
+      }
+    },
+    {
+      "id": "production/current-game-supply/starter-upgrades-first/slow/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 101.43,
+          "heroOrders": 44,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 2.2,
+          "allOrdersPerMinute": 2.2,
+          "heroQuotedGrossCoins": 1137.88,
+          "heroReceivedCoins": 1112.43,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 1112.43,
+          "operatingNetCoins": 1106.43,
+          "operatingNetCoinsPerMinute": 55.3215,
+          "cashChangeCoins": 1.43,
+          "heroMeanReceivedCoins": 25.282500000000002,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 300,
+            "rider_hire": 0,
+            "vehicle_upgrade": 805,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 6
+          },
+          "fleetCount": 0,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 10,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.27,
+                "incomeFactor": 1.3599999999999999
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            }
+          ],
+          "stamina": 72.6245392908147,
+          "quotaMs": 900000,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 2640000,
+          "quotaClippedMs": 1740000,
+          "quotaConsumedMs": 0,
+          "quotaUtilizationOfAdded": 0,
+          "quotaNoWorkSeconds": 1199.9999999999998,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 900000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.9857142857142858,
+          "meanOrdersPerBatch": 2.875,
+          "acceptedOrders": 46,
+          "batchCount": 16,
+          "roadMetres": 40616.725234927115,
+          "travelSeconds": 136.88318299141375,
+          "manualSeconds": 926,
+          "supplySeconds": 6,
+          "firstCar": {
+            "seconds": 1106.8626939208452,
+            "heroOrders": 42,
+            "cashCents": 5121
+          },
+          "firstNPC": null,
+          "threeEquipped": null,
+          "phase": "ready",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 3637.59,
+          "heroOrders": 121,
+          "npcOrders": 101,
+          "heroOrdersPerMinute": 2.0166666666666666,
+          "allOrdersPerMinute": 3.7,
+          "heroQuotedGrossCoins": 3159.5,
+          "heroReceivedCoins": 3095.91,
+          "npcReceivedCoins": 2587.68,
+          "totalReceivedCoins": 5683.59,
+          "operatingNetCoins": 5662.59,
+          "operatingNetCoinsPerMinute": 94.37650000000001,
+          "cashChangeCoins": 3537.59,
+          "heroMeanReceivedCoins": 25.58603305785124,
+          "npcMeanReceivedCoins": 25.62059405940594,
+          "npcIncomeShare": 0.45528970245918515,
+          "spentCoins": {
+            "vehicle_purchase": 900,
+            "rider_hire": 420,
+            "vehicle_upgrade": 805,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 21
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 10,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.27,
+                "incomeFactor": 1.3599999999999999
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 43.97640248419625,
+          "quotaMs": 1179302,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 11220000,
+          "quotaClippedMs": 7671908,
+          "quotaConsumedMs": 2368790,
+          "quotaUtilizationOfAdded": 0.21112210338680926,
+          "quotaNoWorkSeconds": 1231.2099999999998,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 0.994475138121547,
+          "meanOrdersPerBatch": 2.2830188679245285,
+          "acceptedOrders": 121,
+          "batchCount": 53,
+          "roadMetres": 152511.79875790156,
+          "travelSeconds": 550.3017232853736,
+          "manualSeconds": 2667.6979707146274,
+          "supplySeconds": 21,
+          "firstCar": {
+            "seconds": 1106.8626939208452,
+            "heroOrders": 42,
+            "cashCents": 5121
+          },
+          "firstNPC": {
+            "seconds": 1231.2102879746799,
+            "heroOrders": 46,
+            "cashCents": 3095
+          },
+          "threeEquipped": {
+            "seconds": 1905.3420449624907,
+            "heroOrders": 67,
+            "cashCents": 7147
+          },
+          "phase": "finished",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 925.0,
+          "receivedCoins": 1224.0,
+          "recoveredAtMinutes": 50.421866666666666,
+          "minutesSinceInvestment": 50.27186666666667,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 727.2,
+          "recoveredAtMinutes": 46.0806,
+          "minutesSinceInvestment": 19.377284899999996,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 636.48,
+          "recoveredAtMinutes": 53.119366666666664,
+          "minutesSinceInvestment": 21.51366591666666,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 4,
+        "poolMax": 12,
+        "poolMean": 8.25925925925926,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 4
+      }
+    },
+    {
+      "id": "production/current-game-supply/capacity-car-first/slow/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 735.41,
+          "heroOrders": 32,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 1.6,
+          "allOrdersPerMinute": 1.6,
+          "heroQuotedGrossCoins": 638.41,
+          "heroReceivedCoins": 638.41,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 638.41,
+          "operatingNetCoins": 635.41,
+          "operatingNetCoinsPerMinute": 31.7705,
+          "cashChangeCoins": 635.41,
+          "heroMeanReceivedCoins": 19.9503125,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 0,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 3
+          },
+          "fleetCount": 0,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "starter-1"
+            }
+          ],
+          "stamina": 31.773175627721514,
+          "quotaMs": 900000,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 1920000,
+          "quotaClippedMs": 1020000,
+          "quotaConsumedMs": 0,
+          "quotaUtilizationOfAdded": 0,
+          "quotaNoWorkSeconds": 1199.9999999999998,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 900000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1.2692307692307692,
+          "acceptedOrders": 33,
+          "batchCount": 26,
+          "roadMetres": 36750.08044544201,
+          "travelSeconds": 150.85076909978744,
+          "manualSeconds": 950,
+          "supplySeconds": 3,
+          "firstCar": null,
+          "firstNPC": null,
+          "threeEquipped": null,
+          "phase": "service",
+          "softLock": false,
+          "stop": null
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 2657.68,
+          "heroOrders": 122,
+          "npcOrders": 57,
+          "heroOrdersPerMinute": 2.033333333333333,
+          "allOrdersPerMinute": 2.9833333333333334,
+          "heroQuotedGrossCoins": 3435.27,
+          "heroReceivedCoins": 3299.2,
+          "npcReceivedCoins": 1296.48,
+          "totalReceivedCoins": 4595.68,
+          "operatingNetCoins": 4577.68,
+          "operatingNetCoinsPerMinute": 76.29466666666667,
+          "cashChangeCoins": 2557.68,
+          "heroMeanReceivedCoins": 27.04262295081967,
+          "npcMeanReceivedCoins": 22.745263157894737,
+          "npcIncomeShare": 0.2821084148591721,
+          "spentCoins": {
+            "vehicle_purchase": 1600,
+            "rider_hire": 420,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 18
+          },
+          "fleetCount": 3,
+          "equippedNPCs": 3,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            },
+            {
+              "id": "v2-vehicle-1",
+              "modelId": 3,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 6
+                },
+                "capacitySlots": 6,
+                "speedRelativeToStarter": 1.2,
+                "incomeFactor": 1.5
+              }
+            },
+            {
+              "id": "v2-vehicle-2",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            },
+            {
+              "id": "v2-vehicle-3",
+              "modelId": 1,
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 3
+                },
+                "capacitySlots": 3,
+                "speedRelativeToStarter": 1.1,
+                "incomeFactor": 1.2
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": "v2-vehicle-1"
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": "starter-1"
+            },
+            {
+              "id": "npc-2",
+              "level": 1,
+              "vehicleId": "v2-vehicle-2"
+            },
+            {
+              "id": "npc-3",
+              "level": 1,
+              "vehicleId": "v2-vehicle-3"
+            }
+          ],
+          "stamina": 48.3505796841246,
+          "quotaMs": 1191470,
+          "quotaCapacityMs": 1200000,
+          "quotaAddedMs": 11160000,
+          "quotaClippedMs": 8345963,
+          "quotaConsumedMs": 1622567,
+          "quotaUtilizationOfAdded": 0.1453913082437276,
+          "quotaNoWorkSeconds": 1977.433,
+          "quotaStalledSeconds": 0,
+          "quotaPeakMs": 1200000,
+          "firstQuotaEmpty": null,
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 2.2363636363636363,
+          "acceptedOrders": 123,
+          "batchCount": 55,
+          "roadMetres": 152190.3623813793,
+          "travelSeconds": 555.4698636041057,
+          "manualSeconds": 2638.5298243958973,
+          "supplySeconds": 38,
+          "firstCar": {
+            "seconds": 1734.8002246172007,
+            "heroOrders": 45,
+            "cashCents": 113
+          },
+          "firstNPC": {
+            "seconds": 1977.4336339337349,
+            "heroOrders": 53,
+            "cashCents": 11967
+          },
+          "threeEquipped": {
+            "seconds": 2536.2071451469974,
+            "heroOrders": 75,
+            "cashCents": 8050
+          },
+          "phase": "ready",
+          "softLock": false,
+          "stop": null
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 420.0,
+          "recoveredAtMinutes": 40.70721666666667,
+          "minutesSinceInvestment": 7.749989433333334,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-2",
+          "vehicleIds": [
+            "v2-vehicle-2"
+          ],
+          "directCostCoins": 430.0,
+          "receivedCoins": 484.8,
+          "recoveredAtMinutes": 57.78778333333333,
+          "minutesSinceInvestment": 19.37728728333333,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        },
+        {
+          "riderId": "npc-3",
+          "vehicleIds": [
+            "v2-vehicle-3"
+          ],
+          "directCostCoins": 470.0,
+          "receivedCoins": 391.68,
+          "recoveredAtMinutes": null,
+          "minutesSinceInvestment": null,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 5,
+        "poolMax": 12,
+        "poolMean": 9.290909090909091,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 5
+      }
+    },
+    {
+      "id": "production/current-game-supply/npc-first-only-car/slow/main",
+      "checkpoints": [
+        {
+          "atMinutes": 20,
+          "cashCoins": 0,
+          "heroOrders": 1,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 0.05,
+          "allOrdersPerMinute": 0.05,
+          "heroQuotedGrossCoins": 20,
+          "heroReceivedCoins": 20,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 20,
+          "operatingNetCoins": 20,
+          "operatingNetCoinsPerMinute": 1,
+          "cashChangeCoins": -100,
+          "heroMeanReceivedCoins": 20,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 0
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": null
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 96.21607644618899,
+          "quotaMs": 0,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 60000,
+          "quotaClippedMs": 0,
+          "quotaConsumedMs": 60000,
+          "quotaUtilizationOfAdded": 1,
+          "quotaNoWorkSeconds": 49.843999999999994,
+          "quotaStalledSeconds": 1090.156,
+          "quotaPeakMs": 60000,
+          "firstQuotaEmpty": {
+            "seconds": 109.84509552038406,
+            "cashCents": 0,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1,
+          "acceptedOrders": 1,
+          "batchCount": 1,
+          "roadMetres": 891.9617769055328,
+          "travelSeconds": 3.8440925203840735,
+          "manualSeconds": 43,
+          "supplySeconds": 0,
+          "firstCar": null,
+          "firstNPC": {
+            "seconds": 49.84409552038407,
+            "heroOrders": 1,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": true,
+          "stop": {
+            "kind": "only-car-quota-deadlock",
+            "seconds": 109.84509552038406,
+            "cashCents": 0,
+            "quotaMs": 0,
+            "unpaidOrders": 2,
+            "reservedVehicleIds": [
+              "starter-1"
+            ],
+            "errors": {
+              "returnToHero": "车辆仍执行旧批次",
+              "buyReplacement": "余额不足"
+            }
+          }
+        },
+        {
+          "atMinutes": 60,
+          "cashCoins": 0,
+          "heroOrders": 1,
+          "npcOrders": 0,
+          "heroOrdersPerMinute": 0.016666666666666666,
+          "allOrdersPerMinute": 0.016666666666666666,
+          "heroQuotedGrossCoins": 20,
+          "heroReceivedCoins": 20,
+          "npcReceivedCoins": 0,
+          "totalReceivedCoins": 20,
+          "operatingNetCoins": 20,
+          "operatingNetCoinsPerMinute": 0.3333333333333333,
+          "cashChangeCoins": -100,
+          "heroMeanReceivedCoins": 20,
+          "npcMeanReceivedCoins": 0,
+          "npcIncomeShare": 0,
+          "spentCoins": {
+            "vehicle_purchase": 0,
+            "rider_hire": 120,
+            "vehicle_upgrade": 0,
+            "rider_upgrade": 0,
+            "map_purchase": 0,
+            "supply_purchase": 0
+          },
+          "fleetCount": 1,
+          "equippedNPCs": 0,
+          "vehicles": [
+            {
+              "id": "starter-1",
+              "modelId": "starter",
+              "level": 1,
+              "effects": {
+                "profileId": "capacity-slots-economy-2026-11-06-v1",
+                "capacity": {
+                  "version": "slots-v1",
+                  "capacitySlots": 2
+                },
+                "capacitySlots": 2,
+                "speedRelativeToStarter": 1,
+                "incomeFactor": 1
+              }
+            }
+          ],
+          "riders": [
+            {
+              "id": "hero",
+              "level": 1,
+              "vehicleId": null
+            },
+            {
+              "id": "npc-1",
+              "level": 1,
+              "vehicleId": null
+            }
+          ],
+          "stamina": 96.21607644618899,
+          "quotaMs": 0,
+          "quotaCapacityMs": 900000,
+          "quotaAddedMs": 60000,
+          "quotaClippedMs": 0,
+          "quotaConsumedMs": 60000,
+          "quotaUtilizationOfAdded": 1,
+          "quotaNoWorkSeconds": 49.843999999999994,
+          "quotaStalledSeconds": 3490.156,
+          "quotaPeakMs": 60000,
+          "firstQuotaEmpty": {
+            "seconds": 109.84509552038406,
+            "cashCents": 0,
+            "batches": 1
+          },
+          "heroCapacityFillRatio": 1,
+          "meanOrdersPerBatch": 1,
+          "acceptedOrders": 1,
+          "batchCount": 1,
+          "roadMetres": 891.9617769055328,
+          "travelSeconds": 3.8440925203840735,
+          "manualSeconds": 43,
+          "supplySeconds": 0,
+          "firstCar": null,
+          "firstNPC": {
+            "seconds": 49.84409552038407,
+            "heroOrders": 1,
+            "cashCents": 0
+          },
+          "threeEquipped": null,
+          "phase": "finished",
+          "softLock": true,
+          "stop": {
+            "kind": "only-car-quota-deadlock",
+            "seconds": 109.84509552038406,
+            "cashCents": 0,
+            "quotaMs": 0,
+            "unpaidOrders": 2,
+            "reservedVehicleIds": [
+              "starter-1"
+            ],
+            "errors": {
+              "returnToHero": "车辆仍执行旧批次",
+              "buyReplacement": "余额不足"
+            }
+          }
+        }
+      ],
+      "npcDirectCashPayback": [
+        {
+          "riderId": "npc-1",
+          "vehicleIds": [
+            "starter-1"
+          ],
+          "directCostCoins": 120.0,
+          "receivedCoins": 0.0,
+          "recoveredAtMinutes": null,
+          "minutesSinceInvestment": null,
+          "scope": "direct cash recovery only; excludes displaced hero work, unpriced starter opportunity cost and alternative investments"
+        }
+      ],
+      "supply": {
+        "poolMin": 6,
+        "poolMax": 6,
+        "poolMean": 6,
+        "actualSignedOrdersMin": 1,
+        "actualSignedOrdersMax": 1
+      }
+    }
+  ],
+  "candidateComparisons": [
+    {
+      "scenario": "representative-100m",
+      "policy": "squad-first",
+      "profile": "regular",
+      "baselineReceivedCoins": 9587.16,
+      "candidateReceivedCoins": 10220.55,
+      "receivedDeltaCoins": 633.3899999999994,
+      "baselineOperatingNetPerMinute": 159.386,
+      "candidateOperatingNetPerMinute": 169.9425,
+      "baselineSquadMinutes": 12.095305130303018,
+      "candidateSquadMinutes": 11.699547471212108,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "representative-100m",
+      "policy": "starter-upgrades-first",
+      "profile": "regular",
+      "baselineReceivedCoins": 10308.9,
+      "candidateReceivedCoins": 10943.73,
+      "receivedDeltaCoins": 634.8299999999999,
+      "baselineOperatingNetPerMinute": 171.415,
+      "candidateOperatingNetPerMinute": 181.9955,
+      "baselineSquadMinutes": 16.676814344250587,
+      "candidateSquadMinutes": 16.038913931783398,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": false,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "representative-100m",
+      "policy": "capacity-car-first",
+      "profile": "regular",
+      "baselineReceivedCoins": 11317.75,
+      "candidateReceivedCoins": 12066.72,
+      "receivedDeltaCoins": 748.9699999999993,
+      "baselineOperatingNetPerMinute": 188.17916666666667,
+      "candidateOperatingNetPerMinute": 200.66199999999998,
+      "baselineSquadMinutes": 19.905281194444502,
+      "candidateSquadMinutes": 18.514725388888923,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": false,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "representative-100m",
+      "policy": "npc-first-only-car",
+      "profile": "regular",
+      "baselineReceivedCoins": 20,
+      "candidateReceivedCoins": 20,
+      "receivedDeltaCoins": 0,
+      "baselineOperatingNetPerMinute": 0.3333333333333333,
+      "candidateOperatingNetPerMinute": 0.3333333333333333,
+      "baselineSquadMinutes": null,
+      "candidateSquadMinutes": null,
+      "baselineSoftlock": true,
+      "candidateSoftlock": true,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "representative-100m",
+      "policy": "squad-first",
+      "profile": "slow",
+      "baselineReceivedCoins": 5427.24,
+      "candidateReceivedCoins": 5677,
+      "receivedDeltaCoins": 249.76000000000022,
+      "baselineOperatingNetPerMinute": 90.304,
+      "candidateOperatingNetPerMinute": 94.46666666666667,
+      "baselineSquadMinutes": 22.40833510000003,
+      "candidateSquadMinutes": 22.40833510000003,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "representative-100m",
+      "policy": "starter-upgrades-first",
+      "profile": "slow",
+      "baselineReceivedCoins": 5628.18,
+      "candidateReceivedCoins": 5936.68,
+      "receivedDeltaCoins": 308.5,
+      "baselineOperatingNetPerMinute": 93.60300000000001,
+      "candidateOperatingNetPerMinute": 98.74466666666667,
+      "baselineSquadMinutes": 32.33893530637191,
+      "candidateSquadMinutes": 30.941034893904714,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": false,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "representative-100m",
+      "policy": "capacity-car-first",
+      "profile": "slow",
+      "baselineReceivedCoins": 4628.81,
+      "candidateReceivedCoins": 5057.76,
+      "receivedDeltaCoins": 428.9499999999998,
+      "baselineOperatingNetPerMinute": 76.94683333333334,
+      "candidateOperatingNetPerMinute": 84.096,
+      "baselineSquadMinutes": 41.301392155555654,
+      "candidateSquadMinutes": 39.984725388889004,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": false,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "representative-100m",
+      "policy": "npc-first-only-car",
+      "profile": "slow",
+      "baselineReceivedCoins": 20,
+      "candidateReceivedCoins": 20,
+      "receivedDeltaCoins": 0,
+      "baselineOperatingNetPerMinute": 0.3333333333333333,
+      "candidateOperatingNetPerMinute": 0.3333333333333333,
+      "baselineSquadMinutes": null,
+      "candidateSquadMinutes": null,
+      "baselineSoftlock": true,
+      "candidateSoftlock": true,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "current-game-supply",
+      "policy": "squad-first",
+      "profile": "regular",
+      "baselineReceivedCoins": 9365.48,
+      "candidateReceivedCoins": 9772.38,
+      "receivedDeltaCoins": 406.89999999999964,
+      "baselineOperatingNetPerMinute": 155.2913333333333,
+      "candidateOperatingNetPerMinute": 162.07299999999998,
+      "baselineSquadMinutes": 11.043930279271716,
+      "candidateSquadMinutes": 10.635595143269287,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "current-game-supply",
+      "policy": "starter-upgrades-first",
+      "profile": "regular",
+      "baselineReceivedCoins": 9992.27,
+      "candidateReceivedCoins": 10422.32,
+      "receivedDeltaCoins": 430.0499999999993,
+      "baselineOperatingNetPerMinute": 165.73783333333333,
+      "candidateOperatingNetPerMinute": 172.90533333333332,
+      "baselineSquadMinutes": 16.457747668144556,
+      "candidateSquadMinutes": 15.393818735995072,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "current-game-supply",
+      "policy": "capacity-car-first",
+      "profile": "regular",
+      "baselineReceivedCoins": 10812.55,
+      "candidateReceivedCoins": 11541.11,
+      "receivedDeltaCoins": 728.5600000000013,
+      "baselineOperatingNetPerMinute": 179.40916666666666,
+      "candidateOperatingNetPerMinute": 191.50183333333334,
+      "baselineSquadMinutes": 21.440685628348994,
+      "candidateSquadMinutes": 19.334663382114844,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": false,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "current-game-supply",
+      "policy": "npc-first-only-car",
+      "profile": "regular",
+      "baselineReceivedCoins": 20,
+      "candidateReceivedCoins": 20,
+      "receivedDeltaCoins": 0,
+      "baselineOperatingNetPerMinute": 0.3333333333333333,
+      "candidateOperatingNetPerMinute": 0.3333333333333333,
+      "baselineSquadMinutes": null,
+      "candidateSquadMinutes": null,
+      "baselineSoftlock": true,
+      "candidateSoftlock": true,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "current-game-supply",
+      "policy": "squad-first",
+      "profile": "slow",
+      "baselineReceivedCoins": 5515.27,
+      "candidateReceivedCoins": 5683.58,
+      "receivedDeltaCoins": 168.3099999999995,
+      "baselineOperatingNetPerMinute": 91.57116666666667,
+      "candidateOperatingNetPerMinute": 94.37633333333333,
+      "baselineSquadMinutes": 21.575659114529216,
+      "candidateSquadMinutes": 21.575659114529216,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "current-game-supply",
+      "policy": "starter-upgrades-first",
+      "profile": "slow",
+      "baselineReceivedCoins": 5683.59,
+      "candidateReceivedCoins": 5987.06,
+      "receivedDeltaCoins": 303.47000000000025,
+      "baselineOperatingNetPerMinute": 94.37650000000001,
+      "candidateOperatingNetPerMinute": 99.43433333333334,
+      "baselineSquadMinutes": 31.755700749374846,
+      "candidateSquadMinutes": 30.28833826021999,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "current-game-supply",
+      "policy": "capacity-car-first",
+      "profile": "slow",
+      "baselineReceivedCoins": 4595.68,
+      "candidateReceivedCoins": 5116.8,
+      "receivedDeltaCoins": 521.1199999999999,
+      "baselineOperatingNetPerMinute": 76.29466666666667,
+      "candidateOperatingNetPerMinute": 84.93,
+      "baselineSquadMinutes": 42.27011908578329,
+      "candidateSquadMinutes": 40.01466338211485,
+      "baselineSoftlock": false,
+      "candidateSoftlock": false,
+      "sameBatchOfferSequence": false,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    },
+    {
+      "scenario": "current-game-supply",
+      "policy": "npc-first-only-car",
+      "profile": "slow",
+      "baselineReceivedCoins": 20,
+      "candidateReceivedCoins": 20,
+      "receivedDeltaCoins": 0,
+      "baselineOperatingNetPerMinute": 0.3333333333333333,
+      "candidateOperatingNetPerMinute": 0.3333333333333333,
+      "baselineSquadMinutes": null,
+      "candidateSquadMinutes": null,
+      "baselineSoftlock": true,
+      "candidateSoftlock": true,
+      "sameBatchOfferSequence": true,
+      "comparisonScope": "same source/supply/start/profile/policy; affordability can change purchase times and later accepted batch packing"
+    }
+  ],
+  "verification": [
+    {
+      "id": "production/representative-100m/squad-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/starter-upgrades-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/capacity-car-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/npc-first-only-car/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/squad-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/starter-upgrades-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/capacity-car-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/npc-first-only-car/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/current-game-supply/squad-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/current-game-supply/starter-upgrades-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/current-game-supply/capacity-car-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/current-game-supply/npc-first-only-car/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/current-game-supply/squad-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/current-game-supply/starter-upgrades-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/current-game-supply/capacity-car-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/current-game-supply/npc-first-only-car/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/representative-100m/squad-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/representative-100m/starter-upgrades-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/representative-100m/capacity-car-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/representative-100m/npc-first-only-car/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/representative-100m/squad-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/representative-100m/starter-upgrades-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/representative-100m/capacity-car-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/representative-100m/npc-first-only-car/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/current-game-supply/squad-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/current-game-supply/starter-upgrades-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/current-game-supply/capacity-car-first/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/current-game-supply/npc-first-only-car/regular/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/current-game-supply/squad-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/current-game-supply/starter-upgrades-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/current-game-supply/capacity-car-first/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "C-base10000-slope0.5/current-game-supply/npc-first-only-car/slow/main",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/npc-first-only-car/regular/loan-after-3",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/npc-first-only-car/regular/loan-after-5",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/npc-first-only-car/regular/loan-after-10",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/representative-100m/npc-first-only-car/regular/loan-after-15",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/held-distance-100/squad-first/regular/distance",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/held-distance-354/squad-first/regular/distance",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/held-distance-500/squad-first/regular/distance",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/held-distance-2000/squad-first/regular/distance",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    },
+    {
+      "id": "production/held-distance-4000/squad-first/regular/distance",
+      "passed": true,
+      "checks": [
+        "source-based restore",
+        "earned cash reconciliation",
+        "per-order gross/net",
+        "exact finite quota reconciliation",
+        "checkpoints"
+      ]
+    }
+  ],
+  "longTerm80Percent": {
+    "timeRatio": null,
+    "reason": "24 NPC + 4 maps + first 8 models and full-30 denominator not simulated. The 20/60 minute policies stop buying at 3 NPC and never purchase maps. Old 19.91/27.41/385.68/1935.03 timings cannot be inherited.",
+    "referenceAssetBudgetCoins": 471270,
+    "costNote": "Reference legal inventory: 24 NPC + hero, 1 starter + 8 different paid models + 16 duplicate streets; first 4 maps; all level 1. Budget only, no time estimate or proof of optimality."
+  },
+  "distanceSensitivity": [
+    {
+      "heldMetres": 100,
+      "minutesAfterEarnedPrefix": 11.284165966666666,
+      "completedOrders": 10,
+      "grossCoins": 190.74,
+      "receivedCoins": 190.74,
+      "allocatedOperatingNetCoins": 187.74,
+      "netCoinsPerMinute": 16.63747241529258,
+      "firstQuoteCoins": 18.75,
+      "meanAcceptanceToCompletionSeconds": 50.15494609999986,
+      "stop": null
+    },
+    {
+      "heldMetres": 354,
+      "minutesAfterEarnedPrefix": 11.284165966666666,
+      "completedOrders": 21,
+      "grossCoins": 414.19,
+      "receivedCoins": 414.19,
+      "allocatedOperatingNetCoins": 411.19,
+      "netCoinsPerMinute": 36.43955620775624,
+      "firstQuoteCoins": 19.27,
+      "meanAcceptanceToCompletionSeconds": 25.295166095237466,
+      "stop": null
+    },
+    {
+      "heldMetres": 500,
+      "minutesAfterEarnedPrefix": 11.284165966666666,
+      "completedOrders": 17,
+      "grossCoins": 340.1,
+      "receivedCoins": 340.1,
+      "allocatedOperatingNetCoins": 337.1,
+      "netCoinsPerMinute": 29.873718713087936,
+      "firstQuoteCoins": 19.57,
+      "meanAcceptanceToCompletionSeconds": 31.999933999999765,
+      "stop": null
+    },
+    {
+      "heldMetres": 2000,
+      "minutesAfterEarnedPrefix": 11.284165966666666,
+      "completedOrders": 6,
+      "grossCoins": 137.28,
+      "receivedCoins": 137.28,
+      "allocatedOperatingNetCoins": 134.28,
+      "netCoinsPerMinute": 11.899860423593735,
+      "firstQuoteCoins": 22.66,
+      "meanAcceptanceToCompletionSeconds": 98.66661716666658,
+      "stop": null
+    },
+    {
+      "heldMetres": 4000,
+      "minutesAfterEarnedPrefix": 11.284165966666666,
+      "completedOrders": 3,
+      "grossCoins": 67.98,
+      "receivedCoins": 67.98,
+      "allocatedOperatingNetCoins": 64.98,
+      "netCoinsPerMinute": 5.758511545465601,
+      "firstQuoteCoins": 22.66,
+      "meanAcceptanceToCompletionSeconds": 190.3332883333333,
+      "stop": null
+    }
+  ]
+}

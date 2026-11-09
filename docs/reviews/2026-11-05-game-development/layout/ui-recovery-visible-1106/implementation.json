@@ -1,0 +1,282 @@
+{
+  "task": "UI-RECOVERY-VISIBLE-B-1106",
+  "state": "implemented-source-candidate; NOT a replacement for PM real-screen delivery",
+  "parent": "thr_axf6i4e89t",
+  "fixer": "thr_tviezvnwds",
+  "sourceChanges": {
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": {
+      "beforeSHA256": "81f54afb7d835c996a7305bb6075c7a3577c25fe33d5d928196d6a3530f80263",
+      "afterSHA256": "284250cd29eba68d18188af58e805792dc1efe9b1abcf047955e0d3ce724d45c"
+    },
+    "delivery-game/assets/scripts/map-sample/V2Spacing.ts": {
+      "beforeSHA256": "8bc275d4946c45a8d6f239209229429cd38b75bb84ecfd3205dab71e5535c84a",
+      "afterSHA256": "0f363e9bb5858629a592d8e8a3208e70e43c5f87deffe0e1117d9be92fa509de"
+    }
+  },
+  "exactDiff": "candidate.diff",
+  "baselineNote": "Owned source untracked; exact diff uses full in-memory before bytes matched to food handoff SHA81f54... and current spacing, not an empty git diff. Two normal V4A patches applied; no terminal rewrite.",
+  "visualInputs": {
+    "approved": "docs/art/2026-11-02-approved-ui-reference/01-riders-v4.png",
+    "rejectedRealScreen": "docs/reviews/2026-11-05-game-development/integration/user-preview-after-rejection-1106.jpg",
+    "observed": "原实屏确有我、远离姓名的等级、卡片右上的未招募、作业耗时100%、招募按钮全价，以及顶部dispatch红错。认可图仅用于双列卡层级；被最新要求覆盖的旧文案未继承。没有把Pillow稿当认可母版。",
+    "newScreen": "not captured by B; PM owns unified build and real screenshot comparison before user delivery"
+  },
+  "requirements": [
+    {
+      "requirement": 1,
+      "source": "V2GameUI.ts:351,383-399,414-424",
+      "implemented": "第一位及同身份配置/车辆归属名改主角；hero/id、经验数据不改。跳过hero异步肖像名，避免manifest旧我覆盖。",
+      "verified": "源码与原字节差分；未新实屏"
+    },
+    {
+      "requirement": 2,
+      "source": "V2GameUI.ts:383-399,424",
+      "implemented": "姓名26号、配置页28号，Lv16号/24高。使用CC真实测宽，Lv左边紧跟姓名右边6单位；真实异步姓名回调再次同法排布，带销毁保护，不缩姓名。",
+      "data": "portraitDisplayName -> portraits.json现30个NPC displayName均2字；默认骑手1..30占位也参与测宽。",
+      "unverified": "实际字体/异步时序/重新进入页的实屏边界未运行"
+    },
+    {
+      "requirement": 3,
+      "source": "V2Spacing.ts:10；V2GameUI.ts:344-355,401-407",
+      "implemented": "未招募及已招NPC状态均在肖像下方，已招仍按车辆/真实fleet状态刷新。31个完整数据项双列，基础180高/8间距；行高取两卡最大值，内容高累计，不截名单。",
+      "unverified": "约10完整卡+下一行及约3屏是静态设计框预算，非已截图通过"
+    },
+    {
+      "requirement": 4,
+      "source": "V2GameUI.ts:330-339,357-362；domain/V2RiderEconomy.ts:11-14",
+      "implemented": "所有NPC分别显示收入加成与取送省时，直接用incomeFactor-1及fixedServiceReduction；0%就是零省时。百分比仅显示至1位小数，避免原整数Math.round把真实0.5个百分点隐藏；不改效果。主角用真实经验/XP，走独立分支而非NPC helper。"
+    },
+    {
+      "requirement": 5,
+      "source": "V2GameUI.ts:337-368,373-380",
+      "implemented": "未招按钮仅招募，右侧独立价格行使用coins(hire.priceCents)。保留真实quote，不做万单位近似。长实际价格/收入/经验/升级按钮文案增加所属行及滚动高度，字号20/22不SHRINK。",
+      "unverified": "万元规则仍held；没有新统一舍入规则或伪造百万示例/档案"
+    },
+    {
+      "requirement": 6,
+      "source": "V2GameUI.ts:335-368,418-457",
+      "implemented": "保留真实今日收入ledger筛选、主角经验/配置、NPC升级入口/当前quote费用及确认弹窗。缺钱/满级/已占用按真实已有条件禁用；不添加batchIds全局禁用。主角在途配车限制只针对主角，配置页升级禁用只针对在途主角所用车辆，不连带禁全部NPC。",
+      "unverified": "Dispatch总guard与正式规则的冲突未由B改后端；不能称经济操作可用性已集成通过"
+    },
+    {
+      "requirement": 7,
+      "source": "V2GameUI.ts:1-317及461-EOF；V2Spacing.ts非rider字段",
+      "implemented": "精确比较确认上述片段不变，保留食品/ETA/补给/跟随/标题删除/订单布局/账单币图清理/滚动保位/×与其他现有修改。V2ApprovedSkin未改，不碰G04或资源。"
+    }
+  ],
+  "geometry": {
+    "units": "720×1280 design canvas; calculations, not new rendered screenshots",
+    "baselineCard": [
+      338,
+      180
+    ],
+    "rowGap": 8,
+    "baselineRowStep": 188,
+    "columns": 2,
+    "count": 31,
+    "rows": 16,
+    "viewportHeight": 1003.0364614465033,
+    "baselineFullRows": 5,
+    "baselineFullCards": 10,
+    "nextRowVisible": 63.03646144650327,
+    "baselineContentHeight": 3008,
+    "baselineContentScreens": 2.9988939740655987,
+    "infoXRange": [
+      -53,
+      157
+    ],
+    "infoWidth": 210,
+    "portraitNPC": {
+      "center": [
+        -111,
+        33
+      ],
+      "size": [
+        92,
+        104
+      ],
+      "withFrameY": [
+        -21,
+        87
+      ]
+    },
+    "state": {
+      "center": [
+        -111,
+        -35
+      ],
+      "size": [
+        100,
+        24
+      ],
+      "yRange": [
+        -47,
+        -23
+      ]
+    },
+    "bodyRows": {
+      "font": 20,
+      "lineHeight": 26,
+      "baselineHeight": 26,
+      "centers": [
+        30,
+        1,
+        -28
+      ],
+      "ranges": [
+        [
+          17,
+          43
+        ],
+        [
+          -12,
+          14
+        ],
+        [
+          -41,
+          -15
+        ]
+      ]
+    },
+    "buttons": {
+      "font": 22,
+      "baselineHeight": 38,
+      "baselineY": -68,
+      "rangeY": [
+        -87,
+        -49
+      ],
+      "pairedWidths": [
+        151,
+        151
+      ],
+      "heroOrHireWidth": 210
+    },
+    "name": {
+      "font": 26,
+      "baselineY": 64,
+      "height": 37,
+      "levelFont": 16,
+      "levelHeight": 24,
+      "gapFromMeasuredNameRight": 6,
+      "widthPolicy": "NONE + updateRenderData(true) -> actual width -> fixed-size CLAMP without shrink; real async name repeats same layout"
+    },
+    "minimumVerticalGaps": {
+      "portraitFrameToState": 2,
+      "stateToButtons": 2,
+      "lastNPCBodyToButtons": 8
+    },
+    "growthPolicy": "Each actual wrapped body/experience row adds wrappedExtra at fixed font; long real upgrade text grows its button. Card height includes both; each grid row takes max of its two cards; all rowTops and contentHeight are summed. Density above is baseline, not a cap overriding readable long values."
+  },
+  "staticComparisons": {
+    "beforeRidersUnchanged": true,
+    "afterShowUpgradeUnchanged": true,
+    "riderStatusTruthSourceUnchanged": true,
+    "noDisplayedHeroMe": true,
+    "noOldWorkTimeLabel": true,
+    "realNPCSavingsDirect": true,
+    "plainHireButton": true,
+    "separateExactHirePrice": true,
+    "all31CardsEnumerated": true,
+    "dynamicRowHeightAndScroll": true,
+    "ridersScrollStable": true,
+    "nameReflowsAfterAsync": true,
+    "noActiveBatchGlobalUIDisable": true,
+    "heroVehicleOnlyBusyGuard": true,
+    "noGuessedSlotFields": true,
+    "spacingOnlyRiderChange": true
+  },
+  "CC388Evidence": [
+    {
+      "path": "/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/Resources/resources/3d/engine/cocos/2d/components/label.ts:108-137,956-972",
+      "evidence": "NONE不限制、SHRINK会改变字号、updateRenderData(force=false)在force时立即flush/update并更新content size。用于姓名与Lv测宽，不发明measure API。"
+    },
+    {
+      "path": "/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/Resources/resources/3d/engine/cocos/2d/assembler/label/ttfUtils.ts:56-61,147-159",
+      "evidence": "NONE禁wrap；assembler将nodeContentSize写回UITransform并设置contentWidth。已实际读取引擎源码，未运行引擎。"
+    }
+  ],
+  "availabilityAndRuleGap": {
+    "ruleEvidence": "正式V1:106允许NPC工作中申请调整，旧单结清后生效；主角在活动批次换车/升级另有限制。V1:161又禁止常驻自动额度/延后生效说明。本段遵从最新用户及PM补充。",
+    "observedGuard": "只读观察V2DispatchSession.ts:64-75 command入口要求batchIds.length===0，涵盖hireRider/assignVehicle/upgradeRider/upgradeVehicle；这是现有实现与逐命令产品语义待对齐的边界，不证明用户实际点了某个按钮。",
+    "notDone": "没有改A后端或把这个总guard当作产品规则，没有对骑手招募/升级/配置增加一刀切active batch禁用，没有恢复常驻延后生效/额度说明。不能宣称红错消失。",
+    "requestToPM": "A/PM需提供/落实逐命令允许性及NPC旧合同调整生效契约；如需排队状态/可用性读模型，先冻结具体API再接，B本段不猜字段。当前资金、满级、车辆归属、旧fleet车辆占用和具体主角在途限制仍真实保留。"
+  },
+  "latestSlotsAndCosts": {
+    "status": "未实施，不冒充已改",
+    "currentQuoteInputs": {
+      "configId": "frontloaded-2026-11-04-v3-hire-training-tail",
+      "observedRiderHireCoinsMin": 120,
+      "observedRiderHireCoinsMax": 9680000,
+      "observedRiderUpgradeCoinsMin": 11,
+      "observedRiderUpgradeCoinsMax": 62
+    },
+    "meaning": "这些是本轮读取时现有旧真实报价，不是用户要求的新版升级曲线。UI继续调用riderHireQuote/riderUpgradeQuote/vehicleUpgradeQuote，不写死样例；没有换kg字样假装2容量/餐品1或2格已实现。"
+  },
+  "readonlyInputsSHA256": {
+    "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "9e7e6914f8f5a7c0d8e5dba4045237fca0385d98af12d52676352221bcfd3f09",
+    "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+    "delivery-game/assets/scripts/map-sample/FoodImages.ts": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586",
+    "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+    "delivery-game/assets/resources/ui-v2/portraits.json": "fc35329f1f63cce69c55ea5668af0eebe86ff6962a2216a6e34e03637c2df826",
+    "docs/art/2026-11-02-approved-ui-reference/01-riders-v4.png": "5b3609a10398ce4e744e323a73de33dfb3f1a3bc9f8ad9f3bd68385433f8e21e",
+    "docs/reviews/2026-11-05-game-development/integration/user-preview-after-rejection-1106.jpg": "fa96eb302b9451ca0c4e5fe0ae2d35a2305a0b13452232e3154f9eba71ab45f8"
+  },
+  "readonlyInputDrift": [],
+  "limits": {
+    "sourceOnly": true,
+    "tests": false,
+    "typecheck": false,
+    "typescriptExecution": false,
+    "creatorBuild": false,
+    "browserGame": false,
+    "businessOperations": false,
+    "realOrSyntheticSave": false,
+    "imageGenerationOrModification": false,
+    "mapProduction": false,
+    "commitPush": false,
+    "subagentCodex": false,
+    "permissionsChanged": false,
+    "automaticToolFeedback": "patch自动提示project tsconfig存在、per-file tsc skipped；不计编译通过",
+    "nameBounds": "现有30个NPC真实名均2字；Lv实际测宽相邻排列。未运行真实字体/晚回调/极端未来名册，未给超出当前名册的数据做视觉保证。"
+  },
+  "deferredCases": [
+    {
+      "case": "PM统一构建后用真实骑手页并排对认可图：主角文字、紧靠Lv、肖像下状态、独立价格与纯招募按钮是否真正出现。",
+      "status": "not-run"
+    },
+    {
+      "case": "异步姓名先占位后真实名，以及快速切页销毁/重开：姓名不缩小，Lv不碰撞。",
+      "status": "not-run"
+    },
+    {
+      "case": "当前真实31人首屏密度、下一行露头、滚动至最后1张卡、回页保位。",
+      "status": "not-run"
+    },
+    {
+      "case": "所有NPC已招/未招、Lv1/已升级/满级真实加成与省时；主角经验/XP不可误用NPC效果。",
+      "status": "not-run"
+    },
+    {
+      "case": "真实现报价最大价格行、实际长今日收入/经验、未来正式新升级报价长文本：只长高所属行，不覆盖按钮/肖像状态。",
+      "status": "not-run"
+    },
+    {
+      "case": "已招NPC今日账目、配置/升级动作和资金不足/满级/占用/主角在途的真实可用性；不做招募升级操作或造档验证。",
+      "status": "not-run"
+    },
+    {
+      "case": "A收口Dispatch/经济命令门禁：NPC已签合同不追溯，允许的调整按正式规则生效；不得通过UI一律禁用冒充后端修好。",
+      "status": "not-run"
+    },
+    {
+      "case": "PM整合A的Runtime错误修正并核对是否仍显示原红错，不将静态可能链当作用户真实触发步骤。",
+      "status": "not-run"
+    },
+    {
+      "case": "容量槽位及前10级新费用须A另冻真实契约后再接；本候选仍是原真实报价和旧容量字段，不当新机制。",
+      "status": "not-run"
+    }
+  ],
+  "handoff": "交回源及报告后停止写入并释放本段lease，PM恢复Default。独立复审、统一构建、真实本地截图及认可图并排比较由PM执行；不是用户交付完成，不关闭反馈，不报98%。"
+}

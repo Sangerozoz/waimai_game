@@ -1,0 +1,107 @@
+{
+  "status": "PASS_ISOLATED_PACKED_OPERATION_AND_TIMING_ONLY",
+  "recordedAt": "2026-11-07T13:08:26.785830+00:00",
+  "baselineCapture": "docs/reviews/2026-11-05-game-development/performance/runtime-profile-1107/capture-04",
+  "candidateCapture": "docs/reviews/2026-11-05-game-development/performance/owned-restore-1107/browser",
+  "sameSourceSnapshotAndTransport": true,
+  "initializationWritesPerFreshOrigin": 1,
+  "sourceSnapshotSHA256": "0aaec212918f92bb723a605d4db143108fd50bd39b2425f0b925ec2537052444",
+  "comparison": [
+    {
+      "window": "pickup-wait",
+      "beforeDurationMs": 3010.699999988079,
+      "afterDurationMs": 3025.0,
+      "beforeFrameIntervalMedianMs": 133.3,
+      "afterFrameIntervalMedianMs": 116.7,
+      "beforeRuntime": {
+        "count": 23,
+        "totalMs": 2788.600000143051,
+        "meanMs": 121.24347826708917,
+        "retainedSampleCount": 23,
+        "sampleMedianMs": 120.7
+      },
+      "beforeCommitMeanMs": 3.7000000062196152,
+      "afterRuntime": {
+        "count": 26,
+        "totalMs": 2825.3999999165535,
+        "meanMs": 108.66923076602129,
+        "retainedSampleCount": 26,
+        "sampleMedianMs": 108.75
+      },
+      "afterCommitMeanMs": 2.7769230672946343,
+      "runtimeMeanReductionPercent": 10.371071236811503
+    },
+    {
+      "window": "ready-wait",
+      "beforeDurationMs": 2538.099999964237,
+      "afterDurationMs": 2540.199999988079,
+      "beforeFrameIntervalMedianMs": 133.3,
+      "afterFrameIntervalMedianMs": 116.6,
+      "beforeRuntime": {
+        "count": 20,
+        "totalMs": 2394.69999986887,
+        "meanMs": 119.7349999934435,
+        "retainedSampleCount": 20,
+        "sampleMedianMs": 118.65
+      },
+      "beforeCommitMeanMs": 3.1849999964237212,
+      "afterRuntime": {
+        "count": 22,
+        "totalMs": 2369.69999986887,
+        "meanMs": 107.7136363576759,
+        "retainedSampleCount": 22,
+        "sampleMedianMs": 107.05
+      },
+      "afterCommitMeanMs": 2.854545449668711,
+      "runtimeMeanReductionPercent": 10.039974641020477
+    },
+    {
+      "window": "actual-travel",
+      "beforeDurationMs": 4848.899999976158,
+      "afterDurationMs": 4783.900000035763,
+      "beforeFrameIntervalMedianMs": 133.3,
+      "afterFrameIntervalMedianMs": 116.7,
+      "beforeRuntime": {
+        "count": 36,
+        "totalMs": 4405.900000095367,
+        "meanMs": 122.38611111376021,
+        "retainedSampleCount": 36,
+        "sampleMedianMs": 120.35
+      },
+      "beforeCommitMeanMs": 3.0250000026490955,
+      "afterRuntime": {
+        "count": 40,
+        "totalMs": 4389.700000226498,
+        "meanMs": 109.74250000566244,
+        "retainedSampleCount": 40,
+        "sampleMedianMs": 108.1
+      },
+      "afterCommitMeanMs": 2.7975000008940696,
+      "runtimeMeanReductionPercent": 10.330919900171754
+    }
+  ],
+  "actualHeroDelivery": {
+    "from": 771,
+    "to": 772,
+    "endedAtNextPickup": true
+  },
+  "finalLedgerReconciled": true,
+  "noDuplicateLedgerOrSettledIds": true,
+  "runtimeLastError": "",
+  "consoleErrorCount": 1,
+  "consoleErrorHead": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "caveats": [
+    "one bounded sequential before/after capture; warmup, scheduler and instrumentation affect times",
+    "headless emulated touch, not physical-device FPS",
+    "mixed travel window includes ready, movement, delivery and next pickup",
+    "both baseline and candidate retain one unlocalized resource404; no zero-console-error claim",
+    "long-history timing remains well above a 33ms frame budget; U01 stays open",
+    "original source fixture direct packed restore remains blocked"
+  ],
+  "browserClosed": true,
+  "realUserBrowserOrSaveAccess": false,
+  "retainedPerTagSampleLimit": 80,
+  "countsAndDurationsIncludeAllObservedCalls": true
+}

@@ -1,0 +1,18 @@
+{
+  "result": "assertion failed on public unauthenticated identity check",
+  "scope": "supplementary remote check, not source/test/build/browser failure",
+  "publicChecks": [
+    {
+      "url": "https://sanger--4182.getbb.app/index.html",
+      "error": "HTTPError: HTTP Error 403: Forbidden",
+      "matches": false
+    },
+    {
+      "url": "https://sanger--4196.getbb.app/index.html",
+      "error": "HTTPError: HTTP Error 403: Forbidden",
+      "matches": false
+    }
+  ],
+  "error": "AssertionError at assert all(x[\"matches\"] for x in public checks)",
+  "treatment": "preserve actual403; do not use credentials or bypass access; local30HTTP identities remain verified"
+}

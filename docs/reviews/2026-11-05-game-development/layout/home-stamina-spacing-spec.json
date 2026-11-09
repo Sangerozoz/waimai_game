@@ -1,0 +1,35 @@
+{
+  "id": "H02-resource-spacing",
+  "author": "PM integration",
+  "gate": "scoped static specification",
+  "passed": true,
+  "source": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+  "beforeSha": "1b70ff52c504c01fa1a790cf75d1d2ff087b9f510b208271c6fc4cb487533ef3",
+  "candidateSha": "6ad0cf81f8a93b1bf5fec786195124f0cf354a1f811934a314c0d0b9576b7b80",
+  "exactInverseMatches": true,
+  "beforeBoxGaps": [
+    -5.0,
+    -2.0
+  ],
+  "candidateBoxGaps": [
+    6.0,
+    5.0
+  ],
+  "candidateOuterMargins": [
+    2.851063829787236,
+    3.851063829787236
+  ],
+  "preserved": [
+    "Value fontsize21 and width84, full real text not substituted",
+    "HUD outer position/size, cash and rating layouts",
+    "Non-home stamina branch unchanged",
+    "Whole component tap-to-supply behavior",
+    "All remaining source bytes unchanged"
+  ],
+  "limits": [
+    "Static rectangle gaps, not a new actual rendered screenshot",
+    "Icons are smaller inside same panel; real clarity still needs visual check",
+    "No behavior tests/typecheck/TS execution/slot operation"
+  ],
+  "independentReview": "pending thr_htnxptrv4w"
+}

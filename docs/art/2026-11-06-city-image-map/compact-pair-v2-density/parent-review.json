@@ -1,0 +1,45 @@
+{
+  "stage": "actual-raw-density-candidate-reviewed-not-runtime-admitted-or-user-accepted",
+  "nativeDimensions": [
+    1536,
+    1024
+  ],
+  "nativeSHA256": "6b6cdf35fad8fc64e593a1c97571e99cc58fc809854b201e9e685e226c3028fe",
+  "nativeBytesAndDimensionsVerified": true,
+  "BByteIdenticalVerified": true,
+  "protectedFilesChecked": 46,
+  "changedProtectedFiles": [],
+  "parentVisualObservation": "density visibly increased in east/north/foreground; raw native and same-view pair reviewed; forced-mask clipped derivative not admitted",
+  "userDensityAcceptance": false,
+  "newRuntimeAdmitted": false,
+  "nativeModeReadback": {
+    "id": "_bb/legacy-mode",
+    "label": "Mode",
+    "description": null,
+    "category": "mode",
+    "type": "select",
+    "value": "default",
+    "pendingValue": null,
+    "values": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Ask before edits.",
+        "group": null
+      },
+      {
+        "id": "accept_edits",
+        "label": "Accept Edits",
+        "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+        "group": null
+      },
+      {
+        "id": "dont_ask",
+        "label": "Don't Ask",
+        "description": "Auto-allow file edits for this session except sensitive paths.",
+        "group": null
+      }
+    ]
+  },
+  "additionalImageRequestsAuthorized": false
+}

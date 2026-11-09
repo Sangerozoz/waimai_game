@@ -1,0 +1,22 @@
+--- a/delivery-game/assets/scripts/map-sample/V2GameUI.ts
++++ b/delivery-game/assets/scripts/map-sample/V2GameUI.ts
+@@ -364,8 +364,8 @@
+    const buttonY=-cardH/2+3+buttonHeight/2;
+    if(r){
+     this.riderAction(card,'配置车辆',i===0?infoX:-(buttonW+S.gap)/2,buttonY,i===0?infoW:buttonW,buttonHeight,()=>this.act(()=>{this.configureRider=id;}),true,false);
+-    if(i>0)this.riderAction(card,upgradeText,(buttonW+S.gap)/2,buttonY,buttonW,buttonHeight,()=>{if(upgrade)this.showUpgrade('升级骑手',`等级 ${r.level} → ${upgrade.nextLevel}\n培养收入 +${percent(upgrade.current.trainingIncomeFactor-1)}% → +${percent(upgrade.next.trainingIncomeFactor-1)}%\n取送省时 ${percent(upgrade.current.fixedServiceReduction)}% → ${percent(upgrade.next.fixedServiceReduction)}%`,upgrade.costCents,()=>this.runtime.command({type:'upgradeRider',riderId:id}));},!!upgrade&&s.cashCents>=upgrade.costCents);
+-   }else if(hire)this.riderAction(card,'招募',infoX,buttonY,infoW,buttonHeight,()=>this.act(()=>this.runtime.command({type:'hireRider',riderId:id})),s.hireCount<30&&s.cashCents>=hire.priceCents);
++    if(i>0)this.riderAction(card,upgradeText,(buttonW+S.gap)/2,buttonY,buttonW,buttonHeight,()=>{if(upgrade)this.showUpgrade('升级骑手',`等级 ${r.level} → ${upgrade.nextLevel}\n培养收入 +${percent(upgrade.current.trainingIncomeFactor-1)}% → +${percent(upgrade.next.trainingIncomeFactor-1)}%\n取送省时 ${percent(upgrade.current.fixedServiceReduction)}% → ${percent(upgrade.next.fixedServiceReduction)}%`,upgrade.costCents,()=>this.runtime.command({type:'upgradeRider',riderId:id}));},!!upgrade);
++   }else if(hire)this.riderAction(card,'招募',infoX,buttonY,infoW,buttonHeight,()=>this.act(()=>this.runtime.command({type:'hireRider',riderId:id})),s.hireCount<30);
+   });
+   this.refreshRiderStatuses();
+  }
+@@ -454,7 +454,7 @@
+    action(card,equipped?'已配备':owner?'已占用':oldBatch?'旧批次中':'配备车辆',textLeft+buttonW/2,buttonY,buttonW,44,()=>this.act(()=>this.runtime.command({type:'assignVehicle',riderId:id,vehicleId:vehicle.id})),!equipped&&!owner&&!oldBatch&&!heroBusy,false);
+    action(card,quote?'升级车辆':'已满级',textLeft+buttonW+S.gap+buttonW/2,buttonY,buttonW,44,()=>{
+     if(quote)this.showUpgrade('升级车辆',`等级 ${vehicle.level} → ${quote.nextLevel}\n速度 ×${quote.current.speedRelativeToStarter.toFixed(2)} → ×${quote.next.speedRelativeToStarter.toFixed(2)}\n容量 ${quote.current.capacityKg.toFixed(1)} → ${quote.next.capacityKg.toFixed(1)} kg\n收入加成 +${Math.round((quote.current.incomeFactor-1)*100)}% → +${Math.round((quote.next.incomeFactor-1)*100)}%`,quote.costCents,()=>this.runtime.command({type:'upgradeVehicle',vehicleId:vehicle.id}));
+-   },!!quote&&!heroVehicleBusy&&s.cashCents>=quote.costCents);
++   },!!quote&&!heroVehicleBusy);
+   });
+  }
+ 

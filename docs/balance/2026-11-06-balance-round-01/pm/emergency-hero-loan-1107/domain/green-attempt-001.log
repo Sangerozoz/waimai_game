@@ -1,0 +1,14 @@
+[96massets/scripts/domain/V2EconomySession.ts[0m:[93m353[0m:[93m10[0m - [91merror[0m[90m TS2322: [0mType '{ vehicleLevel: number; incomeFactor: number; xpMultiplier: number; heroCompletedAtAcceptance: number; heroOrderOrdinal: number; incomeCents: number; terms: V2SlotContractTerms; ... 5 more ...; mapId: number; } | { ...; }' is not assignable to type 'V2DeliveryQuote'.
+  Type '{ vehicleLevel: number; incomeFactor: number; xpMultiplier: number; heroCompletedAtAcceptance: number; heroOrderOrdinal: number; incomeCents: number; terms: V2SlotContractTerms; ... 5 more ...; mapId: number; }' is not assignable to type 'V2DeliveryQuote'.
+    The types of 'vehicleRef.policyId' are incompatible between these types.
+      Type 'string' is not assignable to type '"hero-emergency-base-v1"'.
+
+[7m353[0m    const q:V2DeliveryQuote={id:o.id,configId:V2_SLOT_PROFILE_ID,kind:o.kind,mapId:s.selectedMapId,...source,vehicleLevel:v.level,incomeFactor:effects.incomeFactor,xpMultiplier:xp,heroCompletedAtAcceptance:s.heroCompletedOrders,heroOrderOrdinal:s.heroCompletedOrders+i+1,
+[7m   [0m [91m         ~[0m
+[96massets/scripts/domain/V2EconomySession.ts[0m:[93m353[0m:[93m10[0m - [91merror[0m[90m TS2322: [0mType '{ vehicleLevel: number; incomeFactor: number; xpMultiplier: number; heroCompletedAtAcceptance: number; heroOrderOrdinal: number; incomeCents: number; terms: V2SlotContractTerms; ... 5 more ...; mapId: number; } | { ...; }' is not assignable to type 'V2DeliveryQuote'.
+  Type '{ vehicleLevel: number; incomeFactor: number; xpMultiplier: number; heroCompletedAtAcceptance: number; heroOrderOrdinal: number; incomeCents: number; terms: V2SlotContractTerms; ... 5 more ...; mapId: number; }' is not assignable to type 'V2DeliveryQuote'.
+    The types of 'vehicleRef.policyId' are incompatible between these types.
+      Type 'string' is not assignable to type '"hero-emergency-base-v1"'.
+
+[7m353[0m    const q:V2DeliveryQuote={id:o.id,configId:V2_SLOT_PROFILE_ID,kind:o.kind,mapId:s.selectedMapId,...source,vehicleLevel:v.level,incomeFactor:effects.incomeFactor,xpMultiplier:xp,heroCompletedAtAcceptance:s.heroCompletedOrders,heroOrderOrdinal:s.heroCompletedOrders+i+1,
+[7m   [0m [91m         ~[0m

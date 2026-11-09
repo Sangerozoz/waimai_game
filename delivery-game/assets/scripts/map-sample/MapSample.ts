@@ -1,4 +1,5 @@
 import { VEHICLE_GRADES, VEHICLE_NAMES, VEHICLE_LIMITS, VEHICLE_SPEED, VEHICLE_CAPACITY, VEHICLE_INCOME, VEHICLE_PRICE } from './VehicleOwnership';
+import { V2GameBootstrap } from './V2GameBootstrap';
 import { DeliverySound } from './DeliverySound';
 import { localBillingDay } from './DeliveryLedger';
 import { ClickBoost, ForegroundClock, isTripProfile } from './TripClock';
@@ -24,12 +25,13 @@ import { cssUnits, pageMargin, experienceProgress, presentationMetrics, readable
 import { vehicleSideArt } from './VehicleSideArt';
 import { shopBackground, shopPanel, shopGradeMetal } from './VehicleShopArt';
 import { SafeInsets, rotatedViewportInsets, viewportInsets } from './SafeAreaLayout';
-const {ccclass}=_decorator;
+const {ccclass,property}=_decorator;
 const TITLES:Record<Preference,string>={fast:'快捷路',main:'主干道',smooth:'平稳路'};
 type DialogKind='receipt'|'garage'|'demand'|'maps'|'bills'|'pause'|'entry'|'profile';
 
 @ccclass('MapSample')
 export class MapSample extends Component {
+  @property v2Enabled=false;
   private book!:OrderBook;
   private readonly countySampleBridge=new CountySampleBridge();
   private city!:CityMap;
@@ -87,6 +89,8 @@ export class MapSample extends Component {
   private readonly viewportResize=()=>this.onResize();
 
   start():void {
+    const explicitV2=this.v2Enabled||(typeof window!=='undefined'&&new URLSearchParams(window.location.search).get('v2')==='1');
+    if(explicitV2){this.node.addComponent(V2GameBootstrap);return;}
     const canvas=this.node.parent!;this.sound=new DeliverySound(this.node);
     const loading=label(canvas,'正在打开澄川骑手地图…',0,0,26,C.ink,650,true,'center');
     resources.load('map-sample/city',JsonAsset,async(error,asset)=>{
@@ -174,7 +178,7 @@ export class MapSample extends Component {
     if(active&&active.mode!=='done'){
       const from=this.book.data.pois[active.offer.from],to=this.book.data.pois[active.offer.to];
       const point=(id:string):Point=>{const node=this.book.data.nodes.find(n=>n.id===id)!;return [node.x,node.y];};
-      if(active.mode!=='done')this.city.setNavigationStops({pickupName:from.name,deliveryName:to.name,food:active.offer.food,pickup:point(from.node),delivery:point(to.node)});
+      this.city.setNavigationStops({pickupName:from.name,deliveryName:to.name,food:active.offer.food,pickup:point(from.node),delivery:point(to.node)});
       this.city.setRoutes(active.routes,active.selected);
     }
     const pose=this.book.riderPose;this.city.setRider(pose.point,pose.angle);
@@ -512,7 +516,7 @@ export class MapSample extends Component {
       if(this.saveElapsed>=5){this.saveElapsed=0;this.save();}
       return;
     }
-    const beforePhase=this.book.active?.handoff?.phase, beforeMode=this.book.mode;
+    const beforePhase=this.book.active?.handoff?.phase;
     const endMs=now,startMs=endMs-dt*1000;let cursor=startMs,arrived=false;
     while(cursor<endMs){const d=new Date(cursor),midnight=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1).getTime(),end=Math.min(endMs,midnight>cursor?midnight:endMs);
       const seconds=(end-cursor)/1000,integrated=this.canBoost?this.clickBoost.integrate(seconds,this.foregroundClock.time-(endMs-end)/1000):seconds;
@@ -525,7 +529,7 @@ export class MapSample extends Component {
     const afterPhase=this.book.active?.handoff?.phase;
     if(beforePhase==='toPickup'&&afterPhase==='awaitPickup')this.pendingSound='shop';
     if(beforePhase==='picking'&&afterPhase==='awaitDeliveryStart')this.pendingSound='pickup';
-    if(beforeMode==='running'&&this.book.mode==='done')this.pendingSound='success';
+    if(this.book.active?.mode==='done')this.pendingSound='success';
     if(arrived||damaged||this.saveElapsed>=.5){this.saveElapsed=0;this.save();}
     if(arrived&&!this.pendingSave){this.renderPanel();this.presentHandoff();}
   }

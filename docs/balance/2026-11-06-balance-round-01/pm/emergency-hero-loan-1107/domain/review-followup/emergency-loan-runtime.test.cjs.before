@@ -1,0 +1,181 @@
+'use strict';
+// Real RuntimeController + Game + RuntimeStore, with memory storage/lease and Cocos lifecycle ports.
+// No browser profile, real save, wallet injection or shortcut settlement.
+const {test}=require('node:test'),assert=require('node:assert/strict');
+const fs=require('node:fs'),path=require('node:path'),Module=require('node:module');
+const root=path.resolve(__dirname,'../../..'),base=path.dirname(process.env.MAP_ROUTER_MODULE);
+const {V2GameSession}=require(path.join(base,'V2GameSession.js'));
+const {prepareCity}=require(path.join(base,'PlaceCatalog.js'));
+const storeModule=require(path.join(base,'V2RuntimeStore.js'));
+const {V2RuntimeStore,V2_RUNTIME_SAVE_KEY:SLOT,V2_SLOT_EPOCH_KEY:EPOCH}=storeModule;
+const city=prepareCity(JSON.parse(fs.readFileSync(path.join(root,'delivery-game/assets/resources/map-sample/city.json'),'utf8')));
+const original=JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'docs/balance/2026-11-06-balance-round-01/pm/only-car-reproduction-1107.json'),'utf8')).fixtures.signedZeroQuota);
+const ts=require(path.join(process.env.COCOS_CREATOR||'/Applications/Cocos/Creator/3.8.8/CocosCreator.app','Contents/Resources/app.asar.unpacked/node_modules/typescript'));
+const filename=path.join(root,'delivery-game/assets/scripts/map-sample/V2RuntimeController.ts');
+const controller=new Module(filename,module);controller.filename=filename;
+controller.require=id=>{
+ if(id==='cc')return {_decorator:{ccclass:()=>klass=>klass,property(){}},Component:class{},Game:{EVENT_HIDE:'hide',EVENT_SHOW:'show'},game:{on(){},off(){}},sys:{}};
+ if(id==='./V2GameSession')return {V2GameSession};
+ if(id==='./V2RuntimeStore')return storeModule;
+ throw Error('unexpected runtime value dependency '+id);
+};
+controller._compile(ts.transpileModule(fs.readFileSync(filename,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,experimentalDecorators:true}}).outputText,filename);
+const Runtime=controller.exports.V2RuntimeController;
+
+function storageFixture(raw=original){
+ const data=new Map([[SLOT,raw],[EPOCH,'fixture-epoch']]),writes=[];let holder=null,failPrimary=false,nowSeconds=1800000000;
+ const storage={getItem:key=>data.get(key)??null,setItem(key,value){if(key===SLOT&&failPrimary)throw Error('fixture storage write failed');data.set(key,value);writes.push([key,value]);},removeItem:key=>data.delete(key)};
+ const writer=()=>{const token={};return {get writable(){return holder===token;},async acquire(){if(holder)return false;holder=token;return true;},release(){if(holder===token)holder=null;}};};
+ async function open(){
+  const runtime=new Runtime();runtime.enableV2=true;
+  runtime.configure({city,nowSeconds:()=>nowSeconds,storage,writer:writer(),ads:{show(){throw Error('no ads in loan test');}}});
+  await runtime.startOrContinue();return runtime;
+ }
+ return {data,writes,storage,writer,open,advance:seconds=>{nowSeconds+=seconds;},get now(){return nowSeconds;},loseWriter:()=>{holder=null;},fail:()=>{failPrimary=true;}};
+}
+
+let releasedCache;
+function releasedLoan(){
+ if(releasedCache)return releasedCache;
+ const g=V2GameSession.restore(city,original,{preserveClock:true});g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
+ let now=g.snapshot().frame.nowSeconds,sequence=g.snapshot().frame.sequence;
+ const advance=seconds=>g.tick(++sequence,now+=seconds,true,false);
+ for(let batch=0;batch<3&&g.dispatch.emergencyLoanStatus.phase!=='returnable';batch++){
+  const offer=g.normalCandidates()[0];assert.ok(offer,'loan must keep offering real work before recovery');
+  const completed=g.dispatch.economyState.heroCompletedOrders;
+  g.acceptBatch([offer]);g.beginTrip(g.routeChoices()[0].preference);
+  for(let i=0;i<2000&&g.dispatch.economyState.heroCompletedOrders===completed;i++){
+   if(g.route.progress.phase==='pickup')g.pickup();else if(g.route.progress.phase==='ready')g.continueTrip();else advance(.5);
+  }
+  assert.equal(g.dispatch.economyState.heroCompletedOrders,completed+1);advance(90);
+ }
+ assert.equal(g.dispatch.emergencyLoanStatus.phase,'returnable');assert.equal(g.snapshot().batchIds.length,0);
+ releasedCache=g.serialize();return releasedCache;
+}
+
+test('runtime borrow is durably committed once and survives actual open clock rebasing',async()=>{
+ const f=storageFixture(),r=await f.open();try{
+  assert.equal(r.emergencyLoanStatus?.phase,'available');const before=r.snapshot.economy.state;
+  r.command({type:'borrowEmergencyVehicle',expectedSequence:0});
+  assert.equal(r.emergencyLoanStatus.phase,'borrowed');assert.equal(r.emergencyLoanStatus.loanSequence,1);
+  assert.deepEqual(r.snapshot.economy.state.vehicles,before.vehicles);assert.equal(r.snapshot.economy.state.cashCents,0);assert.equal(r.snapshot.fleet.fleet.quotaMs,0);
+  const committed=f.data.get(SLOT);assert.equal(JSON.parse(committed).version,7);
+  assert.throws(()=>r.command({type:'borrowEmergencyVehicle',expectedSequence:0}));assert.equal(f.data.get(SLOT),committed);
+ }finally{r.onDestroy();}
+ f.advance(86400);const resumed=await f.open();try{assert.equal(resumed.snapshot.frame.nowSeconds,f.now);assert.equal(resumed.emergencyLoanStatus.loanSequence,1);assert.equal(resumed.emergencyLoanStatus.phase,'borrowed');assert.equal(resumed.snapshot.economy.state.vehicles.length,1);assert.equal(resumed.snapshot.economy.state.cashCents,0);}finally{resumed.onDestroy();}
+});
+
+test('runtime open rebases an emergency trip without moving it or changing signed terms',async()=>{
+ const g=V2GameSession.restore(city,original,{preserveClock:true});g.command({type:'borrowEmergencyVehicle',expectedSequence:0});
+ g.acceptBatch([g.normalCandidates()[0]]);g.beginTrip(g.routeChoices()[0].preference);
+ const beforeRoute=g.routeSnapshot,beforeTrip=g.tripState,before=g.snapshot(),raw=g.serialize();
+ const f=storageFixture(raw),r=await f.open();try{
+  assert.equal(r.snapshot.frame.nowSeconds,f.now);assert.notEqual(r.snapshot.frame.nowSeconds,before.frame.nowSeconds);assert.equal(r.emergencyLoanStatus.loanSequence,1);assert.equal(r.routeSnapshot.phase,beforeRoute.phase);assert.deepEqual(r.routeSnapshot.position,beforeRoute.position);
+  assert.deepEqual(r.snapshot.orders,before.orders);assert.deepEqual(r.snapshot.batchIds,before.batchIds);assert.deepEqual(r.tripState,beforeTrip);assert.equal(r.snapshot.economy.state.cashCents,0);
+  assert.equal(r.snapshot.fleet.fleet.quotaMs,0);assert.equal(JSON.parse(f.data.get(SLOT)).version,7);
+ }finally{r.onDestroy();}
+});
+
+test('actual runtime open preserves hero work at every route boundary while NPCs use only existing quota',async()=>{
+ const g=V2GameSession.restore(city,original,{preserveClock:true}),stages=new Map();
+ const capture=name=>{if(!stages.has(name))stages.set(name,{raw:g.serialize(),route:g.routeSnapshot});};
+ g.command({type:'borrowEmergencyVehicle',expectedSequence:0});capture('borrowed');
+ const candidates=g.normalCandidates().filter(order=>order.load.occupiedSlots===1).slice(0,2);assert.equal(candidates.length,2);
+ g.acceptBatch(candidates);capture('planned');g.beginTrip(g.routeChoices()[0].preference);
+ let now=g.snapshot().frame.nowSeconds,sequence=g.snapshot().frame.sequence;
+ for(let i=0;i<3000&&g.snapshot().batchIds.length;i++){
+  capture(g.route.progress.phase);
+  if(g.snapshot().orders.filter(o=>g.snapshot().batchIds.includes(o.id)&&o.status==='completed').length===1)capture('partial');
+  if(g.route.progress.phase==='pickup')g.pickup();else if(g.route.progress.phase==='ready')g.continueTrip();else g.tick(++sequence,now+=.5,true,false);
+ }
+ assert.equal(g.snapshot().batchIds.length,0);capture('finished');
+ for(const name of ['borrowed','planned','pickup','ready','travelling','service','partial','finished'])assert.ok(stages.has(name),name);
+ for(const [name,{raw,route}] of stages){
+  const before=JSON.parse(raw),f=storageFixture(raw),r=await f.open();try{
+   assert.equal(r.snapshot.frame.nowSeconds,f.now,name);assert.deepEqual(r.routeSnapshot,route,name);assert.deepEqual(r.tripState,before.tripState,name);
+   assert.deepEqual(r.snapshot.orders,before.dispatch.orders,name);assert.deepEqual(r.snapshot.batchIds,before.dispatch.batchIds,name);
+   const old=before.dispatch.economy.state,current=r.snapshot.economy.state,oldFleet=before.dispatch.fleet.fleet,currentFleet=r.snapshot.fleet.fleet;
+   const {ledgerContext:oldContext,cashCents:oldCash,npcCompletedOrders:oldCount,fleetQuotes:oldQuotes,settledOrderIds:oldPaid,ledger:oldLedger,...oldState}=old;
+   const {ledgerContext:currentContext,cashCents:currentCash,npcCompletedOrders:currentCount,fleetQuotes:currentQuotes,settledOrderIds:currentPaid,ledger:currentLedger,...currentState}=current;
+   assert.equal(currentContext.nowMs,f.now*1000,name);assert.deepEqual(currentState,oldState,name);assert.equal(r.snapshot.economy.version,before.dispatch.economy.version,name);
+   const work=Math.min(oldFleet.quotaMs,Math.max(0,f.now*1000-oldFleet.lastAdvancedAt));
+   const payable=oldFleet.batches.flatMap(batch=>batch.orders.slice(batch.paidCount).filter(order=>order.dueMs<=batch.elapsedMs+work));
+   const paidIds=new Set(payable.map(order=>order.id));
+   assert.equal(currentCash,oldCash+payable.reduce((sum,order)=>sum+order.incomeCents,0),name);assert.equal(currentCount,oldCount+payable.length,name);
+   assert.deepEqual(currentQuotes,oldQuotes.filter(order=>!paidIds.has(order.id)),name);
+   assert.deepEqual(currentLedger.entries.slice(0,oldLedger.entries.length),oldLedger.entries,name);assert.deepEqual(currentLedger.opening,oldLedger.opening,name);assert.equal(currentLedger.nextId,oldLedger.nextId,name);
+   const added=currentLedger.entries.slice(oldLedger.entries.length);assert.equal(added.length,payable.length,name);
+   for(const entry of added){const order=payable.find(order=>entry.id===`order:${order.id}`);assert.ok(order,name);assert.equal(entry.category,'npc_delivery',name);assert.equal(entry.amountCents,order.incomeCents,name);}
+   assert.deepEqual(currentPaid.slice(0,oldPaid.length),oldPaid,name);assert.deepEqual(new Set(currentPaid.slice(oldPaid.length)),paidIds,name);
+   assert.equal(currentFleet.nextBatchId,oldFleet.nextBatchId,name);assert.ok(currentFleet.quotaMs>=0&&currentFleet.quotaMs<=oldFleet.quotaMs,name);
+   assert.equal(r.emergencyLoanStatus.loanSequence,1,name);
+  }finally{r.onDestroy();}
+ }
+});
+
+test('failed borrowing save preserves published state and slot and stops further writes',async()=>{
+ const f=storageFixture(),r=await f.open();try{
+  const before=JSON.stringify(r.snapshot),bytes=f.data.get(SLOT);f.fail();
+  assert.throws(()=>r.command({type:'borrowEmergencyVehicle',expectedSequence:0}),/storage write failed/);
+  assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),bytes);assert.equal(r.ready,false);
+  assert.throws(()=>r.command({type:'borrowEmergencyVehicle',expectedSequence:0}));assert.equal(f.data.get(SLOT),bytes);
+ }finally{r.onDestroy();}
+});
+
+test('failed return save cannot publish an unequipped loan or a half-swapped real car',async()=>{
+ const f=storageFixture(releasedLoan()),r=await f.open();try{
+  assert.equal(r.emergencyLoanStatus.phase,'returnable');const before=JSON.stringify(r.snapshot),bytes=f.data.get(SLOT);f.fail();
+  assert.throws(()=>r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}),/storage write failed/);
+  assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),bytes);assert.equal(r.emergencyLoanStatus.phase,'returnable');assert.equal(r.ready,false);
+ }finally{r.onDestroy();}
+});
+
+test('a second writer cannot acquire the slot or duplicate the emergency car',async()=>{
+ const f=storageFixture(),first=await f.open();try{
+  first.command({type:'borrowEmergencyVehicle',expectedSequence:0});const before=f.data.get(SLOT);
+  await assert.rejects(f.open(),/请先关闭其他游戏页/);assert.equal(f.data.get(SLOT),before);assert.equal(first.emergencyLoanStatus.loanSequence,1);
+ }finally{first.onDestroy();}
+});
+
+test('slot byte conflict rejects borrowing without publishing the candidate',async()=>{
+ const f=storageFixture(),r=await f.open();try{
+  const before=JSON.stringify(r.snapshot);f.data.set(SLOT,original);
+  assert.throws(()=>r.command({type:'borrowEmergencyVehicle',expectedSequence:0}),/其他操作改变/);
+  assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),original);assert.equal(r.ready,false);
+ }finally{r.onDestroy();}
+});
+
+test('epoch loss rejects returning and preserves the active loan',async()=>{
+ const f=storageFixture(releasedLoan()),r=await f.open();try{
+  const before=JSON.stringify(r.snapshot),bytes=f.data.get(SLOT);f.data.set(EPOCH,'new-external-epoch');
+  assert.throws(()=>r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}),/世代|停止|改变/);
+  assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),bytes);assert.equal(r.emergencyLoanStatus.phase,'returnable');
+ }finally{r.onDestroy();}
+});
+
+test('losing the writer lease blocks both borrowing and returning before publication',async()=>{
+ for(const returning of [false,true]){
+  const f=storageFixture(returning?releasedLoan():original),r=await f.open();try{
+   const before=JSON.stringify(r.snapshot),bytes=f.data.get(SLOT);f.loseWriter();
+   assert.throws(()=>r.command(returning?{type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}:{type:'borrowEmergencyVehicle',expectedSequence:0}));
+   assert.equal(JSON.stringify(r.snapshot),before);assert.equal(f.data.get(SLOT),bytes);assert.equal(r.ready,false);
+  }finally{r.onDestroy();}
+ }
+});
+
+test('returned loan history survives runtime reopen and repeat return cannot alter real assets',async()=>{
+ const f=storageFixture(releasedLoan()),r=await f.open();try{
+  r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'});
+  assert.equal(r.emergencyLoanStatus.phase,'returned');assert.equal(r.snapshot.economy.state.riders[0].vehicleId,'starter-1');assert.equal(r.snapshot.economy.state.riders.find(v=>v.id==='npc-1').vehicleId,null);
+  const before=f.data.get(SLOT);assert.throws(()=>r.command({type:'returnEmergencyVehicle',loanSequence:1,vehicleId:'starter-1'}));assert.equal(f.data.get(SLOT),before);
+ }finally{r.onDestroy();}
+ const resumed=await f.open();try{assert.equal(resumed.emergencyLoanStatus.phase,'returned');assert.equal(resumed.snapshot.economy.state.vehicles.length,1);assert.ok(resumed.normalCandidates().length>0);}finally{resumed.onDestroy();}
+});
+
+test('future or corrupt game snapshots remain untouched and cannot turn into new loan progress',async()=>{
+ for(const bytes of ['not-json',JSON.stringify({...JSON.parse(original),version:999})]){
+  const f=storageFixture(bytes),store=new V2RuntimeStore(f.storage,f.writer());
+  await assert.rejects(store.open('continue',raw=>V2GameSession.restore(city,raw),()=>{throw Error('must not create new game');}),/已保留原进度/);
+  assert.equal(f.data.get(SLOT),bytes);assert.equal(f.writes.filter(([key])=>key===SLOT).length,0);store.close();
+ }
+});

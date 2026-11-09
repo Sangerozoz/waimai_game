@@ -1,0 +1,29 @@
+{
+  "task": "U02-INITIAL-VIEW-QUALITY-1106",
+  "passed": true,
+  "security_concerns": [],
+  "logic_errors": [],
+  "suggestions": [],
+  "sourceHashes": {
+    "primary": "docs/reviews/2026-11-05-game-development/layout/initial-rider-view-1106/assets/scripts/map-sample/V2GameUI.ts",
+    "baseline": "93b7e6680bb3626191f09b4e7ff53d4e4b4a391841245dbb422621b367fd962f",
+    "candidate": "cea071606d173007ca8ce8acde05c74748e3243d2c4091390aedcdfcef550ed9",
+    "exactPatchSHA256": "077fd46e7f658ab9d2b7baf2edd1d09fce39b18630ba8202bc441aee9185d913",
+    "strictInverseMatchesBaseline": true,
+    "openingClosingEqual": true,
+    "dependencies": {
+      "CityMap.ts": "8a122e7bd8be0057d297cf8a1cdcd73abd7f8aa1c0edf3eb2ca9dff919a40e3c",
+      "V2GameBootstrap.ts": "722715a3e1e1589109c8f8173abfa7e5ee39453514bd4b23d1b3b9b59336f35f",
+      "V2RuntimeController.ts": "a560f14593b475769ccead1314cfd6dec31344f067484be96e5d8f657da7be01",
+      "V2GameSession.ts": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+      "V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031"
+    }
+  },
+  "limits": [
+    "独立字节核对确认仅configure新增两行，生成的完整差分与handoff.patch一致；其余源码不变，live仍为baseline，未应用候选。",
+    "启动先await startOrContinue再configure；Runtime已发布live。routeMotion经Game委托Route.motion，返回分离的真实坐标对；setRider(Point,number)和locate(resetZoom=false)签名及调用顺序匹配。无motion时保持原流程。",
+    "首轮update在setRoutes前captureView、之后restoreView，保留初始化follow与视图；travelling出发边界保持原逻辑。新增定位仅在configure执行，不在render或每帧重复；后续触摸取消follow的既有路径未改。",
+    "仅静态质量PASS。未执行TS/App/getter、测试、typecheck、构建、浏览器、业务或存档；未写文件、改权限或派Agent。候选首次实屏、连续配送跟随及pan/zoom仍待获准验证，旧定位截图不是候选运行证据。",
+    "不代表性能、画面或用户验收，不关闭U02；只读范围交回PM。"
+  ]
+}

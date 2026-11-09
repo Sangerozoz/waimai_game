@@ -1,0 +1,1205 @@
+TAP version 13
+# Subtest: all 30 slot-profile levels and prices match the frozen parameter source and positive integer upgrade differences
+ok 1 - all 30 slot-profile levels and prices match the frozen parameter source and positive integer upgrade differences
+  ---
+  duration_ms: 8.294125
+  type: 'test'
+  ...
+# Subtest: current slots: finite stable candidates, canonical load, exact capacity and atomic over-capacity rejection
+ok 2 - current slots: finite stable candidates, canonical load, exact capacity and atomic over-capacity rejection
+  ---
+  duration_ms: 4.246625
+  type: 'test'
+  ...
+# Subtest: different authoritative merchants retain separate pickup/dropoff groups
+ok 3 - different authoritative merchants retain separate pickup/dropoff groups
+  ---
+  duration_ms: 2.621167
+  type: 'test'
+  ...
+# Subtest: current slots retain the exact 10-delivery first car and 15-delivery first NPC budget without rewards
+ok 4 - current slots retain the exact 10-delivery first car and 15-delivery first NPC budget without rewards
+  ---
+  duration_ms: 3.596459
+  type: 'test'
+  ...
+# Subtest: larger integer capacity can accept more than the former eight-offer read batch from one finite stable pool
+ok 5 - larger integer capacity can accept more than the former eight-offer read batch from one finite stable pool
+  ---
+  duration_ms: 6.794958
+  type: 'test'
+  ...
+# {"capacitySlots":10,"returnedOffers":20,"oneSlotOffers":10,"selectedOrders":10}
+# Subtest: U22 production preview/acceptance share trusted held metres, batch protection and one rounded formula
+ok 6 - U22 production preview/acceptance share trusted held metres, batch protection and one rounded formula
+  ---
+  duration_ms: 15.248584
+  type: 'test'
+  ...
+# Subtest: legacy U22 protects a whole crossing batch and applies the unrounded post-protection tariff once
+ok 7 - legacy U22 protects a whole crossing batch and applies the unrounded post-protection tariff once
+  ---
+  duration_ms: 2.868417
+  type: 'test'
+  ...
+# Subtest: new slots contexts reject missing/extra/inherited metadata atomically and accept an own __proto__ ID
+ok 8 - new slots contexts reject missing/extra/inherited metadata atomically and accept an own __proto__ ID
+  ---
+  duration_ms: 0.275542
+  type: 'test'
+  ...
+# Subtest: new completed and cancelled slot quotes retain strict historical metadata validation
+ok 9 - new completed and cancelled slot quotes retain strict historical metadata validation
+  ---
+  duration_ms: 2.867042
+  type: 'test'
+  ...
+# Subtest: planned ETA is detached and mirrors approved road/service units with safe late suppression
+ok 10 - planned ETA is detached and mirrors approved road/service units with safe late suppression
+  ---
+  duration_ms: 2.013541
+  type: 'test'
+  ...
+# Subtest: legacy kg in-flight contracts preserve quote, food draw and units; next accepted batch uses slots
+ok 11 - legacy kg in-flight contracts preserve quote, food draw and units; next accepted batch uses slots
+  ---
+  duration_ms: 5.311916
+  type: 'test'
+  ...
+# Subtest: kg and slots fleet restoration enforce reserved vehicles while allowing the original rider future null/free vehicle
+ok 12 - kg and slots fleet restoration enforce reserved vehicles while allowing the original rider future null/free vehicle
+  ---
+  duration_ms: 10.110625
+  type: 'test'
+  ...
+# Subtest: NPC zero-quota 0->60 with actual hero completion at 10 equals 0->10->60; repeat/rollback never refill
+ok 13 - NPC zero-quota 0->60 with actual hero completion at 10 equals 0->10->60; repeat/rollback never refill
+  ---
+  duration_ms: 9.55325
+  type: 'test'
+  ...
+# Subtest: hero completion and supply purchase use their own absolute local-day instant and restore frame context
+ok 14 - hero completion and supply purchase use their own absolute local-day instant and restore frame context
+  ---
+  duration_ms: 3.011917
+  type: 'test'
+  ...
+# Subtest: Fleet catch-up credits each workAt on its local day without migrating old unknown-date ledger rows
+ok 15 - Fleet catch-up credits each workAt on its local day without migrating old unknown-date ledger rows
+  ---
+  duration_ms: 1.593542
+  type: 'test'
+  ...
+# Subtest: same millisecond NPC old due is settled before hero credit and quota sync
+ok 16 - same millisecond NPC old due is settled before hero credit and quota sync
+  ---
+  duration_ms: 4.989417
+  type: 'test'
+  ...
+# Subtest: planned supply consumes real action/cash but not trip deadline clock; active supply retains its clock
+ok 17 - planned supply consumes real action/cash but not trip deadline clock; active supply retains its clock
+  ---
+  duration_ms: 7.471583
+  type: 'test'
+  ...
+# Subtest: food-risk metadata changes category risk without adding draws; canonical Game inputs and malformed foods reject
+ok 18 - food-risk metadata changes category risk without adding draws; canonical Game inputs and malformed foods reject
+  ---
+  duration_ms: 0.400209
+  type: 'test'
+  ...
+# Subtest: snapshot, tick context and nested frozen-effect projections are detached from live authority
+ok 19 - snapshot, tick context and nested frozen-effect projections are detached from live authority
+  ---
+  duration_ms: 0.521291
+  type: 'test'
+  ...
+# Subtest: slots NPC payouts are per-order idempotent across restore and repeated/rollback advances
+ok 20 - slots NPC payouts are per-order idempotent across restore and repeated/rollback advances
+  ---
+  duration_ms: 2.186
+  type: 'test'
+  ...
+# Subtest: an accepted slots NPC batch keeps locked effects and prices through vehicle/rider upgrades
+ok 21 - an accepted slots NPC batch keeps locked effects and prices through vehicle/rider upgrades
+  ---
+  duration_ms: 24.150834
+  type: 'test'
+  ...
+# Subtest: Game automatic 600-second final slice stops at its true in-flight state while NPC wall clock reaches frame end
+ok 22 - Game automatic 600-second final slice stops at its true in-flight state while NPC wall clock reaches frame end
+  ---
+  duration_ms: 2005.758583
+  type: 'test'
+  ...
+# Subtest: paused/background/resume edges freeze hero but do not freeze already-earned NPC quota
+ok 23 - paused/background/resume edges freeze hero but do not freeze already-earned NPC quota
+  ---
+  duration_ms: 4.571875
+  type: 'test'
+  ...
+# Subtest: pending advertisement is sampled before expiry, so an expired wait interval cannot become hero travel
+ok 24 - pending advertisement is sampled before expiry, so an expired wait interval cannot become hero travel
+  ---
+  duration_ms: 1.480208
+  type: 'test'
+  ...
+# Subtest: single slot refuses existing new, corrupt/future restore, lost writer, epoch and external-byte overwrite
+ok 25 - single slot refuses existing new, corrupt/future restore, lost writer, epoch and external-byte overwrite
+  ---
+  duration_ms: 0.580458
+  type: 'test'
+  ...
+# Subtest: single slot adapter write failure preserves prewrite bytes and stops later commits
+ok 26 - single slot adapter write failure preserves prewrite bytes and stops later commits
+  ---
+  duration_ms: 0.161292
+  type: 'test'
+  ...
+# Subtest: the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+ok 27 - the preserved zero-quota terminal can explicitly borrow without gifts or permanent assets
+  ---
+  duration_ms: 384.496917
+  type: 'test'
+  ...
+# Subtest: loan status is detached and read-only; duplicate and stale commands cannot change the loan
+ok 28 - loan status is detached and read-only; duplicate and stale commands cannot change the loan
+  ---
+  duration_ms: 6.914167
+  type: 'test'
+  ...
+# Subtest: normal, detachable and genuinely earned affordable-car states cannot borrow
+ok 29 - normal, detachable and genuinely earned affordable-car states cannot borrow
+  ---
+  duration_ms: 2655.451708
+  type: 'test'
+  ...
+# Subtest: isolated cash-only compatibility input: 29999 cents at the 30000-cent car boundary
+ok 30 - isolated cash-only compatibility input: 29999 cents at the 30000-cent car boundary
+  ---
+  duration_ms: 1.966417
+  type: 'test'
+  ...
+# Subtest: isolated cash-only compatibility input: 30000 cents at the 30000-cent car boundary
+ok 31 - isolated cash-only compatibility input: 30000 cents at the 30000-cent car boundary
+  ---
+  duration_ms: 1.559917
+  type: 'test'
+  ...
+# Subtest: isolated cash-only compatibility input: 30001 cents at the 30000-cent car boundary
+ok 32 - isolated cash-only compatibility input: 30001 cents at the 30000-cent car boundary
+  ---
+  duration_ms: 1.528167
+  type: 'test'
+  ...
+# Subtest: real Game deliveries preserve the same-path ten-order car and fifteen-order NPC budgets
+ok 33 - real Game deliveries preserve the same-path ten-order car and fifteen-order NPC budgets
+  ---
+  duration_ms: 3354.252667
+  type: 'test'
+  ...
+# Subtest: an isolated original signed-batch compatibility input with remaining quota cannot borrow
+ok 34 - an isolated original signed-batch compatibility input with remaining quota cannot borrow
+  ---
+  duration_ms: 0.905291
+  type: 'test'
+  ...
+# Subtest: Game refuses loan commands during real rest actions and all active route phases
+ok 35 - Game refuses loan commands during real rest actions and all active route phases
+  ---
+  duration_ms: 232.869333
+  type: 'test'
+  ...
+# Subtest: first real delivery is insufficient; release waits for quota and never confiscates the current batch
+ok 36 - first real delivery is insufficient; release waits for quota and never confiscates the current batch
+  ---
+  duration_ms: 1225.154375
+  type: 'test'
+  ...
+# Subtest: cancelled emergency quotes remain valid after return alongside completed histories
+ok 37 - cancelled emergency quotes remain valid after return alongside completed histories
+  ---
+  duration_ms: 484.029417
+  type: 'test'
+  ...
+# Subtest: borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+ok 38 - borrowing cannot satisfy permanent asset, NPC reserve or upgrade requirements
+  ---
+  duration_ms: 1.503833
+  type: 'test'
+  ...
+# Subtest: forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+ok 39 - forged identities, effects, downgrade and mixed versions are rejected after a genuine borrow
+  ---
+  duration_ms: 220.0085
+  type: 'test'
+  ...
+# Subtest: an emergency source marker cannot be smuggled into permanent vehicle inventory
+ok 40 - an emergency source marker cannot be smuggled into permanent vehicle inventory
+  ---
+  duration_ms: 1.239959
+  type: 'test'
+  ...
+# Subtest: kg-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+ok 41 - kg-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+  ---
+  duration_ms: 754.707375
+  type: 'test'
+  ...
+# Subtest: slots-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+ok 42 - slots-v1: isolated compatibility batch preserves partial payments through real delivery and reload
+  ---
+  duration_ms: 751.290791
+  type: 'test'
+  ...
+# Subtest: kg paid NPC history cannot carry an emergency vehicle source
+ok 43 - kg paid NPC history cannot carry an emergency vehicle source
+  ---
+  duration_ms: 220.28475
+  type: 'test'
+  ...
+# Subtest: isolated two-NPC compatibility input recovers one real car without cancelling other unpaid work
+ok 44 - isolated two-NPC compatibility input recovers one real car without cancelling other unpaid work
+  ---
+  duration_ms: 540.870875
+  type: 'test'
+  ...
+# Subtest: isolated zero-stamina compatibility input borrows without stamina and uses actual free rest
+ok 45 - isolated zero-stamina compatibility input borrows without stamina and uses actual free rest
+  ---
+  duration_ms: 440.31925
+  type: 'test'
+  ...
+# Subtest: the original frozen readers reject all new containers, including returned loan history
+ok 46 - the original frozen readers reject all new containers, including returned loan history
+  ---
+  duration_ms: 1023.999541
+  type: 'test'
+  ...
+# [V2 runtime failure] {
+#   stage: 'transaction.action',
+#   errorType: 'Error',
+#   frames: [
+#     '    at V2DispatchSession.borrowEmergencyVehicle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2DispatchSession.js:152:19)',
+#     '    at /private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2DispatchSession.js:137:23',
+#     '    at V2DispatchSession.transact (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2DispatchSession.js:95:24)',
+#     '    at V2DispatchSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2DispatchSession.js:110:21)',
+#     '    at V2GameSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/map-sample/V2GameSession.js:33:30)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:62',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:164:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at Object.setItem (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:27:102)',
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/map-sample/V2RuntimeStore.js:138:26)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:119:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:119:10)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at Object.setItem (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:27:102)',
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/map-sample/V2RuntimeStore.js:138:26)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:128:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:128:10)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.commit',
+#   errorType: 'Error',
+#   frames: [
+#     '    at V2RuntimeStore.commit (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/map-sample/V2RuntimeStore.js:137:23)',
+#     '    at V2RuntimeController.mutate (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:171:28)',
+#     '    at V2RuntimeController.command (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:36)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:143:23',
+#     '    at getActual (node:assert:609:5)',
+#     '    at Function.throws (node:assert:757:24)',
+#     '    at TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/emergency-loan-runtime.test.cjs:143:10)',
+#     '    at async Test.run (node:internal/test_runner/test:1054:7)'
+#   ]
+# }
+# [V2 runtime failure] {
+#   stage: 'transaction.action',
+#   errorType: 'Error',
+#   frames: [
+#     '    at check (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2EconomySession.js:29:11)',
+#     '    at V2EconomySession.finishHeroEmergencyLoan (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2EconomySession.js:406:9)',
+#     '    at V2DispatchSession.returnEmergencyVehicle (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2DispatchSession.js:160:22)',
+#     '    at /private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2DispatchSession.js:140:23',
+#     '    at V2DispatchSession.transact (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2DispatchSession.js:95:24)',
+#     '    at V2DispatchSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/domain/V2DispatchSession.js:110:21)',
+#     '    at V2GameSession.command (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-mBlxll/map-sample/V2GameSession.js:33:30)',
+#     '    at /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts:234:62'
+#   ]
+# }
+# Subtest: runtime borrow is durably committed once and survives actual open clock rebasing
+ok 47 - runtime borrow is durably committed once and survives actual open clock rebasing
+  ---
+  duration_ms: 42.194833
+  type: 'test'
+  ...
+# Subtest: runtime open rebases an emergency trip without moving it or changing signed terms
+ok 48 - runtime open rebases an emergency trip without moving it or changing signed terms
+  ---
+  duration_ms: 357.336167
+  type: 'test'
+  ...
+# Subtest: actual runtime open preserves hero work at every route boundary while NPCs use only existing quota
+ok 49 - actual runtime open preserves hero work at every route boundary while NPCs use only existing quota
+  ---
+  duration_ms: 349.715084
+  type: 'test'
+  ...
+# Subtest: failed borrowing save preserves published state and slot and stops further writes
+ok 50 - failed borrowing save preserves published state and slot and stops further writes
+  ---
+  duration_ms: 3.1365
+  type: 'test'
+  ...
+# Subtest: failed return save cannot publish an unequipped loan or a half-swapped real car
+ok 51 - failed return save cannot publish an unequipped loan or a half-swapped real car
+  ---
+  duration_ms: 897.391834
+  type: 'test'
+  ...
+# Subtest: a second writer cannot acquire the slot or duplicate the emergency car
+ok 52 - a second writer cannot acquire the slot or duplicate the emergency car
+  ---
+  duration_ms: 2.463958
+  type: 'test'
+  ...
+# Subtest: slot byte conflict rejects borrowing without publishing the candidate
+ok 53 - slot byte conflict rejects borrowing without publishing the candidate
+  ---
+  duration_ms: 2.698166
+  type: 'test'
+  ...
+# Subtest: epoch loss rejects returning and preserves the active loan
+ok 54 - epoch loss rejects returning and preserves the active loan
+  ---
+  duration_ms: 1.041584
+  type: 'test'
+  ...
+# Subtest: losing the writer lease blocks both borrowing and returning before publication
+ok 55 - losing the writer lease blocks both borrowing and returning before publication
+  ---
+  duration_ms: 2.191792
+  type: 'test'
+  ...
+# Subtest: returned loan history survives runtime reopen and repeat return cannot alter real assets
+ok 56 - returned loan history survives runtime reopen and repeat return cannot alter real assets
+  ---
+  duration_ms: 232.234458
+  type: 'test'
+  ...
+# Subtest: future or corrupt game snapshots remain untouched and cannot turn into new loan progress
+ok 57 - future or corrupt game snapshots remain untouched and cannot turn into new loan progress
+  ---
+  duration_ms: 0.428667
+  type: 'test'
+  ...
+# Subtest: existing recorded auto rights drive a real emergency trip across runtime open, release, return and owned-car continuation
+ok 58 - existing recorded auto rights drive a real emergency trip across runtime open, release, return and owned-car continuation
+  ---
+  duration_ms: 1246.002084
+  type: 'test'
+  ...
+# {"fixture":"original signedZeroQuota plus isolated canonical completed reward event, no live SDK call","rewardTicket":{"id":"ad-1","benefit":"auto","orderId":null,"expiresAt":97},"events":[{"name":"auto-signed-and-moving-before-open","now":1800000000.25,"phase":"travelling","control":"auto","loan":"borrowed","batchIds":["v2-road-40"],"orders":2,"heroCompleted":1,"npcCompleted":0,"quotaMs":0,"autoRemainingSeconds":599.75},{"name":"actual-open-preserved-in-flight-auto","now":1800000030.25,"phase":"travelling","control":"auto","loan":"borrowed","batchIds":["v2-road-40"],"orders":2,"heroCompleted":1,"npcCompleted":0,"quotaMs":0,"autoRemainingSeconds":599.75},{"name":"first-auto-delivery-refilled-only-sixty-seconds","now":1800000036.5,"phase":"travelling","control":"auto","loan":"borrowed","batchIds":["v2-road-270","v2-road-588"],"orders":4,"heroCompleted":2,"npcCompleted":0,"quotaMs":59995,"autoRemainingSeconds":593.5},{"name":"old-batch-partially-paid-still-reserved","now":1800000096.5,"phase":"travelling","control":"auto","loan":"borrowed","batchIds":["v2-road-270","v2-road-588"],"orders":4,"heroCompleted":2,"npcCompleted":1,"quotaMs":0,"autoRemainingSeconds":593.5},{"name":"real-car-released-during-current-auto-batch","now":1800000118.125,"phase":"travelling","control":"auto","loan":"returnable","batchIds":["v2-road-270","v2-road-588"],"orders":4,"heroCompleted":3,"npcCompleted":2,"quotaMs":45000,"autoRemainingSeconds":586.5},{"name":"auto-remained-blocked-before-explicit-return","now":1800000152.875,"phase":"finished","control":"auto","loan":"returnable","batchIds":[],"orders":4,"heroCompleted":4,"npcCompleted":2,"quotaMs":105000,"autoRemainingSeconds":581.908625625284},{"name":"explicit-runtime-return","now":1800000152.875,"phase":"finished","control":"auto","loan":"returned","batchIds":[],"orders":4,"heroCompleted":4,"npcCompleted":2,"quotaMs":105000,"autoRemainingSeconds":581.908625625284},{"name":"owned-car-auto-batch-started","now":1800000153.125,"phase":"travelling","control":"auto","loan":"returned","batchIds":["v2-road-43","v2-road-81"],"orders":6,"heroCompleted":4,"npcCompleted":2,"quotaMs":105000,"autoRemainingSeconds":581.658625625284},{"name":"owned-car-auto-delivery-completed","now":1800000158.625,"phase":"travelling","control":"auto","loan":"returned","batchIds":["v2-road-43","v2-road-81"],"orders":6,"heroCompleted":5,"npcCompleted":2,"quotaMs":165000,"autoRemainingSeconds":576.158625625284}]}
+# Subtest: one earned delivery cannot surrender the last recoverable hero car
+ok 59 - one earned delivery cannot surrender the last recoverable hero car
+  ---
+  duration_ms: 1.99575
+  type: 'test'
+  ...
+# Subtest: real Game/Dispatch commands reject surrender atomically and the hero can continue delivery
+ok 60 - real Game/Dispatch commands reject surrender atomically and the hero can continue delivery
+  ---
+  duration_ms: 1063.348
+  type: 'test'
+  ...
+# Subtest: kg-v1: proposed assignments reserve a real owned car, not future purchasing power
+ok 61 - kg-v1: proposed assignments reserve a real owned car, not future purchasing power
+  ---
+  duration_ms: 9.689708
+  type: 'test'
+  ...
+# Subtest: kg-v1: both public contract registration profiles reject dangerous historic state atomically
+ok 62 - kg-v1: both public contract registration profiles reject dangerous historic state atomically
+  ---
+  duration_ms: 0.186708
+  type: 'test'
+  ...
+# Subtest: kg-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+ok 63 - kg-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+  ---
+  duration_ms: 0.145667
+  type: 'test'
+  ...
+# Subtest: kg-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+ok 64 - kg-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+  ---
+  duration_ms: 0.510417
+  type: 'test'
+  ...
+# Subtest: kg-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+ok 65 - kg-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+  ---
+  duration_ms: 0.553125
+  type: 'test'
+  ...
+# Subtest: kg-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+ok 66 - kg-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+  ---
+  duration_ms: 0.474167
+  type: 'test'
+  ...
+# Subtest: kg-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+ok 67 - kg-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+  ---
+  duration_ms: 2.366916
+  type: 'test'
+  ...
+# Subtest: slots-v1: proposed assignments reserve a real owned car, not future purchasing power
+ok 68 - slots-v1: proposed assignments reserve a real owned car, not future purchasing power
+  ---
+  duration_ms: 7.271708
+  type: 'test'
+  ...
+# Subtest: slots-v1: both public contract registration profiles reject dangerous historic state atomically
+ok 69 - slots-v1: both public contract registration profiles reject dangerous historic state atomically
+  ---
+  duration_ms: 0.160291
+  type: 'test'
+  ...
+# Subtest: slots-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+ok 70 - slots-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+  ---
+  duration_ms: 0.445625
+  type: 'test'
+  ...
+# Subtest: slots-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+ok 71 - slots-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+  ---
+  duration_ms: 0.386667
+  type: 'test'
+  ...
+# Subtest: slots-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+ok 72 - slots-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+  ---
+  duration_ms: 1.762417
+  type: 'test'
+  ...
+# Subtest: slots-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+ok 73 - slots-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+  ---
+  duration_ms: 0.626625
+  type: 'test'
+  ...
+# Subtest: slots-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+ok 74 - slots-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+  ---
+  duration_ms: 2.859083
+  type: 'test'
+  ...
+# Subtest: PM real Game historic pre-sign fixture restores unchanged and can return the car after skipped signing
+ok 75 - PM real Game historic pre-sign fixture restores unchanged and can return the car after skipped signing
+  ---
+  duration_ms: 281.380291
+  type: 'test'
+  ...
+# Subtest: PM real Game signed zero-quota fixture remains readable with identical contracts and no implicit rescue
+ok 76 - PM real Game signed zero-quota fixture remains readable with identical contracts and no implicit rescue
+  ---
+  duration_ms: 2.96825
+  type: 'test'
+  ...
+# Subtest: kg-v1: an empty completion history sync avoids wallet serialization
+ok 77 - kg-v1: an empty completion history sync avoids wallet serialization
+  ---
+  duration_ms: 0.769542
+  type: 'test'
+  ...
+# Subtest: kg-v1: consumed receipts do not trigger another wallet transaction or refill
+ok 78 - kg-v1: consumed receipts do not trigger another wallet transaction or refill
+  ---
+  duration_ms: 1.844959
+  type: 'test'
+  ...
+# Subtest: kg-v1: restored unsynchronized events replenish once and later events remain visible
+ok 79 - kg-v1: restored unsynchronized events replenish once and later events remain visible
+  ---
+  duration_ms: 1.085333
+  type: 'test'
+  ...
+# Subtest: kg-v1: restore still rejects a cursor beyond history or an inconsistent completion count
+ok 80 - kg-v1: restore still rejects a cursor beyond history or an inconsistent completion count
+  ---
+  duration_ms: 0.553792
+  type: 'test'
+  ...
+# Subtest: slots-v1: an empty completion history sync avoids wallet serialization
+ok 81 - slots-v1: an empty completion history sync avoids wallet serialization
+  ---
+  duration_ms: 0.542541
+  type: 'test'
+  ...
+# Subtest: slots-v1: consumed receipts do not trigger another wallet transaction or refill
+ok 82 - slots-v1: consumed receipts do not trigger another wallet transaction or refill
+  ---
+  duration_ms: 2.436375
+  type: 'test'
+  ...
+# Subtest: slots-v1: restored unsynchronized events replenish once and later events remain visible
+ok 83 - slots-v1: restored unsynchronized events replenish once and later events remain visible
+  ---
+  duration_ms: 1.639833
+  type: 'test'
+  ...
+# Subtest: slots-v1: restore still rejects a cursor beyond history or an inconsistent completion count
+ok 84 - slots-v1: restore still rejects a cursor beyond history or an inconsistent completion count
+  ---
+  duration_ms: 0.609042
+  type: 'test'
+  ...
+# Subtest: kg-v1: an equal-event wallet replacement cannot hide a fleet schema mismatch
+ok 85 - kg-v1: an equal-event wallet replacement cannot hide a fleet schema mismatch
+  ---
+  duration_ms: 0.635833
+  type: 'test'
+  ...
+# Subtest: slots-v1: an equal-event wallet replacement cannot hide a fleet schema mismatch
+ok 86 - slots-v1: an equal-event wallet replacement cannot hide a fleet schema mismatch
+  ---
+  duration_ms: 0.50375
+  type: 'test'
+  ...
+# Subtest: direct economy slot promotion still requires coordinated fleet promotion before sync
+ok 87 - direct economy slot promotion still requires coordinated fleet promotion before sync
+  ---
+  duration_ms: 0.293333
+  type: 'test'
+  ...
+# Subtest: kg-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+ok 88 - kg-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+  ---
+  duration_ms: 3.434875
+  type: 'test'
+  ...
+# Subtest: kg-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+ok 89 - kg-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+  ---
+  duration_ms: 3.616875
+  type: 'test'
+  ...
+# Subtest: kg-v1: malformed clock inputs reject without changing any stored field
+ok 90 - kg-v1: malformed clock inputs reject without changing any stored field
+  ---
+  duration_ms: 0.913875
+  type: 'test'
+  ...
+# Subtest: kg-v1: missing defer flags, auto control and pending ad use the original transaction
+ok 91 - kg-v1: missing defer flags, auto control and pending ad use the original transaction
+  ---
+  duration_ms: 2.727708
+  type: 'test'
+  ...
+# Subtest: kg-v1: stopped automatic entitlement remains available during an eligible manual tick
+ok 92 - kg-v1: stopped automatic entitlement remains available during an eligible manual tick
+  ---
+  duration_ms: 0.96875
+  type: 'test'
+  ...
+# Subtest: kg-v1: a changed arrival port still rejects a deferred clock atomically
+ok 93 - kg-v1: a changed arrival port still rejects a deferred clock atomically
+  ---
+  duration_ms: 0.201208
+  type: 'test'
+  ...
+# Subtest: kg-v1: cross-wallet mismatch and forged historical income remain rejected
+ok 94 - kg-v1: cross-wallet mismatch and forged historical income remain rejected
+  ---
+  duration_ms: 2.72375
+  type: 'test'
+  ...
+# Subtest: kg-v1: complete wallet, reward, schema and rebase guards remain active
+ok 95 - kg-v1: complete wallet, reward, schema and rebase guards remain active
+  ---
+  duration_ms: 2.149834
+  type: 'test'
+  ...
+# Subtest: kg-v1: an exception from final validation cannot publish a half-updated clock
+ok 96 - kg-v1: an exception from final validation cannot publish a half-updated clock
+  ---
+  duration_ms: 1.50075
+  type: 'test'
+  ...
+# Subtest: slots-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+ok 97 - slots-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+  ---
+  duration_ms: 0.323875
+  type: 'test'
+  ...
+# Subtest: slots-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+ok 98 - slots-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+  ---
+  duration_ms: 0.409375
+  type: 'test'
+  ...
+# Subtest: slots-v1: malformed clock inputs reject without changing any stored field
+ok 99 - slots-v1: malformed clock inputs reject without changing any stored field
+  ---
+  duration_ms: 0.328792
+  type: 'test'
+  ...
+# Subtest: slots-v1: missing defer flags, auto control and pending ad use the original transaction
+ok 100 - slots-v1: missing defer flags, auto control and pending ad use the original transaction
+  ---
+  duration_ms: 0.669541
+  type: 'test'
+  ...
+# Subtest: slots-v1: stopped automatic entitlement remains available during an eligible manual tick
+ok 101 - slots-v1: stopped automatic entitlement remains available during an eligible manual tick
+  ---
+  duration_ms: 0.28975
+  type: 'test'
+  ...
+# Subtest: slots-v1: a changed arrival port still rejects a deferred clock atomically
+ok 102 - slots-v1: a changed arrival port still rejects a deferred clock atomically
+  ---
+  duration_ms: 0.065209
+  type: 'test'
+  ...
+# Subtest: slots-v1: cross-wallet mismatch and forged historical income remain rejected
+ok 103 - slots-v1: cross-wallet mismatch and forged historical income remain rejected
+  ---
+  duration_ms: 3.308625
+  type: 'test'
+  ...
+# Subtest: slots-v1: complete wallet, reward, schema and rebase guards remain active
+ok 104 - slots-v1: complete wallet, reward, schema and rebase guards remain active
+  ---
+  duration_ms: 0.216833
+  type: 'test'
+  ...
+# Subtest: slots-v1: an exception from final validation cannot publish a half-updated clock
+ok 105 - slots-v1: an exception from final validation cannot publish a half-updated clock
+  ---
+  duration_ms: 0.078917
+  type: 'test'
+  ...
+# Subtest: a restored unseen hero event stays on the original transaction and refills exactly once
+ok 106 - a restored unseen hero event stays on the original transaction and refills exactly once
+  ---
+  duration_ms: 0.379584
+  type: 'test'
+  ...
+# Subtest: an accessor-based arrival port retains the original transactional path
+ok 107 - an accessor-based arrival port retains the original transactional path
+  ---
+  duration_ms: 0.1015
+  type: 'test'
+  ...
+# Subtest: kg-v1: Economy restore does not encode its privately parsed wallet again
+ok 108 - kg-v1: Economy restore does not encode its privately parsed wallet again
+  ---
+  duration_ms: 1.689542
+  type: 'test'
+  ...
+# Subtest: kg-v1: Fleet restore does not encode its privately parsed clock aggregate again
+ok 109 - kg-v1: Fleet restore does not encode its privately parsed clock aggregate again
+  ---
+  duration_ms: 0.370875
+  type: 'test'
+  ...
+# Subtest: kg-v1: Dispatch restore does not encode its privately parsed order history again
+ok 110 - kg-v1: Dispatch restore does not encode its privately parsed order history again
+  ---
+  duration_ms: 2.254625
+  type: 'test'
+  ...
+# Subtest: kg-v1: independent restores and detached projections cannot share mutable authority
+ok 111 - kg-v1: independent restores and detached projections cannot share mutable authority
+  ---
+  duration_ms: 0.969958
+  type: 'test'
+  ...
+# Subtest: kg-v1: full restore still rejects mismatched wallets and forged completed income
+ok 112 - kg-v1: full restore still rejects mismatched wallets and forged completed income
+  ---
+  duration_ms: 0.6245
+  type: 'test'
+  ...
+# Subtest: slots-v1: Economy restore does not encode its privately parsed wallet again
+ok 113 - slots-v1: Economy restore does not encode its privately parsed wallet again
+  ---
+  duration_ms: 0.0585
+  type: 'test'
+  ...
+# Subtest: slots-v1: Fleet restore does not encode its privately parsed clock aggregate again
+ok 114 - slots-v1: Fleet restore does not encode its privately parsed clock aggregate again
+  ---
+  duration_ms: 0.062667
+  type: 'test'
+  ...
+# Subtest: slots-v1: Dispatch restore does not encode its privately parsed order history again
+ok 115 - slots-v1: Dispatch restore does not encode its privately parsed order history again
+  ---
+  duration_ms: 1.453208
+  type: 'test'
+  ...
+# Subtest: slots-v1: independent restores and detached projections cannot share mutable authority
+ok 116 - slots-v1: independent restores and detached projections cannot share mutable authority
+  ---
+  duration_ms: 1.900625
+  type: 'test'
+  ...
+# Subtest: slots-v1: full restore still rejects mismatched wallets and forged completed income
+ok 117 - slots-v1: full restore still rejects mismatched wallets and forged completed income
+  ---
+  duration_ms: 0.784375
+  type: 'test'
+  ...
+# Subtest: replaceFrom adopts separate parsed authority and rejects a forged wallet atomically
+ok 118 - replaceFrom adopts separate parsed authority and rejects a forged wallet atomically
+  ---
+  duration_ms: 0.204292
+  type: 'test'
+  ...
+# Subtest: selectedMapId validators compile and reject malformed or unowned IDs without weakening legal kg/slots snapshots
+    # Subtest: kg-v1: legal initial and purchased selected maps survive validation/restoration
+    ok 1 - kg-v1: legal initial and purchased selected maps survive validation/restoration
+      ---
+      duration_ms: 0.868375
+      type: 'test'
+      ...
+    # Subtest: kg-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+    ok 2 - kg-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+      ---
+      duration_ms: 0.549958
+      type: 'test'
+      ...
+    # Subtest: slots-v1: legal initial and purchased selected maps survive validation/restoration
+    ok 3 - slots-v1: legal initial and purchased selected maps survive validation/restoration
+      ---
+      duration_ms: 0.201083
+      type: 'test'
+      ...
+    # Subtest: slots-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+    ok 4 - slots-v1: unknown, noninteger, out-of-range and unowned selected maps reject
+      ---
+      duration_ms: 0.333
+      type: 'test'
+      ...
+    1..4
+ok 119 - selectedMapId validators compile and reject malformed or unowned IDs without weakening legal kg/slots snapshots
+  ---
+  duration_ms: 667.576916
+  type: 'test'
+  ...
+# Subtest: real entry IDs roll once, 80% boundary and prices are deterministic
+ok 120 - real entry IDs roll once, 80% boundary and prices are deterministic
+  ---
+  duration_ms: 0.513583
+  type: 'test'
+  ...
+# Subtest: ticket binds callback to order and benefit, duplicate and expired callbacks grant nothing
+ok 121 - ticket binds callback to order and benefit, duplicate and expired callbacks grant nothing
+  ---
+  duration_ms: 0.242125
+  type: 'test'
+  ...
+# Subtest: cancel/failure cannot later succeed; unknown callback cannot grant
+ok 122 - cancel/failure cannot later succeed; unknown callback cannot grant
+  ---
+  duration_ms: 0.062084
+  type: 'test'
+  ...
+# Subtest: auto budget clips final frame, freezes in background/pause and restores without offline accrual
+ok 123 - auto budget clips final frame, freezes in background/pause and restores without offline accrual
+  ---
+  duration_ms: 0.1935
+  type: 'test'
+  ...
+# Subtest: ordinary batches work; special requires rewarded ticket and consumes once
+ok 124 - ordinary batches work; special requires rewarded ticket and consumes once
+  ---
+  duration_ms: 0.166292
+  type: 'test'
+  ...
+# Subtest: restore rejects corrupt budgets, ticket binding and dangling entry references
+ok 125 - restore rejects corrupt budgets, ticket binding and dangling entry references
+  ---
+  duration_ms: 2.660084
+  type: 'test'
+  ...
+# Subtest: pending request restores with its binding and cannot complete before issuance
+ok 126 - pending request restores with its binding and cannot complete before issuance
+  ---
+  duration_ms: 0.226583
+  type: 'test'
+  ...
+# Subtest: normal relabeling, duplicate orders and automatic entitlement stacking are refused
+ok 127 - normal relabeling, duplicate orders and automatic entitlement stacking are refused
+  ---
+  duration_ms: 0.093
+  type: 'test'
+  ...
+# Subtest: new entries roll independently while paid and pending rights survive a failed appearance roll
+ok 128 - new entries roll independently while paid and pending rights survive a failed appearance roll
+  ---
+  duration_ms: 0.233041
+  type: 'test'
+  ...
+# Subtest: auto request refuses an existing ordinary batch
+ok 129 - auto request refuses an existing ordinary batch
+  ---
+  duration_ms: 0.217208
+  type: 'test'
+  ...
+# Subtest: retired legacy migration rejects instead of manufacturing legacy assets or a new wallet
+ok 130 - retired legacy migration rejects instead of manufacturing legacy assets or a new wallet
+  ---
+  duration_ms: 5.391
+  type: 'test'
+  ...
+# Subtest: retired old in-flight facade does not migrate or settle into the current economy
+ok 131 - retired old in-flight facade does not migrate or settle into the current economy
+  ---
+  duration_ms: 1.483208
+  type: 'test'
+  ...
+# Subtest: future V2 schema/config blocks storage writes and leaves primary bytes intact
+ok 132 - future V2 schema/config blocks storage writes and leaves primary bytes intact
+  ---
+  duration_ms: 0.342375
+  type: 'test'
+  ...
+# Subtest: batch capacity, individual arrival and idempotent payment with cancellation
+ok 133 - batch capacity, individual arrival and idempotent payment with cancellation
+  ---
+  duration_ms: 7.2785
+  type: 'test'
+  ...
+# Subtest: batch errors leave all three states unchanged and snapshots restore partial completion
+ok 134 - batch errors leave all three states unchanged and snapshots restore partial completion
+  ---
+  duration_ms: 1.915958
+  type: 'test'
+  ...
+# Subtest: special advertised price is fixed and exclusive, authorization consumed once
+ok 135 - special advertised price is fixed and exclusive, authorization consumed once
+  ---
+  duration_ms: 2.116125
+  type: 'test'
+  ...
+# Subtest: frame IDs freeze foreground budget, duplicate does not move twice, final slice hands off
+ok 136 - frame IDs freeze foreground budget, duplicate does not move twice, final slice hands off
+  ---
+  duration_ms: 2.395084
+  type: 'test'
+  ...
+# Subtest: restore rejects mismatched economic/reward/order state and replay counters
+ok 137 - restore rejects mismatched economic/reward/order state and replay counters
+  ---
+  duration_ms: 0.575667
+  type: 'test'
+  ...
+# Subtest: cancel named pending order cancels the entire remainder, preserving prior deliveries
+ok 138 - cancel named pending order cancels the entire remainder, preserving prior deliveries
+  ---
+  duration_ms: 0.757125
+  type: 'test'
+  ...
+# Subtest: work-memory clones preserve automatic clock while clock rollback cannot replay elapsed time
+ok 139 - work-memory clones preserve automatic clock while clock rollback cannot replay elapsed time
+  ---
+  duration_ms: 0.517417
+  type: 'test'
+  ...
+# Subtest: hero completion refills fleet exactly once and all three states restore together
+ok 140 - hero completion refills fleet exactly once and all three states restore together
+  ---
+  duration_ms: 20.191083
+  type: 'test'
+  ...
+# Subtest: SDK missing callback expires on tick, expired wait interval never becomes hero travel
+ok 141 - SDK missing callback expires on tick, expired wait interval never becomes hero travel
+  ---
+  duration_ms: 0.579
+  type: 'test'
+  ...
+# Subtest: auto ad resolving during authorized special keeps special manual but preserves auto entitlement
+ok 142 - auto ad resolving during authorized special keeps special manual but preserves auto entitlement
+  ---
+  duration_ms: 1.847042
+  type: 'test'
+  ...
+# Subtest: ten ordinary deliveries buy first new car; fifteen hire first NPC and reuse starter
+ok 143 - ten ordinary deliveries buy first new car; fifteen hire first NPC and reuse starter
+  ---
+  duration_ms: 7.591041
+  type: 'test'
+  ...
+# Subtest: fixed identity recruit quote and failed transactions preserve ownership
+ok 144 - fixed identity recruit quote and failed transactions preserve ownership
+  ---
+  duration_ms: 0.144667
+  type: 'test'
+  ...
+# Subtest: new prices and table-driven cumulative upgrade totals match latest frontloaded candidate
+ok 145 - new prices and table-driven cumulative upgrade totals match latest frontloaded candidate
+  ---
+  duration_ms: 0.272333
+  type: 'test'
+  ...
+# Subtest: reloading a completed receipt never pays twice; accepted quote survives equipment changes
+ok 146 - reloading a completed receipt never pays twice; accepted quote survives equipment changes
+  ---
+  duration_ms: 0.145125
+  type: 'test'
+  ...
+# Subtest: unknown future schema/config fails closed and malformed assignments are rejected
+ok 147 - unknown future schema/config fails closed and malformed assignments are rejected
+  ---
+  duration_ms: 0.081709
+  type: 'test'
+  ...
+# Subtest: money alone buys highest vehicle/map, upgrades exactly one instance, and assignment stays unique
+ok 148 - money alone buys highest vehicle/map, upgrades exactly one instance, and assignment stays unique
+  ---
+  duration_ms: 0.264375
+  type: 'test'
+  ...
+# Subtest: a repeated old completion callback cannot settle a newer active order
+ok 149 - a repeated old completion callback cannot settle a newer active order
+  ---
+  duration_ms: 0.17625
+  type: 'test'
+  ...
+# Subtest: no NPC can bank quota; repeat hero receipt does not refill; NPC-less elapsed time does not burn quota
+ok 150 - no NPC can bank quota; repeat hero receipt does not refill; NPC-less elapsed time does not burn quota
+  ---
+  duration_ms: 2.25
+  type: 'test'
+  ...
+# Subtest: one real minute costs one shared minute regardless of NPC count; NPC never refills quota
+ok 151 - one real minute costs one shared minute regardless of NPC count; NPC never refills quota
+  ---
+  duration_ms: 1.35625
+  type: 'test'
+  ...
+# Subtest: online steps and offline interval give same unique payouts, preserve partial progress, ignore replay and rollback
+ok 152 - online steps and offline interval give same unique payouts, preserve partial progress, ignore replay and rollback
+  ---
+  duration_ms: 67.9175
+  type: 'test'
+  ...
+# Subtest: old batch keeps old price and timing through upgrade, reassignment and map switch
+ok 153 - old batch keeps old price and timing through upgrade, reassignment and map switch
+  ---
+  duration_ms: 1.2375
+  type: 'test'
+  ...
+# Subtest: legal deterministic integer batches obey capacity; new batch uses current equipment and map
+ok 154 - legal deterministic integer batches obey capacity; new batch uses current equipment and map
+  ---
+  duration_ms: 4.846542
+  type: 'test'
+  ...
+# Subtest: quota thresholds grow without gifts and only hero completions refill
+ok 155 - quota thresholds grow without gifts and only hero completions refill
+  ---
+  duration_ms: 2129.968833
+  type: 'test'
+  ...
+# Subtest: reject malformed clocks, inconsistent combined saves and forged income atomically
+ok 156 - reject malformed clocks, inconsistent combined saves and forged income atomically
+  ---
+  duration_ms: 0.502834
+  type: 'test'
+  ...
+# Subtest: economy multiple accepted orders complete in any order, keep quotes and cancel remainder without income
+ok 157 - economy multiple accepted orders complete in any order, keep quotes and cancel remainder without income
+  ---
+  duration_ms: 0.13175
+  type: 'test'
+  ...
+# Subtest: a vehicle reserved by an accepted old NPC batch cannot be reused by another rider
+ok 158 - a vehicle reserved by an accepted old NPC batch cannot be reused by another rider
+  ---
+  duration_ms: 0.551083
+  type: 'test'
+  ...
+# Subtest: restored historic hero count is a baseline and never creates retroactive quota
+ok 159 - restored historic hero count is a baseline and never creates retroactive quota
+  ---
+  duration_ms: 0.476083
+  type: 'test'
+  ...
+# Subtest: opening plus categorized cash movements reconciles and duplicate delivery is inert
+ok 160 - opening plus categorized cash movements reconciles and duplicate delivery is inert
+  ---
+  duration_ms: 3.125709
+  type: 'test'
+  ...
+# Subtest: missing legacy ledger rejects without synthesizing historical flows or a replacement balance
+ok 161 - missing legacy ledger rejects without synthesizing historical flows or a replacement balance
+  ---
+  duration_ms: 0.802583
+  type: 'test'
+  ...
+# Subtest: dated and unknown flows keep separate scopes and malformed or drifting ledger rejects restoration
+ok 162 - dated and unknown flows keep separate scopes and malformed or drifting ledger rejects restoration
+  ---
+  duration_ms: 1.241
+  type: 'test'
+  ...
+# Subtest: targets reflect assets and affordability without spending or granting ten percent rewards
+ok 163 - targets reflect assets and affordability without spending or granting ten percent rewards
+  ---
+  duration_ms: 1.866917
+  type: 'test'
+  ...
+# Subtest: every actual asset expense and ordinary/special/NPC income has an actual category
+ok 164 - every actual asset expense and ordinary/special/NPC income has an actual category
+  ---
+  duration_ms: 1.70525
+  type: 'test'
+  ...
+# Subtest: actual directed in-bounds legs, route alternatives merge and manual pickup blocks elapsed-time rewards
+ok 165 - actual directed in-bounds legs, route alternatives merge and manual pickup blocks elapsed-time rewards
+  ---
+  duration_ms: 16.053333
+  type: 'test'
+  ...
+# Subtest: integer slot offers and same-merchant multi-order pickup merge exactly once
+ok 166 - integer slot offers and same-merchant multi-order pickup merge exactly once
+  ---
+  duration_ms: 10.499666
+  type: 'test'
+  ...
+# Subtest: road/service progress and dispatch use the same checkpoint; restore has no offline hero travel
+ok 167 - road/service progress and dispatch use the same checkpoint; restore has no offline hero travel
+  ---
+  duration_ms: 7.468708
+  type: 'test'
+  ...
+# Subtest: cancel midway does not teleport and next trip starts at exact edge progress
+ok 168 - cancel midway does not teleport and next trip starts at exact edge progress
+  ---
+  duration_ms: 6.057667
+  type: 'test'
+  ...
+# Subtest: restore rejects forged token, shortened leg, premature service and future/map changes
+ok 169 - restore rejects forged token, shortened leg, premature service and future/map changes
+  ---
+  duration_ms: 2.034875
+  type: 'test'
+  ...
+# Subtest: unreachable plan failure leaves accepted dispatch unchanged
+ok 170 - unreachable plan failure leaves accepted dispatch unchanged
+  ---
+  duration_ms: 0.155208
+  type: 'test'
+  ...
+# Subtest: automatic entitlement accepts ordinary capacity batch and loops next frame, never special
+ok 171 - automatic entitlement accepts ordinary capacity batch and loops next frame, never special
+  ---
+  duration_ms: 394.324791
+  type: 'test'
+  ...
+# Subtest: six supplies retain V1 price/effect/time and highest purchased map unlock
+ok 172 - six supplies retain V1 price/effect/time and highest purchased map unlock
+  ---
+  duration_ms: 2.915708
+  type: 'test'
+  ...
+# Subtest: full stamina and absent inventory never charge, unknown reward never grants
+ok 173 - full stamina and absent inventory never charge, unknown reward never grants
+  ---
+  duration_ms: 0.494625
+  type: 'test'
+  ...
+# Subtest: automatic defaults are no paid/no inventory; budget lifetime survives toggles
+ok 174 - automatic defaults are no paid/no inventory; budget lifetime survives toggles
+  ---
+  duration_ms: 0.379166
+  type: 'test'
+  ...
+# Subtest: legacy pending purchases migrate once; source/cost tampering rejects
+ok 175 - legacy pending purchases migrate once; source/cost tampering rejects
+  ---
+  duration_ms: 0.662667
+  type: 'test'
+  ...
+# Subtest: approved fixture grants are idempotent, inventory action spends no cash and restores once
+ok 176 - approved fixture grants are idempotent, inventory action spends no cash and restores once
+  ---
+  duration_ms: 0.587958
+  type: 'test'
+  ...
+# Subtest: batch supply accounting starts uniformly at begin and survives cancel/restore
+ok 177 - batch supply accounting starts uniformly at begin and survives cancel/restore
+  ---
+  duration_ms: 0.277417
+  type: 'test'
+  ...
+# Subtest: finished and cancelled batch costs freeze before idle supplies
+ok 178 - finished and cancelled batch costs freeze before idle supplies
+  ---
+  duration_ms: 0.261584
+  type: 'test'
+  ...
+# Subtest: zero stamina truncates exact shared travel, supply cost/progress persists once
+ok 179 - zero stamina truncates exact shared travel, supply cost/progress persists once
+  ---
+  duration_ms: 1.310458
+  type: 'test'
+  ...
+# Subtest: late and damage each apply once, reputation never multiplies signed base
+ok 180 - late and damage each apply once, reputation never multiplies signed base
+  ---
+  duration_ms: 5.2855
+  type: 'test'
+  ...
+# Subtest: service blocked before charge can open water and survives reload
+ok 181 - service blocked before charge can open water and survives reload
+  ---
+  duration_ms: 8.370875
+  type: 'test'
+  ...
+# Subtest: blocked automatic trip preserves entitlement while fleet frame progresses
+ok 182 - blocked automatic trip preserves entitlement while fleet frame progresses
+  ---
+  duration_ms: 5.687833
+  type: 'test'
+  ...
+# Subtest: automatic budget cannot reset spent, future versions and old in-flight snapshots reject
+ok 183 - automatic budget cannot reset spent, future versions and old in-flight snapshots reject
+  ---
+  duration_ms: 2.875583
+  type: 'test'
+  ...
+1..183
+# tests 187
+# suites 0
+# pass 187
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12734.92225

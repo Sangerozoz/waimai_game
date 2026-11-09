@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-11-07T11:50:47.145981+08:00",
+  "reviewerThread": "thr_29f6fcihz6",
+  "scope": "UI findings followup only: reason key, real rendering, cross-page entry, 0.5s cadence, ordinary equipped hero unload",
+  "files": {
+    "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "5e845960371dedcea1a7ccf09d75f7c1285de10c49af0952daf02257c51a8b0b",
+    "delivery-game/tests/emergency-loan-ui.test.cjs": "5814a1377fe193ac34ac23d9be17f99ad1f8e6eae58ecdfac536956c2106d1b8"
+  },
+  "diff": "review-followup.diff",
+  "diffSha256": "e164cfb27c6ed7dfa6d51dd3f93e49853591515d9d47f59b067d852ccf2699e5",
+  "red": "review-red-01-receipt.json",
+  "green": "review-green-01-receipt.json",
+  "previousFindings": {
+    "critical": 0,
+    "important": [
+      "6 original tests bypassed real render, cross-page entry and throttle refresh; ordinary fixture not actually hero-equipped"
+    ],
+    "minor": [
+      "emergencyControlKey omitted loan.reason"
+    ]
+  },
+  "currentTestCounts": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0
+  },
+  "sourceBefore": "../source-before/map-sample/V2GameUI.ts"
+}

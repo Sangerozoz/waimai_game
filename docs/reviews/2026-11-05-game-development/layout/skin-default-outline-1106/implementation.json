@@ -1,0 +1,81 @@
+{
+  "task": "SKIN-DEFAULT-OUTLINE-1106",
+  "status": "implemented-candidate-awaiting-independent-review-and-visual-check",
+  "fixer": "thr_tviezvnwds",
+  "parent": "thr_axf6i4e89t",
+  "sourcePath": "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts",
+  "beforeSHA256": "796a4111bc9c367672863351b4a93eb43031cd5e2fe83d303fe4979622dee4f0",
+  "afterSHA256": "9e7e6914f8f5a7c0d8e5dba4045237fca0385d98af12d52676352221bcfd3f09",
+  "onlyFrozenConditionChanged": true,
+  "inverseRecoveredBeforeSHA256": "796a4111bc9c367672863351b4a93eb43031cd5e2fe83d303fe4979622dee4f0",
+  "oldPredicate": "key==='panel-glass'||key==='bill-metric'",
+  "newPredicate": "key==='bill-metric'||(key==='panel-glass'&&stroke!==UI.line)",
+  "exactDiff": "--- delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts (before)\n+++ delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts (after)\n@@ -25 +25 @@\n-  if(key==='panel-glass'||key==='bill-metric'){const edge=item(n,'GlassEdge',0,0,w,h),outline=edge.addComponent(Graphics);outline.strokeColor=col(stroke);outline.lineWidth=stroke==='#FF9600'||stroke==='#FF8A00'?2.4:1.8;outline.roundRect(-w/2+.4,-h/2+.4,w-.8,h-.8,Math.min(8,h/3,w/3));outline.stroke();edge.setSiblingIndex(1);}\n+  if(key==='bill-metric'||(key==='panel-glass'&&stroke!==UI.line)){const edge=item(n,'GlassEdge',0,0,w,h),outline=edge.addComponent(Graphics);outline.strokeColor=col(stroke);outline.lineWidth=stroke==='#FF9600'||stroke==='#FF8A00'?2.4:1.8;outline.roundRect(-w/2+.4,-h/2+.4,w-.8,h-.8,Math.min(8,h/3,w/3));outline.stroke();edge.setSiblingIndex(1);}\n",
+  "coverage": [
+    {
+      "branch": "panel-glass && stroke===UI.line",
+      "before": "create GlassEdge",
+      "after": "do not create GlassEdge"
+    },
+    {
+      "branch": "panel-glass && stroke!==UI.line",
+      "before": "create GlassEdge",
+      "after": "unchanged"
+    },
+    {
+      "branch": "bill-metric with any stroke",
+      "before": "create GlassEdge",
+      "after": "unchanged"
+    },
+    {
+      "branch": "other skin keys",
+      "before": "no GlassEdge",
+      "after": "unchanged"
+    }
+  ],
+  "preserved": [
+    "全部其余源码字节不变；包括选中/非默认stroke的描边语句与1.8/2.4线宽。",
+    "fallback Graphics成功隐藏/失败可见不变。",
+    "SkinViewport、8单位Mask、alpha、原图/九宫格/inset、热区和皮肤异步加载/重试/诊断不变。",
+    "没有修改GameUI、ImageSkin、ArtResources、CartoonArt、manifest、PNG、车辆场景/地图、逻辑/Runtime/数值域；没有夹带骑手排版或万元规则。"
+  ],
+  "verification": {
+    "mode": "static-bytes-only",
+    "exactDiffProduced": true,
+    "inverseSHA256MatchesApprovedBefore": true,
+    "tests": false,
+    "typecheckCommand": false,
+    "typescriptExecution": false,
+    "regression": false,
+    "creatorBuild": false,
+    "browserOrGame": false,
+    "businessOrSave": false,
+    "commitOrPush": false,
+    "newAgent": false
+  },
+  "automaticToolFeedback": {
+    "perFileTsc": "skipped by patch tool",
+    "lspDiagnostics": [
+      "includes at 57:128: target lib diagnostic",
+      "padStart at 104:32: target lib diagnostic"
+    ],
+    "classification": "patch自动返回，非主动typecheck；这两个API在精确匹配的修改前源码中已有，本轮字节只改第25行条件；未扩大配置或运行诊断命令，不能据此称编译通过。"
+  },
+  "deferredVisualCases": [
+    "普通车辆参数卡与未选车型卡的直边/四角去掉额外轮廓后的真实效果。",
+    "选中橙边、其他非默认stroke和bill-metric保持。",
+    "加载失败/晚完成、隐藏/销毁节点的原行为；本轮未执行这些场景。"
+  ],
+  "unknowns": [
+    "是否仍有素材软alpha/不规则边缘或采样造成的碎边、缺角未知。",
+    "G04圆盘细环根因未知，本轮没有修改圆盘。"
+  ],
+  "acceptance": {
+    "selfApproved": false,
+    "independentReview": "pending PM",
+    "visualPass": false,
+    "fidelity98Percent": false,
+    "deployed": false
+  },
+  "writeLease": "released at handback; no further writes after delivery; PM restores batch mode"
+}

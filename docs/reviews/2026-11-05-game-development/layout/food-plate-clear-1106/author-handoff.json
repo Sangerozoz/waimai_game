@@ -1,0 +1,78 @@
+{
+  "task": "O01-UI-PLATE-1106",
+  "files": [
+    {
+      "path": "delivery-game/assets/scripts/map-sample/FoodImages.ts",
+      "baselineSHA256": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586",
+      "candidateSHA256": "9511d13fbd4e983e50b497574cf948747d83b2db0fcaacecc16345f089f72f3b",
+      "patch": "--- a/delivery-game/assets/scripts/map-sample/FoodImages.ts\n+++ b/delivery-game/assets/scripts/map-sample/FoodImages.ts\n@@ -1,10 +1,10 @@\n import { Node } from 'cc';\n import { foodForOffer } from './FoodCatalog';\n import { cartoonArt, cartoonFoodKey } from './CartoonArt';\n-import { box, C, label } from './SampleUI';\n+import { box, C, item as uiItem, label } from './SampleUI';\n \n-export function foodImage(parent:Node,food:string,x:number,y:number,size:number):Node {\n- const node=box(parent,'FoodImage',x,y,size,size,'#FFF2CD',16,C.line);\n+export function foodImage(parent:Node,food:string,x:number,y:number,size:number,options:Readonly<{background?:boolean}>={}):Node {\n+ const node=options.background===false?uiItem(parent,'FoodImage',x,y,size,size):box(parent,'FoodImage',x,y,size,size,'#FFF2CD',16,C.line);\n  const item=foodForOffer(food),fallback=label(node,item.name,0,0,14,C.ink,size-12,true,'center');\n  const key=cartoonFoodKey(item.imageIndex);\n  if(key)cartoonArt(node,key,0,0,size-10,size-10,fallback.node);return node;\n"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "baselineSHA256": "240bb6bc07de7add31482e1cd330a886e46e705695a01f1a7cdbab0b45bf4c46",
+      "candidateSHA256": "93b7e6680bb3626191f09b4e7ff53d4e4b4a391841245dbb422621b367fd962f",
+      "patch": "--- a/delivery-game/assets/scripts/map-sample/V2GameUI.ts\n+++ b/delivery-game/assets/scripts/map-sample/V2GameUI.ts\n@@ -669,7 +669,7 @@\n  /** Keep FoodImages' resource API; crop its square presentation into the approved photo slot. */\n  private foodThumbnail(parent:Node,name:string,x:number,y:number):void {\n   const frame=item(parent,'FoodThumbnail',x,y,146,128);frame.addComponent(Mask).type=Mask.Type.GRAPHICS_RECT;\n-  foodImage(frame,name,0,0,146);\n+  foodImage(frame,name,0,0,146,{background:false});\n  }\n \n  private foodBadge(parent:Node,food:OrderFoodPresentation,x:number,y:number):void {\n@@ -768,7 +768,7 @@\n    batchRows.forEach(({o,food,title,top})=>{\n     const place=route?.orders.find(order=>order.id===o.id),trip=t?.orders.find(order=>order.id===o.id),shift=title.extra/2;\n     const card=panel(c,'Order-Trip-'+o.id,0,-orderTop-133-top-shift,CW,190+title.extra,'#F2FBFF');\n-    foodImage(card,food.name,-265,20-shift,112);\n+    foodImage(card,food.name,-265,20-shift,112,{background:false});\n     this.foodBadge(card,food,-265,-13-shift);\n     // Trip3 reads its frozen food; Trip2 retains display-only names and its old risk rules.\n     this.drawFoodTitle(card,title,-30,66,26,340);\n"
+    }
+  ],
+  "sourceEvidence": {
+    "backgroundCause": {
+      "pathLines": "delivery-game/assets/scripts/map-sample/FoodImages.ts:6-10",
+      "finding": "FoodImage先用box画#FFF2CD垫底，再叠加透明cartoonArt；图片成功后只隐藏fallback文字，不隐藏该垫底。"
+    },
+    "nodeAndPaint": {
+      "pathLines": "delivery-game/assets/scripts/map-sample/SampleUI.ts:5,7-14,45-46,58-60",
+      "finding": "box先调用item，再通过paintBox生成Surface/Graphics、阴影、fill和描边。item自身创建UI_2D节点、加入原parent、设置位置及UITransform。background:false直接使用真实item，保留FoodImage名称、尺寸和父子层级，不画透明fill，也不留下paintBox阴影或轮廓。uiItem别名避免与原const item食品对象同名。"
+    },
+    "imageLoadingUnchanged": {
+      "pathLines": "delivery-game/assets/scripts/map-sample/CartoonArt.ts:141-153；delivery-game/assets/scripts/map-sample/FoodImages.ts:8-10",
+      "finding": "规范name到foodForOffer、imageIndex、cartoonFoodKey的映射、fallback Label、size-10图片槽、原比例适配、成功隐藏fallback、失败诊断和销毁保护全部原样保留；不修改loader/cache/crop。"
+    },
+    "v2OptIn": [
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:670-672,812-815",
+        "finding": "仅大厅共享foodThumbnail内的foodImage显式传background:false。原146×128 Mask、146图片入口、动态shift及徽标不变。"
+      },
+      {
+        "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:768-787",
+        "finding": "仅本批/在途共享foodImage调用显式传background:false；原-265、20-shift、112以及标题、徽标、价格、地址和动态高度不变。该位置共用于新旧批次，不改变食品身份或风险规则。"
+      }
+    ],
+    "defaultCallersPreserved": [
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts:304：补给未传选项，仍走原box黄底。",
+      "delivery-game/assets/scripts/map-sample/CompactOrderInfo.ts:38：legacy紧凑订单未传选项，仍走原box黄底。",
+      "delivery-game/assets/scripts/map-sample/CityMap.ts:60：仅追踪既有foodImage调用行；未传选项，仍走原box黄底，不修改地图源码或数据。",
+      "delivery-game/assets/scripts/map-sample/OrderPhone.ts:2：只有foodImage导入，无直接调用；不修改该文件。"
+    ],
+    "parentEvidence": {
+      "report": "docs/reviews/2026-11-05-game-development/integration/orange-ui-background-root-1106.json",
+      "prototype": "docs/reviews/2026-11-05-game-development/integration/orange-ui-background-prototype-1106.png",
+      "finding": "已读报告并查看既有离线对比：右侧取消奶黄方底，杯和吸管仍完整。该图不是游戏截图。报告中sourceAlphaExtrema为[0,255]，exactPlateColorPixelsInSample为0；不把源码hex与截图像素强说相等，本轮未重新采样纹理或运行游戏。"
+    },
+    "inMemoryDiffCheck": {
+      "delivery-game/assets/scripts/map-sample/FoodImages.ts": {
+        "exactReplacements": 3,
+        "forwardMatches": true,
+        "reverseMatches": true
+      },
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": {
+        "exactReplacements": 2,
+        "forwardMatches": true,
+        "reverseMatches": true
+      }
+    },
+    "closingBaselineMatches": true
+  },
+  "unexecutedCases": [
+    "补丁应用后的大厅橙汁及其他食品：透明边缘、杯和吸管完整性、浅蓝卡融合效果。",
+    "本批/在途的新旧食品合同、长标题与动态shift：主体、裁切、徽标、价格、地址和行高保持。",
+    "未传选项或显式background:true时，V2补给与legacy消费者保持原黄底。",
+    "图片加载成功、失败fallback、晚回调和节点销毁时保持原行为及诊断；静态文本核对不代替运行。",
+    "独立复审、构建、部署及新包橙汁画面核对由PM后续执行。"
+  ],
+  "limits": [
+    "本轮只读：候选源码和unified diff仅在内存中生成；candidateSHA256是UTF-8内存候选的SHA，不是磁盘已应用SHA。未写源码、报告、图片或权限，未应用补丁，不沿用前批写租约。",
+    "两份实际baseline均与PM指定SHA一致，收口重算无漂移；每份diff已在内存正向重建候选、反向精确还原baseline。仅helper导入、可选参数、节点分支及V2两个调用参数改变，其余字节不变。PM应用前仍须复核baseline。",
+    "没有修改现有数组或对象、食品目录、身份、风险、金额、图库、pack、manifest、crop、mask、缩放、主体、坐标、行高、徽标、loader/cache或背景图；没有按食品名称硬编码背景选择。",
+    "未执行TS/App/DTO函数、tests/typecheck、浏览器、游戏、业务、真实或合成档、构建/Creator、commit/push、新Agent或Codex；未自判画面PASS或98%。"
+  ]
+}

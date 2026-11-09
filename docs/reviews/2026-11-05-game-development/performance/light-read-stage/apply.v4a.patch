@@ -1,0 +1,124 @@
+*** Begin Patch
+*** Update File: /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RouteSession.ts
+@@
+  cursor:number;legSeconds:number;serviceSeconds:number;phase:'idle'|'planned'|'travelling'|'pickup'|'service'|'ready'|'finished';
+  serviceCharged:boolean;picked:string[];arrivals:{id:string;token:string}[];origin:Anchor;
+ }
++export type V2RouteProgress=Readonly<Pick<V2RouteSnapshot,'tripId'|'phase'|'cursor'|'serviceCharged'|'serviceSeconds'>>;
++export type V2RouteMotion=V2RouteProgress&{readonly position:Point};
+ type LegacyStop=Omit<Stop,'orderIds'>;
+ type LegacyRouteSnapshot=Omit<V2RouteSnapshot,'version'|'timeProfile'|'stopPolicy'|'stops'|'phase'|'serviceCharged'>&{
+  version:1;timeProfile:'road40-service2-1-v1';stops:LegacyStop[];phase:Exclude<V2RouteSnapshot['phase'],'ready'>;serviceCharged?:boolean;
+@@
+   this.state={format:'county-v2-route',version:2,timeProfile:'road40-service2-1-grouped-v2',stopPolicy:'grouped',mapKey,nextId:1,tripId:0,anchor,origin:copy(anchor),orders:[],stops:[],legs:[],preference:'fast',cursor:0,legSeconds:0,serviceSeconds:0,serviceCharged:false,phase:'idle',picked:[],arrivals:[]};
+  }
+  snapshot():V2RouteSnapshot{return copy(this.state);}
++ /** Detached scalar reads never clone route geometry or calculate position. */
++ get progress():V2RouteProgress {const s=this.state;return {tripId:s.tripId,phase:s.phase,cursor:s.cursor,serviceCharged:s.serviceCharged,serviceSeconds:s.serviceSeconds};}
++ /** position can alias a zero-segment leg; detach its coordinate pair as well. */
++ get motion():V2RouteMotion {const position=this.position;return {...this.progress,position:[position[0],position[1]]};}
+  serialize():string{return JSON.stringify(this.state);}
+  get position():Point {const s=this.state;if(['travelling','pickup','service'].includes(s.phase)&&s.legs[s.cursor])return routePosition(s.legs[s.cursor],s.legSeconds).point;if(s.anchor.edge){const e=s.anchor.edge,a=this.router.nodes.get(e.from)!,b=this.router.nodes.get(e.to)!,t=s.anchor.elapsed/e.seconds;return [a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t];}const n=this.router.nodes.get(s.anchor.node)!;return [n.x,n.y];}
+  private path(anchor:Anchor,end:string,preference:Preference):MapRoute|null {
+*** Update File: /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameSession.ts
+@@
+  snapshot(){return this.dispatch.snapshot();}
+  get tripState(){return this.trip.state;}
+  get routeSnapshot(){return {...this.route.snapshot(),position:this.route.position};}
++ get routeMotion(){return this.route.motion;}
+  private get equippedVehicle(){const s=this.dispatch.economyState;return s.vehicles.find(v=>v.id===s.riders[0].vehicleId);}
+  private get effects(){const v=this.equippedVehicle;if(!v)throw new Error('主角未配车');return vehicleEffects(v);}
+  normalCandidates(count=8){if(!this.equippedVehicle)return [];return this.route.candidates(this.effects.capacityKg,this.dispatch.snapshot().orders.map(o=>o.id),count,this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);}
+@@
+   const candidate=V2RouteSession.restore(this.city,this.route.serialize());candidate.plan(orders);
+   const safe=this.dispatch.economyState.heroCompletedOrders<15;
+   if(safe&&(orders.some(o=>this.route.fastest(o.pickupNode,o.dropoffNode).metres>1000)||candidate.choices().every(c=>c.metres>1000*orders.length||c.metres/1000*[2,2,3,3,4][this.dispatch.economyState.selectedMapId-1]+candidate.serviceBudget.stamina>this.trip.state.stamina)))throw new Error('起步阶段请选择真实短途订单');
+-  const trip=V2TripRules.restore(this.trip.state);trip.begin(this.dispatch.economyState.selectedMapId,candidate.snapshot().tripId,orders.map(o=>({id:o.id,...this.route.fastest(o.pickupNode,o.dropoffNode),fastestGameSeconds:this.route.fastest(o.pickupNode,o.dropoffNode).gameSeconds,safe})));
++  const trip=V2TripRules.restore(this.trip.state);trip.begin(this.dispatch.economyState.selectedMapId,candidate.progress.tripId,orders.map(o=>({id:o.id,...this.route.fastest(o.pickupNode,o.dropoffNode),fastestGameSeconds:this.route.fastest(o.pickupNode,o.dropoffNode).gameSeconds,safe})));
+   const quotes=this.dispatch.acceptBatch(orders);this.route=candidate;this.trip=trip;return quotes;
+  }
+- routeChoices(){if(this.route.snapshot().phase!=='planned')return [];const t=this.trip.state,safe=t.orders.every(o=>o.safe),budget=this.route.serviceBudget;return this.route.choices().filter(c=>!safe||c.metres<=1000*t.orders.length&&c.metres/1000*[2,2,3,3,4][t.mapId-1]+budget.stamina<=t.stamina).map(c=>({...c,seconds:(c.seconds-budget.seconds)*this.trip.roadTimeFactor/this.effects.speedRelativeToStarter+budget.seconds,weather:t.weather,stamina:c.metres/1000*[2,2,3,3,4][t.mapId-1]+budget.stamina,gameSeconds:t.gameSeconds,orders:t.orders.map(o=>({id:o.id,deadlineGameSeconds:o.deadlineGameSeconds}))}));}
++ routeChoices(){if(this.route.progress.phase!=='planned')return [];const t=this.trip.state,safe=t.orders.every(o=>o.safe),budget=this.route.serviceBudget;return this.route.choices().filter(c=>!safe||c.metres<=1000*t.orders.length&&c.metres/1000*[2,2,3,3,4][t.mapId-1]+budget.stamina<=t.stamina).map(c=>({...c,seconds:(c.seconds-budget.seconds)*this.trip.roadTimeFactor/this.effects.speedRelativeToStarter+budget.seconds,weather:t.weather,stamina:c.metres/1000*[2,2,3,3,4][t.mapId-1]+budget.stamina,gameSeconds:t.gameSeconds,orders:t.orders.map(o=>({id:o.id,deadlineGameSeconds:o.deadlineGameSeconds}))}));}
+  beginTrip(preference:Preference='fast'){if(this.trip.state.action||!this.routeChoices().some(c=>c.aliases.includes(preference)))throw new Error('路线或当前动作不可出发');this.route.beginTrip(this.dispatch.snapshot(),preference);this.trip.choose(preference);}
+  pickup(){if(this.trip.state.action)throw new Error('补给动作进行中');this.route.pickup();}
+  continueTrip():void {if(this.trip.state.action)throw new Error('补给动作进行中');this.route.continueTrip();}
+  private get highestSupplyMap(){return Math.max(...this.dispatch.economyState.ownedMapIds);}
+  supplyOptions(){return V2_SUPPLY_CATALOG.map(item=>({...item,unlocked:item.unlockMapId<=this.highestSupplyMap,quantity:this.trip.state.inventory[item.id],actualRestore:Math.min(item.restore,100-this.trip.state.stamina)}));}
+  supply(kind:V2SupplyKind,source:'purchase'|'inventory'='purchase'){
+-  const route=this.route.snapshot();if(route.phase==='service'&&route.serviceCharged)throw new Error('取送服务中不能重复开启动作');
++  const route=this.route.progress;if(route.phase==='service'&&route.serviceCharged)throw new Error('取送服务中不能重复开启动作');
+   this.trip.startSupply(kind,this.dispatch.snapshot().batchIds.length>0,c=>this.dispatch.chargeSupply(c,{supplyId:kind,quantity:1}),false,source,this.highestSupplyMap);
+  }
+  configureAutoSupply(policy:V2AutoSupplyInput){this.trip.configureAutoSupply(policy);}
+@@
+    const afterSupply=this.trip.advanceSupply(seconds);used+=seconds-afterSupply;seconds=afterSupply;
+    if(seconds<=0)break;
+    if(automatic&&!this.equippedVehicle)break;
+-   if(automatic&&this.trip.state.blocked&&!(this.route.snapshot().phase==='service'&&this.route.snapshot().serviceCharged)){
++   if(automatic&&this.trip.state.blocked&&!(this.route.progress.phase==='service'&&this.route.progress.serviceCharged)){
+     const choice=this.trip.chooseAutoSupply(this.highestSupplyMap,this.dispatch.economyState.cashCents);
+     if(!choice)break;
+     this.trip.startSupply(choice.kind,this.dispatch.snapshot().batchIds.length>0,c=>this.dispatch.chargeSupply(c,{supplyId:choice.kind,quantity:1}),true,choice.source,this.highestSupplyMap);
+     // startSupply always creates a positive-duration action. Consume it next iteration.
+     continue;
+    }
+-   let phase=this.route.snapshot().phase;
++   let phase=this.route.progress.phase;
+    if(automatic&&['idle','finished'].includes(phase)&&this.dispatch.snapshot().batchIds.length===0){
+     let capacity=this.effects.capacityKg;const selected:V2RouteOrder[]=[];
+     for(const offer of this.normalCandidates(8))if(offer.weightKg<=capacity){selected.push(offer);capacity-=offer.weightKg;}
+     // A combination may be long even when its individual offers are short.
+     while(selected.length){try{this.acceptBatch(selected);break;}catch(error){if(this.dispatch.snapshot().batchIds.length)throw error;selected.pop();}}
+     if(!selected.length)break;
+-    phase=this.route.snapshot().phase;
++    phase=this.route.progress.phase;
+    }
+    // Existing ordinary batches may have been planned before automatic control was granted.
+    if(automatic&&phase==='planned'){
+     const choice=this.routeChoices()[0];if(!choice)break;
+-    this.beginTrip(choice.preference);phase=this.route.snapshot().phase;
++    this.beginTrip(choice.preference);phase=this.route.progress.phase;
+    }
+-   if(automatic&&phase==='ready'){this.continueTrip();phase=this.route.snapshot().phase;}
++   if(automatic&&phase==='ready'){this.continueTrip();phase=this.route.progress.phase;}
+    if(!['travelling','pickup','service'].includes(phase))break;
+    const advanced=this.route.advance(seconds,automatic,this.effects.speedRelativeToStarter,{roadTimeFactor:this.trip.roadTimeFactor,travel:(m,g)=>this.trip.travel(m,g),service:(id,kind)=>this.trip.service(id,kind),pickupGroup:ids=>this.trip.pickupGroup(ids),serviceTime:s=>this.trip.serviceTime(s),arrival:(id,token)=>this.completeDelivery(id,token)});
+    used+=advanced;seconds=Math.max(0,seconds-advanced);
+*** Update File: /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
+@@
+         this.mutate(session => session.configureAutoSupply(policy));
+     }
+     get routeSnapshot() { return this.live?.routeSnapshot || null; }
++    get routeMotion() { return this.live?.routeMotion || null; }
+     normalCandidates(count = 8) { if (!this.live) return []; return this.live.normalCandidates(count); }
+     /** Read-only preview using the same signed contract as acceptance; never saves or accepts live orders. */
+     quoteCandidates(orders: Orders) {
+*** Update File: /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/assets/scripts/map-sample/V2GameUI.ts
+@@
+  update(dt:number):void {
+   if(!this.runtime||!this.hud)return;
+   // Motion consumes the actual current route position every frame, never extrapolated/tweened time.
+-  const route=this.runtime.routeSnapshot;
++  const route=this.runtime.routeMotion;
+   if(route){
+    this.map.setRider(route.position,0);
+    const routeKey=route.tripId+':'+route.phase+':'+route.cursor;
+    if(routeKey!==this.routeViewKey){
++    const legs=this.runtime.routeSnapshot?.legs||[];
+     const view=this.map.captureView();
+-    this.map.setRoutes(route.legs[route.cursor]?[route.legs[route.cursor]]:[],0,false);
++    this.map.setRoutes(legs[route.cursor]?[legs[route.cursor]]:[],0,false);
+     // setRoutes clears follow internally. Restore the user's existing view instead of silently losing it.
+     this.map.restoreView(view);
+     const departing=route.phase==='travelling'&&(route.tripId!==this.lastRouteTripId||['idle','planned','finished'].includes(this.lastRoutePhase));
+@@
+   const trip=this.runtime.tripState;
+   // Cursor/membership and supply boundaries may change without changing phase or batch IDs.
+   // Progress seconds are deliberately excluded: update their real labels, not the whole page.
+-  const controlKey=JSON.stringify([route?.phase??'idle',route?.tripId,route?.cursor,route?.serviceCharged,this.pickupGroup(route)?.ids,snap.batchIds,trip?.blocked,trip?.action?.kind,trip?.action?.source,trip?.orders.map(order=>[order.id,order.picked,order.delivered])]);
++  // Full stop membership is read only at this HUD cadence, not for frame-by-frame motion.
++  const controlKey=JSON.stringify([route?.phase??'idle',route?.tripId,route?.cursor,route?.serviceCharged,this.pickupGroup(this.runtime.routeSnapshot)?.ids,snap.batchIds,trip?.blocked,trip?.action?.kind,trip?.action?.source,trip?.orders.map(order=>[order.id,order.picked,order.delivered])]);
+   if(controlKey!==this.routeControlKey){
+    if(!snap.batchIds.length){this.offers=this.runtime.normalCandidates();this.selected.clear();}
+    this.routeControlKey=controlKey;
+*** End Patch

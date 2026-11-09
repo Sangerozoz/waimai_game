@@ -1,0 +1,47 @@
+{
+  "task": "U02-INITIAL-RIDER-VIEW-1106",
+  "files": [
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "baselineSHA256": "93b7e6680bb3626191f09b4e7ff53d4e4b4a391841245dbb422621b367fd962f",
+      "candidateSHA256": "cea071606d173007ca8ce8acde05c74748e3243d2c4091390aedcdfcef550ed9",
+      "patch": "--- a/delivery-game/assets/scripts/map-sample/V2GameUI.ts\n+++ b/delivery-game/assets/scripts/map-sample/V2GameUI.ts\n@@ -113,6 +113,8 @@\n  configure(runtime:V2RuntimeController,data:CityData,canvas:Node):void {\n   this.runtime=runtime;this.root=item(canvas,'V2GameUI',0,0,720,1280);\n   this.map=new CityMap(this.root,data,1280,()=>sys.openURL('https://www.openstreetmap.org/copyright'),0,128,{left:0,right:0},1280);\n+  const motion=runtime.routeMotion;\n+  if(motion){this.map.setRider(motion.position,0);this.map.locate(false);}\n   this.body=item(this.root,'V2Pages');this.render();\n  }\n  private get state(){return (this.runtime.snapshot!.economy as V2EconomySnapshot).state;}\n"
+    }
+  ],
+  "sourceEvidence": [
+    {
+      "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:113-117",
+      "fact": "现configure在创建CityMap后直接render，未从真实motion初始化骑手位置及follow。候选只在两者之间新增两行：读取一次runtime.routeMotion；非空时依次setRider(position,0)、locate(false)。无motion保持原流程。"
+    },
+    {
+      "pathLines": "delivery-game/assets/scripts/map-sample/V2GameBootstrap.ts:36-39；V2RuntimeController.ts:160-161；V2GameSession.ts:28；V2RouteSession.ts:58-60",
+      "fact": "启动链先await startOrContinue再创建UI并configure；routeMotion沿runtime→live→route.motion返回权威位置与阶段。以上仅源码追踪，没有运行getter、DTO或App函数。"
+    },
+    {
+      "pathLines": "delivery-game/assets/scripts/map-sample/CityMap.ts:281-285,297",
+      "fact": "既有setRider接收Point和angle；locate(false)开启follow并按当前scale定位，不要求恢复DEFAULT_SCALE。更新首轮原有setRoutes虽然清除follow，但captureView/restoreView会保留初始化后的视图；这些实现均未修改。"
+    },
+    {
+      "pathLines": "delivery-game/assets/scripts/map-sample/V2GameUI.ts:838-854",
+      "fact": "原自动locate仅覆盖travelling出发边界，不能覆盖恢复finished/idle的首次可见。候选不改update、render、切段capture/restore或后续拖拽缩放策略。"
+    },
+    {
+      "paths": [
+        "docs/reviews/2026-11-05-game-development/integration/slots-polish-home-1106.jpg",
+        "docs/reviews/2026-11-05-game-development/integration/slots-polish-home-located-1106.jpg"
+      ],
+      "fact": "已查看父PM既有前后截图：定位后当前骑手标记进入画面。它们是原定位按钮的证据，不是候选补丁运行结果。"
+    }
+  ],
+  "unexecutedCases": [
+    "正常继续到finished/idle且有真实motion：首次首页应定位到当前骑手并默认follow，不需先点定位。",
+    "configure时无motion：保持原初始化；本补丁不追加轮询或延迟定位。",
+    "首次update切段：capture/restore保留初始化视图；随后用户拖拽、缩放、切页及render不因本新增逻辑再次强制定位。",
+    "travelling出发、连续配送、原定位按钮及生命周期：保留原实现，行为未运行验证。"
+  ],
+  "limits": [
+    "只读内存候选：精确unified diff正向重建候选、反向恢复baseline字节均一致；仅configure增加2行，无删除；configure之外字节不变，两处background:false保留。收口再次读取live与baseline字节一致。",
+    "未写任何源、报告或候选文件，未改权限、CityMap、地图制作/图片/数据/道路边界、Runtime/Game、费用、暂停、时钟或存档；未派Agent/Codex。",
+    "未运行TS/App/DTO/getter、tests/typecheck、浏览器、业务、存档或构建。由父PM物化并另交独立门禁及新包显示；不自判PASS，不声称连续配送跟随已测或关闭U02。"
+  ]
+}

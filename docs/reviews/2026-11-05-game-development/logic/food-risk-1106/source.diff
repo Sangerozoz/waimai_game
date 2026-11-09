@@ -1,0 +1,223 @@
+--- delivery-game/assets/scripts/map-sample/FoodCatalog.ts
++++ delivery-game/assets/scripts/map-sample/FoodCatalog.ts
+@@ -1,4 +1,5 @@
+ import { Fragility } from '../domain/GameConfig';
++import type { V2FoodRiskContract } from '../domain/V2TripRules';
+ import { COUNTY_FOOD_MIX } from './CountyConfig';
+ 
+ export interface FoodItem { id:string; name:string; imageIndex:number; fragility:Fragility; unitWeightKg:number }
+@@ -80,3 +81,18 @@
+   const legacy:Record<string,number>={'家常饭盒':0,'家常饭':0,'小炒套餐':2};
+   return FOOD_CATALOG.find(food=>food.name===name)||FOOD_CATALOG[legacy[name]??0];
+ }
++
++/** food-risk-v1 pins the current catalog order and the former V2 UI hash. */
++export function foodForV2Order(orderId:string):V2FoodRiskContract {
++  if(typeof orderId!=='string'||!orderId.length||FOOD_CATALOG.length!==50)throw new Error('配送食品身份无效');
++  let hash=2166136261;for(let i=0;i<orderId.length;i++)hash=Math.imul(hash^orderId.charCodeAt(i),16777619)>>>0;
++  const food=FOOD_CATALOG[hash%FOOD_CATALOG.length];
++  return {version:'food-risk-v1',foodId:food.id,fragility:food.fragility};
++}
++
++export function foodPresentationById(foodId:string):Readonly<Pick<FoodItem,'id'|'name'|'imageIndex'|'fragility'>> {
++  if(typeof foodId!=='string'||!foodId.length)throw new Error('配送食品身份无效');
++  const matches=FOOD_CATALOG.filter(food=>food.id===foodId);
++  if(matches.length!==1)throw new Error('配送食品目录不一致');
++  const food=matches[0];return {id:food.id,name:food.name,imageIndex:food.imageIndex,fragility:food.fragility};
++}
+--- delivery-game/assets/scripts/domain/V2TripRules.ts
++++ delivery-game/assets/scripts/domain/V2TripRules.ts
+@@ -1,4 +1,5 @@
+ import { V2SupplyId, V2_SUPPLY_CATALOG, V2_SUPPLY_REWARDS, supplyItem, emptySupplyInventory } from './V2SupplyCatalog';
++import type { Fragility } from './GameConfig';
+ /** Pure, persisted hero-trip rules. No wall clock, storage or unseeded randomness. */
+ export type V2SupplyKind=V2SupplyId|'rest';
+ export type V2SupplySource='purchase'|'inventory'|'rest';
+@@ -11,30 +12,51 @@
+  const lateRetain=[1,.95,.85,.75][li],damageRetain=[1,.9,.75,.5][di];
+  return {incomeCents:Math.round(base*lateRetain*damageRetain),baseIncomeCents:base,lateRetain,damageRetain,lateGameSeconds:late,damage:outcome.damage,ratingDelta:li===0&&di===0?1:-Math.min(10,[0,1,3,5][li]+[0,1,3,5][di])};
+ }
+-export interface V2TripOrder {id:string;deadlineGameSeconds:number;picked:boolean;delivered:boolean;risk:number;draw:number;severityDraw:number;heldMetres:number;safe:boolean}
++export type V2FoodRiskContract=Readonly<{version:'food-risk-v1';foodId:string;fragility:Fragility}>;
++export type V2FoodRiskById=Readonly<Record<string,V2FoodRiskContract>>;
++export interface V2TripOrder {id:string;deadlineGameSeconds:number;picked:boolean;delivered:boolean;risk:number;draw:number;severityDraw:number;heldMetres:number;safe:boolean;food?:V2FoodRiskContract}
+ export interface V2AutoSupplyPolicy {enabled:boolean;budgetCents:number;spentCents:number;kind?:V2SupplyId;allowPaid:boolean;useInventory:boolean}
+ export interface V2AutoSupplyInput {enabled:boolean;budgetCents:number;kind?:V2SupplyId;allowPaid?:boolean;useInventory?:boolean}
+-export interface V2TripState {
++export interface V2LegacyTripState {
+  version:2;stamina:number;rating:number;gameSeconds:number;weather:'clear'|'rain'|'severe';seed:number;mapId:number;preference:'fast'|'main'|'smooth';blocked:boolean;
+- orders:V2TripOrder[];supplySpentCents:number;
++ orders:(V2TripOrder&{food?:never})[];supplySpentCents:number;
+  batchAccounting:{orderIds:string[];supplySpentCentsStart:number;inventoryUsedStart:Record<V2SupplyId,number>;end?:{supplySpentCents:number;inventoryUsed:Record<V2SupplyId,number>}}|null;
+  inventory:Record<V2SupplyId,number>;inventoryUsed:Record<V2SupplyId,number>;supplyGrants:{grantId:string;rewardId:string}[];
+  action:{kind:V2SupplyKind;source:V2SupplySource;elapsedSeconds:number;durationSeconds:number;gameSeconds:number;restore:number;costCents:number}|null;
+  autoSupplyPolicy:V2AutoSupplyPolicy;
+ }
++export type V2TripState=V2LegacyTripState|(Omit<V2LegacyTripState,'version'|'orders'>&{version:3;orders:(V2TripOrder&{food:V2FoodRiskContract})[]});
+ const clone=<T>(s:T):T=>JSON.parse(JSON.stringify(s));
+ function check(v:unknown):asserts v {if(!v)throw new Error('体力行程状态无效');}
+ const finite=(v:number)=>Number.isFinite(v)&&v>=0;
++const own=(value:object,key:string)=>Object.prototype.hasOwnProperty.call(value,key);
++export function parseV2FoodRisk(raw:unknown):V2FoodRiskContract {
++ check(raw&&typeof raw==='object'&&!Array.isArray(raw));
++ check(Reflect.ownKeys(raw).length===3&&['version','foodId','fragility'].every(key=>Object.prototype.propertyIsEnumerable.call(raw,key)));
++ const food=raw as Record<string,unknown>;
++ check(food.version==='food-risk-v1'&&typeof food.foodId==='string'&&food.foodId.length>0&&typeof food.fragility==='string'&&['fragile','normal','durable'].indexOf(food.fragility)>=0);
++ return {version:'food-risk-v1',foodId:food.foodId,fragility:food.fragility as Fragility};
++}
++const FOOD_DAMAGE_BASE:Readonly<Record<Fragility,Readonly<Record<'fast'|'main'|'smooth',number>>>>={fragile:{fast:.12,main:.06,smooth:.02},normal:{fast:.06,main:.03,smooth:.01},durable:{fast:.02,main:.01,smooth:0}};
+ export class V2TripRules {
+  private s:V2TripState={version:2,stamina:100,rating:80,gameSeconds:0,weather:'clear',seed:1,mapId:1,preference:'fast',blocked:false,orders:[],supplySpentCents:0,batchAccounting:null,inventory:emptySupplyInventory(),inventoryUsed:emptySupplyInventory(),supplyGrants:[],action:null,autoSupplyPolicy:{enabled:false,budgetCents:0,spentCents:0,allowPaid:false,useInventory:false}};
+  get state():V2TripState{return clone(this.s);}
+  get roadTimeFactor(){return this.s.weather==='rain'?1.1:this.s.weather==='severe'?1.25:1;}
+  private roll(){this.s.seed=(Math.imul(this.s.seed,1664525)+1013904223)>>>0;return this.s.seed/4294967296;}
+- begin(mapId:number,tripId:number,orders:{id:string;fastestGameSeconds:number;heldMetres:number;safe:boolean}[]):void {
+-  check(!this.s.action&&Number.isInteger(mapId)&&mapId>=1&&mapId<=5&&orders.length>0);this.s.seed=(tripId^0x79a75d31)>>>0;this.s.mapId=mapId;this.s.gameSeconds=0;this.s.blocked=this.s.stamina===0;
++ begin(mapId:number,tripId:number,orders:{id:string;fastestGameSeconds:number;heldMetres:number;safe:boolean}[],foodById?:V2FoodRiskById):void {
++  check(!this.s.action&&Number.isInteger(mapId)&&mapId>=1&&mapId<=5&&Array.isArray(orders)&&orders.length>0);
++  const classified=arguments.length>=4;let foods:Record<string,V2FoodRiskContract>|null=null;
++  if(classified){
++   check(foodById&&typeof foodById==='object'&&!Array.isArray(foodById)&&(Object.getPrototypeOf(foodById)===null||Object.getPrototypeOf(foodById)===Object.prototype));
++   check(Number.isInteger(tripId)&&tripId>=0&&orders.every(o=>o&&typeof o.id==='string'&&o.id.length>0&&finite(o.fastestGameSeconds)&&finite(o.heldMetres)&&typeof o.safe==='boolean'));
++   check(Reflect.ownKeys(foodById).length===orders.length&&new Set(orders.map(o=>o.id)).size===orders.length&&orders.every(o=>own(foodById,o.id)));
++   foods=Object.create(null);for(const order of orders)foods![order.id]=parseV2FoodRisk(foodById[order.id]);
++  }else check(this.s.version===2);
++  this.s.seed=(tripId^0x79a75d31)>>>0;this.s.mapId=mapId;this.s.gameSeconds=0;this.s.blocked=this.s.stamina===0;
+   this.s.batchAccounting={orderIds:orders.map(o=>o.id),supplySpentCentsStart:this.s.supplySpentCents,inventoryUsedStart:{...this.s.inventoryUsed}};
+   const safe=orders.every(o=>o.safe),r=this.roll()*100;this.s.weather=safe?'clear':r<[0,1,2,3,5][mapId-1]?'severe':r<[5,11,17,23,30][mapId-1]?'rain':'clear';
+-  this.s.orders=orders.map(o=>({id:o.id,deadlineGameSeconds:o.fastestGameSeconds*this.roadTimeFactor+300,picked:false,delivered:false,risk:0,draw:this.roll(),severityDraw:this.roll(),heldMetres:Math.max(1,o.heldMetres),safe:o.safe}));
++  const nextOrders=orders.map(o=>({id:o.id,deadlineGameSeconds:o.fastestGameSeconds*this.roadTimeFactor+300,picked:false,delivered:false,risk:0,draw:this.roll(),severityDraw:this.roll(),heldMetres:Math.max(1,o.heldMetres),safe:o.safe}));
++  this.s=foods?{...this.s,version:3,orders:nextOrders.map(o=>({...o,food:foods![o.id]}))}:{...this.s,version:2,orders:nextOrders};
+  }
+  choose(preference:'fast'|'main'|'smooth'){this.s.preference=preference;}
+  configureAutoSupply(policy:V2AutoSupplyInput):void {
+@@ -96,8 +118,8 @@
+  travel(metres:number,gameSeconds:number):number {
+   check(finite(metres)&&finite(gameSeconds));const cost=metres/1000*[2,2,3,3,4][this.s.mapId-1],fraction=cost>0?Math.min(1,this.s.stamina/cost):1;
+   this.s.stamina=Math.max(0,this.s.stamina-cost*fraction);this.s.blocked=this.s.stamina===0;this.s.gameSeconds+=gameSeconds*fraction;
+-  const base=this.s.preference==='fast'?.06:this.s.preference==='main'?.03:.01,weather=this.s.weather==='rain'?.02:this.s.weather==='severe'?.05:0;
+-  for(const o of this.s.orders)if(o.picked&&!o.delivered&&!o.safe)o.risk=Math.min(.25,o.risk+(base*[.25,.5,.75,1,1.25][this.s.mapId-1]+weather)*metres*fraction/o.heldMetres);
++  const normalBase=this.s.preference==='fast'?.06:this.s.preference==='main'?.03:.01,weather=this.s.weather==='rain'?.02:this.s.weather==='severe'?.05:0;
++  for(const o of this.s.orders)if(o.picked&&!o.delivered&&!o.safe){const base=this.s.version===3?FOOD_DAMAGE_BASE[o.food!.fragility][this.s.preference]:normalBase;o.risk=Math.min(.25,o.risk+(base*[.25,.5,.75,1,1.25][this.s.mapId-1]+weather)*metres*fraction/o.heldMetres);}
+   return fraction;
+  }
+  serviceTime(seconds:number):void {check(finite(seconds));this.s.gameSeconds+=seconds*30;}
+@@ -106,7 +128,10 @@
+  private endBatchAccounting():void {const batch=this.s.batchAccounting;if(batch&&!batch.end)batch.end={supplySpentCents:this.s.supplySpentCents,inventoryUsed:{...this.s.inventoryUsed}};}
+  cancel():void {this.endBatchAccounting();this.s.orders=[];this.s.blocked=this.s.stamina===0;}
+  static restore(raw:V2TripState):V2TripRules {
+-  const t=new V2TripRules(),s=clone(raw);check(s&&[1,2].includes(s.version));
++  // Inspect presence before JSON cloning can erase an explicit undefined food.
++  check(raw&&[1,2,3].indexOf(raw.version)>=0&&Array.isArray(raw.orders));
++  for(const order of raw.orders){check(order&&typeof order==='object'&&!Array.isArray(order));if(raw.version===3){check(Object.prototype.propertyIsEnumerable.call(order,'food'));parseV2FoodRisk(order.food);}else check(!('food' in order));}
++  const t=new V2TripRules(),s=clone(raw);check(s&&[1,2,3].indexOf(s.version)>=0);
+   const legacy=(s.version as number)===1;
+   if(legacy){check((!s.action||['water','noodles','rest'].includes(s.action.kind))&&s.autoSupplyPolicy&&['water','noodles'].includes(s.autoSupplyPolicy.kind!));s.version=2;s.batchAccounting=null;s.inventory=emptySupplyInventory();s.inventoryUsed=emptySupplyInventory();s.supplyGrants=[];if(s.autoSupplyPolicy){s.autoSupplyPolicy.allowPaid=false;s.autoSupplyPolicy.useInventory=false;}if(s.action)s.action.source=s.action.kind==='rest'?'rest':'purchase';}
+   check(finite(s.stamina)&&s.stamina<=100&&finite(s.rating)&&s.rating>=20&&s.rating<=100&&finite(s.gameSeconds)&&Number.isInteger(s.seed)&&s.seed>=0&&s.seed<=4294967295&&Number.isInteger(s.mapId)&&s.mapId>=1&&s.mapId<=5&&['fast','main','smooth'].includes(s.preference)&&['clear','rain','severe'].includes(s.weather)&&typeof s.blocked==='boolean'&&Number.isSafeInteger(s.supplySpentCents)&&s.supplySpentCents>=0);
+@@ -123,6 +148,7 @@
+    if(rest)check(a.source==='rest'&&a.costCents===0&&((a.restore===20&&a.durationSeconds===10&&a.gameSeconds===600)||(a.restore===100&&a.durationSeconds===20&&a.gameSeconds===0)));
+    else check(!!item&&['purchase','inventory'].includes(a.source)&&a.costCents===(a.source==='purchase'?item.costCents:0)&&a.durationSeconds===item.durationSeconds&&a.gameSeconds===item.gameSeconds&&a.restore===item.restore&&(a.source==='purchase'?s.supplySpentCents>=a.costCents:s.inventoryUsed[item.id]>0));
+   }
++  if(s.version===3)for(const order of s.orders)parseV2FoodRisk(order.food);
+   t.s=s;return t;
+  }
+ }
+--- delivery-game/assets/scripts/map-sample/V2GameSession.ts
++++ delivery-game/assets/scripts/map-sample/V2GameSession.ts
+@@ -1,9 +1,16 @@
+ import { V2DispatchSession } from '../domain/V2DispatchSession';
+ import { quantizeOrdinaryDeliveryMetres, vehicleEffects } from '../domain/V2EconomySession';
+-import { V2TripRules, V2SupplyKind, V2AutoSupplyInput } from '../domain/V2TripRules';
++import { V2TripRules, V2SupplyKind, V2AutoSupplyInput, V2FoodRiskContract, parseV2FoodRisk } from '../domain/V2TripRules';
+ import { V2_SUPPLY_CATALOG } from '../domain/V2SupplyCatalog';
+ import { CityData, Preference } from './MapTypes';
+ import { V2RouteOrder, V2RouteSession } from './V2RouteSession';
++import { foodForV2Order } from './FoodCatalog';
++
++export type V2FoodOffer=V2RouteOrder&{food:V2FoodRiskContract};
++function validateCanonicalFood(orderId:string,raw:unknown):void {
++ const food=parseV2FoodRisk(raw),canonical=foodForV2Order(orderId);
++ if(food.version!==canonical.version||food.foodId!==canonical.foodId||food.fragility!==canonical.fragility)throw new Error('订单与配送食品身份不一致');
++}
+ 
+ /** One durable candidate contains route, signed quotes, hero stamina/actions and outcomes. */
+ export class V2GameSession {
+@@ -11,25 +18,33 @@
+  dispatch:V2DispatchSession;
+  private trip=new V2TripRules();
+  constructor(private readonly city:CityData,nowSeconds=0){this.route=new V2RouteSession(city);this.dispatch=new V2DispatchSession({verifyArrival:(order,token)=>this.route.verifyArrival(order,token)},nowSeconds);}
+- serialize():string{return JSON.stringify({format:'county-v2-game',version:4,route:this.route.snapshot(),dispatch:this.dispatch.snapshot(),tripState:this.trip.state});}
++ serialize():string{const tripState=this.trip.state;return JSON.stringify({format:'county-v2-game',version:tripState.version===3?5:4,route:this.route.snapshot(),dispatch:this.dispatch.snapshot(),tripState});}
+  snapshot(){return this.dispatch.snapshot();}
+  get tripState(){return this.trip.state;}
+  get routeSnapshot(){return {...this.route.snapshot(),position:this.route.position};}
+  get routeMotion(){return this.route.motion;}
+  private get equippedVehicle(){const s=this.dispatch.economyState;return s.vehicles.find(v=>v.id===s.riders[0].vehicleId);}
+  private get effects(){const v=this.equippedVehicle;if(!v)throw new Error('主角未配车');return vehicleEffects(v);}
+- normalCandidates(count=8){if(!this.equippedVehicle)return [];return this.route.candidates(this.effects.capacityKg,this.dispatch.snapshot().orders.map(o=>o.id),count,this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);}
+- specialCandidate(id:string){if(!this.equippedVehicle)return null;return this.route.specialCandidate(id,this.effects.capacityKg,this.dispatch.snapshot().orders.map(o=>o.id),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);}
++ normalCandidates(count=8):V2FoodOffer[]{if(!this.equippedVehicle)return [];return this.route.candidates(this.effects.capacityKg,this.dispatch.snapshot().orders.map(o=>o.id),count,this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity).map(order=>({...order,food:foodForV2Order(order.id)}));}
++ specialCandidate(id:string):V2FoodOffer|null {if(!this.equippedVehicle)return null;const order=this.route.specialCandidate(id,this.effects.capacityKg,this.dispatch.snapshot().orders.map(o=>o.id),this.dispatch.economyState.heroCompletedOrders<15?1000:Infinity);return order?{...order,food:foodForV2Order(order.id)}:null;}
+  acceptBatch(orders:V2RouteOrder[]){
+   if(this.trip.state.action)throw new Error('补给动作进行中');
+-  const candidate=V2RouteSession.restore(this.city,this.route.serialize());candidate.plan(orders);
+-  const fastest=orders.map(o=>this.route.fastest(o.pickupNode,o.dropoffNode));
++  const routeOrders=orders.map(o=>({id:o.id,kind:o.kind,weightKg:o.weightKg,pickupNode:o.pickupNode,dropoffNode:o.dropoffNode,pickupName:o.pickupName,dropoffName:o.dropoffName}));
++  const candidate=V2RouteSession.restore(this.city,this.route.serialize());candidate.plan(routeOrders);
++  const fastest=routeOrders.map(o=>this.route.fastest(o.pickupNode,o.dropoffNode));
+   const ordinaryPricingById:Record<string,{deliveryMetres:number}>=Object.create(null);
+-  orders.forEach((order,i)=>{if(order.kind==='ordinary')ordinaryPricingById[order.id]={deliveryMetres:fastest[i].heldMetres};});
++  routeOrders.forEach((order,i)=>{if(order.kind==='ordinary')ordinaryPricingById[order.id]={deliveryMetres:fastest[i].heldMetres};});
+   const safe=this.dispatch.economyState.heroCompletedOrders<15;
+   if(safe&&(fastest.some(route=>route.metres>1000)||candidate.choices().every(c=>c.metres>1000*orders.length||c.metres/1000*[2,2,3,3,4][this.dispatch.economyState.selectedMapId-1]+candidate.serviceBudget.stamina>this.trip.state.stamina)))throw new Error('起步阶段请选择真实短途订单');
+-  const trip=V2TripRules.restore(this.trip.state);trip.begin(this.dispatch.economyState.selectedMapId,candidate.progress.tripId,orders.map((o,i)=>({id:o.id,...fastest[i],fastestGameSeconds:fastest[i].gameSeconds,safe})));
+-  const quotes=this.dispatch.acceptBatch(orders,ordinaryPricingById);this.route=candidate;this.trip=trip;return quotes;
++  const foodById:Record<string,V2FoodRiskContract>=Object.create(null);
++  routeOrders.forEach((order,i)=>{
++   const input=orders[i] as V2RouteOrder&{food?:unknown};
++   if('food' in input){if(!Object.prototype.hasOwnProperty.call(input,'food'))throw new Error('配送食品身份必须显式提供');validateCanonicalFood(order.id,input.food);}
++   foodById[order.id]=foodForV2Order(order.id);
++  });
++  const trip=V2TripRules.restore(this.trip.state);trip.begin(this.dispatch.economyState.selectedMapId,candidate.progress.tripId,routeOrders.map((o,i)=>({id:o.id,...fastest[i],fastestGameSeconds:fastest[i].gameSeconds,safe})),foodById);
++  if(trip.state.version!==3)throw new Error('新配送批次缺少食品规则');
++  const quotes=this.dispatch.acceptBatch(routeOrders,ordinaryPricingById);this.route=candidate;this.trip=trip;return quotes;
+  }
+  /** Planned continuous travel/service only: no manual waits, supplies, future events or stamina stops. */
+  routeChoices(){
+@@ -114,9 +129,9 @@
+   return finish();
+  }
+  static restore(city:CityData,raw:string,options:{preserveClock?:boolean}={}):V2GameSession {
+-  const s=JSON.parse(raw);if(!s||s.format!=='county-v2-game'||![1,2,3,4].includes(s.version))throw new Error('V2组合路线存档不兼容，需显式迁移');
++  const s=JSON.parse(raw);if(!s||s.format!=='county-v2-game'||[1,2,3,4,5].indexOf(s.version)<0)throw new Error('V2组合路线存档不兼容，需显式迁移');
+   // Old combinations cannot borrow the new grouping/ready acceptance gate.
+-  if(s.route?.version!==(s.version===4?2:1))throw new Error('组合与路线状态版本不一致');
++  if(s.route?.version!==(s.version>=4?2:1))throw new Error('组合与路线状态版本不一致');
+   const result=new V2GameSession(city);
+   // All original combination checks run on the original structure, before Route
+   // normalizes any legacy stop. Dispatch.restore is pure and does not invoke its port.
+@@ -124,14 +139,14 @@
+   const r=s.route,d=result.dispatch.snapshot();result.route.assertDispatch(d,r);
+   if(s.version===1){if(d.batchIds.length||!['idle','finished'].includes(r.phase))throw new Error('旧V2在途存档缺少体力行程，需显式迁移');}
+   else {
+-   if(!s.tripState||(s.version===2&&s.tripState.version!==1)||(s.version>=3&&s.tripState.version!==2))throw new Error('组合与补给状态版本不一致');
++   if(!s.tripState||(s.version===2&&s.tripState.version!==1)||(s.version>=3&&s.version<=4&&s.tripState.version!==2)||(s.version===5&&s.tripState.version!==3))throw new Error('组合与补给状态版本不一致');
+    result.trip=V2TripRules.restore(s.tripState);const t=result.trip.state;
+    // Match the old v1 omitted-latch inference without modifying its source bytes.
+    const charged=s.version<4&&r.serviceCharged===undefined?r.phase==='service'&&r.serviceSeconds>0:r.serviceCharged;
+    // Restoration must enforce the same action exclusivity as supply() and auto supply.
+    if(t.action&&r.phase==='service'&&charged)throw new Error('取送服务与补给动作不能同时进行');
+    const pickup=r.phase==='service'&&r.stops[r.cursor]?.kind==='pickup'?r.stops[r.cursor]:null;
+-   if(r.phase!=='idle'&&(t.orders.length!==r.orders.length||!t.orders.every(o=>r.orders.some((ro:V2RouteOrder)=>ro.id===o.id)&&o.delivered===r.arrivals.some((a:{id:string})=>a.id===o.id)&&o.picked===(r.picked.includes(o.id)&&!(pickup&&(s.version===4?pickup.orderIds.includes(o.id):pickup.orderId===o.id)&&!charged)))))throw new Error('行程与路线不一致');
++   if(r.phase!=='idle'&&(t.orders.length!==r.orders.length||!t.orders.every(o=>r.orders.some((ro:V2RouteOrder)=>ro.id===o.id)&&o.delivered===r.arrivals.some((a:{id:string})=>a.id===o.id)&&o.picked===(r.picked.includes(o.id)&&!(pickup&&(s.version>=4?pickup.orderIds.includes(o.id):pickup.orderId===o.id)&&!charged)))))throw new Error('行程与路线不一致');
+    if(t.action?.kind==='rest'&&d.batchIds.length>0&&t.action.restore!==20)throw new Error('在途订单不能使用无单休息');
+    if(t.action&&t.action.kind!=='rest'&&!result.supplyOptions().some(item=>item.id===t.action!.kind&&item.unlocked))throw new Error('补给开放状态不一致');
+    if(t.orders.some(o=>o.delivered&&!d.orders.some(x=>x.id===o.id&&x.status==='completed')))throw new Error('补给或结算状态不一致');
+@@ -141,6 +156,7 @@
+   // router-derived legs equality), then adds singleton membership without replanning.
+   result.route=V2RouteSession.restore(city,JSON.stringify(s.route));
+   if(s.version===1)result.route.cancel();
++  if(s.version===5)for(const order of result.trip.state.orders)validateCanonicalFood(order.id,order.food);
+   return result;
+  }
+ }

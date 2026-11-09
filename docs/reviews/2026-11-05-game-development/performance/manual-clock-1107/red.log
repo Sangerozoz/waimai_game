@@ -1,0 +1,222 @@
+TAP version 13
+# Subtest: kg-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+not ok 1 - kg-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+  ---
+  duration_ms: 1.502333
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:17:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    manual event-free clock must not serialize and restore the complete dispatch history
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:20:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: kg-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+ok 2 - kg-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+  ---
+  duration_ms: 1.864875
+  type: 'test'
+  ...
+# Subtest: kg-v1: malformed clock inputs reject without changing any stored field
+ok 3 - kg-v1: malformed clock inputs reject without changing any stored field
+  ---
+  duration_ms: 0.713417
+  type: 'test'
+  ...
+# Subtest: kg-v1: missing defer flags, auto control and pending ad use the original transaction
+ok 4 - kg-v1: missing defer flags, auto control and pending ad use the original transaction
+  ---
+  duration_ms: 0.916333
+  type: 'test'
+  ...
+# Subtest: kg-v1: stopped automatic entitlement remains available during an eligible manual tick
+not ok 5 - kg-v1: stopped automatic entitlement remains available during an eligible manual tick
+  ---
+  duration_ms: 0.340791
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:54:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:57:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: kg-v1: a changed arrival port still rejects a deferred clock atomically
+ok 6 - kg-v1: a changed arrival port still rejects a deferred clock atomically
+  ---
+  duration_ms: 0.216209
+  type: 'test'
+  ...
+# Subtest: kg-v1: cross-wallet mismatch and forged historical income remain rejected
+ok 7 - kg-v1: cross-wallet mismatch and forged historical income remain rejected
+  ---
+  duration_ms: 1.090875
+  type: 'test'
+  ...
+# Subtest: kg-v1: complete wallet, reward, schema and rebase guards remain active
+ok 8 - kg-v1: complete wallet, reward, schema and rebase guards remain active
+  ---
+  duration_ms: 0.376083
+  type: 'test'
+  ...
+# Subtest: kg-v1: an exception from final validation cannot publish a half-updated clock
+ok 9 - kg-v1: an exception from final validation cannot publish a half-updated clock
+  ---
+  duration_ms: 0.336625
+  type: 'test'
+  ...
+# Subtest: slots-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+not ok 10 - slots-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+  ---
+  duration_ms: 0.279125
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:17:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    manual event-free clock must not serialize and restore the complete dispatch history
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:20:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+ok 11 - slots-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+  ---
+  duration_ms: 0.643375
+  type: 'test'
+  ...
+# Subtest: slots-v1: malformed clock inputs reject without changing any stored field
+ok 12 - slots-v1: malformed clock inputs reject without changing any stored field
+  ---
+  duration_ms: 0.662
+  type: 'test'
+  ...
+# Subtest: slots-v1: missing defer flags, auto control and pending ad use the original transaction
+ok 13 - slots-v1: missing defer flags, auto control and pending ad use the original transaction
+  ---
+  duration_ms: 0.71225
+  type: 'test'
+  ...
+# Subtest: slots-v1: stopped automatic entitlement remains available during an eligible manual tick
+not ok 14 - slots-v1: stopped automatic entitlement remains available during an eligible manual tick
+  ---
+  duration_ms: 0.269167
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:54:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:57:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: a changed arrival port still rejects a deferred clock atomically
+ok 15 - slots-v1: a changed arrival port still rejects a deferred clock atomically
+  ---
+  duration_ms: 0.060875
+  type: 'test'
+  ...
+# Subtest: slots-v1: cross-wallet mismatch and forged historical income remain rejected
+ok 16 - slots-v1: cross-wallet mismatch and forged historical income remain rejected
+  ---
+  duration_ms: 1.405375
+  type: 'test'
+  ...
+# Subtest: slots-v1: complete wallet, reward, schema and rebase guards remain active
+ok 17 - slots-v1: complete wallet, reward, schema and rebase guards remain active
+  ---
+  duration_ms: 0.317375
+  type: 'test'
+  ...
+# Subtest: slots-v1: an exception from final validation cannot publish a half-updated clock
+ok 18 - slots-v1: an exception from final validation cannot publish a half-updated clock
+  ---
+  duration_ms: 0.091166
+  type: 'test'
+  ...
+# Subtest: a restored unseen hero event stays on the original transaction and refills exactly once
+not ok 19 - a restored unseen hero event stays on the original transaction and refills exactly once
+  ---
+  duration_ms: 0.393
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:82:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:88:74)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 14
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 45.067917

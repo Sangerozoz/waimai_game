@@ -1,0 +1,37 @@
+test_boot_settings_resource_and_application_references_resolve (__main__.Package.test_boot_settings_resource_and_application_references_resolve) ... ok
+test_city_and_business_bundle_are_byte_identical (__main__.Package.test_city_and_business_bundle_are_byte_identical) ... ok
+test_heavy_text_is_served_with_exact_gzip_sidecars (__main__.Package.test_heavy_text_is_served_with_exact_gzip_sidecars) ... FAIL
+test_native_texture_versions_resolve_and_dimensions_preserved (__main__.Package.test_native_texture_versions_resolve_and_dimensions_preserved) ... ok
+test_tinypng_provenance_is_actual_completed_output (__main__.Package.test_tinypng_provenance_is_actual_completed_output) ... FAIL
+test_total_png_is_below_50_mib_runtime_budget (__main__.Package.test_total_png_is_below_50_mib_runtime_budget) ... FAIL
+
+======================================================================
+FAIL: test_heavy_text_is_served_with_exact_gzip_sidecars (__main__.Package.test_heavy_text_is_served_with_exact_gzip_sidecars)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-08-package-startup/check-package.py", line 10, in test_heavy_text_is_served_with_exact_gzip_sidecars
+    side=p.with_name(p.name+'.gz');self.assertTrue(side.is_file(),str(p));self.assertEqual(gzip.decompress(side.read_bytes()),p.read_bytes())
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : delivery-game/build/v2-startup-transport-1108/package-receipt.json
+
+======================================================================
+FAIL: test_tinypng_provenance_is_actual_completed_output (__main__.Package.test_tinypng_provenance_is_actual_completed_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-08-package-startup/check-package.py", line 24, in test_tinypng_provenance_is_actual_completed_output
+    receipt=opt.candidate/'package-receipt.json';self.assertTrue(receipt.is_file(),'actual provider receipt required');d=json.loads(receipt.read_text());self.assertEqual(d['imageProvider'],'TinyPNG official Tinify API');self.assertGreater(d['imagesCompressed'],0);self.assertTrue(d['allImageInputsCovered'])
+                                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'TinyPNG official Tinify API'
+
+======================================================================
+FAIL: test_total_png_is_below_50_mib_runtime_budget (__main__.Package.test_total_png_is_below_50_mib_runtime_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-08-package-startup/check-package.py", line 6, in test_total_png_is_below_50_mib_runtime_budget
+    self.assertLess(sum(p.stat().st_size for p in opt.candidate.rglob('*.png')),50*1024*1024)
+AssertionError: 200588751 not less than 52428800
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.029s
+
+FAILED (failures=3)

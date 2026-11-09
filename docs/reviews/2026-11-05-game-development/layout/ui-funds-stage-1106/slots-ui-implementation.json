@@ -1,0 +1,391 @@
+{
+  "task": "SLOTS-UI-RECOVERY-1106 / slots-ui-stage-implementation-1106",
+  "owner": "thr_tviezvnwds",
+  "parentPM": "thr_axf6i4e89t",
+  "status": "stage implementation handed back; independent specification/quality gates, coordinated application, compilation/build/runtime pending; not PASS",
+  "recovery": {
+    "observedSHA256": "7c9a6115e2758f2394cf6ecd6419942f1e202b61f22f471b9733cf6536f0a6c9",
+    "observedBytes": 74012,
+    "resumedExistingSource": true,
+    "restoredD2Or284Or81f": false,
+    "additionalSourceEditsDuringRecoveryTurn": false,
+    "remainingArtifactsCompleted": true,
+    "autoRetryOrProviderSwitch": false
+  },
+  "writeSet": {
+    "source": "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/assets/scripts/map-sample/V2GameUI.ts",
+    "newHelperFiles": [],
+    "reports": [
+      "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/slots-ui.diff",
+      "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/slots-ui-live-full.diff",
+      "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/slots-ui-implementation.md",
+      "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/slots-ui-implementation.json"
+    ],
+    "liveApplied": false,
+    "AEdited": false,
+    "originalFundsReportsOverwritten": false
+  },
+  "sourceHashes": {
+    "stage": {
+      "slotIntegrationBaselineSHA256": "d2da7f2a95d1c36bf49ffb39457e557d26312ef512784eaaa3e8a23dc298fcc3",
+      "recoveryStartSHA256": "7c9a6115e2758f2394cf6ecd6419942f1e202b61f22f471b9733cf6536f0a6c9",
+      "handoffSHA256": "7c9a6115e2758f2394cf6ecd6419942f1e202b61f22f471b9733cf6536f0a6c9",
+      "bytes": 74012
+    },
+    "live": {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+      "beforeSHA256": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+      "afterSHA256": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+      "byteUnchanged": true
+    },
+    "AInput": {
+      "manifestPath": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/implementation-manifest.json",
+      "manifestSHA256": "fc850a1498894f70e77b3ff4e5b010c2b249d8b7a6f60adeaa1fb23e5db11c29",
+      "sourceDiffSHA256": "bb741b346e452a91c57e8cf0ff35038adf5af6ad33fab7a82eae716ecebf10d1",
+      "contractSHA256": "6f6efdc159d8444f31e1ec5b02b58cbb53dd41c2afc68ddb51d2760b60c140eb",
+      "all10SourceHashesMatchManifest": true,
+      "stageSourceHashes": {
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2RiderEconomy.ts": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomySession.ts": "84588c30074d37aeb0ad05ca3fa605e61ac3ba884932ec359fd3b2dddfeef785",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts": "1f6a3ba97d5c86af8a57745b329dbcc8954648429f5838e7de8560656aaf1389",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2DispatchSession.ts": "c9c12118d868b15fc85d7778f706ec7f75d858fa600dc928fb26ed89ccfd49f8",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2GameSession.ts": "7f9da175febc72ce0589c270ca5a4ad5f79791a452217b10e9eb26424d301027",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RuntimeController.ts": "50444cd5dd9f6cc7d219b12dbadfdde51505b410a8b547fcd99c56c5f159b6bf",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+        "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644"
+      }
+    },
+    "allProtectedInputsAndHistoricalReports": {
+      "delivery-game/assets/scripts/map-sample/V2GameUI.ts": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/implementation-manifest.json": "fc850a1498894f70e77b3ff4e5b010c2b249d8b7a6f60adeaa1fb23e5db11c29",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/source.diff": "bb741b346e452a91c57e8cf0ff35038adf5af6ad33fab7a82eae716ecebf10d1",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/contract.md": "6f6efdc159d8444f31e1ec5b02b58cbb53dd41c2afc68ddb51d2760b60c140eb",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2RiderEconomy.ts": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomySession.ts": "84588c30074d37aeb0ad05ca3fa605e61ac3ba884932ec359fd3b2dddfeef785",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts": "1f6a3ba97d5c86af8a57745b329dbcc8954648429f5838e7de8560656aaf1389",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2DispatchSession.ts": "c9c12118d868b15fc85d7778f706ec7f75d858fa600dc928fb26ed89ccfd49f8",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RouteSession.ts": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2GameSession.ts": "7f9da175febc72ce0589c270ca5a4ad5f79791a452217b10e9eb26424d301027",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RuntimeController.ts": "50444cd5dd9f6cc7d219b12dbadfdde51505b410a8b547fcd99c56c5f159b6bf",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644",
+      "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/baseline-manifest.json": "4df667d608b44e6f44da730d61c87c2f6b55a76dfaac30f20bf8dbf98fe33912",
+      "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/candidate.diff": "fc20354b128b82d47c81388aded9b884788fd162e6d5831100e9fb1891a430fd",
+      "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/implementation.json": "1b6912dbe6016db69209abe819022b1dfcad23037fa5da81afe9f62cadc22aa6",
+      "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/implementation.md": "fd04f861e031ebc3299c0ca59fa4cd91eda87de78774e03b00bf1114f5861975",
+      "delivery-game/assets/scripts/map-sample/V2Spacing.ts": "0f363e9bb5858629a592d8e8a3208e70e43c5f87deffe0e1117d9be92fa509de",
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "9e7e6914f8f5a7c0d8e5dba4045237fca0385d98af12d52676352221bcfd3f09",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/scripts/map-sample/UIArtResources.ts": "50fd03e67582a89bcfe145027f79e6660d15360f1d9888ae39fd5b0866f373bf",
+      "delivery-game/assets/scripts/map-sample/CartoonArt.ts": "5b59bb9d4c15fba335754f430641d228a20ea31023cf6385f333fba200d73e52",
+      "delivery-game/assets/scripts/map-sample/FoodImages.ts": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586",
+      "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+      "delivery-game/assets/scripts/map-sample/SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "delivery-game/assets/scripts/map-sample/PresentationLayout.ts": "5409061543adc8de13a01214ce1f7b899cec9649a4e787639b2801530933955d",
+      "delivery-game/assets/scripts/domain/V2RiderEconomy.ts": "860562efbdac8bdbc32ac5c79d0d8f77e405937dac7095b041ad9d138f8624e9",
+      "delivery-game/assets/scripts/domain/V2EconomySession.ts": "affec422c530e37820354a88690f8df32010580ded276cb3f9ac697e8f142e2d",
+      "delivery-game/assets/scripts/domain/V2FleetSession.ts": "70cc8e526d4bb518716f50006941eab9b49e1647db1f56f9e1309040ef42e3a6",
+      "delivery-game/assets/scripts/domain/V2DispatchSession.ts": "40c79d5443c35f2e6b3bba69fac129f07106d8d25ee76a6e27b7fde514d3fe0f",
+      "delivery-game/assets/scripts/map-sample/V2RouteSession.ts": "a4af56bfbd972bebe0fe8dd48ea17cc2aab1a1d8b122241bb9b76ebe9e3780ff",
+      "delivery-game/assets/scripts/map-sample/V2GameSession.ts": "8a96a5b5e2d4b5d5e72980757c58ae3c1aa07a7020e53c6834ad9250bb472ca6",
+      "delivery-game/assets/scripts/map-sample/V2RuntimeController.ts": "a5c19c46b89ca85e42595657fef35de7430b06b524001beb81a4c822aaeef302"
+    },
+    "closingProtectedDrift": {},
+    "resolvedOverlayDependencies": {
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/map-sample/V2RuntimeController.ts": "50444cd5dd9f6cc7d219b12dbadfdde51505b410a8b547fcd99c56c5f159b6bf",
+      "delivery-game/assets/scripts/map-sample/MapTypes.ts": "a558c9cf604e314957a46da44f22d459e04e4b2771702bb71665a701dceda66f",
+      "delivery-game/assets/scripts/map-sample/CityMap.ts": "8a122e7bd8be0057d297cf8a1cdcd73abd7f8aa1c0edf3eb2ca9dff919a40e3c",
+      "delivery-game/assets/scripts/map-sample/SampleUI.ts": "8e3a3589e5438d865581a645b6cc8549b6af34686140a09e4f1b89fb602e49fa",
+      "delivery-game/assets/scripts/map-sample/PresentationLayout.ts": "5409061543adc8de13a01214ce1f7b899cec9649a4e787639b2801530933955d",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomySession.ts": "84588c30074d37aeb0ad05ca3fa605e61ac3ba884932ec359fd3b2dddfeef785",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644",
+      "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts/domain/V2FleetSession.ts": "1f6a3ba97d5c86af8a57745b329dbcc8954648429f5838e7de8560656aaf1389",
+      "delivery-game/assets/scripts/domain/V2Ledger.ts": "843b266f1707ee2f44c2bcb2be86866fa70d021ecd656c2a135c64bf653dfdac",
+      "delivery-game/assets/scripts/domain/V2ProgressTargets.ts": "8927202367ff61e7160b17312ed4877a84da1ffe7036a487ac0839cde480fd9e",
+      "delivery-game/assets/scripts/map-sample/V2Spacing.ts": "0f363e9bb5858629a592d8e8a3208e70e43c5f87deffe0e1117d9be92fa509de",
+      "delivery-game/assets/scripts/map-sample/V2ImageSkin.ts": "e0a160ee04ecbe0374e6d65c5b453e0921f2be4c6fa4cdfb8e6e05c01559faca",
+      "delivery-game/assets/scripts/map-sample/V2ApprovedSkin.ts": "9e7e6914f8f5a7c0d8e5dba4045237fca0385d98af12d52676352221bcfd3f09",
+      "delivery-game/assets/scripts/map-sample/VehicleSideArt.ts": "2fc57889b85537575651d056eec653261932869ff8227fc05a9e738eb5a2e0d9",
+      "delivery-game/assets/scripts/map-sample/VehicleShowcase.ts": "66a833b9433734b4b2799449c2b4a2655febbebed29d54fd1f32998bf4f40a87",
+      "delivery-game/assets/scripts/map-sample/FoodImages.ts": "8d63ad74ff841e0efbeb761b4346369cf9d047b1bbec0c2872fdda29a6677586",
+      "delivery-game/assets/scripts/map-sample/FoodCatalog.ts": "75b38659452e802535ca0fed526ea34f925472ce999396c0598a0f75e3755c20",
+      "delivery-game/assets/scripts/domain/V2TripRules.ts": "da737af1e82a110ae5c923a0d3b8fe270fde7b0ba66bdb784df7489511683b97"
+    }
+  },
+  "diffs": [
+    {
+      "path": "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/slots-ui.diff",
+      "kind": "d2 funds stage -> final slots+funds stage incremental patch",
+      "baselineSHA256": "d2da7f2a95d1c36bf49ffb39457e557d26312ef512784eaaa3e8a23dc298fcc3",
+      "candidateSHA256": "7c9a6115e2758f2394cf6ecd6419942f1e202b61f22f471b9733cf6536f0a6c9",
+      "sha256": "b711204337b72bf44194d6d2cdb8134cfb616f4932aa7087303717332a080f6b",
+      "hunkCount": 28,
+      "strictInMemoryReconstruction": true
+    },
+    {
+      "path": "docs/reviews/2026-11-05-game-development/layout/ui-funds-stage-1106/slots-ui-live-full.diff",
+      "kind": "live9c -> final slots+funds complete logical replacement patch",
+      "baselineSHA256": "9c9484b24bbd36ea25da10c0cbf6d8080dcd7e5d78a9195603dffeaf423617dc",
+      "candidateSHA256": "7c9a6115e2758f2394cf6ecd6419942f1e202b61f22f471b9733cf6536f0a6c9",
+      "sha256": "a5cd6fb729dcf522f37b1a1e3e4b7801babadd13947ad070c33b10a1776d9446",
+      "hunkCount": 27,
+      "strictInMemoryReconstruction": true
+    }
+  ],
+  "contractEvidence": [
+    {
+      "source": "A assets/scripts/domain/V2LoadRules.ts:2-29,43-57",
+      "mapping": "V2Load/V2Capacity discriminated kg-v1/slots-v1; strict parsers and same-unit total/fits. No kg rounding/conversion and no UI slotLoadForOrderId call."
+    },
+    {
+      "source": "A assets/scripts/map-sample/V2GameSession.ts:30-59; V2RuntimeController.ts:162-178",
+      "mapping": "deliveryEffects is signed active authority; nextBatchEffects is unsigned future capacity/effects. normalCandidates carries load/food/sourceOfferId; quoteCandidates previews and acceptBatch canonically validates the original full candidates."
+    },
+    {
+      "source": "A assets/scripts/domain/V2EconomyProfiles.ts:18-60; V2EconomySession.ts:229-230,244-263",
+      "mapping": "slotVehicleEffects/slotRiderEffects and explicit slot upgrade/hire/purchase/map helpers are the same helpers used by the new economic debit. UI reads the current owned entity+level from its shared state; shops/unhired NPCs use pure template helpers, never invented owned IDs."
+    },
+    {
+      "source": "A assets/scripts/domain/V2EconomySession.ts:139-147; V2DispatchSession.ts:10-20,105-114; A contract.md:19-28",
+      "mapping": "Every signed order quote has explicit contract terms in the new container. Slots dispatch retains load; legacy dispatch retains weightKg and kg terms. Trip2/3 food identity remains independent of the load unit."
+    },
+    {
+      "source": "A assets/scripts/domain/V2DispatchSession.ts:72-85; V2EconomySession.ts:248-263",
+      "mapping": "Original Runtime.command remains the unique mutation path; A owns object-scoped NPC/hero busy/vehicle-contract validation. B introduces no global NPC disable or alternative writer."
+    }
+  ],
+  "consumerMigration": [
+    {
+      "consumer": "shared units and signed identity",
+      "baseline": "d2 V2GameUI.ts:723,759,767-775 read weightKg and old vehicleEffects",
+      "candidate": "V2GameUI.ts:48-68,703-705,807-809,832-841",
+      "implementation": "Signed quote terms choose version. slots requires its real order.load and cross-check with terms.load, rejects weightKg; kg requires no new load and parses the original weightKg. Missing/invalid new load never becomes 1 slot or legacy. Display uses integer occupiedSlots/capacitySlots, or original unrounded kg."
+    },
+    {
+      "consumer": "home active/next capacity and effects",
+      "baseline": "home had no capacity/effects consumer",
+      "candidate": "V2GameUI.ts:211-238",
+      "implementation": "Active reads Runtime.deliveryEffects and original signed batch loads; otherwise Runtime.nextBatchEffects. Labels say 本批签约 versus 下批容量, not physical box prediction. Current signed speed/income/capacity are never replaced by current asset profiles. No-car is explicit, not a fabricated capacity."
+    },
+    {
+      "consumer": "lobby selection and original candidate submission",
+      "baseline": "d2:754-775",
+      "candidate": "V2GameUI.ts:804-841",
+      "implementation": "Each food name immediately carries parseV2Load(o.load) occupation; total/fits come from real nextBatchEffects.capacity and the load utilities. chosen is the original this.offers.filter result and is passed unchanged to quoteCandidates/acceptBatch, retaining load/sourceOfferId/food/endpoints. No projection to weightKg or UI hashing, no new count/holding cap or paging UI."
+    },
+    {
+      "consumer": "accepted/in-flight cards and ETA",
+      "baseline": "d2:650-738",
+      "candidate": "V2GameUI.ts:693-796",
+      "implementation": "Same-id frozen food map and signed load map feed every card and every route ETA row. All rows/routes remain enumerated. ETA units, late and safe authority, unique departure/disable path remain unchanged. Original quote.incomeCents/receipt remain authoritative."
+    },
+    {
+      "consumer": "vehicle shop, owned instances/configuration and upgrade detail",
+      "baseline": "d2:473-496,545-555",
+      "candidate": "V2GameUI.ts:493-537,583-605",
+      "implementation": "Owned objects use slotVehicleEffects and slotVehicleUpgradeQuote with current saved level. Unpurchased models use slotVehicleEffects({modelId,level:1}) and slotVehiclePurchaseQuote, not Runtime getters with fictional IDs. Integer capacity text replaces old capacityKg.toFixed(1). Detail/confirm use the same slot quote helper as the debit; full level returns null before calling a strict upgrade helper. Hero busy/ownership/old-fleet reservations preserved."
+    },
+    {
+      "consumer": "rider hire, current effects, upgrade preview and confirmation",
+      "baseline": "d2:361-370,400-403",
+      "candidate": "V2GameUI.ts:390-445",
+      "implementation": "slotRiderHireQuote.costCents, slotRiderEffects and slotRiderUpgradeQuote replace legacy exports. Owned and unhired display uses shared page state + explicit pure helper; no per-card Runtime snapshot/effect lookup. Training gain is incomeFactor/baseIncomeFactor-1, not absent trainingIncomeFactor. Hero retains XP-only branch. Full-level/owned/hero distinctions remain."
+    },
+    {
+      "consumer": "map purchase, profile naming and home money targets",
+      "baseline": "d2 CONFIG old profile and home queryProgressTargets shortfall",
+      "candidate": "V2GameUI.ts:7,70-76,211-217,608-623",
+      "implementation": "CONFIG now imports A V2_SLOT_CONFIG. Shop and map fees come from slot purchase quotes. Existing home goal helper supplies progress/completion metadata only; the three actually displayed target price/shortfall/canGo values are replaced from slotVehiclePurchaseQuote/slotNextHirePriceCents/slotMapPurchaseQuote, so old prices do not leak into the current cash hints."
+    },
+    {
+      "consumer": "long-lived funds confirmation and paid supply",
+      "baseline": "d2 funds candidate",
+      "candidate": "V2GameUI.ts:197-208,317-329,541-580,864-867,883",
+      "implementation": "0.5-second HUD cadence and same-layer balance/shortfall/quote refresh retained. Button replacement only on quote/affordability changes; click rereads cash+quote, different quote requires another confirmation, insufficient cash does not commit. Old button/modal identity, submitting latch, cancel/render/destroy cleanup are preserved. Refresh never commands business or renders whole page."
+    }
+  ],
+  "mixedLegacyBranches": [
+    {
+      "load": "slots-v1",
+      "food": "Trip3",
+      "display": "Real 1/2 occupation and integer signed capacity; frozen real food id/category."
+    },
+    {
+      "load": "kg-v1",
+      "food": "Trip3",
+      "display": "Original kg weight/capacity without rounding; food still from the frozen Trip3 food. kg does not turn food into legacy hash or ordinary class."
+    },
+    {
+      "load": "kg-v1",
+      "food": "Trip2",
+      "display": "Original kg weight/capacity plus independent 旧批食品规则/旧批 badge and original display-only hash; never uses current catalog fragility as historical risk."
+    },
+    {
+      "load": "missing/unknown/cross-unit",
+      "food": "any",
+      "display": "Strict terms/load/total parsing fails rather than inventing a one-slot default, deriving slots from kg, or downgrading a new container."
+    }
+  ],
+  "dynamicLayout": {
+    "foodTitles": "foodTitleLayout keeps size28/width314 in lobby and size26/width340 in trip. extra=max(0,textHeight(title)-textHeight(one line)); original size*1.6 title height grows by extra. Wrap/lineHeight/CLAMP are explicit; no font shrinking or record slicing. Actual font fit remains unobserved.",
+    "lobby": "Each card164+extra, row step178+extra, top cumulative offerHeight, content=offerHeight+40+specialExtra. Prices remain top-aligned; photo/time/address/checkbox shift by extra/2 within the expanded card.",
+    "trip": "Each card190+extra, row step204+extra, top cumulative batchHeight. Receipt/time/address/photo shift with the added title height; card and content share the same plan.",
+    "batchHeader": "New signed effect line measured by existing textHeight, summaryGrowth=effectLine.height+12, header118+summaryGrowth. Existing children compensate by summaryGrowth/2, preserving their global positions. legacy notice, routeTop, all rows and scroll content include this growth.",
+    "ETA": "All identity/occupation/destination/risk/ETA lines still use the existing routeLine measurement and cumulative routeCard/routeHeight calculations; no fixed 3-row cap.",
+    "home": "Effect text uses measured height and a fixed bottom -295; it grows upward. Existing trip actions top=-301, leaving 6 design units between declaration rectangles. No new image/hit-target production.",
+    "riders": "31 cards, two columns, original widths/portrait/status/inline Lv/action and dynamic rowHeights/rowTops/contentHeight preserved; new long money text uses the original dynamic height path. No 万 approximation or global font reduction."
+  },
+  "performanceAndStaticEvidence": {
+    "kind": "source-only text/diff/SHA checks; no application function invoked",
+    "preservedSections": {
+      "foodTrip2Trip3Parser": true,
+      "moneyFormatter": true,
+      "showUpgradeFundsQuoteIdentityAndSubmit": true,
+      "scrollOffsetHelper": true,
+      "riderLineActionIdentity": true,
+      "riderWidthsAndPortraitGeometry": true,
+      "heroMotionAheadOfHUDCadence": true,
+      "postHUDRouteInvalidation": true,
+      "fundsCloseAndDestroy": true,
+      "billPresentationAfterStateRead": true,
+      "specialCard": true,
+      "suppliesOnlySnapshotReuseAndFundsInitialStateChanged": true
+    },
+    "oldDirectHelperCallsAndUIOccupationRehashCalls": {
+      "vehicleEffects": 0,
+      "vehicleUpgradeQuote": 0,
+      "riderEffects": 0,
+      "riderUpgradeQuote": 0,
+      "riderHireQuote": 0,
+      "slotLoadForOrderId": 0
+    },
+    "sourceCounts": {
+      "snapshotLexicalCallsites": {
+        "before": 7,
+        "after": 5
+      },
+      "thisStateLexicalReads": {
+        "before": 18,
+        "after": 6
+      },
+      "renderCalls": {
+        "before": 4,
+        "after": 4
+      },
+      "scheduleOnceCalls": {
+        "before": 2,
+        "after": 2
+      },
+      "normalCandidatesCalls": {
+        "before": 2,
+        "after": 2
+      },
+      "quoteCandidatesCallsites": {
+        "before": 2,
+        "after": 2
+      }
+    },
+    "perCardFullSnapshotOrRuntimeEffectGetterCalls": 0,
+    "relativeNamedImportsResolvedAgainstAOverlayAndLive": 56,
+    "missingNamedExports": [],
+    "boundedRemainingReads": "render reads one published snapshot after setPaused and passes it/state to all page consumers and HUD. Current quote/effects per card use pure helpers. HUD refresh shares its one explicit snapshot with rider/NPC/funds views. Current quoteCandidates remains one callsite per offered card plus one chosen-batch callsite on user-triggered render (finite upstream pool<=50); it is not moved to frame polling or funds refresh. Isolated status initializers may still read a bounded snapshot, not one clone per card. No measured performance claim.",
+    "amountRules": "Money still integer cents internally and original coins()/two-decimal confirmation formatting; percentages only for presentation. No new price formula, capacity growth curve or rounding rule.",
+    "patchProof": "Increment and full patches were parsed in memory, verifying old line positions/context/counts and reconstructing identical final bytes. Neither patch was applied to live."
+  },
+  "automaticEditorFeedback": {
+    "shellLinter": "skipped; LSP handles .ts",
+    "explicitTypecheckOrCompileRun": false,
+    "observed": "Auto LSP reported missing cc/relative modules and consequent any/unknown inference in isolated copy. Actual new export names and signatures were read from A overlay; intermediate not-yet-migrated symbols were replaced during implementation. No engine/config/dependency copying or tsc was used to silence diagnostics. Static name resolution is not compilation."
+  },
+  "deferredCases": [
+    {
+      "id": "S01",
+      "case": "New slots offers carry real1/2 occupation and sourceOfferId through check/uncheck/scroll/reopen/quote/accept; no reroll on UI scroll.",
+      "executed": false
+    },
+    {
+      "id": "S02",
+      "case": "Finite pool8..50 versus larger capacity: not a holding cap or promise of a filled batch; all returned rows remain scrollable.",
+      "executed": false
+    },
+    {
+      "id": "S03",
+      "case": "New load missing/null/unknown/version mismatch/weightKg contamination: UI must not show default1 or legacy; domain remains full identity authority.",
+      "executed": false
+    },
+    {
+      "id": "S04",
+      "case": "Game6 with original kg active Route2 + Trip2: retain original weight/capacity and old food display/risk notice; no slot rounding.",
+      "executed": false
+    },
+    {
+      "id": "S05",
+      "case": "Game6 with kg active batch + Trip3: kg capacity and real frozen food/category coexist independently.",
+      "executed": false
+    },
+    {
+      "id": "S06",
+      "case": "Old/new fleet contracts mixed while current assets train/upgrade/reconfigure: current assets use new profile, prior contract amounts/timing remain old; no global NPC disable.",
+      "executed": false
+    },
+    {
+      "id": "S07",
+      "case": "Active deliveryEffects versus nextBatchEffects with differing profiles: active display does not retrofit old batch; no-car is explicit.",
+      "executed": false
+    },
+    {
+      "id": "S08",
+      "case": "Owned/unhired NPC and owned/unpurchased model previews at first/full levels: no fabricated Runtime ids, absent trainingIncomeFactor, priceCents mix-up or NaN.",
+      "executed": false
+    },
+    {
+      "id": "S09",
+      "case": "Slot upgrade quote levels/cost/current/next match actual debit; full/hero/busy/null quote gates and unique vehicle/old-batch reservation remain enforced.",
+      "executed": false
+    },
+    {
+      "id": "S10",
+      "case": "Open rider/vehicle confirm with insufficient cash, then legitimate NPC receipt across affordability threshold; reverse cash change and changed/unavailable quote before touch end.",
+      "executed": false
+    },
+    {
+      "id": "S11",
+      "case": "Duplicate/obsolete button touches, cancel/new modal/navigation/render/destroy and late native-art completion: no old commit/binding or duplicate upgrade.",
+      "executed": false
+    },
+    {
+      "id": "S12",
+      "case": "Long food titles/old kg numbers/large new prices: declared row/scroll growth, last list rows, address/receipt/ETA visibility and rider layout require rendered inspection.",
+      "executed": false
+    },
+    {
+      "id": "S13",
+      "case": "Paid supply affordability updates without page rebuild, with inventory/rest/auto authorizations and out-of-batch/planned/active timing unchanged.",
+      "executed": false
+    },
+    {
+      "id": "S14",
+      "case": "Profile vehicle/map/hire fees and home shortfall hints all agree on current cents; original ledger entries remain actual values.",
+      "executed": false
+    },
+    {
+      "id": "S15",
+      "case": "Motion continues ahead of HUD throttle; selected model, configure rider, list scroll position, all ETA rows and departure disable semantics persist.",
+      "executed": false
+    }
+  ],
+  "inputNote": "The named slots-ui-stage-implementation-1106.md was not found in scoped docs/review/thread-storage lookups. No claim of reading that missing file; implementation is bound to the full PM seven-part assignment, existing A contract.md and actual source definitions above.",
+  "applicationGate": "PM must independently review A+B as one logical candidate, recheck live9c, all A source hashes and readonly dependencies, then coordinate all readers/writers. Do not deploy this UI alone or mix old UI with slots writer. Any changed A API/hash requires rebinding/review; no fuzzy overwrite or restoration of 284/81f.",
+  "limits": [
+    "No tests/typecheck/TS/App functions/Creator/browser/game/business actions/real or synthetic saves/build/deploy/commit/push/Agent/Codex executed.",
+    "No live/A/profile parameter/Spacing/Skin/resource/image/manifest/loader/map/save writes. Existing candidate.diff/implementation.* and baseline-manifest.json retain their exact hashes.",
+    "No standalone runtime reader/writer, new numeric engine, packing prediction, paging tabs, persistent quota/deferred-effect messages, 万 approximation or G04 change.",
+    "56 imports and exact source preservation are static evidence only; not compilation, runtime/balance/visual/98% or user acceptance. A bundle is a frozen dependency under review, not an approved deployment."
+  ],
+  "lease": "Stop source/report writes after this handoff; parent PM restores Default. No automatic retry or provider change."
+}

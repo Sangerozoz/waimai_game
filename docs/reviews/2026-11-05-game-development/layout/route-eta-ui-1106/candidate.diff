@@ -1,0 +1,65 @@
+--- delivery-game/assets/scripts/map-sample/V2GameUI.ts (before)
++++ delivery-game/assets/scripts/map-sample/V2GameUI.ts (candidate)
+@@ -3,7 +3,7 @@
+ import { CityData } from './MapTypes';
+ import { CityMap } from './CityMap';
+ import { col, item, label as baseLabel, tap } from './SampleUI';
+-import { experienceProgress, scrollContent } from './PresentationLayout';
++import { experienceProgress, scrollContent, textHeight } from './PresentationLayout';
+ import { V2_CONFIG as CONFIG } from '../domain/V2EconomyConfig';
+ import { V2EconomySnapshot, V2Vehicle, vehicleEffects, vehicleUpgradeQuote } from '../domain/V2EconomySession';
+ import { riderHireQuote, riderEffects, riderUpgradeQuote } from '../domain/V2RiderEconomy';
+@@ -517,7 +517,25 @@
+    const pending=batch.filter(o=>o.status==='pending'),completed=batch.filter(o=>o.status==='completed');
+    const choices=route?.phase==='planned'?this.runtime.routeChoices():[];
+    const routeNames={fast:'快捷',main:'均衡',smooth:'平稳'} as const;
+-   const routeHeight=route?.phase==='planned'?64+choices.length*88:group?130:94;
++   type RouteLine={value:string;size:number;color:string;bold:boolean;height:number};
++   const routeLineWidth=CW-2*S.card,routeLineGap=6;
++   const duration=(value:number):string=>{const seconds=Math.max(0,Math.ceil(value)),minutes=Math.floor(seconds/60);return minutes?`${minutes}分${seconds%60}秒`:`${seconds}秒`;};
++   const routeLine=(value:string,size=20,color=UI.muted,bold=false):RouteLine=>({value,size,color,bold,height:textHeight(value,size,routeLineWidth)});
++   const routeNotes=['连续行驶与取送服务的条件估算','不含手动等待及后续补给/事件/停顿'].map(value=>routeLine(value,19));
++   const routeCards=choices.map(choice=>{
++    const lines=[routeLine(choice.aliases.map(p=>routeNames[p]).join(' / '),23,INK,true),routeLine(`${Math.round(choice.metres)}米 · 预计现实用时 ${duration(choice.seconds)}`),routeLine(`${({clear:'晴天',rain:'小雨',severe:'恶劣天气'} as const)[choice.weather]} · 预计耗体力 ${Number(choice.stamina.toFixed(1))}点`)];
++    choice.orders.forEach(eta=>{
++     const index=batch.findIndex(order=>order.id===eta.id),place=route?.orders.find(order=>order.id===eta.id);
++     const identity=index>=0?`第${index+1}单 · ${offerFood(batch[index].id).name}`:`订单 ${eta.id}`;
++     const safe=t?.orders.find(order=>order.id===eta.id)?.safe===true;
++     const warning=eta.lateGameSeconds>0?`迟到预警 ${duration(eta.lateGameSeconds)}（游戏时间）`:safe?'保护单 · 不计迟到':'按当前条件预计未迟到';
++     lines.push(routeLine(`${identity} → ${place?.dropoffName||'送达地点未记录'}`,21,INK,true));
++     lines.push(routeLine(`预计 ${duration(eta.etaGameSeconds)} 后完成（游戏时间） · ${warning}`,20,eta.lateGameSeconds>0?'#BF3E12':UI.muted));
++    });
++    return {choice,lines,height:2*S.card+lines.reduce((height,line)=>height+line.height+routeLineGap,0)+50};
++   });
++   const routeIntroHeight=40+routeNotes.reduce((height,line)=>height+line.height+routeLineGap,0)+S.gap;
++   const routeHeight=route?.phase==='planned'?(routeCards.length?routeIntroHeight+routeCards.reduce((height,card)=>height+card.height+S.gap,0):64):group?130:94;
+    const c=this.scrolling('orders:trip',508,-340,164+routeHeight+batch.length*204+108);
+    const summary=panel(c,'Order-BatchSummary',0,-61,CW,118,'#F2FBFF');
+    label(summary,'本批配送',-214,33,27,INK,240,true,'left');
+@@ -527,12 +545,20 @@
+    const routeTop=138;
+    label(c,route?.phase==='planned'?'选择本批路线':'当前配送路线',-173,-routeTop-15,24,INK,330,true,'left');
+    if(choices.length){
+-    choices.forEach((r,i)=>{
+-     const card=panel(c,'Order-Route-'+r.preference,0,-routeTop-77-i*88,CW,76,'#F2FBFF');
+-     const names=r.aliases.map(p=>routeNames[p]).join(' / ');
+-     label(card,names,-191,15,23,INK,290,true,'left');
+-     label(card,`${Math.round(r.metres)}米 · 预计 ${Math.ceil(r.seconds)}秒`,-143,-17,18,UI.muted,388,false,'left');
+-     action(card,'选择出发 ›',232,0,188,50,()=>this.act(()=>{this.runtime.beginTrip(r.preference);this.navigate('首页');}),!t?.action);
++    const drawRouteLine=(parent:Node,line:RouteLine,top:number):void=>{
++     const text=label(parent,line.value,0,top-line.height/2,line.size,line.color,routeLineWidth,line.bold,'left');
++     text.enableWrapText=true;text.lineHeight=Math.ceil(line.size*1.42);text.overflow=Label.Overflow.CLAMP;
++     text.node.getComponent(UITransform)!.setContentSize(routeLineWidth,line.height);
++    };
++    let noteTop=-routeTop-40;
++    routeNotes.forEach(line=>{drawRouteLine(c,line,noteTop);noteTop-=line.height+routeLineGap;});
++    let depth=routeTop+routeIntroHeight;
++    routeCards.forEach(({choice:r,lines,height})=>{
++     const card=panel(c,'Order-Route-'+r.preference,0,-depth-height/2,CW,height,'#F2FBFF');
++     let top=height/2-S.card;
++     lines.forEach(line=>{drawRouteLine(card,line,top);top-=line.height+routeLineGap;});
++     action(card,'选择出发 ›',232,-height/2+S.card+25,188,50,()=>this.act(()=>{this.runtime.beginTrip(r.preference);this.navigate('首页');}),!t?.action);
++     depth+=height+S.gap;
+     });
+    }else{
+     label(c,route?.phase==='planned'?'当前无可选路线，请检查体力或先补给':`${routeNames[route?.preference||'fast']}路线 · ${Math.round(route?.legs.reduce((sum,l)=>sum+l.metres,0)||0)}米`,0,-routeTop-56,21,UI.muted,CW-24,false,'center');

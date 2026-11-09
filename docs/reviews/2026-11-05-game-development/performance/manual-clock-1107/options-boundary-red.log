@@ -1,0 +1,409 @@
+TAP version 13
+# Subtest: kg-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+ok 1 - kg-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+  ---
+  duration_ms: 1.434167
+  type: 'test'
+  ...
+# Subtest: kg-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+ok 2 - kg-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+  ---
+  duration_ms: 1.494583
+  type: 'test'
+  ...
+# Subtest: kg-v1: malformed clock inputs reject without changing any stored field
+ok 3 - kg-v1: malformed clock inputs reject without changing any stored field
+  ---
+  duration_ms: 0.389125
+  type: 'test'
+  ...
+# Subtest: kg-v1: missing defer flags, auto control and pending ad use the original transaction
+ok 4 - kg-v1: missing defer flags, auto control and pending ad use the original transaction
+  ---
+  duration_ms: 1.136542
+  type: 'test'
+  ...
+# Subtest: kg-v1: stopped automatic entitlement remains available during an eligible manual tick
+ok 5 - kg-v1: stopped automatic entitlement remains available during an eligible manual tick
+  ---
+  duration_ms: 0.40375
+  type: 'test'
+  ...
+# Subtest: kg-v1: a changed arrival port still rejects a deferred clock atomically
+ok 6 - kg-v1: a changed arrival port still rejects a deferred clock atomically
+  ---
+  duration_ms: 0.0865
+  type: 'test'
+  ...
+# Subtest: kg-v1: cross-wallet mismatch and forged historical income remain rejected
+ok 7 - kg-v1: cross-wallet mismatch and forged historical income remain rejected
+  ---
+  duration_ms: 1.078542
+  type: 'test'
+  ...
+# Subtest: kg-v1: complete wallet, reward, schema and rebase guards remain active
+ok 8 - kg-v1: complete wallet, reward, schema and rebase guards remain active
+  ---
+  duration_ms: 0.484791
+  type: 'test'
+  ...
+# Subtest: kg-v1: an exception from final validation cannot publish a half-updated clock
+ok 9 - kg-v1: an exception from final validation cannot publish a half-updated clock
+  ---
+  duration_ms: 0.344375
+  type: 'test'
+  ...
+# Subtest: slots-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+ok 10 - slots-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+  ---
+  duration_ms: 0.267375
+  type: 'test'
+  ...
+# Subtest: slots-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+ok 11 - slots-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+  ---
+  duration_ms: 0.370042
+  type: 'test'
+  ...
+# Subtest: slots-v1: malformed clock inputs reject without changing any stored field
+ok 12 - slots-v1: malformed clock inputs reject without changing any stored field
+  ---
+  duration_ms: 0.300708
+  type: 'test'
+  ...
+# Subtest: slots-v1: missing defer flags, auto control and pending ad use the original transaction
+ok 13 - slots-v1: missing defer flags, auto control and pending ad use the original transaction
+  ---
+  duration_ms: 0.610416
+  type: 'test'
+  ...
+# Subtest: slots-v1: stopped automatic entitlement remains available during an eligible manual tick
+ok 14 - slots-v1: stopped automatic entitlement remains available during an eligible manual tick
+  ---
+  duration_ms: 0.266792
+  type: 'test'
+  ...
+# Subtest: slots-v1: a changed arrival port still rejects a deferred clock atomically
+ok 15 - slots-v1: a changed arrival port still rejects a deferred clock atomically
+  ---
+  duration_ms: 0.058625
+  type: 'test'
+  ...
+# Subtest: slots-v1: cross-wallet mismatch and forged historical income remain rejected
+ok 16 - slots-v1: cross-wallet mismatch and forged historical income remain rejected
+  ---
+  duration_ms: 1.431625
+  type: 'test'
+  ...
+# Subtest: slots-v1: complete wallet, reward, schema and rebase guards remain active
+ok 17 - slots-v1: complete wallet, reward, schema and rebase guards remain active
+  ---
+  duration_ms: 0.189291
+  type: 'test'
+  ...
+# Subtest: slots-v1: an exception from final validation cannot publish a half-updated clock
+ok 18 - slots-v1: an exception from final validation cannot publish a half-updated clock
+  ---
+  duration_ms: 0.066209
+  type: 'test'
+  ...
+# Subtest: a restored unseen hero event stays on the original transaction and refills exactly once
+ok 19 - a restored unseen hero event stays on the original transaction and refills exactly once
+  ---
+  duration_ms: 0.332833
+  type: 'test'
+  ...
+# Subtest: an accessor-based arrival port retains the original transactional path
+ok 20 - an accessor-based arrival port retains the original transactional path
+  ---
+  duration_ms: 0.087583
+  type: 'test'
+  ...
+# Subtest: manual options do not introduce a deferAuto getter read
+not ok 21 - manual options do not introduce a deferAuto getter read
+  ---
+  duration_ms: 0.395125
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:98:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    -   0,
+        1,
+    +   1
+      ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 0
+    1: 1
+  actual:
+    0: 1
+    1: 1
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:102:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: a throwing deferAuto getter remains uncalled by the original manual semantics
+not ok 22 - a throwing deferAuto getter remains uncalled by the original manual semantics
+  ---
+  duration_ms: 0.081042
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:105:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Got unwanted exception.
+    Actual message: "deferAuto must not run in manual"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual:
+  error: 'deferAuto must not run in manual'
+  stack: |-
+    get deferAuto (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:106:58)
+    V2DispatchSession.tick (/private/var/folders/8m/5c7glptj0vl4r3bcj1cqm6xh0000gn/T/delivery-v2-test-3Q8XLk/domain/V2DispatchSession.js:309:21)
+    /Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:107:28
+    getActual (node:assert:609:5)
+    Function.doesNotThrow (node:assert:777:32)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:107:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+  operator: 'doesNotThrow'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:107:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: a reentrant deferAuto getter cannot introduce an economic command into a manual clock
+not ok 23 - a reentrant deferAuto getter cannot introduce an economic command into a manual clock
+  ---
+  duration_ms: 0.68325
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:110:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    ... Skipped lines
+    
+      {
+        configId: 'capacity-slots-economy-2026-11-06-v1',
+        format: 'county-v2-economy',
+        state: {
+          activeQuote: null,
+          activeQuotes: [],
+    +     cashCents: 8000,
+    -     cashCents: 10000,
+          fleetQuotes: [],
+          heroCompletedOrders: 0,
+          heroCompletionEvents: [],
+          heroExperience: 0,
+          hireCount: 0,
+          lastReceipt: null,
+          ledger: {
+    +       entries: [
+    +         {
+    +           amountCents: -2000,
+    +           atMs: null,
+    +           category: 'vehicle_upgrade',
+    +           dayKey: null,
+    +           detail: {
+    +             level: 2,
+    +             vehicleId: 'starter-1'
+    +           },
+    +           id: 'transaction:1'
+    +         }
+    +       ],
+    +       nextId: 2,
+    -       entries: [],
+    -       nextId: 1,
+            opening: {
+              atMs: null,
+              balanceCents: 10000,
+              dayKey: null,
+              id: 'opening',
+    ...
+              id: 'starter-1',
+    +         level: 2,
+    -         level: 1,
+              modelId: 'starter'
+            }
+          ]
+        },
+        version: 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    format: 'county-v2-economy'
+    version: 2
+    configId: 'capacity-slots-economy-2026-11-06-v1'
+    state:
+      ledger:
+        opening:
+          id: 'opening'
+          balanceCents: 10000
+          atMs: ~
+          dayKey: ~
+          source: 'initial'
+        entries:
+        nextId: 1
+      cashCents: 10000
+      heroCompletedOrders: 0
+      heroExperience: 0
+      hireCount: 0
+      nextVehicleId: 1
+      riders:
+        0:
+          id: 'hero'
+          level: 1
+          vehicleId: 'starter-1'
+      vehicles:
+        0:
+          id: 'starter-1'
+          modelId: 'starter'
+          level: 1
+      ownedMapIds:
+        0: 1
+      selectedMapId: 1
+      npcCompletedOrders: 0
+      heroCompletionEvents:
+      fleetQuotes:
+      activeQuotes:
+      settledOrderIds:
+      activeQuote: ~
+      lastReceipt: ~
+  actual:
+    format: 'county-v2-economy'
+    version: 2
+    configId: 'capacity-slots-economy-2026-11-06-v1'
+    state:
+      ledger:
+        opening:
+          id: 'opening'
+          balanceCents: 10000
+          atMs: ~
+          dayKey: ~
+          source: 'initial'
+        entries:
+          0:
+            id: 'transaction:1'
+            category: 'vehicle_upgrade'
+            amountCents: -2000
+            atMs: ~
+            dayKey: ~
+            detail:
+              vehicleId: 'starter-1'
+              level: 2
+        nextId: 2
+      cashCents: 8000
+      heroCompletedOrders: 0
+      heroExperience: 0
+      hireCount: 0
+      nextVehicleId: 1
+      riders:
+        0:
+          id: 'hero'
+          level: 1
+          vehicleId: 'starter-1'
+      vehicles:
+        0:
+          id: 'starter-1'
+          modelId: 'starter'
+          level: 2
+      ownedMapIds:
+        0: 1
+      selectedMapId: 1
+      npcCompletedOrders: 0
+      heroCompletionEvents:
+      fleetQuotes:
+      activeQuotes:
+      settledOrderIds:
+      activeQuote: ~
+      lastReceipt: ~
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:113:40)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: a throwing deferFleet getter retains original transaction entry and atomic rejection
+not ok 24 - a throwing deferFleet getter retains original transaction entry and atomic rejection
+  ---
+  duration_ms: 5.821542
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:116:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(observed.count>0)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:119:76)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: inherited defer flags retain the original generic path
+not ok 25 - inherited defer flags retain the original generic path
+  ---
+  duration_ms: 0.254292
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:122:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(observed.count>0)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/product-regression-1106/manual-clock.test.cjs:124:75)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 20
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 52.490875

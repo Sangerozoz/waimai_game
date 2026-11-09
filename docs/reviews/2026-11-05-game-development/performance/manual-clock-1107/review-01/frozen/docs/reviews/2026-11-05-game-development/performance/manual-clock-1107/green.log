@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: kg-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+ok 1 - kg-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+  ---
+  duration_ms: 1.590666
+  type: 'test'
+  ...
+# Subtest: kg-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+ok 2 - kg-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+  ---
+  duration_ms: 1.83125
+  type: 'test'
+  ...
+# Subtest: kg-v1: malformed clock inputs reject without changing any stored field
+ok 3 - kg-v1: malformed clock inputs reject without changing any stored field
+  ---
+  duration_ms: 0.408875
+  type: 'test'
+  ...
+# Subtest: kg-v1: missing defer flags, auto control and pending ad use the original transaction
+ok 4 - kg-v1: missing defer flags, auto control and pending ad use the original transaction
+  ---
+  duration_ms: 1.141
+  type: 'test'
+  ...
+# Subtest: kg-v1: stopped automatic entitlement remains available during an eligible manual tick
+ok 5 - kg-v1: stopped automatic entitlement remains available during an eligible manual tick
+  ---
+  duration_ms: 0.41575
+  type: 'test'
+  ...
+# Subtest: kg-v1: a changed arrival port still rejects a deferred clock atomically
+ok 6 - kg-v1: a changed arrival port still rejects a deferred clock atomically
+  ---
+  duration_ms: 0.089542
+  type: 'test'
+  ...
+# Subtest: kg-v1: cross-wallet mismatch and forged historical income remain rejected
+ok 7 - kg-v1: cross-wallet mismatch and forged historical income remain rejected
+  ---
+  duration_ms: 1.16275
+  type: 'test'
+  ...
+# Subtest: kg-v1: complete wallet, reward, schema and rebase guards remain active
+ok 8 - kg-v1: complete wallet, reward, schema and rebase guards remain active
+  ---
+  duration_ms: 0.47275
+  type: 'test'
+  ...
+# Subtest: kg-v1: an exception from final validation cannot publish a half-updated clock
+ok 9 - kg-v1: an exception from final validation cannot publish a half-updated clock
+  ---
+  duration_ms: 0.349084
+  type: 'test'
+  ...
+# Subtest: slots-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+ok 10 - slots-v1: eligible deferred manual clock does not encode a whole Dispatch draft
+  ---
+  duration_ms: 0.277291
+  type: 'test'
+  ...
+# Subtest: slots-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+ok 11 - slots-v1: pause, foreground, rollback, duplicate and real restore keep the original clock contract
+  ---
+  duration_ms: 0.391584
+  type: 'test'
+  ...
+# Subtest: slots-v1: malformed clock inputs reject without changing any stored field
+ok 12 - slots-v1: malformed clock inputs reject without changing any stored field
+  ---
+  duration_ms: 0.317375
+  type: 'test'
+  ...
+# Subtest: slots-v1: missing defer flags, auto control and pending ad use the original transaction
+ok 13 - slots-v1: missing defer flags, auto control and pending ad use the original transaction
+  ---
+  duration_ms: 0.648833
+  type: 'test'
+  ...
+# Subtest: slots-v1: stopped automatic entitlement remains available during an eligible manual tick
+ok 14 - slots-v1: stopped automatic entitlement remains available during an eligible manual tick
+  ---
+  duration_ms: 0.285416
+  type: 'test'
+  ...
+# Subtest: slots-v1: a changed arrival port still rejects a deferred clock atomically
+ok 15 - slots-v1: a changed arrival port still rejects a deferred clock atomically
+  ---
+  duration_ms: 0.063084
+  type: 'test'
+  ...
+# Subtest: slots-v1: cross-wallet mismatch and forged historical income remain rejected
+ok 16 - slots-v1: cross-wallet mismatch and forged historical income remain rejected
+  ---
+  duration_ms: 1.583667
+  type: 'test'
+  ...
+# Subtest: slots-v1: complete wallet, reward, schema and rebase guards remain active
+ok 17 - slots-v1: complete wallet, reward, schema and rebase guards remain active
+  ---
+  duration_ms: 0.205291
+  type: 'test'
+  ...
+# Subtest: slots-v1: an exception from final validation cannot publish a half-updated clock
+ok 18 - slots-v1: an exception from final validation cannot publish a half-updated clock
+  ---
+  duration_ms: 0.074833
+  type: 'test'
+  ...
+# Subtest: a restored unseen hero event stays on the original transaction and refills exactly once
+ok 19 - a restored unseen hero event stays on the original transaction and refills exactly once
+  ---
+  duration_ms: 0.356708
+  type: 'test'
+  ...
+# Subtest: an accessor-based arrival port retains the original transactional path
+ok 20 - an accessor-based arrival port retains the original transactional path
+  ---
+  duration_ms: 0.095333
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 55.536

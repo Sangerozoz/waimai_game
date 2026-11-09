@@ -1,0 +1,189 @@
+--- before/delivery-game/assets/scripts/domain/V2EconomySession.ts
++++ after/delivery-game/assets/scripts/domain/V2EconomySession.ts
+@@ -240,6 +240,8 @@
+  private snapshot:V2EconomySnapshot;
+  constructor(loadProfile:'kg-v1'|'slots-v1'='kg-v1'){check(loadProfile==='kg-v1'||loadProfile==='slots-v1');const cash=loadProfile==='slots-v1'?V2_SLOT_START_CENTS:C.startCoins*100;this.snapshot={format:'county-v2-economy',version:loadProfile==='slots-v1'?2:1,configId:loadProfile==='slots-v1'?V2_SLOT_PROFILE_ID:V2_CONFIG_ID,state:{ledger:createLedger(cash,'initial'),cashCents:cash,heroCompletedOrders:0,heroExperience:0,hireCount:0,nextVehicleId:1,riders:[{id:'hero',level:1,vehicleId:'starter-1'}],vehicles:[{id:'starter-1',modelId:'starter',level:1}],ownedMapIds:[1],selectedMapId:1,npcCompletedOrders:0,heroCompletionEvents:[],fleetQuotes:[],activeQuotes:[],settledOrderIds:[],activeQuote:null,lastReceipt:null}};}
+  static restore(serialized:string):V2EconomySession {const raw:unknown=JSON.parse(serialized);validateV2EconomySnapshot(raw);const session=new V2EconomySession();session.snapshot=raw;return session;}
++ /** Complete validation of private authority; no serialization, publication or callback. */
++ assertValid():void {validateV2EconomySnapshot(this.snapshot);}
+  /** Atomically restores a validated draft; performs no storage write. */
+  replaceFrom(serialized:string):void {const restored=V2EconomySession.restore(serialized);this.snapshot=restored.snapshot;}
+  get state():Readonly<V2EconomyState>{return clone(this.snapshot.state);}
+--- before/delivery-game/assets/scripts/domain/V2FleetSession.ts
++++ after/delivery-game/assets/scripts/domain/V2FleetSession.ts
+@@ -45,6 +45,8 @@
+   f.ledgerDayKeyResolver=null;f.version=raw.version;check(e.schemaVersion===f.version);
+   Object.defineProperty(f,'economy',{value:sharedEconomy||e,enumerable:true});f.value=raw.fleet;f.validate();return f;
+  }
++ /** The same complete wallet and combination gates used by restoration. */
++ assertValid():void {this.economy.assertValid();this.validate();}
+  private validate():void {
+   check(this.economy.schemaVersion===this.version);
+   const s=this.value,e=this.economy.state;check(s&&integer(s.quotaMs,0,this.quotaCapacityMs)&&integer(s.lastAdvancedAt)&&integer(s.heroEventCursor,0,e.heroCompletionEvents.length)&&integer(s.heroCompletionsSeen,0,e.heroCompletedOrders)&&integer(s.nextBatchId,1)&&Array.isArray(s.batches));
+--- before/delivery-game/assets/scripts/domain/V2DispatchSession.ts
++++ after/delivery-game/assets/scripts/domain/V2DispatchSession.ts
+@@ -175,7 +175,35 @@
+  private closeFinishedBatch():void {if(!this.orders.some(o=>this.batchIds.includes(o.id)&&o.status==='pending')){this.batchIds=[];this.rewards.endBatch();}}
+  /** A frame is consumed once. First resume frame only rebases time, never catches up hero movement. */
+  consumeAutomaticProgress(seconds:number):void {this.transact(d=>{finite(seconds);check(d.control==='auto');const result=d.rewards.advanceAuto(seconds,true,false);if(result.manualRequired)d.control='manual';return null;});}
+- tick(sequence:number,nowSeconds:number,foreground:boolean,paused:boolean,options:{deferAuto?:boolean;deferFleet?:boolean}={}):V2DispatchTick {return this.transact(d=>{
++ /** Only frame/rebase can change here; every aggregate still passes its complete gates. */
++ private tickManualClock(sequence:number,nowSeconds:number,foreground:boolean,paused:boolean):V2DispatchTick {
++  check(!!this.port&&typeof this.port.verifyArrival==='function');
++  check((this.version===1||this.version===2||this.version===3)&&typeof this.firstTickAfterRestore==='boolean');
++  this.economy.assertValid();this.fleet.assertValid();
++  if(this.fleet.economy!==this.economy&&this.fleet.economy.serialize()!==this.economy.serialize())throw new Error('车队与钱包快照不一致');
++  RewardSession.restore(this.rewards.serialize());this.validate();
++  finite(sequence);check(Number.isSafeInteger(sequence)&&sequence>0);finite(nowSeconds);check(typeof foreground==='boolean'&&typeof paused==='boolean');
++  const fingerprint=JSON.stringify([nowSeconds,foreground,paused]);
++  if(sequence===this.frame.sequence){
++   check(fingerprint===this.frame.fingerprint);this.fleet.syncHeroCompletions();this.validate();
++   return {autoRunSeconds:0,control:'manual'};
++  }
++  check(sequence>this.frame.sequence&&Number.isSafeInteger(Math.floor(nowSeconds*1000)));
++  const previousFrame=this.frame,previousRebase=this.firstTickAfterRestore;
++  try{
++   this.frame={sequence,nowSeconds:Math.max(nowSeconds,previousFrame.nowSeconds),foreground,paused,fingerprint};this.firstTickAfterRestore=false;
++   this.fleet.syncHeroCompletions();this.validate();
++  }catch(error){this.frame=previousFrame;this.firstTickAfterRestore=previousRebase;throw error;}
++  return {autoRunSeconds:0,control:'manual'};
++ }
++ tick(sequence:number,nowSeconds:number,foreground:boolean,paused:boolean,options:{deferAuto?:boolean;deferFleet?:boolean}={}):V2DispatchTick {
++  // Preserve the original transaction's getter evaluation and inherited-option semantics.
++  const deferAuto=options&&Object.getOwnPropertyDescriptor(options,'deferAuto'),deferFleet=options&&Object.getOwnPropertyDescriptor(options,'deferFleet');
++  if(deferAuto&&deferAuto.value===true&&deferFleet&&deferFleet.value===true&&this.control==='manual'&&!this.rewards.hasPendingAd&&this.fleet.clockProgress.heroEventCursor===this.economy.heroCompletionEventCount){
++   const arrival=this.port&&Object.getOwnPropertyDescriptor(this.port,'verifyArrival');
++   if(arrival&&typeof arrival.value==='function')return this.tickManualClock(sequence,nowSeconds,foreground,paused);
++  }
++  return this.transact(d=>{
+   finite(sequence);check(Number.isSafeInteger(sequence)&&sequence>0);finite(nowSeconds);check(typeof foreground==='boolean'&&typeof paused==='boolean');
+   const fingerprint=JSON.stringify([nowSeconds,foreground,paused]);
+   if(sequence===d.frame.sequence){check(fingerprint===d.frame.fingerprint);return {autoRunSeconds:0,control:d.control};}
+--- /dev/null
++++ after/delivery-game/tests/product-regression-1106/manual-clock.test.cjs
+@@ -0,0 +1,125 @@
++'use strict';
++const {test}=require('node:test'),assert=require('node:assert/strict');
++const {domain}=require('./helpers.cjs');
++const {V2DispatchSession}=domain('V2DispatchSession');
++const {V2EconomySession}=domain('V2EconomySession');
++const deferred={deferAuto:true,deferFleet:true};
++const make=profile=>new V2DispatchSession({verifyArrival:()=>true},0,profile);
++function encodedCalls(d,action){
++ const original=d.serialize;let count=0,result;
++ d.serialize=function(){count++;return original.call(this);};
++ try{result=action();}finally{d.serialize=original;}
++ return {count,result};
++}
++function accept(d,id){if(d.usesSlots)d.acceptSlotBatch([{id,kind:'ordinary',load:domain('V2LoadRules').slotLoadForOrderId(id)}],{[id]:{deliveryMetres:100}});else d.acceptBatch([{id,kind:'ordinary',weightKg:1}]);}
++
++for(const profile of ['kg-v1','slots-v1']){
++ test(`${profile}: eligible deferred manual clock does not encode a whole Dispatch draft`,()=>{
++  const d=make(profile),before=d.snapshot();
++  const observed=encodedCalls(d,()=>d.tick(1,1,true,false,deferred));
++  assert.equal(observed.count,0,'manual event-free clock must not serialize and restore the complete dispatch history');
++  assert.deepEqual(observed.result,{autoRunSeconds:0,control:'manual'});
++  const after=d.snapshot();assert.deepEqual(after.economy,before.economy);assert.deepEqual(after.fleet,before.fleet);assert.deepEqual(after.rewards,before.rewards);
++  assert.deepEqual(after.frame,{sequence:1,nowSeconds:1,foreground:true,paused:false,fingerprint:'[1,true,false]'});
++  observed.result.control='auto';const context=d.tickContext;context.sequence=999;assert.equal(d.tickContext.sequence,1);assert.equal(d.controlMode,'manual');
++ });
++ test(`${profile}: pause, foreground, rollback, duplicate and real restore keep the original clock contract`,()=>{
++  let d=make(profile);
++  const cases=[[1,10,false,false,10],[2,20,true,true,20],[3,20,true,false,20],[4,5,true,false,20],[5,21,true,false,21]];
++  for(const [sequence,now,foreground,paused,high] of cases){
++   assert.deepEqual(d.tick(sequence,now,foreground,paused,deferred),{autoRunSeconds:0,control:'manual'});
++   assert.deepEqual(d.snapshot().frame,{sequence,nowSeconds:high,foreground,paused,fingerprint:JSON.stringify([now,foreground,paused])});
++  }
++  const before=d.serialize();assert.deepEqual(d.tick(5,21,true,false,deferred),{autoRunSeconds:0,control:'manual'});assert.equal(d.serialize(),before);
++  assert.throws(()=>d.tick(5,22,true,false,deferred));assert.equal(d.serialize(),before);
++  d=V2DispatchSession.restore(before,{verifyArrival:()=>true});assert.equal(d.tickContext.clockNeedsRebase,true);
++  d.tick(5,21,true,false,deferred);assert.equal(d.tickContext.clockNeedsRebase,true);
++  d.tick(6,100,true,false,deferred);assert.equal(d.tickContext.clockNeedsRebase,false);assert.equal(d.tickContext.nowSeconds,100);
++ });
++ test(`${profile}: malformed clock inputs reject without changing any stored field`,()=>{
++  const d=make(profile);d.tick(1,1,true,false,deferred);const before=d.serialize();
++  for(const args of [[0,2,true,false],[-1,2,true,false],[NaN,2,true,false],[1.5,2,true,false],[2,-1,true,false],[2,Infinity,true,false],[2,NaN,true,false],[2,1e20,true,false],[2,2,1,false],[2,2,true,null]]){
++   assert.throws(()=>d.tick(...args,deferred));assert.equal(d.serialize(),before);
++  }
++ });
++ test(`${profile}: missing defer flags, auto control and pending ad use the original transaction`,()=>{
++  for(const options of [{},{deferFleet:true},{deferAuto:true}]){
++   const d=make(profile),observed=encodedCalls(d,()=>d.tick(1,1,true,false,options));assert.ok(observed.count>0);
++  }
++  const d=make(profile),ticket=d.requestAd('auto',null,0,30);d.resolveAd(ticket,'completed',1);
++  const observed=encodedCalls(d,()=>d.tick(1,2,true,false,deferred));assert.ok(observed.count>0);assert.deepEqual(observed.result,{autoRunSeconds:1,control:'auto'});assert.equal(d.snapshot().rewards.autoRemainingSeconds,600);
++  const pending=make(profile);pending.requestAd('auto',null,0,1);
++  const expired=encodedCalls(pending,()=>pending.tick(1,2,true,false,deferred));assert.ok(expired.count>0);assert.equal(pending.snapshot().rewards.tickets[0].status,'expired');assert.equal(pending.tickContext.pendingAd,false);
++ });
++ test(`${profile}: stopped automatic entitlement remains available during an eligible manual tick`,()=>{
++  const d=make(profile),ticket=d.requestAd('auto',null,0,30);d.resolveAd(ticket,'completed',1);d.stopAutomation();
++  const rights=d.snapshot().rewards;const observed=encodedCalls(d,()=>d.tick(1,2,true,false,deferred));
++  assert.equal(observed.count,0);assert.deepEqual(d.snapshot().rewards,rights);d.resumeAutomation();assert.equal(d.controlMode,'auto');
++ });
++ test(`${profile}: a changed arrival port still rejects a deferred clock atomically`,()=>{
++  const port={verifyArrival:()=>true},d=new V2DispatchSession(port,0,profile),before=d.serialize();port.verifyArrival=null;
++  assert.throws(()=>d.tick(1,1,true,false,deferred));assert.equal(d.serialize(),before);
++ });
++ test(`${profile}: cross-wallet mismatch and forged historical income remain rejected`,()=>{
++  const d=make(profile);accept(d,'clock-history');d.completeDelivery('clock-history','arrival');
++  d.orders[0].receipt.incomeCents++;const before=d.serialize();assert.throws(()=>d.tick(1,1,true,false,deferred));assert.equal(d.serialize(),before);
++  const mixed=make(profile),other=V2EconomySession.restore(mixed.economy.serialize());other.upgradeVehicle('starter-1');
++  // Explicit internal corruption fixture, not a naturally reachable player state.
++  Object.defineProperty(mixed.fleet,'economy',{value:other});const bytes=mixed.serialize();assert.throws(()=>mixed.tick(1,1,true,false,deferred));assert.equal(mixed.serialize(),bytes);
++ });
++ test(`${profile}: complete wallet, reward, schema and rebase guards remain active`,()=>{
++  const corruptions=[d=>{d.economy.snapshot.state.cashCents++;},d=>{d.rewards.state.autoRemainingSeconds=600;},d=>{d.version=99;},d=>{d.firstTickAfterRestore='invalid';},d=>{d.economy.replaceFrom(new V2EconomySession(profile==='kg-v1'?'slots-v1':'kg-v1').serialize());}];
++  for(const corrupt of corruptions){const d=make(profile);corrupt(d);const bytes=d.serialize();assert.throws(()=>d.tick(1,1,true,false,deferred));assert.equal(d.serialize(),bytes);}
++ });
++ test(`${profile}: an exception from final validation cannot publish a half-updated clock`,()=>{
++  const d=make(profile),before=d.serialize(),original=V2DispatchSession.prototype.validate;let calls=0;
++  V2DispatchSession.prototype.validate=function(){original.call(this);if(++calls===2)throw Error('isolated final-validation failure');};
++  try{assert.throws(()=>d.tick(1,1,true,false,deferred),/isolated final-validation failure/);}finally{V2DispatchSession.prototype.validate=original;}
++  assert.equal(d.serialize(),before);
++ });
++}
++
++test('a restored unseen hero event stays on the original transaction and refills exactly once',()=>{
++ const initial=make('kg-v1').snapshot(),economy=V2EconomySession.restore(JSON.stringify(initial.economy));economy.acceptOrdinary('clock-unseen');economy.completeDelivery('clock-unseen');
++ // Compatible isolated boundary: wallet receipt exists, original fleet cursor lags.
++ initial.economy=JSON.parse(economy.serialize());initial.fleet.economy=JSON.parse(economy.serialize());
++ const d=V2DispatchSession.restore(JSON.stringify(initial),{verifyArrival:()=>true},{preserveClock:true});
++ const first=encodedCalls(d,()=>d.tick(1,1,true,false,deferred));assert.ok(first.count>0);assert.equal(d.snapshot().fleet.fleet.quotaMs,60000);assert.equal(d.snapshot().fleet.fleet.heroEventCursor,1);
++ const second=encodedCalls(d,()=>d.tick(2,2,true,false,deferred));assert.equal(second.count,0);assert.equal(d.snapshot().fleet.fleet.quotaMs,60000);
++});
++
++test('an accessor-based arrival port retains the original transactional path',()=>{
++ const port={get verifyArrival(){return ()=>true;}},d=new V2DispatchSession(port,0,'slots-v1');
++ const observed=encodedCalls(d,()=>d.tick(1,1,true,false,deferred));
++ assert.ok(observed.count>0,'an external accessor must not be invoked inside an in-place clock update');
++ assert.deepEqual(observed.result,{autoRunSeconds:0,control:'manual'});
++});
++
++test('manual options do not introduce a deferAuto getter read',()=>{
++ const d=make('slots-v1');let autoReads=0,fleetReads=0;
++ const options={get deferAuto(){autoReads++;return true;},get deferFleet(){fleetReads++;return true;}};
++ const observed=encodedCalls(d,()=>d.tick(1,1,true,false,options));
++ assert.deepEqual([autoReads,fleetReads],[0,1]);assert.ok(observed.count>0);
++});
++
++test('a throwing deferAuto getter remains uncalled by the original manual semantics',()=>{
++ const d=make('slots-v1'),options={get deferAuto(){throw Error('deferAuto must not run in manual');},deferFleet:true};
++ assert.doesNotThrow(()=>d.tick(1,1,true,false,options));assert.equal(d.tickContext.sequence,1);
++});
++
++test('a reentrant deferAuto getter cannot introduce an economic command into a manual clock',()=>{
++ const d=make('slots-v1'),before=d.snapshot().economy;
++ const options={get deferAuto(){d.command({type:'upgradeVehicle',vehicleId:'starter-1'});return true;},deferFleet:true};
++ d.tick(1,1,true,false,options);assert.deepEqual(d.snapshot().economy,before);
++});
++
++test('a throwing deferFleet getter retains original transaction entry and atomic rejection',()=>{
++ const d=make('slots-v1'),before=d.serialize(),options={deferAuto:true,get deferFleet(){throw Error('isolated option getter failure');}};let thrown;
++ const observed=encodedCalls(d,()=>{try{d.tick(1,1,true,false,options);}catch(error){thrown=error;}});
++ assert.match(thrown?.message||'',/isolated option getter failure/);assert.ok(observed.count>0);assert.equal(d.serialize(),before);
++});
++
++test('inherited defer flags retain the original generic path',()=>{
++ const d=make('slots-v1'),options=Object.create({deferAuto:true,deferFleet:true});
++ const observed=encodedCalls(d,()=>d.tick(1,1,true,false,options));assert.ok(observed.count>0);assert.equal(d.tickContext.sequence,1);
++});

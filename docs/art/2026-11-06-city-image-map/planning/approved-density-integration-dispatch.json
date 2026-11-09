@@ -1,0 +1,49 @@
+{
+  "threadId": "thr_gje67q2cgt",
+  "providerReadback": "acp-hermes-agent",
+  "modelExplicit": "openai-api:gpt-6.1-sol",
+  "effortRequested": "high",
+  "statusReadback": "active",
+  "instructionReadback": true,
+  "requestSHA256": "5271f270d699a0c372d2ac5fbbef9beae53cda4b5ab3ab84ce2fa5ecebdea202",
+  "writeLease": "compact-pair-v2-density/integration only",
+  "readOnlyUserApproval": "compact-pair-v2-density/user-review-002.json",
+  "nativeRequestsAllowedThisStage": 0,
+  "priorMode": {
+    "id": "_bb/legacy-mode",
+    "label": "Mode",
+    "description": null,
+    "category": "mode",
+    "type": "select",
+    "value": "default",
+    "pendingValue": null,
+    "values": [
+      {
+        "id": "default",
+        "label": "Default",
+        "description": "Ask before edits.",
+        "group": null
+      },
+      {
+        "id": "accept_edits",
+        "label": "Accept Edits",
+        "description": "Auto-allow workspace and temp-dir edits; still asks for sensitive paths.",
+        "group": null
+      },
+      {
+        "id": "dont_ask",
+        "label": "Don't Ask",
+        "description": "Auto-allow file edits for this session except sensitive paths.",
+        "group": null
+      }
+    ]
+  },
+  "restoreAtHandback": "default",
+  "dispatch": {
+    "threadId": "thr_gje67q2cgt",
+    "ok": true,
+    "delivery": "sent",
+    "mode": "auto"
+  },
+  "technicalPassClaimed": false
+}

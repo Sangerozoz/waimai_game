@@ -1,0 +1,34 @@
+{
+  "task": "U01-SNAPSHOT-DEPLOY-1106",
+  "build": "v2-slots-perf-1106",
+  "HTTPChecks": [
+    {
+      "port": 4182,
+      "file": "index.html",
+      "matchesPerfBuild": true
+    },
+    {
+      "port": 4182,
+      "file": "assets/main/index.a786b.js",
+      "matchesPerfBuild": true
+    },
+    {
+      "port": 4196,
+      "file": "index.html",
+      "matchesPerfBuild": true
+    },
+    {
+      "port": 4196,
+      "file": "assets/main/index.a786b.js",
+      "matchesPerfBuild": true
+    }
+  ],
+  "terminals": {
+    "4182": "term_u32ywdugw3",
+    "4196": "term_ss3m5pjazi"
+  },
+  "entryScreenshot": "slots-perf-entry-1106.png",
+  "entryRenderedNoNewGameStarted": true,
+  "existingUserTabNotReloaded": true,
+  "FPSOrGameplayTested": false
+}

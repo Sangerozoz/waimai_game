@@ -1,0 +1,139 @@
+{
+  "scope": "bounded sequential headless packed-browser measurements, same input and forwarding instrumentation; not physical-device FPS or statistical performance guarantee",
+  "windows": [
+    {
+      "window": "open-continue",
+      "before": {
+        "runtimeCount": 2,
+        "runtimeMeanMs": 115.5499999821186,
+        "runtimeMedianSampleMs": 115.55000000000001,
+        "rafMedianMs": 16.700000000000003,
+        "domainErrors": 0,
+        "dispatchTransactCount": 6,
+        "dispatchRestoreCount": 11
+      },
+      "after": {
+        "runtimeCount": 2,
+        "runtimeMeanMs": 107.0,
+        "runtimeMedianSampleMs": 107.0,
+        "rafMedianMs": 25.0,
+        "domainErrors": 0,
+        "dispatchTransactCount": 3,
+        "dispatchRestoreCount": 8
+      },
+      "motionPhaseSequence": [
+        null
+      ]
+    },
+    {
+      "window": "pickup-wait",
+      "before": {
+        "runtimeCount": 26,
+        "runtimeMeanMs": 108.66923076602129,
+        "runtimeMedianSampleMs": 108.75,
+        "rafMedianMs": 116.7,
+        "domainErrors": 0,
+        "dispatchTransactCount": 52,
+        "dispatchRestoreCount": 104
+      },
+      "after": {
+        "runtimeCount": 28,
+        "runtimeMeanMs": 98.82857142814568,
+        "runtimeMedianSampleMs": 98.94999999999999,
+        "rafMedianMs": 100.1,
+        "domainErrors": 0,
+        "dispatchTransactCount": 28,
+        "dispatchRestoreCount": 84
+      },
+      "motionPhaseSequence": [
+        "pickup"
+      ]
+    },
+    {
+      "window": "ready-wait",
+      "before": {
+        "runtimeCount": 22,
+        "runtimeMeanMs": 107.7136363576759,
+        "runtimeMedianSampleMs": 107.05,
+        "rafMedianMs": 116.6,
+        "domainErrors": 0,
+        "dispatchTransactCount": 44,
+        "dispatchRestoreCount": 88
+      },
+      "after": {
+        "runtimeCount": 24,
+        "runtimeMeanMs": 99.63333332290252,
+        "runtimeMedianSampleMs": 99.8,
+        "rafMedianMs": 100.1,
+        "domainErrors": 0,
+        "dispatchTransactCount": 24,
+        "dispatchRestoreCount": 72
+      },
+      "motionPhaseSequence": [
+        "ready"
+      ]
+    },
+    {
+      "window": "actual-travel",
+      "before": {
+        "runtimeCount": 40,
+        "runtimeMeanMs": 109.74250000566244,
+        "runtimeMedianSampleMs": 108.1,
+        "rafMedianMs": 116.7,
+        "domainErrors": 0,
+        "dispatchTransactCount": 81,
+        "dispatchRestoreCount": 161
+      },
+      "after": {
+        "runtimeCount": 42,
+        "runtimeMeanMs": 100.95000000510898,
+        "runtimeMedianSampleMs": 99.5,
+        "rafMedianMs": 100.1,
+        "domainErrors": 0,
+        "dispatchTransactCount": 43,
+        "dispatchRestoreCount": 127
+      },
+      "motionPhaseSequence": [
+        "ready",
+        "travelling",
+        "service",
+        "pickup"
+      ]
+    }
+  ],
+  "finalState": {
+    "result": {
+      "lastError": "",
+      "route": {
+        "tripId": 194,
+        "phase": "pickup",
+        "cursor": 2,
+        "serviceCharged": false,
+        "serviceSeconds": 0,
+        "position": [
+          -2025.52,
+          -837.82
+        ]
+      },
+      "follow": true,
+      "heroCompletedOrders": 772,
+      "npcCompletedOrders": 1201,
+      "cashCents": 2876217,
+      "ledgerCashCents": 2876217,
+      "ledgerIdsUnique": true,
+      "settledIdsUnique": true,
+      "slotMatchesLastPublished": true,
+      "fullCurrentSlotRestore": true
+    },
+    "errorCount": 1,
+    "errorHead": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)"
+    ]
+  },
+  "screenshots": [
+    {
+      "path": "docs/reviews/2026-11-05-game-development/performance/manual-clock-1107/browser/screen-1.jpg",
+      "sha256": "075fec0783dc6aedc6aa96406703c141b44eae11aca551f65ed85678a6129b2d"
+    }
+  ]
+}

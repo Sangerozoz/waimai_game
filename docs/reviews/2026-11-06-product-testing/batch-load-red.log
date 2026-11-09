@@ -1,0 +1,80 @@
+TAP version 13
+# Subtest: Cocos planned slots batch receives actual load records, not one Map iterator
+not ok 1 - Cocos planned slots batch receives actual load records, not one Map iterator
+  ---
+  duration_ms: 0.885916
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:20:1'
+  failureType: 'testCodeFailure'
+  error: '配送容量单位或条款无效'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    check (evalmachine.<anonymous>:12:11)
+    parseV2Load (evalmachine.<anonymous>:27:5)
+    totalV2Load (evalmachine.<anonymous>:60:22)
+    Object.loadSummary (evalmachine.<anonymous>:2:52)
+    summary (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:19:192)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:22:15)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# {"bundle":"/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/build/v2-tick-follow-1106/assets/main/index.ab7bd.js","sha256":"6d47199472e7d6e5a4d8dd954b2ed5fb5c27fb4af1f9514833e53a2bb5cc459d","actualExpression":"[].concat(u.values())"}
+# Subtest: Cocos grouped slots summary enumerates each accepted order
+not ok 2 - Cocos grouped slots summary enumerates each accepted order
+  ---
+  duration_ms: 0.256291
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:24:1'
+  failureType: 'testCodeFailure'
+  error: '配送容量单位或条款无效'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    check (evalmachine.<anonymous>:12:11)
+    parseV2Load (evalmachine.<anonymous>:27:5)
+    totalV2Load (evalmachine.<anonymous>:60:22)
+    Object.loadSummary (evalmachine.<anonymous>:2:52)
+    summary (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:19:192)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:25:15)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+  ...
+# Subtest: Cocos historical kg summary retains the old unit and valid exact total
+not ok 3 - Cocos historical kg summary retains the old unit and valid exact total
+  ---
+  duration_ms: 0.192
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:27:1'
+  failureType: 'testCodeFailure'
+  error: '配送容量单位或条款无效'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    check (evalmachine.<anonymous>:12:11)
+    parseV2Load (evalmachine.<anonymous>:27:5)
+    totalV2Load (evalmachine.<anonymous>:60:22)
+    Object.loadSummary (evalmachine.<anonymous>:2:52)
+    summary (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:19:192)
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/tests/ui-built-batch-load-1106.test.cjs:28:15)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+  ...
+# Subtest: strict capacity rules continue rejecting mixed units
+ok 4 - strict capacity rules continue rejecting mixed units
+  ---
+  duration_ms: 0.321083
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 1
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 160.974958

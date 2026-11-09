@@ -1,0 +1,18 @@
+{
+  "id": "R-+00--04",
+  "inspection": "visual inspection of native image; no registration or gameplay tests",
+  "issues": [
+    {
+      "id": "edge-building-clipping",
+      "location": "top and bottom canvas edges",
+      "description": "顶部建筑贴边；底部大体量建筑被画布截断，底边出现浅色横向碎边。保留原图，整图拼完集中核查遮挡及边缘。",
+      "status": "deferred-full-map-pass"
+    },
+    {
+      "id": "geometry-drift-unmeasured",
+      "location": "whole region and neighbor overlap",
+      "description": "绘制道路形状及邻区接缝尚未实测；当前图内主要街口可见，未观察到建筑将主路完全盖住。不得据此声明路网吻合或可通行。",
+      "status": "deferred-full-map-pass"
+    }
+  ]
+}

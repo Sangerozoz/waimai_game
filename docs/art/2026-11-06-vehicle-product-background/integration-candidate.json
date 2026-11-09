@@ -1,0 +1,43 @@
+{
+  "stage": "candidate runtime derivatives, no engine import/build/acceptance yet",
+  "nativeBackgroundSha256": "b2bc2427f5ee43338188342d9ea9f9b3ae7b9d7a027147ecd82f7392357d87cf",
+  "outputs": [
+    {
+      "file": "delivery-game/assets/resources/ui-v2/showcase/vehicle-product-background-v1.png",
+      "sha256": "0a8e112718fd3083fa3dd835489db8736fabce65e3c6e0865a51416d67304888",
+      "size": [
+        1024,
+        418
+      ],
+      "mode": "RGB",
+      "bytes": 540917
+    },
+    {
+      "file": "delivery-game/assets/resources/ui-v2/showcase/vehicle-ground-shadow.png",
+      "sha256": "80fb725733b4d7e6b9788152fa2938beb5c350972e97769e2650c795c44990fe",
+      "size": [
+        512,
+        96
+      ],
+      "mode": "RGBA",
+      "bytes": 10183
+    }
+  ],
+  "backgroundOperation": "downsampled original aspect; no enlargement or recolor",
+  "shadowOperation": "one reusable feathered support shadow; not native-generated scenery and not vehicle repaint",
+  "carOriginalUnchanged": true,
+  "carOriginalSha256": "81690344dc065ddf5d3dce7ebd016d90bcd1ec6c84ef242ec2bddf2e8a00f788",
+  "proposedShadowTransform": {
+    "xByCarWidth": 0.04,
+    "yByCarHeight": -0.41,
+    "widthByCarWidth": 0.68,
+    "heightByCarHeight": 0.16,
+    "angleDegrees": -9
+  },
+  "limits": [
+    "Only model3 offline visual prototype; not a running screenshot",
+    "No user inventory or price simulated",
+    "Other model/hover contact still requires actual UI inspection",
+    "No map input used or edited; source car and canonical manifests unchanged"
+  ]
+}

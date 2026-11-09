@@ -1,0 +1,68 @@
+{
+  "task": "U01-TICK-READ-PROJECTION-1106",
+  "files": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts",
+      "baselineSHA256": "7830032d00753395a1fa9bf30c51683f5f152e74f10dc280b62ca71f1378f1af",
+      "candidateSHA256": "1343e49992f4ed57d941b95fb9fc5923e1fbd10e935b956f89699236fc6d7741",
+      "patch": "--- a/delivery-game/assets/scripts/domain/V2DispatchSession.ts\n+++ b/delivery-game/assets/scripts/domain/V2DispatchSession.ts\n@@ -55,6 +55,10 @@\n  setLedgerDayKeyResolver(resolver:((atMs:number)=>string)|null):void {this.fleet.setLedgerDayKeyResolver(resolver);this.ledgerDayKeyResolver=resolver;}\n  get economyState(){return this.economy.state;}\n  get fleetState(){return this.fleet.state;}\n+ get tickContext():Readonly<{sequence:number;nowSeconds:number;foreground:boolean;paused:boolean;clockNeedsRebase:boolean;control:V2DispatchTick['control'];pendingAd:boolean}> {\n+  return {sequence:this.frame.sequence,nowSeconds:this.frame.nowSeconds,foreground:this.frame.foreground,paused:this.frame.paused,clockNeedsRebase:this.firstTickAfterRestore,control:this.control,pendingAd:this.rewards.hasPendingAd};\n+ }\n+ get controlMode():V2DispatchTick['control'] {return this.control;}\n  get hasEquippedVehicle():boolean {return this.economy.hasEquippedVehicle;}\n  get deliveryEffects(){const id=this.orders.find(o=>o.status==='pending'&&this.batchIds.includes(o.id))?.id??null;return this.economy.deliveryEffectProjection(id);}\n  get nextBatchEffects(){return this.economy.nextBatchEffects;}\n@@ -147,7 +151,7 @@\n   const fingerprint=JSON.stringify([nowSeconds,foreground,paused]);\n   if(sequence===d.frame.sequence){check(fingerprint===d.frame.fingerprint);return {autoRunSeconds:0,control:d.control};}\n   check(sequence>d.frame.sequence);\n-  const pendingAd=d.rewards.snapshot().tickets.some(t=>t.status==='pending');\n+  const pendingAd=d.rewards.hasPendingAd;\n   // This interval began under the SDK pause. Expire now, then resume on the next frame.\n   d.rewards.expirePending(nowSeconds);\n   const active=foreground&&!paused&&d.frame.foreground&&!d.frame.paused&&!d.firstTickAfterRestore&&!pendingAd;\n"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameSession.ts",
+      "baselineSHA256": "803f4bbac1fe657fa6fb71969bdaa47b4d6ba9c0b68487af501ba7b8d0268583",
+      "candidateSHA256": "124f0ffad2f8be72e625b99b540a585ccd1eeb9a7047e0f69d9516d0058e1728",
+      "patch": "--- a/delivery-game/assets/scripts/map-sample/V2GameSession.ts\n+++ b/delivery-game/assets/scripts/map-sample/V2GameSession.ts\n@@ -88,13 +88,13 @@\n   const receipt=this.dispatch.completeDelivery(id,token,nowSeconds,this.trip.outcome(id));this.trip.delivered(id,receipt.ratingDelta||0);return receipt;\n  }\n  tick(sequence:number,nowSeconds:number,foreground:boolean,paused:boolean){\n-  const before=this.dispatch.snapshot();const tick=this.dispatch.tick(sequence,nowSeconds,foreground,paused,{deferAuto:true,deferFleet:true});\n-  const wallStart=before.frame.nowSeconds,frameEnd=Math.max(wallStart,nowSeconds);\n-  const pendingAd=(before.rewards as {tickets:{status:string}[]}).tickets.some(t=>t.status==='pending');\n-  const active=sequence>before.frame.sequence&&foreground&&!paused&&before.frame.foreground&&!before.frame.paused&&!before.clockNeedsRebase&&!pendingAd;\n+  const before=this.dispatch.tickContext;const tick=this.dispatch.tick(sequence,nowSeconds,foreground,paused,{deferAuto:true,deferFleet:true});\n+  const wallStart=before.nowSeconds,frameEnd=Math.max(wallStart,nowSeconds);\n+  const pendingAd=before.pendingAd;\n+  const active=sequence>before.sequence&&foreground&&!paused&&before.foreground&&!before.paused&&!before.clockNeedsRebase&&!pendingAd;\n   // Automation expiry never silently drives the remaining interval manually.\n-  let seconds=before.control==='auto'?tick.autoRunSeconds:active?Math.max(0,nowSeconds-before.frame.nowSeconds):0;\n-  const allowance=seconds;let used=0;const finish=()=>{this.dispatch.advanceFleetTo(frameEnd);used=Math.min(allowance,Math.max(0,used));if(before.control==='auto'&&used>0)this.dispatch.consumeAutomaticProgress(used);return {...tick,autoRunSeconds:before.control==='auto'?used:0,control:this.dispatch.snapshot().control};};\n+  let seconds=before.control==='auto'?tick.autoRunSeconds:active?Math.max(0,nowSeconds-before.nowSeconds):0;\n+  const allowance=seconds;let used=0;const finish=()=>{this.dispatch.advanceFleetTo(frameEnd);used=Math.min(allowance,Math.max(0,used));if(before.control==='auto'&&used>0)this.dispatch.consumeAutomaticProgress(used);return {...tick,autoRunSeconds:before.control==='auto'?used:0,control:this.dispatch.controlMode};};\n   if(seconds<=0)return finish();\n   const automatic=before.control==='auto';\n   // Spend this interval across action and batch boundaries. A stop consumes no tail time.\n"
+    },
+    {
+      "path": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts",
+      "baselineSHA256": "8efdff34d0f3214a69922b9ef2b8cdd86672f1631a26b8962dc18e6efea07f7f",
+      "candidateSHA256": "38114620cd47dad620a71607903b55ab64fb1d2b54636e0ad0a7bdbc3c396fa5",
+      "patch": "--- a/delivery-game/assets/scripts/rewards-v2/RewardSession.ts\n+++ b/delivery-game/assets/scripts/rewards-v2/RewardSession.ts\n@@ -28,6 +28,7 @@\n export class RewardSession {\n     private state: State = { version: 1, sequence: 0, autoRemainingSeconds: 0, entries: [], candidates: [], tickets: [], activeBatch: null };\n     get autoRemainingSeconds(): number { return this.state.autoRemainingSeconds; }\n+    get hasPendingAd(): boolean { return this.state.tickets.some(t => t.status === 'pending'); }\n     snapshot(): Readonly<State> { return clone(this.state); }\n     serialize(): string { return JSON.stringify(this.state); }\n     private next(prefix: string): string { valid(this.state.sequence < Number.MAX_SAFE_INTEGER); return `${prefix}-${++this.state.sequence}`; }\n"
+    }
+  ],
+  "sourceEvidence": [
+    {
+      "path": "delivery-game/assets/scripts/domain/V2DispatchSession.ts:37-39,67-75,145-162",
+      "finding": "tickContext新建仅含7个标量的对象，四个frame字段逐值读取，不返回frame/rewards引用；controlMode鲜读私有control。Dispatch.tick的pending查询仍在重复帧检查之后、expirePending之前。7830032基线snapshot方法逐字保留，事务/恢复/校验均未改。"
+    },
+    {
+      "path": "delivery-game/assets/scripts/map-sample/V2GameSession.ts:90-99",
+      "finding": "tickContext在dispatch.tick之前捕获；active、时间差及before.control读取时点不变。finish仍先advanceFleetTo、再按before.control扣实际自动时长，最后鲜读controlMode，不缓存旧control。"
+    },
+    {
+      "path": "delivery-game/assets/scripts/rewards-v2/RewardSession.ts:28-33,55-58,106-111",
+      "finding": "hasPendingAd只对私有tickets执行原status===pending谓词并返回boolean；不推进过期，不修改票据/序列/自动额度，不调用snapshot/serialize，不引入缓存。"
+    },
+    {
+      "staticCallsiteCounts": {
+        "Game.tick direct Dispatch.snapshot callsites": {
+          "before": 5,
+          "after": 3
+        },
+        "Dispatch.tick pending predicate Reward.snapshot callsites": {
+          "before": 1,
+          "after": 0
+        }
+      },
+      "meaning": "仅为源码调用点数量，不是每帧实际调用次数、耗时或FPS。两个pending查询时点仍各扫描tickets，但不再为此复制奖励历史。"
+    },
+    {
+      "integrity": "三份unified diff均已在Python内存逐行精确正向/反向重建并计算SHA；反向还原后与冻结基线逐字一致。交回前重读三源SHA仍匹配。仅进行文本操作，未执行TypeScript、DTO或业务函数。"
+    }
+  ],
+  "unexecutedCases": [
+    "首帧/恢复首帧、前后台/暂停切换、重复帧及不同fingerprint拒绝、时钟回退保持原推进规则。",
+    "广告pending恰在本帧过期时，Game上下文及Dispatch.tick均先观察pending；expirePending后仍不追补本间隔，下一帧恢复。",
+    "无pending及completed/cancelled/failed/expired票据；广告完成或取消后的读取不滞留缓存。",
+    "自动额度恰耗尽/600秒尾段：最终control来自advanceFleetTo和consumeAutomaticProgress之后。",
+    "修改调用者取得的tickContext不影响私有frame/control/reward；连续读取返回不同的新对象，字段均为原始值。",
+    "旧kg/新slots、旧有效在途、分组/ready、NPC补额/归日及异常事务不发布半状态的阶段回归。"
+  ],
+  "limits": [
+    "本批仅内存补丁交回，未写任何源/报告/候选/临时文件，未改权限，未新建Agent或使用Codex；父PM物化候选并独立复审后决定应用。",
+    "保留Game.tick其他分支的3个完整Dispatch.snapshot调用点；候选/命令/HUD及其他读取路径不改。",
+    "保留Dispatch.transact的serialize→restore、Fleet同步、完整validate及clone(result)，保留Game/Runtime权威恢复、序列化、validate→commit→publish和原30Hz策略。",
+    "现有snapshot仍序列化/解析Economy、Fleet、Reward并克隆orders/batchIds/frame；Fleet序列化内含经济数据的重复成本未动；validate仍有完整状态/Reward快照成本。",
+    "未运行TS/App/DTO/serialize getter业务函数、tests/typecheck、故障注入、浏览器、真实/合成存档或构建。未profile，不报提速/FPS，不关闭U01/U02，不自判独立质量PASS。"
+  ]
+}

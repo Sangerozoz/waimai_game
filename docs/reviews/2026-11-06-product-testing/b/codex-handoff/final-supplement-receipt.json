@@ -1,0 +1,1348 @@
+{
+  "task": "PRODUCT-TEST-B-CODEX-HANDOFF-1107",
+  "status": "FINAL_SUPPLEMENT_EXISTING_REAL_EVIDENCE_RECONCILED",
+  "createdAt": "2026-11-07T07:26:27.998520+08:00",
+  "authorThread": "thr_29f6fcihz6",
+  "parentThread": "thr_4xmqy6fzdm",
+  "originalEvidenceAuthorThread": "thr_tviezvnwds",
+  "assignedRoute": {
+    "provider": "codex",
+    "model": "ccs-sanger/gpt-6.1-sol",
+    "reasoning": "max",
+    "providerReadback": "bb thread show thr_29f6fcihz6 --json; thread.providerId=codex; exact model/effort from PM dispatch, not exposed by this show response"
+  },
+  "environment": {
+    "id": "env_e54zrbdgxt",
+    "checkout": "/Users/sanger/Documents/ChatGPT/taptap 2",
+    "branch": "codex/food-delivery",
+    "host": "host_tr578kqahd"
+  },
+  "scope": "Existing B20..B41 raw records/captures inspected and SHA-audited offline. This is a final supplement for this evidence-closeout task, not a replacement or whole-product final acceptance.",
+  "realPassCases": [
+    {
+      "id": "B-FIX-IDENTITY",
+      "title": "实际执行修复包身份",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/20-fixed-package-normal-reload.json",
+        "docs/reviews/2026-11-06-product-testing/b/35-nonzero-normal-reload.json",
+        "docs/reviews/2026-11-06-product-testing/b/41-final-observation.json",
+        "docs/reviews/2026-11-06-product-testing/b/fixed-package-identity.json"
+      ],
+      "observed": {
+        "build": "v2-loadmap-fix-1106",
+        "observedJavaScriptInputs": 12,
+        "allRecordedHTTPAndCurrentDiskSHA256Match": true
+      },
+      "limits": [
+        "HTTP/执行身份为旧B当时记录，本次重新核磁盘SHA；正式4182/4196现场状态由PM核对。"
+      ],
+      "rerunDuringSupplement": false
+    },
+    {
+      "id": "B-SAME-PLANNED",
+      "title": "原planned单自然继续并显示路线",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/19-restored-planned-red.json",
+        "docs/reviews/2026-11-06-product-testing/b/20-fixed-package-normal-reload.json",
+        "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.json",
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json"
+      ],
+      "observed": {
+        "sameOrderId": "v2-road-268",
+        "tripId": 1,
+        "cashCents": 10000,
+        "heroCompletedOrders": 0,
+        "phase": "planned",
+        "position": [
+          -2348.12,
+          -552.93
+        ],
+        "signedLoad": "2/2格",
+        "routeAndDepartureVisible": true
+      },
+      "limits": [
+        "保留原RED；不重接单/不注入存档，不将原先错误页当新包结果。"
+      ],
+      "rerunDuringSupplement": false
+    },
+    {
+      "id": "B-ORDINARY-COMPLETE",
+      "title": "一笔普通单真实UI整链",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.json",
+        "docs/reviews/2026-11-06-product-testing/b/26-arrived-pickup-stopped.json",
+        "docs/reviews/2026-11-06-product-testing/b/27-ui-pickup-service.json",
+        "docs/reviews/2026-11-06-product-testing/b/28-ready-before-continue.json",
+        "docs/reviews/2026-11-06-product-testing/b/30-ui-continue-delivery-motion.json",
+        "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json"
+      ],
+      "observed": {
+        "phases": [
+          [
+            "planned",
+            0
+          ],
+          [
+            "travelling",
+            0
+          ],
+          [
+            "pickup",
+            0
+          ],
+          [
+            "service",
+            0
+          ],
+          [
+            "ready",
+            1
+          ],
+          [
+            "travelling",
+            1
+          ],
+          [
+            "service",
+            1
+          ],
+          [
+            "finished",
+            2
+          ]
+        ],
+        "cashCentsBefore": 10000,
+        "cashCentsAfter": 12000,
+        "heroOrdersBefore": 0,
+        "heroOrdersAfter": 1,
+        "batchIdsAfter": [],
+        "actionMarks": [
+          {
+            "name": "tap route departure",
+            "at": 571152.3000000119,
+            "x": 320,
+            "y": 482
+          },
+          {
+            "name": "tap pickup",
+            "at": 667622.1999999881,
+            "x": 247,
+            "y": 598
+          },
+          {
+            "name": "tap continue to delivery",
+            "at": 799626,
+            "x": 247,
+            "y": 598
+          }
+        ],
+        "routeLegMetres": [
+          537.7319187044656,
+          354.2298582010672
+        ]
+      },
+      "limits": [
+        "一笔保护期安全普通单；没有多单同店、NPC、广告或完整U01验收。观察停等时间不当作普通玩家操作时长供数值建模。"
+      ],
+      "rerunDuringSupplement": false
+    },
+    {
+      "id": "B-READY-HOLD",
+      "title": "取餐后原地ready等待主动继续",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/28-ready-before-continue.json",
+        "docs/reviews/2026-11-06-product-testing/b/29-ready-hold-no-auto-depart.json",
+        "docs/reviews/2026-11-06-product-testing/b/30-ui-continue-delivery-motion.json"
+      ],
+      "observed": {
+        "observedHoldMs": 122982,
+        "samePosition": [
+          -2713.34,
+          -590.39
+        ],
+        "sameTripGameSeconds": 156.7971326552058,
+        "cashCents": 10000,
+        "sameReadyScreenshotsSHA256": true
+      },
+      "limits": [
+        "122,982ms为观察等待，不是常规玩家操作延迟；phaseRun的约130秒是采样窗总长，两者定义不同。"
+      ],
+      "rerunDuringSupplement": false
+    },
+    {
+      "id": "B-FOLLOW-PAN-LOCATE",
+      "title": "本单采样跟随及真实拖动/定位",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json",
+        "docs/reviews/2026-11-06-product-testing/b/32-active-delivery-performance.json",
+        "docs/reviews/2026-11-06-product-testing/b/33-user-pan-not-forced-follow.json",
+        "docs/reviews/2026-11-06-product-testing/b/34-ui-locate-restores-follow.json"
+      ],
+      "observed": {
+        "motionSamples": 115,
+        "travellingSamples": 38,
+        "allSamplesFollow": true,
+        "maxCenterResidualDesignUnits": 0.0,
+        "panFollow": false,
+        "locateFollow": true
+      },
+      "limits": [
+        "115为投影样本，不是115个独立配送用例或GPU帧；VehicleTopView探针115次active=false，不能据其坐标断言车辆精灵活动。截图显示的是实际中心标记。"
+      ],
+      "rerunDuringSupplement": false
+    },
+    {
+      "id": "B-NONZERO-RELOAD",
+      "title": "非零完成进度自然reload/继续",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/34-ui-locate-restores-follow.json",
+        "docs/reviews/2026-11-06-product-testing/b/35-nonzero-normal-reload.json",
+        "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json"
+      ],
+      "observed": {
+        "cashCents": 12000,
+        "heroCompletedOrders": 1,
+        "phase": "finished",
+        "position": [
+          -2993.08,
+          -511.4
+        ],
+        "follow": true,
+        "sameComparedFields": [
+          "route",
+          "trip",
+          "cashCents",
+          "heroCompletedOrders",
+          "npcCompletedOrders",
+          "vehicles",
+          "riders",
+          "batchIds",
+          "view"
+        ]
+      },
+      "limits": [
+        "B35截图仍为Cocos启动画面，不能称B35已拍到稳定继续入口；恢复结果由B36画面/投影提供。本任务没有重开旧session或重建其存档。"
+      ],
+      "rerunDuringSupplement": false
+    },
+    {
+      "id": "B-WATER-LEDGER",
+      "title": "真实1金币水与账单核对",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/37-real-supply-menu.json",
+        "docs/reviews/2026-11-06-product-testing/b/38-ui-buy-use-water.json",
+        "docs/reviews/2026-11-06-product-testing/b/39-water-complete.json",
+        "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json"
+      ],
+      "observed": {
+        "cashCentsBefore": 12000,
+        "waterCostCents": 100,
+        "cashCentsAfter": 11900,
+        "staminaBefore": 96.21607644618894,
+        "staminaAfter": 100,
+        "actionKind": "water",
+        "actionSource": "purchase",
+        "incomeCents": 2000,
+        "supplyCents": 100,
+        "netCents": 1900,
+        "ledgerReconcilesToCashCents": 11900
+      },
+      "limits": [
+        "使用的普通水补给是实际购买，不是广告。该补给发生在finished之后，账单为当日20收入/1支出/19净赚，不伪记成配送批内补给；水购买后未再做reload。"
+      ],
+      "rerunDuringSupplement": false
+    },
+    {
+      "id": "B-NARROW-PLANNED",
+      "title": "315宽暂停页面保留planned状态",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json",
+        "docs/reviews/2026-11-06-product-testing/b/23-planned-paused-315.json",
+        "docs/reviews/2026-11-06-product-testing/b/24-planned-restored-390.json"
+      ],
+      "observed": {
+        "narrowViewport": [
+          315,
+          851
+        ],
+        "narrowDPR": 2,
+        "narrowCanvas": [
+          630,
+          1702
+        ],
+        "plannedGameSeconds": 0,
+        "returnedViewportWidth": 390,
+        "routeControlsVisible": true
+      },
+      "limits": [
+        "只覆盖planned页缩宽/恢复；不是315宽完整配送/全部页面适配矩阵。"
+      ],
+      "rerunDuringSupplement": false
+    },
+    {
+      "id": "B-FINAL-CLOSED",
+      "title": "最终观测及自有隔离浏览器关闭",
+      "status": "PASS_WITHIN_RECORDED_SCOPE",
+      "evidence": [
+        "docs/reviews/2026-11-06-product-testing/b/41-final-observation.json",
+        "docs/reviews/2026-11-06-product-testing/b/browser-close-receipt.json"
+      ],
+      "observed": {
+        "cashCents": 11900,
+        "heroCompletedOrders": 1,
+        "phase": "finished",
+        "batchIds": [],
+        "observedErrors": 0,
+        "observedConsoleWarnings": 0,
+        "observedNetworkFailures": 0,
+        "closedSessionId": "b49c55d0-74b5-4dd7-9829-bfdc4cc1d74c",
+        "closeAndReadbackState": "closed"
+      },
+      "limits": [
+        "无异常仅指B41当前观测与B32指定窗口；旧包的原RED/原favicon404仍保留。没有用户桌面/tab/profile操作。"
+      ],
+      "rerunDuringSupplement": false
+    }
+  ],
+  "limits": [
+    "所有真实UI数据来自旧B独立local headless的Chromium仿真触控；390×844/DPR2，含一段315×851/DPR2观察，不是真机、远程分享路径或用户档认证。",
+    "本次只做离线证据核验/补充，没有启动新浏览器、追加购买/接单/reload，也没有重复已通过整单。",
+    "B32 active窗404个rAF间隔：p95≈16.7ms、max≈16.8ms、>50ms为0。phase约100ms采样，不能换算成物理设备FPS、每个GPU展示帧或全产品性能PASS。",
+    "B31保存115个motion样本，B32稍后计数152为不同截点；不能相加或称两轮配送。原VehicleTopView探针active始终false，探针不是骑手可见精灵的直接证明。",
+    "U01/U02只获得一条真实单链和跟随/拖动定位的范围内证据，仍不关闭整体卡顿/跳站和用户体验验收。",
+    "未覆盖多单同店/满队30NPC、NPC持续到账资金刷新、购买/招募/升级后完整保位、10车型/hover矩阵、整条首车→首NPC→首付费图引导。",
+    "真实广告SDK未接；不假广告成功，不把133专送候选当可真实广告接单/600秒权益。",
+    "万元近似规则U30仍held；已落实的主角/等级/状态/招募外价/标题等不再整套等静态确认。",
+    "98%与原始8张认可图完整视觉验收未通过；本任务不做地图制作/整城验收，不裁地图插图补车辆场景。",
+    "Cocos Finished与exit36、SIGTERM/版本诊断照实保留；4/4与独立窄复审只证明iterator修复，不代表整个构建环境健康。",
+    "旧根b/report.md、b/test-results.json与red-checkpoint副本保持原文；旧actions-trace.json只含B01..19，本补充的B20..41顺序从实际原始记录派生。只有B31/B32明确保存的三次tap actionMarks，不虚构其他输入轨迹。",
+    "水补给后没有再次reload；119金币是B41最终观测，不宣称119金币已通过补给后重载连续性。",
+    "正式4182/4196最后已知旧tick-follow，新修复最后已知只在4198；本次未重新探测或更新服务，现场发布/读回由PM完成。"
+  ],
+  "source": {
+    "path": "delivery-game/assets/scripts/map-sample/V2GameUI.ts",
+    "sha256": "dd0054b6f15f1bca07c886217a8197796138a951223fb8bde935a23717bbe3c2",
+    "change": "loadSummary(Array.from(batchLoads.values()),capacity)",
+    "exactFixedArgumentCount": 1,
+    "inverseSingleArgumentSHA256": "cea071606d173007ca8ce8acde05c74748e3243d2c4091390aedcdfcef550ed9",
+    "strictLoadRules": {
+      "path": "delivery-game/assets/scripts/domain/V2LoadRules.ts",
+      "sha256": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644"
+    },
+    "loadSummaryAndValidationRelaxed": false,
+    "priceOrSourceChangedDuringSupplement": false
+  },
+  "buildHashes": {
+    "buildRoot": "/Users/sanger/Documents/ChatGPT/taptap 2/delivery-game/build/v2-loadmap-fix-1106",
+    "indexHTML": "0b6a467549a2717bb49a0644ecb96c9db44b2e2e6d2ca0590ffccfcc8f165927",
+    "mainPath": "assets/main/index.ab2ce.js",
+    "mainSHA256": "fbd0ca86721c9f67e50a94be4c6b3c5db3cf1f26f8f27ded8db9415ab2166a4d",
+    "actualMainURL": "http://127.0.0.1:4198/assets/main/index.ab2ce.js",
+    "observedJavaScriptCount": 12,
+    "allRecordedHTTPAndCurrentDiskMatch": true,
+    "files": [
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/index.html",
+        "sha256": "0b6a467549a2717bb49a0644ecb96c9db44b2e2e6d2ca0590ffccfcc8f165927"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/assets/main/index.ab2ce.js",
+        "sha256": "fbd0ca86721c9f67e50a94be4c6b3c5db3cf1f26f8f27ded8db9415ab2166a4d"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/src/polyfills.bundle.5adbf.js",
+        "sha256": "f1e4ced3322168d6b9915e782e4c1cf1055d75f66f2b38e7fcd60f48cf89082b"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/src/system.bundle.543e6.js",
+        "sha256": "90f192f3b04f7fcb5bba9c15745cdd1a798d9b855f752c5ee7e48bb526dd543d"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/index.1fa25.js",
+        "sha256": "3fbe8272becd2d68405d632414d16daf85853d23926c797332ab4abca2dad297"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/application.7af17.js",
+        "sha256": "05f02c04aa588c46899dfcb88e554d4d7aec62832ddf408746fe56af3cf1c201"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/cocos-js/cc.0b2cf.js",
+        "sha256": "5942e74b009e9398948d7940451052a61b7e8cc5dc0b098d204980d318af3016"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/cocos-js/_virtual_cc-C6aOtQS_.js",
+        "sha256": "5a931a0c6943d522b5f80f7354bdd662c749bf7117ce4528849f25917de620e2"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/cocos-js/spine.wasm-PvZzAPaa.js",
+        "sha256": "70eaaac5605ca1d7e1b449773b1efa10e79977794a0f077f33226d8642408346"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/cocos-js/spine-BGFFnNyc.js",
+        "sha256": "df3e7ef18435df7ceea12c8c235d1cef37fc9c6cb9ab6a3b4bc735c7d134c7f6"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/src/chunks/bundle.59512.js",
+        "sha256": "36f2c5f09ca34f679cd5d1f25d86ad775d55cc98b8d1c3660c9508efc46ea296"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/assets/internal/index.9e58a.js",
+        "sha256": "19bd675acfdd6f12d4bfec92fa4fa354b57c1dee7256325dce20ebfc5657b58c"
+      },
+      {
+        "path": "delivery-game/build/v2-loadmap-fix-1106/assets/resources/index.3e639.js",
+        "sha256": "51a07ab61ee49561d29734ff6ee095b0d8a47998bbe30a6f1973bf3c8b7faa25"
+      }
+    ],
+    "buildExitCode": 36,
+    "buildFinishedRecorded": "2026-11-06 22:59:18",
+    "freshBuildOrHTTPProbeDuringSupplement": false
+  },
+  "normalSaveContinuity": {
+    "scope": "Old B owned isolated session/origin lineage, never the user browser/profile. This author audited saved evidence only.",
+    "originalAuthor": "thr_tviezvnwds",
+    "sessionId": "b49c55d0-74b5-4dd7-9829-bfdc4cc1d74c",
+    "origin": "http://127.0.0.1:4198",
+    "plannedPackageRecovery": {
+      "before": "b/19-restored-planned-red.json",
+      "reload": "b/20-fixed-package-normal-reload.json",
+      "after": "b/21-fixed-package-continue-same-order.json",
+      "sameOrderId": "v2-road-268",
+      "sameTripId": 1,
+      "sameRouteAndTrip": true,
+      "cashCents": 10000,
+      "heroCompletedOrders": 0
+    },
+    "nonzeroRecovery": {
+      "sameFields": [
+        "route",
+        "trip",
+        "cashCents",
+        "heroCompletedOrders",
+        "npcCompletedOrders",
+        "vehicles",
+        "riders",
+        "batchIds",
+        "view"
+      ],
+      "before": "docs/reviews/2026-11-06-product-testing/b/34-ui-locate-restores-follow.json",
+      "reload": "docs/reviews/2026-11-06-product-testing/b/35-nonzero-normal-reload.json",
+      "after": "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json",
+      "splashScreenshotOnlyAtB35": true,
+      "cashCents": 12000,
+      "heroCompletedOrders": 1
+    },
+    "finalObservedNotReloadedAfterWater": {
+      "cashCents": 11900,
+      "heroCompletedOrders": 1,
+      "phase": "finished",
+      "evidence": "b/41-final-observation.json"
+    },
+    "syntheticSaveInjectionPerformed": false,
+    "newSlotOrRestartPerformed": false,
+    "oldSessionReopenedByNewB": false,
+    "closedStateVerifiedFromOriginalReceipt": true,
+    "userBrowserOrRealSaveTouched": false
+  },
+  "goldenEvidenceFiles": [
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/20-fixed-package-normal-reload.jpg",
+      "sha256": "f5f0769795d3fbf615f5e2e06462e53e646b352b54f5509c1bfea0dd3098ec15",
+      "role": "B20 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/20-fixed-package-normal-reload.json",
+      "sha256": "93c9ee644ed3875cefdcb758fa8d4bf63d95c46c57e0361efa78167030729d14",
+      "role": "B20 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.jpg",
+      "sha256": "a429da33e337852a0c515e53d967e76cbe75a9ad5f2e23868540a09bd0017e23",
+      "role": "B21 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.json",
+      "sha256": "9baa7838a5eab06a00a306a66a3c51b80ada6e9f62199dccb117adf78032bc96",
+      "role": "B21 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg",
+      "sha256": "acfbb76d5f6b23f1b52cc3e267701641d9c36ffd14db1ce507a014a785b3ecd2",
+      "role": "B22 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json",
+      "sha256": "73aa6d953b2112972bbc42c9dd428465baffdd9fde64d0d8dbdb9d0c4a4c0370",
+      "role": "B22 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/23-planned-paused-315.jpg",
+      "sha256": "fcf346ed55325e1c071fc64d93e055b8df285ec21097a4c479285d8e07171501",
+      "role": "B23 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/23-planned-paused-315.json",
+      "sha256": "6e942b37194a5d865ac8904b783ca30f7c86150bdd1a1f8e10a71325362d1da4",
+      "role": "B23 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/24-planned-restored-390.jpg",
+      "sha256": "acfbb76d5f6b23f1b52cc3e267701641d9c36ffd14db1ce507a014a785b3ecd2",
+      "role": "B24 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/24-planned-restored-390.json",
+      "sha256": "b3923254507997550c626b4e15e4c0381a2c26bb350784d7a77d84d95ca58e3b",
+      "role": "B24 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.jpg",
+      "sha256": "ed4bd97b0cfe0fd14909576665a7566836506748ad0849fd234b7871a3bfe251",
+      "role": "B25 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.json",
+      "sha256": "8facbebd66669b89a6b8b035ee736f6aea8ff7612c9f7e6b834fe33906c599d8",
+      "role": "B25 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/26-arrived-pickup-stopped.jpg",
+      "sha256": "167d3ab1cee5065bcd23a9449328fe19904b3064c126b95915c2af5de42bbbb2",
+      "role": "B26 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/26-arrived-pickup-stopped.json",
+      "sha256": "d336bf1f10bbe2c4eebdc7ba25412224e3b457caa3848d0f852090ddb269e129",
+      "role": "B26 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/27-ui-pickup-service.jpg",
+      "sha256": "c955e7acf2b5261810dc500ac499018e8f79c3aa031a2cc6729cf7a237e03279",
+      "role": "B27 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/27-ui-pickup-service.json",
+      "sha256": "5eb0bfe1b5394272b6d2b181b0bafa0253eeaa2513b34485114c36928df2efd6",
+      "role": "B27 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/28-ready-before-continue.jpg",
+      "sha256": "dc86f8750e228f85b11d1c8f4c732419b830727e5e23471b70d6181ceb7054ab",
+      "role": "B28 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/28-ready-before-continue.json",
+      "sha256": "f1474047ac44be83373fd1af1e23fc675ac9dc2936c177ddabb026b77eda8cbf",
+      "role": "B28 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/29-ready-hold-no-auto-depart.jpg",
+      "sha256": "dc86f8750e228f85b11d1c8f4c732419b830727e5e23471b70d6181ceb7054ab",
+      "role": "B29 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/29-ready-hold-no-auto-depart.json",
+      "sha256": "116a48bbaa92e37cb3d911ed71385022cebd7f5643d4aa2ded9aa7680ddbb9cb",
+      "role": "B29 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/30-ui-continue-delivery-motion.jpg",
+      "sha256": "f60dba52e8cf1b8f2d459e24352035bc7e6cb461e06b8541a8bb43d08ccd5355",
+      "role": "B30 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/30-ui-continue-delivery-motion.json",
+      "sha256": "af5ec3c47f7f0a94307a88ee23ada28d2797dd1ed6371e953af715937137aba4",
+      "role": "B30 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.jpg",
+      "sha256": "fbdb7d60ca5e72e18816533c6562d6b11cd592bf5de7d4d8ce0cad823f03a8e9",
+      "role": "B31 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json",
+      "sha256": "9e955377d5666550a9d0ce36e2399aec1010878d2230dd174be1bf63e8b1001c",
+      "role": "B31 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/32-active-delivery-performance.json",
+      "sha256": "ae37ed939fb8830059b3554583ff4a6bfefce5986b7ece43c4c2927f757cf927",
+      "role": "B32 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/33-user-pan-not-forced-follow.jpg",
+      "sha256": "16f065c4761883eb9ac17556f3da8cf73a195e43621ca4e4ad09257c2445cf31",
+      "role": "B33 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/33-user-pan-not-forced-follow.json",
+      "sha256": "03af5019dad4a8c36d5cbe6d3d1e8ae91e2bf0369367abfafa1da83b530e7e61",
+      "role": "B33 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/34-ui-locate-restores-follow.jpg",
+      "sha256": "fbdb7d60ca5e72e18816533c6562d6b11cd592bf5de7d4d8ce0cad823f03a8e9",
+      "role": "B34 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/34-ui-locate-restores-follow.json",
+      "sha256": "4042b206cd1f7d360d18f31a7566180c2be23f411f36128fae41053ae1e0ae36",
+      "role": "B34 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/35-nonzero-normal-reload.jpg",
+      "sha256": "a4c01831f6c155cff0356e9a3ff5681d5aa3ffbaf88ce4a391853035cc8a37a4",
+      "role": "B35 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/35-nonzero-normal-reload.json",
+      "sha256": "a92e500f2e6ca3270bff22121907c95255e67c4cfb35e6bb60ba776fed8bc627",
+      "role": "B35 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.jpg",
+      "sha256": "c38fa28dcff67c04a3a894e1b5271b21f12f4bf075ce9bf17b703fbf2ad97a54",
+      "role": "B36 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json",
+      "sha256": "746a019a610f5b6f2bc02823ac718eaa542baec2c2a1518b858883daa24c06f3",
+      "role": "B36 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/37-real-supply-menu.jpg",
+      "sha256": "b4734b00e2c6aaa4ecd4bcc8ce1929da6a6abd06e9322f58a49a9ce564f71fd5",
+      "role": "B37 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/37-real-supply-menu.json",
+      "sha256": "98d5f6104b78715e1b4a2e4723760604eff772125be9679cf9302443ef3676b4",
+      "role": "B37 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/38-ui-buy-use-water.jpg",
+      "sha256": "f6fe0bc0068fadbd0b829b7eae9cafefa0bfad3ccf64ab0aaa0bd3ecb9fc98b2",
+      "role": "B38 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/38-ui-buy-use-water.json",
+      "sha256": "fe0fe0c50182371ff39bb441c8f34328d1f030cf5350437649c7d5654e9e37f6",
+      "role": "B38 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/39-water-complete.jpg",
+      "sha256": "61f669ddd16ea1fac94983485748754623bf31a85be1aba31b1d6cff9e4ff13a",
+      "role": "B39 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/39-water-complete.json",
+      "sha256": "2baa2f485adfbd5f82fdaf386631456db3d65240886a13a29fd0339651f99b4c",
+      "role": "B39 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg",
+      "sha256": "db631efc85a4ef504063fbac10fe98e0b87c8cc3abd3b777982c2d4db3745d4a",
+      "role": "B40 original screenshot"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json",
+      "sha256": "eaa8ff00bb42a6ca9205c810da9703744ca9202b164784cd56347bbbbcaa8f51",
+      "role": "B40 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/41-final-observation.json",
+      "sha256": "0af29a1bade2759dfcf8d9659bbf269f30ad88e68cebaf98950a5bed9630d8b4",
+      "role": "B41 original raw record"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/fixed-package-identity.json",
+      "sha256": "954a120a6f7fde8c47441582be35af8a1f876e79c23039512190b4e3d6f4d387",
+      "role": "preserved identity / analysis / closure / RED checkpoint"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/motion-analysis.json",
+      "sha256": "a35d9ad76a809cb23596940e8cfc97f7fd9dbb9871e5698ed3c16eb28eaf0091",
+      "role": "preserved identity / analysis / closure / RED checkpoint"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/browser-close-receipt.json",
+      "sha256": "a2c718e972c8d8924d458654215ba4070394f8894284de5a70dc95e2db7ebf00",
+      "role": "preserved identity / analysis / closure / RED checkpoint"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/14-route-planned.json",
+      "sha256": "b9138aad0e1227b019e5eb1aefe006cc331675df731e744ec071b88ef048904e",
+      "role": "preserved identity / analysis / closure / RED checkpoint"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/19-restored-planned-red.json",
+      "sha256": "5d8e070c485de2ded737379840287bf4bd47c0ab87b6a39aa74b587c2ad3d875",
+      "role": "preserved identity / analysis / closure / RED checkpoint"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/report.md",
+      "sha256": "19484a2b75005d376ce56091b74a913121cfb0df34d6d10a2aaba8880525e5c1",
+      "role": "preserved identity / analysis / closure / RED checkpoint"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/b/test-results.json",
+      "sha256": "91349264496f6d2bd3bfae42ebc78f4c51639dba5bf5e8f943d47e7217edc2ca",
+      "role": "preserved identity / analysis / closure / RED checkpoint"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/planned-iterator-fix-receipt.json",
+      "sha256": "09372b6b4b0d7761b2b65a19dc67ab6b247b5282fcfb686acba32ebeea8e0a90",
+      "role": "existing narrow-fix source/build/review evidence"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/planned-iterator-quality-dd0054.json",
+      "sha256": "7d97c5904bfec7f8151ce3947211d60907f4eda3a15204213af9ed5d635c991d",
+      "role": "existing narrow-fix source/build/review evidence"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/batch-load-red.log",
+      "sha256": "50ff5dd8da00126998a0beea0cd4fd6aa49f9913987837f39dfac46929694c1f",
+      "role": "existing narrow-fix source/build/review evidence"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-product-testing/batch-load-green.log",
+      "sha256": "cb3beadb1e06a8312c01262a92b090c0b53e615263f2d8cefbd7528ccbb6a78b",
+      "role": "existing narrow-fix source/build/review evidence"
+    }
+  ],
+  "remainingUserIssues": {
+    "ledgerPath": "docs/reviews/2026-11-05-game-development/feedback-ledger.json",
+    "ledgerModified": false,
+    "stableUserIssueCount": 40,
+    "formallyClosedCount": 0,
+    "newIssuesClosedByThisSupplement": 0,
+    "items": [
+      {
+        "id": "U01",
+        "title": "配送严重卡顿、接单/取餐后跳站，恢复连续可见的沿路移动",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "built-candidate-motion-unverified",
+        "recommendedStage": "single-order-motion-observed-overall-performance-open",
+        "currentEvidenceMeaning": "B25～31有真实单状态链、画面和100ms投影；B32仅本单active窗rAF。不能再称未走配送，也不能关闭整体卡顿/跳站问题。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.json",
+          "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json",
+          "docs/reviews/2026-11-06-product-testing/b/32-active-delivery-performance.json"
+        ]
+      },
+      {
+        "id": "U02",
+        "title": "配送移动时地图自动跟随骑手",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "built-candidate-motion-unverified",
+        "recommendedStage": "single-order-follow-and-pan-locate-observed-user-acceptance-open",
+        "currentEvidenceMeaning": "115个记录投影follow均true且偏移居中；B33手拖后false、B34定位恢复true。未覆盖真机、多批/全部视角。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json",
+          "docs/reviews/2026-11-06-product-testing/b/33-user-pan-not-forced-follow.json",
+          "docs/reviews/2026-11-06-product-testing/b/34-ui-locate-restores-follow.json"
+        ]
+      },
+      {
+        "id": "U03",
+        "title": "底部菜单图标缺失",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-visible-public-unverified",
+        "recommendedStage": "isolated-assets-visible-public-user-acceptance-open",
+        "currentEvidenceMeaning": "底栏图标在新修复包B21～40多张实际画面可见；正式分享入口由PM核对。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg"
+        ]
+      },
+      {
+        "id": "U04",
+        "title": "骑手页人物图片缺失",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-visible-public-unverified",
+        "recommendedStage": "isolated-rider-images-visible-public-user-acceptance-open",
+        "currentEvidenceMeaning": "B04/B05旧冻结包首末屏肖像实际可见；保留旧包来源，不当成本次新渲染全部骑手页。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U05",
+        "title": "车辆页车辆图片缺失",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-visible-public-unverified",
+        "recommendedStage": "isolated-vehicle-images-visible-public-user-acceptance-open",
+        "currentEvidenceMeaning": "B06/B09旧冻结包车辆主图与宫格实际可见；未做全部车型交互矩阵。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/06-vehicles-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/09-vehicles-select-no-jump.jpg"
+        ]
+      },
+      {
+        "id": "U06",
+        "title": "地图页场景插图缺失",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "existing-ui-private-visible-public-unverified",
+        "recommendedStage": "existing-map-card-images-visible-no-map-production",
+        "currentEvidenceMeaning": "B10仅观察既有产品卡片插图；不属于地图制作/整城验收，不派地图工作。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/10-maps-top.jpg"
+        ]
+      },
+      {
+        "id": "U07",
+        "title": "抢单页菜品图片缺失",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-visible-public-unverified",
+        "recommendedStage": "isolated-food-images-visible-public-user-acceptance-open",
+        "currentEvidenceMeaning": "B12旧冻结包菜图可见；B22新修复包酸辣粉图片/脆弱徽标/2格可见。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+        ]
+      },
+      {
+        "id": "U08",
+        "title": "六页/主要画面与认可效果图一致性目标98%，现版明显不达标",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "blocked-or-partial",
+        "recommendedStage": "full-visual-fidelity-not-accepted",
+        "currentEvidenceMeaning": "本次未执行六页对原始8张认可图的完整视觉验收；98%目标仍未通过。",
+        "evidence": []
+      },
+      {
+        "id": "U09",
+        "title": "开发范围包含游戏逻辑、经济数值与功能，不限UI",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "integrated-built-business-unverified",
+        "recommendedStage": "domain-suite-and-one-real-player-path-evidence-not-full-product-acceptance",
+        "currentEvidenceMeaning": "既有95/95纯V2日志及本次收口的真实单链均保留；不把95个TAP计数当95条完整玩家路径。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json"
+        ]
+      },
+      {
+        "id": "U10",
+        "title": "去掉首页配送状态/天气余单悬浮文字",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-idle-appearance-seen",
+        "recommendedStage": "delivery-ready-finished-screens-recorded-not-user-accepted",
+        "currentEvidenceMeaning": "已有B25～31行驶/取餐/ready/完成画面，可供浮字核对；删除项已实施，不重回旧静态稿；本次不宣称完整布局验收。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/28-ready-before-continue.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.jpg"
+        ]
+      },
+      {
+        "id": "U11",
+        "title": "去掉首页本批收入/补给/净赚/库存悬浮汇总",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-idle-appearance-seen",
+        "recommendedStage": "delivery-ready-finished-screens-recorded-not-user-accepted",
+        "currentEvidenceMeaning": "已有B25～31行驶/取餐/ready/完成画面，可供浮字核对；删除项已实施，不重回旧静态稿；本次不宣称完整布局验收。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/25-ui-depart-motion.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/28-ready-before-continue.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.jpg"
+        ]
+      },
+      {
+        "id": "U12",
+        "title": "删除头像下骑手数量条，改已招募NPC活动卡",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "source-in-candidate-not-deployed-not-verified",
+        "recommendedStage": "implemented-per-handoff-recruited-npc-runtime-not-covered",
+        "currentEvidenceMeaning": "首页NPC活动卡替代数量条已有实现交接；测试只有主角，未验证已招募NPC卡及其持续入账，不重做现有源码。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.json"
+        ]
+      },
+      {
+        "id": "U13",
+        "title": "补给改图标按钮并移至右侧上方",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "source-in-candidate-not-deployed-not-verified",
+        "recommendedStage": "upper-right-supply-entry-and-menu-observed",
+        "currentEvidenceMeaning": "新包右上图标实际可见，B37打开真实补给页、B38购买水；图标入口不再列待实现。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/37-real-supply-menu.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/38-ui-buy-use-water.json"
+        ]
+      },
+      {
+        "id": "U14",
+        "title": "首页任务提示半透明",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "source-in-candidate-not-deployed-not-verified",
+        "recommendedStage": "first-guidance-step-observed-full-sequence-not-covered",
+        "currentEvidenceMeaning": "半透明首辆新车提示已显示；未购买首车/首NPC/首张付费地图，不能补报整条引导通过。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/39-water-complete.jpg"
+        ]
+      },
+      {
+        "id": "U15",
+        "title": "不可换任务，固定引导首车→首NPC→首张付费地图，可忽略",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "source-in-candidate-not-deployed-not-verified",
+        "recommendedStage": "first-guidance-step-observed-full-sequence-not-covered",
+        "currentEvidenceMeaning": "半透明首辆新车提示已显示；未购买首车/首NPC/首张付费地图，不能补报整条引导通过。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/21-fixed-package-continue-same-order.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/39-water-complete.jpg"
+        ]
+      },
+      {
+        "id": "U16",
+        "title": "骑手页按钮点击后保持列表位置",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-scroll-seen-actions-unverified",
+        "recommendedStage": "navigation-scroll-retained-recruit-upgrade-not-covered",
+        "currentEvidenceMeaning": "B05→B07骑手返回偏移2004.7110692767483相同；未做招募/升级后的保位验证。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.json",
+          "docs/reviews/2026-11-06-product-testing/b/07-riders-return-offset.json"
+        ]
+      },
+      {
+        "id": "U17",
+        "title": "车辆页按钮/车型选择后保持宫格滚动位置",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "source-in-candidate-not-deployed-not-verified",
+        "recommendedStage": "vehicle-selection-scroll-retained-purchase-not-covered",
+        "currentEvidenceMeaning": "B08→B09选择晨光后偏移252.30122761506283相同；未购买/升级，不外推所有按钮。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/08-vehicles-scrolled.json",
+          "docs/reviews/2026-11-06-product-testing/b/09-vehicles-select-no-jump.json"
+        ]
+      },
+      {
+        "id": "U18",
+        "title": "去掉账单底部重新开始按钮",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "source-in-candidate-not-deployed-not-verified",
+        "recommendedStage": "visible-no-restart-and-natural-save-continuity-observed",
+        "currentEvidenceMeaning": "B11/B40所查账单无重开入口，B20继续唯一进度及B35/36非零续档成立；不宣称所有入口/坏档/未来版本浏览器矩阵。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/20-fixed-package-normal-reload.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json",
+          "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg"
+        ]
+      },
+      {
+        "id": "U19",
+        "title": "不允许玩家重新开始/清档重开",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "source-in-candidate-not-deployed-not-verified",
+        "recommendedStage": "visible-no-restart-and-natural-save-continuity-observed",
+        "currentEvidenceMeaning": "B11/B40所查账单无重开入口，B20继续唯一进度及B35/36非零续档成立；不宣称所有入口/坏档/未来版本浏览器矩阵。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/20-fixed-package-normal-reload.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json",
+          "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg"
+        ]
+      },
+      {
+        "id": "U20",
+        "title": "抢单圆盘关闭×视觉居中",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-screenshot-awaiting-visual-acceptance",
+        "recommendedStage": "close-glyph-implemented-visual-acceptance-open",
+        "currentEvidenceMeaning": "实际B12/B22圆盘关闭×画面已留；不以本次证据整理代替用户视觉验收。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+        ]
+      },
+      {
+        "id": "U21",
+        "title": "车辆顶部预览改为场景+选中车辆的沉浸式画面",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "integrated-built-private-model3-visible",
+        "recommendedStage": "native-vehicle-scene-and-two-models-visible-matrix-open",
+        "currentEvidenceMeaning": "B06满载和B09晨光的独立产品场景/车型联动已有画面；不重生图，不裁地图；未覆盖10车型/hover/购买矩阵。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/06-vehicles-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/09-vehicles-select-no-jump.jpg"
+        ]
+      },
+      {
+        "id": "U22",
+        "title": "普通订单全为20金币，核查并补齐订单报价差异",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "integrated-built-pricing-business-unverified",
+        "recommendedStage": "pricing-implemented-protected-first-order-observed-balance-open",
+        "currentEvidenceMeaning": "当前第一单20金币是保护期合同，B40真实结算2000分；不把保护单同价报成新故障。第15单及报价/成长平衡由A/PM现有数值工作继续。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json",
+          "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json"
+        ]
+      },
+      {
+        "id": "U23",
+        "title": "骑手页我改主角",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "deployed-observed-not-user-accepted",
+        "recommendedStage": "rider-layout-implemented-visible-user-acceptance-open",
+        "currentEvidenceMeaning": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U24",
+        "title": "等级缩小并紧邻角色姓名",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "deployed-observed-not-user-accepted",
+        "recommendedStage": "rider-layout-implemented-visible-user-acceptance-open",
+        "currentEvidenceMeaning": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U25",
+        "title": "未招募标记移到肖像下",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "deployed-observed-not-user-accepted",
+        "recommendedStage": "rider-layout-implemented-visible-user-acceptance-open",
+        "currentEvidenceMeaning": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U26",
+        "title": "收益文案去基础二字",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "deployed-observed-not-user-accepted",
+        "recommendedStage": "rider-layout-implemented-visible-user-acceptance-open",
+        "currentEvidenceMeaning": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U27",
+        "title": "作业耗时100%改为易懂的取送省时表达",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "deployed-observed-not-user-accepted",
+        "recommendedStage": "rider-layout-implemented-visible-user-acceptance-open",
+        "currentEvidenceMeaning": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U28",
+        "title": "未招募NPC也展示统一收益和省时信息",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "deployed-observed-not-user-accepted",
+        "recommendedStage": "rider-layout-implemented-visible-user-acceptance-open",
+        "currentEvidenceMeaning": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U29",
+        "title": "招募按钮只写招募，价格独立置于信息卡",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "deployed-observed-not-user-accepted",
+        "recommendedStage": "rider-layout-implemented-visible-user-acceptance-open",
+        "currentEvidenceMeaning": "主角、小等级靠姓名、肖像下未招募、收入加成/取送省时、外置价格与纯招募按钮已在B04/B05真实旧冻结包画面；不再整套held等静态稿，U30单独保留。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U30",
+        "title": "一万以上万单位/易读金额，内部精确数值不改",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "static-proposal-awaiting-user-confirmation",
+        "recommendedStage": "held-user-rounding-rule",
+        "currentEvidenceMeaning": "39,140→4万、42,170→4.5万、3,080,000→308万未形成统一普通四舍五入规则；仅金额展示held，不改精确扣款，不阻塞已实施骑手排版。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/05-riders-bottom.jpg"
+        ]
+      },
+      {
+        "id": "U31",
+        "title": "删除骑手/车辆/地图/账单顶部页面标题",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-visible-public-unverified",
+        "recommendedStage": "four-management-page-titles-removed-visible-user-acceptance-open",
+        "currentEvidenceMeaning": "B04/B06/B10/B11四管理页顶部大标题已删；订单大厅标题不是本条四页删除目标。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/04-riders-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/06-vehicles-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/10-maps-top.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/11-bills-no-restart.jpg"
+        ]
+      },
+      {
+        "id": "U32",
+        "title": "删除订单取送地址末端定位针图标",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-first-screen-visible",
+        "recommendedStage": "address-end-pins-removed-observed",
+        "currentEvidenceMeaning": "B12/B22地址末端未见旧定位针；取/送前缀徽标保留。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+        ]
+      },
+      {
+        "id": "U33",
+        "title": "订单重量紧跟餐品名称",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-first-screen-visible",
+        "recommendedStage": "current-slots-next-to-food-observed-historical-kg-contracts-preserved",
+        "currentEvidenceMeaning": "B22酸辣粉2格紧跟餐名，B40新签合同/订单均slots-v1占2格。旧ledger仍写当前KG为历史陈旧状态；不修改旧kg已签合同。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json",
+          "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json"
+        ]
+      },
+      {
+        "id": "U34",
+        "title": "订单金额移除金币图片，改数字前货币符号",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-first-screen-visible",
+        "recommendedStage": "order-currency-text-observed",
+        "currentEvidenceMeaning": "B12报价和B22订单报价使用¥文本；本条不删除页面全局HUD的其他图标，不改变金币单位计算。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+        ]
+      },
+      {
+        "id": "U35",
+        "title": "订单时间图标与描述垂直居中",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "private-screenshot-awaiting-visual-acceptance",
+        "recommendedStage": "clock-row-screenshot-available-visual-acceptance-open",
+        "currentEvidenceMeaning": "B12/B22有实际图标和时间行；没有测量/用户验收，不主观关闭对齐问题。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg",
+          "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.jpg"
+        ]
+      },
+      {
+        "id": "U36",
+        "title": "明确顶部高价专送候选是否占位/实际可接状态",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "external-sdk-blocked-private-copy-seen",
+        "recommendedStage": "real-ad-sdk-unconnected",
+        "currentEvidenceMeaning": "B12真实高价专送133及广告未接入提示可见；未执行广告/自动权益，不伪造成功。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.json",
+          "docs/reviews/2026-11-06-product-testing/b/12-orders-lobby.jpg"
+        ]
+      },
+      {
+        "id": "U37",
+        "title": "地图未购买文案改未解锁",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "existing-ui-private-visible-public-unverified",
+        "recommendedStage": "existing-card-unlocked-wording-observed",
+        "currentEvidenceMeaning": "B10卡片显示未解锁；仅文案，不新增购买资格锁，不涉及地图制作。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/10-maps-top.json",
+          "docs/reviews/2026-11-06-product-testing/b/10-maps-top.jpg"
+        ]
+      },
+      {
+        "id": "U38",
+        "title": "账单每笔金额前金币图标全部去掉",
+        "priority": "P1",
+        "closed": false,
+        "priorLedgerStageHistorical": "source-implemented-runtime-unverified",
+        "recommendedStage": "nonzero-income-bill-without-coin-image-observed",
+        "currentEvidenceMeaning": "B40已在新包非零收入20和累计收入20实际画面验证去币图；不再保留纯源码未画面核对的旧状态。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json",
+          "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.jpg"
+        ]
+      },
+      {
+        "id": "U39",
+        "title": "重做/优化经济数值与车辆、骑手升级价值，前段过于便宜且回报失衡",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "stage-handed-back-part1-pass-joint-review-pending",
+        "recommendedStage": "current-parameters-tested-balance-not-accepted",
+        "currentEvidenceMeaning": "参数/95TAP和单次20金币不是20/60分钟长期平衡；A当前策略模型及PM候选另行收口，本任务不改参数。",
+        "evidence": []
+      },
+      {
+        "id": "U40",
+        "title": "KG承载改背包式整数容量：初始2，餐品占1或2",
+        "priority": "P0",
+        "closed": false,
+        "priorLedgerStageHistorical": "stage-handed-back-part1-pass-joint-review-pending",
+        "recommendedStage": "two-slot-real-contract-delivery-and-reload-observed-full-matrix-open",
+        "currentEvidenceMeaning": "真实2/2格接单、合同、配送/清批、非零续档已覆盖；实际产物4/4含历史kg/混单位拒绝是既有回归，不冒称本次全浏览器NPC/多单兼容矩阵。",
+        "evidence": [
+          "docs/reviews/2026-11-06-product-testing/b/22-fixed-package-planned-route.json",
+          "docs/reviews/2026-11-06-product-testing/b/31-auto-delivered-finished.json",
+          "docs/reviews/2026-11-06-product-testing/b/36-nonzero-progress-restored.json",
+          "docs/reviews/2026-11-06-product-testing/b/40-bills-earned-and-supply.json"
+        ]
+      }
+    ]
+  },
+  "publishGateRecommendation": {
+    "recommendation": "ADMIT_B_EXISTING_EVIDENCE_FOR_EXACT_ITERATOR_FIX_THEN_PM_VERIFY_PREVIEW_IDENTITY",
+    "boundedBFollowupGate": "PASS_WITHIN_RECORDED_SCOPE",
+    "deploymentPerformedByB": false,
+    "public4182or4196CurrentlyReverifiedByB": false,
+    "lastKnownOnly": {
+      "4182": "v2-tick-follow-1106",
+      "4196": "v2-tick-follow-1106",
+      "4198": "v2-loadmap-fix-1106"
+    },
+    "exactCandidateMainSHA256": "fbd0ca86721c9f67e50a94be4c6b3c5db3cf1f26f8f27ded8db9415ab2166a4d",
+    "pmNextActions": [
+      "接收B20..41作为原RED修复后的补充证据，并按范围更新用户清单；不重做已过整单。",
+      "由PM现场核正式试玩服务root/实际包身份；确认是否将原试玩端口更新为已测v2-loadmap-fix-1106。",
+      "若PM发布，读回index.html与实际执行main SHA并登记服务收据；保留真实用户唯一档，不以测试档注入制造连续性。",
+      "把U01整体/98%/广告SDK/数值平衡和未覆盖矩阵继续列为未验收，不把本窄修复误记全产品完成。"
+    ],
+    "noAdditionalBGameTestUntilPMConcreteDispatch": true,
+    "fullU01Passed": false,
+    "fullProductAccepted": false,
+    "fidelity98Accepted": false
+  },
+  "existingSupportingRegression": {
+    "scope": "Raw existing logs re-read and SHA verified; no new gameplay/unit/typecheck execution in this supplement.",
+    "logs": {
+      "batch-load-red.log": {
+        "path": "docs/reviews/2026-11-06-product-testing/batch-load-red.log",
+        "sha256": "50ff5dd8da00126998a0beea0cd4fd6aa49f9913987837f39dfac46929694c1f",
+        "recordedTotals": {
+          "tests": 4,
+          "pass": 1,
+          "fail": 3,
+          "skipped": 0
+        },
+        "rerunDuringSupplement": false
+      },
+      "batch-load-green.log": {
+        "path": "docs/reviews/2026-11-06-product-testing/batch-load-green.log",
+        "sha256": "cb3beadb1e06a8312c01262a92b090c0b53e615263f2d8cefbd7528ccbb6a78b",
+        "recordedTotals": {
+          "tests": 4,
+          "pass": 4,
+          "fail": 0,
+          "skipped": 0
+        },
+        "rerunDuringSupplement": false
+      },
+      "a/v2-suite-final-complete.log": {
+        "path": "docs/reviews/2026-11-06-product-testing/a/v2-suite-final-complete.log",
+        "sha256": "cd2c17f638cef696ed1191e4a42da679d98c068950e20e576089475630d9ecb5",
+        "recordedTotals": {
+          "tests": 95,
+          "pass": 95,
+          "fail": 0,
+          "skipped": 0
+        },
+        "rerunDuringSupplement": false
+      }
+    },
+    "narrowQualityReviewPassed": true,
+    "narrowQualityReviewPath": "docs/reviews/2026-11-06-product-testing/planned-iterator-quality-dd0054.json"
+  },
+  "integrity": {
+    "protectedArtifactCount": 224,
+    "protectedMismatches": [],
+    "originalBFileCount": 89,
+    "verifiedCaptureSHA256Count": 37,
+    "postFixCaptureCount": 20,
+    "postFixRecordsRead": 22,
+    "all20PostFixCapturesVisuallyInspected": true,
+    "additionalHistoricalCapturesVisuallyInspected": [
+      "04-riders-top.jpg",
+      "05-riders-bottom.jpg",
+      "06-vehicles-top.jpg",
+      "09-vehicles-select-no-jump.jpg",
+      "10-maps-top.jpg",
+      "11-bills-no-restart.jpg",
+      "12-orders-lobby.jpg",
+      "13-one-order-selected.jpg"
+    ],
+    "auditPath": "docs/reviews/2026-11-06-product-testing/b/codex-handoff/evidence-audit.json",
+    "originalManifestPath": "docs/reviews/2026-11-06-product-testing/b/codex-handoff/original-evidence-manifest.json",
+    "verificationCommand": "python3 docs/reviews/2026-11-06-product-testing/b/codex-handoff/verify-existing-evidence.py",
+    "verificationExitCode": 0
+  },
+  "authorshipAndScope": {
+    "originalJSONAndImagesUnmodified": true,
+    "oldREDFilesUnmodified": true,
+    "productionTSResourcesManifestsPricesUnmodified": true,
+    "mapUnmodified": true,
+    "buildsAndServicesUnmodified": true,
+    "noNewAgentOrNestedCLI": true,
+    "noCommitPushCleanOrWorktree": true,
+    "writeSet": "docs/reviews/2026-11-06-product-testing/b/codex-handoff/",
+    "returnPermissionLeaseToParent": true
+  }
+}

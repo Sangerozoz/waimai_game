@@ -1,0 +1,53 @@
+{
+  "reviewer": "thr_29f6fcihz6",
+  "scope": "final static HTTP explicit previous-build fallback + real TinyPNG WEB image packaging; transfer path prior PASS retained in archive",
+  "files": [
+    {
+      "path": "delivery-game/scripts/serve-web.py",
+      "sha256": "415742855bedf571ebee8c0b0fc6ed441679f141c8e7cc873181c246e6b6ea5e"
+    },
+    {
+      "path": "delivery-game/scripts/serve-web.sh",
+      "sha256": "d7a9a1978a32eb6ce1f0a63ebd67fc4ef5b7cea17cf510ce785f5cac662fb2af"
+    },
+    {
+      "path": "delivery-game/scripts/optimize-web-package.py",
+      "sha256": "f9eed1b54453d80b30a003c285354466a3bccdf5b73da06701e3c3cb58b8b0da"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/test_web_transport.py",
+      "sha256": "f81a7ebd5cd7525b481b74b5ce6540831a8bfa8759be62b2a257795d4ca51145"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/check-package.py",
+      "sha256": "654f93f5dfa042044815dd3cd0b395ffb68c918fe26a135eb4c883024f83660d"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/fallback-red.log",
+      "sha256": "0f3e913f17c6f877d68ba7d93a6f43bd637b8399dfdec748d839cb8d3e8a6f7a"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/fallback-green.log",
+      "sha256": "916154e729b06186f4c53c55b8c8b1d8718e8eae9665b333901e9065701013ed"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/fallback-red-receipt.json",
+      "sha256": "e81458dc0984d9de19eeabf008b75a3c014330afb5248547b3b82669ee57cd82"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-package-startup/fallback-green-receipt.json",
+      "sha256": "6b87fd26d9af74782e86924a071e3260aab63513dbe7487652dbd0a516c150d3"
+    }
+  ],
+  "changesSincePriorReview": [
+    "one explicit previous-build root, current files win, both roots and sidecars bounded, preserves old content-addressed assets for cached tabs",
+    "real provider is TinyPNG ordinary desktop public website; no API key/account/charge; native format/dimensions preserved and native versions/bundle boot chain updated",
+    "actual complete provider receipt still required before image packaging; no partial image claim"
+  ],
+  "tests": {
+    "HTTPFallbackRED": "11pass/2fail onold-resource404 andfallbacksymlink boundary",
+    "HTTPFallbackGREEN": "13/13"
+  },
+  "pending": "website batches are currently compressing/downloading; final receipt/quality/package cold gate will be added separately; do not claim image success from partial counters",
+  "protectedSourceCount": 761
+}

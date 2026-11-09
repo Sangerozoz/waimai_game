@@ -1,0 +1,34 @@
+{
+  "task": "PRODUCT-ETA-APPEARANCE-1106",
+  "url": "http://127.0.0.1:4195/?v2=1&rev=eta-1106",
+  "terminal": "term_3gtq2gkhwu",
+  "browser": "49d78d62-d8a8-4a31-bd0d-0d0278362426",
+  "viewport": {
+    "width": 470,
+    "height": 837
+  },
+  "httpStatus": 200,
+  "servedIndexSHA": "ea35baaa5a7480dc57466b8be03cc7ba1828174f0bf542ea56d4c1c94bd10f7e",
+  "buildIndexSHA": "ea35baaa5a7480dc57466b8be03cc7ba1828174f0bf542ea56d4c1c94bd10f7e",
+  "servedIndexMatchesBuild": true,
+  "screenshot": "docs/reviews/2026-11-05-game-development/integration/visual-product-eta-1106/entry-before-first-start.jpg",
+  "screenshotSHA": "39ecbb96e5d9b286f0bb8a595ec7296476c26a07bad06ca1a3c79da6acf00854",
+  "observed": "Cocos入口已实际渲染：晴川骑手、肖像、橙色开始游戏按钮、仅一份当前进度说明；尚未开始游戏。",
+  "notObserved": [
+    "首页/车辆/账单等游戏页的新边框",
+    "planned活动批次的逐单ETA/长文本/滚动",
+    "真实报价、取送、保存恢复或性能行为"
+  ],
+  "actions": [
+    "set 470x837 viewport",
+    "navigate own isolated port4195",
+    "capture current entry screen"
+  ],
+  "noStartClick": true,
+  "noBusinessCommands": true,
+  "noInjectedSave": true,
+  "noUserSaveReadOrWrite": true,
+  "originalPreview4182Unchanged": true,
+  "scope": "entry appearance/readiness only, not gameplay or feature validation",
+  "toolDiagnostic": "DevBrowser has no p.waitForTimeout; navigation had succeeded, then a fresh bounded capture was taken. No repeated click."
+}

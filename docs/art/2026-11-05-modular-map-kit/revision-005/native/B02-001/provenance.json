@@ -1,0 +1,69 @@
+{
+  "status": "candidate_only_not_accepted_not_runtime_integrated",
+  "tool": "built-in image_gen",
+  "generation_calls": 1,
+  "original_tool_output_absolute_path": "/Users/sanger/.codex/generated_images/01a1ac14-8d11-75e3-9228-039b882e681a/exec-e1c98251-0ff5-493f-a0fb-7ce13de7f019.png",
+  "saved_native_absolute_path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/native/B02-001/B02-v1.png",
+  "full_exact_prompt": "Create exactly ONE new native game-sprite PNG for B02 terraced office. Exactly one isolated building, not a sheet or multiple variants. Request 1536x1536, true transparent RGBA PNG outside the building.\nIMAGE ROLES, in order: (1) B02-geometry.png = hard geometry/camera and footprint/roof constraints ONLY, NOT final art. (2) B02-appearance.png = identity/material source ONLY, ignore its old camera and all context. (3) user original 2026-11-03-user-building-variety.png = painting/material/diversity style ONLY, never copy its roads/layout/camera.\nOrthographic source-road projection, elevation 62.5 deg / azimuth 45 deg; use exact drawn guide, NOT generic 30-degree isometric. Frontage edges screen -28.486362689 deg, depth edges +55.405984491 deg. All wall verticals exactly screen-vertical. Ground corners A,B,C,D are ordered rear-left, rear-right, front-right, front-left; road-facing long side is D-C. Preserve guide chirality, corner relationships and roof massing. No mirror, rotation, shear, warp or editing old sprite pixels. Geometry annotations are proxy labels to OMIT, never reproduce letters, points, colored lines, dashed lines, anchor marks or captions. Do not copy the flat proxy shading.\nCANDIDATE ARCHITECTURE (PM dimensions, not surveyed source): A genuine three-tier terraced glass office, not a single cuboid. Full 10x7 base reaches z=4.6; middle tier is inset along both ends and especially the road-facing edge and reaches z=9.2; upper tier recedes again and reaches z=13.3; small service core alone reaches total z=14. Keep the terraces open and clearly separated, with parapets but no planted trees. No B01 shop fascia.\nSOURCE IDENTITY: Selected TR-22 terraced office: blue-green horizontal glazing bands, pale stone/white framing, clearly receding upper storeys, compact rooftop service core. Source terrace greenery is context, not permission for rooftop trees.\nFINISH: neutral-daylight thick-painted Japanese/anime contemporary urban sprite, restrained clear edges and believable stone, glass and roofing. Soft daylight from the upper-left, light roof/parapet highlights, restrained neutral facade shading, small rooftop shadows falling broadly away toward the lower-right. This is visual guidance, not a measured light vector; no yellow wash or glowing windows.\nWhole single building fully inside frame with clear safe margin. No opaque backdrop, checkerboard pixels, floor plane, ground patch or baked broad ground shadow. No text, labels, guide marks, roads, sidewalks, trees, people, vehicles, neighboring buildings, logos, UI, sculpture or rooftop trees. Do not paste/enlarge the crop as final art. Native original is an archived mother image; the parent will separately derive a runtime resource with max long edge 280 pixels. Do not resize to 280 here. Exactly one native output.",
+  "tool_arguments": {
+    "referenced_image_paths": [
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B02-geometry.png",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B02-appearance.png",
+      "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png"
+    ],
+    "transparent_background": true
+  },
+  "references": [
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B02-geometry.png",
+      "sha256": "3eabbddd5d042283e146bfba4d0d5525cfcd7e6fb7ace405f20a807a015c7ae8",
+      "role": "geometry/camera only"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-05-modular-map-kit/revision-005/references/B02-appearance.png",
+      "sha256": "a5d213247aee19b48c1cf69a0f75d5908ec8a9561fd0b2c86b7449d58e008b70",
+      "role": "identity/material only"
+    },
+    {
+      "path": "/Users/sanger/Documents/ChatGPT/taptap 2/docs/art/2026-11-03-whole-region-map/references/2026-11-03-user-building-variety.png",
+      "sha256": "de5d9bb9bc89fe28af93b29536368e90478beb044e545c649d6b10ee51a7fdb8",
+      "role": "painting/material/diversity style only"
+    }
+  ],
+  "requested_size": [
+    1536,
+    1536
+  ],
+  "actual_image": {
+    "format": "PNG",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "has_alpha": true,
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixel_count": 935347,
+    "partially_transparent_pixel_count": 636923,
+    "alpha_bbox": [
+      0,
+      23,
+      1220,
+      1210
+    ]
+  },
+  "source_sha256": "610aa9d23cf6dee6f6a06e7299eed3c159e75100a9357fb8da73659936a40fcb",
+  "copy_sha256": "610aa9d23cf6dee6f6a06e7299eed3c159e75100a9357fb8da73659936a40fcb",
+  "source_copy_sha_match": true,
+  "native_pixels_modified": false,
+  "runtime_resource_created": false,
+  "runtime_max_long_edge": 280,
+  "visual_notes": [
+    "Three terraced tiers and rooftop service core present.",
+    "Visible pale/colored edge fringe and scattered exterior pixels remain in native output; no cleanup performed.",
+    "Exact geometric alignment and acceptance are not certified."
+  ]
+}

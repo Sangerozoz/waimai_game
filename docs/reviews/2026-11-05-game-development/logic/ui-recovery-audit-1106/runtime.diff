@@ -1,0 +1,83 @@
+--- delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
++++ delivery-game/assets/scripts/map-sample/V2RuntimeController.ts
+@@ -39,6 +39,27 @@
+     private committed: string | null = null;
+     private publishedAtSeconds = -Infinity;
+     private static readonly DRIVE_INTERVAL_SECONDS = 1 / 30;
++    private readonly diagnosedErrors = new WeakSet<object>();
++    private lastDiagnosticKey = '';
++    /** Bounded code-location diagnostics only; never log commands, snapshots or storage. */
++    private recordRuntimeError(error: unknown, stage: string): void {
++        this.lastError = String(error);
++        try {
++            if (error !== null && (typeof error === 'object' || typeof error === 'function')) {
++                if (this.diagnosedErrors.has(error)) return;
++                this.diagnosedErrors.add(error);
++            }
++            const frames = error instanceof Error && typeof error.stack === 'string'
++                ? error.stack.split('\n').filter(line => /^\s*at\s/.test(line)).slice(0, 8)
++                    .map(line => line.replace(/[?#][^\s)]*/g, '[redacted]').slice(0, 240)) : [];
++            const errorType = error instanceof TypeError ? 'TypeError' : error instanceof RangeError ? 'RangeError' : error instanceof Error ? 'Error' : 'ThrownValue';
++            const diagnostic = { stage, errorType, frames }, key = JSON.stringify(diagnostic);
++            if (key !== this.lastDiagnosticKey) {
++                this.lastDiagnosticKey = key;
++                console.error('[V2 runtime failure]', diagnostic);
++            }
++        } catch { /* Diagnostics must not replace the original transaction failure. */ }
++    }
+     private dayKey(nowMs:number):string {
+         const d=new Date(nowMs);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+     }
+@@ -100,23 +121,31 @@
+     }
+     private mutate<T>(action: (session: V2GameSession, nowSeconds:number) => T, synchronizeClock = true): T {
+         if (!this.ready || !this.ports || !this.live || !this.store || this.committed === null) throw new Error(this.lastError || 'V2尚未就绪或保存已停止');
++        let stage = 'transaction.restore';
+         try {
+             const candidate = V2GameSession.restore(this.ports.city, this.committed!, { preserveClock: true });
+             candidate.dispatch.setLedgerDayKeyResolver(atMs=>this.dayKey(atMs));
+             // Account for elapsed operating time with the pre-command assets/quota.
+             // In particular, a completion must not replenish quota retroactively.
++            stage = 'transaction.clock-context';
+             const nowSeconds=this.ports.nowSeconds();
+             candidate.dispatch.setLedgerContext({nowMs:Math.round(nowSeconds*1000),dayKey:this.dayKey(Math.round(nowSeconds*1000))});
++            stage = 'transaction.sync-tick';
+             if (synchronizeClock) candidate.tick(++this.frame, nowSeconds, this.foreground, this.paused);
++            stage = 'transaction.action';
+             const result = action(candidate,nowSeconds);
++            stage = 'transaction.serialize';
+             const serialized = candidate.serialize();
++            stage = 'transaction.validate';
+             V2GameSession.restore(this.ports.city, serialized, { preserveClock: true });
++            stage = 'transaction.commit';
+             if (serialized !== this.committed) this.store.commit(serialized);
+             // Publish and update the cache only after validation and durable commit.
+             this.committed = serialized; this.publishedAtSeconds = nowSeconds;
+             this.live = candidate;
++            this.lastError = '';
+             return result;
+-        } catch (error) { this.lastError = String(error); throw error; }
++        } catch (error) { this.recordRuntimeError(error, stage); throw error; }
+     }
+     get tripState() { return this.live?.tripState || null; }
+     supplyOptions() { return this.live?.supplyOptions() || []; }
+@@ -189,6 +218,7 @@
+     update(_delta: number): void { this.drive(); }
+     private drive(force = false): void {
+         if (!this.enableV2 || !this.live || !this.ports || this.destroyed) return;
++        let stage = 'drive.clock';
+         try {
+             const nowSeconds = this.ports.nowSeconds();
+             // Coalesce render callbacks, not elapsed time. Commands and lifecycle edges
+@@ -196,9 +226,10 @@
+             // A clock rollback must reach domain validation/rebasing instead of stalling.
+             if (!force && nowSeconds >= this.publishedAtSeconds &&
+                 nowSeconds - this.publishedAtSeconds < V2RuntimeController.DRIVE_INTERVAL_SECONDS) return;
++            stage = 'drive.tick';
+             this.mutate((session,nowSeconds) => session.tick(++this.frame, nowSeconds, this.foreground, this.paused), false);
+         }
+-        catch (error) { this.lastError = String(error); }
++        catch (error) { this.recordRuntimeError(error, stage); }
+     }
+     private onHide(): void { this.foreground = false; this.drive(true); }
+     private onShow(): void { this.foreground = true; this.drive(true); }

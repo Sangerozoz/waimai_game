@@ -1,0 +1,87 @@
+{
+  "task": "SLOTS-STAGE-QUALITY-1106-PART2",
+  "passed": false,
+  "security_concerns": [],
+  "logic_errors": [
+    {
+      "id": "SLOTS-P2-RESERVATION-01",
+      "severity": "P2",
+      "classification": "inherited-in-scope-restoration-gap",
+      "locations": [
+        "domain/V2FleetSession.ts:48-68",
+        "domain/V2DispatchSession.ts:158-188",
+        "map-sample/V2GameSession.ts:143-177"
+      ],
+      "trigger": "取一个主角无活批、npc-1仍有车辆B在途批的合法组合。只令经济状态的主角当前车辆为B、npc-1未来车辆为null，并保持Fleet内经济镜像一致；不改合同、金额、等级、dueMs、paidCount或账本。当前分配仍唯一；NPC旧合同允许车主未来卸车，因此经济校验通过。Fleet只检查各NPC批之间车辆唯一，没有检查旧批车辆是否被其他rider或主角占用；Dispatch/Game也没有补此交叉门禁，组合恢复可通过。",
+      "consequence": "恢复后，主角接一条正常可接候选时，Game/Dispatch/Economy接单路径没有再拒绝NPC保留中的车辆B，最终验证和发布仍可通过，造成主角与NPC在途批同时使用同车。这是恢复一致性缺口，不是要求对任意离线改档提供密码认证，也不表示现场存档已出现该组合。",
+      "guardEvidence": "正常assignVehicle在domain/V2EconomySession.ts:250明确禁止取得其他NPC旧批保留的车；恢复路径缺少同等约束。原live Fleet.validate也缺此检查，故不归因为本次新增回归。",
+      "minimalFix": "在Fleet.validate对每个在途batch增加跨owner保留检查：其vehicleId不得分配给其他rider/主角，也不得被主角activeQuotes使用。允许原rider将未来车辆设为其他空闲车或null；不要清批、改dueMs、重价或重置存档。"
+    }
+  ],
+  "suggestions": [
+    {
+      "id": "SLOTS-P2-PERF-01",
+      "classification": "new-hot-path-cost-unprofiled",
+      "locations": [
+        "map-sample/V2GameSession.ts:30-38,137",
+        "domain/V2DispatchSession.ts:56,62",
+        "map-sample/V2RuntimeController.ts:163-167"
+      ],
+      "detail": "移动tick现在经effects→deliveryEffects读取完整Dispatch.snapshot，新增整组经济/Fleet/历史订单的序列化复制；Runtime新effects读取还先复制economyState。返回标量不等于轻量读取。",
+      "recommendation": "由已验证的Dispatch/Economy提供脱离内态的冻结效果/当前资产标量投影，供Game和Runtime复用，避免为效果读取完整聚合快照。保留完整恢复和发布验证，不缩小时间步。这里只确认源码成本，未测耗时或FPS，不把它认定为现场卡顿根因。"
+    }
+  ],
+  "sourceHashes": {
+    "algorithm": "SHA-256",
+    "stageRoot": "docs/reviews/2026-11-05-game-development/economy/slots-economy-stage-1106/assets/scripts",
+    "primary": {
+      "domain/V2RiderEconomy.ts": {
+        "candidate": "4137d82c7fd7e31b46428572aef86b43718a196ebeb9a65b60240965c40b3ba1",
+        "liveBaseline": "860562efbdac8bdbc32ac5c79d0d8f77e405937dac7095b041ad9d138f8624e9"
+      },
+      "domain/V2FleetSession.ts": {
+        "candidate": "1f6a3ba97d5c86af8a57745b329dbcc8954648429f5838e7de8560656aaf1389",
+        "liveBaseline": "70cc8e526d4bb518716f50006941eab9b49e1647db1f56f9e1309040ef42e3a6"
+      },
+      "domain/V2DispatchSession.ts": {
+        "candidate": "c9c12118d868b15fc85d7778f706ec7f75d858fa600dc928fb26ed89ccfd49f8",
+        "liveBaseline": "40c79d5443c35f2e6b3bba69fac129f07106d8d25ee76a6e27b7fde514d3fe0f"
+      },
+      "map-sample/V2RouteSession.ts": {
+        "candidate": "1f76ac0a65015b3fe67891752d696b262e84534ec24ba0613c154d3e345e2031",
+        "liveBaseline": "a4af56bfbd972bebe0fe8dd48ea17cc2aab1a1d8b122241bb9b76ebe9e3780ff"
+      },
+      "map-sample/V2GameSession.ts": {
+        "candidate": "7f9da175febc72ce0589c270ca5a4ad5f79791a452217b10e9eb26424d301027",
+        "liveBaseline": "8a96a5b5e2d4b5d5e72980757c58ae3c1aa07a7020e53c6834ad9250bb472ca6"
+      },
+      "map-sample/V2RuntimeController.ts": {
+        "candidate": "50444cd5dd9f6cc7d219b12dbadfdde51505b410a8b547fcd99c56c5f159b6bf",
+        "liveBaseline": "a5c19c46b89ca85e42595657fef35de7430b06b524001beb81a4c822aaeef302"
+      }
+    },
+    "sharedPart1": {
+      "domain/V2EconomySession.ts": "84588c30074d37aeb0ad05ca3fa605e61ac3ba884932ec359fd3b2dddfeef785",
+      "domain/V2SlotEconomyConfig.ts": "9bdc95b34e7dcc2568b5d9fc954447ea49290bfc3c5b45b6e9e10d823b142161",
+      "domain/V2EconomyProfiles.ts": "9d0a2dd77315bf393ecd59dea28e24290ab75f537bf5e8102c90e083686581af",
+      "domain/V2LoadRules.ts": "447cd3183ec93c1e25a3cab09c680bd81050aadc77cd99e1ce5581b8b33f9644"
+    },
+    "manifest": "fc850a1498894f70e77b3ff4e5b010c2b249d8b7a6f60adeaa1fb23e5db11c29",
+    "sourceDiff": "bb741b346e452a91c57e8cf0ff35038adf5af6ad33fab7a82eae716ecebf10d1",
+    "parameters": "1bd6db1c573e3b48ee7bef0b0be20bceeae290cfe2d6d05b0cd72f2e5f99fd91",
+    "motionConsumerUI": "240bb6bc07de7add31482e1cd330a886e46e705695a01f1a7cdbab0b45bf4c46",
+    "sixPrimaryExactDiffReconstruction": true,
+    "initialClosingPrimaryAndBaselinesMatch": true,
+    "manifestReadonlyDependenciesMatch": true,
+    "drift": [],
+    "appliedToLive": false
+  },
+  "limits": [
+    "六份primary均完整静态审阅并精确内存重建差分；Rider仅增加具名转导出，旧实现保留。90个相对命名导入/转导出在真实overlay中可解析；不是编译证明。PART1原PASS保留，未重审参数门禁。",
+    "已追sourceOfferId/ordinal、端点及稳定load、有限候选和耗尽退出、预览到冻结与逐单结算、版本配对及旧kg推广。原Fleet.advanceTo、Dispatch事件时钟/归日、ETA主体及Runtime事务/30Hz主体文本保持；未发现新增随机draw或getter存储读取。",
+    "UI仅检查运动消费接缝：逐帧routeMotion先于0.5秒HUD；tripId/phase/cursor用于切批切段，路线替换保留视图/跟随。该读取链不克隆完整Route；不替代复审B的UI门禁。",
+    "U01仍未结案：新增效果读取成本见建议；原完整事务restore/serialize/validate、聚合快照和位置线段遍历成本仍在。未实测，不宣布性能改善、性能PASS或跳站解决。",
+    "占车反例仅为源级组合与后续调用推理，未创建或执行样例save、故障注入或业务函数；不宣称已发生重复收益，也不将其归因为用户现场故障。",
+    "未写文件/权限，未派Agent/Codex，未运行TS/App/tests/typecheck/构建/浏览器/游戏或真实、合成档。只读范围交还PM；总gate须修复复审并完成UI及整合门禁，不允许单发新writer，不关闭用户反馈。"
+  ]
+}

@@ -1,0 +1,288 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.11.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 56,
+  "height": 56,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextlayerid": 3,
+  "nextobjectid": 5,
+  "backgroundcolor": "#dedbd0",
+  "properties": [
+    {
+      "name": "projectionId",
+      "type": "string",
+      "value": "orthographic-e62.5-a45-v1"
+    },
+    {
+      "name": "pixelsPerUnit",
+      "type": "float",
+      "value": 16
+    },
+    {
+      "name": "note",
+      "type": "string",
+      "value": "Screen-space layout; do not rotate or mirror native sprites"
+    }
+  ],
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "name": "Existing native assets",
+      "tilewidth": 1254,
+      "tileheight": 1536,
+      "tilecount": 4,
+      "columns": 0,
+      "objectalignment": "bottomleft",
+      "tiles": [
+        {
+          "id": 0,
+          "image": "assets/HC-P-WEST-v1.png",
+          "imagewidth": 1254,
+          "imageheight": 1254,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "HC-P-WEST"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "image": "assets/HC-P-EAST-v1.png",
+          "imagewidth": 1254,
+          "imageheight": 1254,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "HC-P-EAST"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "image": "assets/T02-tree-v2-oblique.png",
+          "imagewidth": 1216,
+          "imageheight": 1294,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "image": "assets/P01-streetlamp-v2-halo-candidate.png",
+          "imagewidth": 1024,
+          "imageheight": 1536,
+          "properties": [
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "P01"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "name": "Original roads — locked reference",
+      "type": "imagelayer",
+      "image": "original-roads.png",
+      "offsetx": 0,
+      "offsety": 0,
+      "opacity": 1,
+      "visible": true,
+      "locked": true,
+      "properties": [
+        {
+          "name": "manualLocked",
+          "type": "bool",
+          "value": true
+        },
+        {
+          "name": "sourceRoadsSHA256",
+          "type": "string",
+          "value": "6235c8a09c60897cef26308b5bae9795da77065275f800e41dc2eba92505474a"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Editable objects",
+      "type": "objectgroup",
+      "draworder": "topdown",
+      "opacity": 1,
+      "visible": true,
+      "objects": [
+        {
+          "id": 1,
+          "name": "initial-HC-P-WEST",
+          "type": "sprite",
+          "gid": 1,
+          "x": 512.0840733640915,
+          "y": 948.99478685114,
+          "width": 500.8346628806734,
+          "height": 500.8346628806734,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "initial-HC-P-WEST"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "HC-P-WEST"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "native"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "initial-HC-P-EAST",
+          "type": "sprite",
+          "gid": 2,
+          "x": 774.2786552582693,
+          "y": 1316.325448139098,
+          "width": 502.04240295550954,
+          "height": 502.04240295550954,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "initial-HC-P-EAST"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "HC-P-EAST"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "native"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "initial-T02",
+          "type": "sprite",
+          "gid": 3,
+          "x": 477.6745658729938,
+          "y": 911.6385972147107,
+          "width": 105.6,
+          "height": 112.3736842105263,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "initial-T02"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "T02"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "native"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "initial-P01",
+          "type": "sprite",
+          "gid": 4,
+          "x": 600.4765606998567,
+          "y": 989.3139432387328,
+          "width": 60.800000000000004,
+          "height": 91.2,
+          "rotation": 0,
+          "visible": true,
+          "properties": [
+            {
+              "name": "persistentId",
+              "type": "string",
+              "value": "initial-P01"
+            },
+            {
+              "name": "assetId",
+              "type": "string",
+              "value": "P01"
+            },
+            {
+              "name": "orientationVariant",
+              "type": "string",
+              "value": "native"
+            },
+            {
+              "name": "scale",
+              "type": "float",
+              "value": 1
+            },
+            {
+              "name": "manualLocked",
+              "type": "bool",
+              "value": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

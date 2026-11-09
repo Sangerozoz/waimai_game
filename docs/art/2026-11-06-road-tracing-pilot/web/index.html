@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>小街区｜路网与导航对齐</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#edf1f2;color:#263d49;font:16px/1.5 system-ui,-apple-system,sans-serif}main{max-width:1220px;margin:auto;padding:18px}h1{font-size:24px;margin:0 0 5px}p{margin:5px 0 12px}.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0}button,select{font:inherit;min-height:44px;padding:8px 15px;border:1px solid #acbcc4;background:white;border-radius:8px;color:inherit}button.primary{background:#167494;color:white;border-color:#167494}button:disabled{opacity:.5}.stats{font-variant-numeric:tabular-nums;background:#fff;border-radius:8px;padding:8px 12px}.canvas{background:#e6e5dc;border:1px solid #c4cecf;border-radius:9px;overflow:hidden}svg{display:block;width:100%;height:min(68vh,740px);touch-action:manipulation;cursor:crosshair}.status{min-height:49px;padding:10px 14px;background:#fff;border-radius:8px;margin-top:10px}.error{color:#a13730}.legend{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0;font-size:16px}.dot{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:6px}.note{color:#58707b;font-size:16px}label{min-height:44px;display:flex;gap:7px;align-items:center}input[type=checkbox]{width:20px;height:20px}a{color:#126988}#route{stroke:#35c981;stroke-width:7;stroke-linecap:round;stroke-linejoin:round;fill:none}#network path{stroke:#e356a9;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;fill:none;opacity:.6}.point{stroke:#fff;stroke-width:4}.point-label{font-size:24px;font-weight:700;fill:#163c48;paint-order:stroke;stroke:white;stroke-width:5px}#traveler{fill:#00b5ef;stroke:#173b51;stroke-width:4;filter:drop-shadow(0px 2px 3px #ffffff)}@media(max-width:600px){main{padding:12px}h1{font-size:21px}svg{height:55vh}.bar{gap:7px}}
+</style>
+</head>
+<body><main>
+<h1>小街区：路网与导航对齐</h1>
+<p>在已确认道路上依次点起点、终点，或直接看示例。左下错误车道已从导航中排除。</p>
+<div class="bar"><button id="demo" class="primary">示例：上方 → 左侧</button><button id="play" disabled>播放导航</button><button id="reset">重新选点</button><label>演示速度<select id="speed"><option value="1">1×</option><option value="2">2×</option><option value="3">3×</option></select></label><label><input id="showNetwork" type="checkbox" checked>显示确认路网</label><span id="stats" class="stats">正在读取真实路网…</span></div>
+<div class="canvas"><svg id="map" viewBox="0 0 1536 1024" preserveAspectRatio="xMidYMid meet" role="img" aria-label="城市底图、确认路网及导航标记"><image id="city" href="native-city-block.png" x="0" y="0" width="1536" height="1024"/><g id="network"></g><path id="route"/><g id="points"></g><circle id="traveler" r="13" cx="0" cy="0" visibility="hidden"/></svg></div>
+<div id="status" class="status" aria-live="polite">加载中…</div>
+<div class="legend"><span><i class="dot" style="background:#e356a9"></i>确认路网</span><span><i class="dot" style="background:#35c981"></i>计算出的路径</span><span><i class="dot" style="background:#00b5ef"></i>移动标记</span></div>
+<p class="note">这是独立导航工具小样：距离为图像像素，速度仅用于演示；不是正式配送或游戏接入。原图左下车道待美术修正，点击该处不会创建导航。</p>
+<p><a href="导航路网.tmj">Tiled导航路网</a> · <a href="graph.json">导出的路网JSON</a></p>
+</main><script src="navigation.js"></script></body></html>

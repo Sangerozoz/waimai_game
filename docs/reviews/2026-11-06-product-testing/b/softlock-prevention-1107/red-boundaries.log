@@ -1,0 +1,432 @@
+TAP version 13
+# Subtest: one earned delivery cannot surrender the last recoverable hero car
+not ok 1 - one earned delivery cannot surrender the last recoverable hero car
+  ---
+  duration_ms: 1.614
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:23:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:29:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: real Game/Dispatch commands reject surrender atomically and the hero can continue delivery
+not ok 2 - real Game/Dispatch commands reject surrender atomically and the hero can continue delivery
+  ---
+  duration_ms: 509.719625
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:34:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:49:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: kg-v1: proposed assignments reserve a real owned car, not future purchasing power
+not ok 3 - kg-v1: proposed assignments reserve a real owned car, not future purchasing power
+  ---
+  duration_ms: 6.260666
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:56:2'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:60:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: kg-v1: both public contract registration profiles reject dangerous historic state atomically
+not ok 4 - kg-v1: both public contract registration profiles reject dangerous historic state atomically
+  ---
+  duration_ms: 0.212208
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:67:2'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:69:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: kg-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+not ok 5 - kg-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+  ---
+  duration_ms: 0.212209
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:73:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:76:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: kg-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+not ok 6 - kg-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+  ---
+  duration_ms: 0.488709
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:82:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:85:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: kg-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+not ok 7 - kg-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+  ---
+  duration_ms: 0.586625
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:92:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 90000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 90000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:100:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: kg-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+not ok 8 - kg-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+  ---
+  duration_ms: 0.247833
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:107:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:109:67)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: kg-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+not ok 9 - kg-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+  ---
+  duration_ms: 2.245875
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:117:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:122:47)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: proposed assignments reserve a real owned car, not future purchasing power
+not ok 10 - slots-v1: proposed assignments reserve a real owned car, not future purchasing power
+  ---
+  duration_ms: 7.355417
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:56:2'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:60:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: both public contract registration profiles reject dangerous historic state atomically
+not ok 11 - slots-v1: both public contract registration profiles reject dangerous historic state atomically
+  ---
+  duration_ms: 0.307208
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:67:2'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:69:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+not ok 12 - slots-v1: restore accepts the old risky assignment, repeated nonempty assignment is guarded, detaching permits recovery
+  ---
+  duration_ms: 0.0935
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:73:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:76:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+not ok 13 - slots-v1: Fleet skips unsafe automatic signing without throwing, spending quota or minting money
+  ---
+  duration_ms: 0.446167
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:82:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:85:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+not ok 14 - slots-v1: a historic signed batch still finishes with its original quota and terms, without signing another unsafe batch
+  ---
+  duration_ms: 0.779917
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:92:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 45000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 45000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:100:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+not ok 15 - slots-v1: an unequipped old contract vehicle never counts as a spare for a different configured NPC
+  ---
+  duration_ms: 0.334667
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:107:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:109:67)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: slots-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+not ok 16 - slots-v1: ten/fifteen earned-order budgets and an idle spare allow NPC assignment and direct signing
+  ---
+  duration_ms: 2.559834
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:117:2'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + undefined
+    - true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:122:47)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: PM real Game historic pre-sign fixture restores unchanged and can return the car after skipped signing
+not ok 17 - PM real Game historic pre-sign fixture restores unchanged and can return the car after skipped signing
+  ---
+  duration_ms: 1.705
+  type: 'test'
+  location: '/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:130:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 60000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 60000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/sanger/Documents/ChatGPT/taptap 2/docs/reviews/2026-11-06-product-testing/b/softlock-prevention-1107/stage/tests/hero-car-reserve.test.cjs:134:9)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: PM real Game signed zero-quota fixture remains readable with identical contracts and no implicit rescue
+ok 18 - PM real Game signed zero-quota fixture remains readable with identical contracts and no implicit rescue
+  ---
+  duration_ms: 3.255083
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 1
+# fail 17
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 752.815458

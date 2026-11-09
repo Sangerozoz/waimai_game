@@ -1,0 +1,36 @@
+{
+  "status": "compact-city-scope-confirmed-budget-proposed",
+  "userQuote": "如果比较准确讲，地图区域大小有1/4 个原本那个 25 图的地图大小就行，",
+  "reference": "原25图地图的总体区域面积；不是图片文件像素面积",
+  "targetAreaRatio": 0.25,
+  "sameAspectLinearFactor": 0.5,
+  "areaInterpretation": "默认按总面积四分之一理解；同形状时长宽各约一半，不是长宽都缩为四分之一",
+  "preserveReadableLocalScale": true,
+  "contentReduction": [
+    "减少街区和道路总量",
+    "合并重复设施与功能片区",
+    "保留核心商业、住宅、公建、小工坊、郊区与自然过渡",
+    "不把旧整城全部楼群缩小塞进小图"
+  ],
+  "productionImageBudget": {
+    "preferredRange": [4, 6],
+    "currentPlanningCeiling": 6,
+    "isUserSpecifiedExactImageCount": false,
+    "finalGridLocked": false,
+    "firstBoundedBatch": 2,
+    "noAutomaticReturnTo9Or16Or25": true,
+    "noExpansionToFillTileCount": true
+  },
+  "nativeOutputReference": {
+    "verifiedPilotSize": [1536, 1024],
+    "sixImageTwoColumnThreeRowNominalRaster": [3072, 3072],
+    "note": "仅无重叠时的像素预算参考，不是已生产、已确认最终布局或高清保证"
+  },
+  "clarityRule": "缩面积用于减少图数和品控成本，不自动增加细节；以实际原生图、目标近景和两区接缝判断，不靠插值或暗缩相机达标",
+  "zoningIntent": "红展示、蓝经营配送、绿繁华核心；新候选中保留密度层级，原分区源文件不改",
+  "previousNineGrid": "city-layout-draft-v1.png及C01-C09只保留功能分布参考，已不作为九张生产图的当前计划",
+  "nextDeliverable": "按紧凑范围合并功能并验证相邻两区清晰度、真实接头和跨区导航；不批量铺整城",
+  "originalMapAndUserLayoutsRemainReadOnly": true,
+  "newWorldMetreCalibrationEstablished": false,
+  "nativeArtworkGeneratedForWholeCity": false
+}
